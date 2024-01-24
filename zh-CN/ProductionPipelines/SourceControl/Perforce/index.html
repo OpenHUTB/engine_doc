@@ -1,0 +1,417 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/ProductionPipelines/SourceControl/Perforce/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:38:33 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/ProductionPipelines/SourceControl/Perforce/" />');
+				var udnCSS = '../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>在虚幻 4 中使用 Perforce 作为版本控制软件 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/ProductionPipelines/SourceControl/Perforce/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/ProductionPipelines/SourceControl/Perforce/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/ProductionPipelines/SourceControl/Perforce/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/ProductionPipelines/SourceControl/Perforce/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Basics/SourceControl/Perforce" />
+<meta name="intsourcechangelist" content="16789178" />
+<meta name="availability" content="Public" />
+<meta name="title" content="在虚幻 4 中使用 Perforce 作为版本控制软件" />
+<meta name="description" content="如何设置 Perfoce 来和团队成员进行资源共享。" />
+<meta name="related" content="Basics/SourceControl" />
+<meta name="related" content="Basics/ContentBrowser" />
+<meta name="related" content="ProductionPipelines/Redirectors" />
+<meta name="related" content="Basics/Projects/ProjectSettings" />
+<meta name="related" content="ProductionPipelines/ConfigurationFiles" />
+<meta name="version" content="4.23" />
+<meta name="parent" content="ProductionPipelines/SourceControl" />
+<meta name="keywords" content="Perforce" />
+<meta name="keywords" content="source control" />
+<meta name="type" content="overview" />
+<meta name="skilllevel" content="Intermediate" />
+<meta name="crumbs" content="%ROOT%,ProductionPipelines,ProductionPipelines/SourceControl" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="在虚幻 4 中使用 Perforce 作为版本控制软件" />
+	<meta property="og:description" content="如何设置 Perfoce 来和团队成员进行资源共享。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">建立你的开发流程</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">在虚幻引擎4中协作</a>
+
+<span class="separator">></span> <span id="page">在虚幻 4 中使用 Perforce 作为版本控制软件</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">在虚幻 4 中使用 Perforce 作为版本控制软件</h1>
+							</div>	
+							<h2 >如何设置 Perfoce 来和团队成员进行资源共享。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Intermediate"><a id="skill_link" href="../../../SiteIndex/index.html?skills=Intermediate">Intermediate</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																		<div id="seeAlso">
+	<div style="position:relative;">
+		<div id="title">参见</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<p>
+						<a id="related_link" href="#" title=""></a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../../Basics/ContentBrowser/index.html" title="一个允许你管理包文件的工具，可以用来组织、创建和操作资产。">内容浏览器</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../Redirectors/index.html" title="在包中设置用于将对已移动资源的引用重定向到其当前位置的对象。">重定向器</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="#" title=""></a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../ConfigurationFiles/index.html" title="包含用于配置游戏进程或引擎行为的属性设置的文本文件。">配置文件</a>
+					</p>
+				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																														<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#工作流程">工作流程</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#在ue4中使用perforce">在 UE4 中使用 Perforce</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#在本地机器上设置perforce服务器">在本地机器上设置 Perforce 服务器</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#p4typemap">P4 Typemap</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#局域网的服务器">局域网的服务器</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#云服务商">云服务商</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#设置本地的workspace">设置本地的 Workspace</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#向perforce添加文件">向 Perforce 添加文件</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#从虚幻编辑器中连接">从虚幻编辑器中连接</a></p>
+	</li>					</ul>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>虚幻引擎 4 （UE4）已经整合了一个叫做 Perforce 的版本控制软件，以便让大家能够在项目上协同工作。
+版本控制软件能够为团队成员提供一个共享资源和代码的方式，并且还提供了文件的备份以及历史记录查询，这样便能在当有问题发生时将某部分回滚到一个早先的版本上。
+</p><h2 id="工作流程">工作流程</h2>
+<p>在虚幻编辑器中，对于资源的工作流程基本上都是遵循了 Perforce 的流程。文件，或者叫资源文件（扩展名为 .uasset 和 .umap）是编辑器主要的工作对象。
+由于这些文件是二进制的格式，因此并不能被作为文本文件打开，也不能在文本合并工具中合并。因此，当对一个文件进行改动时，编辑器将会锁定该文件（在 Perforce 中被叫做 <strong>Check Out</strong>），
+这样其他用户就无法对它同时也进行修改。当该用户完成了对这个锁定的文件的修改编辑，则需要签入（check in 或者 commit）那些文件，将文件上传到服务器上，并且释放文件的锁定状态。
+</p><h2 id="在ue4中使用perforce">在 UE4 中使用 Perforce</h2>
+<h3 id="在本地机器上设置perforce服务器">在本地机器上设置 Perforce 服务器</h3>
+<div class="tip">
+	<p>为了避免潜在的，与我们工具的集成问题，如<a id="content_link" href="../../DeployingTheEngine/UnrealGameSync/index.html" ><span>UnrealGameSync</span></a>，我们建议你运行 <strong>不分大小写</strong> 的 Perforce 服务器。</p>
+</div><p>运行 Perforce 服务器又两种方式，<strong>P4D</strong> 和 <strong>P4S</strong>。P4D 运行时是一个命令行命令，因此它通常被用来做维护工作时使用。P4S 是一个和 P4D 相同功能的服务，这能让服务器程序在后台运行。
+当安装 Perforce 服务器工具后，P4S 通常都会被安装并在后台启动。
+</p><div class="note">
+	<p>有时候服务并没有自动启动。要先Windows系统中启动服务，请在 <strong>Control Panel -> Administrative Tools ->Services applet</strong> 的 列表中找到 Perforce Service 并启动它：
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/ProductionPipelines/SourceControl/Perforce/SC_Enable_P4_Service.png" ><span><picture>
+		<source data-srcset="./../../../../Images/ProductionPipelines/SourceControl/Perforce/SC_Enable_P4_Service.jpg">
+		<img class="  lazyload" alt="SC_Enable_P4_Service.png" data-src="../../../../Images/ProductionPipelines/SourceControl/Perforce/SC_Enable_P4_Service.jpg" />
+</picture>
+</span></a></span></p>
+</div>
+</div><p>一旦服务运行后，可以通过 <strong>P4Admin</strong> 连接到服务器上。这是该服务器上第一个链接，然后就可以在初始连接对话框中创建新用户了。
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProductionPipelines/SourceControl/Perforce/SC_P4_Setup.jpg">
+		<img class="  lazyload" alt="SC_P4_Setup.png" data-src="../../../../Images/ProductionPipelines/SourceControl/Perforce/SC_P4_Setup.jpg" />
+</picture>
+
+</p><p>将服务器的连接信息填入，并点击 OK。一旦在 P4Admin 中连接道服务器后，就可以很容易的创建新的 Depot，用户，用户组。然后就能在 P4V 或者虚幻编辑器中使用新创建的认证信息来连接服务器。
+</p><div class="tip">
+	<p>阅读 <a id="content_link" href="http://www.perforce.com/perforce/doc.current/manuals/p4admin/p4admin.pdf" ><span>P4Admin 文档</span></a> 来获取进一步关于 Perforce 使用的信息。</p>
+</div><h3 id="p4typemap">P4 Typemap</h3>
+<p>在向新的 Depot 添加文件前，应当先设置 <strong>P4 Typemap</strong> 来让 Perforce 了解如何对待虚幻文件类型。typemap 的设置能够在 Perforce 中控制文件的只读和可写的形式。
+然后要做这件事情，需要先在命令行下设置 P4 的环境变量。
+</p><pre class="prettyprint"><code>p4 set P4USER=your.username
+p4 set P4PORT=localhost:1666</code></pre>
+<p>将上面相应的部分替换为你的用户名和连接地址，并用下面的命令打开 typemap 设置。
+</p><pre class="prettyprint"><code>p4 -P YourPassword typemap</code></pre>
+<p>然后将会看到一个文本窗口，这就是当前服务器的 typemap。下面是我们以前用过的 typemap 示例：
+</p><pre class="prettyprint"><code># Perforce File Type Mapping Specifications.
+#
+#  TypeMap:             a list of filetype mappings; one per line.
+#                       Each line has two elements:
+#
+#                       Filetype: The filetype to use on 'p4 add'.
+#
+#                       Path:     File pattern which will use this filetype.
+#
+# See 'p4 help typemap' for more information.
+
+TypeMap:
+                binary+w //depot/....exe
+                binary+w //depot/....dll
+                binary+w //depot/....lib
+                binary+w //depot/....app
+                binary+w //depot/....dylib
+                binary+w //depot/....stub
+                binary+w //depot/....ipa
+                binary //depot/....bmp
+                text //depot/....ini
+                text //depot/....config
+                text //depot/....cpp
+                text //depot/....h
+                text //depot/....c
+                text //depot/....cs
+                text //depot/....m
+                text //depot/....mm
+                text //depot/....py
+                binary+l //depot/....uasset
+                binary+l //depot/....umap
+                binary+l //depot/....upk
+                binary+l //depot/....udk
+                binary+l //depot/....ubulk</code></pre>
+<p>完成编辑后，点击键盘上的 <strong>Ctrl+S</strong> 保存并退出。命令行应该会提示 <strong>Typemap saved</strong>。
+</p><h3 id="局域网的服务器">局域网的服务器</h3>
+<p>可以在本地局域网中设置一个服务器便于团队成员协同工作。只需要遵循上述的过程搭建服务并在客户端使用该服务器的连接信息即可。
+</p><h3 id="云服务商">云服务商</h3>
+<p>有一些云服务商提供了 Perforce 的云端架设服务以便于远程协作。可以先快速浏览以下搜索引擎中的 <strong>Perforce Hosting</strong> 结果。
+每个主机服务商都有些不同，但总的来说都是会提供一组验证信息供你连接。查看下面的 <strong>从虚幻编辑器中连接</strong> 的部分来了解连接到 Perforce 云服务的信息。
+</p><h3 id="设置本地的workspace">设置本地的 Workspace</h3>
+<p>要在 Perforce 管理下的文件进行工作，需要在本机设置一个 Workspace 这样 Perforce 才能管理这些文件。
+可以在 P4V 界面的主菜单中，View 菜单下的打开 Workspace 分页然后便能创建 Workspace 了：
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProductionPipelines/SourceControl/Perforce/SC_View_Workspace.jpg">
+		<img class="  lazyload" alt="SC_View_Workspace.png" data-src="../../../../Images/ProductionPipelines/SourceControl/Perforce/SC_View_Workspace.jpg" />
+</picture>
+
+</p><p>要创建一个新的 Workspace，右键点击 Workspace 窗口空白处，选择 <strong>新建 Workspace</strong> 选项。然后输入要创建的 Workspace 的名称，以及你希望文件存储在本机的位置目录，即 Workspace 的根目录。
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProductionPipelines/SourceControl/Perforce/SC_New_Workspace.jpg">
+		<img class="  lazyload" alt="SC_New_Workspace.png" data-src="../../../../Images/ProductionPipelines/SourceControl/Perforce/SC_New_Workspace.jpg" />
+</picture>
+
+</p><p>一旦有了服务器以及一个本地的 workspace 设定，便可以开始添加文件了。目前这必须在编辑器外，通过 P4V 来完成。
+如果 workspace 中已经有了其他成员设置过的文件，则可以先跳过这一步。在创建一个新项目时，可以选择是 C++ 项目还是纯蓝图项目。
+如果选择了 C++ 项目，则可以在项目目录中可以看到有 <strong>Source/</strong> 目录。下面这些项目目录初始就应当被添加到版本管理中：
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProductionPipelines/SourceControl/Perforce/SC_P4_Files_To_Add.jpg">
+		<img class="  lazyload" alt="SC_P4_Files_To_Add.png" data-src="../../../../Images/ProductionPipelines/SourceControl/Perforce/SC_P4_Files_To_Add.jpg" />
+</picture>
+
+</p><p>被高亮为 <strong>绿色</strong> 的目录和文件应该被添加到项目的 Depot 中。Binaries 目录高亮为 <strong>黄色</strong>，可以选择是否要加入到版本管理中，这取决于团队自生的工作需要。
+如果团队中每个人都准备自己来编译引擎和游戏的话，那么 Binaries 则无需加入到版本管理中，但如果团队中有人只是想获取一个版本就能直接在编辑器中工作的话，则需要把 Binaries 添加上去。
+请留意先前的 server typemap 的设置，能够让程序员们直接重新编译版本而不受在默认的 Perforce 管理配置下这些文件只读属性的限制。
+</p><h3 id="向perforce添加文件">向 Perforce 添加文件</h3>
+<p>向 Perforce 添加文件可以通过以下几个步骤完成。
+</p><ol ><li class="Default"><p>要添加文件/目录到 Perforce的话，先在 P4V 中选择这些文件/目录，然后点击右键并选择 <strong>标记为添加 Mark For Add</strong> 选项。
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProductionPipelines/SourceControl/Perforce/SC_P4_Mark_For_Add.jpg">
+		<img class="  lazyload" alt="SC_P4_Mark_For_Add.png" data-src="../../../../Images/ProductionPipelines/SourceControl/Perforce/SC_P4_Mark_For_Add.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>这将会在默认的 changelist 中添加这些文件。所有添加的文件都可以在待上传 Changelist 分页中查看到：
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProductionPipelines/SourceControl/Perforce/SC_View_Pending_Changelists.jpg">
+		<img class="  lazyload" alt="SC_View_Pending_Changelists.png" data-src="../../../../Images/ProductionPipelines/SourceControl/Perforce/SC_View_Pending_Changelists.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>要提交文件的话，首先在 changelist 上 点击右键并选择 <strong>Submit</strong>。然后就可以填写上传的描述信息，并点击 Submit 按钮完成提交。
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProductionPipelines/SourceControl/Perforce/SC_P4_Submit_Files.jpg">
+		<img class="  lazyload" alt="SC_P4_Submit_Files.png" data-src="../../../../Images/ProductionPipelines/SourceControl/Perforce/SC_P4_Submit_Files.jpg" />
+</picture>
+
+</p></li></ol><p>如果要在一个其他人已经开始的项目中工作，可以直接在 P4V 中从 Perforce 上获取最新版本。
+只需要在 P4V 的 Depot 视图中找到相应的项目目录，然后再该项目上 <strong>点击右键</strong> 并选择 <strong>获取最新版本</strong>。
+然后将会根据当前 workspace 的根目录设置来获取该项目的所有文件到本地硬盘中。
+</p><h3 id="从虚幻编辑器中连接">从虚幻编辑器中连接</h3>
+<p>可以在编辑器中直接连接 Perforce 服务器，只需点击 <strong>工具栏</strong> 的 <strong>版本控制</strong> 按钮：
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProductionPipelines/SourceControl/Perforce/SC_UE4_SC_Enable.jpg">
+		<img class="  lazyload" alt="SC_UE4_SC_Enable.png" data-src="../../../../Images/ProductionPipelines/SourceControl/Perforce/SC_UE4_SC_Enable.jpg" />
+</picture>
+
+</p><p>打开后，选择 Perforce 作为软件版本管理软件的提供商，并输入登录验证信息。
+如果已经设置过 workspace 的话（当前项目正在该 Workspace 内），登录信息将会自动填上。
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProductionPipelines/SourceControl/Perforce/SC_P4_UE4_Setup.jpg">
+		<img class="  lazyload" alt="SC_P4_UE4_Setup.png" data-src="../../../../Images/ProductionPipelines/SourceControl/Perforce/SC_P4_UE4_Setup.jpg" />
+</picture>
+
+</p><div class="note">
+	<p>对于有些服务器，也包括很多云端的服务，可能会需要手动输入主机和密码信息才能在编辑器中访问 Depot。可以在 Perforce 的登录对话框中打开高级选项即能看到：
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProductionPipelines/SourceControl/Perforce/SC_P4_UE4_Setup_Advanced.jpg">
+		<img class="  lazyload" alt="SC_P4_UE4_Setup_Advanced.png" data-src="../../../../Images/ProductionPipelines/SourceControl/Perforce/SC_P4_UE4_Setup_Advanced.jpg" />
+</picture>
+</p>
+</div>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../SiteIndex/index.html?tags=Perforce">Perforce</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../SiteIndex/index.html?tags=source%20control">source control</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/ProductionPipelines/SourceControl/Perforce/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:38:38 GMT -->
+</html>

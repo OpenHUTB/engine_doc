@@ -1,0 +1,466 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/ProductionPipelines/ScriptingAndAutomation/HowTos/SettingUpCollisionProperties/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:41:30 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var finishButton = finishButtonTemplate;
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/ProductionPipelines/ScriptingAndAutomation/HowTos/SettingUpCollisionProperties/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>在蓝图和Python中使用静态网格体设置碰撞 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+		    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+		    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/ProductionPipelines/ScriptingAndAutomation/HowTos/SettingUpCollisionProperties/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/ProductionPipelines/ScriptingAndAutomation/HowTos/SettingUpCollisionProperties/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/ProductionPipelines/ScriptingAndAutomation/HowTos/SettingUpCollisionProperties/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/ProductionPipelines/ScriptingAndAutomation/HowTos/SettingUpCollisionProperties/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Editor/ScriptingAndAutomation/HowTos/SettingUpCollisionProperties" />
+<meta name="intsourcechangelist" content="15628273" />
+<meta name="availability" content="Public" />
+<meta name="title" content="在蓝图和Python中使用静态网格体设置碰撞" />
+<meta name="description" content="描述如何在虚幻编辑器中使用蓝图或Python为静态网格体设置碰撞属性。" />
+<meta name="version" content="4.26" />
+<meta name="type" content="how-to" />
+<meta name="skilllevel" content="Intermediate" />
+<meta name="parent" content="ProductionPipelines/ScriptingAndAutomation/HowTos" />
+<meta name="order" content="1" />
+<meta name="keywords" content="Blueprints" />
+<meta name="keywords" content="Physics" />
+<meta name="keywords" content="Collision" />
+<meta name="keywords" content="how-to" />
+<meta name="keywords" content="Python " />
+<meta name="keywords" content="scripting" />
+<meta name="keywords" content="editor" />
+<meta name="crumbs" content="%ROOT%,ProductionPipelines,ProductionPipelines/ScriptingAndAutomation,ProductionPipelines/ScriptingAndAutomation/HowTos" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="在蓝图和Python中使用静态网格体设置碰撞" />
+	<meta property="og:description" content="描述如何在虚幻编辑器中使用蓝图或Python为静态网格体设置碰撞属性。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">建立你的开发流程</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">编辑器的脚本与自动化</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">编辑器脚本使用指南</a>
+
+<span class="separator">></span> <span id="page">在蓝图和Python中使用静态网格体设置碰撞</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">在蓝图和Python中使用静态网格体设置碰撞</h1>
+							</div>	
+							<h2 >描述如何在虚幻编辑器中使用蓝图或Python为静态网格体设置碰撞属性。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Intermediate"><a id="skill_link" href="../../../../SiteIndex/index.html?skills=Intermediate">Intermediate</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																																																<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#添加简单碰撞形态">添加简单碰撞形态</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#自动生成凸面碰撞">自动生成凸面碰撞</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#删除所有简单碰撞">删除所有简单碰撞</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#在碰撞中使用lod">在碰撞中使用LOD</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>为了使静态网格体成为关卡中物理模拟的一部分，必须为其设置 <strong>碰撞网格体</strong>。它表示静态网格体对象在物理模拟中的边界。每当物理系统需要检查其他物理对象是否与网格体碰撞，以及执行高性能光线投射来测试对网格体的碰撞时，都会使用该碰撞网格体。可以使用静态网格体的可见几何体作为其碰撞网格体，但是可见几何体通常过于详细了。即使要提供逼真的效果，物理交互通常也不需要具有如此高的准确性，因此可以通过尽量简化碰撞网格体来提升物理系统的性能。
+</p><p>可以在静态网格体编辑器中自动为静态网格体创建简单的碰撞表示：
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProductionPipelines/ScriptingAndAutomation/HowTos/SettingUpCollisionProperties/set_collisions_menu.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProductionPipelines/ScriptingAndAutomation/HowTos/SettingUpCollisionProperties/set_collisions_menu.jpg">
+		<img class="  lazyload" alt="set_collisions_menu.png" title="set372029427collisions372029427menu.png" data-src="../../../../../Images/ProductionPipelines/ScriptingAndAutomation/HowTos/SettingUpCollisionProperties/set_collisions_menu.jpg" />
+</picture>
+</span></a></span> </p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><p>有关详细信息，请参阅<a id="content_link" href="../../../../WorkingWithContent/Types/StaticMeshes/HowTo/SettingCollision/index.html" ><span>设置与静态网格体模型的碰撞</span></a>。
+</p><p>在某些情况下，可能需要以编程方式创建这些碰撞网格体表示，而非在静态网格体编辑器中手动创建。例如，需要在同一个项目中设置大量静态网格体对象时，将其逐一打开可能并不现实。你可能希望在用于导入和管理内容的较大自动化流程中一步完成这些碰撞设置。
+</p><p>以下部分将展示如何使用蓝图和Python在虚幻编辑器中自动将上述不同类型的碰撞网格体应用给静态网格体资源。
+</p><div class="note">
+	<p>现在还不能使用蓝图或Python来导入另一个静态网格体并将其用作自定义的碰撞网格体。要实现这个目的，可以采用以下任意一种方式：
+</p><ul ><li class="Default"><p>使用静态网格体编辑器用户界面从支持的文件格式导入碰撞网格体。
+</p></li><li class="Default"><p>同时将碰撞网格体作为可见静态网格体导入，使用特定的命名规则注明其代表想要用于碰撞测试的几何体。具体详情，请参见<a id="content_link" href="../../../../WorkingWithContent/Importing/FBX/StaticMeshes/index.html" ><span>FBX静态网格体管线</span></a>或<a id="content_link"filter-data="tag_enterprise tag_getting_started tag_datasmith tag_manufacturing tag_overview" href="../../../../WorkingWithContent/Importing/Datasmith/Overview/index.html" ><span>Datasmith概述</span></a>。
+</p></li></ul>
+</div><div class="togglesection">
+	<div class="normaltitle">
+	<p>选择实现方法：</p>
+</div><div class="toggleButtons">
+	<!--
+category:paramliteral
+id:paramliteral
+label:paramliteral
+active:paramliteral
+-->
+<div class="btn btn-default btn-toggle BlueprintOrCPPSelect blueprintimplementation active_button" onclick="setSelector('BlueprintOrCPPSelect', 'blueprintimplementation');">
+    <p>Blueprints</p>
+</div><!--
+category:paramliteral
+id:paramliteral
+label:paramliteral
+active:paramliteral
+-->
+<div class="btn btn-default btn-toggle BlueprintOrCPPSelect pythonimplementation " onclick="setSelector('BlueprintOrCPPSelect', 'pythonimplementation');">
+    <p>Python</p>
+</div>
+</div>
+</div><!--
+category:paramliteral
+id:paramliteral
+content:param
+active:paramliteral
+-->
+<div class="button_content BlueprintOrCPPSelect blueprintimplementation active_button_content">
+    <div class="container">
+        <p>可在 <strong>编辑器脚本（Editor Scripting） > 静态网格体（Static Mesh）</strong> 类别下找到需要管理静态网格体碰撞的节点。
+</p><div class="note">
+	<p>要使用这些节点，蓝图类必须派生自Editor-only类，例如 <strong>PlacedEditorUtilityBase</strong> 类。有关细节，请参阅<a id="content_link"filter-data="tag_blueprints tag_python tag_scripting" href="../../index.html" ><span>使用蓝图脚本化编辑器</span></a>。</p>
+</div><p>设置碰撞会修改静态网格体资源。如果要保留所做的更改，接下来还需使用 <strong>保存资源（Save Asset）</strong> 或 <strong>保存已加载的资源（Save Loaded Asset）</strong> 等节点。</p>
+    </div>
+</div><!--
+category:paramliteral
+id:paramliteral
+content:param
+active:paramliteral
+-->
+<div class="button_content BlueprintOrCPPSelect pythonimplementation ">
+    <div class="container">
+        <p>可在`unreal.EditorStaticMeshLibrary`类中找到管理静态网格体碰撞所需的大部分函数。
+</p><p>设置LOD会修改静态网格体资源。如果要保留所做的更改，接下来还需要使用`unreal.EditorAssetLibrary.save_asset()<code>或`unreal.EditorAssetLibrary.save&#95;loaded&#95;asset()</code>等函数。</p>
+    </div>
+</div><h2 id="添加简单碰撞形态">添加简单碰撞形态</h2>
+<!--
+category:paramliteral
+id:paramliteral
+content:param
+active:paramliteral
+-->
+<div class="button_content BlueprintOrCPPSelect blueprintimplementation active_button_content">
+    <div class="container">
+        <p>要为静态网格体添加简单碰撞形态，请使用 <strong>添加简单碰撞（Add Simple Collisions）</strong> 节点。使用 <strong>形态类型（Shape Type）</strong> 输入来控制要添加的碰撞形态的种类。这些选项与静态网格体编辑器的 <strong>碰撞（Collision）</strong> 菜单中提供的选项匹配。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProductionPipelines/ScriptingAndAutomation/HowTos/SettingUpCollisionProperties/set_collisions_simple_bp.jpg">
+		<img class="  lazyload" alt="set_collisions_simple_bp.png" title="set372029427collisions372029427simple372029427bp.png" data-src="../../../../../Images/ProductionPipelines/ScriptingAndAutomation/HowTos/SettingUpCollisionProperties/set_collisions_simple_bp.jpg" />
+</picture>
+</p>
+    </div>
+</div><!--
+category:paramliteral
+id:paramliteral
+content:param
+active:paramliteral
+-->
+<div class="button_content BlueprintOrCPPSelect pythonimplementation ">
+    <div class="container">
+        <p>要为静态网格体添加简单碰撞形态，请使用`unreal.EditorStaticMeshLibrary.add_simple_collisions()`函数。传递它：
+</p><ul ><li class="Default"><p>要修改的`unreal.StaticMesh`对象。
+</p></li><li class="Default"><p>表示要创建的碰撞Primitive的类型的`unreal.ScriptingCollisionShapeType`列举中的项。这些选项与静态网格体编辑器的 <strong>碰撞（Collision）</strong> 菜单中提供的选项匹配。
+</p></li></ul><p>例如：
+</p><pre class="prettyprint"><code>import unreal
+asset&#95;path = "/Game/ArchVis/Mesh"
+def add&#95;box&#95;collision (static&#95;mesh):
+    # 可以改为使用.SPHERE、.CAPSULE、.NDOP10&#95;X、.NDOP10&#95;Y、.NDOP10&#95;Z、.NDOP18、.NDOP26
+    shape&#95;type = unreal.ScriptingCollisionShapeType.BOX
+    unreal.EditorStaticMeshLibrary.add&#95;simple&#95;collisions(static&#95;mesh, shape&#95;type)
+    unreal.EditorAssetLibrary.save&#95;loaded&#95;asset(static&#95;mesh)
+# 获取路径中所有资源的列表。
+all&#95;assets = unreal.EditorAssetLibrary.list&#95;assets(asset&#95;path)
+# 将它们全部装入内存。
+all&#95;assets&#95;loaded = &#91;unreal.EditorAssetLibrary.load&#95;asset(a) for a in all&#95;assets&#93;
+# 过滤该列表，使之只包含静态网格体。
+static&#95;mesh&#95;assets = unreal.EditorFilterLibrary.by&#95;class(all&#95;assets&#95;loaded, unreal.StaticMesh)
+# 在列表中的每个静态网格体上运行上面的函数。
+list(map(add&#95;box&#95;collision, static&#95;mesh&#95;assets))</code></pre>
+
+    </div>
+</div><p>请注意，该操作会为静态网格体的现有的任何其他简单碰撞形态添加新的碰撞形态（如有）。如果要先删除现有的碰撞形态，请参阅下面的 <em>删除所有简单碰撞</em>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProductionPipelines/ScriptingAndAutomation/HowTos/SettingUpCollisionProperties/set_collisions_simple_result.jpg">
+		<img class="  lazyload" alt="set_collisions_simple_result.png" title="set372029427collisions372029427simple372029427result.png" data-src="../../../../../Images/ProductionPipelines/ScriptingAndAutomation/HowTos/SettingUpCollisionProperties/set_collisions_simple_result.jpg" />
+</picture>
+
+</p><h2 id="自动生成凸面碰撞">自动生成凸面碰撞</h2>
+<!--
+category:paramliteral
+id:paramliteral
+content:param
+active:paramliteral
+-->
+<div class="button_content BlueprintOrCPPSelect blueprintimplementation ">
+    <div class="container">
+        <p>要从静态网格体的可见几何体为其自动生成凸面碰撞形态，请使用 <strong>设置凸面分解碰撞（Set Convex Decomposition Collisions）</strong> 节点。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProductionPipelines/ScriptingAndAutomation/HowTos/SettingUpCollisionProperties/set_collisions_complex_bp.jpg">
+		<img class="  lazyload" alt="set_collisions_complex_bp.png" title="set372029427collisions372029427complex372029427bp.png" data-src="../../../../../Images/ProductionPipelines/ScriptingAndAutomation/HowTos/SettingUpCollisionProperties/set_collisions_complex_bp.jpg" />
+</picture>
+
+</p><p>该节点中的输入与在静态网格体编辑器用户界面选择 <strong>碰撞（Collisions） > 自动凸面碰撞（Auto Convex Collisions）</strong> 时要求你提供的选项完全匹配。它们控制生成的碰撞网格体的复杂度和保真度。一般情况下，值越大，生成的碰撞网格体越接近于静态网格体的可见几何体，但是运行时模拟它的成本也越高。</p>
+    </div>
+</div><!--
+category:paramliteral
+id:paramliteral
+content:param
+active:paramliteral
+-->
+<div class="button_content BlueprintOrCPPSelect pythonimplementation ">
+    <div class="container">
+        <p>要从静态网格体的可见几何体为其自动生成凸面碰撞形态，请使用`unreal.EditorStaticMeshLibrary.set_convex_decomposition_collisions()`函数。传递它：
+</p><ul ><li class="Default"><p>要修改的`unreal.StaticMesh`对象。
+</p></li><li class="Default"><p>三个定义最大凸包数、每个凸包的最大顶点数和凸包精度的整数。这些参数与在静态网格体编辑器用户界面选择 <strong>碰撞（Collisions） > 自动凸面碰撞（Auto Convex Collisions）</strong> 时要求你提供的选项完全匹配。它们控制生成的碰撞网格体的复杂度和保真度。一般情况下，值越大，生成的碰撞网格体越接近于静态网格体的可见几何体，但是运行时模拟它的成本也越高。
+</p></li></ul><p>例如：
+</p><pre class="prettyprint"><code>import unreal
+asset&#95;path = "/Game/ArchVis/Mesh"
+def set&#95;convex&#95;collision (static&#95;mesh):
+    unreal.EditorStaticMeshLibrary.set&#95;convex&#95;decomposition&#95;collisions(static&#95;mesh, 4, 12, 460000)
+    unreal.EditorAssetLibrary.save&#95;loaded&#95;asset(static&#95;mesh)
+# 获取路径中所有资源的列表。
+all&#95;assets = unreal.EditorAssetLibrary.list&#95;assets(asset&#95;path)# 将它们全部装入内存。
+all&#95;assets&#95;loaded = &#91;unreal.EditorAssetLibrary.load&#95;asset(a) for a in all&#95;assets&#93;# 过滤该列表，使之只包含静态网格体。
+static&#95;mesh&#95;assets = unreal.EditorFilterLibrary.by&#95;class(all&#95;assets&#95;loaded, unreal.StaticMesh)# 在列表中的每个静态网格体上运行上面的函数。
+list(map(set&#95;convex&#95;collision, static&#95;mesh&#95;assets))</code></pre>
+
+    </div>
+</div><p>在新的网格体生成前，会自动从静态网格体删除所有现有的碰撞网格体。
+</p><p>请注意，相较于使用简单碰撞Primitive，该方法生成的效果比较不容易预测且比较不规则。最好在不规则的网格体上使用，或在可以可视化方式调整生成设置以确保生成的结果足够简单并且非常适合于静态网格体的可见几何体时使用。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProductionPipelines/ScriptingAndAutomation/HowTos/SettingUpCollisionProperties/set_collisions_convex_result.jpg">
+		<img class="  lazyload" alt="set_collisions_convex_result.png" title="set372029427collisions372029427convex372029427result.png" data-src="../../../../../Images/ProductionPipelines/ScriptingAndAutomation/HowTos/SettingUpCollisionProperties/set_collisions_convex_result.jpg" />
+</picture>
+
+</p><h2 id="删除所有简单碰撞">删除所有简单碰撞</h2>
+<!--
+category:paramliteral
+id:paramliteral
+content:param
+active:paramliteral
+-->
+<div class="button_content BlueprintOrCPPSelect blueprintimplementation ">
+    <div class="container">
+        <p>可使用 <strong>删除碰撞（Remove Collisions）</strong> 节点清除所有指定给静态网格体的碰撞网格体。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProductionPipelines/ScriptingAndAutomation/HowTos/SettingUpCollisionProperties/set_collisions_remove_bp.jpg">
+		<img class="  lazyload" alt="set_collisions_remove_bp.png" title="set372029427collisions372029427remove372029427bp.png" data-src="../../../../../Images/ProductionPipelines/ScriptingAndAutomation/HowTos/SettingUpCollisionProperties/set_collisions_remove_bp.jpg" />
+</picture>
+
+</p><p>删除后，任何"简单"物理碰撞测试都无法发现该网格体，但是考虑静态网格体的可见几何体的"详细"测试仍能够发现它。另请参阅<a id="content_link"filter-data="tag_physics" href="../../../../InteractiveExperiences/Physics/SimpleVsComplex/index.html" ><span>简单和复杂碰撞</span></a>。</p>
+    </div>
+</div><!--
+category:paramliteral
+id:paramliteral
+content:param
+active:paramliteral
+-->
+<div class="button_content BlueprintOrCPPSelect pythonimplementation ">
+    <div class="container">
+        <p>可使用`unreal.EditorStaticMeshLibrary.remove_collisions()`函数清除所有指定给静态网格体的碰撞网格体。
+</p><p>例如：
+</p><pre class="prettyprint"><code>import unreal
+asset&#95;path = "/Game/ArchVis/Mesh"
+def remove&#95;collisions (static&#95;mesh):
+    unreal.EditorStaticMeshLibrary.remove&#95;collisions(static&#95;mesh)
+    unreal.EditorAssetLibrary.save&#95;loaded&#95;asset(static&#95;mesh)
+# 获取路径中所有资源的列表。
+all&#95;assets = unreal.EditorAssetLibrary.list&#95;assets(asset&#95;path)# 将它们全部装入内存。
+all&#95;assets&#95;loaded = &#91;unreal.EditorAssetLibrary.load&#95;asset(a) for a in all&#95;assets&#93;# 过滤该列表，使之只包含静态网格体。
+static&#95;mesh&#95;assets = unreal.EditorFilterLibrary.by&#95;class(all&#95;assets&#95;loaded, unreal.StaticMesh)# 在列表中的每个静态网格体上运行上面的函数。
+list(map(remove&#95;collision, static&#95;mesh&#95;assets))</code></pre>
+<p>删除后，任何"简单"物理碰撞测试都无法发现该网格体，但是考虑静态网格体的可见几何体的"详细"测试仍能够发现它。另请参阅<a id="content_link"filter-data="tag_physics" href="../../../../InteractiveExperiences/Physics/SimpleVsComplex/index.html" ><span>简单和复杂碰撞</span></a>。</p>
+    </div>
+</div><!--
+category:paramliteral
+id:paramliteral
+content:param
+active:paramliteral
+-->
+<div class="button_content BlueprintOrCPPSelect pythonimplementation ">
+    <div class="container">
+        <h2 id="在碰撞中使用lod">在碰撞中使用LOD</h2>
+<p>如果已为静态网格体设置了细节层次（Levels of Detail）（LOD），可使用其中一个细节较少的LOD作为碰撞网格体。
+</p><p>调用`set_editor_property()`函数（在`unreal.StaticMesh`对象上），以将`lod_for_collision`属性设置为要使用的LOD索引。例如：
+</p><pre class="prettyprint"><code>import unreal
+asset&#95;path = "/Game/ArchVis/Mesh"
+def use&#95;lod&#95;for&#95;collisions (static&#95;mesh):
+    static&#95;mesh.set&#95;editor&#95;property("lod&#95;for&#95;collision", 3)
+    unreal.EditorAssetLibrary.save&#95;loaded&#95;asset(static&#95;mesh)
+# 获取路径中所有资源的列表。
+all&#95;assets = unreal.EditorAssetLibrary.list&#95;assets(asset&#95;path)
+# 将它们全部装入内存。
+all&#95;assets&#95;loaded = &#91;unreal.EditorAssetLibrary.load&#95;asset(a) for a in all&#95;assets&#93;
+# 过滤该列表，使之只包含静态网格体。
+static&#95;mesh&#95;assets = unreal.EditorFilterLibrary.by&#95;class(all&#95;assets&#95;loaded, unreal.StaticMesh)
+# 在列表中的每个静态网格体上运行上面的函数。
+list(map(use&#95;lod&#95;for&#95;collision, static&#95;mesh&#95;assets))</code></pre>
+<p>另请参阅<a id="content_link" href="../../../../WorkingWithContent/Types/StaticMeshes/HowTo/LODCollision/index.html" ><span>如何设置LOD碰撞</span></a>。</p>
+    </div>
+</div><div class="note">
+	<p>尚不可以通过蓝图或Python设置自定义碰撞网格体。要导入自定义网格体并在物理模拟中将它用作静态网格体的碰撞网格体，必须执行以下任一操作：
+</p><ul ><li class="Default"><p>使用静态网格体编辑器用户界面从受支持的文件格式导入碰撞网格体。
+</p></li><li class="Default"><p>导入可见静态网格体时将碰撞网格体一起导入，并使用特殊的命名规范来表明它表示的是你要用于碰撞测试的几何体。有关细节，请参阅<a id="content_link" href="../../../../WorkingWithContent/Importing/FBX/StaticMeshes/index.html" ><span>FBX静态网格体流程</span></a>。
+</p></li></ul>
+</div>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Blueprints">Blueprints</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Physics">Physics</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Collision">Collision</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=how-to">how-to</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Python">Python </a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=scripting">scripting</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=editor">editor</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/ProductionPipelines/ScriptingAndAutomation/HowTos/SettingUpCollisionProperties/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:41:34 GMT -->
+</html>

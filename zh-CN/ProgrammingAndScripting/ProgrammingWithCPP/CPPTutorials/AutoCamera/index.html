@@ -1,0 +1,537 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/AutoCamera/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:10:27 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var finishButton = finishButtonTemplate;
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/AutoCamera/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>游戏控制的摄像机 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+		    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+		    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/AutoCamera/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/AutoCamera/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/AutoCamera/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/AutoCamera/" hreflang="ko" />
+
+	<meta name="redirect" content="ProgrammingAndScripting/Tutorials/AutoCamera" />
+<meta name="redirect" content="Programming/Tutorials/AutoCamera" />
+<meta name="intsourcechangelist" content="14445197" />
+<meta name="availability" content="Public" />
+<meta name="title" content="游戏控制的摄像机" />
+<meta name="description" content="了解如何激活和切换不同的视角。" />
+<meta name="type" content="how-to" />
+<meta name="version" content="4.25" />
+<meta name="parent" content="ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials" />
+<meta name="skilllevel" content="Beginner" />
+<meta name="order" content="0" />
+<meta name="crumbs" content="%ROOT%,ProgrammingAndScripting,ProgrammingAndScripting/ProgrammingWithCPP,ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="游戏控制的摄像机" />
+	<meta property="og:description" content="了解如何激活和切换不同的视角。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">编程和脚本编写</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">编程指南</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">C++ 编程教程</a>
+
+<span class="separator">></span> <span id="page">游戏控制的摄像机</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">游戏控制的摄像机</h1>
+							</div>	
+							<h2 >了解如何激活和切换不同的视角。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Beginner"><a id="skill_link" href="../../../../SiteIndex/index.html?skills=Beginner">Beginner</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																																																<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#1-在场景中放置摄像机">1 - 在场景中放置摄像机</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#2-在c++中控制摄像机视图">2 - 在C++中控制摄像机视图</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#3-在场景中放置cameradirector">3 - 在场景中放置Camera Director</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#4-自主操作！">4 - 自主操作！</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>本教程将会向你展示如何激活摄像机以及如何切换你激活的摄像机。
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_1_oxp57bg5_2
+{
+	margin: 0px;
+	width: 75%;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_1_oxp57bg5_2:after
+{
+	content: "";
+	padding-top: 56.25%;
+	display: block;
+}
+</style> 
+<div id="player_1_oxp57bg5_2"> 
+	<div id="playerContainer_1_oxp57bg5_2" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/1_oxp57bg5/embed.html"></iframe>
+	</div>
+</div>
+<h2 id="1-在场景中放置摄像机">1 - 在场景中放置摄像机</h2>
+<div class="tip">
+	<p>如果你是 <strong>虚幻引擎4</strong> (UE4)的新手，你可需要先阅读我们的<a id="content_link"filter-data="tag_programming tag_c++" href="../../CPPProgrammingQuickStart/index.html" ><span>编程快速入门教程</span></a>。对于本教程，我们假设你熟悉以下操作：创建项目，向项目添加C++代码，编译代码，以及在UE4中向 <strong>Actor</strong> 添加 <strong>组件</strong></p>
+</div><ol ><li class="Default"><p>我们将从创建一个新的基本代码项目开始，名为"HowTo_AutoCamera"，其中包含初学者内容。我们需要做的第一件事是在我们的场景中创建两个摄像机。由于设置摄像机有多种方法，在这里我们将使用最常见的两种方法。对于我们的第一个摄像机，找到 <strong>放置Actor（Place Actors）</strong> 面板并选中 <strong>所有类（All Classes）</strong> 选项卡，你将找到一个 <strong>摄像机（Camera）</strong> Actor。将其拖拽到 <strong>关卡编辑器（Level Editor）</strong> 中，并将其放置在合适的位置，以便它能清楚地看到我们的场景。<br /></p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/AutoCamera/PlaceCameraActor.jpg">
+		<img class="  lazyload" alt="PlaceCameraActor.png" width="400" data-src="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/AutoCamera/PlaceCameraActor.jpg" />
+</picture>
+
+</p><p>完成此操作后，只要我们选择了新的 <strong>摄像机Actor（Camera Actor）</strong>，<strong>关卡编辑器（Level Editor）</strong> 窗口就会有一个画中画视图，显示该 <strong>摄像机Actor（Camera Actor）</strong> 可以看到的内容。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/AutoCamera/CameraOnePlacement.jpg">
+		<img class="  lazyload" alt="CameraOnePlacement.png" data-src="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/AutoCamera/CameraOnePlacement.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>对于我们的第二个摄像机，我们将使用一种更深入的方法，让我们可以进行更多的控制。首先，单击 <strong>放置Actor（Place Actor）</strong> 面板的 <strong>基本（Basic）</strong> 选项卡，将一个 <strong>立方体（Cube）</strong> 拖放到 <strong>关卡编辑器（Level Editor）</strong> 窗口中。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/AutoCamera/PlaceCube.jpg">
+		<img class="  lazyload" alt="PlaceCube.png" width="400" data-src="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/AutoCamera/PlaceCube.jpg" />
+</picture>
+
+</p><div class="note">
+	<p>在这一步骤中，我们几乎可以使用任何Actor类。用我们在快速入门教程中创建的MyActor类来替代立方体（Cube）可能会很有趣。</p>
+</div></li><li class="Default"><p>放置我们的 <strong>立方体（Cube）</strong> Actor后，单击 <strong>详细信息（Details）</strong> 面板中的 <strong>+添加组件（+ Add Component）</strong> 按钮，来为 <strong>立方体（Cube）</strong> 添加 <strong>摄像机组件（CameraComponent）</strong>。你现在可以设置该 <strong>摄像机组件（CameraComponent）</strong> 的位置和旋转，让我们看到一个不同于我们之前放置的 <strong>摄像机Actor（CameraActor）</strong> 的场景视图。<br /></p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/AutoCamera/CameraTwoPlacement.jpg">
+		<img class="  lazyload" alt="CameraTwoPlacement.png" data-src="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/AutoCamera/CameraTwoPlacement.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>我们应该打开 <strong>约束高宽比（Constrain Aspect Ratio）</strong> 来自定义我们的 <strong>摄像机组件（CameraComponent）</strong>，以便它与我们的 <strong>摄像机Actor（CameraActor）</strong> 上的设置匹配。这会使摄像机视图之间的转换更流畅，但这不是必需的。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/AutoCamera/CameraAspect.jpg">
+		<img class="  lazyload" alt="CameraAspect.png" data-src="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/AutoCamera/CameraAspect.jpg" />
+</picture>
+
+</p></li></ol><p>设置好我们的场景后，我们现在可以开始创建控制摄像机视图的类。
+</p><h2 id="2-在c++中控制摄像机视图">2 - 在C++中控制摄像机视图</h2>
+<ol ><li class="Default"><p>我们现在可以创建一个C++类来控制摄像机视图了。在本教程中，我们可以扩展 <strong>Actor</strong> 为新类，我们将其称之为CameraDirector。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/AutoCamera/NameActorClass.jpg">
+		<img class="  lazyload" alt="NameActorClass.png" data-src="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/AutoCamera/NameActorClass.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在CameraDirector.h中，我们将以下代码添加到ACameraDirector类定义的底部位置：
+</p><pre class="prettyprint"><code>UPROPERTY(EditAnywhere)
+AActor&#42; CameraOne;
+
+UPROPERTY(EditAnywhere)
+AActor&#42; CameraTwo;
+
+float TimeToNextCameraChange;</code></pre>
+<div class="note">
+	<p><strong>UPROPERTY</strong> 宏使得变量对 <strong>虚幻引擎</strong> 可见。这样，当我们启动游戏或在将来的工作会话中重新载入关卡或项目时，这些变量中设置的值将不会被重置。我们还添加了 <strong>EditAnywhere</strong> 关键字，这允许我们在 <strong>虚幻编辑器</strong> 中设置摄像机1（CameraOne）和摄像机2（CameraTwo）。</p>
+</div></li><li class="Default"><p>在CameraDirector.cpp中，将以下代码行添加到文件的顶部位置，位于其它#include行的正下方：
+</p><pre class="prettyprint"><code>#include "Kismet/GameplayStatics.h"</code></pre>
+<p>GameplayStatics头文件允许我们访问一些有用的通用函数，在本教程中我们需要使用其中一个函数。完成后，将以下代码添加到 <strong>ACameraDirector::Tick</strong> 的底部位置：
+</p><pre class="prettyprint"><code>const float TimeBetweenCameraChanges = 2.0f;
+const float SmoothBlendTime = 0.75f;
+TimeToNextCameraChange -= DeltaTime;
+if (TimeToNextCameraChange &lt;= 0.0f)
+{
+    TimeToNextCameraChange += TimeBetweenCameraChanges;
+
+    // 查找处理本地玩家控制的actor。
+    APlayerController&#42; OurPlayerController = UGameplayStatics::GetPlayerController(this, 0);
+    if (OurPlayerController)
+    {
+        if ((OurPlayerController-&gt;GetViewTarget() != CameraOne) &amp;&amp; (CameraOne != nullptr))
+        {
+            // 立即切换到摄像机1。
+            OurPlayerController-&gt;SetViewTarget(CameraOne);
+        }
+        else if ((OurPlayerController-&gt;GetViewTarget() != CameraTwo) &amp;&amp; (CameraTwo != nullptr))
+        {
+            // 平滑地混合到摄像机2。
+            OurPlayerController-&gt;SetViewTargetWithBlend(CameraTwo, SmoothBlendTime);
+        }
+    }
+}</code></pre>
+<p>此代码将可以让我们每隔3秒在两个不同的摄像机间切换默认玩家的视图。
+</p></li><li class="Default"><p>现在我们的代码可进行编译，我们可以返回到 <strong>虚幻编辑器（Unreal Editor）</strong> 并按下 <strong>编译（Compile）</strong> 按钮。
+</p></li></ol><p>无需其它代码。我们现在可以在场景中设置CameraDirector了。
+</p><h3 id="完成的代码">完成的代码</h3>
+<p><strong>CameraDirector.h</strong>
+</p><pre class="prettyprint"><code>// 版权所有 1998-2017 Epic Games, Inc。保留所有权利。
+
+#pragma once
+
+#include "GameFramework/Actor.h"
+#include "CameraDirector.generated.h"
+
+UCLASS()
+class HOWTO&#95;AUTOCAMERA&#95;API ACameraDirector : public AActor
+{
+    GENERATED&#95;BODY()
+
+public: 
+    // 为此Actor的属性设置默认值
+    ACameraDirector();
+
+protected:
+    // 当游戏开始或生成时调用
+    virtual void BeginPlay() override;
+
+public:
+    // 每一帧调用
+    virtual void Tick( float DeltaSeconds ) override;
+
+    UPROPERTY(EditAnywhere)
+    AActor&#42; CameraOne;
+
+    UPROPERTY(EditAnywhere)
+    AActor&#42; CameraTwo;
+
+    float TimeToNextCameraChange;
+};</code></pre>
+<p><strong>CameraDirector.cpp</strong>
+</p><pre class="prettyprint"><code>// 版权所有 1998-2017 Epic Games, Inc。保留所有权利。
+
+#include "HowTo&#95;AutoCamera.h"
+#include "CameraDirector.h"
+#include "Kismet/GameplayStatics.h"
+
+// 设置默认值
+ACameraDirector::ACameraDirector()
+{
+    // 将此Actor设置为每一帧调用Tick()。如果不需要，可以关闭此选项来提高性能。
+    PrimaryActorTick.bCanEverTick = true;
+
+}
+
+// 当游戏开始或生成时调用
+void ACameraDirector::BeginPlay()
+{
+    Super::BeginPlay();
+
+}
+
+// 每一帧调用
+void ACameraDirector::Tick( float DeltaTime )
+{
+    Super::Tick( DeltaTime );
+
+    const float TimeBetweenCameraChanges = 2.0f;
+    const float SmoothBlendTime = 0.75f;
+    TimeToNextCameraChange -= DeltaTime;
+    if (TimeToNextCameraChange &lt;= 0.0f)
+    {
+        TimeToNextCameraChange += TimeBetweenCameraChanges;
+
+        //查找处理本地玩家控制的Actor。
+        APlayerController&#42; OurPlayerController = UGameplayStatics::GetPlayerController(this, 0);
+        if (OurPlayerController)
+        {
+            if ((OurPlayerController-&gt;GetViewTarget() != CameraOne) &amp;&amp; (CameraOne != nullptr))
+            {
+                //立即切换到摄像机1。
+                OurPlayerController-&gt;SetViewTarget(CameraOne);
+            }
+            else if ((OurPlayerController-&gt;GetViewTarget() != CameraTwo) &amp;&amp; (CameraTwo != nullptr))
+            {
+                //平滑地混合到摄像机2。
+                OurPlayerController-&gt;SetViewTargetWithBlend(CameraTwo, SmoothBlendTime);
+            }
+        }
+    }
+}</code></pre>
+<h2 id="3-在场景中放置cameradirector">3 - 在场景中放置Camera Director</h2>
+<ol ><li class="Default"><p>在代码编译完成后，我们可以将 <strong>内容浏览器（Content Browser）</strong> 中的新类的实例拖曳到 <strong>关卡编辑器（Level Editor）</strong> 中。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/AutoCamera/CameraDirectorInContentBrowser.jpg">
+		<img class="  lazyload" alt="CameraDirectorInContentBrowser.png" data-src="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/AutoCamera/CameraDirectorInContentBrowser.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>接下来，我们需要设置摄像机1（CameraOne）和摄像机2（CameraTwo）变量。在 <strong>World Outliner （世界大纲视图）</strong> 中找到CameraDirector，并在 <strong>详细信息面板（Details Panel）</strong> 中进行编辑。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/AutoCamera/CameraDirectorDetails.jpg">
+		<img class="  lazyload" alt="CameraDirectorDetails.png" data-src="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/AutoCamera/CameraDirectorDetails.jpg" />
+</picture>
+
+</p><p>单击标记为"无（None）"的下拉框，然后将变量设置为 <strong>Cube（立方体）</strong> 和我们之前创建的 <strong>摄像机Actor （CameraActor）</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/AutoCamera/CameraDirectorDetails2.jpg">
+		<img class="  lazyload" alt="CameraDirectorDetails2.png" data-src="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/AutoCamera/CameraDirectorDetails2.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>如果我们按下播放（Play），我们将会看到与此视图对齐的摄像机：
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/AutoCamera/CameraOneView.jpg">
+		<img class="  lazyload" alt="CameraOneView.png" data-src="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/AutoCamera/CameraOneView.jpg" />
+</picture>
+
+</p><p>然后平滑混合到此视图：
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/AutoCamera/CameraTwoView.jpg">
+		<img class="  lazyload" alt="CameraTwoView.png" data-src="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/AutoCamera/CameraTwoView.jpg" />
+</picture>
+
+</p><p>需要等待几秒才会对齐。
+</p></li></ol><p>我们现在的这个系统会完全基于游戏逻辑来移动玩家的摄像机。如果玩家在游戏中无法直接控制摄像机，或者混合摄像机视图十分有用时，我们可以修改代码以在这些游戏中使用。
+</p><h3 id="完成的代码_1">完成的代码</h3>
+<p><strong>CameraDirector.h</strong>
+</p><pre class="prettyprint"><code>// 版权所有 1998-2017 Epic Games, Inc。保留所有权利。
+
+#pragma once
+
+#include "GameFramework/Actor.h"
+#include "CameraDirector.generated.h"
+
+UCLASS()
+class HOWTO&#95;AUTOCAMERA&#95;API ACameraDirector : public AActor
+{
+    GENERATED&#95;BODY()
+
+public: 
+    // 为此Actor的属性设置默认值
+    ACameraDirector();
+
+protected:
+    // 当游戏开始或生成时调用
+    virtual void BeginPlay() override;
+
+public:
+    // 每一帧调用
+    virtual void Tick( float DeltaSeconds ) override;
+
+    UPROPERTY(EditAnywhere)
+    AActor&#42; CameraOne;
+
+    UPROPERTY(EditAnywhere)
+    AActor&#42; CameraTwo;
+
+    float TimeToNextCameraChange;
+};</code></pre>
+<p><strong>CameraDirector.cpp</strong>
+</p><pre class="prettyprint"><code>// 版权所有 1998-2017 Epic Games, Inc。保留所有权利。
+
+#include "HowTo&#95;AutoCamera.h"
+#include "CameraDirector.h"
+#include "Kismet/GameplayStatics.h"
+
+// 设置默认值
+ACameraDirector::ACameraDirector()
+{
+    // 将此Actor设置为每一帧调用Tick()。如果不需要，可以关闭此选项来提高性能。
+    PrimaryActorTick.bCanEverTick = true;
+
+}
+
+// 当游戏开始或生成时调用
+void ACameraDirector::BeginPlay()
+{
+    Super::BeginPlay();
+
+}
+
+// 每一帧调用
+void ACameraDirector::Tick( float DeltaTime )
+{
+    Super::Tick( DeltaTime );
+
+    const float TimeBetweenCameraChanges = 2.0f;
+    const float SmoothBlendTime = 0.75f;
+    TimeToNextCameraChange -= DeltaTime;
+    if (TimeToNextCameraChange &lt;= 0.0f)
+    {
+        TimeToNextCameraChange += TimeBetweenCameraChanges;
+
+        //查找处理本地玩家控制的Actor。
+        APlayerController&#42; OurPlayerController = UGameplayStatics::GetPlayerController(this, 0);
+        if (OurPlayerController)
+        {
+            if (CameraTwo &amp;&amp; (OurPlayerController-&gt;GetViewTarget() == CameraOne))
+            {
+                //平滑地混合到摄像机2。
+                OurPlayerController-&gt;SetViewTargetWithBlend(CameraTwo, SmoothBlendTime);
+            }
+            else if (CameraOne)
+            {
+                //立即切换到摄像机1。
+                OurPlayerController-&gt;SetViewTarget(CameraOne);
+            }
+        }
+    }
+}</code></pre>
+<h2 id="4-自主操作！">4 - 自主操作！</h2>
+<p>利用你所学到知识，尝试执行以下操作：
+</p><ul ><li class="Default"><p>将摄像机附加到移动Actor上来创建摇臂或移动车镜头。
+</p></li><li class="Default"><p>使用一个<a id="content_link" href="../../UnrealArchitecture/TArrays/index.html" ><span>数组</span></a>变量来存储摄像机，而不是摄像机1（CameraOne）和摄像机2（CameraTwo），这样你就可以遍历任意数量摄像机的序列，而不是仅仅两个。
+</p></li><li class="Default"><p>不要使用<a id="content_link"filter-data="tag_actors tag_architecture" href="../../UnrealArchitecture/Actors/index.html" ><span>Actor</span></a>指针来存储摄像机，而是创建一个<a id="content_link"filter-data="tag_ustruct tag_structs" href="../../../GameplayArchitecture/Structs/index.html" ><span>结构</span></a>来保持指针以及在更改视图之前的时间，并将时间混合到新视图中。
+</p></li></ul><p>有关本教程介绍的细节：
+</p><ul ><li class="Default"><p>有关摄像机以及其控制方法的更多信息，请参阅<a id="content_link"filter-data="tag_gameplay_framework" href="../../../../InteractiveExperiences/Framework/Camera/index.html" ><span>摄像机</span></a>框架页面，或尝试<a id="content_link" href="../PlayerCamera/index.html" ><span>玩家控制的摄像机</span></a>教程。
+</p></li><li class="Default"><p>有关进一步教程，请参阅[C++编程教程]页面。
+</p></li></ul>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/AutoCamera/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:10:32 GMT -->
+</html>

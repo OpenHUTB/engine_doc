@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/InteractiveExperiences/Networking/Actors/ReplicatingVariables/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:16:18 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var finishButton = finishButtonTemplate;
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/InteractiveExperiences/Networking/Actors/ReplicatingVariables/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>在蓝图中同步变量 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+		    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+		    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/InteractiveExperiences/Networking/Actors/ReplicatingVariables/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/InteractiveExperiences/Networking/Actors/ReplicatingVariables/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/InteractiveExperiences/Networking/Actors/ReplicatingVariables/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/InteractiveExperiences/Networking/Actors/ReplicatingVariables/" hreflang="ko" />
+
+	<meta name="redirect" content="Gameplay/Networking/Actors/ReplicatingVariables" />
+<meta name="redirect" content="Gameplay/HowTo/Networking/ReplicateVariable/Blueprints" />
+<meta name="intsourcechangelist" content="14027384" />
+<meta name="availability" content="Public" />
+<meta name="title" content="在蓝图中同步变量" />
+<meta name="description" content="在蓝图中使用 Replicated 和 RepNotify 变量的指南。" />
+<meta name="parent" content="InteractiveExperiences/Networking/Actors" />
+<meta name="related" content="ProgrammingAndScripting/Blueprints" />
+<meta name="related" content="Resources/ContentExamples/Networking" />
+<meta name="version" content="4.23" />
+<meta name="skilllevel" content="Advanced" />
+<meta name="type" content="how-to" />
+<meta name="keywords" content="Blueprint" />
+<meta name="keywords" content="replication" />
+<meta name="keywords" content="multiplayer" />
+<meta name="keywords" content="Gameplay" />
+<meta name="crumbs" content="%ROOT%,InteractiveExperiences,InteractiveExperiences/Networking,InteractiveExperiences/Networking/Actors" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="在蓝图中同步变量" />
+	<meta property="og:description" content="在蓝图中使用 Replicated 和 RepNotify 变量的指南。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">创建交互体验</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">联网和多人游戏</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">Actor 的复制</a>
+
+<span class="separator">></span> <span id="page">在蓝图中同步变量</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">在蓝图中同步变量</h1>
+							</div>	
+							<h2 >在蓝图中使用 Replicated 和 RepNotify 变量的指南。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Advanced"><a id="skill_link" href="../../../../SiteIndex/index.html?skills=Advanced">Advanced</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																														<div id="seeAlso">
+	<div style="position:relative;">
+		<div id="title">参见</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<p>
+						<a id="related_link" href="../../../../ProgrammingAndScripting/Blueprints/index.html" title="关于使用蓝图可视化脚本系统制作游戏的介绍。">蓝图可视化脚本</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../../../Resources/ContentExamples/Networking/index.html" title="介绍"网络功能内容示例地图"中的示例。">联网内容示例</a>
+					</p>
+				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																														<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#replicated">Replicated</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#repnotify">RepNotify</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>和<a id="content_link" href="https://docs.unrealengine.com/en-US/InteractiveExperiences/Networking/Actors/ReplicatingActors/index.html" ><span>Actor</span></a>以及<a id="content_link" href="https://docs.unrealengine.com/en-US/InteractiveExperiences/Networking/Actors/ReplicatingFunctions/index.html" ><span>函数</span></a>一样，变量也能通过网络复制。游戏逻辑中的关键变量应该只能在网络权威（服务器）上修改该，然后根据需要复制到远程设备（客户端）上。你不应该让客户端来定义何时应该修改变量，因为这会让作弊者有机可乘（例如设置生命值、弹药量或经验值）。
+</p><p>你可以讲变量设置成Replicated，也就是说，这个变量会生成一个该变量的一对一副本，然后该副本将从服务器复制到客户端。或者你可以使用RepNotify变量。它拥有Replicated的所有功能，同时还提供了一个函数，每当该函数关联的变量更新时，该函数就会调用并在服务器和客户端上执行。
+</p><p>本页通过具体案例介绍了 <strong>Replicated</strong> 和 <strong>RepNotify</strong> 变量的作用。 
+</p><h2 id="replicated">Replicated</h2>
+<div class="note">
+	<p>在此示例中，我们使用的是带有 <strong>初学者内容包</strong> 的 <strong>第三人称模板</strong>。</p>
+</div><p>在此示例中，我们将创建 Replicated 变量，该变量用于服务器和客户端均可查看的倒数计时器。 
+</p><ol ><li class="Default"><p>在 <strong>Content/StarterContent/Blueprints</strong> 文件夹中，打开 <strong>Blueprint_Effect_Fire</strong> 蓝图。 
+</p></li><li class="Default"><p>选中 <strong>Class Defaults</strong> 后，在 <strong>Replication</strong> 下的 <strong>Details</strong> 面板中，选中 <strong>Replicates</strong> 选项。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingVariables/HT_0.jpg">
+		<img class="  lazyload" alt="HT_0.png" data-src="../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingVariables/HT_0.jpg" />
+</picture>
+
+</p><p>此操作将确保此蓝图通过网络复制到所有连接的机器上。 
+</p></li><li class="Default"><p>在 <strong>Components</strong> 窗口中，单击 <strong>Add Component</strong> 按钮，然后搜索并添加 <strong>Text Render</strong> 组件。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingVariables/HT_1.jpg">
+		<img class="  lazyload" alt="HT_1.png" data-src="../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingVariables/HT_1.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>Viewport</strong> 选项卡上，将文本移到喷火上方的所需位置，以便其更加明显可见。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingVariables/HT_2.jpg">
+		<img class="  lazyload" alt="HT_2.png" data-src="../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingVariables/HT_2.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>单击 <strong>Event Graph</strong> 选项卡，在图表中 <strong>Right-click</strong> 并添加 <strong>Event Begin Play</strong> 节点。 
+</p></li><li class="Default"><p>拖出 <strong>Event Begin Play</strong> 引脚，搜索并添加 <strong>Switch Has Authority</strong> 节点。 
+</p></li><li class="Default"><p>拖出 <strong>Authority</strong> 引脚并添加 <strong>Set Timer</strong> 节点，同时将 <strong>Time</strong> 设置为 <strong>1</strong> 并选中 <strong>Looping</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingVariables/HT_3.jpg">
+		<img class="  lazyload" alt="HT_3.png" data-src="../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingVariables/HT_3.jpg" />
+</picture>
+
+</p><p>此处，当该蓝图生成时，我们仅在授权者（服务器）上使用 Switch Has Authority 节点调用 Set Timer 函数。我们使用此节点来确保仅由服务器而非客户端执行 Timer 函数。如果此脚本要处理游戏关键数据，们仅希望服务器执行此脚本并将任何数据复制到客户端机器上，而非由客户端执行此脚本，以防任何作弊行为。 
+</p></li><li class="Default"><p>在 <strong>MyBlueprint</strong> 窗口中，创建命名为 <strong>CountDownTimer</strong> 的新变量。 
+</p></li><li class="Default"><p>在此变量的 <strong>Details</strong> 面板中，将其更改为 <strong>Integer</strong> 类型，然后 <strong>Compile</strong> 并将 <strong>Default Value</strong> 设置为 <strong>10</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingVariables/HT_4.jpg">
+		<img class="  lazyload" alt="HT_4.png" data-src="../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingVariables/HT_4.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在图表中 <strong>右键</strong>，然后创建新的 <strong>Custom Event</strong> 并命名为 <strong>Update Timer</strong>。 
+</p></li><li class="Default"><p>将 <strong>Update Timer</strong> 连接到 <strong>Branch</strong> 节点，然后从 <strong>True</strong> 连出来，加一个 <strong>Set CountDownTimer</strong> 节点。 
+</p></li><li class="Default"><p>在图表中 <strong>Right-click</strong> 并添加 <strong>Get CountDownTimer</strong> 节点，然后将其拖开，再使用 <strong>Int - Int</strong> 节点并在文本框中输入 1。 
+</p></li><li class="Default"><p>再次拖出 <strong>CountDownTimer</strong> 节点并使用 <strong>Int > Int</strong> 节点，然后按如下所示连接节点。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingVariables/HT_5.jpg">
+		<img class="  lazyload" alt="HT_5.png" data-src="../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingVariables/HT_5.jpg" />
+</picture>
+
+</p><p>此处，我们将指示 <strong>CountDownTimer</strong> 在每次调用 <strong>UpdateTimer</strong> 且其大于 0 时从其中减去 1。 
+</p></li><li class="Default"><p>在 <strong>Set Timer</strong> 节点上的 <strong>Function Name</strong> 下，添加自定义事件（ <strong>UpdateTimer</strong> ）的名称。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingVariables/HT_6.jpg">
+		<img class="  lazyload" alt="HT_6.png" data-src="../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingVariables/HT_6.jpg" />
+</picture>
+
+</p><p>此操作现在每秒调用一次 <strong>UpdateTimer</strong> 事件，直到我们指示计时器停止。 
+</p></li><li class="Default"><p>在图表中 <strong>右键</strong> 并添加 <strong>Event Tick</strong> 节点。 
+</p></li><li class="Default"><p>按住 <strong>Control</strong> 并从 <strong>MyBlueprint</strong> 窗口拖入 <strong>TextRender</strong> 组件，然后将其拖出并使用 <strong>Set Text</strong> 节点。 
+</p></li><li class="Default"><p>按住 <strong>Control</strong> 并拖入 <strong>CountDownTimer</strong> 变量，然后将其插入 <strong>Set Text</strong> 节点的 <strong>Value</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingVariables/HT_7.jpg">
+		<img class="  lazyload" alt="HT_7.png" data-src="../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingVariables/HT_7.jpg" />
+</picture>
+
+</p><p>此时将自动创建转换节点，而且我们要将文本设置为倒数计时器的值。 
+</p></li><li class="Default"><p><strong>编译</strong> 并 <strong>保存</strong>，然后关闭蓝图。 
+</p></li><li class="Default"><p>从 <strong>Content Browser</strong> 中，将 <strong>Blueprint_Effect_Fire</strong> 拖入关卡中。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingVariables/HT_9.jpg">
+		<img class="  lazyload" alt="HT_9.png" data-src="../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingVariables/HT_9.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在主工具栏上，单击 <strong>Play</strong> 按钮旁的下箭头，然后将 <strong>Number of Players</strong> 设置为 2。 
+</p><div class="raw">
+	<p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingVariables/NoOfPlayers.jpg">
+		<img class="  lazyload" alt="NoOfPlayers.png" data-src="../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingVariables/NoOfPlayers.jpg" />
+</picture>
+</p>
+</div></li><li class="Default"><p>单击 <strong>Play</strong> 按钮在编辑器中开始游戏。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingVariables/HT_11.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingVariables/HT_11.jpg">
+		<img class="  lazyload" alt="HT_11.png" data-src="../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingVariables/HT_11.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><p>在编辑器中游戏时，你应该会看到 <strong>Server</strong> 倒数至 0，而 <strong>Client</strong> 却不会。 
+</p></li><li class="Default"><p>返回 <strong>Blueprint_Effect_Fire</strong> 蓝图。 
+</p></li><li class="Default"><p>在 <strong>CountDownTimer</strong> 变量的 <strong>Details</strong> 面板中，在 <strong>Replication</strong> 下，将其设置为 <strong>Replicated</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingVariables/HT_12.jpg">
+		<img class="  lazyload" alt="HT_12.png" data-src="../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingVariables/HT_12.jpg" />
+</picture>
+
+</p><p>此操作将使该属性复制到连接的机器上。 
+</p></li><li class="Default"><p>此表格将更新且每个 <strong>CountDownTimer</strong> 变量的实例将包含一个复制图标。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingVariables/HT_13.jpg">
+		<img class="  lazyload" alt="HT_13.png" data-src="../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingVariables/HT_13.jpg" />
+</picture>
+
+</p></li><li class="Default"><p><strong>编译</strong> 并 <strong>保存</strong>，关闭蓝图，然后在编辑器中开始游戏。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingVariables/HT_14.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingVariables/HT_14.jpg">
+		<img class="  lazyload" alt="HT_14.png" data-src="../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingVariables/HT_14.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><p>现在，你可以看到服务器和客户端均从 10 开始倒数并显示相应文本。当我们使用整数更新文本渲染时，可轻松使用该变量表示玩家角色的生命、弹药或其他游戏性相关变量。
+</p></li></ol><h2 id="repnotify">RepNotify</h2>
+<div class="note">
+	<p>在此示例中，我们将继续以上 Replicated 示例。</p>
+</div><p>在上述 Replicated 示例中，我们创建了同时在服务器和客户端上显示的倒数计时器。在此示例中，我们将使用 RepNotify 变量，以指示当倒数计时器倒数至 0 时，我们将停用服务器和客户端机器上的喷火效果。 
+</p><ol ><li class="Default"><p>打开 <strong>Blueprint_Effect_Fire</strong> 蓝图。 
+</p></li><li class="Default"><p>在 <strong>MyBlueprint</strong> 窗口中，按住 <strong>Control</strong> 并拖入 <strong>P_Fire</strong> 效果，然后将其拖出并使用 <strong>Deactivate</strong> 节点。 
+</p></li><li class="Default"><p>从在连接到 <strong>UpdateTimer</strong> 的 <strong>Branch</strong> 的 <strong>False</strong> 连线出来，按如下所示连接 <strong>Deactivate</strong> 节点。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingVariables/HT_15.jpg">
+		<img class="  lazyload" alt="HT_15.png" data-src="../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingVariables/HT_15.jpg" />
+</picture>
+
+</p><p>此处，我们指的是当调用 <strong>UpdateTimer</strong> 时，执行 <strong>CountDownTimer</strong> 并从其中减去 1（只要它大于 0）。如果它不大于 0，则 <strong>Deactivate</strong> <strong>P_Fire</strong> 粒子效果。
+</p></li><li class="Default"><p><strong>编译</strong> 并 <strong>保存</strong>，关闭蓝图，然后在编辑器中开始游戏。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingVariables/HT_16.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingVariables/HT_16.jpg">
+		<img class="  lazyload" alt="HT_16.png" data-src="../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingVariables/HT_16.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><p>在编辑器中玩游戏时，你将看到倒数至 0 时，仅在服务器上停用喷火效果。 
+</p></li><li class="Default"><p>返回 <strong>Blueprint_Effect_Fire</strong> 蓝图，然后创建称为 <strong>Deactivate</strong> 的 <strong>Boolean</strong> 类型的新变量。 
+</p></li><li class="Default"><p>在 <strong>Deactivate</strong> 变量上，确保 <strong>Replication</strong> 类型设置为 <strong>RepNotify</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingVariables/HT_17.jpg">
+		<img class="  lazyload" alt="HT_17.png" data-src="../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingVariables/HT_17.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>将变量设置为 <strong>RepNotify</strong> 后，你将看到已自动创建新的函数。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingVariables/HT_18.jpg">
+		<img class="  lazyload" alt="HT_18.png" data-src="../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingVariables/HT_18.jpg" />
+</picture>
+
+</p><p>当指派为 RepNotify 的变量发生更改时，将调用并同时在服务器和客户端机器上执行此函数。 
+</p></li><li class="Default"><p><strong>双击</strong> <strong>On Rep Deactivate</strong> 函数以将其打开。 
+</p></li><li class="Default"><p>按住 <strong>Control</strong> 并拖入 <strong>P_Fire</strong> 组件，然后从它连出来，添加 <strong>Deactivate</strong> 节点。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingVariables/HT_19.jpg">
+		<img class="  lazyload" alt="HT_19.png" data-src="../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingVariables/HT_19.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>返回 <strong>Event Graph</strong> 并定位 <strong>UpdateTimer</strong> 事件。 
+</p></li><li class="Default"><p>从 <strong>Branch</strong> 的 <strong>False</strong> 连出来，添加 <strong>Set Deactivate</strong> 节点，然后选中将其设置为 <strong>True</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingVariables/HT_20.jpg">
+		<img class="  lazyload" alt="HT_20.png" data-src="../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingVariables/HT_20.jpg" />
+</picture>
+
+</p><p>你可以看到该变量还显示 <strong>Set w/Notify</strong>，表示也将调用通知函数。 
+</p></li><li class="Default"><p><strong>编译</strong> 并 <strong>保存</strong>，关闭蓝图，然后在编辑器中开始游戏。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingVariables/HT_21.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingVariables/HT_21.jpg">
+		<img class="  lazyload" alt="HT_21.png" data-src="../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingVariables/HT_21.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><p>此时在编辑器中玩游戏时，你将看到计时器倒数至 0 时，客户端和服务器均会停用喷火效果。
+</p></li></ol>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Blueprint">Blueprint</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=replication">replication</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=multiplayer">multiplayer</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Gameplay">Gameplay</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/InteractiveExperiences/Networking/Actors/ReplicatingVariables/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:16:29 GMT -->
+</html>

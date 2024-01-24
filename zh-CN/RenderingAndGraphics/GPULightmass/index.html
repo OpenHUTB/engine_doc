@@ -1,0 +1,923 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/RenderingAndGraphics/GPULightmass/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 10:58:23 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "../../../Images/RenderingAndGraphics/RAndG_HeroBanner.png";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/RenderingAndGraphics/GPULightmass/" />');
+				var udnCSS = '../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>GPU Lightmass全局光照 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/RenderingAndGraphics/GPULightmass/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/RenderingAndGraphics/GPULightmass/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/RenderingAndGraphics/GPULightmass/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/RenderingAndGraphics/GPULightmass/" hreflang="ko" />
+
+	<meta name="intsourcechangelist" content="16625588" />
+<meta name="availability" content="Public" />
+<meta name="title" content="GPU Lightmass全局光照" />
+<meta name="description" content="了解虚幻引擎的基于GPU的Lightmass系统，该系统可以在编辑场景时实时生成预计算的光照数据。" />
+<meta name="parent" content="RenderingAndGraphics/GlobalIllumination" />
+<meta name="type" content="overview" />
+<meta name="keywords" content="beta" />
+<meta name="topic-image" content="RenderingAndGraphics/RAndG_TopicSmall.png" />
+<meta name="hero-image" content="RenderingAndGraphics/RAndG_HeroBanner.png" />
+<meta name="crumbs" content="%ROOT%,RenderingAndGraphics,RenderingAndGraphics/GlobalIllumination" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="GPU Lightmass全局光照" />
+	<meta property="og:description" content="了解如何采用基于GPU的系统来生成预计算光照数据。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../index.html">设计视觉、渲染和图形效果</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../GlobalIllumination/index.html">全局光照</a>
+
+<span class="separator">></span> <span id="page">GPU Lightmass全局光照</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+					<div id="banner" class="beta">
+	<div id="message">
+		学习使用此<span>测试</span>功能，但在用它发布产品时请谨慎行事。
+	</div>
+	<div id="bannerDescription">
+		测试功能主要供您学习如何使用、规划工作流程和创建测试内容之用。<strong>在实际生产中使用这些功能必须谨慎</strong>，因为我们仍在努力完善以使它们的性能、稳定性和平台支持达到发布水准。我们支持资源的向后兼容，这些功能的API也是稳定的。
+	</div>
+</div>
+															<div class="hero  background">
+						<div class="imgContainer"><img src="../../../Images/RenderingAndGraphics/RAndG_HeroBanner.png" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">GPU Lightmass全局光照</h1>
+							</div>	
+							<h2 >了解如何采用基于GPU的系统来生成预计算光照数据。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																																			</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																																				<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#启用gpulightmass">启用GPU Lightmass</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#设置gpulightmass的其他要求">设置GPU Lightmass的其他要求</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#使用gpulightmass">使用GPU Lightmass</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#gpulightmass烘焙模式">GPU Lightmass烘焙模式</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#gpulightmass设置">GPU Lightmass设置</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#gpulightmass的限制">GPU Lightmass的限制</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#额外讲解">额外讲解</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#减少gpu超时检测和恢复崩溃">减少GPU超时检测和恢复崩溃</a></p>
+	</li>					</ul>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>GPU Lightmass (GPULM)是一种光照烘焙解决方案，它可以预计算移动性设置为静止（Stationary）或静态（Static）的光源的复杂光线交互，并将这些数据保存在生成的光照贴图纹理中，这些纹理又转而应用到场景几何体。这个将光照烘焙到纹理中的系统类似于基于CPU的<a id="content_link" href="../Lightmass/index.html" ><span>Lightmass全局光照</span></a>系统。然而，使用GPU来生成和构建光照数据意味着我们可以利用DirectX 12 (DX12)和微软DXR框架的最新光线追踪功能。 
+</p><p>GPULM大大减少了计算、构建和生成复杂场景光照数据所需的时间，其速度可与基于CPU的Lightmass使用Swarm进行分布式构建时的速度相媲美。此外，GPULM提供具有交互性的新工作流，可以实时编辑场景、重新计算和重新构建光照。基于CPU的Lightmass系统无法使用此工作流。
+</p><h2 id="启用gpulightmass">启用GPU Lightmass</h2>
+<p>按照以下步骤，在项目中启用GPU Lightmass：
+</p><ol ><li class="Default"><p>从 <strong>编辑器（Editor）> 插件（Plugins）</strong> 菜单打开 <strong>插件（Plugins）</strong> 浏览器。在 <strong>内置（Built-in）> 编辑器（Editor）</strong> 类别下，找到并启用 <strong>GPU Lightmass</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/GPULightmass/1_Plugin_GPULM.jpg">
+		<img class="  lazyload" alt="插件格中的GPU Lightmass插件" data-src="../../../Images/RenderingAndGraphics/GPULightmass/1_Plugin_GPULM.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>从 <strong>编辑器（Editor）> 项目设置（Project Settings）</strong> 菜单打开 <strong>项目设置（Project Settings）</strong> 窗口：
+</p><ol ><li class="Default"><p>在 <strong>引擎（Engine）> 渲染（Rendering）</strong> 类别下，启用以下项目：
+</p><ol ><li class="Default"><p><strong>光线追踪（Ray Tracing） > 光线追踪（Ray Tracing）</strong>
+</p></li><li class="Default"><p><strong>虚拟纹理（Virtual Textures）</strong> > <strong>启用虚拟纹理支持（Enable Virtual Texture Support）</strong>
+</p></li><li class="Default"><p><strong>虚拟纹理（Virtual Textures）</strong> > <strong>启用虚拟纹理光照贴图（Enable Virtual Texture Lightmaps）</strong>
+</p></li></ol></li><li class="Default"><p>在 <strong>平台（Platforms）> Windows</strong> 类别下，进行以下设置：
+</p><ol ><li class="Default"><p><strong>目标RHI（Targeted RHIs） > 默认RHI：DirectX 12（Default RHI: DirectX 12）</strong>
+</p></li></ol></li></ol></li><li class="Default"><p><strong>重启</strong> 编辑器，使这些更改生效。
+</p></li></ol><h3 id="设置gpulightmass的其他要求">设置GPU Lightmass的其他要求</h3>
+<p>以下是在项目中使用GPU Lightmass时的其他建议。 
+</p><h4 id="禁用实时光线追踪功能">禁用实时光线追踪功能</h4>
+<div class="note">
+	<p>光线追踪功能需要Windows 10开发环境、DirectX 12和支持光线追踪的NVIDIA GPU。 
+如需更多信息，请参阅我们的<a id="content_link"filter-data="tag_ray_tracing" href="../RayTracing/index.html" ><span>光线追踪</span></a>功能文档，获取完整的要求列表。</p>
+</div><p>GPU Lightmass利用微软的DXR API来实现光线追踪，而且需要用到DirectX 12。虽然GPU Lightmass需要用到光追才能工作，但它并不需要用到其他光线追踪功能（默认会启用），例如光追阴影、环境光遮挡、以及反射。相反，最好使用以下控制台命令来禁用这些功能：
+</p><pre class="prettyprint"><code>r.RayTracing.ForceAllRayTracingEffects 0 </code></pre>
+<p>或者，你可以在项目中进行设置，以便在加载时自动禁用所有光线追踪功能，方法是将它们添加到项目配置目录中的 <strong>DefaultEngine.ini</strong> 配置文件中。在 <code>&#91;/Script/Engine.RendererSettings&#93;</code> 中添加代码，使其看起来如下所示：
+</p><pre class="prettyprint"><code>&#91;/Script/Engine.RendererSettings&#93;
+r.RayTracing.ForceAllRayTracingEffects=0</code></pre>
+<h4 id="配置gpu内存">配置GPU内存</h4>
+<p>GPULM要求有足够的GPU内存支付它的开销。考虑到这一点，下述考量是成功使用GPULM烘焙复杂场景的一个因素： 
+</p><ul ><li class="Default"><p>必须有足够的GPU内存，以便在细节级别（LOD）最低的情况下保存整个场景，相当于以最高品质的LOD来保存场景。 
+</p><div class="note">
+	<p>烘焙时，GPULM目前未将LOD纳入考量。详情请参阅本页面的<a id="content_link" href="#" ><span>GPU Lightmass的限制</span></a>部分。 </p>
+</div></li><li class="Default"><p>在光源构建期间，虚拟纹理系统可能需要大量内存。这很大程度上取决于场景的复杂性以及大小。
+</p></li><li class="Default"><p>必须有足够的CPU内存，将所有生成的光照贴图都存储到RAM中。GPU可以将光照贴图置换到CPU的RAM中，但仅在整个光照烘焙完成之后，光照贴图才会保存到磁盘上。
+</p></li><li class="Default"><p>DX12使用的GPU内存通常比DX11多。如果某个场景挑战了DX11中GPU内存的极限，你可能会发现，在使用光线追踪和虚拟纹理产生的额外开销下，如果不做出一些取舍，这个场景很难在DX12中使用。
+</p></li><li class="Default"><p>对于可选设置，比如 <strong>Irradiance Cache</strong>，GPULM有自己的内存使用要求。
+</p></li></ul><div class="note">
+	<p>对于大型场景，基于CPU的Lightmass系统需要大量的内存，这可能会给光照烘焙带来麻烦。使用Swarm的分布式构建通常可以缓解这类问题。如果使用GPULM，内存耗尽时唯一的解决方案（目前）是通过减少几何或纹理细节来优化场景，或升级到内存更多的GPU。</p>
+</div><h5 id="使用虚拟纹理光照贴图在编辑器内预览">使用虚拟纹理光照贴图在编辑器内预览</h5>
+<p>启用<a id="content_link"filter-data="tag_overview tag_rendering tag_virtual_texturing" href="../VirtualTexturing/index.html" ><span>虚拟纹理</span></a>系统和虚拟纹理光照贴图可以生成光照贴图并将其存储为虚拟纹理。这还有一个好处，即光源构建可以在关卡视口中实时更新。它还允许在构建场景时进行编辑，而不必取消或等待构建完成。
+</p><div class="note">
+	<p>如果只是单纯地构建光照，那么GPULM并不需要启用虚拟纹理系统，但要实现交互和实时编辑功能的话，就需要启用了。如果不打算在项目中使用虚拟纹理，或者不需要交互式预览，你可以放弃启用这些功能，这样在编辑器中工作时可以节省一些开销。</p>
+</div><h2 id="使用gpulightmass">使用GPU Lightmass</h2>
+<p>GPULM有自己的面板，可通过关卡编辑器的工具栏访问，在 <strong>构建（Build）</strong> 下拉菜单下选择 <strong>GPU Lightmass</strong> 即可。
+</p><p><picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/GPULightmass/2_Build_OpenGPULMPanel.jpg">
+		<img class="  lazyload" alt="工具栏中包含GPU Lightmass选项的&quot;构建&quot;下拉菜单" data-src="../../../Images/RenderingAndGraphics/GPULightmass/2_Build_OpenGPULMPanel.jpg" />
+</picture>
+
+</p><p>GPULM面板可以停靠在编辑器内，类似于其他面板。
+</p><p><picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/GPULightmass/3_GPULM_DockedPanel.jpg">
+		<img class="  lazyload" alt="停靠后的GPU Lightmass面板" data-src="../../../Images/RenderingAndGraphics/GPULightmass/3_GPULM_DockedPanel.jpg" />
+</picture>
+
+</p><p>配置完设置之后，按 <strong>构建光照（Build Lighting）</strong> 开始烘焙。
+</p><p><picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/GPULightmass/4_GPULM_BuildButton.jpg">
+		<img class="  lazyload" alt="GPU Lightmass面板的构建按钮" data-src="../../../Images/RenderingAndGraphics/GPULightmass/4_GPULM_BuildButton.jpg" />
+</picture>
+
+</p><h3 id="gpulightmass烘焙模式">GPU Lightmass烘焙模式</h3>
+<p>GPULM包括两种光照烘焙模式：<strong>完全烘焙（Full Bake）</strong> 和 <strong>烘焙所见内容（Bake What You See(BWYS)）</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/GPULightmass/5_GPULM_BakeMode.jpg">
+		<img class="  lazyload" alt="GPU Lightmass烘培模式下拉菜单" data-src="../../../Images/RenderingAndGraphics/GPULightmass/5_GPULM_BakeMode.jpg" />
+</picture>
+
+</p><ul ><li class="Default"><p><strong>完全烘焙（Full Bake）</strong> 模式下，在计算和构建光照时，将为场景中的每个对象渲染完整的光照贴图分辨率。在构建完成之前结果不可见。 
+</p></li><li class="Default"><p><strong>烘焙所见内容（Bake What You See）</strong> 模式更为灵活，仅构建视口内可见内容的光照，而非整个场景。启用视口的实时模式后，还可在光源构建过程中进行交互，在进行更改时重新计算光照。
+</p></li></ul><p>这两种烘焙模式都依赖于视图，这意味着它们在移动到场景中的其他对象之前，都会优先考虑视图中的对象。 
+</p><p>在完全烘焙模式下，GPULM使用以下流程：
+</p><ul ><li class="Default"><p>将处理场景中的所有对象，优先处理当前视图中的对象。 
+</p></li><li class="Default"><p>以对象的完整光照贴图分辨率在纹理空间内烘焙光照。已完成的光照贴图将发送到虚拟纹理系统以更新显示。
+</p></li><li class="Default"><p>一旦计算了所有对象并渲染了光照贴图，就进行编码并自动保存数据。
+</p></li></ul><p>烘焙所见内容模式的交互方式是非破坏性的，可在场景中实时计算（和重新计算）光照结果。它鼓励在场景中正在积极处理光照的区域内动态地进行调整。由于这种交互性，光源构建的工作流在以下方面区别于完全烘焙：
+</p><ul ><li class="Default"><p>运行时虚拟纹理系统确定在界面上解析所需的mipmap级别的可见图块。 
+</p></li><li class="Default"><p>光照在纹理空间内以各个图块在摄像机视图中的解析mipmap分辨率进行烘焙。 
+</p></li><li class="Default"><p>界面上的所有图块完成后，BWYS无限期等待场景或视口摄像机更新。 
+</p></li><li class="Default"><p>按 <strong>保存（Save）</strong> 按钮开始对最终光照贴图进行编码。如果你选择保存结果，就不会为场景生成完整的光照构建；只有界面上可见的部分场景已准备好存储和保存其光照数据。
+</p></li><li class="Default"><p>按下保存键并不会结束光照烘焙，它会保存目前为止生成的所有已编码光照贴图数据。按 <strong>取消（Cancel）</strong> 才会停止此流程。
+</p></li></ul><h4 id="交互式烘焙">交互式烘焙</h4>
+<p>交互式烘烤随时可用于完全烘焙和BWYS模式，优先处理已映射到当前摄像机视图的可见虚拟纹理图块；移动摄像机会重新优先处理当前视图的图块。当交互式烘焙用于两种光照烘焙模式时，它的主要用于与"只烘焙所见内容"（BWYS）模式结合使用。 
+</p><p>启动BWYS模式会启动光照构建，仅在手动停止时才会完成。此模式仅考虑摄像机视图中的对象并为其构建光照。在场景中四处移动摄像机，更改位置或从场景中添加/移除对象，或更改场景Actor的属性，都会导致重新实时计算光照。由于此模式需要手动保存光照结果，如果之前已经为场景构建了光照，可以选择这种非破坏性的工作方式。
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_1_coprtc38_24
+{
+	margin: 0px;
+	width: 75%;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_1_coprtc38_24:after
+{
+	content: "";
+	padding-top: 56.25%;
+	display: block;
+}
+</style> 
+<div id="player_1_coprtc38_24"> 
+	<div id="playerContainer_1_coprtc38_24" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/1_coprtc38/embed.html"></iframe>
+	</div>
+</div>
+<h4 id="使用gpulightmass速度模式">使用GPU Lightmass速度模式</h4>
+<p>GPULM的一个优势是，它在光照烘焙期间会利用虚拟纹理。这样就可以在编辑器视口中实时构建和显示光照。如果场景此时正在编辑，GPULM也会逐步工作，相应地更新场景光照。实时使用编辑器内预览的缺点是，在场景中重新渲染帧以更新可见结果会产生额外开销。禁用此开销会释放GPU内存，使其更高效更快速。 
+</p><p>关卡视口 <strong>实时</strong> 开关控制GPULM的两种运行速度：<strong>开（On）</strong> 使用 <strong>慢（Slow）</strong> 模式，会因实时渲染帧而带来额外的开销，而 <strong>关（Off）</strong> 可以大大加快光照渲染速度，且没有实时开销。 
+</p><p>要切换 <strong>实时（Realtime）</strong> 模式的开关状态，可以使用 <strong>关卡视口</strong> 左上角的下拉菜单，或直接使用键盘快捷键 <strong>Ctrl + R</strong> 进行切换。 
+</p><p><picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/GPULightmass/6_LevelViewport_RealTimeToggle.jpg">
+		<img class="  lazyload" alt="关卡视口实时切换" data-src="../../../Images/RenderingAndGraphics/GPULightmass/6_LevelViewport_RealTimeToggle.jpg" />
+</picture>
+
+</p><p>除了视口的实时模式切换，GPULM还提供自定义设置来增加快慢模式构建。 
+</p><p><picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/GPULightmass/7_GPULM_BuildSpeed.jpg">
+		<img class="  lazyload" alt="GPU Lightmass构建速度设置" data-src="../../../Images/RenderingAndGraphics/GPULightmass/7_GPULM_BuildSpeed.jpg" />
+</picture>
+
+</p><ul ><li class="Default"><p><strong>慢模式速度（Slow Mode Speed）</strong> 是一个乘数，当 <strong>实时（Realtime）</strong> 模式在视口中切换成 <strong>开（On）</strong> 时，可以提高光照构建速度。此值过高时，若场景中有大量几何体，编辑器会反应迟钝。 
+</p></li><li class="Default"><p><strong>全速（Full Speed）</strong> 是一个乘数，当 <strong>实时（Realtime）</strong> 模式切换成 <strong>关（Off）</strong> 时，可以提高光照构建速度。
+</p></li></ul><div class="warning">
+	<p><strong>速度（Speed）</strong> 选项并不能保证你的构建会立即变快，请谨慎使用。乘数决定了发送到GPU的工作数据块的大小，这个大小的有效性是决定GPU最终速度的众多因素之一。例如，在某些项目中，增大 <strong>全速（Full Speed）</strong> 会使快速烘焙变慢。在设置上，没有普适性的硬性规则。 </p>
+</div><h3 id="gpulightmass设置">GPU Lightmass设置</h3>
+<p>GPU Lightmass自己的面板中就包含其大部分设置。 
+</p><p><picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/GPULightmass/8_GPULM_Panel.jpg">
+		<img class="  lazyload" alt="GPU Lightmess面板" data-src="../../../Images/RenderingAndGraphics/GPULightmass/8_GPULM_Panel.jpg" />
+</picture>
+
+</p><div class="fullwidth">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>属性 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>说明 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="2" align="">
+			<p><div class="tablesection">
+	<p> 通用 </p>
+</div></p>
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>显示进度条（Show Progress Bars）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>若为true，则渲染时每个图块内都会绘制一个绿色进度条。红条表示 <strong>第一反射光线引导（First Bounce Ray Guiding）</strong> 正在进行中。在非常明亮的场景中，条的曝光值会调低，可能会显示为黑色。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>模式（Mode）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>根据你的开发需求选择最适合的烘焙模式：
+</p><ul ><li class="Default"><p><strong>完全烘焙（Full Bake）：</strong>此模式为场景中的每个对象渲染全光照贴图分辨率。
+</p></li><li class="Default"><p><strong>烘焙所见内容（Bake What You See）：</strong>此模式仅以虚拟纹理系统确定的mip级别渲染视图中对象的虚拟纹理图块。可以移动摄像机以渲染更多图块。此模式下，仅在按 <strong>保存（Save）</strong> 按钮时才会保存结果。
+</p></li></ul>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>降噪器（Denoise）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>启用后，在CPU上，降噪会在渲染完成后进行。当你选择光照贴图烘焙的降噪何时应该发生时，请在下列选项中选择：
+</p><ul ><li class="Default"><p><strong>无（None）：</strong>不对光照贴图进行任何降噪处理。
+</p></li><li class="Default"><p><strong>完成时（On Completion）：</strong>烘焙完成后对整个光照贴图进行降噪处理。
+</p></li><li class="Default"><p><strong>交互式预览期间（During Interactive Preview）：</strong>每个图块在完成时进行降噪处理，适用于预览场景的各个部分，但效率较低。
+</p></li></ul>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="2" align="">
+			<p><div class="tablesection">
+	<p> 全局光照 </p>
+</div></p>
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>GI样本（GI Samples）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>在表面上的所有反射中，针对每个纹素所执行的光线路径总数。应设为降噪器能得到无伪影结果时的最低值。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>静止光源阴影样本（Stationary Light Shadow Samples）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>移动性设置为 <strong>静止（Stationary）</strong> 的光源的样本数量。阴影的计算和存储独立于全局光照。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>使用辐照强度缓存（Use Irradiance Caching）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>在室内场景中启用此设置后，可以获得更加物理精确的全局光照强度（稍有偏差）。若不启用此设置，结果可能会比预期更暗一些。室外场景应禁用此设置。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>使用第一反射光线引导（First Bounce Ray Guiding）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>启用 <strong>使用辐照强度缓存（Use Irradiance Caching）</strong> 后，此选项在每个首次反射样本上搜索半球体，以找到最亮的方向来衡量其余样本的朝向。它改善了室内场景中特定光源的效果，比如窗户。此通道的质量由 <strong>试用样本（Trial Samples）</strong> 设置控制。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="2" align="">
+			<p><div class="tablesection">
+	<p> 辐照强度缓存 </p>
+</div></p>
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>质量（Quality）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>每个辐照强度单元的样本数量。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>大小（Size）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>每个辐照强度单元的大小。尺寸越小越慢，但也越精确。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>角落抑制（Corner Rejection）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>能够更好地控制对角落周围的辐照强度缓存条目的抑制，帮助减少可能发生的漏光和伪影。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>调试：可视化（Debug: Visualize）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>启用后，辐照强度缓存单元将可见，有助于设置辐照强度缓存单元的大小及其质量。在非常明亮的场景中，曝光值会调低，可视化效果可能会显示为黑色。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="2" align="">
+			<p><div class="tablesection">
+	<p> 第一反射光线引导 </p>
+</div></p>
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>试用样本（Trial Samples）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>用于 <strong>第一反射光线引导（First Bounce Ray Guiding）</strong> 的样本数量，在进行光照采样之前会扔掉。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="2" align="">
+			<p><div class="tablesection">
+	<p> 系统 </p>
+</div></p>
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>慢模式速度（Slow Mode Speed）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>在视口启用了 <strong>实时（Realtime）</strong> 模式的情况下，此设置可使用此乘数控制烘焙速度。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>全速（Full Speed）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>在视口禁用了 <strong>实时（Realtime）</strong> 模式的情况下，此设置可使用此乘数控制烘焙速度。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>光照贴图图块池大小（Lightmap Tile Pool Size）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>GPU Lightmass管理的可见图块池，用于计算。应根据视口大小和界面上一次显示的图块数量来设置此池的大小。增加池大小会增加GPU内存使用率。</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div><p><picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/GPULightmass/9_Lightmass_WorldSetting1.jpg">
+		<img class="  lazyload" alt="GPU lightmass面板世界场景设置" data-src="../../../Images/RenderingAndGraphics/GPULightmass/9_Lightmass_WorldSetting1.jpg" />
+</picture>
+
+</p><p>在 <strong>世界设置（World Settings）</strong> 面板下，只有一个Lightmass设置继承自基于CPU的Lightmass系统，那就 <strong>体积光照贴图细节单元大小（Volumetric Lightmap Detail Cell Size）</strong>。它设置场景中几何体周围最高密度的体积光照贴图体素的大小。减小体素会增加构建光照所需的时间和内存使用量。某些情况下，内存使用量会增加八倍。
+</p><h4 id="设置光照贴图uv及其分辨率">设置光照贴图UV及其分辨率</h4>
+<p>烘焙光照要求每个静态网格体都有自己的光照贴图UV，UV图表（也称UV岛）都包含在0-1纹理空间内，没有重叠或包装块。这可确保在计算光照时，不会因为光照贴图UV不佳而产生伪影。 
+</p><div class="note">
+	<p>若要了解有关设置光照贴图UV以及在虚幻引擎中生成光照贴图UV的更多信息，请查看以下页面： 
+</p><ul ><li class="Default"><p><a id="content_link"filter-data="tag_static_mesh tag_lightmap" href="../../WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/index.html" ><span>展开光照贴图的UV</span></a>
+</p></li><li class="Default"><p><a id="content_link" href="../../WorkingWithContent/Types/StaticMeshes/AutoGeneratedLightmaps/index.html" ><span>自动生成光照贴图UV</span></a>
+</p></li></ul>
+</div><p>要获得对象几何体的高质量光照烘焙，第一步就是设置一个良好的光照贴图UV。接下来，务必确保应用于几何体的光照贴图纹理有足够的分辨率来捕捉所有必要的光照和阴影细节。这意味着酌情改变每个对象的光照贴图分辨率。有两种方法可以做到这一点：
+</p><ul ><li class="Default"><p>通过 <strong>静态网格体编辑器</strong> 设置对象的 <strong>光照贴图分辨率（Light Map Resolution）</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/GPULightmass/10_StaticMeshEditor_LMResolution.jpg">
+		<img class="  lazyload" alt="静态网格体编辑器光照贴图分辨率设置" data-src="../../../Images/RenderingAndGraphics/GPULightmass/10_StaticMeshEditor_LMResolution.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>或者在场景中选择一个 <strong>静态网格体Actor</strong>，然后在 <strong>细节</strong> 面板的 <strong>光照（Lighting）</strong> 分类下，使用此Actor的 <strong>覆盖光照贴图分辨率（Overridden Light Map Res）</strong> 属性为此Actor设置新的光照贴图分辨率。
+</p><p><picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/GPULightmass/11_Actor_LMResOverride.jpg">
+		<img class="  lazyload" alt="细节面板中重载后的光照贴图分辨率属性" data-src="../../../Images/RenderingAndGraphics/GPULightmass/11_Actor_LMResOverride.jpg" />
+</picture>
+
+</p></li></ul><h4 id="控制光线反射次数">控制光线反射次数</h4>
+<p>任何给定场景中的光线反射次数都是不可控的。GPULM使用<a id="content_link" href="http://www.pbr-book.org/3ed-2018/Monte_Carlo_Integration/Russian_Roulette_and_Splitting.html" ><span>俄罗斯轮盘</span></a>算法，考虑到各种可能性和权重计算，确定投射的任何给定光线会发生多少次反射。这也意味着不太可能对间接光照和场景照明做出贡献的光反射更有可能被终止。 
+</p><div class="note">
+	<p>GPULM的 <strong>GI样本（GI Samples）</strong> 属性控制每个体素（或纹理贴图中的像素）的路径追踪片段的最大数量，包括空间样本和反射片段。增加GI采样数量时，空间采样和深度采样（有可能）的数量也将增加。</p>
+</div><h4 id="选择降噪选项">选择降噪选项</h4>
+<p>GPULM依赖于由<a id="content_link" href="https://www.openimagedenoise.org/" ><span>Intel的开放图像降噪库</span></a>提供的降噪方法来去除噪声，使最终光照贴图渲染结果流畅。 
+</p><p>考虑对光照烘焙进行降噪时，有三种方法可供选择。使用 <strong>降噪（Denoising）</strong> 下拉菜单进行选择：
+</p><p><picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/GPULightmass/12_GPULM_DenoisingSetting.jpg">
+		<img class="  lazyload" alt="GPU Lightmass降噪设置选项下拉菜单" data-src="../../../Images/RenderingAndGraphics/GPULightmass/12_GPULM_DenoisingSetting.jpg" />
+</picture>
+
+</p><ul ><li class="Default"><p><strong>无（None）</strong>，不对光照渲染应用降噪。这可用于确定特定场景中使用的 <strong>Gi样本</strong> 数量。例如，如果你发现降噪器正在引入伪影，增加样本和可能的其他设置，如辐照强度缓存（Irradiance Cache）和第一反射光线引导（First Bounce Ray Guiding），可以为降噪器提供更高质量的输入。
+</p></li><li class="Default"><p><strong>完成时（On Completion）</strong> 会在渲染之后在CPU上对光源构建结果进行降噪。它会在光源构建完成后对整个场景的光照贴图进行降噪。 
+</p></li><li class="Default"><p><strong>交互式预览期间（During Interactive Preview）</strong> 在各个虚拟纹理图块完成时对其进行降噪。这有助于更快看到最终结果，但效率较低，因为它需要将各个图块从GPU转移到CPU上执行降噪处理，然后再返回GPU进行显示。
+</p></li></ul><p>以下是已完成光源构建在应用和未应用降噪情况下的对比。
+</p><!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/GPULightmass/13_GPULM_WithoutDenoisingApplied.jpg">
+		<img class="  lazyload" alt="Denoising Disabled" data-src="../../../Images/RenderingAndGraphics/GPULightmass/13_GPULM_WithoutDenoisingApplied.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/GPULightmass/13_GPULM_WithDenoisingApplied.jpg">
+		<img class="  lazyload" alt="Denoising Applied to Final Result" data-src="../../../Images/RenderingAndGraphics/GPULightmass/13_GPULM_WithDenoisingApplied.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div><h2 id="gpulightmass的限制">GPU Lightmass的限制</h2>
+<div class="warning">
+	<p>以下是当前实现GPULM的部分已知限制。此列表并不详尽，只是让你对核心功能的支持有一个大致的了解。请记住，此列表中的某些功能可能永远不会受到支持，但很多功能会在未来的引擎版本中得到解决。</p>
+</div><div class="fullwidth">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>功能 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>支持（是/否/部分） </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>说明 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>分布式烘焙（Distributed Baking）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>否</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>目前尚无计划为GPULM支持Swarm Agent的分布式构建。当下的策略是专注于支持多种GPU，并依赖于它们的功率和内存容量。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>半透明阴影（Translucent Shadows）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>否</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>目前，半透明阴影是光线追踪功能集的一个一般限制。未来的引擎版本会处理此问题。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>世界场景位置偏移（World Position Offset）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>否</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>像素深度偏移（Pixel Depth Offset）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>否</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>GPULM不考虑支持PDO，因为它会导致光照不连续。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>静止天空光照（Stationary Sky Light）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>否</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>已计划在未来引擎版本中支持。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>场景光源数量（Number of Scene Lights）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>有256个光源的硬性限制。这是GPULM所利用的光线追踪功能存在的限制。光线追踪功能的"许多光源"计划应可去除此限制。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Lighting Channels（光照通道）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>否</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>光源的自定义设置和属性（Custom Settings and Properties of Lights）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>否</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>以下光源设置尚不支持GPULM：
+</p><ul ><li class="Default"><p>非平方反比衰减
+</p></li><li class="Default"><p>IES配置文件
+</p></li><li class="Default"><p>光源函数
+</p></li><li class="Default"><p>间接光照强度
+</p></li><li class="Default"><p>源纹理（矩形光源上）
+</p></li><li class="Default"><p>挡光板角度和长度（矩形光源上）
+</p></li></ul><div class="note">
+	<p>其中一些设置可以部分配合 <strong>静止（Stationary）</strong> 光源使用。烘焙的GI不会调用此功能，但光源的动态直接光照会调用此功能。</p>
+</div>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>预计算的环境光遮挡（Precomputed Ambient Occlusion）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>否</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Lightmass门户（Lightmass Portals）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>否</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>这部分是由GPULM的第一反射光线引导（First Bounce Ray Guiding）属性处理的。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Lightmass重要体积（Lightmass Importance Volume）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>部分</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>这些体积不用于区分场景区域以控制质量。它们用于确定体积光照贴图的位置。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>体积光照贴图（Volumetric Lightmaps）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>是</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>这些光照贴图由GPULM调用。可以使用关卡四周的Lightmass重要体积来放置这些光照贴图，但这并不是必需的。GPULM使用世界设置（World Settings）> Lightmass中有关体积光照贴图细节单元大小（Volumetric Lightmap Detail Cell Size）的设置。体积光照贴图始终完全渲染，即使在烘焙所见内容（Bake What You See）模式下也是如此。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>细节级别网格体（Level of Detail Meshes）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>部分</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>对LOD的支持有限，只支持那些使用引擎自动生成的LOD创建的LOD。这是因为它们共享相同的光照贴图UV，这是GPULM的一个要求。仅在引擎中已生成LOD时才可使用此设置。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Lightmass世界设置和逐对象设置（Lightmass World Settings and Per-Object Settings）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>否</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>对于基于CPU的工作流，有很多设置可用于调整lightmass的结果。这些设置大部分不可与GPULM配合使用，并且没有等效的功能或设置。</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div><h2 id="额外讲解">额外讲解</h2>
+<h3 id="减少gpu超时检测和恢复崩溃">减少GPU超时检测和恢复崩溃</h3>
+<p>在复杂场景或情况下，GPU负载过重可能会导致超时或崩溃，通常还会导致使用该GPU的软件关闭，例如虚幻引擎。一般会看到如下信息： 
+</p><p><picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/GPULightmass/14_GPUDriverCrashMessage.jpg">
+		<img class="  lazyload" alt="GPU驱动器崩溃错误消息" data-src="../../../Images/RenderingAndGraphics/GPULightmass/14_GPUDriverCrashMessage.jpg" />
+</picture>
+
+</p><p>可以通过延长GPU的超时延迟来防止此类崩溃，给它时间恢复而不会导致引擎关闭。 
+</p><p>有关在Windows 10中调整超时延迟和恢复(TDR)的详细信息，请参阅<a id="content_link" href="../RayTracing/MovieRenderQueue/index.html" ><span>电影渲染队列用于设置系统配置的步骤</span></a>中诸如此类事宜。
+</p>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../SiteIndex/index.html?tags=beta">beta</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/RenderingAndGraphics/GPULightmass/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 10:58:29 GMT -->
+</html>

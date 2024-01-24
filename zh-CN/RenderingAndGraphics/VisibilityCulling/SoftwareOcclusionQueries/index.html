@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/RenderingAndGraphics/VisibilityCulling/SoftwareOcclusionQueries/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:07:58 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/RenderingAndGraphics/VisibilityCulling/SoftwareOcclusionQueries/" />');
+				var udnCSS = '../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>面向移动平台的软件遮挡查询 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/RenderingAndGraphics/VisibilityCulling/SoftwareOcclusionQueries/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/RenderingAndGraphics/VisibilityCulling/SoftwareOcclusionQueries/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/RenderingAndGraphics/VisibilityCulling/SoftwareOcclusionQueries/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/RenderingAndGraphics/VisibilityCulling/SoftwareOcclusionQueries/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Rendering/VisibilityCulling/SoftwareOcclusionQueries" />
+<meta name="intsourcechangelist" content="6626060" />
+<meta name="availability" content="Public" />
+<meta name="title" content="面向移动平台的软件遮挡查询" />
+<meta name="description" content="概括介绍如何使用面向移动平台的软件遮挡查询作为动态遮挡剔除方法。" />
+<meta name="type" content="" />
+<meta name="version" content="4.21" />
+<meta name="parent" content="RenderingAndGraphics/VisibilityCulling" />
+<meta name="order" content="" />
+<meta name="keywords" content="" />
+<meta name="crumbs" content="%ROOT%,RenderingAndGraphics,RenderingAndGraphics/VisibilityCulling" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="面向移动平台的软件遮挡查询" />
+	<meta property="og:description" content="概括介绍如何使用面向移动平台的软件遮挡查询作为动态遮挡剔除方法。 " />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">设计视觉、渲染和图形效果</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">可视性和遮挡剔除</a>
+
+<span class="separator">></span> <span id="page">面向移动平台的软件遮挡查询</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">面向移动平台的软件遮挡查询</h1>
+							</div>	
+							<h2 >概括介绍如何使用面向移动平台的软件遮挡查询作为动态遮挡剔除方法。 </h2>
+							<div id="access">
+								<div class="accessContainer">
+																																			</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																																				<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#启用软件遮挡查询">启用软件遮挡查询</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#设置遮挡物网格体">设置遮挡物网格体</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#调试软件遮挡的可视化">调试软件遮挡的可视化</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#性能统计信息">性能统计信息</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#示例场景统计信息">示例场景统计信息</a></p>
+	</li>					</ul>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p><strong>软件遮挡查询</strong> 是一种遮挡方法，使用一个Actor的指定细节层次（LOD）来遮挡它后面的Actor。这种剔除方法会对CPU上的场景进行光栅化来剔除Actor，而相较而言，硬件遮挡查询则对GPU执行可视性检查。软件遮挡的保守式设计意味着可以在任何移动设备上启用和使用。还需要注意的是，软件遮挡只有单帧延迟，而硬件遮挡查询则不然，在移动平台上有双帧延迟。
+</p><p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/VisibilityCulling/SoftwareOcclusionQueries/SOQ_Banner.jpg">
+		<img class="  lazyload" alt="SOQ_Banner.png" title="SOQ372029427Banner.png" data-src="../../../../Images/RenderingAndGraphics/VisibilityCulling/SoftwareOcclusionQueries/SOQ_Banner.jpg" />
+</picture>
+
+</p><div class="caption">
+	<p>左：使用软件遮挡调试可视化的场景，其中包含一组为遮挡指定的静态网格体。右：房屋后面的背面场景视图，显示"遮挡物"静态网格体如何剔除几何结构。</p>
+</div><h2 id="启用软件遮挡查询">启用软件遮挡查询</h2>
+<p>在 <strong>项目设置（Project Settings）>渲染（Rendering）>移动（Mobile）</strong> 中启用软件遮挡，并设置 <strong>支持软件遮挡剔除（Support Software Occlusion Culling）</strong>。
+</p><p>或者，可以使用以下控制台变量：<code>r.mobile.AllowSoftwareOcclusion 1</code>
+</p><div class="tip">
+	<p>如果有多个目标设备，请使用<a id="content_link" href="../../../SharingAndReleasing/DeviceProfiles/index.html" ><span>设备描述</span></a>管理器来启用软件遮挡。</p>
+</div><h2 id="设置遮挡物网格体">设置遮挡物网格体</h2>
+<p>要使遮挡剔除能够发挥作用，必须先将一个静态网格体的LOD指定为遮挡物。指定的LOD必须在进入摄像机视图后，用于阻挡场景中位于这个Actor后面的其他Actor。
+</p><p>在静态网格体编辑器中，使用 <strong>细节（Details）</strong> 面板，并将任何值设置为0或更大的值来启用 <strong>遮挡物网格体的LOD（LOD for Occluder Mesh）</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/VisibilityCulling/SoftwareOcclusionQueries/Soq_SMEditorSettings.jpg">
+		<img class="  lazyload" alt="Soq_SMEditorSettings.png" title="Soq372029427SMEditorSettings.png" data-src="../../../../Images/RenderingAndGraphics/VisibilityCulling/SoftwareOcclusionQueries/Soq_SMEditorSettings.jpg" />
+</picture>
+
+</p><p>设置LOD遮挡物网格体的值时，只能使用等于或小于该网格体拥有的LOD数量的值。例如，如果网格体有三个LOD，0应该是基础网格体，LOD 1和2应是较低细节的网格体。如果您使用值-1，不会将LOD指定为遮挡物网格体。
+</p><div class="warning">
+	<p>仅启用中大型网格体，因为这类网格体才适合作为遮挡物。较小网格体对遮挡几乎没有影响。</p>
+</div><h2 id="调试软件遮挡的可视化">调试软件遮挡的可视化</h2>
+<p>在您将LOD设置为用作静态网格体的遮挡物网格体后，可以在关卡视口中启用 <strong>软件遮挡缓冲（Software Occlusion Buffer）</strong> 可视化。在使用<a id="content_link"filter-data="tag_mobile" href="../../../SharingAndReleasing/Mobile/Previewer/index.html" ><span>移动预览器</span></a>时，该视图模式在屏幕右上角启用一个小窗口。缓冲仅显示所选遮挡物网格体，并使用它们来剔除在它们的视野中被遮挡的任何网格体，类似于硬件遮挡查询剔除场景中被其他对象挡住的对象。 <br /></p><p>根据以下步骤启用该可视化视图模式：<br /></p><ol ><li class="Default"><p>将关卡视口设置为使用<a id="content_link"filter-data="tag_mobile" href="../../../SharingAndReleasing/Mobile/Previewer/index.html" ><span>移动预览器</span></a>。 <br /><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/VisibilityCulling/SoftwareOcclusionQueries/soq_enablevisualization-1.jpg">
+		<img class="  lazyload" alt="soq_enablevisualization-1.png" title="soq372029427enablevisualization-1.png" data-src="../../../../Images/RenderingAndGraphics/VisibilityCulling/SoftwareOcclusionQueries/soq_enablevisualization-1.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>使用控制台（<strong>`</strong>）通过 <strong>r.SO.VisualizeBuffer 1</strong> 启用软件遮挡可视化程序。
+</p></li></ol><p>启用后，任何作为遮挡物启用的静态网格体都将绘制到关卡视口左上角显示的缓冲可视化。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/RenderingAndGraphics/VisibilityCulling/SoftwareOcclusionQueries/soq_visualization.png" ><span><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/VisibilityCulling/SoftwareOcclusionQueries/soq_visualization.jpg">
+		<img class="  lazyload" alt="soq_visualization.png" title="soq372029427visualization.png" data-src="../../../../Images/RenderingAndGraphics/VisibilityCulling/SoftwareOcclusionQueries/soq_visualization.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>单击查看大图。</p>
+</div><p>您现在应在静态网格体编辑器中看到已经作为 <strong>被遮挡网格体LOD（LOD for Occluded Mesh）</strong> 启用的任何静态网格体。为了更好地说明这一点，以下示例显示了针对缓冲可视化视图模式，作为遮挡物网格体启用的高亮Actor。
+</p><!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/VisibilityCulling/SoftwareOcclusionQueries/soq_sceneOccluders.jpg">
+		<img class="  lazyload" alt="场景视图" data-src="../../../../Images/RenderingAndGraphics/VisibilityCulling/SoftwareOcclusionQueries/soq_sceneOccluders.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/VisibilityCulling/SoftwareOcclusionQueries/soq_sceneOccludersHighlighted.jpg">
+		<img class="  lazyload" alt="高亮遮挡物网格体的场景视图" data-src="../../../../Images/RenderingAndGraphics/VisibilityCulling/SoftwareOcclusionQueries/soq_sceneOccludersHighlighted.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div><h2 id="性能统计信息">性能统计信息</h2>
+<p>使用命令 <strong>stat softwareocclusion</strong> 了解软件遮挡在关卡中的效果。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/RenderingAndGraphics/VisibilityCulling/SoftwareOcclusionQueries/StatSOftwareOcclusion.png" ><span><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/VisibilityCulling/SoftwareOcclusionQueries/StatSOftwareOcclusion.jpg">
+		<img class="  lazyload" alt="StatSOftwareOcclusion.png" title="StatSOftwareOcclusion.png" data-src="../../../../Images/RenderingAndGraphics/VisibilityCulling/SoftwareOcclusionQueries/StatSOftwareOcclusion.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>单击查看大图。</p>
+</div><p>使用 <strong>循环计数器（Cycle Counters）</strong> 以了解这对场景处理的内容以及渲染时间。<strong>计数器（Counters）</strong> 用于定义哪些场景三角形光栅化到缓冲区，包括遮挡物、被遮挡物和进行了遮挡剔除的其他对象的总数。 
+</p><h3 id="示例场景统计信息">示例场景统计信息</h3>
+<div class="note">
+	<p>该练习仅使用一个视图，并且提供了统计数据。对于最终场景，您想要测试多个视图并根据需要添加更多遮挡物来改善遮挡剔除。</p>
+</div><p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/VisibilityCulling/SoftwareOcclusionQueries/Soq_SceneViewAndOcclusionBuffer-1.jpg">
+		<img class="  lazyload" alt="Soq_SceneViewAndOcclusionBuffer-1.png" title="Soq372029427SceneViewAndOcclusionBuffer-1.png" data-src="../../../../Images/RenderingAndGraphics/VisibilityCulling/SoftwareOcclusionQueries/Soq_SceneViewAndOcclusionBuffer-1.jpg" />
+</picture>
+<br /></p><div class="caption">
+	<p>场景视图与软件遮挡缓冲可视化对比。</p>
+</div><p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/VisibilityCulling/SoftwareOcclusionQueries/SOStats1.jpg">
+		<img class="  lazyload" alt="SOStats1.png" title="SOStats1.png" data-src="../../../../Images/RenderingAndGraphics/VisibilityCulling/SoftwareOcclusionQueries/SOStats1.jpg" />
+</picture>
+
+</p><p>该统计数据输出中需要注意的几点事项：
+</p><ul ><li class="Default"><p>在 <strong>循环计数器（Cycle Counters）</strong> 中，<strong>处理时间（Process Time）</strong>、<strong>处理遮挡物时间（Process Occluder Time）</strong> 和 <strong>光栅化时间（Rasterize Time）</strong> 耗费了大量时间。所有这些问题可以通过减少需要在缓冲区中光栅化的三角形数量加以改善，这就是我们下面要叙述的内容。
+</p></li><li class="Default"><p>在 <strong>计数器（Counters）</strong> 中，我们需要注意 <strong>光栅化遮挡物三角形（Rasterized occluder tris）</strong>。这些三角形表示指定为遮挡物的静态网格体LOD。当前总共有 <strong>3,055</strong> 个三角形，被光栅化的遮挡物有 <strong>17</strong> 个。使用三角形较少的较低LOD会缩短用来处理它们所用的时间。
+</p></li></ul><p>从这些统计数据来看，我们能确定可以通过减少需要处理的三角形数量，改善软件遮挡性能的一些方面。为此，您可以使用<a id="content_link" href="../../../WorkingWithContent/Types/StaticMeshes/HowTo/AutomaticLODGeneration/index.html" ><span>静态网格体编辑器生成具有较少三角形的LOD</span></a>。在该示例场景中，大部分内容取自<a id="content_link" href="https://www.unrealengine.com/marketplace/infinity-blade-plain-lands" ><span>无尽之剑：草地</span></a>内容包，平均遮挡物静态网格体大约有2000个三角形。在设置一些新的LOD并将它们指定为遮挡物网格体的LOD后，我们得到以下统计结果：
+</p><p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/VisibilityCulling/SoftwareOcclusionQueries/SOStats2.jpg">
+		<img class="  lazyload" alt="SOStats2.png" title="SOStats2.png" data-src="../../../../Images/RenderingAndGraphics/VisibilityCulling/SoftwareOcclusionQueries/SOStats2.jpg" />
+</picture>
+
+</p><p>最后一组需要注意的统计数据是 <strong>被遮挡物总数（Total occludees）</strong>、<strong>剔除（Culled）</strong> 和 <strong>遮挡物总数（Total occluders）</strong>。这些统计数据通过显示被剔除对象数量、遮挡物对象总数和当前可见的被遮挡物数量，来显示软件遮挡的效果。您可以比较这些数据来了解可以改进的空间。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/VisibilityCulling/SoftwareOcclusionQueries/SOStats3.jpg">
+		<img class="  lazyload" alt="SOStats3.png" title="SOStats3.png" data-src="../../../../Images/RenderingAndGraphics/VisibilityCulling/SoftwareOcclusionQueries/SOStats3.jpg" />
+</picture>
+
+</p><p>如果详细分析，可以从当前视图中剔除的潜在对象总数是 <strong>951</strong> 个。在这些潜在对象中，有 <strong>406</strong> 个已经被该视图中的 <strong>17</strong> 遮挡物剔除。这意味着，这17个遮挡物通过遮挡剔除的对象数约占被遮挡剔除的对象的43%。请注意，小遮挡物对于阻挡其他对象作用不大。只有使用中大型网格体作为遮挡物，才能发挥合理的作用，同时剔除大部分对象。<br /></p><p>要提高被剔除对象数量，设置更多遮挡物来阻挡部分场景。使用<a id="content_link" href="#调试软件遮挡的可视化" ><span>缓冲可视化程序</span></a>来了解从当前摄像机位置阻挡的内容，同时检查关卡中不同位置处的统计数据。
+</p>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/RenderingAndGraphics/VisibilityCulling/SoftwareOcclusionQueries/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:08:02 GMT -->
+</html>

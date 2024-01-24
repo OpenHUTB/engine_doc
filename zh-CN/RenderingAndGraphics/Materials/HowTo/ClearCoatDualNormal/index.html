@@ -1,0 +1,832 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/RenderingAndGraphics/Materials/HowTo/ClearCoatDualNormal/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:14:31 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/RenderingAndGraphics/Materials/HowTo/ClearCoatDualNormal/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>对透明涂层使用双法线 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/RenderingAndGraphics/Materials/HowTo/ClearCoatDualNormal/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/RenderingAndGraphics/Materials/HowTo/ClearCoatDualNormal/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/RenderingAndGraphics/Materials/HowTo/ClearCoatDualNormal/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/RenderingAndGraphics/Materials/HowTo/ClearCoatDualNormal/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Rendering/Materials/HowTo/ClearCoatDualNormal" />
+<meta name="intsourcechangelist" content="15413864" />
+<meta name="availability" content="Public" />
+<meta name="title" content="对透明涂层使用双法线" />
+<meta name="description" content="在透明涂层材质中使用双法线的指南。" />
+<meta name="version" content="4.26" />
+<meta name="parent" content="RenderingAndGraphics/Materials/HowTo" />
+<meta name="skilllevel" content="Intermediate" />
+<meta name="keywords" content="Materials" />
+<meta name="course" content="creating-pbr-materials?lang=zh-CN|创建PBR材质|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fcreating-pbr-materials%2FHighresScreenshot00006-1920x1050-2c0180460478cd00327494c6e5717e227be4926d.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fcreating-pbr-materials%2FCreating-PBR-Materials-1000x1000-0d34ec4bfc3eeb466ce5a981a867921f72464e77.png?resize=1&amp;w=300" />
+<meta name="course" content="getting-to-know-materials-for-design-visualization?lang=zh-CN|了解可视化设计中的材质|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fgetting-to-know-materials-for-design-visualization%2FIntro_to_Materials_003-1919x1079-f32638266c469a6fa2b9b2f3515e5766e8177b22.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fgetting-to-know-materials-for-design-visualization%2FGetting-to-Know-Materials-for-Design-Visualization-1000x1000-8cd1670f84e0111e39d4a3faa1e7a6ba29a30bfe.png?resize=1&amp;w=300" />
+<meta name="course" content="materials---exploring-essential-concepts?lang=zh-CN|材质：基础概念|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials---exploring-essential-concepts%2FMaterialEssentialConcepts-1920x1080-1920x1080-2414bb5cf0b0c3bd7ac4b993e725d2acedd45334.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials---exploring-essential-concepts%2FMaterials--Exploring-Essential-Concepts-1000x1000-9546cdc254e6659ce73211b5955ab9d886921256.png?resize=1&amp;w=300" />
+<meta name="course" content="materials---understanding-the-production-workflow?lang=zh-CN|材质：制作工作流|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials---understanding-the-production-workflow%2FMaterialWorkflow_ThumbnailFull-1920x1080-1920x1080-638fea6d7e3b7b299a4f433096336ce1caf662d0.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials---understanding-the-production-workflow%2F104-Materials-Production-Workflow%402x-1000x1000-ae1ba588a367d239fbe513da38bb793360c9eecf.png?resize=1&amp;w=300" />
+<meta name="course" content="materials-master-learning?lang=zh-CN|材质大师课程|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials-master-learning%2FMaterialMaster_1920x1080-1920x1080-212f85045980310d6985557f84d0217e6423b709.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials-master-learning%2FMaterials-Master-Learning-1000x1000-56fd0b66f6e798313f79737126d9215cbd4a3ff9.png?resize=1&amp;w=300" />
+<meta name="crumbs" content="%ROOT%,RenderingAndGraphics,RenderingAndGraphics/Materials,RenderingAndGraphics/Materials/HowTo" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="对透明涂层使用双法线" />
+	<meta property="og:description" content="在透明涂层材质中使用双法线的指南。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">设计视觉、渲染和图形效果</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">材质 </a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">材质 - 操作指南</a>
+
+<span class="separator">></span> <span id="page">对透明涂层使用双法线</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">对透明涂层使用双法线</h1>
+							</div>	
+							<h2 >在透明涂层材质中使用双法线的指南。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Intermediate"><a id="skill_link" href="../../../../SiteIndex/index.html?skills=Intermediate">Intermediate</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																								<div id="courses">
+	<div style="position:relative;">
+		<div id="title">相关课程</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<div name="creating-pbr-materials?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/creating-pbr-materials?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_443/Unreal%20Engine/onlinelearning-courses/creating-pbr-materials/HighresScreenshot00006-1920x1050-2c0180460478cd00327494c6e5717e227be4926d4f86.png?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_443/Unreal%20Engine/onlinelearning-courses/creating-pbr-materials/Creating-PBR-Materials-1000x1000-0d34ec4bfc3eeb466ce5a981a867921f72464e77fe4b.png?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="creating-pbr-materials?lang=zh-CN_title">
+				创建PBR材质
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="getting-to-know-materials-for-design-visualization?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/getting-to-know-materials-for-design-visualization?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/getting-to-know-materials-for-design-visualizat/Intro_to_Materials_003-1919x1079-f32638266c469a6fa2b9b2f3515e5766?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/getting-to-know-materials-for-design-visualizat/Getting-to-Know-Materials-for-Design-Visualization-1000x1000-8cd1670f84e0111e39d4a3faa1e7a6b?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="getting-to-know-materials-for-design-visualization?lang=zh-CN_title">
+				了解可视化设计中的材质
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="materials---exploring-essential-concepts?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/materials---exploring-essential-concepts?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/materials---exploring-essential-concepts/MaterialEssentialConcepts-1920x1080-1920x1080-2414bb5cf0b0c3bd7ac4b993e725d2acedd45334.42c4f86.dela?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/materials---exploring-essential-concepts/Materials--Exploring-Essential-Concepts-1000x1000-9546cdc254e6659ce73211b5955ab9d886921256.42dfe4b?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="materials---exploring-essential-concepts?lang=zh-CN_title">
+				材质：基础概念
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="materials---understanding-the-production-workflow?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/materials---understanding-the-production-workflow?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/materials---understanding-the-production-workfl/MaterialWorkflow_ThumbnailFull-1920x1080-1920x1080-638fea6d7e3b7b299a4f433096336ce1caf662d0?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/materials---understanding-the-production-workfl/104-Materials-Production-Workflow%402x-1000x1000-ae1ba588a367d239fbe513da38bb793360c9eecf.42ff?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="materials---understanding-the-production-workflow?lang=zh-CN_title">
+				材质：制作工作流
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="materials-master-learning?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/materials-master-learning?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/materials-master-learning/MaterialMaster_1920x1080-1920x1080-212f85045980310d6985557f84d0217e6423b709.4314f86.del?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/materials-master-learning/Materials-Master-Learning-1000x1000-56fd0b66f6e798313f79737126d9215cbd4a3ff9.433fe4b.de?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="materials-master-learning?lang=zh-CN_title">
+				材质大师课程
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																								<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#第二张法线贴图的作用">第二张法线贴图的作用</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#所需文件">所需文件</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#启用双法线透明涂层选项">启用双法线透明涂层选项</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#使用双法线透明涂层选项">使用双法线透明涂层选项</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>透明涂层着色模型现在可以为透明涂层以下的表面添加第二法线贴图。这样可以更精确地为复杂的材质建模，如表面与透明涂层存在几何差异的碳纤维。在下面的说明中，我们将介绍如何在 UE4 项目中打开并使用这一功能。
+</p><h2 id="第二张法线贴图的作用">第二张法线贴图的作用</h2>
+<p>在开始之前，我们先来看看添加第二张法线贴图能让我们通过透明涂层着色模型实现什么。
+</p><!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/ClearCoatDualNormal/Dual_CC_Off.jpg">
+		<img class="  lazyload" alt="透明涂层底部法线：关闭" width="700" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/ClearCoatDualNormal/Dual_CC_Off.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/ClearCoatDualNormal/Dual_CC_On.jpg">
+		<img class="  lazyload" alt="透明涂层底部法线：开启" width="700" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/ClearCoatDualNormal/Dual_CC_On.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div><p>在上图中，你可以看到添加第二法线之后对透明涂层下的表面的光照有什么效果。左图是关闭透明涂层底面法线的效果，你会注意到虽然透明涂层下方的表面与光照有互动，但光线只会在一个方向上对表面产生影响，这是的光照效果显得有些平板。右图是开启透明涂层底面法线的效果，你会注意到光线在多个方向上对表面产生影响，而这正是我们要追求的互动结果。
+</p><h2 id="所需文件">所需文件</h2>
+<p>为重现本说明中的步骤，你需要下载并解压下列纹理文件，并将其导入 UE4。如果你不熟悉这些操作，请参考 <a id="content_link"filter-data="tag_textures" href="../../../Textures/Importing/index.html" ><span>纹理导入指南</span></a>，了解相应的详细信息。
+</p><p><strong><span class="non-localized"><a id="content_link" href="https://docs.unrealengine.com/4.26/Attachments/RenderingAndGraphics/Materials/HowTo/ClearCoatDualNormal/ClearCoatDualNormalTextures.zip" ><span>所需纹理下载</span></a></span></strong>（右键 - 另存为）
+</p><h2 id="启用双法线透明涂层选项">启用双法线透明涂层选项</h2>
+<p>在使用全新的双法线功能前，你需要先按下列步骤启用该功能。
+</p><ol ><li class="Default"><p>在**主工具栏**中，点击 <strong>Edit</strong> > <strong>Project Settings</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/ClearCoatDualNormal/Dual_CC_Enable_Option_00.jpg">
+		<img class="  lazyload" alt="Dual_CC_Enable_Option_00.png" width="250" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/ClearCoatDualNormal/Dual_CC_Enable_Option_00.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 Project Settings 中，点击 <strong>Rendering</strong> > <strong>Materials</strong> 然后勾选 <strong>Clear Coat Enable Second Normal</strong> 选项前的复选框，即可启用。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/ClearCoatDualNormal/Dual_CC_Enable_Option_01.jpg">
+		<img class="  lazyload" alt="Dual_CC_Enable_Option_01.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/ClearCoatDualNormal/Dual_CC_Enable_Option_01.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>点击 <strong>Restart Now</strong> 选项重启 UE4 Editor，随后 Clear Coat Enable Second Normal 功能将被启用。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/ClearCoatDualNormal/Dual_CC_Restart_Editor.jpg">
+		<img class="  lazyload" alt="Dual_CC_Restart_Editor.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/ClearCoatDualNormal/Dual_CC_Restart_Editor.jpg" />
+</picture>
+
+</p></li></ol><h2 id="使用双法线透明涂层选项">使用双法线透明涂层选项</h2>
+<p>启用双法线透明涂层选项后，我们将创建并设置一个可以使用它的新材质。为此，请按以下步骤操作。
+</p><ol ><li class="Default"><p>在 <strong>Content Browser</strong> 中创建一个新材质，命名为 <strong>Dual_Normal_Clear_Coat</strong>，然后双击将其打开。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/ClearCoatDualNormal/Dual_CC_Create_Material.jpg">
+		<img class="  lazyload" alt="Dual_CC_Create_Material.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/ClearCoatDualNormal/Dual_CC_Create_Material.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>选择 <strong>Main Material Node</strong>，并在 <strong>Details</strong> 面板的 <strong>Material</strong> 部分中，更改下列选项。
+</p><ul ><li class="Default"><p><strong>Shading Model:</strong>Clear Coat
+</p></li></ul><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/ClearCoatDualNormal/Dual_CC_Change_Shading_Model.jpg">
+		<img class="  lazyload" alt="Dual_CC_Change_Shading_Model.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/ClearCoatDualNormal/Dual_CC_Change_Shading_Model.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>向材质图表中添加四个**标量参数表现（Scalar Parameter Expression）**节点，名称和值如下所示。然后将其按下图连接起来。
+</p><div class=" simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>材质表达式类型</p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>名称</p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>默认值</p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>Scalar Parameter</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>Base Color</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>0.1225</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>Scalar Parameter</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>Metallic</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>0.5</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>Scalar Parameter</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>Clear Coat</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>1.0</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>Scalar Parameter</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>Clear Coat Roughness</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>0.1225</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Materials/HowTo/ClearCoatDualNormal/Dual_CC_Base_Nodes_Setup.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/ClearCoatDualNormal/Dual_CC_Base_Nodes_Setup.jpg">
+		<img class="  lazyload" alt="Dual_CC_Base_Nodes_Setup.png" width="200" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/ClearCoatDualNormal/Dual_CC_Base_Nodes_Setup.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>接下来的设置：在 Material 的 <strong>Roughness</strong> 部分中，向材质图表添加下列材质表达式节点，并为其赋予以下值和名称。添加材质表达式节点后，按下图将其连接起来。
+</p><div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>材质表达式类型</p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>名称</p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>默认值</p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>Scalar Parameter</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>Roughness Scaling</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>30.0</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>Scalar Parameter</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>Roughness Min</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>0.1</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>Scalar Parameter</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>Roughness Max</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>3.0</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>Texture Sample</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>N/A</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>T_CarbonFiber_R_00</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>Texture Coordinate</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>N/A</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>N/A</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>Linear Interpolate</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>N/A</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>N/A</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/ClearCoatDualNormal/Dual_CC_Roughness_Setup.jpg">
+		<img class="  lazyload" alt="Dual_CC_Roughness_Setup.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/ClearCoatDualNormal/Dual_CC_Roughness_Setup.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>由于此材质使用两个法线贴图，我们需要对该材质的两个**法线**贴图部分分别进行设置。材质的第一个法线贴图部分对应透明涂层表面，需要下列材质表达式节点。添加材质表达式节点后，按下图将其连接起来。
+</p><div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>材质表达式类型</p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>名称</p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>默认值</p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>Scalar Parameter</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>Surface Normal Strength</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>0.98</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>Scalar Parameter</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>Surface Normal Scaling</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>30.0</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>Texture Sample</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>N/A</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>T_CarPaint_N_00</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>Texture Coordinate</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>N/A</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>N/A</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>Multiply</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>N/A</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>N/A</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>FlattenNormal</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>N/A</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>N/A</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/ClearCoatDualNormal/Dual_CC_Normal_Setup.jpg">
+		<img class="  lazyload" alt="Dual_CC_Normal_Setup.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/ClearCoatDualNormal/Dual_CC_Normal_Setup.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>此**法线**贴图对应的是材质的透明涂层以下的表面，需要对材质图表添加具有如下值和名称的材质表达式节点。添加完成后，按下图连接这些材质表达式节点。
+</p><div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>材质表达式类型</p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>名称</p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>默认值</p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>Scalar Parameter</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>Clear Coat Scaling</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>30.0</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>Scalar Parameter</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>Fiber Strength</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>0.98</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>Texture Sample</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>N/A</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>T_CarbonFiber_N_00'</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>Texture Coordinate</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>N/A</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>N/A</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>Multiply</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>N/A</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>N/A</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>FlattenNormal</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>N/A</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>N/A</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>ClearCoatBottomNormal (ClearCoatNormalCustomOutput)</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>N/A</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>N/A</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/ClearCoatDualNormal/Dual_CC_Normal_ClearCoat_Setup.jpg">
+		<img class="  lazyload" alt="Dual_CC_Normal_ClearCoat_Setup.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/ClearCoatDualNormal/Dual_CC_Normal_ClearCoat_Setup.jpg" />
+</picture>
+
+</p><div class="note">
+	<p>请确保将 <strong>ClearCoatBottomNormal</strong> 材质表达式节点添加到了材质图表中，并将需要使用的法线贴图连接到其输入。否则，你将无法在材质中看到第二法线贴图。</p>
+</div></li><li class="Default"><p>设置好材质的各个部分后，按下图将输出连接到主材质节点。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Materials/HowTo/ClearCoatDualNormal/Dual_CC_Final_Setup.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/ClearCoatDualNormal/Dual_CC_Final_Setup.jpg">
+		<img class="  lazyload" alt="Dual_CC_Final_Setup.png" width="500" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/ClearCoatDualNormal/Dual_CC_Final_Setup.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>最后，当材质的所有部分都连接到主材质节点的正确位置后，点击 <strong>Apply</strong> 按钮编译材质，然后关闭材质编辑器。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/ClearCoatDualNormal/Dual_CC_Apply_Material.jpg">
+		<img class="  lazyload" alt="Dual_CC_Apply_Material.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/ClearCoatDualNormal/Dual_CC_Apply_Material.jpg" />
+</picture>
+
+</p></li></ol>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Materials">Materials</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/RenderingAndGraphics/Materials/HowTo/ClearCoatDualNormal/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:14:36 GMT -->
+</html>

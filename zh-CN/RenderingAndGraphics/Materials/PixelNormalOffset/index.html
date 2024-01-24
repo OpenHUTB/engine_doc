@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/RenderingAndGraphics/Materials/PixelNormalOffset/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 10:57:49 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/RenderingAndGraphics/Materials/PixelNormalOffset/" />');
+				var udnCSS = '../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>使用像素法线偏移实现折射 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/RenderingAndGraphics/Materials/PixelNormalOffset/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/RenderingAndGraphics/Materials/PixelNormalOffset/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/RenderingAndGraphics/Materials/PixelNormalOffset/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/RenderingAndGraphics/Materials/PixelNormalOffset/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Rendering/Materials/PixelNormalOffset" />
+<meta name="intsourcechangelist" content="14237003" />
+<meta name="availability" content="Public" />
+<meta name="title" content="使用像素法线偏移实现折射" />
+<meta name="description" content="材质中像素法线偏移折射模式总览。" />
+<meta name="related" content="RenderingAndGraphics/Materials" />
+<meta name="related" content="RenderingAndGraphics/Materials/HowTo/Refraction" />
+<meta name="version" content="4.14" />
+<meta name="skilllevel" content="Intermediate" />
+<meta name="parent" content="RenderingAndGraphics/Materials" />
+<meta name="order" content="13" />
+<meta name="type" content="overview" />
+<meta name="keywords" content="Materials" />
+<meta name="topic-image" content="PNO_Topic.png" />
+<meta name="course" content="creating-pbr-materials?lang=zh-CN|创建PBR材质|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fcreating-pbr-materials%2FHighresScreenshot00006-1920x1050-2c0180460478cd00327494c6e5717e227be4926d.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fcreating-pbr-materials%2FCreating-PBR-Materials-1000x1000-0d34ec4bfc3eeb466ce5a981a867921f72464e77.png?resize=1&amp;w=300" />
+<meta name="course" content="getting-to-know-materials-for-design-visualization?lang=zh-CN|了解可视化设计中的材质|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fgetting-to-know-materials-for-design-visualization%2FIntro_to_Materials_003-1919x1079-f32638266c469a6fa2b9b2f3515e5766e8177b22.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fgetting-to-know-materials-for-design-visualization%2FGetting-to-Know-Materials-for-Design-Visualization-1000x1000-8cd1670f84e0111e39d4a3faa1e7a6ba29a30bfe.png?resize=1&amp;w=300" />
+<meta name="course" content="materials---exploring-essential-concepts?lang=zh-CN|材质：基础概念|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials---exploring-essential-concepts%2FMaterialEssentialConcepts-1920x1080-1920x1080-2414bb5cf0b0c3bd7ac4b993e725d2acedd45334.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials---exploring-essential-concepts%2FMaterials--Exploring-Essential-Concepts-1000x1000-9546cdc254e6659ce73211b5955ab9d886921256.png?resize=1&amp;w=300" />
+<meta name="course" content="materials---understanding-the-production-workflow?lang=zh-CN|材质：制作工作流|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials---understanding-the-production-workflow%2FMaterialWorkflow_ThumbnailFull-1920x1080-1920x1080-638fea6d7e3b7b299a4f433096336ce1caf662d0.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials---understanding-the-production-workflow%2F104-Materials-Production-Workflow%402x-1000x1000-ae1ba588a367d239fbe513da38bb793360c9eecf.png?resize=1&amp;w=300" />
+<meta name="course" content="materials-master-learning?lang=zh-CN|材质大师课程|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials-master-learning%2FMaterialMaster_1920x1080-1920x1080-212f85045980310d6985557f84d0217e6423b709.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials-master-learning%2FMaterials-Master-Learning-1000x1000-56fd0b66f6e798313f79737126d9215cbd4a3ff9.png?resize=1&amp;w=300" />
+<meta name="crumbs" content="%ROOT%,RenderingAndGraphics,RenderingAndGraphics/Materials" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="使用像素法线偏移实现折射" />
+	<meta property="og:description" content="材质中像素法线偏移折射模式总览。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">设计视觉、渲染和图形效果</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">材质 </a>
+
+<span class="separator">></span> <span id="page">使用像素法线偏移实现折射</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">使用像素法线偏移实现折射</h1>
+							</div>	
+							<h2 >材质中像素法线偏移折射模式总览。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Intermediate"><a id="skill_link" href="../../../SiteIndex/index.html?skills=Intermediate">Intermediate</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																		<div id="seeAlso">
+	<div style="position:relative;">
+		<div id="title">参见</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<p>
+						<a id="related_link" href="../index.html" title="使用着色器控制世界中的表面外形。">材质</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../HowTo/Refraction/index.html" title="有关在材质中使用折射的操作指南。">使用折射</a>
+					</p>
+				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																		<div id="courses">
+	<div style="position:relative;">
+		<div id="title">相关课程</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<div name="creating-pbr-materials?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/creating-pbr-materials?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_443/Unreal%20Engine/onlinelearning-courses/creating-pbr-materials/HighresScreenshot00006-1920x1050-2c0180460478cd00327494c6e5717e227be4926d4f86.png?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_443/Unreal%20Engine/onlinelearning-courses/creating-pbr-materials/Creating-PBR-Materials-1000x1000-0d34ec4bfc3eeb466ce5a981a867921f72464e77fe4b.png?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="creating-pbr-materials?lang=zh-CN_title">
+				创建PBR材质
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="getting-to-know-materials-for-design-visualization?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/getting-to-know-materials-for-design-visualization?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/getting-to-know-materials-for-design-visualizat/Intro_to_Materials_003-1919x1079-f32638266c469a6fa2b9b2f3515e5766?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/getting-to-know-materials-for-design-visualizat/Getting-to-Know-Materials-for-Design-Visualization-1000x1000-8cd1670f84e0111e39d4a3faa1e7a6b?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="getting-to-know-materials-for-design-visualization?lang=zh-CN_title">
+				了解可视化设计中的材质
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="materials---exploring-essential-concepts?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/materials---exploring-essential-concepts?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/materials---exploring-essential-concepts/MaterialEssentialConcepts-1920x1080-1920x1080-2414bb5cf0b0c3bd7ac4b993e725d2acedd45334.42c4f86.dela?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/materials---exploring-essential-concepts/Materials--Exploring-Essential-Concepts-1000x1000-9546cdc254e6659ce73211b5955ab9d886921256.42dfe4b?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="materials---exploring-essential-concepts?lang=zh-CN_title">
+				材质：基础概念
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="materials---understanding-the-production-workflow?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/materials---understanding-the-production-workflow?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/materials---understanding-the-production-workfl/MaterialWorkflow_ThumbnailFull-1920x1080-1920x1080-638fea6d7e3b7b299a4f433096336ce1caf662d0?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/materials---understanding-the-production-workfl/104-Materials-Production-Workflow%402x-1000x1000-ae1ba588a367d239fbe513da38bb793360c9eecf.42ff?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="materials---understanding-the-production-workflow?lang=zh-CN_title">
+				材质：制作工作流
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="materials-master-learning?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/materials-master-learning?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/materials-master-learning/MaterialMaster_1920x1080-1920x1080-212f85045980310d6985557f84d0217e6423b709.4314f86.del?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/materials-master-learning/Materials-Master-Learning-1000x1000-56fd0b66f6e798313f79737126d9215cbd4a3ff9.433fe4b.de?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="materials-master-learning?lang=zh-CN_title">
+				材质大师课程
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																								<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#折射的物理和非物理模型">折射的物理和非物理模型</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#最终结果">最终结果</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>在虚幻引擎 4 的当前版本中，我们使用了折射的非物理模型 <strong>像素法线偏移（Pixel Normal Offset）</strong>。
+内嵌代码使用 <strong>Index of Refraction</strong> 的折射物理模型，以光线在媒介之间的折射方式为基础，可能导致大量穿帮（因为场景颜色在屏幕外读取）。
+可用于玻璃罐之类的小型物体（效果不甚明显），但在平面上存在问题。
+<strong>像素法线偏移（Pixel Normal Offset）</strong> 可为水面之类的大型平面启用折射，此处常量偏移不会从远离屏幕之外之处进行读取。
+它以顶点法线作为参考，然后通过逐像素法线和顶点法线之间的差别计算折射偏移，使这些平面不会移位。
+</p><h2 id="折射的物理和非物理模型">折射的物理和非物理模型</h2>
+<p>在下方的对比中，<strong>Index of Refraction</strong> 物理模型的折射模式和 <strong>Pixel Normal Offset</strong> 的非物理模型展示了材质中
+法线读取方式的差异。 
+</p><div class="note">
+	<p>可阅读 <a id="content_link"filter-data="tag_materials" href="../HowTo/Refraction/index.html" ><span>使用折射</span></a> 页面，了解折射物理模型的更多内容，以及如何结合材质使用。 </p>
+</div><div class="imagetable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/Materials/PixelNormalOffset/RefractionSettingIOR.jpg">
+		<img class="  lazyload" alt="RefractionSettingIOR.png" width="400" data-src="../../../../Images/RenderingAndGraphics/Materials/PixelNormalOffset/RefractionSettingIOR.jpg" />
+</picture>
+ </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/Materials/PixelNormalOffset/RefractionSettingPNO.jpg">
+		<img class="  lazyload" alt="RefractionSettingPNO.png" width="400" data-src="../../../../Images/RenderingAndGraphics/Materials/PixelNormalOffset/RefractionSettingPNO.jpg" />
+</picture>
+ </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>折射设置的物理模型：无法线贴图 Index of Refraction</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>折射设置的非物理模型： Pixel Normal Offset</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div><!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/Materials/PixelNormalOffset/IOR_WithoutNormals.jpg">
+		<img class="  lazyload" alt="折射模式：无法线贴图 Index of Refraction" data-src="../../../../Images/RenderingAndGraphics/Materials/PixelNormalOffset/IOR_WithoutNormals.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/Materials/PixelNormalOffset/PNO_WithoutNormals.jpg">
+		<img class="  lazyload" alt="折射模式：无法线贴图 Pixel Normal Offset" data-src="../../../../Images/RenderingAndGraphics/Materials/PixelNormalOffset/PNO_WithoutNormals.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div><p>在此处对比 <strong>Index of Refraction</strong> 模式和 <strong>Pixel Normal Offset</strong> 模式（不从屏幕过远的地方进行读取）后，
+即可发现图像出现移位。<strong>Index of Refraction</strong> 无需法线贴图插入材质即可使用；而 <strong>Pixel Normal Offset</strong> 没有法线贴图则无法获得折射。
+</p><!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/Materials/PixelNormalOffset/IOR_WithNormals.jpg">
+		<img class="  lazyload" alt="折射模式： 带法线贴图 Index of Refraction" data-src="../../../../Images/RenderingAndGraphics/Materials/PixelNormalOffset/IOR_WithNormals.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/Materials/PixelNormalOffset/PNO_WithNormals.jpg">
+		<img class="  lazyload" alt="折射模式： 带法线贴图 Pixel Normal Offset" data-src="../../../../Images/RenderingAndGraphics/Materials/PixelNormalOffset/PNO_WithNormals.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div><p>添加法线贴图到材质时，大于 1 的折射值插入 Refraction 输入；使用 <strong>Pixel Normal Offset</strong> 后法线将沿表面平移。
+然而你会注意到使用 <strong>Index of Refraction</strong> 后仍然会从屏幕外读取偏移，对使用折射的平面而言并非理想效果。
+</p><h2 id="最终结果">最终结果</h2>
+<p>在此示例中，折射量在值 1.0（完全无折射）到 2.0 之间调整，
+使用 <strong>Pixel Normal Offset</strong> 时沿表面形成一些折射而不使图像发生移位。 
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_0_jbzmcg2k_64
+{
+	margin: 0px;
+	width: 640px;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_0_jbzmcg2k_64:after
+{
+	content: "";
+	padding-top: 360px;
+	display: block;
+}
+</style> 
+<div id="player_0_jbzmcg2k_64"> 
+	<div id="playerContainer_0_jbzmcg2k_64" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/0_jbzmcg2k/embed.html"></iframe>
+	</div>
+</div>
+
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../SiteIndex/index.html?tags=Materials">Materials</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/RenderingAndGraphics/Materials/PixelNormalOffset/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 10:57:52 GMT -->
+</html>

@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/InteractiveExperiences/Physics/PhysicsAssetEditor/HowTo/KinematicWithSimulatedParents/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:28:34 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var finishButton = finishButtonTemplate;
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/InteractiveExperiences/Physics/PhysicsAssetEditor/HowTo/KinematicWithSimulatedParents/" />');
+				var udnCSS = '../../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>结合模拟父项使用运动学形体 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+		    <script  src="../../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+		    <script  src="../../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/InteractiveExperiences/Physics/PhysicsAssetEditor/HowTo/KinematicWithSimulatedParents/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/InteractiveExperiences/Physics/PhysicsAssetEditor/HowTo/KinematicWithSimulatedParents/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/InteractiveExperiences/Physics/PhysicsAssetEditor/HowTo/KinematicWithSimulatedParents/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/InteractiveExperiences/Physics/PhysicsAssetEditor/HowTo/KinematicWithSimulatedParents/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Physics/PhysicsAssetEditor/HowTo/KinematicWithSimulatedParents" />
+<meta name="intsourcechangelist" content="15398625" />
+<meta name="availability" content="Public" />
+<meta name="title" content="结合模拟父项使用运动学形体" />
+<meta name="description" content="此指南说明如何用模拟父项设置运动学物理形体。" />
+<meta name="parent" content="InteractiveExperiences/Physics/PhysicsAssetEditor/HowTo" />
+<meta name="order" content="1" />
+<meta name="version" content="4.26" />
+<meta name="skilllevel" content="Intermediate" />
+<meta name="topic-image" content="KinematicHowTo_04.png" />
+<meta name="related" content="InteractiveExperiences/Physics/PhysicsAssetEditor" />
+<meta name="related" content="InteractiveExperiences/Physics/PhysicsAssetEditor/Reference" />
+<meta name="type" content="how-to" />
+<meta name="keywords" content="Physics" />
+<meta name="keywords" content="Kinematic" />
+<meta name="keywords" content="PhAT" />
+<meta name="crumbs" content="%ROOT%,InteractiveExperiences,InteractiveExperiences/Physics,InteractiveExperiences/Physics/PhysicsAssetEditor,InteractiveExperiences/Physics/PhysicsAssetEditor/HowTo" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="结合模拟父项使用运动学形体" />
+	<meta property="og:description" content="此指南说明如何用模拟父项设置运动学物理形体。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../../index.html">创建交互体验</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">物理</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">物理资产编辑器</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">物理资源编辑器操作指南汇总</a>
+
+<span class="separator">></span> <span id="page">结合模拟父项使用运动学形体</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">结合模拟父项使用运动学形体</h1>
+							</div>	
+							<h2 >此指南说明如何用模拟父项设置运动学物理形体。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Intermediate"><a id="skill_link" href="../../../../../SiteIndex/index.html?skills=Intermediate">Intermediate</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																														<div id="seeAlso">
+	<div style="position:relative;">
+		<div id="title">参见</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<p>
+						<a id="related_link" href="../../index.html" title="用于设置物理形体和约束的编辑器，而骨架网格体的物理模拟与碰撞会用到这些物理形体和约束。">物理资产编辑器</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../Reference.html" title="在物理资产编辑器中可访问的物理形体、物理约束和物理资产的属性列表及说明。">物理资产属性参考</a>
+					</p>
+				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																														<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#步骤">步骤</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#最终结果">最终结果</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p><a id="content_link"filter-data="tag_physics" href="../../index.html" ><span>物理资产编辑器</span></a> 提供了多种对物理形体进行模拟的方式，运动学物理形体结合模拟父项也是其中之一。
+这使用户能够对由动画数据驱动的子形体进行定义，而这些形体的父项则由物理模拟数据所驱动。
+这种技术十分实用于这类情况：设置角色吊在边缘或沿边缘攀行，对滚落的岩石或其他废墟作出反应，生成基于物理的反应动作。 
+</p><p>在此指南中，我们使用带模拟父项的运动学形体生成角色悬吊在边缘的效果，而身体的其他部分则由物理进行模拟。 
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/InteractiveExperiences/Physics/PhysicsAssetEditor/HowTo/KinematicWithSimulatedParents/EndResultImage.jpg">
+		<img class="  lazyload" alt="EndResultImage.png" data-src="../../../../../../Images/InteractiveExperiences/Physics/PhysicsAssetEditor/HowTo/KinematicWithSimulatedParents/EndResultImage.jpg" />
+</picture>
+
+</p><h2 id="步骤">步骤</h2>
+<div class="note">
+	<p>在此指南中，我们使用的是启用了 <strong>Starter Content</strong> 的 <strong>Blueprint Third Person 模板</strong> 项目。 </p>
+</div><ol ><li class="Default"><p>在项目的 <strong>Content/Mannequin/Character/Mesh</strong> 文件夹中，打开 <strong>SK_Mannequin_PhysicsAsset</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/InteractiveExperiences/Physics/PhysicsAssetEditor/HowTo/KinematicWithSimulatedParents/KinematicHowTo_01.jpg">
+		<img class="  lazyload" alt="KinematicHowTo_01.png" width="600" data-src="../../../../../../Images/InteractiveExperiences/Physics/PhysicsAssetEditor/HowTo/KinematicWithSimulatedParents/KinematicHowTo_01.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>骨架树（Skeleton Tree）</strong> 窗口中，按住 <strong>Ctrl</strong> 并同时选中 <strong>hand_l</strong> 和 <strong>hand_r</strong> 刚体，然后在 <strong>细节（Details）</strong> 面板中，将 <strong>物理类型（Physics Type）</strong> 改为 <strong>运动学（Kinematic）</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/InteractiveExperiences/Physics/PhysicsAssetEditor/HowTo/KinematicWithSimulatedParents/KinematicHowTo_03.jpg">
+		<img class="  lazyload" alt="KinematicHowTo_03.png" width="800" data-src="../../../../../../Images/InteractiveExperiences/Physics/PhysicsAssetEditor/HowTo/KinematicWithSimulatedParents/KinematicHowTo_03.jpg" />
+</picture>
+
+</p><p>通过将这些骨骼设为 Kinematic 后，它们将不再模拟物理，而是跟随动画数据。 
+</p><p>另一种方法是 <strong>右键点击</strong> 层级列表中的骨骼，并在右键菜单中展开 <strong>Physics Type</strong>，然后将 将 <strong>物理类型（Physics Type）</strong> 改为 <strong>运动学（Kinematic）</strong>。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../../Images/InteractiveExperiences/Physics/PhysicsAssetEditor/HowTo/KinematicWithSimulatedParents/KinematicHowTo_04.png" ><span><picture>
+		<source data-srcset="./../../../../../../Images/InteractiveExperiences/Physics/PhysicsAssetEditor/HowTo/KinematicWithSimulatedParents/KinematicHowTo_04.jpg">
+		<img class="  lazyload" alt="KinematicHowTo_04.png" width="800" data-src="../../../../../../Images/InteractiveExperiences/Physics/PhysicsAssetEditor/HowTo/KinematicWithSimulatedParents/KinematicHowTo_04.jpg" />
+</picture>
+</span></a></span></p>
+</div><p>此选项可用于设置当前骨骼下子形体的 <strong>Physics Type</strong> 属性。 
+</p></li><li class="Default"><p>点击视口中的空白位置取消选择所有骨骼，然后在 <strong>Details</strong> 面板中将 <strong>Physics Update Mode</strong> 改为 <strong>Component Transform is Kinematic</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/InteractiveExperiences/Physics/PhysicsAssetEditor/HowTo/KinematicWithSimulatedParents/KinematicHowTo_05.jpg">
+		<img class="  lazyload" alt="KinematicHowTo_05.png" width="400" data-src="../../../../../../Images/InteractiveExperiences/Physics/PhysicsAssetEditor/HowTo/KinematicWithSimulatedParents/KinematicHowTo_05.jpg" />
+</picture>
+
+</p><p>此选项决定根形体的模拟是更新组件变形，或是动态学。 
+</p></li><li class="Default"><p>在工具栏中，打开 <strong>箭头图标（arrow icon）</strong> 的下拉菜单，然后选择 <strong>模拟（Simulate）</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/InteractiveExperiences/Physics/PhysicsAssetEditor/HowTo/KinematicWithSimulatedParents/KinematicHowTo_06.jpg">
+		<img class="  lazyload" alt="KinematicHowTo_06.png" width="400" data-src="../../../../../../Images/InteractiveExperiences/Physics/PhysicsAssetEditor/HowTo/KinematicWithSimulatedParents/KinematicHowTo_06.jpg" />
+</picture>
+
+</p><p>视口中的角色将呈蜷曲状，体现出用手臂悬吊的动作。 
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/InteractiveExperiences/Physics/PhysicsAssetEditor/HowTo/KinematicWithSimulatedParents/KinematicHowTo_07.jpg">
+		<img class="  lazyload" alt="KinematicHowTo_07.png" data-src="../../../../../../Images/InteractiveExperiences/Physics/PhysicsAssetEditor/HowTo/KinematicWithSimulatedParents/KinematicHowTo_07.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>点击工具栏中的 <strong>Animation</strong> 选项图标，然后选择 <strong>ThirdPersonJump_Loop</strong> 动画。 
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/InteractiveExperiences/Physics/PhysicsAssetEditor/HowTo/KinematicWithSimulatedParents/KinematicHowTo_08.jpg">
+		<img class="  lazyload" alt="KinematicHowTo_08.png" width="300" data-src="../../../../../../Images/InteractiveExperiences/Physics/PhysicsAssetEditor/HowTo/KinematicWithSimulatedParents/KinematicHowTo_08.jpg" />
+</picture>
+
+</p><p>角色双手将跟随 ThirdPersonJump_Loop 运动中包含的动画数据来移动（因为它们已被设为运动学）。 
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/InteractiveExperiences/Physics/PhysicsAssetEditor/HowTo/KinematicWithSimulatedParents/KinematicHowTo_09.jpg">
+		<img class="  lazyload" alt="KinematicHowTo_09.png" data-src="../../../../../../Images/InteractiveExperiences/Physics/PhysicsAssetEditor/HowTo/KinematicWithSimulatedParents/KinematicHowTo_09.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在主编辑器窗口中将 <strong>SK_Mannequin_PhysicsAsset</strong> 拖入关卡，然后在 <strong>Details</strong> 面板中将 <strong>Physics Transform Update Mode</strong> 设为 <strong>Component Transform is Kinematic</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/InteractiveExperiences/Physics/PhysicsAssetEditor/HowTo/KinematicWithSimulatedParents/KinematicHowTo_10.jpg">
+		<img class="  lazyload" alt="KinematicHowTo_10.png" width="400" data-src="../../../../../../Images/InteractiveExperiences/Physics/PhysicsAssetEditor/HowTo/KinematicWithSimulatedParents/KinematicHowTo_10.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>选择 <strong>SkeletalMeshComponent</strong>，然后将 <strong>Animation Mode</strong> 改为 <strong>Use Animation Asset</strong>、<strong>Anim to Play</strong> 改为 <strong>ThirdPersonJump_Loop</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/InteractiveExperiences/Physics/PhysicsAssetEditor/HowTo/KinematicWithSimulatedParents/KinematicHowTo_11.jpg">
+		<img class="  lazyload" alt="KinematicHowTo_11.png" width="400" data-src="../../../../../../Images/InteractiveExperiences/Physics/PhysicsAssetEditor/HowTo/KinematicWithSimulatedParents/KinematicHowTo_11.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在工具栏中点击 <strong>Play</strong> 按钮即可在编辑器中进行游戏。
+</p></li></ol><h2 id="最终结果">最终结果</h2>
+<p>以下视频中可以看到，我们在墙边缘放置了一个角色，操纵另一个角色撞向悬吊的角色时它会对物理形成响应，而双手则较为固定。 
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_1_pzzak6x6_15
+{
+	margin: 0px;
+	width: 75%;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_1_pzzak6x6_15:after
+{
+	content: "";
+	padding-top: 56.25%;
+	display: block;
+}
+</style> 
+<div id="player_1_pzzak6x6_15"> 
+	<div id="playerContainer_1_pzzak6x6_15" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/1_pzzak6x6/embed.html"></iframe>
+	</div>
+</div>
+<p>上方视频中使用的动画效果并不理想，以下视频中我们将相同的概念应用到了角色悬吊和攀行墙沿的动画上。 
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_0_769iufqe_38
+{
+	margin: 0px;
+	width: 100%;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_0_769iufqe_38:after
+{
+	content: "";
+	padding-top: 56.25%;
+	display: block;
+}
+</style> 
+<div id="player_0_769iufqe_38"> 
+	<div id="playerContainer_0_769iufqe_38" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/0_769iufqe/embed.html"></iframe>
+	</div>
+</div>
+<p>手臂和头部设为 Kinematic（金色框表示），而其他身体部位仍为模拟。 
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/InteractiveExperiences/Physics/PhysicsAssetEditor/HowTo/KinematicWithSimulatedParents/ExampleSetup.jpg">
+		<img class="  lazyload" alt="ExampleSetup.png" data-src="../../../../../../Images/InteractiveExperiences/Physics/PhysicsAssetEditor/HowTo/KinematicWithSimulatedParents/ExampleSetup.jpg" />
+</picture>
+
+</p>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../../SiteIndex/index.html?tags=Physics">Physics</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../../SiteIndex/index.html?tags=Kinematic">Kinematic</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../../SiteIndex/index.html?tags=PhAT">PhAT</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/InteractiveExperiences/Physics/PhysicsAssetEditor/HowTo/KinematicWithSimulatedParents/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:28:40 GMT -->
+</html>

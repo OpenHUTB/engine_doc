@@ -1,0 +1,471 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/RenderingAndGraphics/Materials/HowTo/ColoredTransluscentShadows/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:14:36 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/RenderingAndGraphics/Materials/HowTo/ColoredTransluscentShadows/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>使用彩色半透明阴影 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/RenderingAndGraphics/Materials/HowTo/ColoredTransluscentShadows/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/RenderingAndGraphics/Materials/HowTo/ColoredTransluscentShadows/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/RenderingAndGraphics/Materials/HowTo/ColoredTransluscentShadows/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/RenderingAndGraphics/Materials/HowTo/ColoredTransluscentShadows/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Rendering/Materials/HowTo/ColoredTransluscentShadows" />
+<meta name="intsourcechangelist" content="11969630" />
+<meta name="availability" content="Public" />
+<meta name="title" content="使用彩色半透明阴影" />
+<meta name="description" content="有关设置和使用彩色半透明阴影的指南" />
+<meta name="related" content="RenderingAndGraphics/Materials/MaterialProperties/BlendModes" />
+<meta name="related" content="RenderingAndGraphics/Lightmass" />
+<meta name="related" content="RenderingAndGraphics/Materials/Functions/Reference/Opacity" />
+<meta name="related" content="BuildingWorlds/LightingAndShadows/LitTranslucency" />
+<meta name="version" content="4.9" />
+<meta name="skilllevel" content="Intermediate" />
+<meta name="keywords" content="Materials" />
+<meta name="course" content="creating-pbr-materials?lang=zh-CN|创建PBR材质|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fcreating-pbr-materials%2FHighresScreenshot00006-1920x1050-2c0180460478cd00327494c6e5717e227be4926d.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fcreating-pbr-materials%2FCreating-PBR-Materials-1000x1000-0d34ec4bfc3eeb466ce5a981a867921f72464e77.png?resize=1&amp;w=300" />
+<meta name="course" content="getting-to-know-materials-for-design-visualization?lang=zh-CN|了解可视化设计中的材质|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fgetting-to-know-materials-for-design-visualization%2FIntro_to_Materials_003-1919x1079-f32638266c469a6fa2b9b2f3515e5766e8177b22.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fgetting-to-know-materials-for-design-visualization%2FGetting-to-Know-Materials-for-Design-Visualization-1000x1000-8cd1670f84e0111e39d4a3faa1e7a6ba29a30bfe.png?resize=1&amp;w=300" />
+<meta name="course" content="materials---exploring-essential-concepts?lang=zh-CN|材质：基础概念|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials---exploring-essential-concepts%2FMaterialEssentialConcepts-1920x1080-1920x1080-2414bb5cf0b0c3bd7ac4b993e725d2acedd45334.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials---exploring-essential-concepts%2FMaterials--Exploring-Essential-Concepts-1000x1000-9546cdc254e6659ce73211b5955ab9d886921256.png?resize=1&amp;w=300" />
+<meta name="course" content="materials---understanding-the-production-workflow?lang=zh-CN|材质：制作工作流|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials---understanding-the-production-workflow%2FMaterialWorkflow_ThumbnailFull-1920x1080-1920x1080-638fea6d7e3b7b299a4f433096336ce1caf662d0.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials---understanding-the-production-workflow%2F104-Materials-Production-Workflow%402x-1000x1000-ae1ba588a367d239fbe513da38bb793360c9eecf.png?resize=1&amp;w=300" />
+<meta name="course" content="materials-master-learning?lang=zh-CN|材质大师课程|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials-master-learning%2FMaterialMaster_1920x1080-1920x1080-212f85045980310d6985557f84d0217e6423b709.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials-master-learning%2FMaterials-Master-Learning-1000x1000-56fd0b66f6e798313f79737126d9215cbd4a3ff9.png?resize=1&amp;w=300" />
+<meta name="crumbs" content="%ROOT%,RenderingAndGraphics,RenderingAndGraphics/Materials,RenderingAndGraphics/Materials/HowTo" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="使用彩色半透明阴影" />
+	<meta property="og:description" content="有关设置和使用彩色半透明阴影的指南" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">设计视觉、渲染和图形效果</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">材质 </a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">材质 - 操作指南</a>
+
+<span class="separator">></span> <span id="page">使用彩色半透明阴影</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">使用彩色半透明阴影</h1>
+							</div>	
+							<h2 >有关设置和使用彩色半透明阴影的指南</h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Intermediate"><a id="skill_link" href="../../../../SiteIndex/index.html?skills=Intermediate">Intermediate</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																		<div id="seeAlso">
+	<div style="position:relative;">
+		<div id="title">参见</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<p>
+						<a id="related_link" href="../../MaterialProperties/BlendModes/index.html" title="概述材质混合模式及其如何影响材质的渲染。">材质混合模式</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../../Lightmass/index.html" title="概述Lightmass的全部特性和设置。">CPU Lightmass全局光照</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../Functions/Reference/Opacity/index.html" title="这些函数用于处理材质网络中的不透明值。">不透明度</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../../../BuildingWorlds/LightingAndShadows/LitTranslucency/index.html" title="说明如何对半透明表面施以光照，并投射包括自身阴影在内的阴影。">光照半透明</a>
+					</p>
+				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																		<div id="courses">
+	<div style="position:relative;">
+		<div id="title">相关课程</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<div name="creating-pbr-materials?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/creating-pbr-materials?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_443/Unreal%20Engine/onlinelearning-courses/creating-pbr-materials/HighresScreenshot00006-1920x1050-2c0180460478cd00327494c6e5717e227be4926d4f86.png?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_443/Unreal%20Engine/onlinelearning-courses/creating-pbr-materials/Creating-PBR-Materials-1000x1000-0d34ec4bfc3eeb466ce5a981a867921f72464e77fe4b.png?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="creating-pbr-materials?lang=zh-CN_title">
+				创建PBR材质
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="getting-to-know-materials-for-design-visualization?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/getting-to-know-materials-for-design-visualization?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/getting-to-know-materials-for-design-visualizat/Intro_to_Materials_003-1919x1079-f32638266c469a6fa2b9b2f3515e5766?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/getting-to-know-materials-for-design-visualizat/Getting-to-Know-Materials-for-Design-Visualization-1000x1000-8cd1670f84e0111e39d4a3faa1e7a6b?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="getting-to-know-materials-for-design-visualization?lang=zh-CN_title">
+				了解可视化设计中的材质
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="materials---exploring-essential-concepts?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/materials---exploring-essential-concepts?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/materials---exploring-essential-concepts/MaterialEssentialConcepts-1920x1080-1920x1080-2414bb5cf0b0c3bd7ac4b993e725d2acedd45334.42c4f86.dela?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/materials---exploring-essential-concepts/Materials--Exploring-Essential-Concepts-1000x1000-9546cdc254e6659ce73211b5955ab9d886921256.42dfe4b?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="materials---exploring-essential-concepts?lang=zh-CN_title">
+				材质：基础概念
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="materials---understanding-the-production-workflow?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/materials---understanding-the-production-workflow?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/materials---understanding-the-production-workfl/MaterialWorkflow_ThumbnailFull-1920x1080-1920x1080-638fea6d7e3b7b299a4f433096336ce1caf662d0?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/materials---understanding-the-production-workfl/104-Materials-Production-Workflow%402x-1000x1000-ae1ba588a367d239fbe513da38bb793360c9eecf.42ff?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="materials---understanding-the-production-workflow?lang=zh-CN_title">
+				材质：制作工作流
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="materials-master-learning?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/materials-master-learning?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/materials-master-learning/MaterialMaster_1920x1080-1920x1080-212f85045980310d6985557f84d0217e6423b709.4314f86.del?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/materials-master-learning/Materials-Master-Learning-1000x1000-56fd0b66f6e798313f79737126d9215cbd4a3ff9.433fe4b.de?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="materials-master-learning?lang=zh-CN_title">
+				材质大师课程
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																								<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#半透明阴影颜色">半透明阴影颜色</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#材质设置">材质设置</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#照亮材质">照亮材质</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#不照亮材质">不照亮材质</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#使用中的彩色半透明阴影">使用中的彩色半透明阴影</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#蒙版的阿尔法通道_1">蒙版的阿尔法通道</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#定制不透明度_1">定制不透明度</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#阴影清晰度">阴影清晰度</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#光照贴图分辨率">光照贴图分辨率</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#局限性">局限性</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#结论">结论</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>在本操作指南中，我们将说明如何设置和使用 <strong>半透明阴影颜色</strong> 来创建可以投射彩色阴影的材质。 
+为场景注入一些颜色适合于许多应用，但最常用于彩绘玻璃窗等物品。
+</p><p> <strong>示例：</strong>
+</p><p> <picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/ColoredTransluscentShadows/translucent_T.jpg">
+		<img class="  lazyload" alt="translucent_T.JPG" width="450" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/ColoredTransluscentShadows/translucent_T.jpg" />
+</picture>
+
+</p><h2 id="半透明阴影颜色">半透明阴影颜色</h2>
+<p>"半透明阴影颜色"术语用于说明阴影在穿过对象时如何拾取对象的颜色（也称为 <strong>传播</strong>）。 
+穿过材质的光线量由材质的不透明度值（介于 0 与 1 之间）及投射到材质的光线量确定。 
+例如，如果不透明度设置为 0，那么材质的彩色阴影不会有光线传播。如果不透明值设置为 1，那么它将是完全不透明物。 
+</p><h2 id="材质设置">材质设置</h2>
+<ul ><li class="Default"><p>在以下示例中，将使用"半透明度"作为选择的混合模式。 
+</p></li><li class="Default"><p>可以使用的"照亮"和"不照亮"混合模式是：半透明、递增法和调制
+</p></li></ul><div class="note">
+	<p>注 
+</p><ul ><li class="Default"><p>间接照明有时会削弱半透明阴影，使其饱和度低于半透明材质的自发光或漫射。 
+</p></li><li class="Default"><p>法线贴图强度可以通过增大 <strong>半透明平行光强度</strong> 进行人工调整
+</p></li></ul>
+</div><div class="warning">
+	<ul ><li class="Default"><p>使用混合模式 <strong>调制</strong> 要求在"材质输入"（Material Inputs）面板中禁用"单独半透明"（Separate Translucency）。
+</p></li></ul>
+</div><h3 id="照亮材质">照亮材质</h3>
+<h5 id="蒙版的阿尔法通道">蒙版的阿尔法通道</h5>
+<p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/ColoredTransluscentShadows/TCS_Lit_Masked.jpg">
+		<img class="  lazyload" alt="TCS_Lit_Masked.PNG" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/ColoredTransluscentShadows/TCS_Lit_Masked.jpg" />
+</picture>
+
+</p><ol ><li class="Default"><p>选中 <strong>材质属性（Material Attributes）</strong>节点，并在其 <strong>细节（Details）</strong>面板中更改下列各项：
+</p><ul ><li class="Default"><p>混合模式（Blend Mode）：半透明（Translucent）
+</p></li><li class="Default"><p>（可选）双面（Two Sided）：选中 
+</p></li><li class="Default"><p>半透明照明模型（Translucency Lighting Model）：表面半透明体积（Surface Translucency Volume）
+</p></li></ul></li><li class="Default"><p>将纹理样本（Texture Sample）的 <strong>阿尔法</strong> 通道连接到 <strong>不透明（Opacity）</strong>槽，以遮罩材质的某些部分。
+</p></li></ol><h4 id="定制不透明度">定制不透明度</h4>
+<p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/ColoredTransluscentShadows/TCS_Lit_CustomOpacity.jpg">
+		<img class="  lazyload" alt="TCS_Lit_CustomOpacity.PNG" width="850" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/ColoredTransluscentShadows/TCS_Lit_CustomOpacity.jpg" />
+</picture>
+
+</p><ol ><li class="Default"><p>选中 <strong>材质属性（Material Attributes）</strong>，并在其 <strong>细节（Details）</strong>面板中更改下列各项：
+</p><ul ><li class="Default"><p>混合模式（Blend Mode）：半透明（Translucent）
+</p></li><li class="Default"><p>（可选）双面（Two Sided）：选中 
+</p></li><li class="Default"><p>半透明照明模型（Translucency Lighting Model）：TLM_Surface
+</p></li></ul></li><li class="Default"><p>创建 <strong>乘法（Multiply）</strong>节点，并将其连接到"材质属性"（Material Attriubutes）节点上的 <strong>不透明（Opacity）</strong>。
+</p></li><li class="Default"><p>将"纹理样本"（Texture Sample）的 <strong>阿尔法</strong> 连接到引脚 <strong>A</strong>。
+</p></li><li class="Default"><p>创建一个 <strong>常量（Constant）</strong>值，并将其设置为小于 1 的值。0 表示完全透明，而 1 表示完全不透明。 
+<picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/ColoredTransluscentShadows/TCS_LIT_CO_constantValue.jpg">
+		<img class="  lazyload" alt="TCS_LIT_CO_constantValue.PNG" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/ColoredTransluscentShadows/TCS_LIT_CO_constantValue.jpg" />
+</picture>
+
+</p></li></ol><div class="note">
+	<ul ><li class="Default"><p>如果您计划让玩家同时看到具有该材质的网格的两面，那么最好使用 <strong>双面（Two Sided）</strong>。 
+</p></li><li class="Default"><p>如果 <strong>不</strong> 使用"双面"（Two Sided），那么光线必须投射到具有该材质的网格的可视面。<br /></p></li><li class="Default"><p>要遮罩部分图像，需要对纹理使用"阿尔法"通道。
+</p></li></ul>
+</div><h3 id="不照亮材质">不照亮材质</h3>
+<p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/ColoredTransluscentShadows/TCS_Unlit_Mat.jpg">
+		<img class="  lazyload" alt="TCS_Unlit_Mat.PNG" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/ColoredTransluscentShadows/TCS_Unlit_Mat.jpg" />
+</picture>
+
+</p><ol ><li class="Default"><p>选择 <strong>材质属性（Material Attributes）</strong>节点，并在其 <strong>细节（Details）</strong>面板中更改以下各项： 
+</p><ul ><li class="Default"><p>混合模式（Blend Mode）：半透明（Translucent）
+</p></li><li class="Default"><p>明暗处理模型（Shading Model）不照亮（Unlit）
+</p></li><li class="Default"><p>（可选）双面（Two Sided）：选中
+</p></li><li class="Default"><p>半透明照明模型（Translucency Lighting Model）：TLM_Surface
+</p></li></ul></li><li class="Default"><p>将"纹理样本"（Texture Sample）连接到 <strong>自发光（Emissive）</strong>。
+</p></li></ol><h2 id="使用中的彩色半透明阴影">使用中的彩色半透明阴影</h2>
+<h3 id="蒙版的阿尔法通道_1">蒙版的阿尔法通道</h3>
+<ul ><li class="Default"><p>混合模式（Blend Mode）：半透明（Translucent）
+</p></li><li class="Default"><p>明暗处理模型（Shading Model）照亮或不照亮
+</p></li></ul><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/ColoredTransluscentShadows/Logo_LIT_Masked.jpg">
+		<img class="  lazyload" alt="Logo_LIT_Masked.PNG" width="500" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/ColoredTransluscentShadows/Logo_LIT_Masked.jpg" />
+</picture>
+
+</p><h3 id="定制不透明度_1">定制不透明度</h3>
+<ul ><li class="Default"><p>混合模式（Blend Mode）：半透明（Translucent）
+</p></li><li class="Default"><p>阴影模型（Shading Model）照亮或不照亮
+</p></li></ul><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/ColoredTransluscentShadows/TCS_Lit_CO_Result.jpg">
+		<img class="  lazyload" alt="TCS_Lit_CO_Result.PNG" width="500" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/ColoredTransluscentShadows/TCS_Lit_CO_Result.jpg" />
+</picture>
+
+</p><h2 id="阴影清晰度">阴影清晰度</h2>
+<p>阴影清晰度可能受多个不同因素影响，其中包括接收到传播阴影颜色的网格的光照贴图分辨率、光线的来源角度以及纹理样本的质量。 
+</p><h3 id="光照贴图分辨率">光照贴图分辨率</h3>
+<!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/ColoredTransluscentShadows/TCS_LmRes_64.jpg">
+		<img class="  lazyload" alt="Lightmap Resolution 64" width="450" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/ColoredTransluscentShadows/TCS_LmRes_64.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/ColoredTransluscentShadows/TCS_LmRes_1024.jpg">
+		<img class="  lazyload" alt="Lightmap Resolution 1024" width="450" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/ColoredTransluscentShadows/TCS_LmRes_1024.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div><h2 id="局限性">局限性</h2>
+<ul ><li class="Default"><p>只有 <strong>静态光线</strong> 才支持半透明阴影颜色
+</p></li></ul><h2 id="结论">结论</h2>
+<p>有关彩色阴影需要牢记的最重要一点是，它 <strong>仅</strong> 支持 <strong>静态光线</strong>。 
+另外，您需要确保根据自己的设计需要，选择最佳的混合模式（半透明、递增法和调制）。 
+彩色阴影的应用十分广泛，并且，您可以根据项目的需要使用各种混合模式。 
+</p>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Materials">Materials</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/RenderingAndGraphics/Materials/HowTo/ColoredTransluscentShadows/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:14:40 GMT -->
+</html>

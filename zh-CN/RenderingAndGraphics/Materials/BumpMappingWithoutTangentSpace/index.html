@@ -1,0 +1,813 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/RenderingAndGraphics/Materials/BumpMappingWithoutTangentSpace/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 10:55:32 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/RenderingAndGraphics/Materials/BumpMappingWithoutTangentSpace/" />');
+				var udnCSS = '../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>无需切线空间应用凹凸贴图 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/RenderingAndGraphics/Materials/BumpMappingWithoutTangentSpace/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/RenderingAndGraphics/Materials/BumpMappingWithoutTangentSpace/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/RenderingAndGraphics/Materials/BumpMappingWithoutTangentSpace/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/RenderingAndGraphics/Materials/BumpMappingWithoutTangentSpace/" hreflang="ko" />
+
+	<meta name="redirect" content="RenderingAndGraphics/LightingAndShadows/BumpMappingWithoutTangentSpace" />
+<meta name="redirect" content="Engine/Rendering/LightingAndShadows/BumpMappingWithoutTangentSpace" />
+<meta name="intsourcechangelist" content="11969573" />
+<meta name="availability" content="Public" />
+<meta name="title" content="无需切线空间应用凹凸贴图" />
+<meta name="description" content="如何从无法使用经典切线空间的 3D 程序化着色器中实现凹凸贴图。" />
+<meta name="version" content="4.9" />
+<meta name="topic-image" content="bump_topic.png" />
+<meta name="course" content="lighting-essential-concepts-and-effects?lang=zh-CN|光照基础概念和效果|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Flighting-essential-concepts-and-effects%2FLightingEssentials_Topic_1920x1080-1920x1080-3e04dcaf168d9a530720df1573b417807ae00784.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Flighting-essential-concepts-and-effects%2FLighting-Essential-Concepts-and-Effects-1000x1000-14831d7f280345717b0bdd66be9422b40ffb91bd.png?resize=1&amp;w=300" />
+<meta name="course" content="introducing-global-illumination?lang=zh-CN|全局光照入门|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fintroducing-global-illumination%2F105_GlobalIllum%281200x675%29-1200x675-97270dbdc7595455b4c9acf0e83bf01da8efbfd4.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fintroducing-global-illumination%2FIntroducing-Global-Illumination-1000x1000-af5267ea2a6721b1cc73af7825d226aedbbaf5ce.png?resize=1&amp;w=300" />
+<meta name="crumbs" content="%ROOT%,RenderingAndGraphics,RenderingAndGraphics/Materials" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="无需切线空间应用凹凸贴图" />
+	<meta property="og:description" content="如何从无法使用经典切线空间的 3D 程序化着色器中实现凹凸贴图。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">设计视觉、渲染和图形效果</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">材质 </a>
+
+<span class="separator">></span> <span id="page">无需切线空间应用凹凸贴图</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">无需切线空间应用凹凸贴图</h1>
+							</div>	
+							<h2 >如何从无法使用经典切线空间的 3D 程序化着色器中实现凹凸贴图。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																																			</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																								<div id="courses">
+	<div style="position:relative;">
+		<div id="title">相关课程</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<div name="lighting-essential-concepts-and-effects?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/lighting-essential-concepts-and-effects?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/lighting-essential-concepts-and-effects/LightingEssentials_Topic_1920x1080-1920x1080-3e04dcaf168d9a530720df1573b417807ae00784.4884f86.delaye?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/lighting-essential-concepts-and-effects/Lighting-Essential-Concepts-and-Effects-1000x1000-14831d7f280345717b0bdd66be9422b40ffb91bd.489fe4b.d?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="lighting-essential-concepts-and-effects?lang=zh-CN_title">
+				光照基础概念和效果
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="introducing-global-illumination?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/introducing-global-illumination?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/introducing-global-illumination/105_GlobalIllum(1200x675)-1200x675-97270dbdc7595455b4c9acf0e83bf01da8efbfd4.48b4f?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/introducing-global-illumination/Introducing-Global-Illumination-1000x1000-af5267ea2a6721b1cc73af7825d226aedbbaf5c?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="introducing-global-illumination?lang=zh-CN_title">
+				全局光照入门
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																								<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#ddx和ddy">ddx 和 ddy</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#凹凸贴图材质函数">凹凸贴图材质函数</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#computefilterwidth">ComputeFilterWidth</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#perturbnormallq">PerturbNormalLQ</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#perturbnormalhq">PerturbNormalHQ</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#prepareperturbnormalhq">PreparePerturbNormalHQ</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#单个函数替代三个函数">单个函数替代三个函数</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#使用纹理">使用纹理</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#注解">注解</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#性能">性能</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#问题">问题</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#工作展望">工作展望</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#参考">参考</a></p>
+	</li>					</ul>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p><strong>凹凸贴图（Bump mapping）</strong> 最早由一名图形程序员发明（1978 James Blinn），它通过调整后的着色计算 
+来创建凹凸表面的假象，无需增加几何体。一个新法线取代了 
+表面法线进行着色。可通过 1d 函数对新法线进行调整（如 Perlin noise、 
+灰度纹理）。此方法比使用小毛病较多的真实置换贴图 
+（如轮廓、遮挡、阴影）更加迅速。
+</p><div class="imagetable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/Materials/BumpMappingWithoutTangentSpace/bump_none.jpg">
+		<img class="  lazyload" alt="bump_none.png" width="235" data-src="../../../../Images/RenderingAndGraphics/Materials/BumpMappingWithoutTangentSpace/bump_none.jpg" />
+</picture>
+ </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/Materials/BumpMappingWithoutTangentSpace/bump_only.jpg">
+		<img class="  lazyload" alt="bump_only.png" width="235" data-src="../../../../Images/RenderingAndGraphics/Materials/BumpMappingWithoutTangentSpace/bump_only.jpg" />
+</picture>
+ </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/Materials/BumpMappingWithoutTangentSpace/bump_withnormal.jpg">
+		<img class="  lazyload" alt="bump_withnormal.png" width="235" data-src="../../../../Images/RenderingAndGraphics/Materials/BumpMappingWithoutTangentSpace/bump_withnormal.jpg" />
+</picture>
+ </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>不带凹凸贴图</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>带凹凸贴图</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>带凹凸和法线贴图</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div><p>在实时渲染中，我们通常使用称为 <strong>法线贴图</strong> 的凹凸贴图变种（偏蓝色纹理）。 
+法线贴图在纹理的每个像素中保存一个颜色，而像素实际上是长度为 1 的 3d 矢量。
+</p><p>有两种方法生成法线贴图：
+</p><ul ><li class="Default"><p>从灰度图创建法线贴图 - 预计算每个像素与其垂直和水平相邻像素 
+之间的差别。将两个结果数字（导数）转换为单位法线并存储为色彩。
+</p></li><li class="Default"><p>从一个高多边形 3D 精模烘焙法线 - 把纹理的每个像素和 
+高多边形物体上的 3D 表面位置结合起来，并将其编码的法线存储为颜色。
+</p></li></ul><p>为使生成的纹理在任何旋转下均可反复使用，存储的法线矢量必须在 <strong>切线空间</strong> 中。 
+切线空间通常包含 3 种矢量：法线、切线和副法线。它定义表面的朝向。 
+将所有法线转换进切线空间中后即可对其进行重复利用， 
+因为它们和表面之间被定义为相对关系。切线空间贴图取决于物体的 UV 贴图，因为纹理中的 X 和 Y 方向 
+定义了世界空间中切线空间的两个矢量（切线与副法线）。在生成优质的 UV 贴图的同时避免切线空间穿帮 
+较为困难，且耗时较长。 
+</p><p>如果使用类似 Perlin noise 的 3D 灰度函数会怎样？函数不要求任何 UV 贴图， 
+可增强凹凸表面临近的细节渲染。无需切线空间应用凹凸贴图 
+使其成为现实。
+</p><h2 id="ddx和ddy">ddx 和 ddy</h2>
+<p>为不需要切线空间应用凹凸贴图，我们在材质编辑器中添加了两个新 
+材质表现：<strong>ddx</strong> 和 <strong>ddy</strong>。每个表现将返回其输入导数的近似值。 
+图像硬件计算此近似导数的方式为对两个像素进行着色并减去结果 
+（<code>ddx = 右 - 左</code>, <code>ddy = 下 - 上</code>）。 
+</p><p>这些函数只能在像素着色器中使用，通常只用于在材质函数中 
+应用较大的效果。
+</p><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>项目 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>描述 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="2" align="">
+			<p><div class="tablesection">
+	<p>输入</p>
+</div></p>
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>Value</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>计算输入导数的值。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="2" align="">
+			<p><div class="tablesection">
+	<p>输出</p>
+</div></p>
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>Out</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>输入的近似导数。类型与输入匹配。例如标量输出中的标量结果，2d 输出中的 2d，诸如此类。</p>
+			</td>
+	
+</tr></tbody>
+</table><div class="warning">
+	<p>ddx 和 ddy 以 2x2 的块进行计算，因此和高频率输入共用时将出现一些块状穿帮。</p>
+</div><h2 id="凹凸贴图材质函数">凹凸贴图材质函数</h2>
+<p>可通过数个 <a id="content_link"filter-data="tag_materials" href="../Functions/index.html" ><span><strong>材质函数</strong></span></a>
+在材质中应用凹凸贴图，而无需依赖于切线空间法线贴图。
+</p><h3 id="computefilterwidth">ComputeFilterWidth</h3>
+<p><img class="  lazyload" alt="FilterWidth.png" data-src="../../../../Images/RenderingAndGraphics/Materials/BumpMappingWithoutTangentSpace/FilterWidth.png" />
+
+</p><p>此函数利用 <a id="content_link" href="#ddx和ddy" ><span><strong>ddx 和 ddy</strong></span></a> 计算数值在屏幕上的变化速度。它可在 
+开始出现 noise 的距离中使程序化着色器淡出。淡出结果闪烁较少，在动态 
+下更为明显，对凹凸贴图而言及其重要，因为凹凸表面的高光可形成 
+严重的锯齿穿帮。
+</p><p>以下示例图表现的是在远处淡出的程序化凹凸贴图函数。
+</p><!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><img class="  lazyload" alt="Not Using FilterWidth" data-src="../../../../Images/RenderingAndGraphics/Materials/BumpMappingWithoutTangentSpace/DetailSize0.png" />
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><img class="  lazyload" alt="Using FilterWidth" data-src="../../../../Images/RenderingAndGraphics/Materials/BumpMappingWithoutTangentSpace/DetailSizeNot0.png" />
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>项目 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>描述 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="2" align="">
+			<p><div class="tablesection">
+	<p>输入</p>
+</div></p>
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>In</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>计算过滤幅度的值。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="2" align="">
+			<p><div class="tablesection">
+	<p>输出</p>
+</div></p>
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Result</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>输入从像素到像素的变化速度。</p>
+			</td>
+	
+</tr></tbody>
+</table><h3 id="perturbnormallq">PerturbNormalLQ</h3>
+<p><strong>PerturbNormalLQ</strong> 函数将灰度凹凸贴图函数输入转换为世界空间法线。 
+然而，因其使用的是 <a id="content_link" href="#ddx和ddy" ><span><strong>ddx 和 ddy</strong></span></a>（之前提及存在 2x2 块状穿帮的材质表现）， 
+输出世界空间法线的精度较低。
+</p><!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><img class="  lazyload" alt="Low Quality" data-src="../../../../Images/RenderingAndGraphics/Materials/BumpMappingWithoutTangentSpace/bump_lq.png" />
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><img class="  lazyload" alt="High Quality" data-src="../../../../Images/RenderingAndGraphics/Materials/BumpMappingWithoutTangentSpace/bump_hq.png" />
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>项目 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>描述 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="2" align="">
+			<p><div class="tablesection">
+	<p>输入</p>
+</div></p>
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Bump</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>计算世界空间法线的标量凹凸值（灰度）。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="2" align="">
+			<p><div class="tablesection">
+	<p>输出</p>
+</div></p>
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>WS Normal</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>计算出的世界空间法线。</p>
+			</td>
+	
+</tr></tbody>
+</table><div class="note">
+	<p>如需使用此函数输出的世界空间法线，必须将材质节点上的 <strong>tangent-space normal</strong> 设 
+为 <em>false</em>。</p>
+</div><div class="warning">
+	<p>此函数只作为一个引用存在，不对材质函数库公开。 
+使用 <a id="content_link" href="#perturbnormalhq" ><span><strong>PerturbNormalLQ</strong></span></a> 函数代替。</p>
+</div><h3 id="perturbnormalhq">PerturbNormalHQ</h3>
+<p><strong>PerturbNormalHQ</strong> 函数计算的导数比 ddx 和 ddy 更精确，可 
+达到更高的精度。它的原理是利用三个样本位置多次计算标量函数。 
+</p><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>项目 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>描述 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="2" align="">
+			<p><div class="tablesection">
+	<p>输入</p>
+</div></p>
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Bump one pixel right</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>当前位置右方一个像素的标量凹凸值（灰度）。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Bump center</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>当前位置的标量凹凸值（灰度）。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Bump one pixel down</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>当前位置下方一个像素的标量凹凸值（灰度）。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>WS Normal</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>可选。与凹凸贴图组合的世界空间法线。可通过 <a id="content_link" href="../ExpressionReference/VectorOps/index.html#transform" ><span>矢量变换</span></a> 表现转换为世界空间法线的切线空间法线。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="2" align="">
+			<p><div class="tablesection">
+	<p>输出</p>
+</div></p>
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>WS Normal</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>组合的世界空间法线。</p>
+			</td>
+	
+</tr></tbody>
+</table><div class="note">
+	<p>如需使用此函数输出的世界空间法线，材质节点上的 <strong>tangent-space normal</strong> 须为 <em>false</em>。</p>
+</div><h3 id="prepareperturbnormalhq">PreparePerturbNormalHQ</h3>
+<p><strong>PreparePerturbNormalHQ</strong> 函数计算出 <strong>PerturbNormalHQ</strong> 计算世界空间法线 
+所需的三个样本位置。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/RenderingAndGraphics/Materials/BumpMappingWithoutTangentSpace/UsingPerturbHQ.png" ><span><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/Materials/BumpMappingWithoutTangentSpace/UsingPerturbHQ.jpg">
+		<img class="  lazyload" alt="UsingPerturbHQ.png" width="720" data-src="../../../../Images/RenderingAndGraphics/Materials/BumpMappingWithoutTangentSpace/UsingPerturbHQ.jpg" />
+</picture>
+</span></a></span>  </p>
+</div><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>项目 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>描述 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="2" align="">
+			<p><div class="tablesection">
+	<p>输入</p>
+</div></p>
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Value</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>当前位置的标量凹凸值（灰度）。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="2" align="">
+			<p><div class="tablesection">
+	<p>输出</p>
+</div></p>
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Value one pixel right</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>当前位置右方一个像素的标量凹凸值（灰度）。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Value</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>当前位置的标量凹凸值（灰度）。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Value one pixel down</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>当前位置下方一个像素的标量凹凸值（灰度）。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>FilterWidth</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>计算用于淡出远处细节的过滤幅度。</p>
+			</td>
+	
+</tr></tbody>
+</table><h2 id="单个函数替代三个函数">单个函数替代三个函数</h2>
+<p>可创建包裹凹凸映射函数的材质函数，并在其他函数中 
+对其进行 3 次求值。此操作可在一定程度上隐藏复杂性。 
+</p><h2 id="使用纹理">使用纹理</h2>
+<p>纹理与凹凸映射材质函数共用可提高性能；然而 
+由于显卡处理过滤纹理的方式，可能出现穿帮。普通过滤的颜色 
+以线性内插法进行插值，其导数为一个常量。这意味着使用灰度 
+纹理可获得表面插值不平滑的法线。
+</p><h2 id="注解">注解</h2>
+<p>描述的方法出自 Morten S. Mikkelsen 的著作（见参考）。
+</p><h3 id="性能">性能</h3>
+<p>程序化着色器对性能的消耗较大，且难以消除锯齿（与 
+纹理贴图相比）。我们当前提供 Perlin noise，可通过此材质表现进行优化，工作量 
+较大。为 <em>n</em> 个等级使用等级功能需要完成 <em>n</em> 次 
+大部分计算。为凹凸贴图进行 3 次函数求值产生的计算量更大。需注意消耗和像素数量 
+成正比。可使用所有功能，但建议只用于原型制作或在受控情况下使用。
+</p><h3 id="问题">问题</h3>
+<ul ><li class="Default"><p>尚无法正常处理翻动/镜像 UV。
+</p></li></ul><h3 id="工作展望">工作展望</h3>
+<p>此法用于替代显式存储的切线空间。向此方向发展我们尚需更多经验。
+当前添加的内容不仅为图形设计师提供了凹凸贴图，还提供了进行研究的方法。
+</p><h3 id="参考">参考</h3>
+<ul ><li class="Default"><p>Bump Mapping Unparametrized Surfaces on the GPU（来自 Morten S. Mikkelsen）
+</p><p><span class="non-localized"><a id="content_link" href="https://docs.unrealengine.com/4.26/Attachments/RenderingAndGraphics/Materials/BumpMappingWithoutTangentSpace/mm_sfgrad_bump.pdf" ><span>Bump Mapping Unparametrized Surfaces on the GPU</span></a></span>
+</p></li><li class="Default"><p>Derivative Maps（来自 Mikkelsen 和 3D 图形博客）
+</p><p><a id="content_link" href="http://mmikkelsen3d.blogspot.com/2011/07/derivative-maps.html" ><span>mmikkelsen3d.blogspot.com/2011/07/derivative-maps.html</span></a>
+</p></li></ul>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/RenderingAndGraphics/Materials/BumpMappingWithoutTangentSpace/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 10:55:36 GMT -->
+</html>

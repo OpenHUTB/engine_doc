@@ -1,0 +1,605 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/RenderingAndGraphics/PostProcessEffects/UsingLUTs/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:00:07 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var finishButton = finishButtonTemplate;
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/RenderingAndGraphics/PostProcessEffects/UsingLUTs/" />');
+				var udnCSS = '../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>使用查找表（LUT）进行颜色校正 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+		    <script  src="../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+		    <script  src="../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/RenderingAndGraphics/PostProcessEffects/UsingLUTs/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/RenderingAndGraphics/PostProcessEffects/UsingLUTs/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/RenderingAndGraphics/PostProcessEffects/UsingLUTs/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/RenderingAndGraphics/PostProcessEffects/UsingLUTs/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Rendering/PostProcessEffects/UsingLUTs" />
+<meta name="intsourcechangelist" content="7634116" />
+<meta name="availability" content="Public" />
+<meta name="title" content="使用查找表（LUT）进行颜色校正" />
+<meta name="description" content="如何在虚幻引擎4中创建和使用您自己的查找表来进行颜色校正。" />
+<meta name="type" content="how-to" />
+<meta name="skilllevel" content="Beginner" />
+<meta name="version" content="4.22" />
+<meta name="parent" content="RenderingAndGraphics/PostProcessEffects" />
+<meta name="related" content="RenderingAndGraphics/PostProcessEffects/ColorGrading" />
+<meta name="order" content="1000" />
+<meta name="keywords" content="Post Process" />
+<meta name="crumbs" content="%ROOT%,RenderingAndGraphics,RenderingAndGraphics/PostProcessEffects" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="使用查找表（LUT）进行颜色校正" />
+	<meta property="og:description" content="如何在虚幻引擎4中创建和使用您自己的查找表来进行颜色校正。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">设计视觉、渲染和图形效果</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">后期处理特效</a>
+
+<span class="separator">></span> <span id="page">使用查找表（LUT）进行颜色校正</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">使用查找表（LUT）进行颜色校正</h1>
+							</div>	
+							<h2 >如何在虚幻引擎4中创建和使用您自己的查找表来进行颜色校正。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Beginner"><a id="skill_link" href="../../../SiteIndex/index.html?skills=Beginner">Beginner</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																														<div id="seeAlso">
+	<div style="position:relative;">
+		<div id="title">参见</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<p>
+						<a id="related_link" href="../ColorGrading/index.html" title="用于调整场景颜色的色调映射器和颜色校正效果。">颜色分级和胶片色调映射器</a>
+					</p>
+				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																														<p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/PostProcessEffects/ColorGrading/ColorGrading_Overview.jpg">
+		<img class="  lazyload" alt="ColorGrading_Overview.png" data-src="../../../../Images/RenderingAndGraphics/PostProcessEffects/ColorGrading/ColorGrading_Overview.jpg" />
+</picture>
+
+</p><div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#使用lut纹理">使用LUT纹理</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#创建自己的lut纹理">创建自己的LUT纹理</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#附加提示">附加提示</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>可以利用 <strong>查找表</strong>（LUT）来实现使用后期处理体积的颜色校正。不要使用三个一维（1D）查找表，而应该使用一个三维（3D）查找表。这样可以提供更精细的色彩变换，从而可用于去饱和度之类的用途。 
+</p><div class="imagetable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/PostProcessEffects/UsingLUTs/RGBTable16x1.jpg">
+		<img class="  lazyload" alt="中性色调LUT" width="350" data-src="../../../../Images/RenderingAndGraphics/PostProcessEffects/UsingLUTs/RGBTable16x1.jpg" />
+</picture>
+ </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/PostProcessEffects/UsingLUTs/LUT_Sepia.jpg">
+		<img class="  lazyload" alt="棕褐色调LUT" width="350" data-src="../../../../Images/RenderingAndGraphics/PostProcessEffects/UsingLUTs/LUT_Sepia.jpg" />
+</picture>
+ </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>中性色调LUT</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>棕褐色调LUT</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div><p>虚幻引擎4（UE4）中使用的一种查找表是16x16x16的中性色调LUT，解压后为256x16的纹理。这些示例显示了中性色调和棕褐色调的LUT。如果要应用中性色调LUT，你将不会看到UE4中的默认场景有任何变化，但是如果使用棕褐色调的LUT，就会看到类似于下图这样的情况： 
+</p><!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/PostProcessEffects/UsingLUTs/LUT1.jpg">
+		<img class="  lazyload" alt="中性色调LUT" width="600" data-src="../../../../Images/RenderingAndGraphics/PostProcessEffects/UsingLUTs/LUT1.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/PostProcessEffects/UsingLUTs/LUT4.jpg">
+		<img class="  lazyload" alt="棕褐色调LUT" width="600" data-src="../../../../Images/RenderingAndGraphics/PostProcessEffects/UsingLUTs/LUT4.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div><h2 id="使用lut纹理">使用LUT纹理</h2>
+<p>要使用LUT，请使用下列属性将LUT纹理分配到要搭配它使用的后期处理体积并调整它的强度。
+</p><div class="raw">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>属性 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>说明 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>颜色分级LUT强度（Color Grading LUT Intensity）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>一种控制颜色校正效果的比例因子。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>颜色分级LUT</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>用作颜色校正的查找表的LUT纹理。<div class="imagetable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/RenderingAndGraphics/PostProcessEffects/UsingLUTs/lut_none.png" ><span><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/PostProcessEffects/UsingLUTs/lut_none.jpg">
+		<img class="  lazyload" alt="自然场景" width="300" data-src="../../../../Images/RenderingAndGraphics/PostProcessEffects/UsingLUTs/lut_none.jpg" />
+</picture>
+</span></a></span></p>
+</div><p><div class="caption">
+	<p>Click image for full size.</p>
+</div></p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/RenderingAndGraphics/PostProcessEffects/UsingLUTs/lut_green.png" ><span><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/PostProcessEffects/UsingLUTs/lut_green.jpg">
+		<img class="  lazyload" alt="偏绿场景" width="300" data-src="../../../../Images/RenderingAndGraphics/PostProcessEffects/UsingLUTs/lut_green.jpg" />
+</picture>
+</span></a></span></p>
+</div><p><div class="caption">
+	<p>Click image for full size.</p>
+</div></p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/RenderingAndGraphics/PostProcessEffects/UsingLUTs/lut_red.png" ><span><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/PostProcessEffects/UsingLUTs/lut_red.jpg">
+		<img class="  lazyload" alt="偏红场景" width="300" data-src="../../../../Images/RenderingAndGraphics/PostProcessEffects/UsingLUTs/lut_red.jpg" />
+</picture>
+</span></a></span></p>
+</div><p><div class="caption">
+	<p>Click image for full size.</p>
+</div></p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/PostProcessEffects/UsingLUTs/RGBTable16x1.jpg">
+		<img class="  lazyload" alt="中性色调LUT" data-src="../../../../Images/RenderingAndGraphics/PostProcessEffects/UsingLUTs/RGBTable16x1.jpg" />
+</picture>
+</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/PostProcessEffects/UsingLUTs/LUT_Greenish.jpg">
+		<img class="  lazyload" alt="绿色调LUT" data-src="../../../../Images/RenderingAndGraphics/PostProcessEffects/UsingLUTs/LUT_Greenish.jpg" />
+</picture>
+</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/PostProcessEffects/UsingLUTs/LUT_Reddish.jpg">
+		<img class="  lazyload" alt="红色调LUT" data-src="../../../../Images/RenderingAndGraphics/PostProcessEffects/UsingLUTs/LUT_Reddish.jpg" />
+</picture>
+</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div>
+</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div><h2 id="创建自己的lut纹理">创建自己的LUT纹理</h2>
+<p>要创建你自己的LUT纹理，首先需要一个能够对捕获的图像进行颜色调整的图像编辑应用程序（例如Photoshop或GIMP）。在这个演示中，我们将使用在Epic Games启动程序中的 <strong>学习（Learn）</strong> 选项卡中提供的 <strong>Sun Temple</strong> 项目，并选择Photoshop作为LUT图像编辑应用程序。在这个示例中使用的某些术语可能是Photoshop特有的。
+</p><ol ><li class="Default"><p>在你的UE4项目中，首先对你也要应用颜色校正的场景截取至少一张有代表性的屏幕截图。可以使用编辑器中提供的<a id="content_link" href="../../../WorkingWithMedia/TakingScreenshots/index.html" ><span>截图工具（Screenshot Tool）</span></a>来截取场景的高分辨率图像。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/PostProcessEffects/UsingLUTs/LUT1.jpg">
+		<img class="  lazyload" alt="LUT1.png" width="850" data-src="../../../../Images/RenderingAndGraphics/PostProcessEffects/UsingLUTs/LUT1.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在Photoshop中打开该屏幕截图，然后从右侧图层（Layers）面板上方的调整（Adjustments）选项卡添加你自己的 <strong>调整</strong> 图层。在这里可以找到许多不同的图标，分别代表可以对图像执行的各种更改类型，例如亮度和对比度、色调、饱和度，等等。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/RenderingAndGraphics/PostProcessEffects/UsingLUTs/LUT2.png" ><span><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/PostProcessEffects/UsingLUTs/LUT2.jpg">
+		<img class="  lazyload" alt="LUT2.png" width="850" data-src="../../../../Images/RenderingAndGraphics/PostProcessEffects/UsingLUTs/LUT2.jpg" />
+</picture>
+</span></a></span></p>
+</div><p><div class="caption">
+	<p>Click image for full size.</p>
+</div>
+</p></li><li class="Default"><p>在 <strong>调整（Adjustments）</strong> 面板中，单击任何图标以向图层（Layers）面板添加图层。可以使用这些图层对最终图像作特定的颜色校正。在此示例中，已经添加和调整了 <strong>Vibrance</strong> 和 <strong>亮度/对比度（Brightness/Contrasts）</strong>。将这些图层添加到图层（Layers）面板之后，从列表中选择它们以公开它们的属性，如果看不到属性，可以右键单击并选择 <strong>编辑调整（Edit Adjustment）</strong> 来公开它们。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/PostProcessEffects/UsingLUTs/LUT3.jpg">
+		<img class="  lazyload" alt="LUT3.png" width="850" data-src="../../../../Images/RenderingAndGraphics/PostProcessEffects/UsingLUTs/LUT3.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>你进行的任何调整都可以显示在视口中。请调整调整图层的属性，直到获得想要的颜色校正效果为止。在下面的示例中，已经调整了Vibrance和亮度/对比度（Brightness/Contrasts）的调整图层属性，使屏幕截图的颜色饱和度和清晰度更高，更有视觉吸引力。 
+</p><!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/PostProcessEffects/UsingLUTs/LUT1.jpg">
+		<img class="  lazyload" alt="调整前" width="850" data-src="../../../../Images/RenderingAndGraphics/PostProcessEffects/UsingLUTs/LUT1.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/PostProcessEffects/UsingLUTs/LUT4.jpg">
+		<img class="  lazyload" alt="调整后" width="850" data-src="../../../../Images/RenderingAndGraphics/PostProcessEffects/UsingLUTs/LUT4.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div></li><li class="Default"><p>既然你已经通过调整图层实现了所需的视觉效果，那就需要另外打开 <strong>中性色调LUT</strong> 的一个副本。可以将为屏幕截图创建的调整图层拖动到该中性色调LUT上。 
+</p><div class="note">
+	<p>如果没有可用的中性色调LUT，可以使用本页面引言部分显示的RGBTable16x1.png图像。 
+</p><ul ><li class="Default"><p><span class="non-localized"><a id="content_link" href="../../../../Images/RenderingAndGraphics/PostProcessEffects/UsingLUTs/RGBTable16x1.png" ><span>LUT纹理示例</span></a></span>——右键单击并选择**另存为（Save as）**
+</p></li></ul>
+</div><pre class="prettyprint"><code>打开带有调整图层的屏幕截图和中性色调LUT后，将调整图层从屏幕截图的图层（Layers）面板 &#42;&#42;拖放&#42;&#42; 到中性色调LUT图像上。此时你应该会看到它们填充在LUT的图层（Layers）面板中。 </code></pre>
+<!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_V_IlymqD_311
+{
+	margin: 0px;
+	width: 100%;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_V_IlymqD_311:after
+{
+	content: "";
+	padding-top: 56.25%;
+	display: block;
+}
+</style> 
+<div id="player_V_IlymqD_311"> 
+	<div id="playerContainer_V_IlymqD_311" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/V_IlymqD/embed.html"></iframe>
+	</div>
+</div></li><li class="Default"><p>现在，导航到 <strong>File（文件）</strong> > <strong>Save As（另存为）</strong>，给经过颜色校正的LUT提供一个名称。
+</p></li><li class="Default"><p>在UE4中，将经过颜色校正的LUT导入编辑器中，可以将其 <strong>拖放</strong> 到内容浏览器（Content Browser），也可以使用内容浏览器（Content Browser）中提供的 <strong>Import（导入）</strong> 按钮。
+</p><p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/PostProcessEffects/UsingLUTs/LUT5.jpg">
+		<img class="  lazyload" alt="LUT5.png" width="850" data-src="../../../../Images/RenderingAndGraphics/PostProcessEffects/UsingLUTs/LUT5.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>要在后期处理体积中使用LUT获得最佳效果，在纹理编辑器（Texture Editor）中打开LUT图像，设置下列属性：
+</p><div class="imagetable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/PostProcessEffects/UsingLUTs/LUT6.jpg">
+		<img class="  lazyload" alt="LUT6.png" width="450" data-src="../../../../Images/RenderingAndGraphics/PostProcessEffects/UsingLUTs/LUT6.jpg" />
+</picture>
+ </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<ul ><li class="Default"><p>Mip 生成设置（Mip Gen Settings）：<strong>无Mip贴图（NoMipMaps）</strong>
+</p></li><li class="Default"><p>纹理组（Texture Group）：<strong>颜色查找表（Color Lookup Table）</strong>
+</p></li></ul>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="2" align="">
+			
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+</tr></tbody>
+</table>
+</div></li><li class="Default"><p>接下来，在后期处理体积中，使用 <strong>细节（Details）</strong> 面板，在 <strong>颜色分级（Color Grading）</strong> > <strong>全局（Global）</strong> 部分，启用 <strong>颜色分级LUT（Color Grading LUT）</strong> 并应用您的LUT。 
+</p><div class="imagetable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/PostProcessEffects/UsingLUTs/LUT8.jpg">
+		<img class="  lazyload" alt="LUT8.png" height="400" data-src="../../../../Images/RenderingAndGraphics/PostProcessEffects/UsingLUTs/LUT8.jpg" />
+</picture>
+ </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/PostProcessEffects/UsingLUTs/LUT1.jpg">
+		<img class="  lazyload" alt="Default" height="400" data-src="../../../../Images/RenderingAndGraphics/PostProcessEffects/UsingLUTs/LUT1.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/PostProcessEffects/UsingLUTs/LUT7.jpg">
+		<img class="  lazyload" alt="With Created LUT" height="400" data-src="../../../../Images/RenderingAndGraphics/PostProcessEffects/UsingLUTs/LUT7.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="2" align="">
+			
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+</tr></tbody>
+</table>
+</div></li></ol><h2 id="附加提示">附加提示</h2>
+<p>以下是在项目中使用LUT时应该了解的知识：
+</p><ul ><li class="Default"><p>因为LUT发生在低动态范围（LDR）中以及在sRGB空间中输出到显示器的最终图像颜色上，所以它只是与显示器支持对应的一张适时的快照，不一定在它输出到的所有显示器上都呈现相同外观，这就不同于<a id="content_link"filter-data="tag_rendering" href="../../HDRDisplayOutput/index.html" ><span>高动态范围</span></a>（HDR），后者的处理方式使所有颜色校正都发生在色调映射之前。因此，建议使用虚幻引擎4.16和更高版本中提供的最新<a id="content_link"filter-data="tag_post_process" href="../ColorGrading/index.html" ><span>颜色分级（Color Grading）</span></a>颜色校正工具来取代LUT。 
+</p></li><li class="Default"><p>LUT可能是在你的当前显示器上为项目快速定位特定外观的好方法，但是此后应该使用后期处理体积的 <strong>颜色分级（Color Grading）</strong> 部分下的颜色校正属性进行最终调整，以确保在各种不同类型显示器上的外观都一致。 
+</p></li><li class="Default"><p>使用LUT时会损失一致性，因为发生的任何颜色校正都不适用于HDR显示。后期处理体积中的颜色分级属性都在所谓的 <strong>Scene Referred Linear Space</strong> 中运算。这意味着颜色是一致的，因为它们发生在色调映射之前，也发生在变换为特定显示器的颜色空间之前。例如，如果要输出到使用Rec709而不是sRGB的电视机，在使用LUT的情况下颜色校正效果就不会呈现在该电视机上，因为颜色校正发生在图像已经输出到显示器之后。因此，我们正在淘汰作为颜色校正图像处理方法的LUT。
+</p></li></ul>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../SiteIndex/index.html?tags=Post%20Process">Post Process</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/RenderingAndGraphics/PostProcessEffects/UsingLUTs/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:00:14 GMT -->
+</html>

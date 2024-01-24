@@ -1,0 +1,889 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/PlayerCamera/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:11:03 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var finishButton = finishButtonTemplate;
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/PlayerCamera/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>Player-Controlled Cameras | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/instructional.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/PlayerCamera/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/PlayerCamera/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/PlayerCamera/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/PlayerCamera/" hreflang="ko" />
+
+	<meta name="redirect" content="ProgrammingAndScripting/Tutorials/PlayerCamera" />
+<meta name="redirect" content="Programming/Tutorials/PlayerCamera" />
+<meta name="intsourcechangelist" content="15038317" />
+<meta name="availability" content="Public" />
+<meta name="title" content="Player-Controlled Cameras" />
+<meta name="description" content="学会使用玩家输入同时操控摄像机和Pawn。" />
+<meta name="version" content="4.26" />
+<meta name="type" content="quick start" />
+<meta name="skilllevel" content="Intermediate" />
+<meta name="topic-image" content="" />
+<meta name="reference-image" content="Camera.gif" />
+<meta name="reference-image" content="Move.gif" />
+<meta name="reference-image" content="Zoom.gif" />
+<meta name="crumbs" content="%ROOT%,ProgrammingAndScripting,ProgrammingAndScripting/ProgrammingWithCPP,ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="Player-Controlled Cameras" />
+	<meta property="og:description" content="学会使用玩家输入同时操控摄像机和Pawn。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">编程和脚本编写</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">编程指南</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">C++ 编程教程</a>
+
+<span class="separator">></span> <span id="page">Player-Controlled Cameras</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">Player-Controlled Cameras</h1>
+							</div>	
+							<h2 >学会使用玩家输入同时操控摄像机和Pawn。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Intermediate"><a id="skill_link" href="../../../../SiteIndex/index.html?skills=Intermediate">Intermediate</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>												<div class="tip" id="notice" style="display:none;">
+欢迎回来！要回到您上次离开的地方吗？
+<div class="button-container">
+<a href="javascript:void();" id="goButton" class="btn btn-lrg btn-default action">前往</a>
+<a href="javascript:void();" id="cancelButton" class="btn btn-lrg btn-default">取消</a>
+</div>
+</div>																																				<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#1.将摄像机连接到pawn">1. 将摄像机连接到Pawn</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#部分代码示例">部分代码示例</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#2.配置输入以控制摄像机">2.配置输入以控制摄像机</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#3.编写c++代码以便响应输入操作">3.编写C++代码以便响应输入操作</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#最终代码">最终代码</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#4.自行尝试！">4.自行尝试！</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>本教程将讲解如何激活摄像机，以及如何将你的活跃摄像机从一台变更为另一台的方法。
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_1_lgpjz3q7_2
+{
+	margin: 0px;
+	width: 75%;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_1_lgpjz3q7_2:after
+{
+	content: "";
+	padding-top: 56.25%;
+	display: block;
+}
+</style> 
+<div id="player_1_lgpjz3q7_2"> 
+	<div id="playerContainer_1_lgpjz3q7_2" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/1_lgpjz3q7/embed.html"></iframe>
+	</div>
+</div>
+<h2 id="1.将摄像机连接到pawn">1. 将摄像机连接到Pawn</h2>
+<ol ><li class="Default"><p>首先打开 <strong>虚幻引擎</strong>，然后新建一个空白模板。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/PlayerCamera/TemplateSelect.jpg">
+		<img class="  lazyload" alt="TemplateSelect.png" width="500" data-src="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/PlayerCamera/TemplateSelect.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>选择一个新的游戏项目。在项目设置窗口中，我们将默认代码从Blueprint改为C++，并启用启动内容。 选择你希望虚幻项目保存的目录，然后将你的项目命名为HowTo_PlayerCamera，然后点击创建项目。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/PlayerCamera/ProjectSettings.jpg">
+		<img class="  lazyload" alt="ProjectSettings.png" width="500" data-src="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/PlayerCamera/ProjectSettings.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在源码面板中，找到到你的C++类文件夹。你应该能看到一个单类，包含你的游戏模式基类。在相邻的灰色空间上单击右键，从下拉窗口中选择 <strong>新建C++类（New C++ class）</strong>。
+</p><p><div class="errorhighlight" id="Error4">![](NewClass.png)(w:500)</div>
+</p></li><li class="Default"><p>选择Pawn作为父类，然后点击下一步。把新的Pawn命名为PawnWithCamera。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/PlayerCamera/NamePawn.jpg">
+		<img class="  lazyload" alt="NamePawn.png" width="500" data-src="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/PlayerCamera/NamePawn.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在Visual Studio中，找到 <code>PawnWithCamera.h</code> 文件，并在类的protect命名空间下添加如下代码：     </p><pre class="prettyprint"><code>protected:
+    UPROPERTY(EditAnywhere)
+    class USpringArmComponent&#42; SpringArmComp;
+
+    UPROPERTY(EditAnywhere)
+    class UCameraComponent&#42; CameraComp;
+
+    UPROPERTY(EditAnywhere)
+    UStaticMeshComponent&#42; StaticMeshComp;</code></pre>
+<p>这些变量会创建一个 <strong>SpringArmComponent</strong>，并在末端绑定一个 <strong>CameraComponent</strong>。弹簧臂是一种绑定摄像机（或其它 <strong>组件</strong> ）的简单方式，能让摄像机跟随拍摄对象时平稳自然。
+</p></li><li class="Default"><p>找到 <code>PawnWithCamera.cpp</code> 并声明如下代码： 
+</p><pre class="prettyprint"><code>    #include "GameFramework/SpringArmComponent.h"
+    #include "Camera/Component.h"</code></pre></li><li class="Default"><p>在此之后，我们需要在构造函数中创建 <strong>组件</strong> 。 添加如下代码到 <strong>APawnWithCamera::APawnWithCamera</strong> 的`PawnWithCamera.cpp`中： 
+</p><pre class="prettyprint"><code>//创建组件
+RootComponent = CreateDefaultSubobject&lt;USceneComponent&gt;(TEXT("RootSceneComponent"));
+StaticMeshComp = CreateDefaultSubobject &lt;UStaticMeshComponent&gt;(TEXT("StaticMeshComponent"));
+SpringArmComp = CreateDefaultSubobject&lt;USpringArmComponent&gt;(TEXT("SpringArmComponent"));
+CameraComp = CreateDefaultSubobject&lt;UCameraComponent&gt;(TEXT("CameraComponent"));
+
+//绑定组件
+StaticMeshComp-&gt;SetupAttachment(RootComponent);
+SpringArmComp-&gt;SetupAttachment(StaticMeshComp);
+CameraComp-&gt;SetupAttachment(SpringArmComp,USpringArmComponent::SocketName);
+
+//为SpringArm类的变量赋值。
+SpringArmComp-&gt;SetRelativeLocationAndRotation(FVector(0.0f, 0.0f, 50.0f), FRotator(-60.0f, 0.0f, 0.0f));
+SpringArmComp-&gt;TargetArmLength = 400.f;
+SpringArmComp-&gt;bEnableCameraLag = true;
+SpringArmComp-&gt;CameraLagSpeed = 3.0f;</code></pre>
+<p>我们创建了一个 <strong>SceneComponent</strong> 作为当前 <strong>组件</strong> 层级的根节点，然后在它下面添加了一个 <strong>StaticMeshComponent</strong>。之后，我们又创建了一个 <strong>SpringArmComponent</strong> 和一个 <strong>摄像机</strong> 组件，并且将摄像机组件绑定到了弹簧臂末端的插槽上。弹簧臂的默认角度被设置为-60度，并且位于根节点上方50单位。我们还为 <strong>SpringArmComponent</strong>  声明了一些变量，用于设置它的长度和移动平滑程度。
+</p></li><li class="Default"><p>最后，我们要让默认的玩家控制器在构造函数中控制我们的Pawn。
+</p><pre class="prettyprint"><code>//控制默认玩家
+AutoPossessPlayer = EAutoReceiveInput::Player0;</code></pre></li></ol><p>我们现在有一个简单的 <strong>Pawn</strong> ，可以让我们自如控制摄像机。接下来，我们要在 <strong>虚幻引擎</strong> 编辑器中配置输入并创建响应代码。
+</p><h2 id="部分代码示例">部分代码示例</h2>
+<p><strong>PawnWithCamera.h</strong>
+</p><pre class="prettyprint"><code>// Copyright 1998-2021 Epic Games, Inc. All Rights Reserved.
+
+#pragma once
+
+#include "CoreMinimal.h"
+#include "GameFramework/Pawn.h"
+#include "PawnWithCamera.generated.h"
+
+UCLASS()
+class HOWTO&#95;PLAYERCAMERA&#95;API APawnWithCamera : public APawn
+{
+    GENERATED&#95;BODY()
+
+public:
+    // 为Pawn的属性设置默认值
+    APawnWithCamera();
+
+protected:
+    // 游戏开始时或对象生成时调用
+    virtual void BeginPlay() override;
+
+public:
+    // 每帧调用
+    virtual void Tick( float DeltaSeconds ) override;
+
+    // 用于绑定功能和输入
+    virtual void SetupPlayerInputComponent(class UInputComponent&#42; InputComponent) override;
+
+protected:
+    UPROPERTY(EditAnywhere)
+    class USpringArmComponent&#42; SpringArmComp;
+
+    UPROPERTY(EditAnywhere)
+    class UCameraComponent&#42; CameraComp;
+
+    UPROPERTY(EditAnywhere)
+    UStaticMeshComponent&#42; StaticMeshComp;
+
+};</code></pre>
+<p><strong>PawnWithCamera.cpp</strong>
+</p><pre class="prettyprint"><code>// Copyright 1998-2021 Epic Games, Inc. All Rights Reserved.
+
+#include "HowTo&#95;PlayerCamera.h"
+#include "PawnWithCamera.h"
+#include "GameFramework/SpringArmComponent.h"
+#include "Camera/CameraComponent.h"
+
+// 设置默认值
+APawnWithCamera::APawnWithCamera()
+{
+    // 让这个Pawn每帧调用Tick()。如不需要，你可以关闭这个函数以便提升性能。
+    PrimaryActorTick.bCanEverTick = true;
+
+    // 创建组件
+    RootComponent = CreateDefaultSubobject&lt;USceneComponent&gt;(TEXT("RootSceneComponent"));
+    StaticMeshComp = CreateDefaultSubobject &lt;UStaticMeshComponent&gt;(TEXT("StaticMeshComponent"));
+    SpringArmComp = CreateDefaultSubobject&lt;USpringArmComponent&gt;(TEXT("SpringArmComponent"));
+    CameraComp = CreateDefaultSubobject&lt;UCameraComponent&gt;(TEXT("CameraComponent"));
+
+    // 绑定组件
+    StaticMeshComp-&gt;SetupAttachment(RootComponent);
+    SpringArmComp-&gt;SetupAttachment(StaticMeshComp);
+    CameraComp-&gt;SetupAttachment(SpringArmComp,USpringArmComponent::SocketName);
+
+    // 为SpringArm类的变量赋值
+    SpringArmComp-&gt;SetRelativeLocationAndRotation(FVector(0.0f, 0.0f, 50.0f), FRotator(-60.0f, 0.0f, 0.0f));
+    SpringArmComp-&gt;TargetArmLength = 400.f;
+    SpringArmComp-&gt;bEnableCameraLag = true;
+    SpringArmComp-&gt;CameraLagSpeed = 3.0f;
+
+    // 控制默认玩家
+    AutoPossessPlayer = EAutoReceiveInput::Player0;
+}
+
+// 游戏开始时或对象生成时调用
+void APawnWithCamera::BeginPlay()
+{
+    Super::BeginPlay();
+
+}
+
+// 每帧调用
+void APawnWithCamera::Tick( float DeltaTime )
+{
+    Super::Tick( DeltaTime );
+
+}
+
+// 用于绑定功能和输入
+void APawnWithCamera::SetupPlayerInputComponent(class UInputComponent&#42; InputComponent)
+{
+    Super::SetupPlayerInputComponent(InputComponent);
+
+}</code></pre>
+<h2 id="2.配置输入以控制摄像机">2.配置输入以控制摄像机</h2>
+<p>你首先要确定使用哪些输入按键来控制你的摄像机和Pawn，然后进行相应设置。在这个项目中，我们希望按住鼠标右键后，跟随距离会变小并且视野会放大。
+</p><ol ><li class="Default"><p>我们还希望使用鼠标来控制视角，并且用 WASD 键控制 <strong>Pawn</strong> 的移动。为此，在 <strong>虚幻引擎</strong> 编辑器中点击"编辑"下拉菜单，然后打开 <strong>项目设置</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/PlayerCamera/EditProjectSettings.jpg">
+		<img class="  lazyload" alt="EditProjectSettings.png" width="500" data-src="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/PlayerCamera/EditProjectSettings.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在"项目设置"窗口中，找到 <strong>Engine>Input>Bindings</strong>。然后，点击动作和轴映射旁边的 <strong>+</strong> 标志，添加一个新的键值对。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/PlayerCamera/InputNavigation.jpg">
+		<img class="  lazyload" alt="InputNavigation.png" width="500" data-src="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/PlayerCamera/InputNavigation.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>参照下表来定义 <strong>动作映射（Action Mapping）</strong> 和 <strong>轴映射（Axis Mappings）</strong> 。
+</p><table >
+	<caption></caption>
+	<col align=""/>
+	<col align="center"/>
+	<col align=""/>
+	<thead>
+			</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><div class="tablesection">
+	<p>动作映射：</p>
+</div></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="center">
+			
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>放大</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="center">
+			<p>鼠标右键</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr></tbody>
+</table><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+			</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><div class="tablesection">
+	<p>轴映射：</p>
+</div></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>向前移动</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>W</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>1.0</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>S</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>-1.0</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>向右移动</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>A</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>-1.0</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>D</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>1.0</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>摄像机倾斜</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>MouseY</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>1.0</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>摄像机偏转</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>MouseX</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>1.0</p>
+			</td>
+	
+</tr></tbody>
+</table><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/PlayerCamera/InputConfig.jpg">
+		<img class="  lazyload" alt="InputConfig.png" width="500" data-src="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/PlayerCamera/InputConfig.jpg" />
+</picture>
+
+</p><p><a id="content_link" href="../PlayerInput/index.html" ><span>玩家输入和Pawn</span></a></p></li></ol><p>现在我们已经完成了对输入的定义，需要写一些代码来对其进行响应。 我们返回 <strong>Visual Studio</strong> 来进行下一步的工作
+</p><h2 id="3.编写c++代码以便响应输入操作">3.编写C++代码以便响应输入操作</h2>
+<p>你应该已经在项目设置中为输入按键创建了映射。为了能够利用这些输入，让我们编写代码并设置一些成员变量来存储我们接收到的数据吧。
+在Event Tick更新时，你需要获取移动数据和鼠标轴的移动方向数据，它们都是二维向量类型的数值。
+</p><p>你还需要了解接下来摄像机画面应该是放大还是缩小，以及摄像机当前距离这两种状态有多少距离。
+</p><ol ><li class="Default"><p>首先在PawnWithCamera.h的类的protect下添加以下代码：
+</p><pre class="prettyprint"><code>//输入变量
+FVector2D MovementInput;
+FVector2D CameraInput;
+float ZoomFactor;
+bool bZoomingIn;</code></pre></li><li class="Default"><p>你需要创建函数来跟踪输入，因此，让我们在`PawnWithCamera.h`中添加如下代码：
+</p><pre class="prettyprint"><code>// 输入函数
+void MoveForward(float AxisValue);
+void MoveRight(float AxisValue);
+void PitchCamera(float AxisValue);
+void YawCamera(float AxisValue);
+void ZoomIn();
+void ZoomOut();</code></pre></li><li class="Default"><p>接着打开PawnWithCamera.Cpp文件，添加下列代码，实现函数逻辑：
+</p><pre class="prettyprint"><code>// 输入函数
+void APawnWithCamera::MoveForward(float AxisValue)
+{
+    MovementInput.X = FMath::Clamp&lt;float&gt;(AxisValue, -1.0f, 1.0f);
+}
+
+void APawnWithCamera::MoveRight(float AxisValue)
+{
+    MovementInput.Y = FMath::Clamp&lt;float&gt;(AxisValue, -1.0f, 1.0f);
+}
+
+void APawnWithCamera::PitchCamera(float AxisValue)
+{
+    CameraInput.Y = AxisValue;
+}
+
+void APawnWithCamera::YawCamera(float AxisValue)
+{
+    CameraInput.X = AxisValue;
+}
+
+void APawnWithCamera::ZoomIn()
+{
+    bZoomingIn = true;
+}
+
+void APawnWithCamera::ZoomOut()
+{
+    bZoomingIn = false;
+}</code></pre>
+<p><strong>Pawn</strong> 的 <strong>Tick（更新）</strong></p></li><li class="Default"><p>现在你已经有了存储输入数据的函数，接着要告知引擎何时调用该代码。你需要把Pawn的输入事件和函数相绑定，方法是添加如下代码到 <strong>APawnWithCamera::SetupPlayerInputComponent</strong> 中：
+</p><pre class="prettyprint"><code>// 绑定"ZoomIn"的事件
+InputComponent-&gt;BindAction("ZoomIn", IE&#95;Pressed, this, &amp;APawnWithCamera::ZoomIn);
+InputComponent-&gt;BindAction("ZoomIn", IE&#95;Released, this, &amp;APawnWithCamera::ZoomOut);
+
+//为四条轴绑定事件（每帧调用）
+InputComponent-&gt;BindAxis("MoveForward", this, &amp;APawnWithCamera::MoveForward);
+InputComponent-&gt;BindAxis("MoveRight", this, &amp;APawnWithCamera::MoveRight);
+InputComponent-&gt;BindAxis("CameraPitch", this, &amp;APawnWithCamera::PitchCamera);
+InputComponent-&gt;BindAxis("CameraYaw", this, &amp;APawnWithCamera::YawCamera);</code></pre></li><li class="Default"><p>最后，你可以使用 <strong>Tick</strong> 函数中的这些值来每帧更新 <strong>Pawn</strong> 和 <strong>Camera</strong>。以下代码块应添加到`PawnWithCamera.cpp`的 <strong>APawnWithCamera::Tick</strong> 中：
+</p><pre class="prettyprint"><code>//如果按下了放大按钮则放大，否则就缩小
+{
+    if (bZoomingIn)
+    {
+        ZoomFactor += DeltaTime / 0.5f;         //Zoom in over half a second
+    }
+    else
+    {
+        ZoomFactor -= DeltaTime / 0.25f;        //Zoom out over a quarter of a second
+    }
+    ZoomFactor = FMath::Clamp&lt;float&gt;(ZoomFactor, 0.0f, 1.0f);
+
+    //根据ZoomFactor来设置摄像机的视场和弹簧臂的长度
+    CameraComp-&gt;FieldOfView = FMath::Lerp&lt;float&gt;(90.0f, 60.0f, ZoomFactor);
+    SpringArmComp-&gt;TargetArmLength = FMath::Lerp&lt;float&gt;(400.0f, 300.0f, ZoomFactor);
+}</code></pre>
+<p><strong>UPROPERTY(EditAnywhere)</strong></p><pre class="prettyprint"><code>//旋转Actor的偏转角度，这样摄像机也能旋转，因为摄像机与Actor相互绑定
+{
+    FRotator NewRotation = GetActorRotation();
+    NewRotation.Yaw += CameraInput.X;
+    SetActorRotation(NewRotation);
+}
+
+// 旋转摄像机的俯仰角度，但要对其进行限制，这样我们就能始终俯视Actor
+{
+    FRotator NewRotation = OurCameraSpringArm-&gt;GetComponentRotation();
+    NewRotation.Pitch = FMath::Clamp(NewRotation.Pitch + CameraInput.Y, -80.0f, -15.0f);
+    SpringArmComp-&gt;SetWorldRotation(NewRotation);
+}</code></pre>
+<p>这个代码段会直接使用鼠标的X轴来旋转 <strong>Pawn</strong> 的偏转，但只有相机系统会对来自鼠标Y轴的倾斜变更来进行响应。 旋转任意 <strong>Actor</strong> 或 <strong>Actor</strong> 子类实际上会旋转根级 <strong>组件</strong> ，而这又会间接地影响所有附着的内容。
+</p><pre class="prettyprint"><code>// 基于"MoveX"和 "MoveY"坐标轴来处理移动
+{
+    if (!MovementInput.IsZero())
+    {
+        // 把移动轴的输入数值放大100倍
+        MovementInput = MovementInput.SafeNormal() &#42; 100.0f;
+        FVector NewLocation = GetActorLocation();
+        NewLocation += GetActorForwardVector() &#42; MovementInput.X &#42; DeltaTime;
+        NewLocation += GetActorRightVector() &#42; MovementInput.Y &#42; DeltaTime;
+        SetActorLocation(NewLocation);
+    }
+}</code></pre>
+<p>借助 <strong>GetActorForwardVector</strong> 和 <strong>GetActorRightVector</strong>，我们可以朝着Actor的朝向移动。由于摄像机朝的向和Actor一样，这使得我们按下"前进键"后，始终能朝着玩家所看的方向移动。
+</p></li><li class="Default"><p>恭喜你！我们已经完成了代码编写。你现在可以编译代码，并将这个新建的类从 <strong>内容浏览器</strong> 中拖到 <strong>虚幻引擎</strong> 编辑器的 <strong>关卡编辑器</strong> 窗口中，创建一个实例。
+</p><p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/PlayerCamera/ClassInContentBrowser.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/PlayerCamera/ClassInContentBrowser.jpg">
+		<img class="  lazyload" alt="ClassInContentBrowser.png" data-src="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/PlayerCamera/ClassInContentBrowser.jpg" />
+</picture>
+</span></a></span>
+</p><p>你可以随意添加 <strong>Static Mesh（静态网格物体）</strong> 或其它可视化 <strong>组件</strong> ，或者索性不添加。摄像机在关卡中会一直跟随你，并且摄像机的加速和减速应该会很平滑，但摄像机的旋转会十分即时、紧凑的。尝试调整 <strong>SpringArmComponent</strong> 的属性，感受它们带来的影响，比如添加 "Camera Rotation Lag（摄像机旋转延迟）" 或增大/降低 "Camera Lag（摄像机延迟）"。
+</p><p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/PlayerCamera/SpringArmValues.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/PlayerCamera/SpringArmValues.jpg">
+		<img class="  lazyload" alt="SpringArmValues.png" data-src="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/PlayerCamera/SpringArmValues.jpg" />
+</picture>
+</span></a></span>
+</p></li><li class="Default"></li></ol><h2 id="最终代码">最终代码</h2>
+<p><strong>PawnWithCamera.h</strong>
+</p><pre class="prettyprint"><code>// Copyright 1998-2021 Epic Games, Inc. All Rights Reserved.
+
+#pragma once
+
+#include "CoreMinimal.h"
+#include "GameFramework/Pawn.h"
+#include "PawnWithCamera.generated.h"
+
+UCLASS()
+class HOWTO&#95;PLAYERCAMERA&#95;API APawnWithCamera : public APawn
+{
+    GENERATED&#95;BODY()
+
+public:
+    // 为Pawn的属性设置默认值
+    APawnWithCamera();
+
+protected:
+    // 游戏开始时或对象生成时调用
+    virtual void BeginPlay() override;
+
+public:
+    // 每帧调用
+    virtual void Tick( float DeltaSeconds ) override;
+
+    // 用于绑定功能和输入
+    virtual void SetupPlayerInputComponent(class UInputComponent&#42; InputComponent) override;
+
+protected:
+
+    UPROPERTY(EditAnywhere)
+    class USpringArmComponent&#42; OurCameraSpringArm;
+
+    UPROPERTY(EditAnywhere)
+    class UCameraComponent&#42; OurCamera;
+
+    UPROPERTY(EditAnywhere)
+    UStaticMeshComponent&#42; StaticMeshComp;
+
+    // 输入变量
+    FVector2D MovementInput;
+    FVector2D CameraInput;
+    float ZoomFactor;
+    bool bZoomingIn;
+
+    // 输入函数
+    void MoveForward(float AxisValue);
+    void MoveRight(float AxisValue);
+    void PitchCamera(float AxisValue);
+    void YawCamera(float AxisValue);
+    void ZoomIn();
+    void ZoomOut();
+};</code></pre>
+<p><strong>PawnWithCamera.cpp</strong>
+</p><pre class="prettyprint"><code>// Copyright 1998-2021 Epic Games, Inc. All Rights Reserved.
+
+#include "PawnWithCamera.h"
+#include "GameFramework/SpringArmComponent.h"
+#include "Camera/CameraComponent.h"
+
+// 设置默认值
+APawnWithCamera::APawnWithCamera()
+{
+    // 让这个Pawn每帧调用Tick()。如不需要，你可以关闭这个函数以便提升性能。
+    PrimaryActorTick.bCanEverTick = true;
+
+    // 创建组件
+    RootComponent = CreateDefaultSubobject&lt;USceneComponent&gt;(TEXT("RootComponent"));
+    StaticMeshComp = CreateDefaultSubobject &lt;UStaticMeshComponent&gt;(TEXT("StaticMeshComponent"));
+    SpringArmComp = CreateDefaultSubobject&lt;USpringArmComponent&gt;(TEXT("SpringArmComponent"));
+    CameraComp = CreateDefaultSubobject&lt;UCameraComponent&gt;(TEXT("CameraComponent"));
+
+    StaticMeshComp-&gt;SetupAttachment(RootComponent);
+    SpringArmComp-&gt;SetupAttachment(StaticMeshComp);
+    CameraComp-&gt;SetupAttachment(SpringArmComp,USpringArmComponent::SocketName);
+
+    // 设置SpringArmComponent的默认数值和行为
+    SpringArmComp-&gt;SetRelativeLocationAndRotation(FVector(0.0f, 0.0f, 50.0f), FRotator(-60.0f, 0.0f, 0.0f));
+    SpringArmComp-&gt;TargetArmLength = 400.f;
+    SpringArmComp-&gt;bEnableCameraLag = true;
+    SpringArmComp-&gt;CameraLagSpeed = 3.0f;</code></pre>
+<pre class="prettyprint"><code>    // 控制默认玩家
+    AutoPossessPlayer = EAutoReceiveInput::Player0;
+}
+
+// 游戏开始时或对象生成时调用
+void APawnWithCamera::BeginPlay()
+{
+    Super::BeginPlay();
+
+}
+
+// 每帧调用
+void APawnWithCamera::Tick( float DeltaTime )
+{
+    Super::Tick(DeltaTime);
+
+    // 按下ZoomIn按钮时进行放大，否则恢复正常
+    {
+        if (bZoomingIn)
+        {
+            ZoomFactor += DeltaTime / 0.5f;         //Zoom in over half a second
+        }
+        else
+        {
+            ZoomFactor -= DeltaTime / 0.25f;        //Zoom out over a quarter of a second
+        }
+        ZoomFactor = FMath::Clamp&lt;float&gt;(ZoomFactor, 0.0f, 1.0f);
+        // 基于ZoomFactor设置摄像机的视野和SpringArm的长度 
+        CameraComp-&gt;FieldOfView = FMath::Lerp&lt;float&gt;(90.0f, 60.0f, ZoomFactor);
+        SpringArmComp-&gt;TargetArmLength = FMath::Lerp&lt;float&gt;(400.0f, 300.0f, ZoomFactor);
+    }
+
+    // 旋转Actor的偏转角度，由于摄像机与Actor相互绑定，因此摄像机也会偏转
+    {
+        FRotator NewRotation = GetActorRotation();
+        NewRotation.Yaw += CameraInput.X;
+        SetActorRotation(NewRotation);
+    }
+
+    // 旋转摄像机的俯仰角度，但对其进行限制，确保我们始终朝下看
+    {
+        FRotator NewRotation = SpringArmComp-&gt;GetComponentRotation();
+        NewRotation.Pitch = FMath::Clamp(NewRotation.Pitch + CameraInput.Y, -80.0f, -15.0f);
+        SpringArmComp-&gt;SetWorldRotation(NewRotation);
+    }
+
+    // 根据"MoveX"和"MoveY"的处理移动
+    {
+        if (!MovementInput.IsZero())
+        {
+            //Scale our movement input axis values by 100 units per second
+            MovementInput = MovementInput.SafeNormal() &#42; 100.0f;
+            FVector NewLocation = GetActorLocation();
+            NewLocation += GetActorForwardVector() &#42; MovementInput.X &#42; DeltaTime;
+            NewLocation += GetActorRightVector() &#42; MovementInput.Y &#42; DeltaTime;
+            SetActorLocation(NewLocation);
+        }
+    }
+}
+
+// 用于绑定输入和函数
+void APawnWithCamera::SetupPlayerInputComponent(class UInputComponent&#42; InputComponent)
+{
+    Super::SetupPlayerInputComponent(InputComponent);
+
+    // 为"ZoomIn"事件绑定函数
+    InputComponent-&gt;BindAction("ZoomIn", IE&#95;Pressed, this, &amp;APawnWithCamera::ZoomIn);
+    InputComponent-&gt;BindAction("ZoomIn", IE&#95;Released, this, &amp;APawnWithCamera::ZoomOut);
+
+    // 分别为四个方向轴的移动事件绑定函数
+    InputComponent-&gt;BindAxis("MoveForward", this, &amp;APawnWithCamera::MoveForward);
+    InputComponent-&gt;BindAxis("MoveRight", this, &amp;APawnWithCamera::MoveRight);
+    InputComponent-&gt;BindAxis("CameraPitch", this, &amp;APawnWithCamera::PitchCamera);
+    InputComponent-&gt;BindAxis("CameraYaw", this, &amp;APawnWithCamera::YawCamera);
+}
+
+// 输入函数
+void APawnWithCamera::MoveForward(float AxisValue)
+{
+    MovementInput.X = FMath::Clamp&lt;float&gt;(AxisValue, -1.0f, 1.0f);
+}
+
+void APawnWithCamera::MoveRight(float AxisValue)
+{
+    MovementInput.Y = FMath::Clamp&lt;float&gt;(AxisValue, -1.0f, 1.0f);
+}
+
+void APawnWithCamera::PitchCamera(float AxisValue)
+{
+    CameraInput.Y = AxisValue;
+}
+
+void APawnWithCamera::YawCamera(float AxisValue)
+{
+    CameraInput.X = AxisValue;
+}
+
+void APawnWithCamera::ZoomIn()
+{
+    bZoomingIn = true;
+}
+
+void APawnWithCamera::ZoomOut()
+{
+    bZoomingIn = false;
+}</code></pre>
+<h2 id="4.自行尝试！">4.自行尝试！</h2>
+<p>利用你学到的知识，试着完成以下任务：
+</p><ul ><li class="Default"><p>为玩家添加一个奔跑按键，按住它后将增加 <strong>Pawn</strong> 的移动速度。
+</p></li><li class="Default"><p>尝试不同的方式，试着混合使用摄像机自动移动和输入驱动的摄像机移动。这是一个非常深奥的游戏开发领域，有很多值得探索的地方！
+</p></li><li class="Default"><p>增加、减少或消除 <strong>弹簧组件（Spring Component）</strong> 的滞后效果（Lag），试着进一步理解滞后对摄像机的整体影响。
+</p></li><li class="Default"><p>实现少量的周期运动，如有可能的话，略微应用一些随机效果，或者使用 <strong>曲线（Curve）</strong> 资产，以便为你的摄像机创建一种手持的感觉。
+</p></li><li class="Default"><p>为你的 <strong>摄像机（Camera）</strong> 实现一定程度的自动旋转功能，以便摄像机会逐渐移到玩家的移动对象后面，并朝向玩家移动的方向。
+</p></li></ul><p>有关本教程介绍的细节：
+</p><ul ><li class="Default"><p>关机摄像机以及控制它们的更多信息，请查阅<a id="content_link"filter-data="tag_gameplay_framework" href="../../../../InteractiveExperiences/Framework/Camera/index.html" ><span>摄像机</span></a>框架页面。
+</p></li><li class="Default"><p>要了解 <strong>组件（Components）</strong> 的更多信息，请尝试阅读<a id="content_link"filter-data="tag_quickstart tag_programming tag_collision tag_component tag_pawn" href="../Components/index.html" ><span>组件和碰撞</span></a>教程。
+</p></li><li class="Default"><p>有关进一步教程，请参阅<a id="content_link" href="../index.html" ><span>C++ 编程教程</span></a>页面。
+</p></li></ul>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/PlayerCamera/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:11:07 GMT -->
+</html>

@@ -1,0 +1,778 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/RenderingAndGraphics/Materials/HowTo/Subsurface_Scattering/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:16:07 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/RenderingAndGraphics/Materials/HowTo/Subsurface_Scattering/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>在材质中使用次表面散射  | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/RenderingAndGraphics/Materials/HowTo/Subsurface_Scattering/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/RenderingAndGraphics/Materials/HowTo/Subsurface_Scattering/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/RenderingAndGraphics/Materials/HowTo/Subsurface_Scattering/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/RenderingAndGraphics/Materials/HowTo/Subsurface_Scattering/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Rendering/Materials/HowTo/Subsurface_Scattering" />
+<meta name="intsourcechangelist" content="14470639" />
+<meta name="availability" content="Public" />
+<meta name="title" content="在材质中使用次表面散射" />
+<meta name="description" content="在材质中使用次表面散射着色模型的指南" />
+<meta name="related" content="RenderingAndGraphics/Materials/LightingModels/SubSurfaceProfile" />
+<meta name="related" content="RenderingAndGraphics/Materials/LightingModels/SubSurface" />
+<meta name="related" content="Resources/ContentExamples/MaterialNodes/1_13" />
+<meta name="related" content="Resources/ContentExamples/MaterialNodes/1_7" />
+<meta name="version" content="4.9" />
+<meta name="skilllevel" content="Intermediate" />
+<meta name="keywords" content="Materials" />
+<meta name="course" content="creating-pbr-materials?lang=zh-CN|创建PBR材质|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fcreating-pbr-materials%2FHighresScreenshot00006-1920x1050-2c0180460478cd00327494c6e5717e227be4926d.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fcreating-pbr-materials%2FCreating-PBR-Materials-1000x1000-0d34ec4bfc3eeb466ce5a981a867921f72464e77.png?resize=1&amp;w=300" />
+<meta name="course" content="getting-to-know-materials-for-design-visualization?lang=zh-CN|了解可视化设计中的材质|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fgetting-to-know-materials-for-design-visualization%2FIntro_to_Materials_003-1919x1079-f32638266c469a6fa2b9b2f3515e5766e8177b22.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fgetting-to-know-materials-for-design-visualization%2FGetting-to-Know-Materials-for-Design-Visualization-1000x1000-8cd1670f84e0111e39d4a3faa1e7a6ba29a30bfe.png?resize=1&amp;w=300" />
+<meta name="course" content="materials---exploring-essential-concepts?lang=zh-CN|材质：基础概念|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials---exploring-essential-concepts%2FMaterialEssentialConcepts-1920x1080-1920x1080-2414bb5cf0b0c3bd7ac4b993e725d2acedd45334.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials---exploring-essential-concepts%2FMaterials--Exploring-Essential-Concepts-1000x1000-9546cdc254e6659ce73211b5955ab9d886921256.png?resize=1&amp;w=300" />
+<meta name="course" content="materials---understanding-the-production-workflow?lang=zh-CN|材质：制作工作流|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials---understanding-the-production-workflow%2FMaterialWorkflow_ThumbnailFull-1920x1080-1920x1080-638fea6d7e3b7b299a4f433096336ce1caf662d0.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials---understanding-the-production-workflow%2F104-Materials-Production-Workflow%402x-1000x1000-ae1ba588a367d239fbe513da38bb793360c9eecf.png?resize=1&amp;w=300" />
+<meta name="course" content="materials-master-learning?lang=zh-CN|材质大师课程|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials-master-learning%2FMaterialMaster_1920x1080-1920x1080-212f85045980310d6985557f84d0217e6423b709.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials-master-learning%2FMaterials-Master-Learning-1000x1000-56fd0b66f6e798313f79737126d9215cbd4a3ff9.png?resize=1&amp;w=300" />
+<meta name="crumbs" content="%ROOT%,RenderingAndGraphics,RenderingAndGraphics/Materials,RenderingAndGraphics/Materials/HowTo" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="在材质中使用次表面散射 " />
+	<meta property="og:description" content="在材质中使用次表面散射着色模型的指南 " />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">设计视觉、渲染和图形效果</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">材质 </a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">材质 - 操作指南</a>
+
+<span class="separator">></span> <span id="page">在材质中使用次表面散射 </span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">在材质中使用次表面散射 </h1>
+							</div>	
+							<h2 >在材质中使用次表面散射着色模型的指南 </h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Intermediate"><a id="skill_link" href="../../../../SiteIndex/index.html?skills=Intermediate">Intermediate</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																		<div id="seeAlso">
+	<div style="position:relative;">
+		<div id="title">参见</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<p>
+						<a id="related_link" href="../../LightingModels/SubSurfaceProfile/index.html" title="材质中可用的次表面轮廓着色模型的描述和技术细节。">次表面轮廓明暗处理模型</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../LightingModels/SubSurface/index.html" title="材质中可用的次表面明暗处理模型的说明及技术细节。">次表面明暗处理模型</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../../../Resources/ContentExamples/MaterialNodes/1_13/index.html" title="材质节点示例关卡概述，示例 1.13: 次表面颜色。">1.13 - 次表面颜色</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../../../Resources/ContentExamples/MaterialNodes/1_7/index.html" title="材质节点示例关卡概述，示例 1.7: 不透明度和次表面材质。">1.7 - 不透明度和次表面材质</a>
+					</p>
+				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																		<div id="courses">
+	<div style="position:relative;">
+		<div id="title">相关课程</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<div name="creating-pbr-materials?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/creating-pbr-materials?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_443/Unreal%20Engine/onlinelearning-courses/creating-pbr-materials/HighresScreenshot00006-1920x1050-2c0180460478cd00327494c6e5717e227be4926d4f86.png?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_443/Unreal%20Engine/onlinelearning-courses/creating-pbr-materials/Creating-PBR-Materials-1000x1000-0d34ec4bfc3eeb466ce5a981a867921f72464e77fe4b.png?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="creating-pbr-materials?lang=zh-CN_title">
+				创建PBR材质
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="getting-to-know-materials-for-design-visualization?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/getting-to-know-materials-for-design-visualization?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/getting-to-know-materials-for-design-visualizat/Intro_to_Materials_003-1919x1079-f32638266c469a6fa2b9b2f3515e5766?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/getting-to-know-materials-for-design-visualizat/Getting-to-Know-Materials-for-Design-Visualization-1000x1000-8cd1670f84e0111e39d4a3faa1e7a6b?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="getting-to-know-materials-for-design-visualization?lang=zh-CN_title">
+				了解可视化设计中的材质
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="materials---exploring-essential-concepts?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/materials---exploring-essential-concepts?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/materials---exploring-essential-concepts/MaterialEssentialConcepts-1920x1080-1920x1080-2414bb5cf0b0c3bd7ac4b993e725d2acedd45334.42c4f86.dela?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/materials---exploring-essential-concepts/Materials--Exploring-Essential-Concepts-1000x1000-9546cdc254e6659ce73211b5955ab9d886921256.42dfe4b?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="materials---exploring-essential-concepts?lang=zh-CN_title">
+				材质：基础概念
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="materials---understanding-the-production-workflow?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/materials---understanding-the-production-workflow?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/materials---understanding-the-production-workfl/MaterialWorkflow_ThumbnailFull-1920x1080-1920x1080-638fea6d7e3b7b299a4f433096336ce1caf662d0?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/materials---understanding-the-production-workfl/104-Materials-Production-Workflow%402x-1000x1000-ae1ba588a367d239fbe513da38bb793360c9eecf.42ff?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="materials---understanding-the-production-workflow?lang=zh-CN_title">
+				材质：制作工作流
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="materials-master-learning?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/materials-master-learning?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/materials-master-learning/MaterialMaster_1920x1080-1920x1080-212f85045980310d6985557f84d0217e6423b709.4314f86.del?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/materials-master-learning/Materials-Master-Learning-1000x1000-56fd0b66f6e798313f79737126d9215cbd4a3ff9.433fe4b.de?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="materials-master-learning?lang=zh-CN_title">
+				材质大师课程
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																								<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#启用次表面着色模型">启用次表面着色模型</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#设置次表面材质">设置次表面材质</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#应用次表面材质">应用次表面材质</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#使用次表面材质">使用次表面材质</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#_不透明_（opacity）控制">"不透明"（Opacity）控制</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#次表面颜色值">次表面颜色值</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#使用纹理作为次表面影响蒙版">使用纹理作为次表面影响蒙版</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>"次表面散射"术语用来描述光线穿过透明/半透明表面时发生散射的照明现象。
+ 虚幻引擎 4 (UE4) 提供了称为 <a id="content_link"filter-data="tag_materials" href="../../LightingModels/SubSurface/index.html" ><span>次表面</span></a> 的特殊 <a id="content_link"filter-data="tag_materials" href="../../MaterialProperties/LightingModels/index.html" ><span>着色模型</span></a>，专门用于需要此类互动的材质，例如皮肤或蜡状物。
+ 以下操作指南将阐述在材质中使用次表面散射所需了解的所有内容。
+</p><h2 id="启用次表面着色模型">启用次表面着色模型</h2>
+<p>使材质能够使用次表面着色模型的步骤如下所示。 
+</p><ol ><li class="Default"><p>首先，通过在 <strong>内容浏览器</strong> 中 <strong>右键单击</strong>，然后从 <strong>创建基本资源（Create Basic Asset）</strong>列表中选择"材质"（Material），创建新材质。 
+创建之后，务必对该材质进行命名。在此示例中，材质将命名为 <strong>MAT_Subsurface_00</strong>。 
+完成后，你的 <strong>内容浏览器</strong> 应该如下所示。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Subsurface_Scattering/SSM_Create_New_Material.jpg">
+		<img class="  lazyload" alt="SSM_Create_New_Material.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Subsurface_Scattering/SSM_Create_New_Material.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>接着，使用 <strong>鼠标左键双击</strong> 该材质以将其打开。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Subsurface_Scattering/SSM_Open_New_Material.jpg">
+		<img class="  lazyload" alt="SSM_Open_New_Material.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Subsurface_Scattering/SSM_Open_New_Material.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>材质现已打开，我们需要将其 <strong>着色模型（Shading Model）</strong>从 <strong>默认点亮（Default Lit）</strong>更改为 <strong>次表面（Subsurface）</strong>。 
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player__SnzU14R4Y4_86
+{
+	margin: 0px;
+	width: 640px;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player__SnzU14R4Y4_86:after
+{
+	content: "";
+	padding-top: 360px;
+	display: block;
+}
+</style> 
+<div>
+<div id="player__SnzU14R4Y4_86"><div style="position:absolute;display:block;width:100%;height:100%;"><iframe class="embedded_video" id="_SnzU14R4Y4" width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/_SnzU14R4Y4?rel=0&amp;modestbranding=1&amp;showinfo=0" frameborder="0" allowfullscreen></iframe></div></div>
+</div></li><li class="Default"><p>此材质现在已可用作次表面材质。
+</p></li></ol><h2 id="设置次表面材质">设置次表面材质</h2>
+<p>继续使用上文中启用了次表面散射的材质，让我们设置一个基本材质，以便查看关卡内作用中的次表面散射。 
+</p><ol ><li class="Default"><p>我们需要布置一些材质表达式节点，以便有一些可处理的内容。 
+在本示例中，我们将添加下列节点。 
+</p><ul ><li class="Default"><p><strong>矢量参数（Vector Parameter）</strong>x 2
+</p></li><li class="Default"><p><strong>标量参数（Scalar Parameter）</strong>x 2
+</p></li></ul><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Subsurface_Scattering/SSM_Adding_Nodes.jpg">
+		<img class="  lazyload" alt="SSM_Adding_Nodes.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Subsurface_Scattering/SSM_Adding_Nodes.jpg" />
+</picture>
+
+</p><div class="tip">
+	<p>我们使用参数材质节点而非一般材质节点的原因是，这样可以根据此材质来建立材质实例，从而方便在编辑器内进行微调。 </p>
+</div></li><li class="Default"><p>在开始连接节点之前，我们首先需要对其命名，并为其设置默认值。这些节点的名称及默认值如下所示。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Subsurface_Scattering/SSM_Named_Nodes.jpg">
+		<img class="  lazyload" alt="SSM_Named_Nodes.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Subsurface_Scattering/SSM_Named_Nodes.jpg" />
+</picture>
+
+</p><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>属性名称</p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>值</p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Base_Color</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>R：1.0，G：1.0，B：1.0</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Roughness</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>0.35</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Subsurface _Amount</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>0.5</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Subsurface_Color</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>R：1.0，B：0，G：0</p>
+			</td>
+	
+</tr></tbody>
+</table></li><li class="Default"><p>命名材质节点并填写正确的数据之后，可以将各个材质节点连接到主材质节点。 
+要将节点连接到主材质节点，请使用 <strong>鼠标左键</strong> 单击节点右侧的白色圆圈。 
+按住 <strong>鼠标左键</strong> 向 <strong>右</strong> 拖动，这时会出现连接线。 
+按住 <strong>鼠标左键</strong> 继续向右拖动，直至到达主材质节点上要使用的输入为止。 
+当鼠标位于你要使用的输入上时，释放 <strong>鼠标左键</strong> 以建立连接。
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_44PbkN_uoP4_246
+{
+	margin: 0px;
+	width: 640px;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_44PbkN_uoP4_246:after
+{
+	content: "";
+	padding-top: 360px;
+	display: block;
+}
+</style> 
+<div>
+<div id="player_44PbkN_uoP4_246"><div style="position:absolute;display:block;width:100%;height:100%;"><iframe class="embedded_video" id="44PbkN_uoP4" width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/44PbkN_uoP4?rel=0&amp;modestbranding=1&amp;showinfo=0" frameborder="0" allowfullscreen></iframe></div></div>
+</div></li><li class="Default"><p>所有节点都已连接完毕，请务必按 <strong>应用（Apply）</strong>按钮以编译材质。编译完成后，结果如下图所示。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Subsurface_Scattering/SSM_Finshed_Material.jpg">
+		<img class="  lazyload" alt="SSM_Finshed_Material.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Subsurface_Scattering/SSM_Finshed_Material.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>编译材质完成后，你现在可关闭材质窗口。接着，在 <strong>内容浏览器</strong> 内，选中该材质，<strong>右键单击</strong>，然后从菜单中选择 <strong>创建材质实例（Create Material Instance）</strong>选项。<br /></p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_akSnwKBLMtw_305
+{
+	margin: 0px;
+	width: 640px;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_akSnwKBLMtw_305:after
+{
+	content: "";
+	padding-top: 360px;
+	display: block;
+}
+</style> 
+<div>
+<div id="player_akSnwKBLMtw_305"><div style="position:absolute;display:block;width:100%;height:100%;"><iframe class="embedded_video" id="akSnwKBLMtw" width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/akSnwKBLMtw?rel=0&amp;modestbranding=1&amp;showinfo=0" frameborder="0" allowfullscreen></iframe></div></div>
+</div></li></ol><h2 id="应用次表面材质">应用次表面材质</h2>
+<ol ><li class="Default"><p>材质实例现已创建完毕，我们可以开始测试新材质。 
+为此，我们首先需要创建新的空白关卡以便在其中工作，方法如下：打开主菜单，然后从 <strong>文件（File）</strong>选项中选择 <strong>新建关卡（New Level）</strong>。 
+当系统提示你选择关卡类型时，请选择 <strong>空关卡（Empty Level）</strong>。 
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_bRuKiOW0i-w_345
+{
+	margin: 0px;
+	width: 640px;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_bRuKiOW0i-w_345:after
+{
+	content: "";
+	padding-top: 360px;
+	display: block;
+}
+</style> 
+<div>
+<div id="player_bRuKiOW0i-w_345"><div style="position:absolute;display:block;width:100%;height:100%;"><iframe class="embedded_video" id="bRuKiOW0i-w" width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/bRuKiOW0i-w?rel=0&amp;modestbranding=1&amp;showinfo=0" frameborder="0" allowfullscreen></iframe></div></div>
+</div></li><li class="Default"><p>新关卡已创建完毕，我们现在需要添加一些光源，以便测试次表面材质的外观。我们将要添加的第一个光源是 <strong>点光源</strong>。要向场景中添加点光源，我们首先需要找到点光源：它位于 <strong>模式（Modes）</strong>菜单的 <strong>光源（Lights）</strong>选项下。找到点光源之后，你可添加一个点光源到屏幕，方法如下：首先使用 <strong>鼠标左键</strong> 选中这个点光源，然后按住 <strong>鼠标左键</strong> 将其拖到场景中，最后释放 <strong>鼠标左键</strong> 即完成添加。添加到场景后，请使用 <strong>鼠标左键</strong> 单击该光源，将其选中。然后，输入下列值。
+</p><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>属性名称</p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>值</p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>位置（Location）：</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>X：230，Y：-67，Z：79</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>强度（Intensity）：</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>128</p>
+			</td>
+	
+</tr></tbody>
+</table><p>接下来，我们将添加一个 <strong>聚光灯</strong>。聚光灯位于"模式"（Modes）面板的 <strong>光源（Lights）</strong>部分中点光源的正下方。你可以像添加点光源一样，将聚光灯添加到屏幕。添加聚光灯之后，请输入下列值。 
+</p><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>属性名称</p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>值</p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>位置（Location）：</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>X：-320，Y：100，Z：-270</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>旋转（Rotation）：</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>X：0，Y：50，Z：0</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>强度（Intensity）：</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>39764</p>
+			</td>
+	
+</tr></tbody>
+</table><p>完成后，你应该看到类似下图的内容。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Subsurface_Scattering/SSM_Light_Settings.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Subsurface_Scattering/SSM_Light_Settings.jpg">
+		<img class="  lazyload" alt="SSM_Light_Settings.png" width="960" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Subsurface_Scattering/SSM_Light_Settings.jpg" />
+</picture>
+</span></a></span></p>
+</div></li><li class="Default"><p>所有光源现已添加完毕，我们现在可以添加用来执行测试的静态网格。在本示例中，我们将使用下列网格。 
+</p><p>StaticMesh'/Game/StarterContent/Props/SM_Chair.SM_Chair'
+</p><div class="tip">
+	<p>如果你找不到 SM_Chair 网格，那么可能是因为你未将起步内容包括在你的项目中。 
+要了解更多关于起步内容的信息，请参阅 <div class="errorhighlight" id="Error6">[起步内容](Basics/Projects/Browser/Packs)</div> 文档页面。</p>
+</div><p>找到该网格后，请将其从 <strong>内容浏览器</strong> 拖放到关卡中。 
+放入关卡后，请将其位置设置为环境中的 <strong>0,0,0</strong>。 
+完成后，你的关卡视口应该如下所示。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Subsurface_Scattering/SSM_Adding_Meshes.jpg">
+		<img class="  lazyload" alt="SSM_Adding_Meshes.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Subsurface_Scattering/SSM_Adding_Meshes.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>静态网格现已放入关卡，我们现在可以对其应用次表面材质。 
+为此，请先在 <strong>内容浏览器</strong> 中找到次表面材质。 
+找到该材质后，请将其从 <strong>内容浏览器</strong> 拖放到网格上，以应用该材质。 
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_j0xDDl7J8z0_562
+{
+	margin: 0px;
+	width: 640px;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_j0xDDl7J8z0_562:after
+{
+	content: "";
+	padding-top: 360px;
+	display: block;
+}
+</style> 
+<div>
+<div id="player_j0xDDl7J8z0_562"><div style="position:absolute;display:block;width:100%;height:100%;"><iframe class="embedded_video" id="j0xDDl7J8z0" width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/j0xDDl7J8z0?rel=0&amp;modestbranding=1&amp;showinfo=0" frameborder="0" allowfullscreen></iframe></div></div>
+</div></li></ol><h2 id="使用次表面材质">使用次表面材质</h2>
+<p>次表面材质现已应用完毕，你可以开始调整材质实例的设置。 
+在下列各节中，我们将回顾如何控制次表面材质的外观，以及如何调整材质实例中的各种选项以获得我们所需的结果。 
+</p><h3 id="_不透明_（opacity）控制">"不透明"（Opacity）控制</h3>
+<p>在次表面材质的当前设置中，"不透明"（Opacity）输入控制着我们要让对象散射的光线量。 
+设置 0 将允许所有光线散射，而设置 1 不允许任何光线散射。 
+以下示例显示椅子网格的背部，其中，左图的"不透明"（Opacity）值设置为 0，中图设置为 0.5，而右图设置为 1.0。 
+请注意，随着数值从 0 增大到 1，我们可以看到穿过对象的光线量变得越来越少。 
+<picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Subsurface_Scattering/SSM_Different_Opacity_Settings.jpg">
+		<img class="  lazyload" alt="SSM_Different_Opacity_Settings.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Subsurface_Scattering/SSM_Different_Opacity_Settings.jpg" />
+</picture>
+
+</p><div class="tip">
+	<p>虽然"不透明"（Opacity）确实有助于消除大量散射光，但是你可能会注意到，仍存在一些次表面散射。要完全消除该效果，你还必须调整"次表面颜色"（Subsurface Color）的 <strong>值（Value）</strong>（下面的"次表面颜色值"一节提供了这方面的更多信息。）</p>
+</div><h3 id="次表面颜色值">次表面颜色值</h3>
+<p> 虽然你可通过"不透明"（Opacity）输入来调整次表面散射量，但也可以使用 <strong>取色器</strong> 中的 <strong>值（Value）</strong>滑块进行此调整。 
+ 例如，将"不透明"（Opacity）设置为值 1.0 并将"次表面颜色值"（Subsurface Colors Value）从白色调整为黑色将有效地关闭次表面散射，如以下示例所示。 
+  <picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Subsurface_Scattering/SSM_Color_Value_Example_00.jpg">
+		<img class="  lazyload" alt="SSM_Color_Value_Example_00.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Subsurface_Scattering/SSM_Color_Value_Example_00.jpg" />
+</picture>
+
+</p><p>如果你执行相反的操作，将 <strong>取色器</strong> 中的 <strong>值（Value）</strong>滑块调整为白色，那么将重新启用次表面散射，如以下示例所示。 
+ <picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Subsurface_Scattering/SSM_Color_Value_Example_01.jpg">
+		<img class="  lazyload" alt="SSM_Color_Value_Example_01.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Subsurface_Scattering/SSM_Color_Value_Example_01.jpg" />
+</picture>
+
+</p><p>以下是以实时方式调整值的示例。请注意，随着颜色值从红色调整为黑色，次表面散射影响量也会受影响。<br /></p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_1_7ietok40_11
+{
+	margin: 0px;
+	width: 75%;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_1_7ietok40_11:after
+{
+	content: "";
+	padding-top: 56.25%;
+	display: block;
+}
+</style> 
+<div id="player_1_7ietok40_11"> 
+	<div id="playerContainer_1_7ietok40_11" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/1_7ietok40/embed.html"></iframe>
+	</div>
+</div>
+<h2 id="使用纹理作为次表面影响蒙版">使用纹理作为次表面影响蒙版</h2>
+<p>你可使用纹理作为蒙版，以进一步控制接收或不接收次表面散射的区域。 
+为此，你只需将所要使用的纹理作为蒙版连接到材质的 <strong>不透明（Opacity）</strong>通道。 
+在以下示例中，我们不仅使用蒙版纹理，还使用标量值来控制蒙版强度，以便进一步控制所发生的次表面散射量。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Subsurface_Scattering/SSM_Masked_Texture.jpg">
+		<img class="  lazyload" alt="SSM_Masked_Texture.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Subsurface_Scattering/SSM_Masked_Texture.jpg" />
+</picture>
+
+</p><div class="tip">
+	<p>蒙版纹理根据从黑色到白色的值来工作。接近黑色的值将允许次表面效果穿透，而接近白色的值不允许次表面效果穿透。  </p>
+</div><p>下图为使用蒙版纹理时以上材质在关卡中的显示效果。 
+请注意椅子上的黑色斑点。 
+这些黑色斑点是在蒙版纹理中使用纯白色值的结果。<br /></p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Subsurface_Scattering/SSM_Masked_Texture_Result.jpg">
+		<img class="  lazyload" alt="SSM_Masked_Texture_Result.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Subsurface_Scattering/SSM_Masked_Texture_Result.jpg" />
+</picture>
+
+</p>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Materials">Materials</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/RenderingAndGraphics/Materials/HowTo/Subsurface_Scattering/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:16:11 GMT -->
+</html>

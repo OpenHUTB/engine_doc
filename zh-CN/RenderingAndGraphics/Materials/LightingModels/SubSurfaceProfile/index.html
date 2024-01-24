@@ -1,0 +1,913 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/RenderingAndGraphics/Materials/LightingModels/SubSurfaceProfile/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 10:58:57 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/RenderingAndGraphics/Materials/LightingModels/SubSurfaceProfile/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>次表面轮廓明暗处理模型 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/RenderingAndGraphics/Materials/LightingModels/SubSurfaceProfile/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/RenderingAndGraphics/Materials/LightingModels/SubSurfaceProfile/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/RenderingAndGraphics/Materials/LightingModels/SubSurfaceProfile/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/RenderingAndGraphics/Materials/LightingModels/SubSurfaceProfile/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Rendering/Materials/LightingModels/SubSurfaceProfile" />
+<meta name="intsourcechangelist" content="11969630" />
+<meta name="availability" content="Public" />
+<meta name="title" content="次表面轮廓明暗处理模型" />
+<meta name="description" content="材质中可用的次表面轮廓着色模型的描述和技术细节。" />
+<meta name="parent" content="RenderingAndGraphics/Materials/LightingModels" />
+<meta name="order" content="1" />
+<meta name="topic-image" content="sss_profile_topic.png" />
+<meta name="type" content="overview" />
+<meta name="related" content="Resources/Showcases/DigitalHumans" />
+<meta name="keywords" content="Materials" />
+<meta name="skilllevel" content="Intermediate" />
+<meta name="course" content="creating-pbr-materials?lang=zh-CN|创建PBR材质|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fcreating-pbr-materials%2FHighresScreenshot00006-1920x1050-2c0180460478cd00327494c6e5717e227be4926d.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fcreating-pbr-materials%2FCreating-PBR-Materials-1000x1000-0d34ec4bfc3eeb466ce5a981a867921f72464e77.png?resize=1&amp;w=300" />
+<meta name="course" content="getting-to-know-materials-for-design-visualization?lang=zh-CN|了解可视化设计中的材质|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fgetting-to-know-materials-for-design-visualization%2FIntro_to_Materials_003-1919x1079-f32638266c469a6fa2b9b2f3515e5766e8177b22.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fgetting-to-know-materials-for-design-visualization%2FGetting-to-Know-Materials-for-Design-Visualization-1000x1000-8cd1670f84e0111e39d4a3faa1e7a6ba29a30bfe.png?resize=1&amp;w=300" />
+<meta name="course" content="materials---exploring-essential-concepts?lang=zh-CN|材质：基础概念|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials---exploring-essential-concepts%2FMaterialEssentialConcepts-1920x1080-1920x1080-2414bb5cf0b0c3bd7ac4b993e725d2acedd45334.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials---exploring-essential-concepts%2FMaterials--Exploring-Essential-Concepts-1000x1000-9546cdc254e6659ce73211b5955ab9d886921256.png?resize=1&amp;w=300" />
+<meta name="course" content="materials---understanding-the-production-workflow?lang=zh-CN|材质：制作工作流|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials---understanding-the-production-workflow%2FMaterialWorkflow_ThumbnailFull-1920x1080-1920x1080-638fea6d7e3b7b299a4f433096336ce1caf662d0.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials---understanding-the-production-workflow%2F104-Materials-Production-Workflow%402x-1000x1000-ae1ba588a367d239fbe513da38bb793360c9eecf.png?resize=1&amp;w=300" />
+<meta name="course" content="materials-master-learning?lang=zh-CN|材质大师课程|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials-master-learning%2FMaterialMaster_1920x1080-1920x1080-212f85045980310d6985557f84d0217e6423b709.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials-master-learning%2FMaterials-Master-Learning-1000x1000-56fd0b66f6e798313f79737126d9215cbd4a3ff9.png?resize=1&amp;w=300" />
+<meta name="crumbs" content="%ROOT%,RenderingAndGraphics,RenderingAndGraphics/Materials,RenderingAndGraphics/Materials/LightingModels" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="次表面轮廓明暗处理模型" />
+	<meta property="og:description" content="材质中可用的次表面轮廓着色模型的描述和技术细节。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">设计视觉、渲染和图形效果</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">材质 </a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">材质着色模型</a>
+
+<span class="separator">></span> <span id="page">次表面轮廓明暗处理模型</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">次表面轮廓明暗处理模型</h1>
+							</div>	
+							<h2 >材质中可用的次表面轮廓着色模型的描述和技术细节。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Intermediate"><a id="skill_link" href="../../../../SiteIndex/index.html?skills=Intermediate">Intermediate</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																		<div id="seeAlso">
+	<div style="position:relative;">
+		<div id="title">参见</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<p>
+						<a id="related_link" href="../../../../Resources/Showcases/DigitalHumans/index.html" title="使用高品质的角色着色器技术、演员数据扫描和改进的几何体工作流程创建真实可信的角色">数字人类</a>
+					</p>
+				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																		<div id="courses">
+	<div style="position:relative;">
+		<div id="title">相关课程</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<div name="creating-pbr-materials?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/creating-pbr-materials?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_443/Unreal%20Engine/onlinelearning-courses/creating-pbr-materials/HighresScreenshot00006-1920x1050-2c0180460478cd00327494c6e5717e227be4926d4f86.png?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_443/Unreal%20Engine/onlinelearning-courses/creating-pbr-materials/Creating-PBR-Materials-1000x1000-0d34ec4bfc3eeb466ce5a981a867921f72464e77fe4b.png?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="creating-pbr-materials?lang=zh-CN_title">
+				创建PBR材质
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="getting-to-know-materials-for-design-visualization?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/getting-to-know-materials-for-design-visualization?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/getting-to-know-materials-for-design-visualizat/Intro_to_Materials_003-1919x1079-f32638266c469a6fa2b9b2f3515e5766?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/getting-to-know-materials-for-design-visualizat/Getting-to-Know-Materials-for-Design-Visualization-1000x1000-8cd1670f84e0111e39d4a3faa1e7a6b?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="getting-to-know-materials-for-design-visualization?lang=zh-CN_title">
+				了解可视化设计中的材质
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="materials---exploring-essential-concepts?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/materials---exploring-essential-concepts?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/materials---exploring-essential-concepts/MaterialEssentialConcepts-1920x1080-1920x1080-2414bb5cf0b0c3bd7ac4b993e725d2acedd45334.42c4f86.dela?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/materials---exploring-essential-concepts/Materials--Exploring-Essential-Concepts-1000x1000-9546cdc254e6659ce73211b5955ab9d886921256.42dfe4b?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="materials---exploring-essential-concepts?lang=zh-CN_title">
+				材质：基础概念
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="materials---understanding-the-production-workflow?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/materials---understanding-the-production-workflow?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/materials---understanding-the-production-workfl/MaterialWorkflow_ThumbnailFull-1920x1080-1920x1080-638fea6d7e3b7b299a4f433096336ce1caf662d0?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/materials---understanding-the-production-workfl/104-Materials-Production-Workflow%402x-1000x1000-ae1ba588a367d239fbe513da38bb793360c9eecf.42ff?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="materials---understanding-the-production-workflow?lang=zh-CN_title">
+				材质：制作工作流
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="materials-master-learning?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/materials-master-learning?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/materials-master-learning/MaterialMaster_1920x1080-1920x1080-212f85045980310d6985557f84d0217e6423b709.4314f86.del?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/materials-master-learning/Materials-Master-Learning-1000x1000-56fd0b66f6e798313f79737126d9215cbd4a3ff9.433fe4b.de?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="materials-master-learning?lang=zh-CN_title">
+				材质大师课程
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																								<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#什么是次表面轮廓">什么是次表面轮廓</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#启用、创建和使用次表面轮廓">启用、创建和使用次表面轮廓</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#创建次表面轮廓">创建次表面轮廓</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#启用次表面轮廓">启用次表面轮廓</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#burley次表面轮廓">Burley次表面轮廓</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#材质输入通道">材质输入通道</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#全分辨率皮肤着色">全分辨率皮肤着色</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#兼容性">兼容性</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#限制">限制</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#性能考虑">性能考虑</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#技术细节">技术细节</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#可延展性和控制台命令">可延展性和控制台命令</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#次表面轮廓属性参考">次表面轮廓属性参考</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#特别鸣谢">特别鸣谢</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>虚幻引擎4（UE4）现在提供特定的着色方法，以渲染真实的皮肤或蜡质表面，这称为 <strong>次表面轮廓</strong> 着色。
+</p><p>次表面轮廓着色方法类似于次表面方法，但本质的区别在于渲染方式：次表面轮廓基于 <strong>屏幕空间</strong>。这是因为屏幕空间渲染能够更有效地显示人类皮肤中可见的细腻次表面效果，而反向散射是仅在少数情况下看到的次级效果，如耳朵。在以下文档中，我们将介绍什么是次表面轮廓以及如何在您的项目中加以运用。 
+</p><!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><img class="  lazyload" alt="不使用次表面轮廓" width="700" data-src="../../../../../Images/RenderingAndGraphics/Materials/LightingModels/SubSurfaceProfile/Results_1.png" />
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><img class="  lazyload" alt="使用次表面轮廓" width="700" data-src="../../../../../Images/RenderingAndGraphics/Materials/LightingModels/SubSurfaceProfile/Results_2.png" />
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div><div class="note">
+	<p>特别感谢Perry-Smith和他的公司[Infinite Realities]（http://ir-ltd.net）协助编写本文档，以及提供3D扫描头部模型。 </p>
+</div><h2 id="什么是次表面轮廓">什么是次表面轮廓</h2>
+<p>次表面散射轮廓数据是一项可以创建、分享和保存在 <strong>内容浏览器</strong> 中的资源。该数据应该由美工编写，用于控制次表面中的照明应该散射的距离、次表面颜色和离开对象后照明的衰减色。然后该数据应用于次表面材质。次表面轮廓数据还可以交互调整，即您无需重新编译材质即可查看编辑结果。
+</p><h2 id="启用、创建和使用次表面轮廓">启用、创建和使用次表面轮廓</h2>
+<p>在UE4中使用次表面轮廓有许多不同的方法。在以下部分中，我们将介绍各种方法。
+</p><h3 id="创建次表面轮廓">创建次表面轮廓</h3>
+<p>要创建次表面轮廓，首先在 <strong>内容浏览器</strong> 中单击右键。然后，选择 <strong>材质和纹理（Materials &amp; Textures）</strong> 选项，然后选择 <strong>次表面轮廓（Subsurface Profile）</strong> 选项。 
+<picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/LightingModels/SubSurfaceProfile/2.jpg">
+		<img class="  lazyload" alt="创建次表面轮廓" data-src="../../../../../Images/RenderingAndGraphics/Materials/LightingModels/SubSurfaceProfile/2.jpg" />
+</picture>
+
+</p><p>要编辑次表面轮廓，可以在 <strong>内容浏览器</strong> 中用 <strong>鼠标左键按钮</strong> 双击以将其打开。 
+打开后，可以调整次表面散射轮廓的各个属性，方法是使用键盘输入数字，或者使用 <strong>鼠标左键</strong> 来 <strong>单击</strong> 颜色条以显示取色器。 
+</p><h3 id="启用次表面轮廓">启用次表面轮廓</h3>
+<p>要在材质中使用次表面轮廓，首先在材质的 <strong>细节（Details）</strong> 面板中，将材质的 <strong>着色模型（Shading Model）</strong> 设置为 <strong>次表面轮廓（Subsurface Profile）</strong> 来进行启用。启用后，可以在 <strong>次表面轮廓（Subsurface Profile）</strong> 输入中输入新的次表面轮廓来覆盖所用的默认值。
+</p><div class="tip">
+	<p>次表面轮廓的默认设置接近于高加索皮肤类型。请注意，这只是接近于真实皮肤效果的一个组件。<em>始终确保纹理的底色符合您的次表面散射轮廓。</em></p>
+</div><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/LightingModels/SubSurfaceProfile/1.jpg">
+		<img class="  lazyload" alt="启用次表面轮廓" data-src="../../../../../Images/RenderingAndGraphics/Materials/LightingModels/SubSurfaceProfile/1.jpg" />
+</picture>
+
+</p><p>另外，也可以在材质实例中覆盖次表面轮廓。为此，转至材质实例的 <strong>细节（Details）</strong> 面板，并启用 <strong>覆盖次表面轮廓（Override Subsurface Profile）</strong>。启用后，在 <strong>次表面轮廓（Subsurface Profile）</strong> 输入中提供您想要使用的次表面轮廓。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/LightingModels/SubSurfaceProfile/6.jpg">
+		<img class="  lazyload" alt="6.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/LightingModels/SubSurfaceProfile/6.jpg" />
+</picture>
+
+</p><div class="note">
+	<p>请记住，整个计算都是始终考虑节能的，因此可以通过散射创建其他照明。</p>
+</div><h2 id="burley次表面轮廓">Burley次表面轮廓</h2>
+<p>Burley次表面散射使用了借助Burley算法的屏幕空间模型。它在物理上更为精确，主要用于改善皮肤着色的质量，同时利用物理材质属性来简化设置。它能实现质量远优于传统可分离SSS算法的高端皮肤渲染，让衰减更清晰、更精确。 
+</p><!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><img class="  lazyload" alt="可分离次表面散射" width="700" data-src="../../../../../Images/RenderingAndGraphics/Materials/LightingModels/SubSurfaceProfile/Results_Burley_1.png" />
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><img class="  lazyload" alt="Burley次表面散射" width="700" data-src="../../../../../Images/RenderingAndGraphics/Materials/LightingModels/SubSurfaceProfile/Results_Burley_2.png" />
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div><p>在次表面轮廓资源中的 <strong>启用Burley（Enable Burley）</strong> 旁边进行勾选即可使用此次表面散射模型。
+</p><div class="note">
+	<p>此方法需要临时抗锯齿才能正确显示。</p>
+</div><h2 id="材质输入通道">材质输入通道</h2>
+<p>屏幕空间次表面明暗处理轮廓与照亮明暗处理模式没有很大的区别，它们之间的主要区别在于金属色（Metallic）输入的用途已改变，不可使用。<br /></p><p><strong>底色输入：</strong>底色输入照例用于漫射照明。没有额外的次表面散射颜色，因为屏幕空间次表面散射不应该改变颜色或亮度，它只是将照明重新分发到附近的像素。 
+因此，如果材质应该在特定颜色中散射，需要表示为底色的一部分。 
+底色应该是最终颜色，就像是从无法区分散射与漫射光线的遥远距离观察材质一样。 
+</p><div class="note">
+	<p>人类皮肤是薄薄的一层，会阻挡一定数量的照明和颜色，并且其表面下面是充满活力的红色的血肉。浅色人类皮肤的可见散射距离约为1.2 CM。</p>
+</div><p><strong>金属色输入：</strong>使用次表面轮廓时，金属色输入通道不可用，这是因为金属色输入的GBuffer空间的用途已改变，无法容纳次表面轮廓数据。
+</p><p><strong>不透明输入：</strong>不透明度输入通道用来屏蔽次表面散射的影响。 
+它的工作原理是使用0-1范围内的值，以使次表面散射强度的不同区域之间平滑过渡，其中0表示无散射，1表示完全散射。
+</p><p>为了更好地控制次表面散射在哪里应该更强或更弱，最好使用遮罩纹理。<br />遮罩纹理中值更接近于1的区域或白色区域将拥有最强的次表面散射效果，而接近于0的区域或黑色区域将拥有最少的这种效果。 
+调整次表面颜色将有助于补偿区域变暗的情况。请记住，使用更亮的颜色会产生更强的次表面散射。 
+</p><p>在这里，您可以看到如何使用蒙版来使用一个材质渲染两种表面类型。请注意，过渡效果是柔和的，不限于三角形边界。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Materials/LightingModels/SubSurfaceProfile/4.png" ><span><img class="  lazyload" alt="4.png" width="920" data-src="../../../../../Images/RenderingAndGraphics/Materials/LightingModels/SubSurfaceProfile/4.png" />
+</span></a></span></p>
+</div><div class="caption">
+	<p>单击查看大图。</p>
+</div><h2 id="全分辨率皮肤着色">全分辨率皮肤着色</h2>
+<p>UE4支持次表面轮廓着色模型的全分辨率皮肤着色。这样可以提供表面细节的高保真照明，如毛孔和皱纹。
+</p><!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/LightingModels/SubSurfaceProfile/FRSH_Checkboard_Zoom.jpg">
+		<img class="  lazyload" alt="棋盘格渲染皮肤布局" data-src="../../../../../Images/RenderingAndGraphics/Materials/LightingModels/SubSurfaceProfile/FRSH_Checkboard_Zoom.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/LightingModels/SubSurfaceProfile/FRSH_FullResolution_Zoom.jpg">
+		<img class="  lazyload" alt="全分辨率皮肤" data-src="../../../../../Images/RenderingAndGraphics/Materials/LightingModels/SubSurfaceProfile/FRSH_FullResolution_Zoom.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div><p>之前，皮肤上的照明是使用棋盘格图案表示的，而有一半像素仅使用漫散射照明，另一个半使用高光照明。照明是在最终次表面轮廓全屏通道中重新组合的。这种方法对于次表面照明（本质上是低频的）提供了良好的结果，但可能会导致次表面细节照明保真度降低。而在新方法中，每个像素都包含漫反射和高光照明信息，封装到RGBA编码中。这允许我们在最终次表面轮廓全屏通道中重新构造全分辨率照明，让表面细节获得更好的结果，以及时间性抗锯齿获得更稳定的行为。 
+</p><h3 id="兼容性">兼容性</h3>
+<p>全分辨率皮肤着色需要至少具有完整alpha通道的64位场景颜色格式。默认的FloatRGBA场景颜色格式可以使用，但不支持32位表示，如FloatRGB。如果场景颜色格式不兼容全分辨率皮肤，我们将回退到基于棋盘格的照明。 
+</p><p>该行为可以使用 <strong>r.SSS.Checkerboard</strong> 控制台变量覆盖。可能的值包括：
+</p><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>属性名称</p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>值</p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>描述</p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>r.SSS.Checkerboard</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>0</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>禁用棋盘格</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>r.SSS.Checkerboard</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>1</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>启用棋盘格（旧行为）</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>r.SSS.Checkerboard</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>2</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>自动（默认）- 场景颜色像素格式支持的话，将使用全分辨率照明。</p>
+			</td>
+	
+</tr></tbody>
+</table><h3 id="限制">限制</h3>
+<p>值得注意的是，全分辨率皮肤着色是近似值。它适用于大多数情况，但特定材质功能可能会因为编码方法而出现问题。具体而言：
+</p><ul ><li class="Default"><p>金属色材质
+</p></li><li class="Default"><p>自发光材质
+</p></li></ul><p>这些功能可以使用，但您会注意到与棋盘格对比的输出差异，这些差异是因为封装RGBA漫散射/高光编码引起的。在编写材质时可以绕过这些问题，方法是在不需要皮肤着色的区域将 <strong>不透明度（Opacity）</strong> 设置为 <strong>0</strong>。不透明度为0的像素将被视为默认光照来进行着色。 
+</p><div class="note">
+	<p>如果是出于性能考量，也可以这样的方式遮罩透光像素，因为次表面后期处理绕过会这些像素。 </p>
+</div><h3 id="性能考虑">性能考虑</h3>
+<p>如果您的作品使用64位场景颜色格式，通常全分辨率次表面照明会比棋盘格更快，因为纹理拾取次数会减少。但是，如果您的作品使用32位场景颜色，则降低纹理带宽得到的性能增益可能比这些优势更有价值（尽管这与硬件有关）。
+</p><h2 id="技术细节">技术细节</h2>
+<p>目前，次表面散射轮廓着色模型与光照（Lambert漫反射，高光GGX，无金属色）没有太大区别。大部分效果发生于完成所有照明计算之后的后期处理中。 
+</p><div class="note">
+	<p>次表面散射轮廓基于<a id="content_link" href="http://www.iryoku.com/" ><span>Jorge Jimenez</span></a>的作品。请确保查看他网页，以了解有关如何让您的3D图像看起来更加真实的有用提示。</p>
+</div><p>我们将非高光（非视图相关）照明贡献区分出来，以在次表面材质上支持高光，并支持下采样以获得更好的性能。 
+类似于高斯模糊，我们通过双通道（假设可分离内核）后期处理来过滤图像。 
+过滤内核取决于存储在GBuffer（每个场景坐高255个活跃轮廓）中的次表面散射轮廓。 
+此内核具有彩色权重以及特定的取样位置，它们在轮廓中可进行比例调整（以每厘米单位数定义）。 
+在最后一步，我们将散射照明贡献与全分辨率图像重新合并。为了区分视图相关和非视图相关照明，我们将加权值存储在场景颜色alpha通道中。 
+该近似值需要64位渲染目标（请参阅r.SceneColorFormat），该近似值适用于大多数情况。
+</p><p>它成功地去除了高光，但在视图相关颜色上，这些高光像素会获得更强的去饱和效果。您可以通过将两个32位渲染目标用于所有照明通道加以改善。这占用相同的内存带宽，但在某些硬件上，速度可能会变慢。这可能是我们想要更改的情况（已增加代码复杂性）。
+</p><p>在以下示例中，我们在应用模糊之前去除了高光。请注意，最后一张图中高光反射的清晰光滑的效果（最右侧的图像）。这就是我们想要实现的效果。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Materials/LightingModels/SubSurfaceProfile/Good_Combination.png" ><span><img class="  lazyload" alt="Good_Combination.png" width="920" data-src="../../../../../Images/RenderingAndGraphics/Materials/LightingModels/SubSurfaceProfile/Good_Combination.png" />
+</span></a></span></p>
+</div><div class="caption">
+	<p>单击查看大图。</p>
+</div><p>在以下示例中，我们在应用模糊之前未去除高光。请注意，最后一张图中高光反射的阴暗程度，而看起来有一点拉伸效果（最右侧的图像）。这不是渲染这种效果的正确方法。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Materials/LightingModels/SubSurfaceProfile/Bad_Combination.png" ><span><img class="  lazyload" alt="Bad_Combination.png" width="920" data-src="../../../../../Images/RenderingAndGraphics/Materials/LightingModels/SubSurfaceProfile/Bad_Combination.png" />
+</span></a></span></p>
+</div><div class="caption">
+	<p>单击查看大图。</p>
+</div><h2 id="可延展性和控制台命令">可延展性和控制台命令</h2>
+<p>您可使用一些比例调整和性能控制台命令，来帮助在高品质视觉效果与更好的性能之间进行良好平衡。 
+</p><p><strong>r.SSS.Scale</strong>：可以用于调节效果以便快速试验。设置为 <strong>0</strong> 将禁用这种效果。在下图序列可以看到，设置大于0的数字将增强效果。
+</p><div class="include_wrapper" data-path="RenderingAndGraphics\Materials\LightingModels\SubSurfaceProfile\">
+<!--
+id:paramliteral
+max:paramliteral
+ext:paramliteral
+caption:paramliteral
+image_list:param
+-->
+<div class="slider_container" id="SQ">
+    <div id="SQ_Image"></div>
+    <div class="slider"></div>
+	    <div class="caption">
+        <b><p>拖动滑块会看到 <strong>r.SSS.Scale</strong> 设置为0到10的变化。</p></b>
+    </div>
+	    <div id="images" class="hidden">
+        <p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/LightingModels/SubSurfaceProfile/SQ_1.jpg">
+		<img class="  lazyload" alt="SQ_1.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/LightingModels/SubSurfaceProfile/SQ_1.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/LightingModels/SubSurfaceProfile/SQ_2.jpg">
+		<img class="  lazyload" alt="SQ_2.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/LightingModels/SubSurfaceProfile/SQ_2.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/LightingModels/SubSurfaceProfile/SQ_3.jpg">
+		<img class="  lazyload" alt="SQ_3.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/LightingModels/SubSurfaceProfile/SQ_3.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/LightingModels/SubSurfaceProfile/SQ_4.jpg">
+		<img class="  lazyload" alt="SQ_4.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/LightingModels/SubSurfaceProfile/SQ_4.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/LightingModels/SubSurfaceProfile/SQ_5.jpg">
+		<img class="  lazyload" alt="SQ_5.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/LightingModels/SubSurfaceProfile/SQ_5.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/LightingModels/SubSurfaceProfile/SQ_6.jpg">
+		<img class="  lazyload" alt="SQ_6.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/LightingModels/SubSurfaceProfile/SQ_6.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/LightingModels/SubSurfaceProfile/SQ_7.jpg">
+		<img class="  lazyload" alt="SQ_7.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/LightingModels/SubSurfaceProfile/SQ_7.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/LightingModels/SubSurfaceProfile/SQ_8.jpg">
+		<img class="  lazyload" alt="SQ_8.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/LightingModels/SubSurfaceProfile/SQ_8.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/LightingModels/SubSurfaceProfile/SQ_9.jpg">
+		<img class="  lazyload" alt="SQ_9.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/LightingModels/SubSurfaceProfile/SQ_9.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/LightingModels/SubSurfaceProfile/SQ_10.jpg">
+		<img class="  lazyload" alt="SQ_10.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/LightingModels/SubSurfaceProfile/SQ_10.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/LightingModels/SubSurfaceProfile/SQ_11.jpg">
+		<img class="  lazyload" alt="SQ_11.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/LightingModels/SubSurfaceProfile/SQ_11.jpg" />
+</picture>
+</p>
+    </div>
+</div>
+</div>
+<p><strong>r.SSS.SampleSet</strong>：设置所用的样本数量。减小该值将使该效果更快速地运行。但是，这意味着效果将有更低的质量，可能会出现渲染瑕疵。
+</p><!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/LightingModels/SubSurfaceProfile/RSampleSet_Off.jpg">
+		<img class="  lazyload" alt="r.SSS.SampleSet = 0" data-src="../../../../../Images/RenderingAndGraphics/Materials/LightingModels/SubSurfaceProfile/RSampleSet_Off.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/LightingModels/SubSurfaceProfile/RSampleSet_On.jpg">
+		<img class="  lazyload" alt="r.SSS.SampleSet = 1" data-src="../../../../../Images/RenderingAndGraphics/Materials/LightingModels/SubSurfaceProfile/RSampleSet_On.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div><p>下图显示系统的更多一些内部信息。该视图可以使用 <strong>ShowFlag.VisualizeSSS 1</strong> 来启用。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Materials/LightingModels/SubSurfaceProfile/5.png" ><span><img class="  lazyload" alt="5.png" width="920" data-src="../../../../../Images/RenderingAndGraphics/Materials/LightingModels/SubSurfaceProfile/5.png" />
+</span></a></span></p>
+</div><div class="caption">
+	<p>单击查看大图。</p>
+</div><p>虽然次表面散射轮廓明暗处理模型在渲染皮肤方面取得很大进步，但在处理能力方面还是有所局限。
+<em>请注意，由于该系统变得越来越精细，因此该列表可能会有所改变。</em>
+</p><ul ><li class="Default"><p>该功能不适用于非延迟（移动）渲染模式。
+</p></li><li class="Default"><p>将大屏幕设置为散射半径，将会在极端照明条件下显示出带状瑕疵。
+</p></li><li class="Default"><p>目前，没有照明反向散射。 
+</p></li><li class="Default"><p>目前，当非SSS材质遮挡SSS材质时，会出现灰色轮廓。
+</p></li></ul><h2 id="次表面轮廓属性参考">次表面轮廓属性参考</h2>
+<p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/LightingModels/SubSurfaceProfile/3.jpg">
+		<img class="  lazyload" alt="调整次表面轮廓" data-src="../../../../../Images/RenderingAndGraphics/Materials/LightingModels/SubSurfaceProfile/3.jpg" />
+</picture>
+
+</p><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>属性名称</p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>说明</p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="2" align="">
+			<p><div class="tablesection">
+	<p> Burley规格化 </p>
+</div></p>
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>表面反射率（Surface Albedo）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>应设为与对应材质的底色尽可能匹配。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>平均自由路径颜色（Mean Free Path Color）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>控制光线在红、绿、蓝通道中进入次表面的距离。它按 <strong>平均自由路径距离（Mean Free Path Distance）</strong> 缩放。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>平均自由路径距离（Mean Free Path Distance）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>控制 <strong>平均自由路径颜色（Mean Free Path Color）</strong> 进入次表面的距离。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>场景单位缩放（World Unit Scale）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>控制世界场景/虚幻单位的缩放（单位为厘米）。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>启用Burley（Enable Burley）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>仅在使用Burley时有效</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="2" align="">
+			<p><div class="tablesection">
+	<p> 次表面轮廓 </p>
+</div></p>
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>散射半径：</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>以场景空间单位表示的用于执行散射的距离。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>次表面颜色：</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>可以用作次表面效果权重的次表面颜色。黑色表示没有次表面散射。白色表示，所有照明进入材质并四处散射。非灰阶值可以更多地控制哪些颜色贡献进入表面，产生更复杂的外观着色。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>衰减颜色</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>衰减颜色定义光照进入材质后的材质散射颜色。如果想要在看到散射的区域获得更复杂的着色变化，您应避免在此使用生动的颜色。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>边界颜色泄出（Boundary Color Bleed）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>控制一个次表面材质混入另一个次表面材质的方式。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="2" align="">
+			<p><div class="tablesection">
+	<p> 透射 </p>
+</div></p>
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>消光比例（Extinction Scale）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>控制吸收比例。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>法线比例（Normal Scale）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>控制法线对透射的贡献。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>散射分布（Scattering Distribution）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>控制透射结果的散射分布。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>IOR</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>设置透射结果的折射率。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>透射色调颜色（Transmission Tint Color）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>将此值乘以透射结果来控制透射色调。需要在 <strong>Burley规格化（Burley Normalized）</strong> 类目中启用 <strong>启用Burley（Enable Burley）</strong> 框。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="2" align="">
+			<p><div class="tablesection">
+	<p> 双镜面 </p>
+</div></p>
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>粗糙度0（Roughness 0）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>控制柔和叶的粗糙度。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>粗糙度1（Roughness 1）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>控制紧密叶的粗糙度。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>叶混合（Lobe Mix）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>控制两个独立叶的粗糙度值，两者结合将得到最终结果。将其结合在一起将形成极佳的子像素微频率，使皮肤外观真实自然。使用 <strong>粗糙度0（Roughness 0）</strong> 和 <strong>粗糙度1（Roughness 1）</strong> 控制双镜面的单独叶</p>
+			</td>
+	
+</tr></tbody>
+</table><h2 id="特别鸣谢">特别鸣谢</h2>
+<ul ><li class="Default"><p>特别感谢Lee Perry-Smith及其公司<a id="content_link" href="http://ir-ltd.net/" ><span>Infinite Realities</span></a>提供的头部模型和协助。 
+此外，还要特别感谢<a id="content_link" href="http://www.iryoku.com/" ><span>Jorge Jimenez</span></a>发布他的实现，因为本功能正是基于他的努力成果。
+</p></li><li class="Default"><p>特别感谢Mike Seymore和3Lateral对"Meet Mike"数字扫描的贡献。
+</p></li></ul>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Materials">Materials</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/RenderingAndGraphics/Materials/LightingModels/SubSurfaceProfile/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 10:59:06 GMT -->
+</html>

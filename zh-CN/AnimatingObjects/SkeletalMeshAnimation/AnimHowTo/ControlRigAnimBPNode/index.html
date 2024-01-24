@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/ControlRigAnimBPNode/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:26:49 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var finishButton = finishButtonTemplate;
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/ControlRigAnimBPNode/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>Control Rig动画蓝图节点 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+		    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+		    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/ControlRigAnimBPNode/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/ControlRigAnimBPNode/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/ControlRigAnimBPNode/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/ControlRigAnimBPNode/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Animation/AnimHowTo/ControlRigAnimBPNode" />
+<meta name="intsourcechangelist" content="14241652" />
+<meta name="availability" content="Public" />
+<meta name="title" content="Control Rig动画蓝图节点" />
+<meta name="description" content="描述如何使用Control Rig动画蓝图节点将Control Rig内容包含在动画蓝图中，以便进行混合或直接在动画中使用Rig内容。" />
+<meta name="type" content="how-to" />
+<meta name="version" content="4.21" />
+<meta name="parent" content="AnimatingObjects/SkeletalMeshAnimation/AnimHowTo" />
+<meta name="order" content="" />
+<meta name="skilllevel" content="Advanced" />
+<meta name="keywords" content="Animation Blueprints" />
+<meta name="keywords" content="Experimental" />
+<meta name="keywords" content="Rigging" />
+<meta name="keywords" content="control rig list" />
+<meta name="topic-image" content="ControlRigAnimBPTopic.png" />
+<meta name="crumbs" content="%ROOT%,AnimatingObjects,AnimatingObjects/SkeletalMeshAnimation,AnimatingObjects/SkeletalMeshAnimation/AnimHowTo" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="Control Rig动画蓝图节点" />
+	<meta property="og:description" content="描述如何使用Control Rig动画蓝图节点将Control Rig内容包含在动画蓝图中，以便进行混合或直接在动画中使用Rig内容。 " />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">为角色和对象添加动画</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">骨架网格体动画系统</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">动画操作指南</a>
+
+<span class="separator">></span> <span id="page">Control Rig动画蓝图节点</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+					<div id="banner" class="experimental">
+	<div id="message">
+		您可以尝试该<span>实验性</span>功能，但我们不推荐在发布产品中使用它。
+	</div>
+	<div id="bannerDescription">
+		有时，我们会提供一些实验阶段的功能供您试用，以便您给出反馈，并了解我们的开发计划。<strong>我们不推荐在发布项目中使用实验功能。</strong>请记住，我们不保证您在实验阶段创建的资源的向后兼容性，这些功能的API可能变更，我们也可能酌情移除整个实验功能或其中某个特定功能。
+	</div>
+</div>
+															<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">Control Rig动画蓝图节点</h1>
+							</div>	
+							<h2 >描述如何使用Control Rig动画蓝图节点将Control Rig内容包含在动画蓝图中，以便进行混合或直接在动画中使用Rig内容。 </h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Advanced"><a id="skill_link" href="../../../../SiteIndex/index.html?skills=Advanced">Advanced</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																																																<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#步骤">步骤</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#最终结果">最终结果</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>创建一个<a id="content_link"filter-data="tag_beta tag_control_rig tag_rigging tag_control_rig_blueprints" href="../../ControlRig/Blueprint/index.html" ><span>Control Rig蓝图</span></a>后，可使用<a id="content_link"filter-data="tag_animation tag_animation_blueprint tag_blueprints tag_state_machine tag_animation_assets" href="../../AnimBlueprints/index.html" ><span>动画蓝图</span></a>AnimGraph中的Control Rig节点来增大Control Rig蓝图中提供内容的动画数据。这能帮助使用者完成诸如以下此类任务：将动画数据与Control Rig蓝图的内容混合，或将Control Rig蓝图的内容放置在现有动画数据之上。
+</p><p>下例展示了如何使用Control Rig蓝图来指示一个关节瞄准并跟随另一个关节。Control Rig创建后，即可使用Control Rig节点并将Control Rig内容合并到正在播放动画的一个现有动画蓝图中。
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_0_wif2hcno_2
+{
+	margin: 0px;
+	width: 640px;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_0_wif2hcno_2:after
+{
+	content: "";
+	padding-top: 360px;
+	display: block;
+}
+</style> 
+<div id="player_0_wif2hcno_2"> 
+	<div id="playerContainer_0_wif2hcno_2" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/0_wif2hcno/embed.html"></iframe>
+	</div>
+</div>
+<a name="steps" ></a><h2 id="步骤">步骤</h2>
+<p>此范例中使用的是全新的 <strong>蓝图第三人称模板</strong> 项目。 
+</p><ol ><li class="Default"><p>在项目中<a id="content_link"filter-data="tag_animation tag_beta tag_landing_page tag_control_rig tag_rigging" href="../../ControlRig/index.html" ><span>启用Control Rig插件</span></a>后点击 <strong>新增（Add New）</strong> 按钮并在 <strong>动画（Animation）</strong> 中选择 <strong>Control Rig</strong>。 <br /><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/ControlRigAnimBPNode/1_CRNode.jpg">
+		<img class="  lazyload" alt="1_CRNode.png" title="1372029427CRNode.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/ControlRigAnimBPNode/1_CRNode.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>将 <strong>ControlRig</strong> 选为父Rig，然后点击 <strong>创建（Create）</strong> 并为其赋予任意命名。  <br /><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/ControlRigAnimBPNode/2_CRNode.jpg">
+		<img class="  lazyload" alt="2_CRNode.png" title="2372029427CRNode.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/ControlRigAnimBPNode/2_CRNode.jpg" />
+</picture>
+<br /></p></li><li class="Default"><p>在Control Rig蓝图中右键点击 <strong>层级（Hierarchy）</strong> 选项卡，然后在"导入（Import）"下指定 <strong>SK_Mannequin</strong>。 <br /><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/ControlRigAnimBPNode/3_CRNode.jpg">
+		<img class="  lazyload" alt="3_CRNode.png" title="3372029427CRNode.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/ControlRigAnimBPNode/3_CRNode.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>预览场景设置（Preview Scene Settings）</strong> 选项卡中，将 <strong>SK_Mannequin</strong> 指定为 <strong>预览网格体（Preview Mesh）</strong>。 <br /><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/ControlRigAnimBPNode/4_CRNode.jpg">
+		<img class="  lazyload" alt="4_CRNode.png" title="4372029427CRNode.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/ControlRigAnimBPNode/4_CRNode.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>编译Control Rig蓝图。 <br /><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/ControlRigAnimBPNode/5_CRNode.jpg">
+		<img class="  lazyload" alt="5_CRNode.png" title="5372029427CRNode.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/ControlRigAnimBPNode/5_CRNode.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在图表中点击右键并创建一个 <strong>Rig Hierarchy Ref</strong> 变量。 <br /><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/ControlRigAnimBPNode/6_CRNode.jpg">
+		<img class="  lazyload" alt="6_CRNode.png" title="6372029427CRNode.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/ControlRigAnimBPNode/6_CRNode.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>Rig Hierarchy Ref</strong> 的 <strong>细节（Details）</strong> 面板中将 <strong>变量名（Variable Name）</strong> 改为 <strong>Base_Hierarchy</strong>。 <br /><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/ControlRigAnimBPNode/7_CRNode.jpg">
+		<img class="  lazyload" alt="7_CRNode.png" title="7372029427CRNode.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/ControlRigAnimBPNode/7_CRNode.jpg" />
+</picture>
+<br />这将创建一个对层级的引用，通常建议将其重设为表述更清楚的命名，例如"Base Hierarchy"。<br /></p></li><li class="Default"><p>在输出引脚后使用 <strong>Get Joint Transform</strong> 节点，<strong>Joint</strong> 设为 <strong>hand_r</strong>、<strong>Type</strong> 设为 <strong>Current</strong>。<br /><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/ControlRigAnimBPNode/8_CRNode.jpg">
+		<img class="  lazyload" alt="8_CRNode.png" title="8372029427CRNode.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/ControlRigAnimBPNode/8_CRNode.jpg" />
+</picture>
+<br />这将成为要瞄准的目标关节，我们将获取此关节当前的变换值。<br /></p></li><li class="Default"><p>在图表中点击右键并添加一个 <strong>Aim Constraint</strong> 节点。<br /><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/ControlRigAnimBPNode/9_CRNode.jpg">
+		<img class="  lazyload" alt="9_CRNode.png" title="9372029427CRNode.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/ControlRigAnimBPNode/9_CRNode.jpg" />
+</picture>
+<br /></p></li><li class="Default"><p>编译蓝图。
+</p></li><li class="Default"><p>用以下设置将 <strong>Base_Hierarchy</strong> 和 <strong>Get Joint Transform</strong> 节点如下所示连接到 <strong>Aim Constraint</strong>：<br /><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/ControlRigAnimBPNode/10_CRNode.jpg">
+		<img class="  lazyload" alt="10_CRNode.png" title="10372029427CRNode.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/ControlRigAnimBPNode/10_CRNode.jpg" />
+</picture>
+ 
+<strong>Joint</strong> = <strong>head</strong><br /><strong>Aim Vector Y</strong> = <strong>1.0</strong><br /><strong>Aim Target Weight</strong> = <strong>1.0</strong> 
+我们在此指示头部关节沿Y轴瞄准右手的变换。<br /></p></li><li class="Default"><p>在 <strong>内容浏览器</strong> 中 <strong>内容（Content） > 人体模型（Mannequin） > 角色（Character） > 网格体（Mesh）</strong>，右键点击 <strong>UE4_Mannequin_Skeleton</strong> 并选择 <strong>创建（Create） > 动画蓝图（Anim Blueprint）</strong>，并为其赋予任意命名。<br /><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/ControlRigAnimBPNode/11_CRNode.jpg">
+		<img class="  lazyload" alt="11_CRNode.png" title="11372029427CRNode.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/ControlRigAnimBPNode/11_CRNode.jpg" />
+</picture>
+<br /></p></li><li class="Default"><p>在动画蓝图的AnimGraph中将一个 <strong>Control Rig</strong> 节点（已指定 <strong>Control Rig类</strong>）连接到 <strong>Final Animation Pose</strong>。<br /><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/ControlRigAnimBPNode/12_CRNode.jpg">
+		<img class="  lazyload" alt="12_CRNode.png" title="12372029427CRNode.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/ControlRigAnimBPNode/12_CRNode.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>添加并连接 <strong>ThirdPersonIdle</strong> 动画到 <strong>Control Rig</strong>，然后编译。<br /><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/ControlRigAnimBPNode/13_CRNode.jpg">
+		<img class="  lazyload" alt="13_CRNode.png" title="13372029427CRNode.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/ControlRigAnimBPNode/13_CRNode.jpg" />
+</picture>
+<br />角色将进入待机状态，并看向右手边。右手移动时，角色将自动移动头瞄准（看向）右手。将一个Transform Modify Bone节点添加到图表便可进行进一步测试，以便在视口中进行操纵。<br /></p></li><li class="Default"><p>在 <strong>Control Rig</strong> 和 <strong>Play ThirdPersonIdle</strong> 动画之间添加一个 <strong>Transform Modify Bone</strong> 节点（将自动创建转换节点）。<br /><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/ControlRigAnimBPNode/14_CRNode.jpg">
+		<img class="  lazyload" alt="14_CRNode.png" title="14372029427CRNode.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/ControlRigAnimBPNode/14_CRNode.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>Transform Modify Bone</strong> 的 <strong>细节（Details）</strong> 面板中将 <strong>Bone to Modify</strong> 设为 <strong>upperarm_r</strong>、<strong>Rotation Mode</strong> 设为 <strong>Add to Existing</strong>。<br /><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/ControlRigAnimBPNode/15_CRNode.jpg">
+		<img class="  lazyload" alt="15_CRNode.png" title="15372029427CRNode.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/ControlRigAnimBPNode/15_CRNode.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>编译动画蓝图。
+</p></li></ol><a name="endresult" ></a><h2 id="最终结果">最终结果</h2>
+<p>现在可以在视口中旋转右臂，头部将跟随手部的位置。也可修改不同动画或调整旋转空间（Rotation Space）来实现不同结果。
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_0_wif2hcno_23
+{
+	margin: 0px;
+	width: 640px;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_0_wif2hcno_23:after
+{
+	content: "";
+	padding-top: 360px;
+	display: block;
+}
+</style> 
+<div id="player_0_wif2hcno_23"> 
+	<div id="playerContainer_0_wif2hcno_23" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/0_wif2hcno/embed.html"></iframe>
+	</div>
+</div>
+
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Animation%20Blueprints">Animation Blueprints</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Experimental">Experimental</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Rigging">Rigging</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=control%20rig%20list">control rig list</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/ControlRigAnimBPNode/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:26:57 GMT -->
+</html>

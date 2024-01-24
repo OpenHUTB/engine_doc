@@ -1,0 +1,577 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/StringHandling/CharacterEncoding/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:21:37 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/StringHandling/CharacterEncoding/" />');
+				var udnCSS = '../../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>字符编码 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/StringHandling/CharacterEncoding/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/StringHandling/CharacterEncoding/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/StringHandling/CharacterEncoding/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/StringHandling/CharacterEncoding/" hreflang="ko" />
+
+	<meta name="redirect" content="Programming/UnrealArchitecture/StringHandling/CharacterEncoding" />
+<meta name="intsourcechangelist" content="14104621" />
+<meta name="availability" content="Public" />
+<meta name="title" content="字符编码" />
+<meta name="description" content="关于虚幻引擎中使用的字符编码的概述。" />
+<meta name="version" content="4.9" />
+<meta name="crumbs" content="%ROOT%,ProgrammingAndScripting,ProgrammingAndScripting/ProgrammingWithCPP,ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture,ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/StringHandling" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="字符编码" />
+	<meta property="og:description" content="关于虚幻引擎中使用的字符编码的概述。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../../index.html">编程和脚本编写</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">编程指南</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">游戏逻辑编程</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">字符串处理</a>
+
+<span class="separator">></span> <span id="page">字符编码</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">字符编码</h1>
+							</div>	
+							<h2 >关于虚幻引擎中使用的字符编码的概述。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																																			</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																																				<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#文本格式">文本格式</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#二进制">二进制</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#文本">文本</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#utf-8">UTF-8</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#utf-16">UTF-16</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#ue4内部字符串表示">UE4内部字符串表示</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#ue4加载的文本文件">UE4加载的文本文件</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#虚幻使用的文本文件">虚幻使用的文本文件</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#建议用于虚幻使用的文本文件的编码">建议用于虚幻使用的文本文件的编码</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#int和ini文件">INT和INI文件</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#源代码">源代码</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#c++源代码">C++源代码</a></p>
+	</li>					</ul>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#用perforce存储utf-16文本文件">用Perforce存储UTF-16文本文件</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#转换例程">转换例程</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#unicode中的toupper__和tolower__">Unicode中的ToUpper()和ToLower()</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#特定于东亚编码的c++源代码说明">特定于东亚编码的C++源代码说明</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>本文概括介绍了虚幻使用的字符编码。
+</p><p>知识点预览：<a id="content_link" href="http://www.joelonsoftware.com/articles/Unicode.html" ><span>每一个软件开发者都必须了解的关于Unicode和字符集的基本知识（没有任何借口！）</span></a>
+</p><h2 id="文本格式">文本格式</h2>
+<p>有几种格式可以用来表示文本和字符串。了解这些格式及其各自的优劣有助于决定在项目中使用哪种格式。
+</p><p>以下并非格式的技术定义，而是适用于本页的相对简单的说法。
+</p><dl ><dt><strong>ASCII</strong>：介于32-126（含端点）之间的字符以及 0、9、10和13。（P4类型文本）（检入时通过P4触发器验证）</dt>
+<dd></dd><dt><strong>ANSI</strong>：ASCII和当前代码页（如，Western European high ASCII）需要以二进制形式存储在P4服务器上。</dt>
+<dd></dd><dt><strong>UTF-8</strong>：由单字节组成的字符串，可以使用特殊字符序列来获取非ANSI字符。（ASCII超集）（P4类型Unicode）</dt>
+<dd></dd><dt><strong>UTF-16</strong>： 由每个字符最多2个字节的字符和[BOM](http</dt>
+<dd><p>//en.wikipedia.org/wiki/Byte-order_mark)构成的字符串。（但astral字符可以达到4个字节）（P4类型UTF-16）（检入时通过P4触发器验证）</p></dd></dl><h3 id="二进制">二进制</h3>
+<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p><strong>优点</strong> </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p><strong>缺点</strong> </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>不定义内部格式；无论什么格式都可以加载所有文件。</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>不能合并。要求所有此类文件都进行排他检出。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>不定义内部格式，每个文件都可以采用不同格式。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>P4存储每个版本的完整内容，可能会不必要地使库大小膨胀。</p>
+			</td>
+	
+</tr></tbody>
+</table><h3 id="文本">文本</h3>
+<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p><strong>优点</strong> </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p><strong>缺点</strong> </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>可合并。不需要排他检出。</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>限制性极强；仅允许ASCII字符。</p>
+			</td>
+	
+</tr></tbody>
+</table><h3 id="utf-8">UTF-8</h3>
+<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p><strong>优点</strong> </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p><strong>缺点</strong> </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>仅访问我们将需要的所有字符。</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>亚洲语言有不同的内存描述文件。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>使用较少内存。</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>我们的Perforce服务器上未启用P4类型Unicode。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>属于ASCII超集；纯ASCII字符串是完全有效的UTF-8字符串。</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>字符串运算更加复杂；必须解析字符串才能完成像长度计算一样简单的运算。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>游戏检测到字符串是ASCII时仍能工作，并原样输出。</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>在亚洲区域，除了ASCII，MSDev对其他字符集的处理不太理想。因此我们才在检入期间将文本验证为ASCII。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>如果我们有启用了Unicode的服务器，则文件将是可以合并的，并且不需要排他检出。</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>可以通过解析检测字符串是否是UTF-8（有或没有BOM）。</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr></tbody>
+</table><h3 id="utf-16">UTF-16</h3>
+<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p><strong>优点</strong> </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p><strong>缺点</strong> </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>仅访问我们将需要的所有字符。</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>使用较多内存。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>简单。内存占用是字符数的两倍（对于我们是用的字符，全部位于<a id="content_link" href="http://en.wikipedia.org/wiki/Mapping_of_Unicode_character_planes" ><span>基本多文种平面</span></a>中）。</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>如果不包含BOM，则难以检测到这种格式。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>简单。字符串运算可以拆分/合并，而不必解析字符串。</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>游戏检测到字符串是ASCII时无效，并原样输出（现在在检入时通过UTF-16验证器检测）。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>与游戏中使用的格式相同，不翻译，不解析，也不需要内存运算。</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>在亚洲区域，除了ASCII，MSDev对其他字符集的处理不太理想。因此我们才在检入期间将文本验证为ASCII。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>可合并。不需要排他检出。</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>C#在内部使用UTF-16。</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr></tbody>
+</table><h2 id="ue4内部字符串表示">UE4内部字符串表示</h2>
+<p>虚幻引擎4（UE4）中的所有字符串都作为FStrings或TCHAR数组以<a id="content_link" href="http://en.wikipedia.org/wiki/UTF-16/UCS-2" ><span>UTF-16</span></a>格式存储在内存中。大多数代码假设2个字节等于一个代码点，因此只支持基本多文种平面（BMP），这样虚幻内部编码可以更准确地描述为UCS-2。字符串以适合于当前平台的字节次序存储。
+</p><p>当向/从磁盘序列化到程序包，或在联网期间序列化时，TCHAR字符小于0xff的字符串均存储为一串8位字节，否则存储为双字节UTF-16字符串。序列化代码可以根据需要处理任何字节次序转换。
+</p><h2 id="ue4加载的文本文件">UE4加载的文本文件</h2>
+<p>当虚幻加载外部文本文件（例如，运行时读取.INT文件）时，几乎总是使用UnMisc.cpp中的appLoadFileToString()函数来完成这个过程。主要操作由appBufferToString()函数完成。
+</p><p>该函数识别UTF-16文件中的Unicode字节顺序标记（BOM），如果存在，则按任一字节次序作为UTF-16加载文件。 
+</p><p>BOM不存在时作何处理则取决于平台。 
+</p><p>在Windows上，使用默认的Windows MBCS编码（如<a id="content_link" href="http://en.wikipedia.org/wiki/Windows-1252" ><span>Windows-1252</span></a>表示美国英语和西欧，CP949表示韩语，CP932表示日语）尝试将文本转换为，并使用MultiByteToWideChar(CP_ACP, MB_ERR_INVALID_CHARS...)。这种处理方式是在2009年7月QA构建时添加的。
+</p><p>如果在非Windows平台上这种转换失败，则读取每个字节并填补到16位，形成TCHAR数组。
+</p><p>请注意，对于使用appLoadFileToString()加载的UTF-8编码文本文件，没有可以用于检测或解码的代码。
+</p><h2 id="虚幻使用的文本文件">虚幻使用的文本文件</h2>
+<p>引擎生成的大部分文本文件将使用appSaveStringToFile()保存。
+</p><p>所有TCHAR字符都可以用单字节表示的字符串将存储为一串8位字节，否则存储为UTF-16，除非传递了值为true的bAlwaysSaveAsAnsi，在这种情况下，字符串将先转换为默认的Windows编码。该操作当前仅对着色器文件执行，以解决着色器编译器在处理UTF-16文件时存在的问题。
+</p><h2 id="建议用于虚幻使用的文本文件的编码">建议用于虚幻使用的文本文件的编码</h2>
+<h3 id="int和ini文件">INT和INI文件</h3>
+<p>按任一字节次序的UTF-16。针对亚洲语言的默认MBCS编码（如CP932）在Windows上有效，但这些文件需要在PS3和Xbox360上加载，因此转换代码仅在Windows上运行。
+</p><h3 id="源代码">源代码</h3>
+<p>一般而言，我们不建议在C++源代码中使用字符串文字，这类数据可以存储在INT文件中。 
+</p><h4 id="c++源代码">C++源代码</h4>
+<p>UTF-8或默认Windows编码。MSVC、Xbox360编译器和gcc应该可以顺利处理UTF-8编码的源文件。在Latin-1编码的文件中，如果有高位字符，例如版权、商标或度数符号，则应当尽可能避免在源代码中使用这类文件，因为这种编码在多语言环境系统上会被破坏。第三方软件中有一些这种情况是无法避免的（如版权声明），因此对于MSVC，我们禁止了警告4819，否则在亚洲版本Windows上编译时会发生问题。
+</p><h2 id="用perforce存储utf-16文本文件">用Perforce存储UTF-16文本文件</h2>
+<ul ><li class="Default"><p>不要使用"文本"
+</p><ul ><li class="Default"><p>如果UTF-x文件被检入并存储为文本，将在同步后损坏。
+</p></li></ul></li><li class="Default"><p>如果使用"二进制"，则将文件标记为排他检出
+</p><ul ><li class="Default"><p>可以检入ASCII、UTF-8、UTF-16，这在引擎中可以正常工作。
+</p></li><li class="Default"><p>但是，二进制文件不能合并，因此如果文件不标记为排他检出，更改会重复出现。
+</p></li></ul></li><li class="Default"><p>如果使用"UTF-16"，则确保没有人检入非UTF-16文件
+</p></li><li class="Default"><p>"Unicode"类型是UTF-8，在这里对我们没有用处。
+</p></li></ul><h2 id="转换例程">转换例程</h2>
+<p>我们有一些宏可以将字符串转换为各种编码或从各种编码转换字符串。这些宏使用局部范围内声明的类实例，在堆栈上分配空间，因此保留指向这些宏的指针非常重要！它们仅用于将字符串传递给函数调用。
+</p><ul ><li class="Default"><p>TCHAR_TO_ANSI(str)
+</p></li><li class="Default"><p>TCHAR_TO_OEM(str) 
+</p></li><li class="Default"><p>ANSI_TO_TCHAR(str)
+</p></li><li class="Default"><p>TCHAR_TO_UTF8(str)
+</p></li><li class="Default"><p>UTF8_TO_TCHAR(str)
+</p></li></ul><p>以下是UnStringConv.h中的助手类：
+</p><ul ><li class="Default"><p><code>typedef TStringConversion&lt;TCHAR,ANSICHAR,FANSIToTCHAR&#95;Convert&gt; FANSIToTCHAR;</code>
+</p></li><li class="Default"><p><code>typedef TStringConversion&lt;ANSICHAR,TCHAR,FTCHARToANSI&#95;Convert&gt; FTCHARToANSI;</code>
+</p></li><li class="Default"><p><code>typedef TStringConversion&lt;ANSICHAR,TCHAR,FTCHARToOEM&#95;Convert&gt; FTCHARToOEM;</code>
+</p></li><li class="Default"><p><code>typedef TStringConversion&lt;ANSICHAR,TCHAR,FTCHARToUTF8&#95;Convert&gt; FTCHARToUTF8;</code>
+</p></li><li class="Default"><p><code>typedef TStringConversion&lt;TCHAR,ANSICHAR,FUTF8ToTCHAR&#95;Convert&gt; FUTF8ToTCHAR;</code>
+</p></li></ul><p>使用TCHAR_TO_ANSI时还必须注意的是，不要假设字节数将等于TCHAR字符串长度。多字节字符集可能要求每个TCHAR字符占多个字节。如果您需要知道所产生字符串的字节长度，可以使用助手类，而不是宏。例如：
+</p><pre class="prettyprint"><code>FString String;
+...
+FTCHARToANSI Convert(&#42;String);
+Ar-&gt;Serialize((ANSICHAR&#42;)Convert, Convert.Length());  // FTCHARToANSI::Length() 返回已编码字符串的字节数，排除空终止符。</code></pre>
+<div class="warning">
+	<p>这些宏声明的对象拥有很短的生命周期。它们的主要用途是作为函数的参数，并且很适合用于这类情形。请不要把变量赋值给转换后的字符串内容，因为对象回超出范围，字符串会被释放。假如你的代码继续访问指向已释放内存的指针，那么就会导致报错。</p>
+</div><h2 id="unicode中的toupper__和tolower__">Unicode中的ToUpper()和ToLower()</h2>
+<p>UE4目前只能处理ANSI（ASCII | 代码页1252 | | 西欧）。
+</p><p>此文章似乎提到了适用于所有语言的最差做法<a id="content_link" href="http://en.wikipedia.org/wiki/ISO/IEC_8859" ><span>en.wikipedia.org/wiki/ISO/IEC_8859</span></a>
+</p><ul ><li class="Default"><p>ISO/IEC 8859-1适用于英语、法语、德语、意大利语、葡萄牙语和两种西班牙语
+</p></li><li class="Default"><p>ISO/IEC 8859-2适用于波兰语、捷克语和匈牙利语
+</p></li><li class="Default"><p>ISO/IEC 8859-5适用于俄语
+</p></li></ul><p><a id="content_link" href="ftp://ftp.unicode.org/Public/MAPPINGS/ISO8859/" ><span>ftp.unicode.org/Public/MAPPINGS/ISO8859/</span></a>中的映射包含上述语言的转换规则。"大写字母"和"小写字母"信息应该在相应unicode字符中进行交叉引用以获得所需结果。
+</p><h2 id="特定于东亚编码的c++源代码说明">特定于东亚编码的C++源代码说明</h2>
+<p>UTF-8和默认的Windows编码都可能会使C++编译器出现问题，如下所示：
+</p><p><strong>默认Windows编码</strong>
+</p><p>在运行单字节字符代码页（如CP437美国英语）的Windows上，如果C++源代码包含东亚双字节字符编码，如 CP932（日语）、CP936（简体中文）或CP950（繁体中文），则编译源代码时务必小心。
+</p><p>这些东亚字符编码系统使用0x81-0xFE表示第一个字节，使用0x40-0xFE表示第二个字节。第二个字节中的0x5C值将解译为ASCII/latin-1中的反斜杠，这在C++中有特殊的含义。（将字符串文字中的序列进行转义，如果在行末使用则保持不断行）。<br />在单字节代码页Windows上编译这种源代码时，编译器不会考虑东亚双字节字符编码，这可能导致编译错误，甚至在EXE中产生错误。
+</p><p>单行注释：<br />如果东亚注释末尾有0x5c，则会导致难以找到因为缺失行而引起的错误。
+</p><pre class="prettyprint"><code>    // EastAsianCharacterCommentThatContains0x5cInTheEndOfComment0x5c'\'
+    important&#95;function(); /&#42;这一行会作为注释的一部分与上一行连接起来&#42;/</code></pre>
+<p>在字符串文字内部：<br />这可能会导致字符串损坏或被识别的0x5c转义序列错误。
+</p><pre class="prettyprint"><code>    printf("EastAsianCharacterThatContains0x5c'\'AndIfContains0x5cInTheEndOfString0x5c'\'");
+    function();
+    printf("Compiler recognizes left double quotation mark in this line as the end of string literal that continued from first line, and expected this message is C++ code.");</code></pre>
+<p>如果0x5c后面的字符不指定转义序列，编译器会将转义序列字符集转换为一个指定的字符。<br />（如果不指定，则结果是定义的实现，但MSVC会移除0x5c，并发出警告"未识别的字符转移序列"。）<br />在上述情况中，字符串结尾有一个0x5c反斜杠，下一个字符是双引号，因此转义序列\"转换为字符串数据中的双引号，编译器继续产生字符串数据，直到遇到下一个双引号或文件结束，并引起错误。
+</p><p>危险字符示例：<br />CP932（日语Shift-JIS）"?"是0x955C，因此许多CP932字符都有0x5C。<br />CP936（简体中文GBK）"?"是0x815C，因此许多CP936字符都有0x5C。<br />CP950（繁体中文Big5）"?"是0xA55C，因此许多CP950字符都有0x5C。<br />CP949（韩语EUC-KR）没问题，因为EUC-KR不使用0x5C表示第二个字节。
+</p><p><strong>没有BOM的UTF-8</strong>（某些文本编辑器将BOM描述为签名）
+</p><p>在东亚代码页CP949（韩语）、CP932（日语）、CP936（简体中文）或CP950（繁体中文）Windows上，如果C++源代码将东亚字符存储为UTF-8，则编译该代码时务必小心。
+</p><p>UTF-8字符编码使用三个字节来表示东亚字符：0xE0-0xEF表示第一个字节，0x80-0xBF表示第二个字节，0x80-0xBF表示第三个字节。如果没有BOM，东亚Windows默认编码会将三个UTF-8编码字节和后面的一个字节识别为两个双字节东亚编码字符，第一个和第二个字节作为一对，表示第一个东亚字符，第三个和随后字节作为一对，形成第二个东亚字符。<br />如果三个UTF-8编码字节后面的字符在字符串文字或注释中有特殊含义，则可能会发生问题。
+</p><p>示例：在内嵌注释中：<br />如果注释文本包含奇数个东亚字符，而下一个字符标记注释结束，则可能会导致与缺失代码有关的难以找到的错误。
+</p><pre class="prettyprint"><code>    /&#42;OddNumberOfEastAsianCharacterComment&#42;/
+    important&#95;function();
+    /&#42;normal comment&#42;/</code></pre>
+<p>东亚代码页Windows上的编译器将UTF-8编码的东亚字符注释的最后一个字节和星号*识别为一个东亚字符，下一个字符仍被视为注释的一部分。在上述示例中，编译器移除了important_function()，因为它似乎是注释的一部分。<br />这种行为是非常危险的，难以找到缺失的代码。
+</p><p>在单行注释中：<br />在东亚注释末尾使用反斜杠"\"会导致一些没有缺失行但却难以找到的错误。
+</p><pre class="prettyprint"><code>    // OddNumberOfEastAsianCharacterComment\
+    description(); /&#42; coder intended this line as comment, by using backslash at the end of above line &#42;/</code></pre>
+<p>这是非常少见的情况，因为程序员不会故意在注释末尾使用反斜杠"\"。
+</p><p>在字符串文字内部：<br />如果字符串文字内包含奇数个UTF-8编码的东亚字符，并且以下字符有特殊含义，会导致字符串遭到破坏、错误或警告。
+</p><pre class="prettyprint"><code>    printf("OddNumberOfEastAsiaCharacterString");
+    printf("OddNumberOfEastAsiaCharacterString%d",0);
+    printf("OddNumberOfEastAsiaCharacterString\n");</code></pre>
+<p>东亚代码页Windows上的C++编译器将UTF-8编码的东亚字符串的最后一个字节和下一个字符识别为一个东亚字符。如果运气好，会看到编译器警告"C4819"（如果未禁用）或错误，提醒您发生了问题。如果运气不好，字符串会遭到破坏。
+</p><p><strong>总结</strong>
+</p><p>您可以对C++源代码使用UTF-8或默认Windows编码，但请注意上述问题。再次强调，我们不建议在C++源代码内部使用字符串文字。如果在C++源代码中使用东亚字符编码，请确保使用东亚作为默认代码页。<br />另一种好方法是使用带有BOM的UTF-8（某些文本编辑器将BOM描述为Unicode签名）。
+</p><div class="note">
+	<p>我们在2010年2月18日用UTF-8和UTF-16测试了一些编译器。<br /></p><p>面向PC和Xbox 360的MSVC和面向PS3的gcc或slc能够编译UTF-8编码的源代码（无论是否有BOM）。
+但UTF-16（小端字节/大端字节）仅受MSVC支持。<br /></p><p>Perforce能够处理UTF-16和UTF-8，但p4 diff将UTF-8文件中的BOM显示为可见字符。
+</p><p>外部参考：<a id="content_link" href="https://docs.microsoft.com/en-us/windows/win32/intl/code-pages" ><span>Windows支持的代码页</span></a></p>
+</div>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/StringHandling/CharacterEncoding/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:21:37 GMT -->
+</html>

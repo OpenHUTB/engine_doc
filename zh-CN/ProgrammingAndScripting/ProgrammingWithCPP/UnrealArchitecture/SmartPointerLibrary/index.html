@@ -1,0 +1,539 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/SmartPointerLibrary/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:21:41 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/SmartPointerLibrary/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>虚幻智能指针库 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/SmartPointerLibrary/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/SmartPointerLibrary/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/SmartPointerLibrary/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/SmartPointerLibrary/" hreflang="ko" />
+
+	<meta name="redirect" content="Programming/UnrealArchitecture/SmartPointerLibrary" />
+<meta name="intsourcechangelist" content="6371055" />
+<meta name="availability" content="Public" />
+<meta name="title" content="虚幻智能指针库" />
+<meta name="description" content="共享指针的自定义实现，包括弱指针和不可为空的共享引用。" />
+<meta name="type" content="overview" />
+<meta name="version" content="4.21" />
+<meta name="parent" content="ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture" />
+<meta name="keywords" content="Programming" />
+<meta name="order" content="10" />
+<meta name="related" content="ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/Objects" />
+<meta name="crumbs" content="%ROOT%,ProgrammingAndScripting,ProgrammingAndScripting/ProgrammingWithCPP,ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="虚幻智能指针库" />
+	<meta property="og:description" content="共享指针的自定义实现，包括弱指针和不可为空的共享引用。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">编程和脚本编写</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">编程指南</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">游戏逻辑编程</a>
+
+<span class="separator">></span> <span id="page">虚幻智能指针库</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">虚幻智能指针库</h1>
+							</div>	
+							<h2 >共享指针的自定义实现，包括弱指针和不可为空的共享引用。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																																			</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																		<div id="seeAlso">
+	<div style="position:relative;">
+		<div id="title">参见</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<p>
+						<a id="related_link" href="../Objects/index.html" title="基本游戏性元素、Actor 和对象的解释。">对象</a>
+					</p>
+				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																														<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#智能指针类型">智能指针类型</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#智能指针">智能指针</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#助手类和函数">助手类和函数</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#智能指针实现细节">智能指针实现细节</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#速度">速度</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#侵入性访问器">侵入性访问器</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#投射">投射</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#线程安全">线程安全</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#提示和限制">提示和限制</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p><strong>虚幻智能指针库</strong> 为C++11智能指针的自定义实现，旨在减轻内存分配和追踪的负担。该实现包括行业标准 <strong>共享指针</strong>、<strong>弱指针</strong> 和 <strong>唯一指针</strong>。其还可添加 <strong>共享引用</strong>，此类引用的行为与不可为空的共享指针相同。虚幻Objects使用更适合游戏代码的单独内存追踪系统，因此这些类无法与 <code>UObject</code> 系统同时使用。
+</p><h2 id="智能指针类型">智能指针类型</h2>
+<p>智能指针可影响其包含或引用对象的寿命。不同智能指针对对象有不同的限制和影响。下表可用于协助决定各类型智能指针的适用情况：
+</p><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>智能指针类型 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>适用情形 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong><a id="content_link"filter-data="tag_programming" href="SharedPointer/index.html" ><span>共享指针</span></a></strong>（<code>TSharedPtr</code>）</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>共享指针拥有其引用的对象，无限防止该对象被删除，并在无共享指针或共享引用（见下文）引用其时，最终处理其的删除。共享指针可为空白，意味其不引用任何对象。任何非空共享指针都可对其引用的对象生成共享引用。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>共享引用(ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/SmartPointerLibrary/SharedReference)</strong>（<code>TSharedRef</code>）</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>共享引用的行为与共享指针类似，即其拥有自身引用的对象。对于空对象而言，其存在不同；共享引用须固定引用非空对象。共享指针无此类限制，因此共享引用可固定转换为共享指针，且该共享指针固定引用有效对象。要确认引用的对象是非空，或者要表明共享对象所有权时，请使用共享引用。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>弱指针(ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/SmartPointerLibrary/WeakPointer)</strong>（TWeakPtr`TSharedPtr`）</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>弱指针类与共享指针类似，但不拥有其引用的对象，因此不影响其生命周期。此属性中断引用循环，因此十分有用，但也意味弱指针可在无预警的情况下随时变为空。因此，弱指针可生成指向其引用对象的共享指针，确保程序员能对该对象进行安全临时访问。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>唯一指针</strong>（<code>TUniquePtr</code>）</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>唯一指针仅会显式拥有其引用的对象。仅有一个唯一指针指向给定资源，因此唯一指针可转移所有权，但无法共享。复制唯一指针的任何尝试都将导致编译错误。唯一指针超出范围时，其将自动删除其所引用的对象。</p>
+			</td>
+	
+</tr></tbody>
+</table><div class="warning">
+	<p>对唯一指针引用的对象进行共享指针或共享引用的操作十分危险。即使其他智能指针继续引用该对象，此操作不会取消唯一指针自身被销毁时删除该对象的行为。同样，不应为共享指针或共享引用引用的对象创建唯一指针。</p>
+</div><h2 id="智能指针">智能指针</h2>
+<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>优点 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>描述 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>防止内存泄漏</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>共享引用不存在时，智能指针（弱指针除外）会自动删除对象。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>弱引用</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>弱指针会中断引用循环并阻止悬挂指针。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>可选择的线程安全</strong>）</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>虚幻智能指针库包括线程安全代码，可跨线程管理引用计数。如无需线程安全，可用其换取更好性能。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>运行时安全</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>共享引用从不为空，可固定随时取消引用。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>授予意图</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>可轻松区分对象所有者和观察者。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>内存</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>智能指针在64位下仅为C++指针大小的两倍（加上共享的16字节引用控制器）。唯一指针除外，其与C++指针大小相同。</p>
+			</td>
+	
+</tr></tbody>
+</table><h2 id="助手类和函数">助手类和函数</h2>
+<p>虚幻智能指针库提供多个助手类和函数，以便使用智能指针时更加容易、直观。
+</p><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>助手 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>描述 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="2" align="">
+			<p><div class="tablesection">
+	<p>类</p>
+</div></p>
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><code>TSharedFromThis</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>在添加 <code>AsShared</code> 或 <code>SharedThis</code> 函数的 <code>TSharedFromThis</code> 中衍生类。利用此类函数可获取对象的 <code>TSharedRef</code>。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="2" align="">
+			<p><div class="tablesection">
+	<p>函数</p>
+</div></p>
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><code>MakeShared</code> 和 <code>MakeShareable</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>在常规C++指针中创建共享指针。<code>MakeShared</code> 会在单个内存块中分配新的对象实例和引用控制器，但要求对象提交公共构造函数。<code>MakeShareable</code> 的效率较低，但即使对象的构造函数为私有，其仍可运行。利用此操作可拥有非自己创建的对象，并在删除对象时支持自定义行为。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><code>StaticCastSharedRef</code> 和 <code>StaticCastSharedPtr</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>静态投射效用函数，通常用于向下投射到衍生类型。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><code>ConstCastSharedRef</code> 和 <code>ConstCastSharedPtr</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>将 <code>const</code> 智能引用或智能指针分别转换为 <code>mutable</code> 智能引用或智能指针。</p>
+			</td>
+	
+</tr></tbody>
+</table><h2 id="智能指针实现细节">智能指针实现细节</h2>
+<p>在功能和效率方面，虚幻智能指针库中的智能指针具有一些共同特征。
+</p><h3 id="速度">速度</h3>
+<p>要使用智能指针时，始终考虑性能。智能指针非常适合某些高级系统、资源管理或工具编程。但部分智能指针类型比原始C++指针更慢，这种开销使得其在低级引擎代码（如渲染）中用处不大。
+</p><p>智能指针的部分一般性能优势包括：
+</p><ul ><li class="Default"><p>所有运算均为常量时间。
+</p></li><li class="Default"><p>取消引用多数智能指针的速度和原始C++指针的相同（在发布版本中）。
+</p></li><li class="Default"><p>复制智能指针永不会分配内存。
+</p></li><li class="Default"><p>线程安全智能指针是无锁的。
+</p></li></ul><p>智能指针的性能缺陷包括：
+</p><ul ><li class="Default"><p>创建和复制智能指针比创建和复制原始C++指针需要更多开销。
+</p></li><li class="Default"><p>保持引用计数增加基本运算的周期。
+</p></li><li class="Default"><p>部分智能指针占用的内存比原始的C++更多。
+</p></li><li class="Default"><p>引用控制器有两个堆分配。使用 <code>MakeShared</code> 代替 <code>MakeShareable</code> 可避免二次分配，并可提高性能。
+</p></li></ul><h3 id="侵入性访问器">侵入性访问器</h3>
+<p>共享指针是非侵入性的，意味对象不知道其是否为智能指针拥有。此通常是可以接受的，但在某些情况下，可能要将对象作为共享引用或共享指针进行访问。为此，使用对象的类作为模板参数，在 <code>TSharedFromThis</code> 衍生对象的类。<code>TSharedFromThis</code> 提供两个函数：<code>AsShared</code> 和 <code>SharedThis</code>，可将对象转换为共享引用（并从共享引用转换为共享指针）。使用固定返回共享引用的类factory时，或需将对象传到需要共享引用或共享指针的系统时，此操作十分有用。<code>AsShared</code> 会将类返回为最初作为模板参数传到 <code>TSharedFromThis</code> 的类型返回，其可能是调用对象的父类型，而 <code>SharedThis</code> 将直接从该类型衍生类型，并返回引用该类型对象的智能指针。以下范例代码中演示这两种函数：
+</p><pre class="prettyprint"><code>class FRegistryObject;
+class FMyBaseClass: public TSharedFromThis&lt;FMyBaseClass&gt;
+{
+    virtual void RegisterAsBaseClass(FRegistryObject&#42; RegistryObject)
+    {
+        // 访问对"this"的共享引用。
+        // 直接继承自&lt; TSharedFromThis &gt;，因此AsShared()和SharedThis(this)会返回相同的类型。
+        TSharedRef&lt;FMyBaseClass&gt; ThisAsSharedRef = AsShared();
+        // RegistryObject需要 TSharedRef&lt;FMyBaseClass&gt;，或TSharedPtr&lt;FMyBaseClass&gt;。TSharedRef可被隐式转换为TSharedPtr.
+        RegistryObject-&gt;Register(ThisAsSharedRef);
+    }
+};
+class FMyDerivedClass : public FMyBaseClass
+{
+    virtual void Register(FRegistryObject&#42; RegistryObject) override
+    {
+        // 并非直接继承自TSharedFromThis&lt;&gt;，因此AsShared()和SharedThis(this)不会返回相同类型。
+        // 在本例中，AsShared()会返回在TSharedFromThis&lt;&gt; - TSharedRef&lt;FMyBaseClass&gt;中初始指定的类型。
+        // 在本例中，SharedThis(this)会返回具备"this"类型的TSharedRef - TSharedRef&lt;FMyDerivedClass&gt;。
+        // SharedThis()函数仅在与 'this'指针相同的范围内可用。
+        TSharedRef&lt;FMyDerivedClass&gt; AsSharedRef = SharedThis(this);
+        // FMyDerivedClass是FMyBaseClass的一种类型，因此RegistryObject将接受TSharedRef&lt;FMyDerivedClass&gt;。
+        RegistryObject-&gt;Register(ThisAsSharedRef);
+    }
+};
+class FRegistryObject
+{
+    // 此函数将接受到FMyBaseClass或其子类的TSharedRef或TSharedPtr。
+    void Register(TSharedRef&lt;FMyBaseClass&gt;);
+};</code></pre>
+<p>不要在构造函数中调用 <code>AsShared</code> 或 <code>Shared</code>，共享引用此时并未初始化，将导致崩溃或断言。
+</p><h3 id="投射">投射</h3>
+<p>可通过虚幻智能指针库包含的多个支持函数投射共享指针(和共享引用)。Up-casting是隐式的，与C++指针相同。可使用 <code>ConstCastSharedPtr</code> 函数进行常量投射，使用 <code>StaticCastSharedPtr</code> 进行静态投射（通常是向下投射到衍生类指针）。无run-type类型的信息（RTTI），因此不支持动态转换；应使用静态投射，如以下代码所示：
+</p><pre class="prettyprint"><code>// 假设通过其他方式验证了FDragDropOperation实际为FAssetDragDropOp。
+TSharedPtr&lt;FDragDropOperation&gt; Operation = DragDropEvent.GetOperation();
+//现在可使用StaticCastSharedPtr进行投射。
+TSharedPtr&lt;FAssetDragDropOp&gt; DragDropOp = StaticCastSharedPtr&lt;FAssetDragDropOp&gt;(Operation);</code></pre>
+<h3 id="线程安全">线程安全</h3>
+<p>通常仅在单线程上访问智能指针的操作才是安全的。如需访问多线程，请使用智能指针类的线程安全版本：
+</p><ul ><li class="Default"><p><code>TSharedPtr&lt;T, ESPMode::ThreadSafe&gt;</code>
+</p></li><li class="Default"><p><code>TSharedRef&lt;T, ESPMode::ThreadSafe&gt;</code>
+</p></li><li class="Default"><p><code>TWeakPtr&lt;T, ESPMode::ThreadSafe&gt;</code>
+</p></li><li class="Default"><p><code>TSharedFromThis&lt;T, ESPMode::ThreadSafe&gt;</code>
+</p></li></ul><p>由于原子引用计数，此类线程安全版本比默认版本稍慢，但其行为与常规C++指针一致：
+</p><ul ><li class="Default"><p>读取和复制固定为线程安全。
+</p></li><li class="Default"><p>写入和重置须同步后才安全。
+</p></li></ul><div class="tip">
+	<p>如了解多线程永不访问指针，可通过避免使用线程安全版本获得更好性能。</p>
+</div><h2 id="提示和限制">提示和限制</h2>
+<ul ><li class="Default"><p>避免将数据作为 <code>TSharedRef</code> 或 <code>TSharedPtr</code> 参数传到函数，此操作将因取消引用和引用计数而产生开销。相反，建议将引用对象作为 <code>const &amp;</code> 进行传递。
+</p></li><li class="Default"><p>可将共享指针向前声明为不完整类型。
+</p></li><li class="Default"><p>共享指针与虚幻对象(<code>UObject</code> 及其衍生类)不兼容。引擎具有 <code>UObject</code> 管理的单独内存管理系统（<a id="content_link"filter-data="tag_architecture" href="../Objects/Optimizations/index.html" ><span>对象处理</span></a>文档），两个系统未互相重叠。
+</p></li></ul>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Programming">Programming</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/SmartPointerLibrary/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:21:41 GMT -->
+</html>

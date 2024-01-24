@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/BuildingWorlds/LightingAndShadows/PrecomputedLightingScenarios/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 10:20:07 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/BuildingWorlds/LightingAndShadows/PrecomputedLightingScenarios/" />');
+				var udnCSS = '../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>预计算光照情景 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/BuildingWorlds/LightingAndShadows/PrecomputedLightingScenarios/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/BuildingWorlds/LightingAndShadows/PrecomputedLightingScenarios/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/BuildingWorlds/LightingAndShadows/PrecomputedLightingScenarios/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/BuildingWorlds/LightingAndShadows/PrecomputedLightingScenarios/" hreflang="ko" />
+
+	<meta name="redirect" content="RenderingAndGraphics/LightingAndShadows/PrecomputedLightingScenarios" />
+<meta name="redirect" content="Engine/Rendering/LightingAndShadows/PrecomputedLightingScenarios" />
+<meta name="intsourcechangelist" content="18413618" />
+<meta name="availability" content="Public" />
+<meta name="title" content="预计算光照情景" />
+<meta name="description" content="借助预计算光照情景，你可以为单个场景中的相同几何体准备多个光照设置。" />
+<meta name="version" content="4.25" />
+<meta name="parent" content="BuildingWorlds/LightingAndShadows" />
+<meta name="order" content="22" />
+<meta name="type" content="Reference" />
+<meta name="keywords" content="Rendering" />
+<meta name="keywords" content="Lighting" />
+<meta name="keywords" content="Lightmass" />
+<meta name="keywords" content="Precomputed Lighting" />
+<meta name="topic-image" content="PCLS_Header.png" />
+<meta name="course" content="lighting-essential-concepts-and-effects?lang=zh-CN|光照基础概念和效果|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Flighting-essential-concepts-and-effects%2FLightingEssentials_Topic_1920x1080-1920x1080-3e04dcaf168d9a530720df1573b417807ae00784.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Flighting-essential-concepts-and-effects%2FLighting-Essential-Concepts-and-Effects-1000x1000-14831d7f280345717b0bdd66be9422b40ffb91bd.png?resize=1&amp;w=300" />
+<meta name="course" content="introducing-global-illumination?lang=zh-CN|全局光照入门|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fintroducing-global-illumination%2F105_GlobalIllum%281200x675%29-1200x675-97270dbdc7595455b4c9acf0e83bf01da8efbfd4.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fintroducing-global-illumination%2FIntroducing-Global-Illumination-1000x1000-af5267ea2a6721b1cc73af7825d226aedbbaf5ce.png?resize=1&amp;w=300" />
+<meta name="crumbs" content="%ROOT%,BuildingWorlds,BuildingWorlds/LightingAndShadows" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="预计算光照情景" />
+	<meta property="og:description" content="借助预计算光照情景，你可以为单个场景中的相同几何体准备多个光照设置。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">构建虚拟世界</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">照亮环境</a>
+
+<span class="separator">></span> <span id="page">预计算光照情景</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">预计算光照情景</h1>
+							</div>	
+							<h2 >借助预计算光照情景，你可以为单个场景中的相同几何体准备多个光照设置。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																																			</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																								<div id="courses">
+	<div style="position:relative;">
+		<div id="title">相关课程</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<div name="lighting-essential-concepts-and-effects?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/lighting-essential-concepts-and-effects?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/lighting-essential-concepts-and-effects/LightingEssentials_Topic_1920x1080-1920x1080-3e04dcaf168d9a530720df1573b417807ae00784.4884f86.delaye?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/lighting-essential-concepts-and-effects/Lighting-Essential-Concepts-and-Effects-1000x1000-14831d7f280345717b0bdd66be9422b40ffb91bd.489fe4b.d?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="lighting-essential-concepts-and-effects?lang=zh-CN_title">
+				光照基础概念和效果
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="introducing-global-illumination?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/introducing-global-illumination?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/introducing-global-illumination/105_GlobalIllum(1200x675)-1200x675-97270dbdc7595455b4c9acf0e83bf01da8efbfd4.48b4f?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/introducing-global-illumination/Introducing-Global-Illumination-1000x1000-af5267ea2a6721b1cc73af7825d226aedbbaf5c?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="introducing-global-illumination?lang=zh-CN_title">
+				全局光照入门
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																								<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#功能限制">功能限制</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#使用计算光照情景">使用计算光照情景</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>虚幻引擎4（UE4）支持在关卡中使用不同的 <strong>预计算光照情景（Precomputed Lighting Scenarios）</strong>。这使得单个关卡可以保存并显示多种光照设置，让你既能获得灵活的动态光照，又能以固定开销预计算光照。
+对用高性能方式进行高精度渲染的虚拟现实（VR）或建筑可视化项目而言，在不同预计算光照情景之间切换更显重要。
+通读此文后，你便能了解如何在UE4项目中使用预计算光照。
+</p><!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/PrecomputedLightingScenarios/PCLS_Day.jpg">
+		<img class="  lazyload" alt="白天情景" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/PrecomputedLightingScenarios/PCLS_Day.jpg" />
+</picture>
+
+白天情景</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/PrecomputedLightingScenarios/PCLS_Night.jpg">
+		<img class="  lazyload" alt="夜间情景" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/PrecomputedLightingScenarios/PCLS_Night.jpg" />
+</picture>
+
+夜间情景</p>
+        <div class="overlay-last "></div>
+    </div>
+</div><div class="caption">
+	<p>在上图中，定向光照、天空光照和天空盒已被放置到一个名为 <code>白天情景（DayScenario）</code> 的光照情景关卡中。而街灯的聚光源则被放置在另一个名为 <code>夜间情景（Night Scenario）</code> 的光照情景中。</p>
+</div><h2 id="功能限制">功能限制</h2>
+<p>虽然预计算光照情景拥有诸多优点，但使用时也需要注意其缺陷与限制。在下文中，我们将介绍其中的一些限制，并告诉你如何回避（或解决）它们。
+</p><ul ><li class="Default"><p>在游戏中只显示一个可见光照情景关卡。
+</p></li><li class="Default"><p>光照情景关卡出现后，来自所有子关卡的光照图数据均会被放置在其中，因此白天时只加载"白天情景"光照图。因此，光照图将不再由子关卡进行流送。
+</p></li><li class="Default"><p>子关卡光照贴图数据保存在光照情景的构建数据（BuiltData）包中。注册来自其他子关卡的反射捕获会修改当前光照情景的构建数据。假如加载子关卡两次，并且只加载光照情景构建数据一次，就会产生如下错误：<br /></p><pre class="prettyprint"><code>错误： 反射捕获 /Game/Environments/Levels/Your&#95;Level&#95;Name.level&#95;name:PersistentLevel.SphereReflectionCapture&#95;1.NewReflectionComponent 上传了两次，且未重新加载其光照情景关卡。
+反射捕获上传时，光照情景关卡必须加载一次。</code></pre></li></ul><h2 id="使用计算光照情景">使用计算光照情景</h2>
+<p>执行以下步骤即可在UE4项目中使用光照情景：
+</p><ol ><li class="Default"><p>首先前往 <strong>窗口（Window）</strong> > <strong>关卡（Levels）</strong> 打开 <strong>关卡管理器（Levels Manager）</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/PrecomputedLightingScenarios/PCLS_Open_Levels.jpg">
+		<img class="  lazyload" alt="PCLS_Open_Levels.png" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/PrecomputedLightingScenarios/PCLS_Open_Levels.jpg" />
+</picture>
+
+</p></li><li class="Default"><p><strong>关卡管理器</strong> 打开后，在 <strong>关卡（Levels）</strong> 菜单中右键点击一个子关卡，前往 <strong>光照情景（Lighting Scenario）</strong>，并选择 <strong>变更至光照情景（Change to Lighting Scenario）</strong> 选项将关卡设为 <strong>光照情景（Lighting Scenario）</strong> 关卡。
+</p><p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/PrecomputedLightingScenarios/PCLS_LS_Level_Option.jpg">
+		<img class="  lazyload" alt="PCLS_LS_Level_Option.png" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/PrecomputedLightingScenarios/PCLS_LS_Level_Option.jpg" />
+</picture>
+
+</p><div class="note">
+	<p><strong>光照情景</strong> 关卡显示时，其光照图将被应用到世界场景。</p>
+</div></li><li class="Default"><p>右键点击子关卡，前往 <strong>修改流送方法（Change Streaming Method）</strong>，并选择 <strong>蓝图（Blueprint）</strong>（如其未选中），将关卡流送方法设为蓝图。
+</p><p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/PrecomputedLightingScenarios/PCLS_Level_Streaming_Method.jpg">
+		<img class="  lazyload" alt="PCLS_Level_Streaming_Method.png" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/PrecomputedLightingScenarios/PCLS_Level_Streaming_Method.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>现在将项目所需的任意光照或<a id="content_link" href="../../../WorkingWithContent/Types/StaticMeshes/index.html" ><span>静态网格体</span></a>放入任意光照关卡，然后以常规方法构建每个关卡的光照。
+</p><p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/PrecomputedLightingScenarios/PCLS_Build_Lighting.jpg">
+		<img class="  lazyload" alt="PCLS_Build_Lighting.png" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/PrecomputedLightingScenarios/PCLS_Build_Lighting.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>光照构建完成后，打开 <strong>持久化关卡（Persistent Level's）</strong> 蓝图并添加一个 <strong>加载流送关卡（Load Stream Level）</strong> 节点，将其连接到 <strong>事件开始运行（Event Begin Play）</strong> 节点。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/PrecomputedLightingScenarios/PCLS_Level_Load_Nodes.jpg">
+		<img class="  lazyload" alt="PCLS_Level_Load_Nodes.png" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/PrecomputedLightingScenarios/PCLS_Level_Load_Nodes.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>将 <strong>事件开始运行（Event Begin Play）</strong> 节点连接到 <strong>加载流送关卡（Load Stream Level）</strong> 节点，然后输入需要加载的关卡名。同时须勾选 <strong>加载后可见（Make Visible After Load）</strong> 和 <strong>加载时应阻止（Should Block on Load）</strong>，以便看到新加载的关卡。
+</p><p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/PrecomputedLightingScenarios/PCLS_Steam_Setup.jpg">
+		<img class="  lazyload" alt="PCLS_Steam_Setup.png" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/PrecomputedLightingScenarios/PCLS_Steam_Setup.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>按下 <strong>运行（Play）</strong> 键运行项目，首个关卡加载完成后，它现在便会使用白天（Day）关卡光照。如需使用夜晚（Night）关卡光照，可使用相同的设置，但需要将关卡名改为晚间关卡的命名（而非白天关卡的命名）。
+</p><!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/PrecomputedLightingScenarios/PCLS_Day.jpg">
+		<img class="  lazyload" alt="白天光照" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/PrecomputedLightingScenarios/PCLS_Day.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/PrecomputedLightingScenarios/PCLS_Night.jpg">
+		<img class="  lazyload" alt="夜间光照" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/PrecomputedLightingScenarios/PCLS_Night.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div></li></ol><p>虽然有一些明显的限制，但UE4中的预计算光照情景仍能为你带来许多好处，如增强性能，便于更改为烘焙光照（以满足项目的需求）。<br /></p>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../SiteIndex/index.html?tags=Rendering">Rendering</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../SiteIndex/index.html?tags=Lighting">Lighting</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../SiteIndex/index.html?tags=Lightmass">Lightmass</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../SiteIndex/index.html?tags=Precomputed%20Lighting">Precomputed Lighting</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/BuildingWorlds/LightingAndShadows/PrecomputedLightingScenarios/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 10:20:12 GMT -->
+</html>

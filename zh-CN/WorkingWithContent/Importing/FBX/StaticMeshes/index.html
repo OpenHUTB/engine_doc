@@ -1,0 +1,510 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/WorkingWithContent/Importing/FBX/StaticMeshes/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:14:53 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/WorkingWithContent/Importing/FBX/StaticMeshes/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>FBX静态网格体流程 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/WorkingWithContent/Importing/FBX/StaticMeshes/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/WorkingWithContent/Importing/FBX/StaticMeshes/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/WorkingWithContent/Importing/FBX/StaticMeshes/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/WorkingWithContent/Importing/FBX/StaticMeshes/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Content/Importing/FBX/StaticMeshes" />
+<meta name="intsourcechangelist" content="15159342" />
+<meta name="availability" content="Public" />
+<meta name="title" content="FBX静态网格体流程" />
+<meta name="description" content="介绍如何在DCC中设置静态网格体及其LOD，以及如何导出它，并使用FBX工作流将它导入UE。" />
+<meta name="version" content="4.26" />
+<meta name="crumbs" content="%ROOT%,WorkingWithContent,WorkingWithContent/Importing,WorkingWithContent/Importing/FBX" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="FBX静态网格体流程" />
+	<meta property="og:description" content="使用FBX内容流程设置、导出和导入静态网格体。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">管理内容</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">导入内容</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">FBX内容通道</a>
+
+<span class="separator">></span> <span id="page">FBX静态网格体流程</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">FBX静态网格体流程</h1>
+							</div>	
+							<h2 >使用FBX内容流程设置、导出和导入静态网格体。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																																			</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																																				<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#常规设置">常规设置</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#枢轴点">枢轴点</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#三角剖分">三角剖分</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#uv纹理坐标">UV纹理坐标</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#创建法线贴图">创建法线贴图</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#材质">材质</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#碰撞">碰撞</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#插槽">插槽</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#顶点颜色">顶点颜色</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#导出网格体">导出网格体</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#导入网格体">导入网格体</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#静态网格体lod">静态网格体LOD</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#lod设置">LOD设置</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#导入lod">导入LOD</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#为导入的静态网格体创建lod">为导入的静态网格体创建LOD</a></p>
+	</li>					</ul>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>FBX导入流程中加入 <em>静态网格体</em> 支持后，将网格体从3D软件加入虚幻引擎4的操作便极为简便。网格体导入后，应用到3D软件中网格体的材质纹理（仅限漫反射和法线贴图）也将被导入，并用于生成应用到虚幻引擎4中网格体的材质。
+</p><p>利用FBX导入 <em>静态网格体</em> 所支持的功能：
+</p><ul ><li class="Default"><p><a id="content_link" href="#材质" ><span>带纹理材质的 <em>静态网格体</em></span></a>
+</p></li><li class="Default"><p><a id="content_link" href="#碰撞" ><span>自定义碰撞</span></a>
+</p></li><li class="Default"><p><a id="content_link" href="#uvtexturecoordinates" ><span>多个UV集</span></a>
+</p></li><li class="Default"><p>平滑组
+</p></li><li class="Default"><p><a id="content_link" href="#vertexcolors" ><span>顶点颜色</span></a>
+</p></li><li class="Default"><p><a id="content_link" href="#meshlods" ><span>LODs</span></a>
+</p></li><li class="Default"><p>多个单独的 <em>静态网格体</em>（也可以在导入时组合到一个单独的网格体中）。
+</p></li></ul><div class="note">
+	<p>当前，将多个拥有自定义碰撞的网格体导入一个单一文件中时，只有第一个网格体的碰撞才会被导入。</p>
+</div><div class="include_wrapper" data-path="WorkingWithContent/Importing/FBX">
+<div class="warning">
+	<p>UE4 FBX导入通道使用 <strong>FBX 2018</strong>。在导出时使用其他版本可能导致不兼容。</p>
+</div>
+</div>
+<h2 id="常规设置">常规设置</h2>
+<p>通常而言，您可以随意使用任何工具和方法来创建 <em>静态网格体</em>。为将网格体顺利导出和导入到虚幻编辑器并使其拥有正常功能，在进行UV设置、网格体放置等操作时需要注意以下几点。
+</p><h3 id="枢轴点">枢轴点</h3>
+<p>虚幻引擎中网格体的枢轴点决定了执行任意变换（平移、旋转、缩放）时所围绕的点。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithContent/Importing/FBX/StaticMeshes/pivot.jpg">
+		<img class="  lazyload" alt="网格体的枢轴点" width="640" data-src="../../../../../Images/WorkingWithContent/Importing/FBX/StaticMeshes/pivot.jpg" />
+</picture>
+
+</p><p>从3D建模软件中导出网格体时，枢轴点固定位于原点处（0,0,0）。因此最好在原点处创建网格体，使原点位于网格体的一个角上，以便在对齐到虚幻编辑器中的网格时进行恰当的对齐。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithContent/Importing/FBX/StaticMeshes/pivot_origin.jpg">
+		<img class="  lazyload" alt="位于原点的枢轴点" width="640" data-src="../../../../../Images/WorkingWithContent/Importing/FBX/StaticMeshes/pivot_origin.jpg" />
+</picture>
+
+</p><h3 id="三角剖分">三角剖分</h3>
+<p>因为图形硬件仅处理三角形，所以必须对虚幻引擎中的网格体进行三角剖分。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithContent/Importing/FBX/StaticMeshes/tris.jpg">
+		<img class="  lazyload" alt="立方体网格体上的三角形" width="744" data-src="../../../../../Images/WorkingWithContent/Importing/FBX/StaticMeshes/tris.jpg" />
+</picture>
+
+</p><p>进行网格体三角剖分的方法有几种。
+</p><ul ><li class="Default"><p>仅使用三角形进行网格体建模。这是最佳方案，能对最终结果进行最大程度的控制。
+</p></li><li class="Default"><p>在3D软件中三角剖分网格体。这是较好方案，在导出之前可以进行清理和修改。
+</p></li><li class="Default"><p>让FBX导出器三角剖分网格体。这是普通方案，无法进行清理，但适用于简单网格体。
+</p></li><li class="Default"><p>让导入器三角剖分网格体。这是普通方案，无法进行清理，但适用于简单网格体。
+</p></li></ul><p>最好在3D应用中手动设置网格体的三角剖分，控制边的方向和放置方式。自动三角剖分可能会导致不理想的效果。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithContent/Importing/FBX/StaticMeshes/tris_bad.jpg">
+		<img class="  lazyload" alt="不理想的自动三角剖分" width="744" data-src="../../../../../Images/WorkingWithContent/Importing/FBX/StaticMeshes/tris_bad.jpg" />
+</picture>
+
+</p><a name="uvtexturecoordinates" ></a><h3 id="uv纹理坐标">UV纹理坐标</h3>
+<p>虚幻引擎4中的FBX流程支持多个UV集的导入。对 <em>静态网格体</em> 而言，这通常用于处理漫反射的一个UV集。对使用FBX流程的 <em>静态网格体</em> UV进行设置时无特殊要求。
+</p><h3 id="创建法线贴图">创建法线贴图</h3>
+<p>创建低分辨率渲染网格体和高分辨率的细节网格体即可直接在多数建模软件中创建网格体的法线贴图。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithContent/Importing/FBX/StaticMeshes/SideBySide.jpg">
+		<img class="  lazyload" alt="低分辨率和高分辨率网格体" width="700" data-src="../../../../../Images/WorkingWithContent/Importing/FBX/StaticMeshes/SideBySide.jpg" />
+</picture>
+
+</p><p>高分辨率细节网格体的几何体可用于生成法线贴图的法线。Epic的内部工作流中加入了XNormal，在虚幻引擎4中渲染时能够生成质量更佳的法线。欲知此流程的更多详情，请参见<a id="content_link" href="../../../../RenderingAndGraphics/Textures/NormalMaps/Creation/index.html" ><span>法线贴图创建指南</span></a>。
+</p><h3 id="材质">材质</h3>
+<p>应用到在第三方软件中建模的网格体上的材质将随网格体一同导出虚幻引擎。这样便简化了导入过程，因为无需再将纹理单独导入虚幻引擎，也不需要进行材质创建和应用等操作。使用FBX流程时，导入进程可以执行全部操作。
+</p><p>也需要以特定方式对这些材质进行设置，网格体拥有多个材质、或网格体材质的排序很重要时（举例而言：角色模型的材质0需用于躯体，材质1需用于头部）尤为如此。
+</p><p>欲知设置材质进行导出的完整细节，请参见<a id="content_link"filter-data="tag_fbx" href="../Materials/index.html" ><span><strong>FBX材质流程</strong></span></a>页面。
+</p><h3 id="碰撞">碰撞</h3>
+<p>简化的碰撞几何体对优化游戏中的碰撞侦测十分重要。虚幻引擎4在 <strong>静态网格体编辑器</strong> 中提供了创建碰撞几何体的基本工具。但在某些情况下，最佳方案是在3D建模软件中创建自定义碰撞几何体，然后将其随渲染网格体一同导出。通常而言，这适用于对象不需要发生碰撞的开放或凹陷区域网格体。
+</p><p>举例而言：
+</p><ul ><li class="Default"><p>门道网格体
+</p></li><li class="Default"><p>拥有窗框的墙壁
+</p></li><li class="Default"><p>形状古怪的网格体
+</p></li></ul><p>导入器基于碰撞网格体的名称对其进行识别。碰撞命名语法应为：
+</p><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p><strong>网格体前缀和命名</strong> </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p><strong>描述</strong> </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>UBX_[RenderMeshName]_##</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>盒体</strong> 必须使用常规的矩形3D对象来创建。你无法移动顶点或使其改变形状，使其变为矩形棱柱之外的其它形状，否则其将无法正常使用。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>UCP_[RenderMeshName]_##</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>胶囊体</strong> 是两端半圆的圆柱体对象。胶囊体完全不需要过多分段（8段为佳），因为它将被转换为一个真正的胶囊体进行碰撞。和盒体一样，不能对单个顶点进行移动。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>USP_[RenderMeshName]_##</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>球体</strong> 没有必要设置过多分段（8段为佳），因为它将被转换为一个真正的球体进行碰撞。和盒体一样，不能对单个顶点进行移动。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>UCX_[RenderMeshName]_##</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>凸</strong> 对象可以是任何完全封闭的凸型3D形状。例如，一个盒体也是一个凸对象。下图说明了哪些是凸对象，哪些不是。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithContent/Importing/FBX/StaticMeshes/Convex.jpg">
+		<img class="  lazyload" alt="凸对象的正确和错误创建方式" data-src="../../../../../Images/WorkingWithContent/Importing/FBX/StaticMeshes/Convex.jpg" />
+</picture>
+</p>
+			</td>
+	
+</tr></tbody>
+</table><h4 id="警告和注意事项">警告和注意事项</h4>
+<ul ><li class="Default"><p><code>RenderMeshName</code> 名称必须与3D软件中碰撞网格体关联的渲染网格体的命名一致。如果3D软件中渲染网格体的命名为 <code>Tree&#95;01</code>，那么碰撞网格体将与渲染网格体处于同一场景中，命名为 <code>UCX&#95;Tree&#95;01</code>，之后其将随渲染网格体导出到同一个FBX文件中。如果需要为一个网格体设置多个碰撞对象，可以使用额外的辨识符对其命名进行扩展，如：<code>UCX&#95;Tree&#95;01&#95;00</code>、<code>UCX&#95;Tree&#95;01&#95;01</code>、<code>UCX&#95;Tree&#95;01&#95;02</code>，以此类推。这些碰撞对象均会和此网格体相关联。
+</p></li><li class="Default"><p>当前球体仅应用于钢体碰撞和虚幻引擎的零范围追踪（如武器），而不应用于非零范围追踪（如玩家运动）。如 <em>静态网格体</em> 并非等分缩放，则球体和盒体将无法正常使用。通常需要创建 <em>UCX</em> 基元。<br /></p></li><li class="Default"><p>碰撞对象设置完毕后，便可以把渲染和碰撞网格体导出到同一个FBX文件中。将FBX文件导入虚幻编辑器时，它将找到碰撞网格体，将其从渲染网格体上移除，并将其转换为碰撞模型。
+</p></li><li class="Default"><p>将非凸面网格体分解为凸面基元是非常复杂的操作，还可能产生不可预知的效果。另一个方法是在3D MAX或Maya中将碰撞模型分解为凸面块。
+</p></li><li class="Default"><p>如一个对象的碰撞由多个凸包所定义，那么这些凸包相互未交叉时产生的结果为最佳。举例而言，如果一个棒棒糖的碰撞由两个凸包所定义（一个用于糖果、另一个用于棒），那么两者之间应留有空隙。详情如下所示：
+</p></li></ul><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithContent/Importing/FBX/StaticMeshes/CandyCollision.jpg">
+		<img class="  lazyload" alt="CandyCollision.png" width="400" data-src="../../../../../Images/WorkingWithContent/Importing/FBX/StaticMeshes/CandyCollision.jpg" />
+</picture>
+
+</p><ol ><li class="Default"><p><em>UCX_Candy</em>
+</p></li><li class="Default"><p>碰撞表面之间的小缝隙
+</p></li><li class="Default"><p><em>UCX_Stick</em>
+</p></li></ol><h3 id="插槽">插槽</h3>
+<p>在游戏中通常使用插槽来将一个对象附加到另一个对象（可以是骨架网格体、也可以是静态网格体）。虚幻引擎4中拥有在静态网格体编辑器中创建插槽的工具。
+有时可能需要在3D建模软件中对插槽进行设置，然后再随渲染网格体导出。
+可相对于骨架网格体上的骨骼或静态网格体的大小对插槽进行平移、旋转和缩放。 
+</p><p>如要在建模软件中使用插槽，需要使用一个带 <code>SOCKET&#95;</code> 前缀的虚拟或助手对象。 
+</p><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>网格体前缀和命名 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>描述 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>SOCKET_[RenderMeshName]_##</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>将此用于建模软件中的任意虚拟或助手对象，以便将插槽指定到网格体。</p>
+			</td>
+	
+</tr></tbody>
+</table><h4 id="警告和注意事项_1">警告和注意事项</h4>
+<ul ><li class="Default"><p><code>RenderMeshName</code> 名称必须与3D软件中插槽对象关联的渲染网格体的命名一致。
+如果3D软件中渲染网格体的命名是 <code>Object&#95;01</code>，则插槽对象应与此网格体处于同一场景中，命名为SOCKET_Object_01，
+并随渲染网格体导出到同一个FBX文件中。如果一个网格体需要多个插槽对象，则以额外的辨识符来延展其命名，
+如SOCKET_Object_01_00、SOCKET_Object_01_01、SOCKET_Object_01_02，以此类推。这些插槽皆与该网格体相关联。
+</p></li><li class="Default"><p>为网格体创建插槽时，可导入虚幻引擎4的插槽只能拥有一个网格体FBX设置。
+举例而言，如果需要将两个渲染网格体设为单独的资源，则需要将其导入为单独的FBX文件。
+这意味着无法导入多个网格体并将插槽指定到每个单独的网格体；如果两组渲染网格体拥有其自身的插槽，其将无法正确导入。
+举例而言，如果Object_01带SOCKET_Object_01_00，另一个渲染网格体Box_01带SOCKET_Box_01_00，此时便无法让插槽随这些网格体一同导入。
+它们需要导出为独立的FBX文件。
+</p></li></ul><a name="vertexcolors" ></a><h3 id="顶点颜色">顶点颜色</h3>
+<p>可以通过使用FBX流程来转移 <em>静态网格体</em> 的顶点颜色。无需特殊设置。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithContent/Importing/FBX/StaticMeshes/vertex_color.jpg">
+		<img class="  lazyload" alt="显示顶点颜色的网格体" width="769" data-src="../../../../../Images/WorkingWithContent/Importing/FBX/StaticMeshes/vertex_color.jpg" />
+</picture>
+
+</p><a name="exportmesh" ></a><h2 id="导出网格体">导出网格体</h2>
+<p><em>静态网格体</em> 可以单独导出，也可把多个网格体导出到一个单独的FBX文件中。除非在导入时启用 <strong>组合网格体（Combine Meshes）</strong> 设置，否则导入流程将会将多个 <em>静态网格体</em> 在目标包中分离为多个资源。
+</p><div class="include_wrapper" data-path="WorkingWithContent/Importing/FBX">
+<div class="warning">
+	<p>UE4 FBX导入通道使用 <strong>FBX 2018</strong>。在导出时使用其他版本可能导致不兼容。</p>
+</div>
+</div>
+<h2 id="导入网格体">导入网格体</h2>
+<ol ><li class="Default"><p>点击 <strong>内容浏览器</strong> 中的 <strong>添加/导入（Add/Import）</strong> 按钮并选择 <em>导入</em>。在打开的文件浏览器中找到并选中需要导入的FBX文件。<br /></p><div class="note">
+	<p>你可能需要在下拉菜单中选择<picture>
+		<source data-srcset="./../../../../../Images/WorkingWithContent/Importing/FBX/StaticMeshes/import_fbxformat.jpg">
+		<img class="  lazyload" alt="FBX file extension" data-src="../../../../../Images/WorkingWithContent/Importing/FBX/StaticMeshes/import_fbxformat.jpg" />
+</picture>
+，过滤掉不需要的文件。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithContent/Importing/FBX/StaticMeshes/import_file.jpg">
+		<img class="  lazyload" alt="正在显示FBX导入文件的文件窗口" data-src="../../../../../Images/WorkingWithContent/Importing/FBX/StaticMeshes/import_file.jpg" />
+</picture>
+
+</p><p>导入资产的路径取决于 <strong>内容浏览器</strong> 中的当前位置。在执行导入前，请确保导航到相应的文件夹。你也可以在导入完成后将导入的资产拖入新的文件夹。</p>
+</div></li><li class="Default"><p>在 <strong>导入</strong> 对话框中选择合适的设置。大多数情况下，默认值应该就可以了。请参阅<a id="content_link"filter-data="tag_fbx tag_import/export" href="../ImportOptions/index.html" ><span>FBX导入对话框</span></a>部分，了解所有设置的完整细节。<br /></p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithContent/Importing/FBX/ImportOptions/StaticMeshImportOptions.jpg">
+		<img class="  lazyload" alt="静态网格体导入选项" data-src="../../../../../Images/WorkingWithContent/Importing/FBX/ImportOptions/StaticMeshImportOptions.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>点击 <strong>导入（Import）</strong> 按钮来导入网格体。如果导入过程成功，将在 <strong>内容浏览器</strong> 中显示最终的网格体、材质和贴图。<br /></p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithContent/Importing/FBX/StaticMeshes/example_mesh_texture_material_in_content_browser.jpg">
+		<img class="  lazyload" alt="导入至内容浏览器的材质、网格体和纹理" width="800" data-src="../../../../../Images/WorkingWithContent/Importing/FBX/StaticMeshes/example_mesh_texture_material_in_content_browser.jpg" />
+</picture>
+
+</p><div class="note">
+	<p>虽然纹理和材质将随静态网格体导入，但只有 <strong>颜色（Color）</strong> 和 <strong>法线（Normal）</strong> 将被自动连接（假定<a id="content_link"filter-data="tag_fbx" href="../Materials/index.html" ><span>Max/Maya中使用了支持的材质</span></a>）；<strong>高光（Specular）</strong> 贴图也将被导入，但不会连接；其他贴图（如 <strong>漫反射（Diffuse）</strong> 槽中的 <strong>环境光遮蔽（Ambient Occlusion）</strong> 贴图）则不会被导入。最好的方法是对材质进行检查，连接所有未连接的贴图，并检查哪些贴图未导入。<strong>双击</strong> 新材质并将可用纹理连接到其相应的输入中即可。</p>
+</div><p>在 <strong>静态网格体编辑器</strong> 中查看导入的网格体并启用显示碰撞后，即可验证进程是否正常进行。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/WorkingWithContent/Importing/FBX/StaticMeshes/example_mesh_in_static_mesh_editor.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithContent/Importing/FBX/StaticMeshes/example_mesh_in_static_mesh_editor.jpg">
+		<img class="  lazyload" alt="静态网格体编辑器中的示例网格体" width="920" data-src="../../../../../Images/WorkingWithContent/Importing/FBX/StaticMeshes/example_mesh_in_static_mesh_editor.jpg" />
+</picture>
+</span></a></span></p>
+</div></li></ol><div class="tip">
+	<p>另外还可以从Windows点击并将一个FBX文件拖入 <strong>内容浏览器</strong>，此操作将呼出导入对话。</p>
+</div><a name="meshlods" ></a><h2 id="静态网格体lod">静态网格体LOD</h2>
+<p>为将网格体逐渐远离相机而产生的性能影响降至最低，可以在游戏中使用 <em>静态网格体</em> 的细节级别（LOD）。通常而言，这意味着每个细节级别拥有的三角形数量更少，或对其应用的材质更为简单。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithContent/Importing/FBX/StaticMeshes/lods_comparison.jpg">
+		<img class="  lazyload" alt="四种LOD效果的对比" data-src="../../../../../Images/WorkingWithContent/Importing/FBX/StaticMeshes/lods_comparison.jpg" />
+</picture>
+
+</p><p>FBX流程可用于导入DCC工具创建的LOD网格体；也可以直接在UE内部为导入的静态网格创建LOD。
+</p><h3 id="lod设置">LOD设置</h3>
+<p>通常而言，LOD的处理方式是创建复杂程度不一的模型，从完整细节的基础网格体到最低细节的LOD网格体。这些LOD网格体应该全部对齐，拥有相同的枢轴点且占有相同空间。每个LOD网格体可以指定完全不同的材质，包括不同数量的材质。这意味着基础网格体可以使用多个材质在近处产生理想的细节；但低细节网格体可以使用一个单独的材质，因为细节不甚明显。
+</p><p>每个DCC工具都有自己的工作流程来创建静态网格体的 LOD，因此请参考你所选工具的文档，了解如何创建LOD 并将其添加到你的FBX输出中。
+</p><h3 id="导入lod">导入LOD</h3>
+<p>在 <strong>内容浏览器</strong> 中，静态网格体LOD可随基础网格体一同导入，或通过静态网格体编辑器单独导入。
+</p><ol ><li class="Default"><p>点击 <strong>内容浏览器</strong> 中的 <strong>添加/导入（Add/Import）</strong> 按钮并选择 <em>导入</em>。在打开的文件浏览器中找到并选中需要导入的FBX文件。<br /></p><div class="note">
+	<p>你可能需要在下拉菜单中选择<picture>
+		<source data-srcset="./../../../../../Images/WorkingWithContent/Importing/FBX/StaticMeshes/import_fbxformat.jpg">
+		<img class="  lazyload" alt="FBX file extension" data-src="../../../../../Images/WorkingWithContent/Importing/FBX/StaticMeshes/import_fbxformat.jpg" />
+</picture>
+，过滤掉不需要的文件。
+</p><p>导入资产的路径取决于 <strong>内容浏览器</strong> 中的当前位置。在执行导入之前，请确保导航到相应的文件夹。你也可以在导入完成后，将导入的资产拖入新的文件夹内。</p>
+</div></li><li class="Default"><p>在 <strong>导入（Import）</strong> 对话中选择正确的设置。默认设置即可，但必须启用 <em>导入LOD（Import LODs）</em>。<strong>注意：</strong> 导入LOD时，导入网格体的命名将遵循默认的<a id="content_link" href="../ImportOptions/index.html" ><span><strong>命名规则</strong></span></a>。在<a id="content_link"filter-data="tag_fbx tag_import/export" href="../ImportOptions/index.html" ><span><strong>FBX导入对话</strong></span></a>部分可了解到所有设置的完整详情。<br /></p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithContent/Importing/FBX/StaticMeshes/ImportOptions_LOD.jpg">
+		<img class="  lazyload" alt="ImportOptions_LOD.png" data-src="../../../../../Images/WorkingWithContent/Importing/FBX/StaticMeshes/ImportOptions_LOD.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>点击 <strong>导入（Import）</strong> 按钮来导入网格体和LOD。如果导入过程成功，将在 <strong>内容浏览器</strong> 中显示最终的网格体、材质和贴图。<br /></p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithContent/Importing/FBX/StaticMeshes/example_mesh_texture_material_in_content_browser.jpg">
+		<img class="  lazyload" alt="导入进内容浏览器的材质、网格体和纹理" width="800" data-src="../../../../../Images/WorkingWithContent/Importing/FBX/StaticMeshes/example_mesh_texture_material_in_content_browser.jpg" />
+</picture>
+
+</p><div class="note">
+	<p>虽然纹理和材质将随静态网格体导入，但只有 <strong>颜色（Color）</strong> 和 <strong>法线（Normal）</strong> 将被自动连接（假定<a id="content_link"filter-data="tag_fbx" href="../Materials/index.html" ><span>Max/Maya中使用了支持的材质</span></a>）；<strong>高光（Specular）</strong> 贴图也将被导入，但不会连接；其他贴图（如 <strong>漫反射（Diffuse）</strong> 槽中的 <strong>环境光遮蔽（Ambient Occlusion）</strong> 贴图）则不会被导入。最好的方法是对材质进行检查，连接所有未连接的贴图，并检查哪些贴图未导入。<strong>双击</strong> 新材质并将可用纹理连接到其相应的输入中即可。</p>
+</div><p>在 <strong>静态网格体编辑器</strong> 中查看导入的网格体时，可使用 <strong>细节</strong> 面板中的 <strong>LOD拾取器（LOD Picker）</strong> 来循环切换LOD。
+</p></li></ol><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithContent/Importing/FBX/StaticMeshes/lod_picker.jpg">
+		<img class="  lazyload" alt="静态网格体编辑器中的LOD拾取器" width="400" data-src="../../../../../Images/WorkingWithContent/Importing/FBX/StaticMeshes/lod_picker.jpg" />
+</picture>
+
+</p><h3 id="为导入的静态网格体创建lod">为导入的静态网格体创建LOD</h3>
+<p>静态网格体导入后，你可以<a id="content_link" href="../../../Types/StaticMeshes/HowTo/LODs/index.html" ><span>手动为它创建LOD</span></a>，虽然较为耗时，但会得到最好的结果（特别是复杂的网格体）；或者你可以使用UE的<a id="content_link"filter-data="tag_static_mesh" href="../../../Types/StaticMeshes/HowTo/AutomaticLODGeneration/index.html" ><span>LOD自动生成工具</span></a>，当你需要为多个简单网格体生成LOD时，这种方法更快。</p>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/WorkingWithContent/Importing/FBX/StaticMeshes/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:14:59 GMT -->
+</html>

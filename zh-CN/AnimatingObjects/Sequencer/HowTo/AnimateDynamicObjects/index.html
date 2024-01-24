@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/AnimatingObjects/Sequencer/HowTo/AnimateDynamicObjects/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:31:38 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var finishButton = finishButtonTemplate;
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/AnimatingObjects/Sequencer/HowTo/AnimateDynamicObjects/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>用Sequencer在蓝图中重新绑定Actor | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+		    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+		    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/AnimatingObjects/Sequencer/HowTo/AnimateDynamicObjects/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/AnimatingObjects/Sequencer/HowTo/AnimateDynamicObjects/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/AnimatingObjects/Sequencer/HowTo/AnimateDynamicObjects/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/AnimatingObjects/Sequencer/HowTo/AnimateDynamicObjects/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Sequencer/HowTo/AnimateDynamicObjects" />
+<meta name="intsourcechangelist" content="14424967" />
+<meta name="availability" content="Public" />
+<meta name="title" content="用Sequencer在蓝图中重新绑定Actor" />
+<meta name="description" content="此例说明如何在运行时将序列应用到动态对象（此对象与序列中原始拥有的对象不同）。" />
+<meta name="version" content="4.25" />
+<meta name="skilllevel" content="Advanced" />
+<meta name="parent" content="AnimatingObjects/Sequencer/HowTo" />
+<meta name="order" content="1" />
+<meta name="related" content="AnimatingObjects/Sequencer/Overview" />
+<meta name="related" content="AnimatingObjects/Sequencer\ReferenceEditor\" />
+<meta name="keywords" content="Sequencer" />
+<meta name="type" content="how-to" />
+<meta name="crumbs" content="%ROOT%,AnimatingObjects,AnimatingObjects/Sequencer,AnimatingObjects/Sequencer/HowTo" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="用Sequencer在蓝图中重新绑定Actor" />
+	<meta property="og:description" content="此例说明如何在运行时将序列应用到动态对象（此对象与序列中原始拥有的对象不同）。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">为角色和对象添加动画</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">Sequencer 编辑器</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">Sequencer - 操作指南</a>
+
+<span class="separator">></span> <span id="page">用Sequencer在蓝图中重新绑定Actor</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">用Sequencer在蓝图中重新绑定Actor</h1>
+							</div>	
+							<h2 >此例说明如何在运行时将序列应用到动态对象（此对象与序列中原始拥有的对象不同）。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Advanced"><a id="skill_link" href="../../../../SiteIndex/index.html?skills=Advanced">Advanced</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																														<div id="seeAlso">
+	<div style="position:relative;">
+		<div id="title">参见</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<p>
+						<a id="related_link" href="../../Overview/index.html" title="Sequencer是虚幻引擎4的多轨迹编辑器，用于实时创建和预览过场动画序列。">Sequencer概述</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../ReferenceEditor/index.html" title="Sequencer编辑器的UI和控制引用页面。">Sequencer编辑器引用</a>
+					</p>
+				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																														<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#步骤">步骤</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#最终结果">最终结果</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>创建游戏进程过场动画时，有时需要在Sequencer中对运行时动态生成的对象设置动画。 
+举例而言，用户可创建一个带动画的对象，使其在Sequencer中沿路径移动，而该对象可由玩家（玩家在游戏进程中生成）进行定义。
+在<a id="content_link"filter-data="tag_blueprints" href="../../../../ProgrammingAndScripting/Blueprints/index.html" ><span>蓝图可视化脚本</span></a>的协助下，用户可使用 <strong>Get Sequence Bindings</strong> 节点从关卡序列公开绑定辨识符，并使用自有设置覆盖这些绑定。 
+</p><p>在此例中，我们对一个空白Actor设置动画，使其沿一条路径移动，而玩家按下按键即可将对象修改为不同的效果。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/AnimateDynamicObjects/EndResult.jpg">
+		<img class="  lazyload" alt="EndResult.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/AnimateDynamicObjects/EndResult.jpg" />
+</picture>
+
+</p><div class="note">
+	<p>在此指南中，我们使用的是启用了 <strong>初学者内容包</strong> 的 <strong>蓝图第三人称模板</strong> 项目。 </p>
+</div><h2 id="步骤">步骤</h2>
+<ol ><li class="Default"><p>在 <strong>放置（Actor）</strong> 面板的 <strong>基本（Basic）</strong> 选项卡中，将一个 <strong>空Actor</strong> 拖入关卡。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/AnimateDynamicObjects/DynamicAnim_01.jpg">
+		<img class="  lazyload" alt="DynamicAnim_01.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/AnimateDynamicObjects/DynamicAnim_01.jpg" />
+</picture>
+
+</p><p>我们将在Sequencer中对此空白actor设置动画，并覆盖序列绑定，将actor改为不同的粒子特效。 
+</p></li><li class="Default"><p>在主工具栏中点击 <strong>过场动画（Cinematics）</strong> 按钮，然后选择 <strong>添加关卡序列（Add Level Sequence）</strong>，为序列指定任意命名。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/AnimateDynamicObjects/DynamicAnim_02.jpg">
+		<img class="  lazyload" alt="DynamicAnim_02.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/AnimateDynamicObjects/DynamicAnim_02.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>选择关卡中的空白actor，然后将空白actor添加到Sequencer。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/AnimateDynamicObjects/DynamicAnim_03.jpg">
+		<img class="  lazyload" alt="DynamicAnim_03.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/AnimateDynamicObjects/DynamicAnim_03.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>点击空白actor上的 <strong>轨迹</strong> 按钮，选择 <strong>变换</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/AnimateDynamicObjects/DynamicAnim_04.jpg">
+		<img class="  lazyload" alt="DynamicAnim_04.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/AnimateDynamicObjects/DynamicAnim_04.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>为 <strong>变换</strong> 轨迹添加一个关键帧，初始化空白actor在关卡中的当前位置。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/AnimateDynamicObjects/DynamicAnim_05.jpg">
+		<img class="  lazyload" alt="DynamicAnim_05.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/AnimateDynamicObjects/DynamicAnim_05.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>将时间轴前移至第 <strong>75</strong> 帧，然后在关卡中移动空白actor，并在其新位置添加一个新的关键帧。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/AnimateDynamicObjects/DynamicAnim_06.jpg">
+		<img class="  lazyload" alt="DynamicAnim_06.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/AnimateDynamicObjects/DynamicAnim_06.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>点击右键并复制Sequencer中的首帧，然后移动至第 <strong>150</strong> 帧，点击右键 <strong>粘贴</strong> <strong>变换</strong> 关键帧。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/AnimateDynamicObjects/DynamicAnim_07.jpg">
+		<img class="  lazyload" alt="DynamicAnim_07.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/AnimateDynamicObjects/DynamicAnim_07.jpg" />
+</picture>
+
+</p><p>复制首个关键帧并将其粘贴到末尾后将获得能够循环的平顺序列。 
+</p></li><li class="Default"><p>在关卡序列的 <strong>细节</strong> 面板中启用 <strong>自动播放（Auto Play）</strong>，并将 <strong>循环（Loop）</strong> 设为 <strong>无限循环（Loop Indefinitely）</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/AnimateDynamicObjects/DynamicAnim_08.jpg">
+		<img class="  lazyload" alt="DynamicAnim_08.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/AnimateDynamicObjects/DynamicAnim_08.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>点击主工具栏的 <strong>蓝图（Blueprints）</strong> 按钮，然后选择 <strong>打开关卡蓝图（Open Level Blueprint）</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/AnimateDynamicObjects/DynamicAnim_09.jpg">
+		<img class="  lazyload" alt="DynamicAnim_09.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/AnimateDynamicObjects/DynamicAnim_09.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>关卡蓝图</strong> 中点击右键添加一个连接到 <strong>Flip Flop</strong> 节点的 <strong>F</strong> 键盘事件。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/AnimateDynamicObjects/DynamicAnim_10.jpg">
+		<img class="  lazyload" alt="DynamicAnim_10.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/AnimateDynamicObjects/DynamicAnim_10.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>添加2个 <strong>Spawn Actor from Class</strong> 节点（一个使用 <strong>Blueprint Effect Fire</strong>，另一个使用 <strong>Blueprint Effect Sparks</strong>），并如下所示连接到 <strong>Make Transform</strong> 节点。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/AnimateDynamicObjects/DynamicAnim_11.jpg">
+		<img class="  lazyload" alt="DynamicAnim_11.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/AnimateDynamicObjects/DynamicAnim_11.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>SpawnActor Blueprint Effect Fire</strong> 节点的 <strong>返回值</strong> 上点击右键，选择 <strong>提升为变量（Promote to Variable）</strong>，将其命名为 <strong>Fire BP</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/AnimateDynamicObjects/DynamicAnim_12.jpg">
+		<img class="  lazyload" alt="DynamicAnim_12.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/AnimateDynamicObjects/DynamicAnim_12.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>将 <strong>SpawnActor Blueprint Effect Sparks</strong> 的 <strong>返回值</strong> 提升为 <strong>Sparks BP</strong>。 
+</p></li><li class="Default"><p>为关卡序列添加一个引用，在其后方使用 <strong>Add Binding</strong> 节点。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/AnimateDynamicObjects/DynamicAnim_13.jpg">
+		<img class="  lazyload" alt="DynamicAnim_13.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/AnimateDynamicObjects/DynamicAnim_13.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>创建另一个 <strong>Add Binding</strong> 节点，如下图所示进行连接，将 <strong>Fire BP</strong> 和 <strong>Sparks BP</strong> 填入为 <strong>Actor</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/AnimateDynamicObjects/DynamicAnim_14.jpg">
+		<img class="  lazyload" alt="DynamicAnim_14.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/AnimateDynamicObjects/DynamicAnim_14.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>点击右键并使用 <strong>Get Sequence Binding</strong> 节点（设置下方高亮的选项），并连接到两个 <strong>Add Binding</strong> 节点。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/AnimateDynamicObjects/DynamicAnim_15.jpg">
+		<img class="  lazyload" alt="DynamicAnim_15.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/AnimateDynamicObjects/DynamicAnim_15.jpg" />
+</picture>
+
+</p><p>可在 <strong>Get Sequence Binding</strong> 节点上指定要针对的关卡序列，以及希望覆盖的 <strong>绑定</strong>。
+在此例中，关卡序列（空白actor）中只列出了一个能覆盖的轨迹。 
+添加到关卡序列的可覆盖对象将显示在下拉菜单中。 
+</p></li><li class="Default"><p>引入 <strong>Sparks BP</strong> 和 <strong>Fire BP</strong> 变量。使用 <strong>IsValid</strong> 节点，如对象有效，则 <strong>销毁Actor</strong>。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/AnimatingObjects/Sequencer/HowTo/AnimateDynamicObjects/DynamicAnim_16.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/AnimateDynamicObjects/DynamicAnim_16.jpg">
+		<img class="  lazyload" alt="DynamicAnim_16.png" width="900" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/AnimateDynamicObjects/DynamicAnim_16.jpg" />
+</picture>
+</span></a></span></p>
+</div><p><div class="caption">
+	<p>Click image for full view.</p>
+</div>
+</p><p>脚本现已完成，将生成火焰或火花特效、覆盖关卡序列中的空白actor，然后销毁其他的粒子效果（如其有效）。 
+</p></li><li class="Default"><p>在编辑器中运行，然后按下 <strong>F</strong> 键在生成的Actor之间进行切换。
+</p></li></ol><h2 id="最终结果">最终结果</h2>
+<p>在编辑器中运行时按下 <strong>F</strong> 键，空白actor将被生成的火焰或火花特效所替换，并使用应用到空白actor的动画。 
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_0_b7pvgg4o_15
+{
+	margin: 0px;
+	width: 100%;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_0_b7pvgg4o_15:after
+{
+	content: "";
+	padding-top: 56.25%;
+	display: block;
+}
+</style> 
+<div id="player_0_b7pvgg4o_15"> 
+	<div id="playerContainer_0_b7pvgg4o_15" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/0_b7pvgg4o/embed.html"></iframe>
+	</div>
+</div>
+<p>除添加绑定之外还可进行以下操作：
+</p><ul ><li class="Default"><p><strong>移除绑定</strong>，从指定的绑定移除指定的actor。
+</p></li><li class="Default"><p><strong>重设绑定</strong>，将指定的绑定重设回默认设置。
+</p></li><li class="Default"><p><strong>重设多项绑定</strong>，将所有覆盖的绑定重设回默认设置。
+</p></li><li class="Default"><p><strong>设置绑定</strong>，用指定的actor覆盖指定的绑定。
+</p></li></ul><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/AnimateDynamicObjects/AdditionalFunctions.jpg">
+		<img class="  lazyload" alt="AdditionalFunctions.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/AnimateDynamicObjects/AdditionalFunctions.jpg" />
+</picture>
+
+</p>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Sequencer">Sequencer</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/AnimatingObjects/Sequencer/HowTo/AnimateDynamicObjects/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:31:46 GMT -->
+</html>

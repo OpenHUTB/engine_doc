@@ -1,0 +1,663 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/RenderingAndGraphics/Materials/HowTo/EmissiveGlow/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:15:00 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/RenderingAndGraphics/Materials/HowTo/EmissiveGlow/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>使用自发光材质输入 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/RenderingAndGraphics/Materials/HowTo/EmissiveGlow/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/RenderingAndGraphics/Materials/HowTo/EmissiveGlow/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/RenderingAndGraphics/Materials/HowTo/EmissiveGlow/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/RenderingAndGraphics/Materials/HowTo/EmissiveGlow/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Rendering/Materials/HowTo/EmissiveGlow" />
+<meta name="intsourcechangelist" content="15217808" />
+<meta name="availability" content="Public" />
+<meta name="title" content="使用自发光材质输入" />
+<meta name="description" content="有关在虚幻引擎4的材质编辑器中使用自发光材质输入的操作指南。" />
+<meta name="parent" content="RenderingAndGraphics/Materials/HowTo" />
+<meta name="related" content="RenderingAndGraphics/Materials/MaterialInputs" />
+<meta name="related" content="RenderingAndGraphics/Materials/MaterialProperties/LightingModels" />
+<meta name="related" content="RenderingAndGraphics/PostProcessEffects/Bloom" />
+<meta name="related" content="Resources/ContentExamples/MaterialNodes/1_5" />
+<meta name="version" content="4.26" />
+<meta name="skilllevel" content="Intermediate" />
+<meta name="keywords" content="Materials" />
+<meta name="course" content="creating-pbr-materials?lang=zh-CN|创建PBR材质|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fcreating-pbr-materials%2FHighresScreenshot00006-1920x1050-2c0180460478cd00327494c6e5717e227be4926d.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fcreating-pbr-materials%2FCreating-PBR-Materials-1000x1000-0d34ec4bfc3eeb466ce5a981a867921f72464e77.png?resize=1&amp;w=300" />
+<meta name="course" content="getting-to-know-materials-for-design-visualization?lang=zh-CN|了解可视化设计中的材质|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fgetting-to-know-materials-for-design-visualization%2FIntro_to_Materials_003-1919x1079-f32638266c469a6fa2b9b2f3515e5766e8177b22.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fgetting-to-know-materials-for-design-visualization%2FGetting-to-Know-Materials-for-Design-Visualization-1000x1000-8cd1670f84e0111e39d4a3faa1e7a6ba29a30bfe.png?resize=1&amp;w=300" />
+<meta name="course" content="materials---exploring-essential-concepts?lang=zh-CN|材质：基础概念|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials---exploring-essential-concepts%2FMaterialEssentialConcepts-1920x1080-1920x1080-2414bb5cf0b0c3bd7ac4b993e725d2acedd45334.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials---exploring-essential-concepts%2FMaterials--Exploring-Essential-Concepts-1000x1000-9546cdc254e6659ce73211b5955ab9d886921256.png?resize=1&amp;w=300" />
+<meta name="course" content="materials---understanding-the-production-workflow?lang=zh-CN|材质：制作工作流|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials---understanding-the-production-workflow%2FMaterialWorkflow_ThumbnailFull-1920x1080-1920x1080-638fea6d7e3b7b299a4f433096336ce1caf662d0.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials---understanding-the-production-workflow%2F104-Materials-Production-Workflow%402x-1000x1000-ae1ba588a367d239fbe513da38bb793360c9eecf.png?resize=1&amp;w=300" />
+<meta name="course" content="materials-master-learning?lang=zh-CN|材质大师课程|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials-master-learning%2FMaterialMaster_1920x1080-1920x1080-212f85045980310d6985557f84d0217e6423b709.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials-master-learning%2FMaterials-Master-Learning-1000x1000-56fd0b66f6e798313f79737126d9215cbd4a3ff9.png?resize=1&amp;w=300" />
+<meta name="crumbs" content="%ROOT%,RenderingAndGraphics,RenderingAndGraphics/Materials,RenderingAndGraphics/Materials/HowTo" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="使用自发光材质输入" />
+	<meta property="og:description" content="有关在虚幻引擎4的材质编辑器中使用自发光材质输入的操作指南。 " />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">设计视觉、渲染和图形效果</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">材质 </a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">材质 - 操作指南</a>
+
+<span class="separator">></span> <span id="page">使用自发光材质输入</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">使用自发光材质输入</h1>
+							</div>	
+							<h2 >有关在虚幻引擎4的材质编辑器中使用自发光材质输入的操作指南。 </h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Intermediate"><a id="skill_link" href="../../../../SiteIndex/index.html?skills=Intermediate">Intermediate</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																		<div id="seeAlso">
+	<div style="position:relative;">
+		<div id="title">参见</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<p>
+						<a id="related_link" href="../../MaterialInputs/index.html" title="深入了解材质上可用的各种输入，及其使用方式。">材质输入</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../MaterialProperties/LightingModels/index.html" title="本文档将详细讲解材质着色模型属性选项。">着色模型</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../../PostProcessEffects/Bloom/index.html" title="光晕能使光源等明亮物体产生辉光效果。">泛光</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../../../Resources/ContentExamples/MaterialNodes/1_5/index.html" title="材质节点示例关卡概述，示例1.5：自发光。">1.5 - 自发光</a>
+					</p>
+				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																		<div id="courses">
+	<div style="position:relative;">
+		<div id="title">相关课程</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<div name="creating-pbr-materials?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/creating-pbr-materials?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_443/Unreal%20Engine/onlinelearning-courses/creating-pbr-materials/HighresScreenshot00006-1920x1050-2c0180460478cd00327494c6e5717e227be4926d4f86.png?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_443/Unreal%20Engine/onlinelearning-courses/creating-pbr-materials/Creating-PBR-Materials-1000x1000-0d34ec4bfc3eeb466ce5a981a867921f72464e77fe4b.png?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="creating-pbr-materials?lang=zh-CN_title">
+				创建PBR材质
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="getting-to-know-materials-for-design-visualization?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/getting-to-know-materials-for-design-visualization?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/getting-to-know-materials-for-design-visualizat/Intro_to_Materials_003-1919x1079-f32638266c469a6fa2b9b2f3515e5766?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/getting-to-know-materials-for-design-visualizat/Getting-to-Know-Materials-for-Design-Visualization-1000x1000-8cd1670f84e0111e39d4a3faa1e7a6b?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="getting-to-know-materials-for-design-visualization?lang=zh-CN_title">
+				了解可视化设计中的材质
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="materials---exploring-essential-concepts?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/materials---exploring-essential-concepts?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/materials---exploring-essential-concepts/MaterialEssentialConcepts-1920x1080-1920x1080-2414bb5cf0b0c3bd7ac4b993e725d2acedd45334.42c4f86.dela?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/materials---exploring-essential-concepts/Materials--Exploring-Essential-Concepts-1000x1000-9546cdc254e6659ce73211b5955ab9d886921256.42dfe4b?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="materials---exploring-essential-concepts?lang=zh-CN_title">
+				材质：基础概念
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="materials---understanding-the-production-workflow?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/materials---understanding-the-production-workflow?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/materials---understanding-the-production-workfl/MaterialWorkflow_ThumbnailFull-1920x1080-1920x1080-638fea6d7e3b7b299a4f433096336ce1caf662d0?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/materials---understanding-the-production-workfl/104-Materials-Production-Workflow%402x-1000x1000-ae1ba588a367d239fbe513da38bb793360c9eecf.42ff?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="materials---understanding-the-production-workflow?lang=zh-CN_title">
+				材质：制作工作流
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="materials-master-learning?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/materials-master-learning?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/materials-master-learning/MaterialMaster_1920x1080-1920x1080-212f85045980310d6985557f84d0217e6423b709.4314f86.del?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/materials-master-learning/Materials-Master-Learning-1000x1000-56fd0b66f6e798313f79737126d9215cbd4a3ff9.433fe4b.de?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="materials-master-learning?lang=zh-CN_title">
+				材质大师课程
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																								<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#自发光光照">自发光光照</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#有光照和无光照的自发光材质">有光照和无光照的自发光材质</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#自发光材质创建">自发光材质创建</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#用于_自发光（emissive）_输入的纹理或标量">用于"自发光（Emissive）"输入的纹理或标量</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#创建测试地图">创建测试地图</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#作用中的自发光材质">作用中的自发光材质</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#使用自发光材质来照亮世界场景">使用自发光材质来照亮世界场景</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#控制自发光对世界场景的影响">控制自发光对世界场景的影响</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#开启或关闭自发光对世界场景的影响">开启或关闭自发光对世界场景的影响</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#自发光影响与泛光">自发光影响与泛光</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#间接光照的多次反射">间接光照的多次反射</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#总结">总结</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>在项目开发过程中，可能会需要自发亮材质或发光材质。 
+在虚幻引擎4（UE4）中，自发亮材质也称为自发光材质。 
+在以下操作指南中，我们将阐述如何设置材质以使用"自发光（Emissive）"输入，以及如何使用"自发光（Emissive）"输入以实际照亮你所创建的世界场景。 
+</p><h2 id="自发光光照">自发光光照</h2>
+<p>自发光光照（在UE4中称为"自发光材质"）为美工提供了一种非常有效且系统开销低的方法，可在材质实际未投射光线时制造其正在投射光线的错觉。 
+自发光材质通过允许美工将"自发光（Emissive）"输入的值提高到大于1.0来实现此效果，这将使材质进入HDR范围， 
+从而发出你注视非常明亮的光源时可能会看到的泛光效果。
+</p><h2 id="有光照和无光照的自发光材质">有光照和无光照的自发光材质</h2>
+<p>自发光材质是自发亮材质，这意味着它们可以与有光照和无光照着色模型配合使用。 
+但是，自发光材质应尽可能使用无光照着色模型，因为这将产生渲染时系统开销较低的着色器。
+ 在这两种不同的着色模型之间，渲染自发光的方式并没有视觉效果上的差别。 
+ 所以，应尽可能使用系统开销较低的无光照着色模型。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/EmissiveGlow/EM_Shading_Model.jpg">
+		<img class="  lazyload" alt="EM_Shading_Model.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/EmissiveGlow/EM_Shading_Model.jpg" />
+</picture>
+
+</p><ul ><li class="Default"><p><strong>何时使用有光照着色模型</strong>：如果自发光材质必须与"底色（Base Color）"输入或"法线贴图（Normal Map）"输入等其他着色器输入结合使用，那么你应该使用 
+有光照着色模型。例如，为光线照射下的枪支创建材质时就应该使用它。在这种情况下，你仍需要使用有光照着色模型，以使法线贴图和 
+其他着色器输入仍与关卡中的光照配合工作。 
+</p></li><li class="Default"><p><strong>何时使用无光照着色模型</strong>：如果自发光材质不必使用其他着色器输入，那么你应该使用无光照着色模型。例如，你 
+仅将自发光材质用于模拟光源，比如灯光卡或灯泡的表面区域。
+</p></li></ul><h2 id="自发光材质创建">自发光材质创建</h2>
+<p>在UE4中，创建自发光材质与创建任何其他材质没有不同。这一部分阐述设置任何材质以使用"自发光（Emissive）"输入所需完成的所有操作。
+</p><div class="note">
+	<p>如果你的项目包含了 <strong>初学者内容包</strong>，那么你可找到本部分中使用的所有内容。虽然此处展示的技巧适用于任何纹理，但如果你希望按照所述进行操作，请确保项目中包含 <strong>初学者内容包</strong>。</p>
+</div><ol ><li class="Default"><p>首先，在 <strong>内容浏览器</strong> 中 <strong>右键单击</strong>，然后在弹出菜单的 <strong>创建基本资产（Create Basic Asset）</strong> 部分中选择 <strong>材质（Material）</strong>。 
+选择此选项之后，将创建新 <strong>材质</strong>，请将其命名为 <strong>Emissive_Material</strong>。 
+</p></li><li class="Default"><p>材质创建好之后，请在 <strong>内容浏览器</strong> 中使用 <strong>鼠标左键</strong> <strong>双击</strong> 此材质以将其打开。
+打开之后，请添加下列材质表达式节点和纹理。 
+</p><ul ><li class="Default"><p><strong>矢量参数</strong> x 2
+</p></li><li class="Default"><p><strong>标量参数</strong> x 2
+</p></li><li class="Default"><p><strong>纹理</strong> - T_Tech_Panel_M
+</p></li><li class="Default"><p><strong>纹理</strong> - T_Tech_Panel_N
+</p></li></ul><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Materials/HowTo/EmissiveGlow/EM_Adding_Nodes_%26_Textures_To_Material.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/EmissiveGlow/EM_Adding_Nodes_&_Textures_To_Material.jpg">
+		<img class="  lazyload" alt="EM_Adding_Nodes_&_Textures_To_Material.png" width="600" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/EmissiveGlow/EM_Adding_Nodes_%26_Textures_To_Material.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><div class="tip">
+	<p>如果你找不到本操作指南中使用的 <strong>Tech_Panel</strong> 纹理，那么表示你可能忘记在项目中包含 <strong>初学者内容包</strong>。 
+要找到此内容，你可以创建另一个项目，确保包含"初学者内容包"，然后使用<div class="errorhighlight" id="Error6">[迁移工具](Basics/AssetsAndPackages/Migrate)</div> 
+将纹理从该项目复制到你的项目中。 </p>
+</div></li><li class="Default"><p>需要的材质表达式节点现已添加完毕，我们可以开始设置材质。首先，需要命名材质表达式节点 
+并填写数据。以下是我们将要使用的名称和值的列表。
+</p><ul ><li class="Default"><p><strong>矢量参数</strong> - Base_Color - 1, 1, 1
+</p></li><li class="Default"><p><strong>矢量参数</strong> - Emissive_Color - 1, 0, 0
+</p></li><li class="Default"><p><strong>标量参数</strong> - Roughness - 0.5
+</p></li><li class="Default"><p><strong>标量参数</strong> - Emissive_Strength - 1.0
+</p></li></ul><p>完成后，你应该看到类似下图的内容。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Materials/HowTo/EmissiveGlow/EM_Naming_Nodes.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/EmissiveGlow/EM_Naming_Nodes.jpg">
+		<img class="  lazyload" alt="EM_Naming_Nodes.png" width="600" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/EmissiveGlow/EM_Naming_Nodes.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>材质表达式节点现已命名并填写完毕，我们可以开始将所有节点连接到一起。最需要连接正确的节点就是"自发光（Emissive）"输入， 
+因为没有"自发光（Emissive）"输入，"自发光（Emissive）"就都无法正常工作。完成后，你的材质应该如下所示。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Materials/HowTo/EmissiveGlow/EM_Completed_Material.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/EmissiveGlow/EM_Completed_Material.jpg">
+		<img class="  lazyload" alt="EM_Completed_Material.png" width="600" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/EmissiveGlow/EM_Completed_Material.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>"材质（Material）"现已连接完毕，请通过单击材质编辑器顶部的 <strong>应用（Apply）</strong> 以及 <strong>保存（Save）</strong> 按钮，确保 <strong>编译</strong> 并 <strong>保存</strong> 材质。 
+完成之后，你可以关闭材质。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/EmissiveGlow/EM_Save_&_Compile.jpg">
+		<img class="  lazyload" alt="EM_Save_&_Compile.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/EmissiveGlow/EM_Save_%26_Compile.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>材质现已编译并关闭，请在 <strong>内容浏览器</strong> 中找到该材质，然后 <strong>右键单击</strong> 该材质并选择 <strong>创建材质实例（Create Material Instance）</strong> 选项，
+以 <strong>Emissive_Material</strong> 材质为基础创建材质实例。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/EmissiveGlow/EM_Create_New_Material_Instance.jpg">
+		<img class="  lazyload" alt="EM_Create_New_Material_Instance.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/EmissiveGlow/EM_Create_New_Material_Instance.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>材质实例创建好之后，请使用 <strong>鼠标左键</strong> <strong>双击</strong> 该实例将其打开。打开之后，请查看 <strong>参数组（Parameter Groups）</strong> 部分。 
+在此部分中，你将看到父材质中公开的所有控件，例如 Emisive_Color和Emissive_Strength。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/EmissiveGlow/EM_Emissive_Material_Instance.jpg">
+		<img class="  lazyload" alt="EM_Emissive_Material_Instance.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/EmissiveGlow/EM_Emissive_Material_Instance.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>要更改某个参数，你必须先使用 <strong>鼠标左键</strong> 单击要启用的参数名称旁边的复选框以启用该参数。 
+单击之后，该复选框中将出现一个勾选标记，并且名称和输入区域都不再显示为灰色。现在，我们只需输入所要使用的值 
+并保存材质实例。 
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_TZLuzZ2-UrQ_368
+{
+	margin: 0px;
+	width: 640px;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_TZLuzZ2-UrQ_368:after
+{
+	content: "";
+	padding-top: 360px;
+	display: block;
+}
+</style> 
+<div>
+<div id="player_TZLuzZ2-UrQ_368"><div style="position:absolute;display:block;width:100%;height:100%;"><iframe class="embedded_video" id="TZLuzZ2-UrQ" width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/TZLuzZ2-UrQ?rel=0&amp;modestbranding=1&amp;showinfo=0" frameborder="0" allowfullscreen></iframe></div></div>
+</div></li></ol><h3 id="用于_自发光（emissive）_输入的纹理或标量">用于"自发光（Emissive）"输入的纹理或标量</h3>
+<p>你可以将纹理、数字或这两者的组合输入到"自发光（Emissive）"输入。实际上，你输入的内容需视材质的需要而定。如果自发光材质仅用于模拟光线，
+那么应该使用数值，而不是纹理。但是，如果要模拟对象上的光线，那么应使用纹理作为自发光遮罩，因为你可以在遮罩纹理中准确定义 
+应该发亮的部分。在以上示例中，我们使用的是自发光遮罩，因为我们使用了纹理来定义材质的自发光部分。 
+</p><h2 id="创建测试地图">创建测试地图</h2>
+<ol ><li class="Default"><p>在进一步操作之前，我们需要先设置一个小型测试房间，以便查看作用中的自发光材质。为此，需要创建一个新关卡，方法是转至 <strong>文件（File）</strong> -> <strong>新建关卡（New Level）</strong>
+然后从"新建关卡（New Level）"对话框中选择 <strong>默认（Default）</strong> 选项。<br /></p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/EmissiveGlow/EM_Create_New_Level.jpg">
+		<img class="  lazyload" alt="EM_Create_New_Level.png" width="600" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/EmissiveGlow/EM_Create_New_Level.jpg" />
+</picture>
+
+</p><div class="tip">
+	<p>你也可以通过在键盘上按 <strong>CRTL + N</strong> 来创建新关卡。 </p>
+</div></li><li class="Default"><p>关卡创建好之后，请找到现有的地板 <strong>SM_Template_Map_Floor</strong>，将其选中，并在键盘上按4次 <strong>CRTL + W</strong> 以复制该地板4次。 
+复制好所有地板之后，将这些地板排列成在某一侧敞开的房间，其屋顶有一个小间隙，可作为有趣的光照条件。 
+完成后，房间应该如下所示。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/EmissiveGlow/EM_Testing_Level.jpg">
+		<img class="  lazyload" alt="EM_Testing_Level.png" width="600" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/EmissiveGlow/EM_Testing_Level.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>房间完成后，务必在键盘上按 <strong>CTRL + S</strong> 以保存你的工作。
+</p></li></ol><h2 id="作用中的自发光材质">作用中的自发光材质</h2>
+<ol ><li class="Default"><p>房间设置完成后，可以开始添加一些网格体以用于测试。
+在 <strong>Starter Content</strong> 文件夹中，有一个名称为 <strong>Shapes</strong> 的文件夹。在该文件夹中，你将找到名为 <strong>Shape_Cube</strong> 的网格体。使用 <strong>鼠标左键</strong> 选中 <strong>Shape_Cube</strong>， 
+然后将此网格体从 <strong>内容浏览器</strong> 拖入关卡，当网格体位于关卡视口上方时，释放 <strong>鼠标左键</strong>。这会将该网格体放入关卡。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/EmissiveGlow/EM_Adding_Test_Box.jpg">
+		<img class="  lazyload" alt="EM_Adding_Test_Box.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/EmissiveGlow/EM_Adding_Test_Box.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>该网格体现已添加到关卡中，你可以开始对其应用自发光材质。操作方法是，在 <strong>内容浏览器</strong> 中找到 <strong>Emissive Material</strong> 文件夹。 
+找到之后，请使用 <strong>鼠标左键</strong> 选中该 <strong>材质实例</strong>，然后将该材质实例从 <strong>内容浏览器</strong> 拖到 <strong>Shape_Cube</strong> 网格体上。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/EmissiveGlow/EM_Applying_Material_Instance.jpg">
+		<img class="  lazyload" alt="EM_Applying_Material_Instance.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/EmissiveGlow/EM_Applying_Material_Instance.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在该材质实例应用于Shape_Cube网格体后，请使用 <strong>鼠标左键</strong> <strong>双击</strong> 该材质实例以将其打开。打开之后，我们可以开始 
+调整该材质实例的参数，以影响自发光的外观。例如，如果我们调整 <strong>Emissive_Strength</strong>，那么我们可以控制自发光的影响。 
+以下是将 <strong>Emissive_Strength</strong> 设置为值0（左）、1（中）和25（右）时的情况示例。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/EmissiveGlow/EM_Different_Emissive_Values.jpg">
+		<img class="  lazyload" alt="EM_Different_Emissive_Values.png" width="600" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/EmissiveGlow/EM_Different_Emissive_Values.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>你还可以通过更改 <strong>Emissive_Color</strong> 矢量参数来更改自发光的颜色。以下是一些更改自发光颜色的示例。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/EmissiveGlow/EM_Different_Emissive_Color.jpg">
+		<img class="  lazyload" alt="EM_Different_Emissive_Color.png" width="600" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/EmissiveGlow/EM_Different_Emissive_Color.jpg" />
+</picture>
+
+</p></li></ol><h2 id="使用自发光材质来照亮世界场景">使用自发光材质来照亮世界场景</h2>
+<p>在虚幻引擎4中，现在可以在材质中使用"自发光（Emissive）"输入来帮助照亮世界场景。要启用此功能，你只需确保为 
+材质中的"自发光（Emissive）"输入提供输入，然后将材质放在世界场景中的某个对象上。构建光线后，你应该会看到，世界场景中的静态对象现在看起来像是被 
+材质的"自发光（Emissive）"输入照亮一样。在以下示例中，我们使用黄色自发光光线来照亮测试关卡的黑暗部分。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Materials/HowTo/EmissiveGlow/EM_Emissive_Material_Light.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/EmissiveGlow/EM_Emissive_Material_Light.jpg">
+		<img class="  lazyload" alt="EM_Emissive_Material_Light.png" width="600" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/EmissiveGlow/EM_Emissive_Material_Light.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><h3 id="控制自发光对世界场景的影响">控制自发光对世界场景的影响</h3>
+<p>使用"自发光（Emissive）"输入照亮世界场景时，你可能会觉得效果太弱或太强。为了解决此问题，创建的任何材质都应该可以调整 
+投射到世界场景的自发光光线的影响。在前面创建的着色器中，此参数名为 <strong>Emissive_Strength</strong>。构建光线时，通过 <strong>增大</strong> Emissive_Strength，可以 
+增加投射到世界场景的光线量。通过 <strong>缩小</strong> Emissive_Strength，可以减少投射到世界场景的光线量。在下图中， 
+你可以看到增大 Emissive_Strength 将如何增加自发光对世界场景的影响。在第一张图片中，Emissive_Strength的值设置为1.0。在第二张图片中，Emissive_Strength 的值设置为10.0，最后在第三张图中，Emissive_Strength的值设置为100.0。 
+</p><!--
+id:paramliteral
+max:paramliteral
+ext:paramliteral
+caption:paramliteral
+image_list:param
+-->
+<div class="slider_container" id="EM_Emissive_Lighting_World">
+    <div id="EM_Emissive_Lighting_World_Image"></div>
+    <div class="slider"></div>
+	    <div class="caption">
+        <b><p>拖动滑条查看Emmisive_Strength更新后的效果。</p></b>
+    </div>
+	    <div id="images" class="hidden">
+        <p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/EmissiveGlow/EM_Emissive_Lighting_World_Value_1.jpg">
+		<img class="  lazyload" alt="EM_Emissive_Lighting_World_Value_1.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/EmissiveGlow/EM_Emissive_Lighting_World_Value_1.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/EmissiveGlow/EM_Emissive_Lighting_World_Value_10.jpg">
+		<img class="  lazyload" alt="EM_Emissive_Lighting_World_Value_10.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/EmissiveGlow/EM_Emissive_Lighting_World_Value_10.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/EmissiveGlow/EM_Emissive_Lighting_World_Value_100.jpg">
+		<img class="  lazyload" alt="EM_Emissive_Lighting_World_Value_100.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/EmissiveGlow/EM_Emissive_Lighting_World_Value_100.jpg" />
+</picture>
+</p>
+    </div>
+</div><h3 id="开启或关闭自发光对世界场景的影响">开启或关闭自发光对世界场景的影响</h3>
+<p>在某些情况下，你可能希望也可能不希望自发光材质向世界场景中投射光线。要启用或禁用此功能，请完成下列步骤。 
+</p><ol ><li class="Default"><p>首先，选择世界场景中你不希望从自发光向其投射光线的网格体。 
+</p></li><li class="Default"><p>然后，在 <strong>细节（Details）</strong> 面板的 <strong>光照（Lighting）</strong> 部分下，使用 <strong>鼠标左键</strong> 单击，选中 <strong>将自发光用于静态光照（Use Emissive for Static Lighting）</strong> 复选框。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/EmissiveGlow/EM_Turn_Off_Use_As_SL.jpg">
+		<img class="  lazyload" alt="EM_Turn_Off_Use_As_SL.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/EmissiveGlow/EM_Turn_Off_Use_As_SL.jpg" />
+</picture>
+
+</p><div class="note">
+	<p>默认情况下，对于你放入世界场景中的所有网格体，<strong>将自发光用于静态光照（Use Emissive for Static Lighting）</strong> 都处于禁用状态。你必须将其启用才能使用它。 </p>
+</div></li><li class="Default"><p>在下图中，左右分别是禁用和启用 <strong>将自发光用于静态光照（Use Emissive for Static Lighting）</strong> 时的网格体结果。 
+</p><!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/EmissiveGlow/EM_SL_Off.jpg">
+		<img class="  lazyload" alt="不将自发光用于静态光照" width="600" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/EmissiveGlow/EM_SL_Off.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/EmissiveGlow/EM_SL_On.jpg">
+		<img class="  lazyload" alt="将自发光用于静态光照" width="600" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/EmissiveGlow/EM_SL_On.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div></li></ol><div class="note">
+	<p>你需要构建关卡光照才能看到自发光对世界场景的影响。否则，更改效果不可见。这也意味着，每次更改自发光材质后，还必须重新构建光照才能看到这些更改的效果。</p>
+</div><h2 id="自发光影响与泛光">自发光影响与泛光</h2>
+<p>你可能会注意到，当你提高材质实例内"自发光（Emissive）"输入的强度时，材质自发光部分所产生的泛光会越来越亮。 
+调低泛光效果而不调低材质实例内的值的一种方法是，调整 <strong>后期处理体积（Post Process Volume）</strong> 的 <strong>泛光（Bloom）</strong> 设置。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/EmissiveGlow/EM_Bloom_On_PP.jpg">
+		<img class="  lazyload" alt="EM_Bloom_On_PP.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/EmissiveGlow/EM_Bloom_On_PP.jpg" />
+</picture>
+
+</p><p>调整此值有助于在你将自发光值设置得非常大时进行补偿，以将自发光材质的更多静态光线投射到世界场景中。在下图的左侧，你可看到 
+当自发光值设置为非常大的数值（100）且未相应调整"泛光（Bloom）"时的情况。在下图的右侧，"泛光（Bloom）"设置已从1调整为0.1。 
+这将仍允许自发光将大量静态光线投射到世界场景中，同时不会抵消泛光。 
+</p><!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/EmissiveGlow/EM_Tweak_PP_High_Bloom.jpg">
+		<img class="  lazyload" alt="高自发光、高泛光" width="600" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/EmissiveGlow/EM_Tweak_PP_High_Bloom.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/EmissiveGlow/EM_Tweak_PP_Low_Bloom.jpg">
+		<img class="  lazyload" alt="高自发光、低泛光" width="600" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/EmissiveGlow/EM_Tweak_PP_Low_Bloom.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div><h2 id="间接光照的多次反射">间接光照的多次反射</h2>
+<p>可通过调整 <strong>世界场景设置（World Settings）</strong> > <strong>全局光照（Lightmass）</strong> 中的 <strong>天空光照反射次数（Num Sky Lighting Bounces）</strong> 设置来支持来自启用了 <strong>将自发光用于静态光照（Emissive for Static Lighting）</strong> 的网格体的间接光线的多次反射。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/BuildingWorlds/LightingAndShadows/LightTypes/SkyLight/LightmassSettings.jpg">
+		<img class="  lazyload" alt="LightmassSettings.png" data-src="../../../../../Images/BuildingWorlds/LightingAndShadows/LightTypes/SkyLight/LightmassSettings.jpg" />
+</picture>
+
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/EmissiveGlow/EmissiveMultiBounce.jpg">
+		<img class="  lazyload" alt="EmissiveMultiBounce.png" width="900" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/EmissiveGlow/EmissiveMultiBounce.jpg" />
+</picture>
+
+</p><div class="caption">
+	<p>由自发光静态光照提供间接光照的多次反射的示例场景。 </p>
+</div><h2 id="总结">总结</h2>
+<p>向任何材质添加自发光光照都是一种系统开销低且非常有效的方法，这样可以模拟光源，而不必添加任何新光源。 
+但是，请记住，使用自发光光照时，自发光光照不会像普通光源那样照亮动态对象（例如角色）。 
+另外，如果辉光过强，请记得调整"后期处理体积（Post Process Volume）"的"泛光（Bloom）"设置。 
+</p>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Materials">Materials</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/RenderingAndGraphics/Materials/HowTo/EmissiveGlow/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:15:11 GMT -->
+</html>

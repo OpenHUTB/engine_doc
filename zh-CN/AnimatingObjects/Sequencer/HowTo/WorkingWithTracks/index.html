@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/AnimatingObjects/Sequencer/HowTo/WorkingWithTracks/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:31:09 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var finishButton = finishButtonTemplate;
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/AnimatingObjects/Sequencer/HowTo/WorkingWithTracks/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>在Sequencer中使用轨迹 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+		    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+		    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/AnimatingObjects/Sequencer/HowTo/WorkingWithTracks/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/AnimatingObjects/Sequencer/HowTo/WorkingWithTracks/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/AnimatingObjects/Sequencer/HowTo/WorkingWithTracks/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/AnimatingObjects/Sequencer/HowTo/WorkingWithTracks/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Sequencer/HowTo/WorkingWithTracks" />
+<meta name="intsourcechangelist" content="4221079" />
+<meta name="availability" content="Public" />
+<meta name="title" content="在Sequencer中使用轨迹" />
+<meta name="description" content="" />
+<meta name="type" content="how-to" />
+<meta name="skilllevel" content="intermediate" />
+<meta name="version" content="4.20" />
+<meta name="parent" content="AnimatingObjects/Sequencer/HowTo" />
+<meta name="order" content="2" />
+<meta name="keywords" content="Sequencer" />
+<meta name="keywords" content="how-to" />
+<meta name="crumbs" content="%ROOT%,AnimatingObjects,AnimatingObjects/Sequencer,AnimatingObjects/Sequencer/HowTo" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="在Sequencer中使用轨迹" />
+	<meta property="og:description" content="" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">为角色和对象添加动画</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">Sequencer 编辑器</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">Sequencer - 操作指南</a>
+
+<span class="separator">></span> <span id="page">在Sequencer中使用轨迹</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">在Sequencer中使用轨迹</h1>
+							</div>	
+							<h2 ></h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Intermediate"><a id="skill_link" href="../../../../SiteIndex/index.html?skills=Intermediate">Intermediate</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																																																<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#步骤">步骤</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#最终结果">最终结果</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<h1 id="使用sequencer中的轨迹">使用Sequencer中的轨迹</h1>
+<p>每当创建关卡序列时，无论想要创建哪种类型的动画，都将在"轨迹"（Tracks）窗口中添加和使用轨迹。Sequencer提供了多种功能，您可以用来帮助组织和显示这些轨迹及其中的内容。 
+</p><p>在本操作说明文档中，我们将介绍Sequencer中的轨迹系统的多种不同功能以及如何使用这些功能。
+</p><h2 id="步骤">步骤</h2>
+<p><strong>蓝图第三人称</strong> 模板并启用 <strong>初学者内容</strong></p><ol ><li class="Default"><p>在项目的 <strong>Content/Mannequin/Character/Mesh</strong> 文件夹中，将 <strong>SK_Mannequin</strong> 拖到关卡中。
+</p></li></ol><p>  <img class="  lazyload" alt="image alt text" width="624" height="250" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/WorkingWithTracks/image_0.png" />
+
+</p><ol ><li class="Default"><p>从"主工具栏"（Main Toolbar）中，依次单击 <strong>"动画"（Cinematics）</strong> 按钮和 <strong>"添加关卡序列"（Add Level Sequence）</strong>，然后为其指定名称和保存位置。
+</p></li></ol><p>  <img class="  lazyload" alt="image alt text" width="420" height="162" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/WorkingWithTracks/image_1.png" />
+
+</p><ol ><li class="Default"><p>从 <strong>"世界大纲视图"（World Outliner）</strong> 窗口中，将 <strong>"SK_Mannequin</strong> Actor"（SK_Mannequin Actor）拖到 <strong>"轨迹"（Tracks）</strong> 窗口以将其添加到Sequencer。
+</p></li></ol><p>  <img class="  lazyload" alt="image alt text" width="624" height="353" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/WorkingWithTracks/image_2.png" />
+
+</p><p>  这是将Actor添加到Sequencer的备选方法。除了单击 <strong>"+ 轨迹"（+Track）</strong> 按钮之外，还可以从 <strong>"世界大纲视图"（World Outliner）</strong> 或 <strong>"内容浏览器"（Content Browser）</strong> 中拖动项。 
+</p><ol ><li class="Default"><p>在 <strong>Content/StarterContent/Audio</strong> 文件夹中，将任意 <strong>声波</strong> 资源拖到Sequencer。 
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_RlCorqp9wdg_55
+{
+	margin: 0px;
+	width: 78%;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_RlCorqp9wdg_55:after
+{
+	content: "";
+	padding-top: 56.25%;
+	display: block;
+}
+</style> 
+<div id="player_RlCorqp9wdg_55"> 
+	<div id="playerContainer_RlCorqp9wdg_55" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/RlCorqp9wdg/embed.html"></iframe>
+	</div>
+</div></li></ol><p>  在将资源拖到Sequencer时，将高亮显示放下的位置，以告知您应将其放在哪个位置，添加后将短暂地闪烁黄色以告知您新添加的分段。您也可以将任意分段拖放到时间轴中的任意行上，或者将时间轴标记移到所需位置，然后放下资源以在这个位置创建分段（如以上视频所示）。 
+</p><ol ><li class="Default"><p>从 <strong>"+ 轨迹"（+Track）</strong> 菜单添加 <strong>"文件夹"（Folder）</strong>，使用 <strong>F2</strong> 将其重命名，然后将轨迹拖放到其中，或者在 <strong>"轨迹列表"（Tracks List）</strong> 窗口中重新排序。 
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_LieJ347Qa9U_93
+{
+	margin: 0px;
+	width: 78%;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_LieJ347Qa9U_93:after
+{
+	content: "";
+	padding-top: 56.25%;
+	display: block;
+}
+</style> 
+<div id="player_LieJ347Qa9U_93"> 
+	<div id="playerContainer_LieJ347Qa9U_93" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/LieJ347Qa9U/embed.html"></iframe>
+	</div>
+</div></li></ol><p>  您可以在 <strong>"文件夹"（Folders）</strong> 中将多个轨迹划分到一组，以帮助组织"轨迹"（Tracks）窗口的布局。添加到序列的轨迹、Actor和文件夹会在创建后高亮显示。如果当前已经选中某个文件夹，则新项会放置到该文件夹中。如果当前选中了另一个轨迹，则将作为该项的同级项放置新项。 
+</p><p>  轨迹、Actor和文件夹也可以在Sequencer（以及UMG动画）中重新排序，您可以从 <strong>"常规选项"（General Options）</strong> 菜单中对它们进行排序（按类型，然后按字母顺序）。 
+</p><ol ><li class="Default"><p>对于 <strong>SK_Mannequin</strong> 轨迹，向 <strong>动画（Animation）</strong> 轨迹添加动画，然后在选中该动画的情况下拉动轨迹时间轴。 
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_TXZnzMkgFvM_139
+{
+	margin: 0px;
+	width: 78%;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_TXZnzMkgFvM_139:after
+{
+	content: "";
+	padding-top: 56.25%;
+	display: block;
+}
+</style> 
+<div id="player_TXZnzMkgFvM_139"> 
+	<div id="playerContainer_TXZnzMkgFvM_139" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/TXZnzMkgFvM/embed.html"></iframe>
+	</div>
+</div></li></ol><p>  当您在Sequencer中拉动动画时间轴时，将显示您所选分段的源动画帧数。您可以使用该信息来查看作为混合起点的动画起点位置，或者混合动画的结束位置。 
+</p><ol ><li class="Default"><p>循环播放动画，然后右键单击并从上下文菜单的 <strong>"编辑"（Edit）</strong> 下选择 <strong>"自动调节大小"（Auto Size）</strong>。
+</p></li></ol><p>  <img class="  lazyload" alt="image alt text" width="624" height="350" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/WorkingWithTracks/image_3.png" />
+
+</p><p>  您可以使用"自动调节大小"（Auto Size）功能，根据源时长快速地调节分段大小（例如，如上文所示，根据骨架网格体动画的边界调整该动画的大小）。 
+</p><ol ><li class="Default"><p>如下所示，为角色添加一些运动，然后删除信道或通过上下文菜单将其禁用来遮盖 <strong>Z</strong> 轴。 
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_0pg9DgIrpGo_192
+{
+	margin: 0px;
+	width: 78%;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_0pg9DgIrpGo_192:after
+{
+	content: "";
+	padding-top: 56.25%;
+	display: block;
+}
+</style> 
+<div id="player_0pg9DgIrpGo_192"> 
+	<div id="playerContainer_0pg9DgIrpGo_192" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/0pg9DgIrpGo/embed.html"></iframe>
+	</div>
+</div></li></ol><p>  您还可以在UMG动画中执行信道遮盖（在下面的示例中，我们遮盖了动画的平移和缩放）。 
+</p><pre class="prettyprint"><code>&#91;OBJECT:EmbeddedVideo&#93;
+    &#91;PARAMLITERAL:videoid&#93;
+    jrTfOw0GhLo
+    &#91;/PARAMLITERAL&#93;
+    &#91;PARAMLITERAL:width&#93;
+    78
+    &#91;/PARAMLITERAL&#93;
+    &#91;PARAMLITERAL:height&#93;
+    56.25
+    &#91;/PARAMLITERAL&#93;
+    &#91;PARAMLITERAL:units&#93;
+    %
+    &#91;/PARAMLITERAL&#93;
+    &#91;PARAMLITERAL:type&#93;
+    simple
+    &#91;/PARAMLITERAL&#93;
+&#91;/OBJECT&#93;</code></pre>
+<ol ><li class="Default"><p>将时间轴标记移到不存在变换键的任意位置，然后右键单击任意变换键，并选择 <strong>"重设键位"（Rekey）</strong> 以将其移到标记位置。
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_nGglzSUID9I_226
+{
+	margin: 0px;
+	width: 78%;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_nGglzSUID9I_226:after
+{
+	content: "";
+	padding-top: 56.25%;
+	display: block;
+}
+</style> 
+<div id="player_nGglzSUID9I_226"> 
+	<div id="playerContainer_nGglzSUID9I_226" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/nGglzSUID9I/embed.html"></iframe>
+	</div>
+</div></li></ol><p>  上下文菜单中的"重设键位"（Rekey）对于快速调整关键帧并指定到当前时间非常有用。在以上示例中，我们用变换轨迹移动了角色，但在运动停止期间，动画仍在继续。我们使用"重设键位"（Rekey）将变换值移到了与动画长度相符的序列结尾位置。 
+</p><h2 id="最终结果">最终结果</h2>
+<p>在本指南中，您已学习了使用Sequencer轨迹的多种不同方法，包括如何使用"文件夹"（Folders）组织这些轨迹，调节分段大小，如何重设关键帧的键位，如何遮盖信道以及向序列添加轨迹时的其他提示。虽然您可能不会立即用到所有这些提示，但了解这些内容总是有益的，并可以根据情况在您现有的Sequencer工作流程中加以运用。 
+</p>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Sequencer">Sequencer</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=how-to">how-to</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/AnimatingObjects/Sequencer/HowTo/WorkingWithTracks/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:31:11 GMT -->
+</html>

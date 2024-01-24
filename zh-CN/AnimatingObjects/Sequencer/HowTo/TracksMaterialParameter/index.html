@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/AnimatingObjects/Sequencer/HowTo/TracksMaterialParameter/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:30:38 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var finishButton = finishButtonTemplate;
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/AnimatingObjects/Sequencer/HowTo/TracksMaterialParameter/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>为材质参数集（Material Parameter Collections）设置动画 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+		    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+		    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/AnimatingObjects/Sequencer/HowTo/TracksMaterialParameter/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/AnimatingObjects/Sequencer/HowTo/TracksMaterialParameter/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/AnimatingObjects/Sequencer/HowTo/TracksMaterialParameter/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/AnimatingObjects/Sequencer/HowTo/TracksMaterialParameter/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Sequencer/HowTo/TracksMaterialParameter" />
+<meta name="intsourcechangelist" content="14419155" />
+<meta name="availability" content="Public" />
+<meta name="title" content="为材质参数集（Material Parameter Collections）设置动画" />
+<meta name="description" content="说明如何在 Sequencer 中更新材质参数集。" />
+<meta name="type" content="how-to" />
+<meta name="type" content="how-to" />
+<meta name="skilllevel" content="Intermediate" />
+<meta name="version" content="4.16" />
+<meta name="parent" content="AnimatingObjects/Sequencer/HowTo" />
+<meta name="order" content="1" />
+<meta name="keywords" content="Sequencer" />
+<meta name="keywords" content="Materials" />
+<meta name="keywords" content="Material Parameter" />
+<meta name="topic-image" content="EndResult.png" />
+<meta name="related" content="RenderingAndGraphics/Materials/ParameterCollections" />
+<meta name="related" content="RenderingAndGraphics/Materials" />
+<meta name="related" content="AnimatingObjects/Sequencer/Overview" />
+<meta name="crumbs" content="%ROOT%,AnimatingObjects,AnimatingObjects/Sequencer,AnimatingObjects/Sequencer/HowTo" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="为材质参数集（Material Parameter Collections）设置动画" />
+	<meta property="og:description" content="说明如何在 Sequencer 中更新材质参数集。 " />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">为角色和对象添加动画</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">Sequencer 编辑器</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">Sequencer - 操作指南</a>
+
+<span class="separator">></span> <span id="page">为材质参数集（Material Parameter Collections）设置动画</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">为材质参数集（Material Parameter Collections）设置动画</h1>
+							</div>	
+							<h2 >说明如何在 Sequencer 中更新材质参数集。 </h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Intermediate"><a id="skill_link" href="../../../../SiteIndex/index.html?skills=Intermediate">Intermediate</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																														<div id="seeAlso">
+	<div style="position:relative;">
+		<div id="title">参见</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<p>
+						<a id="related_link" href="../../../../RenderingAndGraphics/Materials/ParameterCollections/index.html" title="用于存储可以在任意材质中引用的任意标量参数和矢量参数集合的资源。">材质参数集合</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../../../RenderingAndGraphics/Materials/index.html" title="使用着色器控制世界中的表面外形。">材质</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../Overview/index.html" title="Sequencer是虚幻引擎4的多轨迹编辑器，用于实时创建和预览过场动画序列。">Sequencer概述</a>
+					</p>
+				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																														<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#步骤">步骤</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#最终结果">最终结果</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p><strong>Sequencer</strong> 提供了一个名为 <strong>Material Parameter Collection</strong> 的特殊轨迹，用于使用 <a id="content_link"filter-data="tag_materials" href="../../../../RenderingAndGraphics/Materials/ParameterCollections/index.html" ><span>材质参数集合</span></a> 并对其设置动画。需要更新数个 <strong>材质</strong> 时它十分实用，因为无需在每个材质实例上对每个参数值设置动画（以便共享动画更新）。 
+</p><p>在此指南中，您将使用一个 Material Parameter Collection 和 Sequencer 溶解并变更玩家周围的环境颜色。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/TracksMaterialParameter/EndResult.jpg">
+		<img class="  lazyload" alt="EndResult.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/TracksMaterialParameter/EndResult.jpg" />
+</picture>
+
+</p><a name="steps" ></a><h2 id="步骤">步骤</h2>
+<div class="note">
+	<p>在此指南中，我们使用的是启用了 <strong>Starter Content</strong> 的 <strong>Blueprint Third Person Template</strong> 项目。 </p>
+</div><ol ><li class="Default"><p>在此 <span class="non-localized"><a id="content_link" href="../../../../../Images/AnimatingObjects/Sequencer/HowTo/TracksMaterialParameter/T_Dissolve.png" ><span>纹理范例</span></a></span> 中点击右键并选择 <strong>Save target as...</strong>，然后将其拖放到项目的 <strong>Content Browser</strong> 中进行导入。
+</p></li><li class="Default"><p>在 <strong>Content Browser</strong> 中点击 <strong>Add New</strong> 按钮，然后在 <strong>Materials &amp; Textures</strong> 下创建一个名为 <strong>Sample_MPC</strong> 的 <strong>Material Parameter Collection</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/TracksMaterialParameter/MPCTrack01.jpg">
+		<img class="  lazyload" alt="MPCTrack01.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/TracksMaterialParameter/MPCTrack01.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>Sample_MPC</strong> 中添加一个名为 <strong>DissolveValue</strong> 的 <strong>标量参数</strong>（设为 <strong>1.0</strong>），以及一个名为 <strong>ColorValue</strong> 的 <strong>矢量参数</strong>（<strong>RGB</strong> 全部设为 <strong>0.18</strong>）。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/TracksMaterialParameter/MPCTrack02.jpg">
+		<img class="  lazyload" alt="MPCTrack02.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/TracksMaterialParameter/MPCTrack02.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在主编辑器视口中，选择关卡中的其中一面墙壁，然后双击 <strong>Details</strong> 面板中的 <strong>CubeMaterial</strong> 打开 <strong>材质编辑器</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/TracksMaterialParameter/MPCTrack03.jpg">
+		<img class="  lazyload" alt="MPCTrack03.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/TracksMaterialParameter/MPCTrack03.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在图表中选中 <strong>CubeMaterial</strong> 节点，在 <strong>Details</strong> 面板中将 <strong>Blend Mode</strong> 改为 <strong>Masked</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/TracksMaterialParameter/MPCTrack04.jpg">
+		<img class="  lazyload" alt="MPCTrack04.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/TracksMaterialParameter/MPCTrack04.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在图表中点击右键并添加一个 <strong>CollectionParameter</strong> 节点，然后在节点的 <strong>Details</strong> 面板中指定 <strong>Sample_MPC</strong> 和 <strong>ColorValue</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/TracksMaterialParameter/MPCTrack05.jpg">
+		<img class="  lazyload" alt="MPCTrack05.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/TracksMaterialParameter/MPCTrack05.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>添加另一个 <strong>CollectionParameter</strong> 节点，设为 <strong>Sample_MPC</strong> 和 <strong>DissolveValue</strong>，然后将 <strong>ColorValue</strong> 连接到 <strong>CubeMaterial</strong> 节点上的 <strong>Base Color</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/TracksMaterialParameter/MPCTrack06.jpg">
+		<img class="  lazyload" alt="MPCTrack06.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/TracksMaterialParameter/MPCTrack06.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>长按 <strong>T</strong> 并在图表中点击左键创建一个 <strong>Texture Sample</strong>，然后长按 <strong>1</strong> 并创建两个 <strong>Material Expression Constant</strong> 节点。 
+</p></li><li class="Default"><p>设置 <strong>Texture Sample</strong> 节点使用步骤 1 的纹理范例并将其中一个 <strong>Constant</strong> 节点的默认值设为 <strong>1</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/TracksMaterialParameter/MPCTrack07.jpg">
+		<img class="  lazyload" alt="MPCTrack07.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/TracksMaterialParameter/MPCTrack07.jpg" />
+</picture>
+
+</p><p>我们将把此纹理用作溶解的一部分。 
+</p></li><li class="Default"><p>添加一个 <strong>If</strong> 数学表达式，然后如下图所示将节点连接到 <strong>CubeMaterial</strong> 节点上的 <strong>Opacity Mask</strong> 值，然后点击工具栏上的 <strong>Apply</strong>。<br /></p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/TracksMaterialParameter/MPCTrack08.jpg">
+		<img class="  lazyload" alt="MPCTrack08.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/TracksMaterialParameter/MPCTrack08.jpg" />
+</picture>
+
+</p><p>这将使我们在无溶解（<strong>DissolveValue</strong> 为 1）或完全溶解（<strong>DissolveValue</strong> 为 0）之间切换。 
+</p></li><li class="Default"><p>在主编辑器工具栏中点击 <strong>Cinematics</strong> 和 <strong>Add Level Sequence</strong> 按钮，然后指定命名和保存路径。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/TracksMaterialParameter/MPCTrack09.jpg">
+		<img class="  lazyload" alt="MPCTrack09.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/TracksMaterialParameter/MPCTrack09.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在新序列的 <strong>Details</strong> 面板中，勾选 <strong>Auto Play</strong> 和 <strong>Loop Indefinitely</strong> 选项。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/TracksMaterialParameter/MPCTrack10.jpg">
+		<img class="  lazyload" alt="MPCTrack10.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/TracksMaterialParameter/MPCTrack10.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>Sequencer 编辑器</strong> 中，点击 <strong>Add</strong> 按钮并选择 <strong>Material Parameter Collection Track</strong>，然后再选择 <strong>Sample_MPC</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/TracksMaterialParameter/MPCTrack11.jpg">
+		<img class="  lazyload" alt="MPCTrack11.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/TracksMaterialParameter/MPCTrack11.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>点击 <strong>Parameter</strong> 按钮并添加 <strong>DissolveValue</strong> 和 <strong>ColorValue</strong> 参数。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/TracksMaterialParameter/MPCTrack12.jpg">
+		<img class="  lazyload" alt="MPCTrack12.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/TracksMaterialParameter/MPCTrack12.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>将 <strong>时间条标记</strong> 前移至 <strong>50</strong>，然后为 <strong>DissolveValue</strong> 添加一个键（设为 <strong>0</strong>），<strong>ColorValue</strong> 的 <strong>Blue</strong> 设为 <strong>1.0</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/TracksMaterialParameter/MPCTrack13.jpg">
+		<img class="  lazyload" alt="MPCTrack13.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/TracksMaterialParameter/MPCTrack13.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>将上个步骤的键复制粘贴到时间条上的 <strong>100</strong> 处，然后在 <strong>150</strong> 处将 <strong>DissolveValue</strong> 重新设为 <strong>1.0</strong>，<strong>Blue</strong> 重新设为 <strong>0.18</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/TracksMaterialParameter/MPCTrack14.jpg">
+		<img class="  lazyload" alt="MPCTrack14.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/TracksMaterialParameter/MPCTrack14.jpg" />
+</picture>
+
+</p><p>这将返回 DissolveValue 和 ColorValues 到其默认值。 
+</p></li><li class="Default"><p>选择关卡中的楼梯，然后在 <strong>Details</strong> 面板中打开 <strong>RampMaterial</strong>，进而打开 <strong>材质编辑器</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/TracksMaterialParameter/MPCTrack15.jpg">
+		<img class="  lazyload" alt="MPCTrack15.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/TracksMaterialParameter/MPCTrack15.jpg" />
+</picture>
+
+</p><p>关卡中的其余物体使用上方的材质，添加 <strong>CollectionParameter</strong> 设置到其材质图表后即可将它们纳入溶解。 
+</p></li><li class="Default"><p>选中 <strong>RampMaterial</strong> 节点后，在 <strong>Details</strong> 面板中将 <strong>Blend Mode</strong> 改为 <strong>Masked</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/TracksMaterialParameter/MPCTrack16.jpg">
+		<img class="  lazyload" alt="MPCTrack16.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/TracksMaterialParameter/MPCTrack16.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>如下图所示将 <strong>CubeMaterial</strong> 中使用的图表设置复制粘贴到 <strong>RampMaterial</strong> 中，然后点击工具栏中的 <strong>Apply</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/TracksMaterialParameter/MPCTrack17.jpg">
+		<img class="  lazyload" alt="MPCTrack17.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/TracksMaterialParameter/MPCTrack17.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在主编辑器工具栏中，点击 <strong>Play</strong> 按钮在编辑器中进行游戏。
+</p></li></ol><h2 id="最终结果">最终结果</h2>
+<p>在关卡中进行游戏时，玩家周围的环境将从灰色变至紫色并溶解，然后重回正常，并重复此过程。
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_1_big1in62_15
+{
+	margin: 0px;
+	width: 75%;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_1_big1in62_15:after
+{
+	content: "";
+	padding-top: 56.25%;
+	display: block;
+}
+</style> 
+<div id="player_1_big1in62_15"> 
+	<div id="playerContainer_1_big1in62_15" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/1_big1in62/embed.html"></iframe>
+	</div>
+</div>
+
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Sequencer">Sequencer</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Materials">Materials</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Material%20Parameter">Material Parameter</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/AnimatingObjects/Sequencer/HowTo/TracksMaterialParameter/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:30:46 GMT -->
+</html>

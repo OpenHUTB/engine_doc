@@ -1,0 +1,497 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/Resources/SampleGames/ARPG/AddingaNewWeapon/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:47:34 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var finishButton = finishButtonTemplate;
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/Resources/SampleGames/ARPG/AddingaNewWeapon/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>添加新的武器 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+		    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+		    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/Resources/SampleGames/ARPG/AddingaNewWeapon/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/Resources/SampleGames/ARPG/AddingaNewWeapon/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/Resources/SampleGames/ARPG/AddingaNewWeapon/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/Resources/SampleGames/ARPG/AddingaNewWeapon/" hreflang="ko" />
+
+	<meta name="intsourcechangelist" content="16146891" />
+<meta name="availability" content="Public" />
+<meta name="title" content="添加新的武器" />
+<meta name="description" content="介绍了如何为ARPG添加新的武器。" />
+<meta name="type" content="how-to" />
+<meta name="version" content="4.21" />
+<meta name="parent" content="Resources/SampleGames/ARPG" />
+<meta name="topic-image" content="image5.png" />
+<meta name="skilllevel" content="Intermediate" />
+<meta name="order" content="6" />
+<meta name="related" content="ProgrammingAndScripting/Blueprints/UserGuide/Variables" />
+<meta name="related" content="ProgrammingAndScripting/Blueprints/Scripting" />
+<meta name="related" content="Programming/UnrealArchitecture/Actors/Components" />
+<meta name="crumbs" content="%ROOT%,Resources,Resources/SampleGames,Resources/SampleGames/ARPG" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="添加新的武器" />
+	<meta property="og:description" content="介绍了如何为ARPG添加新的武器。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">示例与教学</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">游戏示例项目</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">ARPG游戏</a>
+
+<span class="separator">></span> <span id="page">添加新的武器</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">添加新的武器</h1>
+							</div>	
+							<h2 >介绍了如何为ARPG添加新的武器。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Intermediate"><a id="skill_link" href="../../../../SiteIndex/index.html?skills=Intermediate">Intermediate</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																														<div id="seeAlso">
+	<div style="position:relative;">
+		<div id="title">参见</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<p>
+						<a id="related_link" href="../../../../ProgrammingAndScripting/Blueprints/UserGuide/Variables/index.html" title="保存值或参考世界场景中的对象或Actor的属性。">蓝图变量</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../../../ProgrammingAndScripting/Blueprints/Scripting/index.html" title="介绍蓝图可视化脚本中的变量和执行流程。">脚本编写基础</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="#" title=""></a>
+					</p>
+				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																														<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#步骤">步骤</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#最终结果">最终结果</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>动作RPG（ARPG）默认给玩家提供一件可以用于战斗的武器。随着游戏进行，玩家会从他们消灭的敌人身上收集到越来越多的灵魂，这样就可以解锁另外四种可使用的武器。在下面的操作指南中，我们将介绍如何在ARPG中添加玩家可以购买和使用的新武器。
+</p><h2 id="步骤">步骤</h2>
+<ol ><li class="Default"><p>首先，找到 <strong>武器（Weapons）</strong> 文件夹，然后创建一个名为 <strong>Blade_Talon</strong> 的新文件夹。 <br /></p><p> <picture>
+		<source data-srcset="./../../../../../Images/Resources/SampleGames/ARPG/AddingaNewWeapon/image1.jpg">
+		<img class="  lazyload" alt="image1.png" data-src="../../../../../Images/Resources/SampleGames/ARPG/AddingaNewWeapon/image1.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>接下来你需要找到一个用于武器的 <strong>骨骼网格体</strong>。在本示例中，我们将使用<a id="content_link" href="https://www.unrealengine.com/marketplace/infinity-blade-weapons" ><span>Infinity Blade Weapons</span></a>包中的 <strong>SK_Dual_Blade_Talon</strong> 骨骼网格体。<br /></p><p><picture>
+		<source data-srcset="./../../../../../Images/Resources/SampleGames/ARPG/AddingaNewWeapon/image13.jpg">
+		<img class="  lazyload" alt="image13.png" data-src="../../../../../Images/Resources/SampleGames/ARPG/AddingaNewWeapon/image13.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>使用<div class="errorhighlight" id="Error5">[迁移工具](Basics/AssetsAndPackages/Migrate)</div>可以帮助你将 <strong>SK_Dual_Blad_Talon</strong> 骨骼网格体及所有资产从<a id="content_link" href="https://www.unrealengine.com/marketplace/infinity-blade-weapons" ><span>Infinity Blade Weapons</span></a>包移动到动作RPG中的 <strong>Blade_Talon</strong> 文件夹。<br /></p><p><picture>
+		<source data-srcset="./../../../../../Images/Resources/SampleGames/ARPG/AddingaNewWeapon/image4.jpg">
+		<img class="  lazyload" alt="image4.png" data-src="../../../../../Images/Resources/SampleGames/ARPG/AddingaNewWeapon/image4.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>现在，删除每个资产名称中的"Dual"一词，并用合适的资产标记替换它。<br /></p><p><picture>
+		<source data-srcset="./../../../../../Images/Resources/SampleGames/ARPG/AddingaNewWeapon/image6.jpg">
+		<img class="  lazyload" alt="image6.png" data-src="../../../../../Images/Resources/SampleGames/ARPG/AddingaNewWeapon/image6.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>内容浏览器</strong> 中，转到 <strong>蓝图（Blueprints）</strong>  > <strong>Weapons</strong> 文件夹，然后创建一个以 <strong>武器Actor（WeaponActor）</strong> 作为 <strong>父类</strong> 的新蓝图，名称为 <strong>BladeTalonActor</strong>。<br /></p><p><picture>
+		<source data-srcset="./../../../../../Images/Resources/SampleGames/ARPG/AddingaNewWeapon/image11.jpg">
+		<img class="  lazyload" alt="image11.png" data-src="../../../../../Images/Resources/SampleGames/ARPG/AddingaNewWeapon/image11.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>打开BladeTalonActor蓝图，在 <strong>组件（Components）</strong> 选项卡中选择 <strong>骨骼网格体（继承）（SkeletalMesh(inherited)）</strong> 选项。然后在 <strong>细节（Details）</strong> 面板中的 <strong>网格体（Mesh）</strong> 分段中，将 <strong>骨骼网格体（Skeletal</strong> <strong>Mesh）</strong> 改为指向 <strong>SK_Blade_Talon</strong> 骨架网格体。<br /></p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/Resources/SampleGames/ARPG/AddingaNewWeapon/image3.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/Resources/SampleGames/ARPG/AddingaNewWeapon/image3.jpg">
+		<img class="  lazyload" alt="image3.png" width="900" data-src="../../../../../Images/Resources/SampleGames/ARPG/AddingaNewWeapon/image3.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>接下来，在 <strong>组件（Component）</strong> 选项卡中，选择 <strong>胶囊体碰撞（继承）（CapsuleCollision (Inherited)）</strong> 组件，然后在 <strong>细节（Details）</strong> 面板中的 <strong>形状（Shape）</strong> 部分下面，将 <strong>胶囊体半高（Capsule</strong> <strong>Half</strong> <strong>Height）</strong> 设置为 <strong>49</strong>，<strong>胶囊体半径（Capsule</strong> <strong>Radius）</strong> 设置为 <strong>10</strong>。<br /></p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/Resources/SampleGames/ARPG/AddingaNewWeapon/image8.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/Resources/SampleGames/ARPG/AddingaNewWeapon/image8.jpg">
+		<img class="  lazyload" alt="image8.png" width="900" data-src="../../../../../Images/Resources/SampleGames/ARPG/AddingaNewWeapon/image8.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><p>因为胶囊体碰撞是用于判定是否击中的，所以务必要使整件武器都在胶囊体碰撞体积内部。
+</p></li><li class="Default"><p>完成这些操作后，编译并保存你新创建的武器蓝图，然后找到 <strong>Items\Weapons</strong> 文件夹。<br /></p><p><picture>
+		<source data-srcset="./../../../../../Images/Resources/SampleGames/ARPG/AddingaNewWeapon/image14.jpg">
+		<img class="  lazyload" alt="image14.png" data-src="../../../../../Images/Resources/SampleGames/ARPG/AddingaNewWeapon/image14.jpg" />
+</picture>
+<br /></p></li><li class="Default"><p>现在我们需要创建一个 <strong>数据资产</strong>，用于将Blade Talon剑的所有必需资产连接起来共同发挥作用。为此，首先在内容浏览器中 <strong>右键单击</strong>，然后在显示的列表中转至 <strong>其他（Miscellaneous）</strong> 部分，再从显示的列表选择 <strong>数据资产（Data Asset）</strong> 选项。<br /></p><p><picture>
+		<source data-srcset="./../../../../../Images/Resources/SampleGames/ARPG/AddingaNewWeapon/image9.jpg">
+		<img class="  lazyload" alt="image9.png" data-src="../../../../../Images/Resources/SampleGames/ARPG/AddingaNewWeapon/image9.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>接下来，在 <strong>选取数据资产类（Pick Data Asset Class）</strong> 窗口中，在 <strong>所有类（All Classes）</strong> 部分下面的搜索框中输入 <strong>RPGW</strong> ，然后选择 <strong>RPG武器物品（RPGWeaponItem）</strong> 选项，点击 <strong>选择（Select）</strong> 完成此过程。<br /></p><p><picture>
+		<source data-srcset="./../../../../../Images/Resources/SampleGames/ARPG/AddingaNewWeapon/image5.jpg">
+		<img class="  lazyload" alt="image5.png" data-src="../../../../../Images/Resources/SampleGames/ARPG/AddingaNewWeapon/image5.jpg" />
+</picture>
+<br /></p></li><li class="Default"><p>将新创建的数据资产命名为 <strong>Weapon_Talon</strong>，然后双击将它打开。
+</p></li><li class="Default"><p>在 <strong>Weapon_Talon数据资产</strong> 中的 <strong>武器（Weapon）</strong> 分段中，将 <strong>武器Actor（Weapon</strong> <strong>Actor）</strong> 设置为在第5步中创建的 <strong>BladeTalonActor</strong> <strong>蓝图</strong>。这样就可以确保在选择这件武器时，将使用正确的骨骼网格体。<br /></p><p><picture>
+		<source data-srcset="./../../../../../Images/Resources/SampleGames/ARPG/AddingaNewWeapon/image2.jpg">
+		<img class="  lazyload" alt="image2.png" data-src="../../../../../Images/Resources/SampleGames/ARPG/AddingaNewWeapon/image2.jpg" />
+</picture>
+<br /></p></li><li class="Default"><p>接下来，我们需要设置在商店中查看此物品时将显示的所有信息。需要展开物品（Item）分段，然后在下列部分中填写下列信息。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/Resources/SampleGames/ARPG/AddingaNewWeapon/image7.jpg">
+		<img class="  lazyload" alt="image7.png" data-src="../../../../../Images/Resources/SampleGames/ARPG/AddingaNewWeapon/image7.jpg" />
+</picture>
+
+</p><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>属性</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>值</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>描述</strong></p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>物品类型（Item Type）</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>Weapon</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>物品的类型。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>物品名称（Item Name）</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>Talon Sword</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>物品的名称。这个名称将显示在商店中。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>物品描述（Item Description）</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>Short and dangerous!</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>物品的描述。这个描述将显示在商店中。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>物品图标（Item Icon）</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>T_UI_Weapon_Sword</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>将在商店中显示的图标。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>价格（Price）</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>100</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>物品在商店中的售价。</p>
+			</td>
+	
+</tr></tbody>
+</table></li><li class="Default"><p>现在我们需要设置这个资产可以达到的级别，以及玩家在物品栏中可以同时拥有这个资产的多少实例。为此，展开 <strong>最大（Max）</strong> 部分，为下列参数输入下列值。<br /></p><p><picture>
+		<source data-srcset="./../../../../../Images/Resources/SampleGames/ARPG/AddingaNewWeapon/image7-1.jpg">
+		<img class="  lazyload" alt="image7-1.png" data-src="../../../../../Images/Resources/SampleGames/ARPG/AddingaNewWeapon/image7-1.jpg" />
+</picture>
+
+</p><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>属性</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>值</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>描述</strong></p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>最大计数（Max Count）</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>1</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>物品栏中可以同时存在的此资产的最大数量。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>最大级别（Max Level）</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>1</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>此资产可以达到的最大级别。</p>
+			</td>
+	
+</tr></tbody>
+</table></li><li class="Default"><p>现在我们需要设置当玩家装备此武器时将可使用哪种能力。请展开 <strong>能力（Abilities）</strong> 分段，将 <strong>赋予能力（Granted</strong> <strong>Ability）</strong> 输入设置为 <strong>GA_PlayerSwordMelee</strong>。 <br /></p><p><picture>
+		<source data-srcset="./../../../../../Images/Resources/SampleGames/ARPG/AddingaNewWeapon/image7-2.jpg">
+		<img class="  lazyload" alt="image7-2.png" data-src="../../../../../Images/Resources/SampleGames/ARPG/AddingaNewWeapon/image7-2.jpg" />
+</picture>
+
+</p><div class="note">
+	<p>当使用 <strong>GA_PlayerSwordMelee</strong> 能力时，你将看到使用该武器时的轨迹。要消除这些轨迹，你需要设置一个新的 <strong>玩法能力（Gameplay Ability）</strong>，它需要使用没有轨迹的 <strong>要播放的蒙太奇（Montage</strong> <strong>To</strong> <strong>Play）</strong>。</p>
+</div></li></ol><h2 id="最终结果">最终结果</h2>
+<p>现在 <strong>Weapon_Talon</strong> 数据资产已经设置完毕，务必保存所有资产，然后启动动作RPG。游戏加载后打开商店，此时你应该看到Talon Sword作为你可以购买并使用的武器出现，如以下视频所示。
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_1_da3t8zs8_2
+{
+	margin: 0px;
+	width: 75%;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_1_da3t8zs8_2:after
+{
+	content: "";
+	padding-top: 56.25%;
+	display: block;
+}
+</style> 
+<div id="player_1_da3t8zs8_2"> 
+	<div id="playerContainer_1_da3t8zs8_2" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/1_da3t8zs8/embed.html"></iframe>
+	</div>
+</div>
+
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/Resources/SampleGames/ARPG/AddingaNewWeapon/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:47:40 GMT -->
+</html>

@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/AnimatingObjects/SkeletalMeshAnimation/StateMachines/Overview/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:33:17 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/AnimatingObjects/SkeletalMeshAnimation/StateMachines/Overview/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>状态机总览 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/AnimatingObjects/SkeletalMeshAnimation/StateMachines/Overview/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/AnimatingObjects/SkeletalMeshAnimation/StateMachines/Overview/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/AnimatingObjects/SkeletalMeshAnimation/StateMachines/Overview/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/AnimatingObjects/SkeletalMeshAnimation/StateMachines/Overview/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Animation/StateMachines/Overview" />
+<meta name="intsourcechangelist" content="3782314" />
+<meta name="availability" content="Public" />
+<meta name="title" content="状态机总览" />
+<meta name="description" content="解析状态机的工作原理和其内部使用的核心系统。" />
+<meta name="version" content="4.14" />
+<meta name="related" content="AnimatingObjects/SkeletalMeshAnimation/StateMachines/CreatingStateMachines" />
+<meta name="related" content="AnimatingObjects/SkeletalMeshAnimation/StateMachines/EditingStateMachines" />
+<meta name="related" content="AnimatingObjects/SkeletalMeshAnimation/StateMachines/TransitionRules" />
+<meta name="related" content="AnimatingObjects/SkeletalMeshAnimation/AnimBlueprints" />
+<meta name="type" content="overview" />
+<meta name="topic-image" content="StateMachineImage.png" />
+<meta name="crumbs" content="%ROOT%,AnimatingObjects,AnimatingObjects/SkeletalMeshAnimation,AnimatingObjects/SkeletalMeshAnimation/StateMachines" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="状态机总览" />
+	<meta property="og:description" content="解析状态机的工作原理和其内部使用的核心系统。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">为角色和对象添加动画</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">骨架网格体动画系统</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">状态机</a>
+
+<span class="separator">></span> <span id="page">状态机总览</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">状态机总览</h1>
+							</div>	
+							<h2 >解析状态机的工作原理和其内部使用的核心系统。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																																			</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																		<div id="seeAlso">
+	<div style="position:relative;">
+		<div id="title">参见</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<p>
+						<a id="related_link" href="../CreatingStateMachines/index.html" title="有关创建新的状态机以在动画资源的动画图表中使用的指南。">创建状态机</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../EditingStateMachines/index.html" title="有关编辑动画状态机的指南。">编辑状态机</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../TransitionRules/index.html" title="用于控制状态机转换的规则指南">转换规则</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../AnimBlueprints/index.html" title="动画蓝图是可视化脚本，可用于创建和控制复杂动画行为。">动画蓝图</a>
+					</p>
+				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																														<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#剖析状态机">剖析状态机</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#状态">状态</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#转换规则">转换规则</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#导管">导管</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#鼠标悬停预览">鼠标悬停预览</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>动画 <strong>状态机（State Machines）</strong> 可助您以更模块化的方式理解 <a id="content_link"filter-data="tag_animation tag_animation_blueprint tag_blueprints tag_state_machine tag_animation_assets" href="../../AnimBlueprints/index.html" ><span>动画蓝图</span></a>。用户可定义角色或骨架网格体将拥有的诸多状态。此外还可定义角色或骨架网格体进入和退出每种状态的时机，与流程图相似。 
+</p><p>例如，您可能拥有如下定义角色动画流程的流程图：
+</p><div class="raw">
+	<p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/StateMachines/Overview/AnimationFlowChart.jpg">
+		<img class="  lazyload" alt="AnimationFlowChart.png" width="700" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/StateMachines/Overview/AnimationFlowChart.jpg" />
+</picture>
+</p>
+</div><p>如需为以上流程设置状态机，最终效果应与下图相似：
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/StateMachines/Overview/StateMachine.jpg">
+		<img class="  lazyload" alt="StateMachine.png" width="700" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/StateMachines/Overview/StateMachine.jpg" />
+</picture>
+
+</p><h2 id="剖析状态机">剖析状态机</h2>
+<p>状态机的主要构成部分有二：各种状态的网络、以及定义状态转入转出的规则。每种状态和每条规则设置都是其自身浓缩的 <a id="content_link"filter-data="tag_blueprints" href="../../../../ProgrammingAndScripting/Blueprints/index.html" ><span>蓝图</span></a> 网络。这易于处理复杂动画混合，无需使用过于复杂的 <strong>AnimGraph</strong>。 
+</p><h3 id="状态">状态</h3>
+<p>从概念上而言，理解状态的最佳方式是将其视为 AnimGraph 的一个组成部分。角色和骨架网格体将定期混入混出此状态。然后即可转入转出图表的该部分。例如，角色动画拥有"待机（Idle）"状态，而该状态可能只包含单个动画。 
+</p><p>下图便是状态机中的显示的"待机（Idle）"状态。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/StateMachines/Overview/State.jpg">
+		<img class="  lazyload" alt="State.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/StateMachines/Overview/State.jpg" />
+</picture>
+
+</p><p><strong>双击</strong> 状态打开图表，可在此定义 <strong>最终动画姿势（Final Animation Pose）</strong> 中的内容。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/StateMachines/Overview/IdleStateInside.jpg">
+		<img class="  lazyload" alt="IdleStateInside.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/StateMachines/Overview/IdleStateInside.jpg" />
+</picture>
+
+</p><p>角色开始移动后，即会转入运动状态 — 定义表面上的横向移动，如行走和奔跑。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/StateMachines/Overview/MoveState.jpg">
+		<img class="  lazyload" alt="MoveState.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/StateMachines/Overview/MoveState.jpg" />
+</picture>
+
+</p><p>此状态中可能包含一个由角色速度和移动方向定义的 <a id="content_link"filter-data="tag_blend_space tag_animation_blending tag_animation" href="../../Blendspaces/index.html" ><span>混合空间</span></a>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/StateMachines/Overview/MovementInside.jpg">
+		<img class="  lazyload" alt="MovementInside.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/StateMachines/Overview/MovementInside.jpg" />
+</picture>
+
+</p><p>状态自身不带引脚，也没有输入的引脚，因为它们拥有更自由的布局形式。 
+</p><p>从其外部边界拖动引线即可连接状态或创建新状态（与蓝图相似）。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/StateMachines/Overview/DragWire.jpg">
+		<img class="  lazyload" alt="DragWire.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/StateMachines/Overview/DragWire.jpg" />
+</picture>
+
+</p><h3 id="转换规则">转换规则</h3>
+<p>定义状态后，需要控制骨架网格体如何从一个状态转换到另一个状态，这便是需要用到 <strong>转换规则</strong>。转换规则沿连接状态的引线自动创建。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/StateMachines/Overview/TransitionRule.jpg">
+		<img class="  lazyload" alt="TransitionRule.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/StateMachines/Overview/TransitionRule.jpg" />
+</picture>
+
+</p><p>转换规则可对变量值执行任意数量的检查和测试，目的是输出一个 True/False 值。此布尔输出决定动画是否能通过转换。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/StateMachines/Overview/TransitionRuleInside.jpg">
+		<img class="  lazyload" alt="TransitionRuleInside.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/StateMachines/Overview/TransitionRuleInside.jpg" />
+</picture>
+
+</p><p>上图中正在对角色的速度值进行测试。数值大于 10 后便会开启转换。在此例中，角色将从待机状态进入移动状态。然后使用完全独立的规则转换回待机状态。 
+</p><p>例如，此处有一个从移动回到待机的转换规则。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/StateMachines/Overview/TransitionRuleReturn.jpg">
+		<img class="  lazyload" alt="TransitionRuleReturn.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/StateMachines/Overview/TransitionRuleReturn.jpg" />
+</picture>
+
+</p><p>将进行检查，确定用于转换到移动状态的相同数值是否已不为 true。 
+</p><div class="fullwidth">
+	<p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/StateMachines/Overview/TransitionRuleReturnInside.jpg">
+		<img class="  lazyload" alt="TransitionRuleReturnInside.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/StateMachines/Overview/TransitionRuleReturnInside.jpg" />
+</picture>
+</p>
+</div><h3 id="导管">导管</h3>
+<p><strong>导管（Conduit）</strong> 是更高级的共享转换资源。转换规则只是从一个状态到另一个状态的简单 1 对 1 关系，而导管可以是 1 对多、多对 1，或多对多关系。图表中的导管和状态相似，但带导管名称的图标不同（如下图）。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/StateMachines/Overview/ConduitNode.jpg">
+		<img class="  lazyload" alt="ConduitNode.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/StateMachines/Overview/ConduitNode.jpg" />
+</picture>
+
+</p><p>导管的使用范例之一 — 角色死亡时播放多个动画。 
+</p><p>从简单的转换规则开始，体力值小于等于零时角色进入死亡状态。然而，如果转换未进入状态而进入导管，即可执行一系列检查，确认角色的死亡方式（枪击、穿刺、爆炸、车撞、重物击头等）并分开进入诸多单独的死亡状态。 
+</p><p>简单版本的图表与下图相似： 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/StateMachines/Overview/ConduitGraph.jpg">
+		<img class="  lazyload" alt="ConduitGraph.png" width="800" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/StateMachines/Overview/ConduitGraph.jpg" />
+</picture>
+
+</p><p>导管图表的内部和转换规则相似：
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/StateMachines/Overview/ConduitInside.jpg">
+		<img class="  lazyload" alt="ConduitInside.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/StateMachines/Overview/ConduitInside.jpg" />
+</picture>
+
+</p><p>从导管退出的实际转换规则即可决定死亡的类型并混合到适当的状态。
+</p><h2 id="鼠标悬停预览">鼠标悬停预览</h2>
+<p>状态机的功能之一是通过鼠标悬停查看状态机自身和其组件节点的预览。如在状态机上悬停鼠标，将弹出预览窗口，显示状态机的高级视图。这与重叠蓝图网络相似。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/StateMachines/Overview/StateMachineHoverPreview.jpg">
+		<img class="  lazyload" alt="StateMachineHoverPreview.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/StateMachines/Overview/StateMachineHoverPreview.jpg" />
+</picture>
+
+</p><p>也可预览状态机中的诸多状态和转换规则。在它们上方悬停鼠标即可预览其中内容。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/StateMachines/Overview/IdleStatePreview.jpg">
+		<img class="  lazyload" alt="IdleStatePreview.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/StateMachines/Overview/IdleStatePreview.jpg" />
+</picture>
+
+</p><p>预览转换规则时不但可以预览节点，还可查看规则的文字说明。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/StateMachines/Overview/TransitionRulePreview.jpg">
+		<img class="  lazyload" alt="TransitionRulePreview.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/StateMachines/Overview/TransitionRulePreview.jpg" />
+</picture>
+
+</p>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/AnimatingObjects/SkeletalMeshAnimation/StateMachines/Overview/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:33:23 GMT -->
+</html>

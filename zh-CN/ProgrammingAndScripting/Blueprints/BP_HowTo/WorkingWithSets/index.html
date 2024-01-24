@@ -1,0 +1,1393 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:24:55 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var finishButton = finishButtonTemplate;
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>使用Set | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+		    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+		    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/" hreflang="ko" />
+
+	<meta name="intsourcechangelist" content="14558334" />
+<meta name="redirect" content="Engine/Blueprints/BP_HowTo/WorkingWithSets" />
+<meta name="availability" content="Public" />
+<meta name="title" content="使用Set" />
+<meta name="description" content="学习在蓝图中使用Set的方法" />
+<meta name="type" content="how-to" />
+<meta name="version" content="4.26" />
+<meta name="parent" content="ProgrammingAndScripting/Blueprints/Scripting" />
+<meta name="skilllevel" content="Advanced" />
+<meta name="order" content="14" />
+<meta name="related" content="ProgrammingAndScripting/Blueprints/UserGuide/Sets/SetNodes" />
+<meta name="related" content="ProgrammingAndScripting/Blueprints/UserGuide/Sets" />
+<meta name="related" content="ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/TSet" />
+<meta name="topic-image" content="workingWithSets_topicImage.png" />
+<meta name="course" content="blueprints---essential-concepts?lang=zh-CN|蓝图：基础概念|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fblueprints---essential-concepts%2FBPEssentialsThumbnail_1920x1080-1920x1080-2fcdde875f1d79ade1c295fe4fef53c4b8c5ecde.PNG?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fblueprints---essential-concepts%2FBlueprint--Essential-Concepts-1000x1000-9f372ce55de42ce9596dffd6c931839e44fcc873.png?resize=1&amp;w=300" />
+<meta name="course" content="interactive-material-swaps-using-blueprints?lang=zh-CN|蓝图：可交互材质切换|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Finteractive-material-swaps-using-blueprints%2F406---Hero2-1920x1080-ce26b6199cf620364149d2d934c73ae30e983110.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Finteractive-material-swaps-using-blueprints%2FInteractive-Material-Swaps-Using-Blueprints-1000x1000-21158a5fe67365e3bf5db49712b52482382f15ac.png?resize=1&amp;w=300" />
+<meta name="course" content="making-a-blueprint-product-configurator?lang=zh-CN|企业级蓝图开发|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fblueprint-for-enterprise%2F301-Blueprints-%281200X675%29-1200x675-d140b8a0b13b05c0619e35e1076b4c82e4a4b855.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fblueprint-for-enterprise%2FBlueprint-for-Enterprise-1000x1000-13caa11b8e5c5e91506a8dd63b39d247318c3208.png?resize=1&amp;w=300" />
+<meta name="crumbs" content="%ROOT%,ProgrammingAndScripting,ProgrammingAndScripting/Blueprints,ProgrammingAndScripting/Blueprints/Scripting" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="使用Set" />
+	<meta property="og:description" content="学习在蓝图中使用Set的方法" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">编程和脚本编写</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">蓝图可视化脚本</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../Scripting/index.html">脚本编写基础</a>
+
+<span class="separator">></span> <span id="page">使用Set</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">使用Set</h1>
+							</div>	
+							<h2 >学习在蓝图中使用Set的方法</h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Advanced"><a id="skill_link" href="../../../../SiteIndex/index.html?skills=Advanced">Advanced</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																														<div id="seeAlso">
+	<div style="position:relative;">
+		<div id="title">参见</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<p>
+						<a id="related_link" href="../../UserGuide/Sets/SetNodes/index.html" title="使用蓝图 Set 时节点接口的总览。">蓝图 Set 节点</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../UserGuide/Sets/index.html" title="在蓝图中创建和编辑高级容器类 Set 容器，包括此容器的属性总览。">蓝图 Set</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../../ProgrammingWithCPP/UnrealArchitecture/TSet/index.html" title="TSet是一种快速容器类，（通常）用于在排序不重要的情况下存储唯一元素。">TSet</a>
+					</p>
+				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																		<div id="courses">
+	<div style="position:relative;">
+		<div id="title">相关课程</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<div name="blueprints---essential-concepts?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/blueprints---essential-concepts?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/blueprints---essential-concepts/BPEssentialsThumbnail_1920x1080-1920x1080-2fcdde875f1d79ade1c295fe4fef53c4b8c5ecd?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/blueprints---essential-concepts/Blueprint--Essential-Concepts-1000x1000-9f372ce55de42ce9596dffd6c931839e44fcc873?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="blueprints---essential-concepts?lang=zh-CN_title">
+				蓝图：基础概念
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="interactive-material-swaps-using-blueprints?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/interactive-material-swaps-using-blueprints?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/interactive-material-swaps-using-blueprints/406---Hero2-1920x1080-ce26b6199cf620364149d2d934c73ae30e983110.8314f8?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/interactive-material-swaps-using-blueprints/Interactive-Material-Swaps-Using-Blueprints-1000x1000-21158a5fe67365e3bf5db49712b52482382f15ac.8?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="interactive-material-swaps-using-blueprints?lang=zh-CN_title">
+				蓝图：可交互材质切换
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="making-a-blueprint-product-configurator?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/making-a-blueprint-product-configurator?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/blueprint-for-enterprise/301-Blueprints-(1200X675)-1200x675-d140b8a0b13b05c0619e35e1076b4c82e4a4b855.8344f86.dela?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/blueprint-for-enterprise/Blueprint-for-Enterprise-1000x1000-13caa11b8e5c5e91506a8dd63b39d247318c3208.836fe4b.dela?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="making-a-blueprint-product-configurator?lang=zh-CN_title">
+				企业级蓝图开发
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																								<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#1.必需设置">1.必需设置</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#分段结果">分段结果</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#2.创建和显示蓝图集">2.创建和显示蓝图集</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#编写逻辑脚本">编写逻辑脚本</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#分段结果_1">分段结果</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#3.执行交集">3.执行交集</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#编写逻辑脚本_1">编写逻辑脚本</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#分段结果_2">分段结果</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#4.执行合集">4.执行合集</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#编写逻辑脚本_2">编写逻辑脚本</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#最终结果">最终结果</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/workingWithSets_topicBanner.jpg">
+		<img class="  lazyload" alt="workingWithSets_topicBanner.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/workingWithSets_topicBanner.jpg" />
+</picture>
+
+</p><p><a id="content_link"filter-data="tag_arrays_and_structures tag_blueprints" href="../../UserGuide/Arrays/index.html" ><span>蓝图数组</span></a>通常是多数设计场景的首选容器。排列是支持重复项的有序列表，可为开发人员提供兼具有序和灵活的容器。打有时使用项目池的开发人员并不关心项目池中各项目的顺序，而是关心项目池内从中提取数据的项目的唯一性。此处便是 <strong>蓝图集</strong> 的用武之地。
+</p><p>完成本指南后，将获得在蓝图脚本环境中创建和编辑集、查询和显示项目，及在虚幻引擎4（UE4）中蓝图集上执行基本操作（包括交集和合集）的部分经验。
+</p><h2 id="1.必需设置">1.必需设置</h2>
+<p>开始使用蓝图集前，须对项目进行设置，以显示容器的内容。
+</p><ol ><li class="Default"><p>使用 <strong>游戏</strong> > <strong>第一人称</strong> 模板新建一个项目，然后使用下列设置：
+</p><ul ><li class="Default"><p>选择 <strong>蓝图</strong>
+</p></li><li class="Default"><p>选择 <strong>最高质量</strong>
+</p></li><li class="Default"><p>选择 <strong>桌面/游戏机</strong> 
+</p></li><li class="Default"><p>选择 <strong>具有初学者内容</strong>
+</p></li></ul></li><li class="Default"><p>命名你的项目，例如 <strong>ExampleSetProject</strong>。
+</p></li><li class="Default"><p>在项目的 <strong>内容浏览器</strong> 中双击 <strong>Blueprints</strong> 文件夹。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step1_2.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step1_2.jpg">
+		<img class="  lazyload" alt="Step1_2.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step1_2.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>在 <strong>内容浏览器</strong> 中，点击 <strong>新增</strong> 按钮，将鼠标光标悬停在 <strong>蓝图类</strong> 上，其位于 <strong>创建基本资源（Create Basic Asset）</strong> 弹出菜单下。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step1_3.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step1_3.jpg">
+		<img class="  lazyload" alt="Step1_3.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step1_3.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>打开 <strong>选取父类（Pick Parent Class）</strong> 菜单后，点击 <strong>所有类</strong> 箭头，搜索 <strong>TextRender Actor</strong> 蓝图类。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step1_4.jpg">
+		<img class="  lazyload" alt="Step1_4.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step1_4.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>搜索栏</strong> 中输入 <code>TextRenderActor</code>，选择 <strong>TextRenderActor</strong> 蓝图类，然后点击 <strong>选择</strong> 按钮。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step1_5.jpg">
+		<img class="  lazyload" alt="Step1_5.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step1_5.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>现在，可在项目的 <strong>内容浏览器</strong> 中找到新的 <strong>TextRender Actor</strong>。然后将新Actor命名为 <code>DisplaySet</code>。
+</p><p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step1_6.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step1_6.jpg">
+		<img class="  lazyload" alt="Step1_6.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step1_6.jpg" />
+</picture>
+</span></a></span>
+</p></li><li class="Default"><p>现在，将 <code>DisplaySet</code> TextRender Actor拖入虚幻编辑器的 <strong>视角（3D）视口</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step1_7.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step1_7.jpg">
+		<img class="  lazyload" alt="Step1_7.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step1_7.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>选择 <strong>DisplaySet</strong> TextRender Actor后，点击 <strong>+添加组件</strong> 按钮（位于 <strong>细节</strong> 面板中），并在 <strong>搜索栏</strong> 中输入 <code>Box Collision</code>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step1_8.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step1_8.jpg">
+		<img class="  lazyload" alt="Step1_8.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step1_8.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>将 <strong>盒体碰撞组件（Box Collision Component）</strong> 添加到TextRender Actor后，将新组件命名为 <code>Trigger Box</code>。
+</p><p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step1_9.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step1_9.jpg">
+		<img class="  lazyload" alt="Step1_9.png" width="400" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step1_9.jpg" />
+</picture>
+</span></a></span>
+</p></li><li class="Default"><p>现在选择TextRender组件，在 <strong>细节</strong> 面板中查看Actor的 <strong>变换</strong>。
+</p><p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step1_10.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step1_10.jpg">
+		<img class="  lazyload" alt="Step1_10.png" width="400" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step1_10.jpg" />
+</picture>
+</span></a></span>
+</p></li><li class="Default"><p>更新 <strong>显示集</strong> Actor的 <strong>变换</strong>，以反映以下值：
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step1_11.jpg">
+		<img class="  lazyload" alt="Step1_11.png" width="400" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step1_11.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>现在，将 <strong>显示集</strong> Actor的 <strong>水平对齐</strong> 改为 <strong>居中</strong> 对齐（而非 <strong>水平对齐</strong> 默认值 <strong>左</strong> 对齐）。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step1_12.jpg">
+		<img class="  lazyload" alt="Step1_12.png" width="400" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step1_12.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>目前，<strong>触发框</strong> 组件已 <strong>在游戏中隐藏</strong>。取消勾选 <strong>在游戏中隐藏</strong> 复选框（位于 <strong>细节</strong> 面板的 <strong>渲染</strong> 菜单中），即可在游戏中查看 <strong>盒体碰撞（Box Collision）</strong> 组件。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step1_13.jpg">
+		<img class="  lazyload" alt="Step1_13.png" width="400" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step1_13.jpg" />
+</picture>
+
+</p><div class="note">
+	<p>在游戏中查看 <strong>盒体碰撞</strong> 组件是利用底层逻辑驱动触发事件，以调试潜在问题的好办法。</p>
+</div></li><li class="Default"><p>如进入PIE（在编辑器中运行）模式，可发现发射物会对 <strong>显示集</strong> 碰撞盒体产生碰撞响应。目前仅需要 <strong>显示集</strong> 碰撞盒体触发事件，以显示集容器的内容。为此，前往 <strong>碰撞</strong> 菜单（位于 <strong>细节</strong> 面板中），点击 <strong>碰撞预设</strong> 下拉列表框，然后选择 <strong>自定义……</strong> 选项。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step1_14.jpg">
+		<img class="  lazyload" alt="Step1_14.png" width="400" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step1_14.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>最后更新 <strong>碰撞预设</strong> 反映以下值：
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step1_15.jpg">
+		<img class="  lazyload" alt="Step1_15.png" width="400" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step1_15.jpg" />
+</picture>
+
+</p></li></ol><h3 id="分段结果">分段结果</h3>
+<div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step1_EndResult.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step1_EndResult.jpg">
+		<img class="  lazyload" alt="Step1_EndResult.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step1_EndResult.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><p>现在已新建项目，同时设置新的TextRender Actor，其将显示你在下一步中创建、编辑和显示的蓝图集容器的内容。
+</p><h2 id="2.创建和显示蓝图集">2.创建和显示蓝图集</h2>
+<p>已在新建项目中设置 <strong>TextRender</strong> Actor，现可创建蓝图集容器，其中内容将在游戏内显示。
+</p><ol ><li class="Default"><p>在项目的 <strong>内容浏览器</strong> 中，双击 <strong>显示集</strong> TextRender Actor，打开其蓝图 <strong>事件图表</strong>。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_1.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_1.jpg">
+		<img class="  lazyload" alt="Step2_1.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_1.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>如屏幕显示如下，点击 <strong>打开完整蓝图编辑器（Open Full Blueprint Editor）</strong> 链接开始操作。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_2.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_2.jpg">
+		<img class="  lazyload" alt="Step2_2.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_2.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>应可看到 <strong>显示集</strong> TextRender Actor蓝图 <strong>事件图表</strong>，可在其中添加蓝图集及其显示逻辑。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_3.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_3.jpg">
+		<img class="  lazyload" alt="Step2_3.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_3.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><div class="note">
+	<p>如屏幕未入之前所示那样显示，点击 <strong>事件图表</strong> 选项卡，打开Actor的蓝图事件图表编辑器。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_3Note.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_3Note.jpg">
+		<img class="  lazyload" alt="Step2_3Note.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_3Note.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div>
+</div></li><li class="Default"><p>现在应创建蓝图集容器，需将之后显示的项目保存其中。要新建蓝图集，点击 <strong>+新增</strong> 按钮（位于 <strong>我的蓝图</strong> 面板中），并从下拉列表中选择 <strong>变量</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_4.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_4.jpg">
+		<img class="  lazyload" alt="Step2_4.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_4.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>将新变量命名为 <code>Instruction Map</code>。
+</p><p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_5.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_5.jpg">
+		<img class="  lazyload" alt="Step2_5.png" width="300" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_5.jpg" />
+</picture>
+</span></a></span>
+</p></li><li class="Default"><p>点击变量命名旁的变量 <strong>引脚类型（pin type）</strong> 按钮。
+</p><p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_6.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_6.jpg">
+		<img class="  lazyload" alt="Step2_6.png" width="300" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_6.jpg" />
+</picture>
+</span></a></span>
+</p></li><li class="Default"><p>现在选择下拉列表中的 <strong>字符串</strong> 变量类型。
+</p><p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_7.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_7.jpg">
+		<img class="  lazyload" alt="Step2_7.png" width="400" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_7.jpg" />
+</picture>
+</span></a></span>
+</p></li><li class="Default"><p>点击变量的 <strong>容器类型</strong> 按钮，其位于 <strong>细节</strong> 面板中 <strong>变量类型</strong> 下拉列表旁。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_8.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_8.jpg">
+		<img class="  lazyload" alt="Step2_8.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_8.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>现在选择下拉列表中的 <strong>集</strong> 容器类型。
+</p><p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_9.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_9.jpg">
+		<img class="  lazyload" alt="Step2_9.png" width="400" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_9.jpg" />
+</picture>
+</span></a></span>
+</p></li><li class="Default"><p>此时蓝图图表将进行提示：需编译蓝图，才可定义要存储在容器内的项目。点击 <strong>编译</strong> 按钮开始操作。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_10.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_10.jpg">
+		<img class="  lazyload" alt="Step2_10.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_10.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><div class="note">
+	<p>编译蓝图会将替换容器的 <strong>默认值</strong> 消息换为其他界面，以便使用字符串类型的唯一项目（或元素）填充容器。</p>
+</div></li><li class="Default"><p>如尚未完成该步骤，请点击 <strong>保存</strong> 按钮，保存目前所有工作。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_11.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_11.jpg">
+		<img class="  lazyload" alt="Step2_11.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_11.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><div class="tip">
+	<p>建议提前并随时进行保存。 </p>
+</div></li><li class="Default"><p>点击 <strong>+</strong>（添加元素）按钮（位于 <strong>细节</strong> 面板的 <strong>默认值</strong> 菜单中），将字符串类型项目添加到新定义的 <strong>指令集</strong> 容器中。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_12.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_12.jpg">
+		<img class="  lazyload" alt="Step2_12.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_12.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>定义容器的新项目，将项目定义为 <code>点击</code>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_13.jpg">
+		<img class="  lazyload" alt="Step2_13.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_13.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>重复以上的两个步骤，确保使用以下项目填充 <strong>指令集</strong> 容器： 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_14.jpg">
+		<img class="  lazyload" alt="Step2_14.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_14.jpg" />
+</picture>
+
+</p></li></ol><h3 id="编写逻辑脚本">编写逻辑脚本</h3>
+<p>显示新建蓝图集的内容前，需编写必要逻辑。
+</p><ol ><li class="Default"><p>现已定义容器，继续将 <strong>指令集</strong> 变量拖入蓝图事件图表。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_15.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_15.jpg">
+		<img class="  lazyload" alt="Step2_15.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_15.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>在 <strong>指令集</strong> 下拉列表中选择 <strong>获取</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_16.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_16.jpg">
+		<img class="  lazyload" alt="Step2_16.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_16.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>从 <strong>Instruction Set</strong> 节点连出引脚，并从 <strong>集实用程序（Set Utilities）</strong> 界面添加 <strong>To Array</strong> 节点。
+</p><p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_17.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_17.jpg">
+		<img class="  lazyload" alt="Step2_17.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_17.jpg" />
+</picture>
+</span></a></span>
+</p></li><li class="Default"><p>然后从 <strong>To Array</strong> 节点连出引线，将其连接到 <strong>Get</strong> 节点。
+</p><p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_18.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_18.jpg">
+		<img class="  lazyload" alt="Step2_18.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_18.jpg" />
+</picture>
+</span></a></span>
+</p><div class="note">
+	<p>有多种方法可获取集中的值。一种方法是用特定键在集中查询，另一种方法是迭代集中的项目。对于本教程的此章节，将继续使用计数器变量对 <strong>指令集</strong> 进行迭代。</p>
+</div></li><li class="Default"><p>牢记之前事项，点击 <strong>+添加新增（Add New）</strong> 按钮，在下拉列表中选择 <strong>变量</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_19.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_19.jpg">
+		<img class="  lazyload" alt="Step2_19.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_19.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>确保将新变量的类型设为 <strong>整数</strong> 类型，并命名为 <code>Counter</code>。
+</p><p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_20.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_20.jpg">
+		<img class="  lazyload" alt="Step2_20.png" width="300" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_20.jpg" />
+</picture>
+</span></a></span>
+</p></li><li class="Default"><p>声明并定义计数器变量后，将 <strong>计数器</strong> 拖入蓝图事件图表中，并在下拉列表中选择 <strong>获取</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_21.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_21.jpg">
+		<img class="  lazyload" alt="Step2_21.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_21.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>从 <strong>Counter</strong> 节点连出引线，搜索并添加 <strong>IncrementInt</strong> 节点。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_22.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_22.jpg">
+		<img class="  lazyload" alt="Step2_22.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_22.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>现在将 <strong>IncrementInt</strong> 节点连接至 <strong>Get</strong> 节点。
+</p><p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_23.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_23.jpg">
+		<img class="  lazyload" alt="Step2_23.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_23.jpg" />
+</picture>
+</span></a></span>
+</p><div class="note">
+	<p>本教程中将使用定时器函数来递增 <strong>Counter</strong> 变量。</p>
+</div></li><li class="Default"><p>从 <strong>Event Tick</strong> 节点连出引线，搜索并添加 <strong>Delay</strong> 节点。
+</p><p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_24.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_24.jpg">
+		<img class="  lazyload" alt="Step2_24.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_24.jpg" />
+</picture>
+</span></a></span>
+</p></li><li class="Default"><p>将延时时长设为 <strong>2</strong> 秒，然后将 <strong>Delay</strong> 节点连接至 <strong>IncrementInt</strong> 节点。
+</p><p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_25.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_25.jpg">
+		<img class="  lazyload" alt="Step2_25.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_25.jpg" />
+</picture>
+</span></a></span>
+</p></li><li class="Default"><p>将 <strong>Event BeginPlay</strong> 节点连接至 <strong>To Array</strong> 节点。
+</p><p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_26.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_26.jpg">
+		<img class="  lazyload" alt="Step2_26.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_26.jpg" />
+</picture>
+</span></a></span>
+</p></li><li class="Default"><p>现在已可从 <strong>To Array</strong> 节点连出引线进行搜索，并连接 <strong>Set Text</strong> 节点，以便在游戏中显示容器的内容。
+</p><p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_27.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_27.jpg">
+		<img class="  lazyload" alt="Step2_27.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_27.jpg" />
+</picture>
+</span></a></span>
+</p></li><li class="Default"><p>将 <strong>Get</strong> 节点连接到 <strong>值</strong> 引脚（位于 <strong>Set Text</strong> 节点中）。
+</p><p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_28.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_28.jpg">
+		<img class="  lazyload" alt="Step2_28.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_28.jpg" />
+</picture>
+</span></a></span>
+</p></li><li class="Default"><p>现在将 <strong>IncrementInt</strong> 节点连接至 <strong>Set Text</strong> 节点。
+</p><p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_29.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_29.jpg">
+		<img class="  lazyload" alt="Step2_29.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_29.jpg" />
+</picture>
+</span></a></span>
+</p></li><li class="Default"><p>检查完成的脚本后，点击 <strong>编译</strong> 按钮，之后返回编辑器的 <strong>视口</strong> 界面。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_30.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_30.jpg">
+		<img class="  lazyload" alt="Step2_30.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step2_30.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>在编辑器的 <strong>视口</strong> 界面中，点击 <strong>运行</strong> 按钮查看新实现的脚本。
+</p></li></ol><h3 id="分段结果_1">分段结果</h3>
+<!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_0_q4qqa6qw_14
+{
+	margin: 0px;
+	width: 100%;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_0_q4qqa6qw_14:after
+{
+	content: "";
+	padding-top: 56.25%;
+	display: block;
+}
+</style> 
+<div id="player_0_q4qqa6qw_14"> 
+	<div id="playerContainer_0_q4qqa6qw_14" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/0_q4qqa6qw/embed.html"></iframe>
+	</div>
+</div>
+<p>本指南目前的章节中，已定义新的蓝图集、项目已填充到容器中，并已使用 <strong>TextRender</strong> Actor蓝图事件图表中创建的部分基本逻辑显示此类项目值。如要学习更高级的操作方式，请继续下一步骤，可学习执行两个蓝图集的 **交集**的方法。
+</p><h2 id="3.执行交集">3.执行交集</h2>
+<p>现在应该已具有了 <strong>TextRender</strong> Actor，其将显示在上一步中定义的蓝图集的内容。在此步骤中，将可学习执行两个蓝图集的 <strong>交集</strong>，最终在游戏的 <strong>视口</strong> 中打印交集结果的方法。
+</p><ol ><li class="Default"><p>在项目的 <strong>内容浏览器</strong> 中，双击 <strong>显示集</strong> TextRender Actor，打开其蓝图 <strong>事件图表</strong>。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step3_1.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step3_1.jpg">
+		<img class="  lazyload" alt="Step3_1.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step3_1.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>应可看到 <strong>显示集</strong> TextRender Actor蓝图 <strong>事件图表</strong>，可在其中添加新蓝图集，与现有的 <strong>指令集</strong> 进行 <strong>交集</strong>，最终将结果集显示到 <strong>视口</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step3_2.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step3_2.jpg">
+		<img class="  lazyload" alt="Step3_2.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step3_2.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>在本教程的此步骤中，需创建之后交集的数个蓝图集容器。右键点击 <strong>Instruction Set</strong> 变量，并在下拉列表中选择 <strong>复制</strong>，新建两个蓝图集变量，并分别命名为 <code>Shorter Instruction Set</code> 和 <code>Resultant Instruction Set</code>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step3_3.jpg">
+		<img class="  lazyload" alt="Step3_3.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step3_3.jpg" />
+</picture>
+
+</p><div class="note">
+	<p>在两个集上执行交集时，（通常）会产生仅包含两个集共有项目的结果集。</p>
+</div></li><li class="Default"><p>现应拥有从现有 <strong>Instruction Set</strong> 变量复制而来的两个新蓝图集变量。此外还需注意：如选择新的蓝图集（例如，<strong>结果指令集</strong>），应会出现 <strong>默认值</strong> 消息，内容为 <code>Please compile the blueprint</code>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step3_4.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step3_4.jpg">
+		<img class="  lazyload" alt="Step3_4.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step3_4.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>点击 <strong>编译</strong> 按钮。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step3_5.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step3_5.jpg">
+		<img class="  lazyload" alt="Step3_5.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step3_5.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>编译蓝图后，应可看到 <strong>默认值</strong> 消息消失，为部分现有元素让出空间。正如所知，已复制现有 <strong>Instruction Set</strong> 变量，以新建两个变量，从而将最初包含在原始蓝图集中的元素复制到新建容器中。<br /></p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step3_6.jpg">
+		<img class="  lazyload" alt="Step3_6.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step3_6.jpg" />
+</picture>
+
+</p><div class="note">
+	<p>注意：也可在不复制现有变量的情况下，新建变量。</p>
+</div></li><li class="Default"><p>要清除 <strong>结果指令集</strong> ，请点击 <strong>默认值</strong> 菜单中的 <strong>删除所有项目（Removes all items）</strong> 按钮。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step3_7.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step3_7.jpg">
+		<img class="  lazyload" alt="Step3_7.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step3_7.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>现在清除 <strong>较短指令集（Shorter Instruction Set）</strong> 中的项目（或元素）。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step3_8.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step3_8.jpg">
+		<img class="  lazyload" alt="Step3_8.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step3_8.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>向现有蓝图事件图表添加新逻辑前，先将 <strong>Shorter Instruction Set</strong> 和 <strong>Instruction Set</strong> 变量拖入蓝图。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step3_9.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step3_9.jpg">
+		<img class="  lazyload" alt="Step3_9.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step3_9.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li></ol><h3 id="编写逻辑脚本_1">编写逻辑脚本</h3>
+<ol ><li class="Default"><p>要开始构建新逻辑，从 <strong>集实用程序</strong> 界面中 <strong>Shorter Instruction Set</strong> 节点连出引线并添加 <strong>Intersection</strong> 节点。
+</p><p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step3_10.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step3_10.jpg">
+		<img class="  lazyload" alt="Step3_10.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step3_10.jpg" />
+</picture>
+</span></a></span>
+</p></li><li class="Default"><p>现在将 <strong>Instruction Set</strong> 节点连接至 <strong>Intersection</strong> 节点。
+</p><p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step3_11.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step3_11.jpg">
+		<img class="  lazyload" alt="Step3_11.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step3_11.jpg" />
+</picture>
+</span></a></span>
+</p></li><li class="Default"><p>右键点击蓝图图表，打开 <strong>快捷菜单</strong>，在其中搜索并添加 <strong>Event ActorBeginOverlap</strong>。
+</p><p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step3_12.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step3_12.jpg">
+		<img class="  lazyload" alt="Step3_12.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step3_12.jpg" />
+</picture>
+</span></a></span>
+</p></li><li class="Default"><p>从 <strong>Event ActorBeginOverlap</strong> 节点的 <strong>Other Actor</strong> 引脚连出引线，搜索并添加 <strong>Cast To FirstPersonProjectile</strong> 节点。
+</p><p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step3_13.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step3_13.jpg">
+		<img class="  lazyload" alt="Step3_13.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step3_13.jpg" />
+</picture>
+</span></a></span>
+</p></li><li class="Default"><p>现在将 <strong>Cast To FirstPersonProjectile</strong> 节点连接至 <strong>Intersection</strong> 节点。
+</p><p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step3_14.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step3_14.jpg">
+		<img class="  lazyload" alt="Step3_14.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step3_14.jpg" />
+</picture>
+</span></a></span>
+</p><div class="note">
+	<p>此操作意味着，如第一人称发射物成功与该Actor的碰撞盒体发生碰撞，即调用 <strong>Intersection</strong> 节点。</p>
+</div></li><li class="Default"><p><strong>Intersection</strong> 节点在 <strong>较短指令集</strong> 和 <strong>指令集</strong> 上执行操作后，需将结果存储于 <strong>结果指令集</strong> 容器中。为此，从 <strong>Intersection</strong> 节点连出引线，并添加 <strong>Set Resultant Instruction Set</strong>。
+</p><p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step3_15.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step3_15.jpg">
+		<img class="  lazyload" alt="Step3_15.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step3_15.jpg" />
+</picture>
+</span></a></span>
+</p></li><li class="Default"><p>从 <strong>Set Resultant Instruction Set</strong> 节点连出引线，并从 <strong>集实用程序</strong> 界面添加 <strong>To Array</strong> 节点。
+</p><p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step3_16.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step3_16.jpg">
+		<img class="  lazyload" alt="Step3_16.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step3_16.jpg" />
+</picture>
+</span></a></span>
+</p></li><li class="Default"><p>要迭代阵列的元素，从 <strong>To Array</strong> 节点连出引线并添加 <strong>ForEachLoop</strong> 节点。
+</p><p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step3_17.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step3_17.jpg">
+		<img class="  lazyload" alt="Step3_17.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step3_17.jpg" />
+</picture>
+</span></a></span>
+</p></li><li class="Default"><p>将 <strong>To Array</strong> 节点与 <strong>ForEachLoop</strong> 节点相连。
+</p><p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step3_18.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step3_18.jpg">
+		<img class="  lazyload" alt="Step3_18.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step3_18.jpg" />
+</picture>
+</span></a></span>
+</p></li><li class="Default"><p>现在可将交集的结果打印到 <strong>视口</strong> 中了。为此，从 <strong>ForEachLoop</strong> 节点的 <strong>阵列元素</strong> 引脚连出引线，搜索并添加 <strong>Print String</strong> 节点。
+</p><p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step3_19.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step3_19.jpg">
+		<img class="  lazyload" alt="Step3_19.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step3_19.jpg" />
+</picture>
+</span></a></span>
+</p></li><li class="Default"><p>将 <strong>ForEachLoop</strong> 节点连接至 <strong>Print String</strong> 节点。
+</p><p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step3_20.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step3_20.jpg">
+		<img class="  lazyload" alt="Step3_20.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step3_20.jpg" />
+</picture>
+</span></a></span>
+</p></li><li class="Default"><p>现在已可决定 <strong>结果指令集</strong> 要包含的内容。例如，在本例中，<strong>Resultant Instruction Set</strong> 变量需仅包含 <strong>点击</strong>、<strong>左键</strong>、<strong>鼠标</strong> 和 <strong>按钮</strong>。首先在纸上写出交集： 
+</p><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>Instruction Set</p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>Shorter Instruction Set</p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>Resultant Instruction Set (A ∩ B)</p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>Click</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>Click</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>Click</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>the</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>Left</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>Left</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>Left</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>Mouse</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>Mouse</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>Mouse</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>Button</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>Button</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>Button</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>and</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>Fire</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr></tbody>
+</table><div class="note">
+	<p>正如纸上所写， <strong>指令集</strong> 和 <strong>较短指令集</strong> 的共有项目都存储在 <strong>结果集</strong> 容器中。在集上执行逻辑运算时，将逻辑写入蓝图图表脚本前，最好先在纸上（或白板上）写下需执行的运算。</p>
+</div></li><li class="Default"><p>现在已了解需在 <strong>较短指令集</strong> 容器中存储的项目，选择 <strong>较短指令集</strong>，检查容器的内容。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step3_21.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step3_21.jpg">
+		<img class="  lazyload" alt="Step3_21.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step3_21.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><div class="note">
+	<p>高亮图像中显示，<strong>较短指令集</strong> 当前为空白集。现在如要执行 <strong>较短指令集</strong> 与 <strong>指令集</strong> 的交集， <strong>结果指令集</strong> 容器将为空白。</p>
+</div></li><li class="Default"><p>使用以下元素填充 <strong>较短指令集</strong> 容器：
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step3_22.jpg">
+		<img class="  lazyload" alt="Step3_22.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step3_22.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>脚本检查完成后，点击 <strong>编译</strong> 按钮。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step3_23.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step3_23.jpg">
+		<img class="  lazyload" alt="Step3_23.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step3_23.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>最后点击 <strong>保存</strong> 按钮，然后返回编辑器的 <strong>视口</strong> 界面。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step3_24.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step3_24.jpg">
+		<img class="  lazyload" alt="Step3_24.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step3_24.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>在编辑器的 <strong>视口</strong> 界面中，点击 <strong>运行</strong> 按钮查看当前运行的更新脚本。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step3_25.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step3_25.jpg">
+		<img class="  lazyload" alt="Step3_25.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step3_25.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li></ol><h3 id="分段结果_2">分段结果</h3>
+<!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_0_9a92o0bf_42
+{
+	margin: 0px;
+	width: 100%;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_0_9a92o0bf_42:after
+{
+	content: "";
+	padding-top: 56.25%;
+	display: block;
+}
+</style> 
+<div id="player_0_9a92o0bf_42"> 
+	<div id="playerContainer_0_9a92o0bf_42" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/0_9a92o0bf/embed.html"></iframe>
+	</div>
+</div>
+<p>正如视频中所见，第一人称发射物与 <strong>显示集合</strong> 碰撞盒体碰撞时，<strong>结果指令集</strong> 的内容会被打印到 <strong>视口</strong> 中。查看打印的项目时，可发现 <strong>结果指令集</strong> 中包含的项目并无可预测顺序，其是蓝图集的属性。继续学习下一步，掌握执行两个蓝图集的 <strong>合集</strong>。
+</p><h2 id="4.执行合集">4.执行合集</h2>
+<p>此为本教程最后步骤，在其中可学会执行两个蓝图集的 <strong>合集</strong>，最终在游戏的 <strong>视口</strong> 中打印合集的结果。
+</p><ol ><li class="Default"><p>在项目的 <strong>内容浏览器</strong> 中，双击 <strong>显示集</strong> TextRender Actor，打开其蓝图 <strong>事件图表</strong>。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step4_1.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step4_1.jpg">
+		<img class="  lazyload" alt="Step4_1.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step4_1.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>在本教程的此步骤中，需新建之后合集的蓝图集容器。右键点击 <strong>Shorter Instruction Set</strong> 变量，并在下拉列表中选择 <strong>复制</strong> 以新建蓝图集变量，将其命名为 <code>Longer Instruction Set</code>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step4_2.jpg">
+		<img class="  lazyload" alt="Step4_2.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step4_2.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>现在点击 <strong>编译</strong> 按钮。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step4_3.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step4_3.jpg">
+		<img class="  lazyload" alt="Step4_3.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step4_3.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>点击 <strong>删除所有项目</strong> 按钮，清除 <strong>较长指令集</strong> 中的所有项目。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step4_4.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step4_4.jpg">
+		<img class="  lazyload" alt="Step4_4.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step4_4.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>将以下项目添加到新的 <strong>较长指令集</strong> 容器中：
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step4_5.jpg">
+		<img class="  lazyload" alt="Step4_5.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step4_5.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>将 <strong>Longer Instruction Set</strong> 和 <strong>Instruction Set</strong> 变量拖入蓝图图表。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step4_6.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step4_6.jpg">
+		<img class="  lazyload" alt="Step4_6.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step4_6.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li></ol><h3 id="编写逻辑脚本_2">编写逻辑脚本</h3>
+<ol ><li class="Default"><p>要开始构建新逻辑，从 <strong>集实用程序</strong> 界面中的 <strong>Longer Instruction Set</strong> 连出引线并添加 <strong>Union</strong> 节点。
+</p><p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step4_7.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step4_7.jpg">
+		<img class="  lazyload" alt="Step4_7.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step4_7.jpg" />
+</picture>
+</span></a></span>
+</p></li><li class="Default"><p>将 <strong>Instruction Set</strong> 节点连接至 <strong>Union</strong> 节点。
+</p><p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step4_8.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step4_8.jpg">
+		<img class="  lazyload" alt="Step4_8.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step4_8.jpg" />
+</picture>
+</span></a></span>
+</p></li><li class="Default"><p>将 <strong>Cast To FirstPersonProjectile</strong> 节点的 <strong>Cast Failed</strong> 引脚连接至 <strong>Union</strong> 节点。
+</p><p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step4_9.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step4_9.jpg">
+		<img class="  lazyload" alt="Step4_9.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step4_9.jpg" />
+</picture>
+</span></a></span>
+</p></li><li class="Default"><p>然后，从 <strong>Union</strong> 节点连出引线，搜索并添加 <strong>To Array</strong> 节点。
+</p><p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step4_10.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step4_10.jpg">
+		<img class="  lazyload" alt="Step4_10.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step4_10.jpg" />
+</picture>
+</span></a></span>
+</p></li><li class="Default"><p>从 <strong>To Array</strong> 节点连出引线，搜索并添加 <strong>ForEachLoop</strong> 节点。
+</p><p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step4_11.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step4_11.jpg">
+		<img class="  lazyload" alt="Step4_11.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step4_11.jpg" />
+</picture>
+</span></a></span>
+</p></li><li class="Default"><p>将 <strong>To Array</strong> 节点连接至 <strong>ForEachLoop</strong> 节点。
+</p><p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step4_12.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step4_12.jpg">
+		<img class="  lazyload" alt="Step4_12.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step4_12.jpg" />
+</picture>
+</span></a></span>
+</p></li><li class="Default"><p>现在已可将合集结果打印到 <strong>视口</strong> 中了。为此，从 <strong>ForEachLoop</strong> 节点的 <strong>阵列元素</strong> 引脚连出引线，搜索并添加 <strong>Print String</strong> 节点。
+</p><p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step4_13.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step4_13.jpg">
+		<img class="  lazyload" alt="Step4_13.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step4_13.jpg" />
+</picture>
+</span></a></span>
+</p></li><li class="Default"><p>将 <strong>ForEachLoop</strong> 节点连接至 <strong>Print String</strong> 节点。
+</p><p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step4_14.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step4_14.jpg">
+		<img class="  lazyload" alt="Step4_14.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step4_14.jpg" />
+</picture>
+</span></a></span>
+</p></li><li class="Default"><p>由于已打印调试消息，因此需更改打印到 <strong>视口</strong> 的文本颜色。为此，点击位于 <strong>Print String</strong> 节点底部的菜单扩展箭头。
+</p><p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step4_15.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step4_15.jpg">
+		<img class="  lazyload" alt="Step4_15.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step4_15.jpg" />
+</picture>
+</span></a></span>
+</p></li><li class="Default"><p>点击 <strong>文本颜色</strong> 框打开 <strong>取色器</strong> 菜单。
+</p><p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step4_16.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step4_16.jpg">
+		<img class="  lazyload" alt="Step4_16.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step4_16.jpg" />
+</picture>
+</span></a></span>
+</p></li><li class="Default"><p>将颜色设置为以下值：
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step4_17.jpg">
+		<img class="  lazyload" alt="Step4_17.png" width="400" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step4_17.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>现在点击 <strong>编译</strong> 按钮。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step4_18.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step4_18.jpg">
+		<img class="  lazyload" alt="Step4_18.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step4_18.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>完成脚本后，点击 <strong>保存</strong> 按钮，然后返回编辑器的 <strong>视口</strong> 界面。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step4_19.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step4_19.jpg">
+		<img class="  lazyload" alt="Step4_19.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step4_19.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>在编辑器的 <strong>视口</strong> 界面中，点击 <strong>运行</strong> 按钮查看当前运行的更新脚本。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step4_20.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step4_20.jpg">
+		<img class="  lazyload" alt="Step4_20.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/Step4_20.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li></ol><h2 id="最终结果">最终结果</h2>
+<!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_1_ynumsvrx_70
+{
+	margin: 0px;
+	width: 75%;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_1_ynumsvrx_70:after
+{
+	content: "";
+	padding-top: 56.25%;
+	display: block;
+}
+</style> 
+<div id="player_1_ynumsvrx_70"> 
+	<div id="playerContainer_1_ynumsvrx_70" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/1_ynumsvrx/embed.html"></iframe>
+	</div>
+</div>
+<p>正如视频中所见，第一人称角色与 <strong>显示集</strong> 碰撞盒体碰撞时，<strong>合集</strong> 的结果会被打印到 <strong>视口</strong> 中。查看打印的项目时，同样可发现此类项目并无可预测顺序，其是蓝图集的属性。最后请注意：在纸上写下执行两个蓝图集的合集运算时，可得到以下结果：
+</p><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>Instruction Set</p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>Longer Instruction Set</p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>Resultant Output (A ∪ B)</p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>Click</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>your</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>Click</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>the</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>Gun</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>the</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>Left</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>Left</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>Mouse</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>Mouse</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>Button</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>Button</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>and</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>and</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>Fire</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>Fire</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>your</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>Gun</p>
+			</td>
+	
+</tr></tbody>
+</table>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithSets/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:25:53 GMT -->
+</html>

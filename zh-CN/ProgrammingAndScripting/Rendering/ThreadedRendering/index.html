@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/ProgrammingAndScripting/Rendering/ThreadedRendering/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 10:22:42 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/ProgrammingAndScripting/Rendering/ThreadedRendering/" />');
+				var udnCSS = '../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>线程渲染 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/ProgrammingAndScripting/Rendering/ThreadedRendering/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/ProgrammingAndScripting/Rendering/ThreadedRendering/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/ProgrammingAndScripting/Rendering/ThreadedRendering/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/ProgrammingAndScripting/Rendering/ThreadedRendering/" hreflang="ko" />
+
+	<meta name="redirect" content="Programming/Rendering/ThreadedRendering" />
+<meta name="intsourcechangelist" content="3151855" />
+<meta name="availability" content="Public" />
+<meta name="title" content="线程渲染" />
+<meta name="description" content="针对图形程序员的线程渲染器使用信息。" />
+<meta name="version" content="4.9" />
+<meta name="keywords" content="Rendering" />
+<meta name="crumbs" content="%ROOT%,ProgrammingAndScripting,ProgrammingAndScripting/Rendering" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="线程渲染" />
+	<meta property="og:description" content="针对图形程序员的线程渲染器使用信息。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">编程和脚本编写</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">图形编程</a>
+
+<span class="separator">></span> <span id="page">线程渲染</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">线程渲染</h1>
+							</div>	
+							<h2 >针对图形程序员的线程渲染器使用信息。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																																			</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																																				<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#渲染线程">渲染线程</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#开发方法">开发方法</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#线程特定数据结构">线程特定数据结构</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#性能注意事项">性能注意事项</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#线程间通讯">线程间通讯</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#异步">异步</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#阻塞">阻塞</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#渲染资源">渲染资源</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#uobjects与垃圾回收">UObjects 与垃圾回收</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#游戏线程frenderresource处理">游戏线程 FRenderResource 处理</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#静态资源">静态资源</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#动态资源">动态资源</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#更新状态vs遍历渲染场景">更新状态 VS 遍历渲染场景</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<a name="renderingthread" ></a><h2 id="渲染线程">渲染线程</h2>
+<p>在虚幻引擎 4（UE4）中，整个渲染器在其自身的线程中执行操作，该线程位于游戏线程的一两帧后。 
+</p><p>执行渲染操作时，必须仔细地考虑内存读写，确保线程安全，以及行为的确定性。功能行为取决于两个线程之间的执行速度差，这种情况被称作竞争条件。需要尽量避免竞争条件的出现，因为它们难以重现；且因为速度差的缘故，它们可能依赖于机器、平台、调试器或配置。这类 bug 很难进行调试，所花费的修复时间约为可重现的普通 bug 的 10 倍。
+</p><p>这是一个竞争条件/线程 bug 的简单例子：
+</p><pre class="prettyprint"><code>/&#42;&#42; 组件注册到场景时，游戏线程上将调用 FStaticMeshSceneProxy Actor。&#42;/
+FStaticMeshSceneProxy::FStaticMeshSceneProxy(UStaticMeshComponent&#42; InComponent):
+    FPrimitiveSceneProxy(...),
+    Owner(InComponent-&gt;GetOwner()) &lt;======== 注：AActor 指示器已缓存 
+    ...
+
+    /&#42;&#42; 渲染器在场景上执行一次通路时，渲染线程上将调用 DrawDynamicElements。&#42;/
+    void FStaticMeshSceneProxy::DrawDynamicElements(...)
+    {
+        if (Owner-&gt;AnyProperty) &lt;========== Race condition! 游戏线程拥有所有 AActor / UObject 状态，
+            // 并随时可能对其进行写入。UObject 可能已经执行过垃圾回收，导致程序崩溃。
+            // 在此代理中镜像 AnyProperty 的数值即可安全执行操作。
+    }</code></pre>
+<a name="developmentapproach" ></a><h4 id="开发方法">开发方法</h4>
+<p>不存在通过彻底测试找到竞争条件的方法。理解这点十分重要：猜测检验或消极的 bug 修复无法创建可靠的线程代码。最好的方法是完全理解游戏线程和渲染线程的互动，并使用机制保证确定性。应具备能力解释使每个互动具有决定性的事件顺序，否则定会出现竞争条件。 
+</p><a name="threadspecificdatastructures" ></a><h4 id="线程特定数据结构">线程特定数据结构</h4>
+<p>因此可取的方法是 - 将数据保存在不同线程"拥有"的单独结构中，明确修改者和修改对象。此法同样适用于函数。最佳方法是 - 固定从相同线程或极为复杂的情况中调用每个函数。UE4 的大部分结构皆为如此。例如，<strong>UPrimitiveComponent</strong> 是属于可被渲染、可投射阴影资源的基础游戏线程类，拥有其自身的可视状态等属性。渲染线程无法直接触及 UPrimitiveComponent 的内存，因为游戏线程可能随时写入其构件中。渲染线程自身拥有代表此功能的类 - <strong>FPrimitiveSceneProxy</strong>。游戏线程被创建和注册后，无法触及 FPrimitiveSceneProxy 的内存构件。<strong>UActorComponent::RegisterComponent</strong> 将一个组件添加到场景，并创建一个 FPrimitiveSceneProxy 使其对渲染器可见。组件注册后，如其为可见，将为所需的每次通路调用 <strong>FPrimitiveSceneProxy::DrawDynamicElements</strong>。
+</p><a name="performanceconsiderations" ></a><h4 id="性能注意事项">性能注意事项</h4>
+<p>游戏线程将在每个 <strong>Tick()</strong> 事件的末尾阻塞，直到渲染线程赶上一到两帧的差距。因渲染线程十分滞后，在游戏进程中阻塞游戏线程，等待渲染线程完全赶上的方式完全不可取。在读取或单个物体垃圾回收时进行阻塞也不可取，因为 UE4 支持异步流关卡。诸多操作均有异步机制，防止阻塞。
+</p><a name="inter-threadcommunication" ></a><h2 id="线程间通讯">线程间通讯</h2>
+<a name="asynchronous" ></a><h4 id="异步">异步</h4>
+<p>两个线程间通讯的主要方法是通过 ENQUEUE_UNIQUE_RENDER_COMMAND_XXXPARAMETER 宏进行。此宏使用虚拟的 <strong>执行</strong> 函数（包含输入宏的代码）创建本地类。游戏线程将命令插入渲染命令队列，渲染线程在开始时调用执行函数。
+</p><p>利用 <strong>FRenderCommandFence</strong> 可在游戏线程上方便地追踪渲染线程的进度。游戏线程调用 <strong>FRenderCommandFence::BeginFence</strong> 开始栅栏。然后游戏线程将调用 <strong>FRenderCommandFence::Wait</strong> 进行阻塞，直到渲染线程处理栅栏；或者检查 <strong>GetNumPendingFences</strong>，轮询渲染线程的进程。当 GetNumPendingFences 返回为零时，渲染线程已经处理栅栏。
+</p><a name="blocking" ></a><h4 id="阻塞">阻塞</h4>
+<p><strong>FlushRenderingCommands</strong> 是阻塞游戏线程直到渲染线程赶上的标准方法。这在离线（编辑器）操作中十分有用，通过渲染线程修改使用的内存。
+</p><a name="renderingresources" ></a><h4 id="渲染资源">渲染资源</h4>
+<p><strong>FRenderResource</strong> 提供基础渲染资源接口、以及初始化和释放的挂钩。从 FRenderResource（<strong>FVertexBuffer</strong>、<strong>FIndexBuffer</strong> 等）派生出的资源在用于渲染前需要被初始化、在被删除前需要被释放。<strong>FRenderResource::InitResource</strong> 只能从渲染线程调用，因此游戏线程上可调用一个辅助函数（<strong>BeginInitResource</strong>），使渲染命令入列，以便调用 FRenderResource::InitResource。RHI 函数只能从渲染线程调用（创建设备、视口等除外）。
+</p><a name="uobjectsandgarbagecollection" ></a><h4 id="uobjects与垃圾回收">UObjects 与垃圾回收</h4>
+<p><strong>Garbage Collection</strong>（GC）在游戏线程上发生，并运算 <strong>UObjects</strong>。渲染线程正在处理引用 UObject 的命令时，游戏线程可能将 UObject 删除。因此渲染线程不应该解除 UObject 指示器的引用，除非有机制能确保 UObject 被渲染线程引用时不会被删除。以 UPrimitiveComponent 为例，它使用一个称为 <strong>DetachFence</strong> 的 FRenderCommandFence 防止 GC 在渲染线程处理分离命令前将 UObject 删除。
+</p><a name="gamethreadfrenderresourcehandling" ></a><h4 id="游戏线程frenderresource处理">游戏线程 FRenderResource 处理</h4>
+<p>需要考虑的游戏线程渲染线程交互常见情况有两种：静态资源（只能在加载后或编辑器中进行编辑，与索引缓冲相似）和动态资源（需要将游戏线程模拟的最新结果更新到每帧）。
+</p><a name="staticresources" ></a><h4 id="静态资源">静态资源</h4>
+<p>本节讲述 UE4 中如何处理静态资源交互，以 <strong>USkeletalMesh</strong> 为例。
+</p><ul ><li class="Default"><p>加载后将调用 <strong>USkeletalMesh::PostLoad</strong>，此资源将调用 <strong>InitResources</strong>。与索引缓冲相同，它在自身拥有的任意静态 <strong>FRenderResources</strong> 上调用 <strong>BeginInitResource</strong>。BeginInitResource 使一个渲染命令入列，以便调用 <strong>FRenderResource::InitResource</strong>。从此时起，游戏线程无法修改索引缓冲内存，除非重新拿回所有权。
+</p></li><li class="Default"><p>组件注册，以 USkeletalMesh 索引缓冲开始渲染。
+</p></li><li class="Default"><p>GC 在一些情况下（关卡未加载或不再引用）将停止引用组件并将其分离。注意：此时游戏线程无法删除索引缓冲内存，因为渲染线程可能尚未将分离处理完毕而仍然在使用索引缓冲渲染。
+</p></li><li class="Default"><p>GC 调用 <strong>USkeletalMesh::BeginDestroy</strong>（游戏线程物体使命令入列，释放渲染资源的机会），因此它执行 <strong>BeginReleaseResource(&amp;IndexBuffer)</strong>；游戏线程仍无法删除 <strong>索引缓冲</strong> 的内存，因为渲染线程不一定已完成释放的处理。可阻塞游戏线程，等候渲染线程赶上，但会引发故障并减慢速度，因此我们使用异步机制代替。为追踪渲染线程处理释放命令的进度，我们将开始一个栅栏。
+</p></li><li class="Default"><p>GC 调用 <strong>USkeletalMesh::IsReadyForFinishDestroy</strong>，在此函数返回 <code>true</code> 之前不会销毁 UObject。渲染线程通过栅栏后，函数将只返回 <code>true</code>，意味着可以从游戏线程中安全地删除索引缓冲内存。
+</p></li><li class="Default"><p>GC 最后将调用 <strong>UObject::FinishDestroy</strong>，可在中心位置释放内存。而索引缓冲的内存在 USkeletalMesh 析构函数调用 <strong>FRawStaticIndexBuffer</strong> 析构函数时将被清空。被调用的析构函数将调用持有索引缓冲内存 <strong>TArray</strong> 的析构函数并清空内存。
+</p></li></ul><p>该机制高效（不阻塞线程、在中心位置进行初始化，而不在每帧检查是否需要初始化）而具有决定性，十分实用。
+</p><a name="dynamicresources" ></a><h4 id="动态资源">动态资源</h4>
+<p>动态资源更新的一个最佳范例是游戏线程动画每帧生成的骨骼网格体骨骼变形。目的是：在每个动画更新进渲染线程上（在此可将变形设为着色器常数）的一个阵列后，从游戏线程中获取变形。如在每帧更新索引或顶点缓冲，结果相同。以下是操作顺序：
+</p><ul ><li class="Default"><p><strong>USkinnedMeshComponent::CreateRenderState_Concurrent</strong> 分配 <strong>USkinnedMeshComponent::MeshObject</strong>。从此时起，游戏线程只可写入 <strong>MeshObject</strong> 指示器，但不可写入 <strong>FSkeletalMeshObject</strong> 的内存。
+</p></li><li class="Default"><p><strong>USkinnedMeshComponent::UpdateTransform</strong> 每帧被调用至少一次，更新组件的移动。在 GPU 蒙皮中将调用 <strong>FSkeletalMeshObjectGPUSkin::Update</strong>。现在游戏线程上拥有最新的变形，需要将它们转移到渲染线程中。操作方法：首先在堆（<strong>FDynamicSkelMeshObjectData</strong>）上分配内存，然后将骨骼变形复制进去，再使用 ENQUEUE_UNIQUE_RENDER_COMMAND_TWOPARAMETER 将此拷贝传到渲染线程。渲染线程现在拥有此拷贝，并负责删除。ENQUEUE_UNIQUE_RENDER_COMMAND_TWOPARAMETER 宏包含复制变形到最终目的地的代码，因此变形可被设为着色器常数。如更新顶点位置，这就是锁定和更新顶点缓冲的位置。
+</p></li><li class="Default"><p>在一些情况下，组件会被分离。游戏线程使渲染命令入列，以释放所有动态 FRenderResources，现在可将 MeshObject 指示器设为 NULL；然而实际内存仍被渲染线程引用，无法删除。此时延迟删除机制即可发挥作用。从 <strong>FDeferredCleanupInterface</strong> 派生的类可按对线程无害的异步方式进行删除。FSkeletalMeshObject 应用此接口。游戏线程需要开始 FSkeletalMeshObject 的延迟删除，因此它调用了 <strong>BeginCleanup(MeshObject)</strong>。安全且完成清理后，内存将被逐步删除。
+</p></li></ul><a name="updatingstatevstraversingthesceneforrendering" ></a><h2 id="更新状态vs遍历渲染场景">更新状态 VS 遍历渲染场景</h2>
+<p>在开发一个拥有独特更新和渲染操作的系统时，将两者合并进 <strong>DrawDynamicElements</strong> 看上去很美，而实际上却是不是个好点子。更好的方法是将更新从渲染遍历中独立出来，例如使来自游戏线程 Tick 事件的更新入列。
+</p><p>通过高阶渲染代码调用 DrawDynamicElements，绘制原始组件的元素。高阶代码假定不对 RHI 进行改变，在每帧中可将 DrawDynamicElements 调用任意次（取决于着色通路、画面数量、以及场景中的场景捕捉）。甚至可能调用 DrawDynamicElements，但底层绘制规则会因为多种原因放弃结果（例如：深度通路中提交的半透明 FMeshElement 将被放弃）。如原始组件实际为不可见，遮挡系统可能会/不会实际调用 DrawDynamicElements（取决于其使用的启发法）。这些所有因素均可能和每帧发生一次的状态更新产生冲突。
+</p><p>更好的解决方法是将更新和渲染遍历独立开来。游戏线程 Tick 事件可使渲染命令入列，执行更新操作。渲染命令可基于可见性略过更新。如使用情况允许，可使用原始场景信息的 <strong>LastRenderTime</strong> 执行操作。如更新操作以这样的方式单独入列，任意 RHI 函数皆可使用（包括设置不同的渲染目标）。 
+</p><p>状态缓存（与更新相反）是此规则的例外。状态缓存将渲染遍历的中间结果作为优化保存。它与遍历密切相关，且不改变 RHI 状态，因此它不受上文提到的负面影响（设置正确时机进行缓存即可）。
+</p>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../SiteIndex/index.html?tags=Rendering">Rendering</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/ProgrammingAndScripting/Rendering/ThreadedRendering/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 10:22:42 GMT -->
+</html>

@@ -1,0 +1,751 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/PlayerInput/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:10:41 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var finishButton = finishButtonTemplate;
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/PlayerInput/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>玩家输入和Pawn | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/instructional.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/PlayerInput/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/PlayerInput/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/PlayerInput/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/PlayerInput/" hreflang="ko" />
+
+	<meta name="redirect" content="ProgrammingAndScripting/Tutorials/PlayerInput" />
+<meta name="redirect" content="Programming/Tutorials/PlayerInput" />
+<meta name="intsourcechangelist" content="14470671" />
+<meta name="availability" content="Public" />
+<meta name="title" content="玩家输入和Pawn" />
+<meta name="description" content="对Pawn类进行扩展，以便响应玩家的输入操作。" />
+<meta name="version" content="4.9" />
+<meta name="type" content="quick start" />
+<meta name="skilllevel" content="Beginner" />
+<meta name="crumbs" content="%ROOT%,ProgrammingAndScripting,ProgrammingAndScripting/ProgrammingWithCPP,ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="玩家输入和Pawn" />
+	<meta property="og:description" content="对Pawn类进行扩展，以便响应玩家的输入操作。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">编程和脚本编写</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">编程指南</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">C++ 编程教程</a>
+
+<span class="separator">></span> <span id="page">玩家输入和Pawn</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">玩家输入和Pawn</h1>
+							</div>	
+							<h2 >对Pawn类进行扩展，以便响应玩家的输入操作。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Beginner"><a id="skill_link" href="../../../../SiteIndex/index.html?skills=Beginner">Beginner</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>												<div class="tip" id="notice" style="display:none;">
+欢迎回来！要回到您上次离开的地方吗？
+<div class="button-container">
+<a href="javascript:void();" id="goButton" class="btn btn-lrg btn-default action">前往</a>
+<a href="javascript:void();" id="cancelButton" class="btn btn-lrg btn-default">取消</a>
+</div>
+</div>																																				<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#1-自定义pawn">1 - 自定义Pawn</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#2-配置游戏输入">2 - 配置游戏输入</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#3-编写和绑定游戏操作">3 - 编写和绑定游戏操作</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#最终代码">最终代码</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#4-自行尝试！">4 - 自行尝试！</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>本教程将讲解如何对Pawn类进行扩展，以便响应玩家的输入操作。
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_1_wjn6j1cn_2
+{
+	margin: 0px;
+	width: 75%;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_1_wjn6j1cn_2:after
+{
+	content: "";
+	padding-top: 56.25%;
+	display: block;
+}
+</style> 
+<div id="player_1_wjn6j1cn_2"> 
+	<div id="playerContainer_1_wjn6j1cn_2" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/1_wjn6j1cn/embed.html"></iframe>
+	</div>
+</div>
+<h2 id="1-自定义pawn">1 - 自定义Pawn</h2>
+<p><strong>虚幻引擎4</strong>，建议先阅读<a id="content_link"filter-data="tag_programming tag_c++" href="../../CPPProgrammingQuickStart/index.html" ><span>编程快速入门 tutorial</span></a></p><ol ><li class="Default"><p>首先用初学者内容包新建基础代码项目，并命名为HowTo_PlayerInput。之后向项目添加自定义 <strong>Pawn</strong> 类，并命名为MyPawn。
+</p><p><strong>Actor</strong></p><p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/PlayerInput/AddPawn.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/PlayerInput/AddPawn.jpg">
+		<img class="  lazyload" alt="AddPawn.png" data-src="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/PlayerInput/AddPawn.jpg" />
+</picture>
+</span></a></span>
+</p><p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/PlayerInput/NameYourNewPawn.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/PlayerInput/NameYourNewPawn.jpg">
+		<img class="  lazyload" alt="NameYourNewPawn.png" data-src="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/PlayerInput/NameYourNewPawn.jpg" />
+</picture>
+</span></a></span>
+</p></li><li class="Default"><p>首先对MyPawn进行设置，使其在游戏开始时自动对玩家输入做出响应。该Pawn类提供可在初始化期间设置的变量，该变量可协助处理此操作。在MyPawn.cpp中，将以下代码添加到 <strong>AMyPawn::AMyPawn</strong>：
+</p><pre class="prettyprint"><code>// 将该Pawn设为由最小编号玩家控制
+AutoPossessPlayer = EAutoReceiveInput::Player0;</code></pre></li><li class="Default"><p>然后构建数个基本 <strong>组件</strong>。如要深入了解在代码中添加和管理组件，及遇到的部分常见组件类型的相关信息，请阅读<a id="content_link"filter-data="tag_quickstart tag_programming tag_collision tag_component tag_pawn" href="../Components/index.html" ><span>组件和碰撞 tutorial</span></a>。为了记录创建的组件，应将以下代码添加到MyPawn.h中类定义的底部：
+</p><pre class="prettyprint"><code>UPROPERTY(EditAnywhere)
+USceneComponent&#42; OurVisibleComponent;</code></pre>
+<p><strong>UPROPERTY</strong>，因此其将对 <strong>虚幻引擎</strong></p><p>回到MyPawn.cpp，应将以下代码添加到AMyPawn::AMyPawn：
+</p><pre class="prettyprint"><code>// 创建可附加内容的虚拟根组件。
+RootComponent = CreateDefaultSubobject&lt;USceneComponent&gt;(TEXT("RootComponent"));
+// 创建相机和可见对象
+UCameraComponent&#42; OurCamera = CreateDefaultSubobject&lt;UCameraComponent&gt;(TEXT("OurCamera"));
+OurVisibleComponent = CreateDefaultSubobject&lt;UStaticMeshComponent&gt;(TEXT("OurVisibleComponent"));
+// 将相机和可见对象附加到根组件。偏移并旋转相机。
+OurCamera-&gt;SetupAttachment(RootComponent);
+OurCamera-&gt;SetRelativeLocation(FVector(-250.0f, 0.0f, 250.0f));
+OurCamera-&gt;SetRelativeRotation(FRotator(-45.0f, 0.0f, 0.0f));
+OurVisibleComponent-&gt;SetupAttachment(RootComponent);</code></pre></li><li class="Default"><p>现在已可使用 <strong>Visual Studio</strong> 中的 <strong>构建</strong> 命令或 <strong>虚幻编辑器</strong> 中的 <strong>编译</strong> 按钮保存更改和编译。
+</p></li></ol><hr />
+<p>现在便拥有响应游戏输入的自定义Pawn，需定义此输入的内容。为此，将在 <strong>虚幻编辑器</strong> 中配置项目的 <strong>输入设置</strong>。
+</p><h3 id="阶段代码示例">阶段代码示例</h3>
+<p><strong>MyPawn.h</strong>
+</p><pre class="prettyprint"><code>// Copyright 1998-2018 Epic Games, Inc. All Rights Reserved.
+
+#pragma once
+
+#include "GameFramework/Pawn.h"
+#include "MyPawn.generated.h"
+
+UCLASS()
+class HOWTO&#95;PLAYERINPUT&#95;API AMyPawn : public APawn
+{
+    GENERATED&#95;BODY()
+
+public:
+    // 设置默认值
+    AMyPawn();
+
+protected:
+    // 游戏开始或生成时调用
+    virtual void BeginPlay() override;
+
+public:
+    // 逐帧调用
+    virtual void Tick( float DeltaSeconds ) override;
+
+    // 调用以将功能绑定至输入
+    virtual void SetupPlayerInputComponent(class UInputComponent&#42; InputComponent) override;
+
+    UPROPERTY(EditAnywhere)
+    USceneComponent&#42; OurVisibleComponent;
+};</code></pre>
+<p><strong>MyPawn.cpp</strong>
+</p><pre class="prettyprint"><code>// Copyright 1998-2018 Epic Games, Inc. All Rights Reserved.
+
+#include "HowTo&#95;PlayerInput.h"
+#include "MyPawn.h"
+
+// 设置默认值
+AMyPawn::AMyPawn()
+{
+    // 设置该Pawn以逐帧调用Tick()。如无需要，可关闭此项以提高性能。
+    PrimaryActorTick.bCanEverTick = true;
+
+    // 将该pawn设为由最小编号玩家控制
+    AutoPossessPlayer = EAutoReceiveInput::Player0;
+
+    // 创建可附加内容的虚拟根组件。
+    RootComponent = CreateDefaultSubobject&lt;USceneComponent&gt;(TEXT("RootComponent"));
+    // 创建相机和可见对象
+    UCameraComponent&#42; OurCamera = CreateDefaultSubobject&lt;UCameraComponent&gt;(TEXT("OurCamera"));
+    OurVisibleComponent = CreateDefaultSubobject&lt;UStaticMeshComponent&gt;(TEXT("OurVisibleComponent"));
+    // 将相机和可见对象附加到根组件。偏移并旋转相机。
+    OurCamera-&gt;SetupAttachment(RootComponent);
+    OurCamera-&gt;SetRelativeLocation(FVector(-250.0f, 0.0f, 250.0f));
+    OurCamera-&gt;SetRelativeRotation(FRotator(-45.0f, 0.0f, 0.0f));
+    OurVisibleComponent-&gt;SetupAttachment(RootComponent);
+}
+
+// 游戏开始或生成时调用
+void AMyPawn::BeginPlay()
+{
+    Super::BeginPlay();
+
+}
+
+// 逐帧调用
+void AMyPawn::Tick( float DeltaTime )
+{
+    Super::Tick( DeltaTime );
+
+}
+
+// 调用以将功能绑定至输入
+void AMyPawn::SetupPlayerInputComponent(class UInputComponent&#42; InputComponent)
+{
+    Super::SetupPlayerInputComponent(InputComponent);
+
+}</code></pre>
+<h2 id="2-配置游戏输入">2 - 配置游戏输入</h2>
+<p>共有两种输入映射类型：操作和轴。
+</p><ul ><li class="Default"><p><strong>操作映射</strong> 适用于"是/否"输入，例如鼠标或手柄上的按钮。被按下、松开、双击或短时长按时，其将进行报告。跳跃、射击或与物体互动等离散操作是这类映射的理想对象。
+</p></li><li class="Default"><p><strong>轴映射</strong> 是连续的，可将其视为"程度"输入，例如手柄上的摇杆，或者鼠标光标的位置。其会逐帧报告自身的值，即使未移动也进行报告。通常使用此方法处理如行走、四处查看和操纵车辆等有量级或方向的对象。
+</p></li></ul><p>虽然可直接在代码中定义输入映射，但常用方法是在 <strong>虚幻引擎</strong> 编辑器中定义，本教程也将使用此方法。
+</p><ol ><li class="Default"><p>在 <strong>虚幻引擎</strong> 编辑器中，在 <strong>编辑</strong> 下拉菜单下，点击 <strong>项目设置</strong> 选项。
+</p><p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/PlayerInput/EditProjectSettings.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/PlayerInput/EditProjectSettings.jpg">
+		<img class="  lazyload" alt="EditProjectSettings.png" data-src="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/PlayerInput/EditProjectSettings.jpg" />
+</picture>
+</span></a></span>
+</p></li><li class="Default"><p>在此界面左侧的 <strong>引擎（Engine）</strong> 部分中选择 <strong>输入</strong> 选项。之后，展开右侧显示的 <strong>绑定</strong> 类别，添加 <strong>操作映射（Action Mapping）</strong> 和两个 <strong>轴映射（Axis Mappings）</strong>。
+</p><p><strong>操作映射</strong> 或 <strong>轴映射</strong> 部分标题旁的加号可用于添加新映射。左侧的扩展箭头可用于显示或隐藏映射。
+要向映射添加额外输入，点击该映射旁的加号。以下是所需映射和输入。记录S和A输入的负值。
+</p><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+			</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>操作映射</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>Grow</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>空格</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr></tbody>
+</table><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+			</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>轴映射</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>MoveX</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>W</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>1.0</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>S</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>-1.0</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>MoveY</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>A</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>-1.0</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>D</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>1.0</p>
+			</td>
+	
+</tr></tbody>
+</table><p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/PlayerInput/ConfigureInput.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/PlayerInput/ConfigureInput.jpg">
+		<img class="  lazyload" alt="ConfigureInput.png" data-src="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/PlayerInput/ConfigureInput.jpg" />
+</picture>
+</span></a></span>
+</p></li><li class="Default"><p>输入现已配置完成，接下来在关卡中设置MyPawn。<strong>MyPawn</strong> 类将在 <strong>内容浏览器</strong> 中显示，并可被拖入 <strong>关卡编辑器</strong>。
+</p><p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/PlayerInput/ClassInContentBrowser.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/PlayerInput/ClassInContentBrowser.jpg">
+		<img class="  lazyload" alt="ClassInContentBrowser.png" data-src="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/PlayerInput/ClassInContentBrowser.jpg" />
+</picture>
+</span></a></span>
+</p><p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/PlayerInput/PawnInSceneView.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/PlayerInput/PawnInSceneView.jpg">
+		<img class="  lazyload" alt="PawnInSceneView.png" data-src="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/PlayerInput/PawnInSceneView.jpg" />
+</picture>
+</span></a></span>
+</p></li><li class="Default"><p>设置MyPawn还需一个步骤。需向其指定 <strong>静态网格体</strong>，以便其可在游戏中显示。具体操作：选择刚创建的MyPawn，在 <strong>细节**面板 中选择名为 </strong>OurVisibleComponent (Inherited)<strong> 的组件，并利用 </strong>静态网格体<strong> 类别中的下拉框向其指定资源。在本教程中，</strong>Shape_Cylinder** 为现成资源。
+</p><p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/PlayerInput/StaticMesh.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/PlayerInput/StaticMesh.jpg">
+		<img class="  lazyload" alt="StaticMesh.png" data-src="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/PlayerInput/StaticMesh.jpg" />
+</picture>
+</span></a></span>
+</p></li><li class="Default"><p>现在保存关卡，返回 <strong>Visual Studio</strong> 编写代码，使刚刚放置的MyPawn对定义的输入做出反应。
+</p></li></ol><hr />
+<p>现在准备在 <strong>Visual Studio</strong> 中完成MyPawn类的编码。
+</p><h2 id="3-编写和绑定游戏操作">3 - 编写和绑定游戏操作</h2>
+<pre class="prettyprint"><code>    1.在 &#42;&#42;Visual Studio&#42;&#42; 中，打开MyPawn.h并将以下代码添加到MyPawn类定义的底部：
+
+    //输入函数
+    void Move&#95;XAxis(float AxisValue);
+    void Move&#95;YAxis(float AxisValue);
+    void StartGrowing();
+    void StopGrowing();
+
+    //输入变量
+    FVector CurrentVelocity;
+    bool bGrowing;
+
+&#91;REGION:note&#93;四个输入函数将被绑定到输入事件。其运行时，将对新输入变量中存储的值进行更新，MyPawn将使用此类值决定游戏期间应执行的操作。&#91;/REGION&#93;</code></pre>
+<ol ><li class="Default"><p>将切换为MyPawn.cpp，并对刚才声明的四个函数编码。添加以下代码：
+</p><pre class="prettyprint"><code>void AMyPawn::Move&#95;XAxis(float AxisValue)
+{
+    // 以100单位/秒的速度向前或向后移动
+    CurrentVelocity.X = FMath::Clamp(AxisValue, -1.0f, 1.0f) &#42; 100.0f;
+}
+
+void AMyPawn::Move&#95;YAxis(float AxisValue)
+{
+    // 以100单位/秒的速度向右或向左移动
+    CurrentVelocity.Y = FMath::Clamp(AxisValue, -1.0f, 1.0f) &#42; 100.0f;
+}
+
+void AMyPawn::StartGrowing()
+{
+    bGrowing = true;
+}
+
+void AMyPawn::StopGrowing()
+{
+    bGrowing = false;
+}</code></pre>
+<p>使用 <strong>FMath::Clamp</strong> 约束输入中得到的值，将其约束在-1到+1的范围内。虽然本例中不存在此问题，但若有会对轴产生相同影响的多个键，则玩家同时按下此类输入时会将累加这些值。例如，如W键和向上方向键均映射到MoveX，且缩放均为1.0，同时按下这两个键会得到2.0的AxisValue。如不进行限制，玩家将以两倍速度移动。
+<div class="note">
+	<p>可以看到，两个"Move"函数将轴值视作浮点，而"Grow"则不同。这是因为其映射到MoveX和MoveY，均为轴映射，因此拥有浮点参数。操作映射无此参数。</p>
+</div>
+</p></li><li class="Default"><p>现在已定义输入函数，接下来需进行绑定，以便对相应输入做出反应。将以下代码添加到 <strong>AMyPawn::SetupPlayerInputComponent</strong> 中：
+</p><pre class="prettyprint"><code>// 在按下或松开"Grow"键时做出响应。
+InputComponent-&gt;BindAction("Grow", IE&#95;Pressed, this, &amp;AMyPawn::StartGrowing);
+InputComponent-&gt;BindAction("Grow", IE&#95;Released, this, &amp;AMyPawn::StopGrowing);
+
+// 对两个移动轴"MoveX"和"MoveY"的值逐帧反应。
+InputComponent-&gt;BindAxis("MoveX", this, &amp;AMyPawn::Move&#95;XAxis);
+InputComponent-&gt;BindAxis("MoveY", this, &amp;AMyPawn::Move&#95;YAxis);</code></pre></li><li class="Default"><p>变量现在将根据配置的输入进行更新。接下来只需编写代码使其完成部分操作。将以下代码添加到 <strong>AMyPawn::Tick</strong>：
+</p><pre class="prettyprint"><code>// 根据"Grow"操作处理增长和缩减
+{
+    float CurrentScale = OurVisibleComponent-&gt;GetComponentScale().X;
+    if (bGrowing)
+    {
+        // 一秒内增长到两倍大小
+        CurrentScale += DeltaTime;
+    }
+    else
+    {
+        // 以增长速度缩减一半
+        CurrentScale -= (DeltaTime &#42; 0.5f);
+    }
+    // 确保不会降至初始大小以下，或者增至两倍大小以上。
+    CurrentScale = FMath::Clamp(CurrentScale, 1.0f, 2.0f);
+    OurVisibleComponent-&gt;SetWorldScale3D(FVector(CurrentScale));
+}
+
+// 根据"MoveX"和"MoveY"轴处理移动
+{
+    if (!CurrentVelocity.IsZero())
+    {
+        FVector NewLocation = GetActorLocation() + (CurrentVelocity &#42; DeltaTime);
+        SetActorLocation(NewLocation);
+    }
+}</code></pre></li><li class="Default"><p>编译代码后，可返回 <strong>虚幻编辑器</strong> 并按 <strong>运行</strong>。应可使用WASD键控制 <strong>Pawn</strong>，同时可通过长按 <strong>空格</strong> 键来使其增长，松开空格键时看到缩小。
+</p></li></ol><p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/PlayerInput/PlayingGame1.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/PlayerInput/PlayingGame1.jpg">
+		<img class="  lazyload" alt="PlayingGame1.png" data-src="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/PlayerInput/PlayingGame1.jpg" />
+</picture>
+</span></a></span>
+<span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/PlayerInput/PlayingGame2.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/PlayerInput/PlayingGame2.jpg">
+		<img class="  lazyload" alt="PlayingGame2.png" data-src="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/PlayerInput/PlayingGame2.jpg" />
+</picture>
+</span></a></span>
+</p><h2 id="最终代码">最终代码</h2>
+<p><strong>MyPawn.h</strong>
+</p><pre class="prettyprint"><code>// Copyright 1998-2018 Epic Games, Inc. All Rights Reserved.
+
+#pragma once
+
+#include "GameFramework/Pawn.h"
+#include "MyPawn.generated.h"
+
+UCLASS()
+class HOWTO&#95;PLAYERINPUT&#95;API AMyPawn : public APawn
+{
+    GENERATED&#95;BODY()
+
+public:
+    // 设置默认值
+    AMyPawn();
+
+protected:
+    // 游戏开始或生成时调用
+    virtual void BeginPlay() override;
+
+public:
+    // 逐帧调用
+    virtual void Tick(float DeltaSeconds) override;
+
+    // 调用以将功能绑定至输入
+    virtual void SetupPlayerInputComponent(class UInputComponent&#42; InputComponent) override;
+
+    UPROPERTY(EditAnywhere)
+    USceneComponent&#42; OurVisibleComponent;
+
+    //输入函数
+    void Move&#95;XAxis(float AxisValue);
+    void Move&#95;YAxis(float AxisValue);
+    void StartGrowing();
+    void StopGrowing();
+
+    //输入变量
+    FVector CurrentVelocity;
+    bool bGrowing;
+};</code></pre>
+<p><strong>MyPawn.cpp</strong>
+</p><pre class="prettyprint"><code>// Copyright 1998-2018 Epic Games, Inc. All Rights Reserved.
+
+#include "HowTo&#95;PlayerInput.h"
+#include "MyPawn.h"
+
+// 设置默认值
+AMyPawn::AMyPawn()
+{
+    // 设置该Pawn以逐帧调用Tick()。如无需要，可关闭此项以提高性能。
+    PrimaryActorTick.bCanEverTick = true;
+
+    // 将该pawn设为由最小编号玩家控制
+    AutoPossessPlayer = EAutoReceiveInput::Player0;
+
+    // 创建可附加内容的虚拟根组件。
+    RootComponent = CreateDefaultSubobject&lt;USceneComponent&gt;(TEXT("RootComponent"));
+    // 创建相机和可见对象
+    UCameraComponent&#42; OurCamera = CreateDefaultSubobject&lt;UCameraComponent&gt;(TEXT("OurCamera"));
+    OurVisibleComponent = CreateDefaultSubobject&lt;UStaticMeshComponent&gt;(TEXT("OurVisibleComponent"));
+    // 将相机和可见对象附加到根组件。偏移并旋转相机。
+    OurCamera-&gt;SetupAttachment(RootComponent);
+    OurCamera-&gt;SetRelativeLocation(FVector(-250.0f, 0.0f, 250.0f));
+    OurCamera-&gt;SetRelativeRotation(FRotator(-45.0f, 0.0f, 0.0f));
+    OurVisibleComponent-&gt;SetupAttachment(RootComponent);
+}
+
+// 游戏开始或生成时调用
+void AMyPawn::BeginPlay()
+{
+    Super::BeginPlay();
+
+}
+
+// 逐帧调用
+void AMyPawn::Tick(float DeltaTime)
+{
+    Super::Tick(DeltaTime);
+
+    // 根据"Grow"操作处理增长和缩减
+    {
+        float CurrentScale = OurVisibleComponent-&gt;GetComponentScale().X;
+        if (bGrowing)
+        {
+            // 一秒内增长到两倍大小
+            CurrentScale += DeltaTime;
+        }
+        else
+        {
+            // 以增长速度缩减一半
+            CurrentScale -= (DeltaTime &#42; 0.5f);
+        }
+        // 确保不会降至初始大小以下，或者增至两倍大小以上。
+        CurrentScale = FMath::Clamp(CurrentScale, 1.0f, 2.0f);
+        OurVisibleComponent-&gt;SetWorldScale3D(FVector(CurrentScale));
+    }
+
+    // 根据"MoveX"和"MoveY"轴处理移动
+    {
+        if (!CurrentVelocity.IsZero())
+        {
+            FVector NewLocation = GetActorLocation() + (CurrentVelocity &#42; DeltaTime);
+            SetActorLocation(NewLocation);
+        }
+    }
+}
+
+// 调用以将功能绑定至输入
+void AMyPawn::SetupPlayerInputComponent(class UInputComponent&#42; InputComponent)
+{
+    Super::SetupPlayerInputComponent(InputComponent);
+
+    // 在按下或松开"Grow"键时做出响应。
+    InputComponent-&gt;BindAction("Grow", IE&#95;Pressed, this, &amp;AMyPawn::StartGrowing);
+    InputComponent-&gt;BindAction("Grow", IE&#95;Released, this, &amp;AMyPawn::StopGrowing);
+
+    // 对两个移动轴"MoveX"和"MoveY"的值逐帧反应。
+    InputComponent-&gt;BindAxis("MoveX", this, &amp;AMyPawn::Move&#95;XAxis);
+    InputComponent-&gt;BindAxis("MoveY", this, &amp;AMyPawn::Move&#95;YAxis);
+}
+
+void AMyPawn::Move&#95;XAxis(float AxisValue)
+{
+    // 以100单位/秒的速度向前或向后移动
+    CurrentVelocity.X = FMath::Clamp(AxisValue, -1.0f, 1.0f) &#42; 100.0f;
+}
+
+void AMyPawn::Move&#95;YAxis(float AxisValue)
+{
+    // 以100单位/秒的速度向右或向左移动
+    CurrentVelocity.Y = FMath::Clamp(AxisValue, -1.0f, 1.0f) &#42; 100.0f;
+}
+
+void AMyPawn::StartGrowing()
+{
+    bGrowing = true;
+}
+
+void AMyPawn::StopGrowing()
+{
+    bGrowing = false;
+}</code></pre>
+<h2 id="4-自行尝试！">4 - 自行尝试！</h2>
+<p>利用所学内容，尝试以下操作：
+</p><ul ><li class="Default"><p>实现定向控制，长按一段时间后其可增加速度。
+</p></li><li class="Default"><p>创建特殊输入序列，用户开始按 <strong>轴映射</strong> 后立即按 <strong>操作映射</strong> 时，此序列会即刻将对象扩展到完整缩放。
+</p></li></ul><p>关于本教程中涵盖的细节：
+</p><ul ><li class="Default"><p>欲了解 <strong>输入</strong> 的更多相关信息，请阅读<a id="content_link"filter-data="tag_input" href="../../../../InteractiveExperiences/Input/index.html" ><span>输入</span></a>页面。
+</p></li><li class="Default"><p>欲学习更多教程，参见<a id="content_link" href="../index.html" ><span>C++ 编程教程</span></a>页面。
+</p></li></ul>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/PlayerInput/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:10:48 GMT -->
+</html>

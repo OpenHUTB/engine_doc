@@ -1,0 +1,824 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:01:28 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/Sprite_Hero.png";
+				var finishButton = finishButtonTemplate;
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>在Niagara中创建Sprite粒子效果 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+		    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+		    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Niagara/HowTo/SpriteEffect" />
+<meta name="intsourcechangelist" content="15716074" />
+<meta name="availability" content="Public" />
+<meta name="title" content="在Niagara中创建Sprite粒子效果" />
+<meta name="description" content="此文档将介绍使用Niagara创建Sprite粒子效果的方法。" />
+<meta name="type" content="how-to" />
+<meta name="version" content="4.26" />
+<meta name="parent" content="RenderingAndGraphics/Niagara/HowTo" />
+<meta name="order" content="2" />
+<meta name="skilllevel" content="Beginner" />
+<meta name="keywords" content="Niagara" />
+<meta name="keywords" content="Vfx" />
+<meta name="keywords" content="Effects" />
+<meta name="keywords" content="Visual Effects" />
+<meta name="keywords" content="Particle Effects" />
+<meta name="prereq" content="RenderingAndGraphics/Niagara/HowTo/EnableNiagara" />
+<meta name="hero-image" content="Sprite_Hero.png" />
+<meta name="topic-image" content="Sprite_Topic.png" />
+<meta name="crumbs" content="%ROOT%,RenderingAndGraphics,RenderingAndGraphics/Niagara,RenderingAndGraphics/Niagara/HowTo" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="在Niagara中创建Sprite粒子效果" />
+	<meta property="og:description" content="此文档将介绍使用Niagara创建Sprite粒子效果的方法。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">设计视觉、渲染和图形效果</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">Niagara视觉效果</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">Niagara - 使用指南</a>
+
+<span class="separator">></span> <span id="page">在Niagara中创建Sprite粒子效果</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  background">
+						<div class="imgContainer"><img src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/Sprite_Hero.png" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">在Niagara中创建Sprite粒子效果</h1>
+							</div>	
+							<h2 >此文档将介绍使用Niagara创建Sprite粒子效果的方法。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Beginner"><a id="skill_link" href="../../../../SiteIndex/index.html?skills=Beginner">Beginner</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																																										<div class="prereq">
+    <div class="normaltitle">
+        前置主题
+    </div>
+    <p style="margin-bottom:8px;">
+        为了理解并使用本文中的内容，请确保您已掌握以下主题：
+    </p>
+    <ul style="margin-bottom:0.5em;">
+                <li>
+            <p>
+                <a href="../EnableNiagara/index.html" title="描述如何启动Niagara。">启用Niagara插件</a>
+            </p>
+        </li>
+            </ul>
+</div>
+																		<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#项目设置">项目设置</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#创建系统和发射器">创建系统和发射器</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#更改渲染器设置">更改渲染器设置</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#编辑发射器更新组设置">编辑发射器更新组设置</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#粒子生成组设置">粒子生成组设置</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#粒子更新组设置">粒子更新组设置</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#最终结果">最终结果</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>常用视觉效果(VFX)技术是将纹理和材质渲染至面向2D摄像机的平面，这些平面称为 <em>sprite</em>。在以下教程中，你将设置Niagara发射器来处理sprite。当你将包含Niagara发射器的Niagara系统置于关卡中时，你会在该关卡中看到显示的效果。
+</p><div class="note">
+	<p><strong>操作前提：</strong>
+</p><p>本教程将用到 <strong>M_smoke_subUV</strong> 材质，该材质可在 <strong>初学者内容包（Starter Content）</strong> 中找到。如果你尚未添加此材质，请确保将该材质或初学者内容包添加到你的项目中。</p>
+</div><h2 id="项目设置">项目设置</h2>
+<ol ><li class="Default"><p>首先，在内容浏览器中新建文件夹，以便保存效果资产。确保你处于根目录中（内容目录），然后在 <strong>内容浏览器（Content Browser）</strong> 中右键单击，并选择 <strong>新建文件夹（New Folder）</strong>。给文件夹命名，比如 <strong>SpriteEffect</strong>。 
+</p><div class="note">
+	<p>若要在项目中创建多个Niagara效果，你可能需要创建名为NiagaraFX（或类似名称）的文件夹，然后为sprite效果创建子文件夹。</p>
+</div></li><li class="Default"><p>你需要创建或找到在发射器中用于sprite的材质，然后才能创建此效果。就本例而言，你将使用初学者内容包中的材质。虽然无需定位此材质或移动此材质至任何位置便可将其拉入，但某些情况下可能需要创建此材质的副本，并将其放到效果文件夹或之前创建的单独材质文件夹中。为此，请按照以下步骤操作：
+</p><ol ><li class="Default"><p>在内容浏览器的搜索栏中键入 <code>m&#95;smoke</code>。你应当会在搜索结果中看到 <strong>M_smoke_subuv</strong> 材质。
+</p></li><li class="Default"><p>若要将其副本放到另一文件夹中，只需单击该材质并将其拖到目标文件夹，然后在弹出菜单中选择 <strong>移动至此处（Move Here）</strong> 或 <strong>复制到此处（Copy Here）</strong>。<strong>移动（Moving）</strong> 它会删除其之前位置中的原始材质，并将其移动至新位置。<strong>复制（Copying）</strong> 它会在新位置创建副本，同时将原始材质保留在其原始始位置。
+</p></li><li class="Default"><p>如果你想要为sprite创建自己的材质，请参见<a id="content_link"filter-data="tag_materials" href="../../../Materials/IntroductionToMaterials/index.html" ><span>材质简介</span></a>页面，以及文档中 <strong>材质（Materials）</strong> 部分的其他页面。
+</p></li></ol></li></ol><h2 id="创建系统和发射器">创建系统和发射器</h2>
+<p>与在Cascade中不同，Niagara发射器和系统是独立的。当前推荐工作流将从现有发射器或发射器模板创建系统。
+</p><ol ><li class="Default"><p>首先，在内容浏览器中点击右键以创建 <strong>Niagara系统（Niagara System）</strong>，然后从显示菜单中选择 <strong>FX > Niagara系统（FX > Niagara System）</strong>。将显示Niagara系统（Niagara System）向导。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/CreateNiagaraSystem.png" title="Create System"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/CreateNiagaraSystem.jpg">
+		<img class="  lazyload" alt="Create System" title="Create System" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/CreateNiagaraSystem.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>选择 <strong>从所选发射器新建系统（New system from selected emitters）</strong>。然后单击 <strong>下一步（Next）</strong>。<br /></p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/CreateSystem_SystemWizard.png" title="New System From Selected"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/CreateSystem_SystemWizard.jpg">
+		<img class="  lazyload" alt="New System From Selected" title="New System From Selected" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/CreateSystem_SystemWizard.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>在 <strong>模板（Template）</strong> 下选择 <strong>简单Sprite迸发（Simple Sprite Burst）</strong>。单击 <strong>加号图标（Plus icon）</strong>（<strong>+</strong>），以将发射器添加到要添加到系统的发射器列表中。然后单击 <strong>完成（Finish）</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/CreateSystem_AddEmitterAndFinish.png" title="Add Sprite Burst Template Emitter"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/CreateSystem_AddEmitterAndFinish.jpg">
+		<img class="  lazyload" alt="Add Sprite Burst Emitter" title="Add Sprite Burst Template Emitter" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/CreateSystem_AddEmitterAndFinish.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>将新系统命名为 <strong>SmokeSystem</strong>。双击以在Niagara编辑器中将其打开。
+</p><p> <picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/CreateSystem_NameSystem.jpg">
+		<img class="  lazyload" alt="Name System" title="Name System" width="100" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/CreateSystem_NameSystem.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>新系统中发射器实例的默认名称为 <strong>SimpleSpriteBurst</strong>。但你可以对其重命名。在系统概览中单击发射器实例名称，该字段将转变为可编辑状态。将发射器命名为 <strong>FX_Smoke</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/CreateSystem_RenameEmitter.png" title="Rename Emitter"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/CreateSystem_RenameEmitter.jpg">
+		<img class="  lazyload" alt="Rename Emitter" title="Rename Emitter" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/CreateSystem_RenameEmitter.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li></ol><h2 id="更改渲染器设置">更改渲染器设置</h2>
+<ol ><li class="Default"><p>由于发射器模块组出现在堆栈中，因此你将在本指南中浏览它们。但是，当你在渲染器中设置材质之前，预览或关卡中将不会显示任何内容。因此，首先在 <strong>系统概览（System Overview）</strong> 中选择 <strong>Sprite渲染器（Sprite Renderer）</strong>，以在 <strong>选择（Selection）</strong> 面板中将其打开。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/SystemOverview_OpenRenderGroup.png" title="Open Renderer"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/SystemOverview_OpenRenderGroup.jpg">
+		<img class="  lazyload" alt="Open Renderer" title="Open Renderer" width="700" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/SystemOverview_OpenRenderGroup.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>你可以在此处选择用于效果的材质。由于该材质是SubUV材质，因此你需要向渲染器告知图像网格中的图像数量。将下列属性设为以下值。<br /></p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/ChangeRender_RenderSettings.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/ChangeRender_RenderSettings.jpg">
+		<img class="  lazyload" alt="Change Renderer Settings" width="500" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/ChangeRender_RenderSettings.jpg" />
+</picture>
+</span></a></span> </p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p><strong>属性名称</strong> </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p><strong>值</strong> </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>材质（Material）</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>M_smoke_subUV</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>子图像大小（Sub Image Size）</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>X: 8.0, Y: 8.0</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>启用子UV混合（Sub UV Blending Enabled）</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>已勾选</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div></li><li class="Default"><p>将 <strong>SmokeSystem</strong> 拖到关卡中。
+</p><div class="note">
+	<p>制作粒子效果时，最好将系统拖到关卡中。这样便可查看每一项更改并在上下文中进行编辑。你对系统所做的任何更改都将自动传播到关卡中的系统实例。</p>
+</div></li></ol><h2 id="编辑发射器更新组设置">编辑发射器更新组设置</h2>
+<p>首先，你将在发射器更新组中编辑模块。这些是将应用于发射器并更新每一帧的行为。
+</p><ol ><li class="Default"><p>在 <strong>系统概览（System Overview）</strong> 中，单击 <strong>发射器更新（Emitter Update）</strong> 组，以便在 <strong>选择（Selection）</strong> 面板中将其打开。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/SystemOverview_OpenEmitterUpdate.png" title="Open Particle Spawn"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/SystemOverview_OpenEmitterUpdate.jpg">
+		<img class="  lazyload" alt="Open Particle Spawn" title="Open Particle Spawn" width="700" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/SystemOverview_OpenEmitterUpdate.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>你需要创建持续的烟柱，而非一阵烟雾。单击 <strong>垃圾桶（Trashcan）</strong> 图标以删除 <strong>生成即时迸发（Spawn Burst Instantaneous）</strong> 模块。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/RemoveSpawnBurstInstant.png" title="Remove Sprite Burst Instantaneous Module"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/RemoveSpawnBurstInstant.jpg">
+		<img class="  lazyload" alt="Remove Sprite Burst Instantaneous Module" title="Remove Sprite Burst Instantaneous Module" width="500" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/RemoveSpawnBurstInstant.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>单击 <strong>加号（Plus）</strong> 图标(<strong>+</strong>)并选择 <strong>生成 > 生成速率（Spawning > Spawn Rate）</strong>，以将 <strong>生成速率（Spawn Rate）</strong> 模块添加到 <strong>发射器更新（Emitter Update）</strong> 组。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/EmitterUpdate_AddSpawnRate.png" title="Add Spawn Rate Module"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/EmitterUpdate_AddSpawnRate.jpg">
+		<img class="  lazyload" alt="添加生成速率" title="Add Spawn Rate Module" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/EmitterUpdate_AddSpawnRate.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>在生成速率模块中，将生成速率设置为 <strong>50</strong>。这将使我们得到一个由烟雾生成的相当大的蓬松形状。对效果而言，这是一个良好的开端。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/EmitterUpdate_SpawnRate.png" title="Set Spawn Rate"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/EmitterUpdate_SpawnRate.jpg">
+		<img class="  lazyload" alt="设置生成速率" title="Set Spawn Rate" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/EmitterUpdate_SpawnRate.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>现在，当你构建效果时，你需要将模拟设置为以无限循环方式运行。这使你有更多时间来评估设置如何影响效果。在 <strong>发射器状态（Emitter State）</strong> 模块中，单击 <strong>生命周期模式（Life Cycle Mode）</strong> 的下拉菜单，并选择 <strong>自身（Self）</strong>。然后，单击 <strong>循环行为（Loop Behavior）</strong> 的下拉菜单，并选择 <strong>无限（Infinite）</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/EmitterUpdate_EmitterState.png" title="Emitter State Settings"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/EmitterUpdate_EmitterState.jpg">
+		<img class="  lazyload" alt="Emitter State Settings" title="Emitter State Settings" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/EmitterUpdate_EmitterState.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li></ol><h2 id="粒子生成组设置">粒子生成组设置</h2>
+<p>下一步，你将编辑 <strong>粒子生成（Particle Spawn）</strong> 组中的模块。这些是粒子首次生成时将应用于粒子的行为。
+</p><ol ><li class="Default"><p>在 <strong>系统概览（System Overview）</strong> 中，单击 <strong>粒子生成（Particle Spawn）</strong> 组，以便在 <strong>选择（Selection）</strong> 面板中将其打开。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/SystemOverview_OpenParticleSpawn.png" title="Open Particle Spawn"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/SystemOverview_OpenParticleSpawn.jpg">
+		<img class="  lazyload" alt="Open Particle Spawn" title="Open Particle Spawn" width="700" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/SystemOverview_OpenParticleSpawn.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>展开 <strong>初始化粒子（Initialize Particle）</strong> 模块。此模块将多个相关参数采集到一个模块中，从而最大程度地减少堆栈中的混乱。在 <strong>点属性（Point Attributes）</strong> 下，找到 <strong>生命周期（Lifetime）</strong> 参数。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/InitParticleLifetime1.png" title="Locate Lifetime Parameter"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/InitParticleLifetime1.jpg">
+		<img class="  lazyload" alt="Locate Lifetime Parameter" title="Locate Lifetime Parameter" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/InitParticleLifetime1.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p><strong>生命周期（Lifetime）</strong> 参数确定了粒子在消失之前将显示多久。你需要使生命周期（Lifetime）参数中具备些许随机性，以更好地模拟真实烟雾。单击 <strong>生命周期（Lifetime）</strong> 旁的下拉箭头，并选择 <strong>动态输入 > 随机范围浮点（Dynamic Inputs > Random Ranged Float）</strong>。此操作将添加最小值和最大值字段。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/ParticleSpawn_LifetimeUniformRangedFloat.png" title="Add Uniform Ranged Float"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/ParticleSpawn_LifetimeUniformRangedFloat.jpg">
+		<img class="  lazyload" alt="Add Uniform Ranged Float" title="Add Uniform Ranged Float" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/ParticleSpawn_LifetimeUniformRangedFloat.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>将生命周期 <strong>最小值（Minimum）</strong> 和 <strong>最大值（Maximum）</strong> 设置为以下值。<br /></p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/ParticleSpawn_InitPart-Lifetime.png" title="Set Lifetime Minimum and Maximum"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/ParticleSpawn_InitPart-Lifetime.jpg">
+		<img class="  lazyload" alt="Set Lifetime Minimum and Maximum" title="Set Lifetime Minimum and Maximum" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/ParticleSpawn_InitPart-Lifetime.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p><strong>属性名称</strong> </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p><strong>值</strong> </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>最小值（Minimum）</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>2.0</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>最大值（Maximum）</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>3.0</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div></li><li class="Default"><p>现在，你将调整sprite粒子大小，以继续制作更逼真的烟雾效果。由于原始粒子束相当小，因此你现在需要增大其尺寸。此外，你还需要使其尺寸具备些许随机性，这样sprite粒子便会重叠，并产生更加一致的烟雾效果。   在 <strong>Sprite属性（Sprite Attributes）</strong> 下，找到 <strong>Sprite大小（Sprite Size）</strong> 参数，并确保启用它。单击 <strong>Sprite大小（Sprite Size）</strong> 旁的下拉箭头，并选择 <strong>动态输入 > 来自浮点的矢量2D（Dynamic Inputs > Vector 2D From Float）</strong>。这会将Sprite大小 <strong>X</strong> 和 <strong>Y</strong> 字段替换为单个 <strong>值（Value）</strong> 字段。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/ParticleSpawn_SpriteSizeVector2DFromFloat.png" title="Add Vector 2D From Float"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/ParticleSpawn_SpriteSizeVector2DFromFloat.jpg">
+		<img class="  lazyload" alt="Add Vector 2D From Float" title="Add Vector 2D From Float" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/ParticleSpawn_SpriteSizeVector2DFromFloat.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>下一步，你需要添加另一个动态输入以添加随机性。单击 <strong>值（Value）</strong> 旁的下拉箭头，并在搜索栏中键入 <strong>统一（uniform）</strong>。选择 <strong>随机范围浮点（Random Ranged Float）</strong>。此操作将把 <strong>最小值（Minimum）</strong> 和 <strong>最大值（Maximum）</strong> 字段添加到该值。设置各个值，如下所示。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/ParticleSpawn_SpriteSizeUniformRangedFloat.png" title="Add Uniform Ranged Float"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/ParticleSpawn_SpriteSizeUniformRangedFloat.jpg">
+		<img class="  lazyload" alt="Add Uniform Ranged Float" title="Add Uniform Ranged Float" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/ParticleSpawn_SpriteSizeUniformRangedFloat.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>设置Sprite大小的 <strong>最小值（Minimum）</strong> 和 <strong>最大值（Maximum）</strong>，如下所示。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/ParticleSpawn_InitPart-SpriteSize.png" title="Set Sprite Size Minimum and Maximum"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/ParticleSpawn_InitPart-SpriteSize.jpg">
+		<img class="  lazyload" alt="Set Sprite Size Minimum and Maximum" title="Set Sprite Size Minimum and Maximum" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/ParticleSpawn_InitPart-SpriteSize.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>属性名称 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>值 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>最小值（Minimum）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>75.0</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>最大值（Maximum）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>200.0</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div></li><li class="Default"><p>于是，你现在已拥有一团更大的烟雾。效果也越来越逼真了。现在，你需要添加一些旋转，使粒子形状产生更多变化。此外，你还需要向旋转添加随机性，以增加变化。将 <strong>Sprite旋转模式（Sprite Rotation Mode）</strong> 旁的下拉菜单设置成 <strong>Direct Normalized Angle (0-1)</strong>。下一步，单击 <strong>Sprite旋转角度（Sprite Rotation Angle）</strong> 旁的向下箭头，并选择 <strong>动态输入 > 将角度规范化为角度（Dynamic Inputs > Normalized Angle to Degrees）</strong>。此操作将添加 <strong>规范化角度（Normalized Angle）</strong> 字段。这意味着以度数为单位的旋转角度将转换为0与1之间的小数。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/ParticleSpawn_SpriteRotationNormalizedAngle.png" title="Add Sprite Rotation Normalized Angle to Degrees"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/ParticleSpawn_SpriteRotationNormalizedAngle.jpg">
+		<img class="  lazyload" alt="Add Sprite Rotation Normalized Angle to Degrees" title="Add Sprite Rotation Normalized Angle to Degrees" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/ParticleSpawn_SpriteRotationNormalizedAngle.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>现在，单击 <strong>规范化角度（Normalized Angle）</strong> 旁的下拉箭头，并选择 <strong>动态输入>随机范围浮点（Dynamic Inputs>Random Ranged Float）</strong>。此操作将把 <strong>最小值（Minimum）</strong> 和 <strong>最大值（Maximum）</strong> 字段添加到规范化角度。设置各个值，如下所示。当粒子生成时，它们会旋转随机旋转一定的度数。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/ParticleSpawn_SpriteRotationUniformRangedFloat.png" title="Add Uniform Ranged Float to Normalized Angle"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/ParticleSpawn_SpriteRotationUniformRangedFloat.jpg">
+		<img class="  lazyload" alt="Add Uniform Ranged Float to Normalized Angle" title="Add Uniform Ranged Float to Normalized Angle" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/ParticleSpawn_SpriteRotationUniformRangedFloat.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>设置最小值和最大值，如下所示。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/ParticleSpawn_InitPart-SpriteRotation.png" title="Set Sprite Rotation Minimum and Maximum"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/ParticleSpawn_InitPart-SpriteRotation.jpg">
+		<img class="  lazyload" alt="Set Sprite Rotation Minimum and Maximum" title="Set Sprite Rotation Minimum and Maximum" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/ParticleSpawn_InitPart-SpriteRotation.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>属性名称 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>值 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>最小值（Minimum）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>1.0</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>最大值（Maximum）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>2.0</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div></li><li class="Default"><p>于是，你现在已拥有一团相当大的烟雾，但它只是在原地旋转。你希望烟雾粒子在其生成时就开始移动。因此，你需要添加一些初始速度。单击 <strong>加号（Plus sign）</strong> (<strong>+</strong>)图标并选择 <strong>速度 > 添加速度（Velocity > Add Velocity）</strong>，以将 <strong>添加速度（Add Velocity）</strong> 模块添加到粒子生成组。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/ParticleSpawn_AddVelocity.png" title="Add the Add Velocity Module"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/ParticleSpawn_AddVelocity.jpg">
+		<img class="  lazyload" alt="Add the Add Velocity Module" title="Add the Add Velocity Module" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/ParticleSpawn_AddVelocity.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>单击 <strong>速度（Velocity）</strong> 旁的下拉箭头，并选择 <strong>动态输入 > 随机范围浮点（Dynamic Inputs > Random Ranged Vector）</strong>。此操作将把 <strong>最小值（Minimum）</strong> 和 <strong>最大值（Maximum）</strong> 字段添加到速度。需要再次指出的是，些许随机性可增强效果的多样性和自然性。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/ParticleSpawn_VelocityUniformRangedVector.png" title="Add Uniform Ranged Vector to Velocity"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/ParticleSpawn_VelocityUniformRangedVector.jpg">
+		<img class="  lazyload" alt="Add Uniform Ranged Vector to Velocity" title="Add Uniform Ranged Vector to Velocity" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/ParticleSpawn_VelocityUniformRangedVector.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>设置速度 <strong>最小值（Minimum）</strong> 和 <strong>最大值（Maximum）</strong>，如下所示。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/ParticleSpawn_SetVelocityMinMax.png" title="Set Velocity Minimum and Maximum"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/ParticleSpawn_SetVelocityMinMax.jpg">
+		<img class="  lazyload" alt="Set Velocity Minimum and Maximum" title="Set Velocity Minimum and Maximum" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/ParticleSpawn_SetVelocityMinMax.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p><strong>属性名称</strong> </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p><strong>值</strong> </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>最小值（Minimum）</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>X: 0, Y: 0, Z: 50</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>最大值（Maximum）</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>X: 1, Y: 1, Z: 200</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div></li><li class="Default"><p>球体位置控制sprite生成所在位置的形状和原点。通过添加 <strong>球体位置（Sphere Location）</strong> 模块，你可以使sprite以球体形状生成，并可以设置半径以决定大小。单击 <strong>加号（Plus sign）</strong> (<strong>+</strong>)图标并选择 <strong>位置 > 球体位置（Location > Sphere Location）</strong>，以将 <strong>球体位置（Sphere Location）</strong> 模块添加到粒子生成部分。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/ParticleSpawn_AddSphereLocation.png" title="Add Sphere Location Module"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/ParticleSpawn_AddSphereLocation.jpg">
+		<img class="  lazyload" alt="Add Sphere Location Module" title="Add Sphere Location Module" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/ParticleSpawn_AddSphereLocation.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>球体位置控制sprite生成所在位置的形状和原点。通过添加 <strong>球体位置（Sphere Location）</strong> 模块，你可以使sprite以球体形状生成，并可以指定半径以设置球体形状的大小。将 <strong>球体半径（Sphere Radius）</strong> 设置为 <strong>64</strong>。确保将 <strong>球体分布（Sphere Distribution）</strong> 设置为 <strong>随机（Random）</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/ParticleSpawn_AddSphereLocation.png" title="Set Sphere Radius"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/ParticleSpawn_AddSphereLocation.jpg">
+		<img class="  lazyload" alt="Set Sphere Radius" title="Set Sphere Radius" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/ParticleSpawn_AddSphereLocation.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>我们在这个烟雾效果中使用的sprite材质会用到一张sprite表，它拥有多张可以按序播放的图片。如果你不手动设置，你的渲染器只会用到表格中的第一张sprite。你可以添加一个 <strong>SubUV动画（SubUV Animation）</strong> 模块来解决这个问题。点击粒子生成的 <strong>加号</strong>(<strong>+</strong>)图标并选择 <strong>Sub UV > SubUV动画（Sub UV > SubUV Animation）</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/ParticleSpawn_AddSubUVModule.png" title="Add SubUV Animation Module"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/ParticleSpawn_AddSubUVModule.jpg">
+		<img class="  lazyload" alt="Add SubUV Animation Module" title="Add SubUV Animation Module" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/ParticleSpawn_AddSubUVModule.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>在 <strong>子UV动画（Sub UV Animation）</strong> 模块中，点击 <strong>子UV动画模式（SubUV Animation Mode）</strong> 下拉菜单，选择 <strong>线性（Linear）</strong>。在 <strong>帧数（Number of Frames）</strong> 中输入 <strong>64</strong>。Sprite表采用8x8的图片网格，所以图片总数是64。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/ParticleSpawn_SubUVAnimationSettings.png" title="SubUV Animation Settings"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/ParticleSpawn_SubUVAnimationSettings.jpg">
+		<img class="  lazyload" alt="SubUV Animation Settings" title="SubUV Animation Settings" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/ParticleSpawn_SubUVAnimationSettings.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li></ol><h2 id="粒子更新组设置">粒子更新组设置</h2>
+<p>现在，你将在粒子更新组中更新模块。这些行为将应用于粒子并更新每一帧。
+</p><ol ><li class="Default"><p>在系统概览中，单击 <strong>粒子更新（Particle Update）</strong> 组，以在选择面板中将其打开。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/SystemOverview_OpenParticleUpdate.png" title="Open Particle Update Group"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/SystemOverview_OpenParticleUpdate.jpg">
+		<img class="  lazyload" alt="打开粒子更新组" title="Open Particle Update Group" width="700" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/SystemOverview_OpenParticleUpdate.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>在粒子生成中添加的速度会使粒子在它们初始生成时产生一些运动。现在，你需要随着时间推移而添加运动，并希望烟雾升腾。
+现在，你将随着时间推移而添加运动，并使烟雾升腾。单击 <strong>粒子更新（Particle Update）</strong> 的 <strong>加号（Plus sign）</strong> (<strong>+</strong>)图标，并选择 <strong>力 > 加速力（Forces > Acceleration Force）</strong>，以添加加速力模块。<br /></p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/ParticleUpdate_AddAccelerationForce.png" title="Add Acceleration Force"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/ParticleUpdate_AddAccelerationForce.jpg">
+		<img class="  lazyload" alt="Add Acceleration Force" title="Add Acceleration Force" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/ParticleUpdate_AddAccelerationForce.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>由于Niagara将新模块添加到组堆栈底部，因此你会收到一条显示"模块有未满足的依赖关系（The module has unmet dependencies）"的错误消息。这是因为加速力模块放置在 <strong>解算力和速度（Solve Forces and Velocity）</strong> 模块之后。单击 <strong>解决问题（Fix Issue）</strong> 按钮以移动模块。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/ParticleUpdate_PlacementError.png" title="Fix Placement Error"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/ParticleUpdate_PlacementError.jpg">
+		<img class="  lazyload" alt="Fix Placement Error" title="Fix Placement Error" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/ParticleUpdate_PlacementError.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>将 <strong>X</strong> 和 <strong>Y</strong> 值设置为 <strong>0</strong>，并将 <strong>Z</strong> 值设置为 <strong>500</strong>。此操作将使烟雾随着时间推移而明显向上运动。你可以调整此设置，甚至移除此模块，具体取决于希望创建的烟雾效果类型。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/ParticleUpdate_SetAcceleration.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/ParticleUpdate_SetAcceleration.jpg">
+		<img class="  lazyload" alt="Acceleration Force Settings" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/ParticleUpdate_SetAcceleration.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>如果你希望能够在系统中重复使用烟雾发射器，你可以将其另存为单独的资源。单击 <strong>齿轮（Gear）</strong> 图标以打开 <strong>发射器设置（Emitter Settings）</strong> 菜单，然后选择 <strong>从其中创建资源（Create Assset From This）</strong>。其结果为独立的Niagara发射器资源。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/CreateEmitterAsset.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/CreateEmitterAsset.jpg">
+		<img class="  lazyload" alt="Create Emitter Asset" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/CreateEmitterAsset.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>然后，单击 <strong>保存（Save）</strong> 按钮以应用并保存更改。<br /></p><p> <picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/ClickSave.jpg">
+		<img class="  lazyload" alt="Save System" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/ClickSave.jpg" />
+</picture>
+
+</p></li></ol><h2 id="最终结果">最终结果</h2>
+<p>祝贺你！你已使用Sprite创建了简单的烟雾效果。
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_0_lbxkx0v0_21
+{
+	margin: 0px;
+	width: 640px;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_0_lbxkx0v0_21:after
+{
+	content: "";
+	padding-top: 360px;
+	display: block;
+}
+</style> 
+<div id="player_0_lbxkx0v0_21"> 
+	<div id="playerContainer_0_lbxkx0v0_21" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/0_lbxkx0v0/embed.html"></iframe>
+	</div>
+</div>
+
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Niagara">Niagara</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Vfx">Vfx</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Effects">Effects</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Visual%20Effects">Visual Effects</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Particle%20Effects">Particle Effects</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/RenderingAndGraphics/Niagara/HowTo/SpriteEffect/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:01:53 GMT -->
+</html>

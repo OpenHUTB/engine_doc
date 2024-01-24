@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/AnimatingObjects/Sequencer/HowTo/CameraRigRail/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:30:00 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var finishButton = finishButtonTemplate;
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/AnimatingObjects/Sequencer/HowTo/CameraRigRail/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>从摄像机导轨拍摄 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+		    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+		    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/AnimatingObjects/Sequencer/HowTo/CameraRigRail/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/AnimatingObjects/Sequencer/HowTo/CameraRigRail/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/AnimatingObjects/Sequencer/HowTo/CameraRigRail/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/AnimatingObjects/Sequencer/HowTo/CameraRigRail/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Sequencer/HowTo/CameraRigRail" />
+<meta name="intsourcechangelist" content="15018255" />
+<meta name="availability" content="Public" />
+<meta name="title" content="从摄像机导轨拍摄" />
+<meta name="description" content="如何设置摄像机导轨并从其拍摄的示例。" />
+<meta name="type" content="how-to" />
+<meta name="version" content="4.25" />
+<meta name="parent" content="AnimatingObjects/Sequencer/HowTo" />
+<meta name="keywords" content="Sequencer" />
+<meta name="skilllevel" content="Intermediate" />
+<meta name="related" content="AnimatingObjects/Sequencer/Overview" />
+<meta name="crumbs" content="%ROOT%,AnimatingObjects,AnimatingObjects/Sequencer,AnimatingObjects/Sequencer/HowTo" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="从摄像机导轨拍摄" />
+	<meta property="og:description" content="如何设置摄像机导轨并从其拍摄的示例。 " />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">为角色和对象添加动画</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">Sequencer 编辑器</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">Sequencer - 操作指南</a>
+
+<span class="separator">></span> <span id="page">从摄像机导轨拍摄</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">从摄像机导轨拍摄</h1>
+							</div>	
+							<h2 >如何设置摄像机导轨并从其拍摄的示例。 </h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Intermediate"><a id="skill_link" href="../../../../SiteIndex/index.html?skills=Intermediate">Intermediate</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																														<div id="seeAlso">
+	<div style="position:relative;">
+		<div id="title">参见</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<p>
+						<a id="related_link" href="../../Overview/index.html" title="Sequencer是虚幻引擎4的多轨迹编辑器，用于实时创建和预览过场动画序列。">Sequencer概述</a>
+					</p>
+				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																														<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#步骤">步骤</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#最终结果">最终结果</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p><strong>摄像机导轨</strong> Actor 将摄像机连接到用于四处移动的导轨，可用来拍摄出飞越鸟瞰、360 度旋转或其他任何运动镜头。可以使用 <a id="content_link" href="../../../../Basics/Components/Shapes/index.html" ><span><strong>样条组件</strong></span></a> 定义导轨的路径，在 Sequencer 中你还可以沿导轨为摄像机应该在任何给定时间所处的位置设置关键帧。
+</p><p>在本操作指南中，我们创建一条 360 度导轨，而相连的摄像机始终聚焦于我们的角色。
+</p><h2 id="步骤">步骤</h2>
+<div class="note">
+	<p>在本操作指南中，我们使用 <strong>Blueprint Third Person Template</strong> 项目，并启用了 <strong>起步内容</strong>。</p>
+</div><ol ><li class="Default"><p>在你的项目中，在 <strong>放置Actor（Place Actors）</strong>面板的 <strong>过场动画（Cinematic）</strong> 选项卡中，将一个 <strong>摄像机导轨（Camera Rig Rail）</strong>资产拖动到关卡中。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/CameraRigRail/CameraRig_01.jpg">
+		<img class="  lazyload" alt="CameraRig_01.png" title="CameraRig37202942701.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/CameraRigRail/CameraRig_01.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>接着，还是在 <strong>放置Actor（Place Actors）</strong> 面板的 <strong>过场动画（Cinematic）</strong> 选项卡中，将一个 <strong>电影摄像机 Actor（Cine Camera Actor）</strong> 拖入场景。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/CameraRigRail/CameraRig_02.jpg">
+		<img class="  lazyload" alt="CameraRig_02.png" title="CameraRig37202942702.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/CameraRigRail/CameraRig_02.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>全局大纲（World Outliner）</strong>中，将 <strong>CineCameraActor</strong> 拖放到 <strong>CameraRig_Rail</strong> 上以连接它。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/CameraRigRail/CameraRig_03.jpg">
+		<img class="  lazyload" alt="CameraRig_03.png" title="CameraRig37202942703.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/CameraRigRail/CameraRig_03.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>CineCameraActor</strong> 的 <strong>细节（Details）</strong>面板中，将 <strong>位置（Location）</strong>的 <strong>XYZ</strong> 设置为 <strong>0、0、60</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/CameraRigRail/CameraRig_04.jpg">
+		<img class="  lazyload" alt="CameraRig_04.png" title="CameraRig37202942704.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/CameraRigRail/CameraRig_04.jpg" />
+</picture>
+
+</p><p>这将使摄像机在我们的镜头中从地面升高少许。 
+</p></li><li class="Default"><p>在关卡中选择 <strong>CameraRigRail</strong>，然后选择并移动端点，使导轨通到角色的左侧。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/CameraRigRail/CameraRig_05.jpg">
+		<img class="  lazyload" alt="CameraRig_05.png" title="CameraRig37202942705.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/CameraRigRail/CameraRig_05.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在仍然选中端点的情况下，按住 <strong>Alt</strong> 然后拖出另一个点，如下图所示。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/CameraRigRail/CameraRig_06.jpg">
+		<img class="  lazyload" alt="CameraRig_06.png" title="CameraRig37202942706.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/CameraRigRail/CameraRig_06.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>选择并移动红色曲线使导轨弯曲，从而得到曲线形状。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/CameraRigRail/CameraRig_07.jpg">
+		<img class="  lazyload" alt="CameraRig_07.png" title="CameraRig37202942707.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/CameraRigRail/CameraRig_07.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>按住 <strong>Alt </strong> 并拖出另一个的点，调整切线直到在角色周围形成一个平滑的环形。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/CameraRigRail/CameraRig_08.jpg">
+		<img class="  lazyload" alt="CameraRig_08.png" title="CameraRig37202942708.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/CameraRigRail/CameraRig_08.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在主工具栏中，单击 <strong>过场动画（Cinematics）</strong>，然后选择 <strong>添加关卡序列（Add Level Sequence）</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/CameraRigRail/CameraRig_09.jpg">
+		<img class="  lazyload" alt="CameraRig_09.png" title="CameraRig37202942709.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/CameraRigRail/CameraRig_09.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在关卡中选择 <strong>摄像机导轨（Camera Rig Rail）</strong> 以及 <strong>电影摄像机 Actor（Cine Camera Actor）</strong>，然后点击 <strong>轨迹（Track）</strong> 按钮并将两者都添加到Sequencer。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/CameraRigRail/CameraRig_10.jpg">
+		<img class="  lazyload" alt="CameraRig_10.png" title="CameraRig37202942710.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/CameraRigRail/CameraRig_10.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>CineCameraActor</strong> 上为当前 <strong>转换（Transform）</strong>添加一个关键帧。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/CameraRigRail/CameraRig_11.jpg">
+		<img class="  lazyload" alt="CameraRig_11.png" title="CameraRig37202942711.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/CameraRigRail/CameraRig_11.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>CameraRig_Rail</strong> 上，单击 <strong>添加轨道（+ Track）</strong>按钮并为初始值添加 <strong>当前在导轨上的位置（Current Position on Rail）</strong> 以及一个关键帧。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/CameraRigRail/CameraRig_12.jpg">
+		<img class="  lazyload" alt="CameraRig_12.png" title="CameraRig37202942712.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/CameraRigRail/CameraRig_12.jpg" />
+</picture>
+
+</p><p>此值表示连接的摄像机的位置，<strong>0</strong> 为导轨起点，<strong>1</strong> 为导轨终点。
+</p></li><li class="Default"><p>将时间轴标记移动到序列结尾（第 <strong>150</strong> 帧）。
+</p></li><li class="Default"><p>在选中 <strong>摄像机导轨</strong> 的情况下，在 <strong>细节（Details）</strong>面板中将 <strong>当前在导轨上的位置（Current Position on Rail）</strong>设置为 <strong>1.0</strong>，然后添加一个关键帧。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/CameraRigRail/CameraRig_13.jpg">
+		<img class="  lazyload" alt="CameraRig_13.png" title="CameraRig37202942713.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/CameraRigRail/CameraRig_13.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>选择 <strong>电影摄像机 Actor</strong>，然后为 <strong>ThirdPersonCharacter</strong> 选中 <strong>启用观看跟踪（Enable Look at Tracking）</strong>，并将 <strong>Z</strong> 偏移设置为 <strong>45.0</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/CameraRigRail/CameraRig_14.jpg">
+		<img class="  lazyload" alt="CameraRig_14.png" title="CameraRig37202942714.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/CameraRigRail/CameraRig_14.jpg" />
+</picture>
+<br />在这里我们设置了摄像机始终跟踪 <strong>要跟踪的 Actor（Actor to Track）</strong>（即 <strong>ThirdPersonCharacter</strong>）的位置。
+</p></li><li class="Default"><p>将视口锁定到 <strong>镜头切换轨道</strong>，然后单击预览播放按钮。
+</p></li></ol><h2 id="最终结果">最终结果</h2>
+<p>你应该得到类似下面示例的镜头，其中摄像机绕角色平移 360 度。 
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_0_znc1pizh_15
+{
+	margin: 0px;
+	width: 640px;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_0_znc1pizh_15:after
+{
+	content: "";
+	padding-top: 360px;
+	display: block;
+}
+</style> 
+<div id="player_0_znc1pizh_15"> 
+	<div id="playerContainer_0_znc1pizh_15" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/0_znc1pizh/embed.html"></iframe>
+	</div>
+</div>
+<p>你也可以使用摄像机导轨用于游戏关卡中的飞越路径，或用于突出表现关卡中的某些重要对象。 
+</p><div class="tip">
+	<p>在 Sequencer 中有一种可以用来处理 <strong>摄像机导轨</strong> 资产的高级方法，可自动执行本操作指南中的多个步骤。请参见 <a id="content_link"filter-data="tag_sequencer" href="../../Workflow/CheatSheet/index.html" ><span><strong>工作流程快捷键</strong></span></a> 一节了解更多信息。</p>
+</div>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Sequencer">Sequencer</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/AnimatingObjects/Sequencer/HowTo/CameraRigRail/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:30:06 GMT -->
+</html>

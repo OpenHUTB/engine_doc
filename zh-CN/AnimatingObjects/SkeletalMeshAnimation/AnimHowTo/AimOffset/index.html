@@ -1,0 +1,706 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:25:47 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var finishButton = finishButtonTemplate;
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>创建瞄准偏移 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+		    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+		    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Animation/AnimHowTo/AimOffset" />
+<meta name="intsourcechangelist" content="14414477" />
+<meta name="availability" content="Public" />
+<meta name="title" content="创建瞄准偏移" />
+<meta name="description" content="角色使用瞄准偏移将武器瞄准鼠标或控制器的方向。" />
+<meta name="parent" content="AnimatingObjects/SkeletalMeshAnimation/AnimHowTo" />
+<meta name="keywords" content="Animation" />
+<meta name="keywords" content="Aim Offset" />
+<meta name="keywords" content="Animation" />
+<meta name="keywords" content="Blend Space" />
+<meta name="keywords" content="blending" />
+<meta name="version" content="4.14" />
+<meta name="skilllevel" content="Intermediate" />
+<meta name="type" content="how-to" />
+<meta name="crumbs" content="%ROOT%,AnimatingObjects,AnimatingObjects/SkeletalMeshAnimation,AnimatingObjects/SkeletalMeshAnimation/AnimHowTo" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="创建瞄准偏移" />
+	<meta property="og:description" content="角色使用瞄准偏移将武器瞄准鼠标或控制器的方向。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">为角色和对象添加动画</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">骨架网格体动画系统</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">动画操作指南</a>
+
+<span class="separator">></span> <span id="page">创建瞄准偏移</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">创建瞄准偏移</h1>
+							</div>	
+							<h2 >角色使用瞄准偏移将武器瞄准鼠标或控制器的方向。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Intermediate"><a id="skill_link" href="../../../../SiteIndex/index.html?skills=Intermediate">Intermediate</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																																																<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#1-创建瞄准姿势">1 - 创建瞄准姿势</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#2-创建瞄准偏移">2 - 创建瞄准偏移</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#3-实现瞄准偏移">3 - 实现瞄准偏移</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#4-完成">4 - 完成</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>本指南中，我们将创建一个<a id="content_link"filter-data="tag_animation_assets tag_animation" href="../../AimOffset/index.html" ><span>瞄准偏移</span></a>，这是一种资源，其中存储了一系列可混合的姿势，用于帮助角色瞄准武器。我们将一个动画序列细分成瞄准偏移的可用姿势，获取玩家的鼠标倾斜/偏转位置，并用它来确定使用哪个混合姿势，这样角色就可以在鼠标的位置上移动和瞄准（有一些限制），如下面的例子所示。
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_0_w8zrrefp_2
+{
+	margin: 0px;
+	width:    75px;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_0_w8zrrefp_2:after
+{
+	content: "";
+	padding-top:    56.25px;
+	display: block;
+}
+</style> 
+<div id="player_0_w8zrrefp_2"> 
+	<div id="playerContainer_0_w8zrrefp_2" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/0_w8zrrefp/embed.html"></iframe>
+	</div>
+</div>
+<p>完成以下步骤将得到与上述类似的角色：
+</p><h2 id="1-创建瞄准姿势">1 - 创建瞄准姿势</h2>
+<p>在本步骤中，我们更新默认可操作角色，并创建瞄准偏移所需的所有姿势。
+</p><div class="note">
+	<p>在本指南中，我们使用 <strong>蓝图第三人称模板（Blueprint Third Person Template）</strong> 项目，并将 <strong>动画初学者包（Animation Starter Pack）</strong> 添加到项目中：
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/AnimationAssetPack.jpg">
+		<img class="  lazyload" alt="AnimationAssetPack.png" width="820" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/AnimationAssetPack.jpg" />
+</picture>
+
+</p><p>你可以从Epic启动程序的 <strong>虚幻商城（Marketplace）</strong> 免费下载动画初学者包。</p>
+</div><h3 id="步骤">步骤</h3>
+<ol ><li class="Default"><p>在 <strong>内容浏览器</strong> 的 <strong>Content/ThirdPersonBP/Blueprints</strong> 文件夹下，打开 <strong>第三人称游戏模式（ThirdPersonGameMode）</strong>。<br /></p></li><li class="Default"><p>在 <strong>默认Pawn类（Default Pawn Class）</strong> 下，单击下拉菜单并选择 <strong>Ue4ASP_Character</strong>，然后单击 <strong>保存（Save）</strong> 并关闭蓝图。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/Animations1.jpg">
+		<img class="  lazyload" alt="Animations1.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/Animations1.jpg" />
+</picture>
+
+</p><p>我们将默认可操作角色更改为使用动画初学者包随附的角色。<br /></p></li><li class="Default"><p>在 <strong>内容浏览器</strong> 中，打开 <strong>Content/AnimStarterPack</strong> 文件夹，然后单击 <strong>新增（Add New）</strong> 并创建一个名为 <strong>AimPoses</strong> 的文件夹。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/AimOffset1.jpg">
+		<img class="  lazyload" alt="AimOffset1.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/AimOffset1.jpg" />
+</picture>
+<br /></p></li><li class="Default"><p>将 <strong>Aim_Space_Hip</strong> 资源拖动到 <strong>AimPoses</strong> 文件夹上，并选择 <strong>复制（Copy）</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/AimOffset2.jpg">
+		<img class="  lazyload" alt="AimOffset2.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/AimOffset2.jpg" />
+</picture>
+
+</p><p>这是一个动画序列，包含一系列瞄准武器的动作，我们将把这些动作分解成各个姿势。<br /></p></li><li class="Default"><p>在 <strong>AimPoses</strong> 文件夹中，选中 <strong>Aim_Space_Hip</strong>，按 <strong>Ctrl+W</strong> 复制并将其命名为 <strong>Aim_Center</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/AimOffset3.jpg">
+		<img class="  lazyload" alt="AimOffset3.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/AimOffset3.jpg" />
+</picture>
+<br /></p></li><li class="Default"><p>打开 <strong>Aim_Center</strong> 资源，单击播放功能按钮中的 <strong>暂停（Pause）</strong> 按钮，然后单击 <strong>ToFront</strong> 按钮。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/AimOffset4.jpg">
+		<img class="  lazyload" alt="AimOffset4.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/AimOffset4.jpg" />
+</picture>
+<br /></p></li><li class="Default"><p><strong>右键单击</strong> 时间轴中的擦除条，然后选择 <strong>删除第1帧到第87帧（Remove from frame 1 to frame 87）</strong> 选项。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/AimOffset5.jpg">
+		<img class="  lazyload" alt="AimOffset5.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/AimOffset5.jpg" />
+</picture>
+
+</p><p>现在我们有了一个单帧，其中包含一个可在瞄准偏移中使用的姿势。<br /></p></li><li class="Default"><p>在 <strong>AimPoses</strong> 文件夹中，选中 <strong>Aim_Space_Hip</strong>，按 <strong>Ctrl+W</strong> 复制并将其命名为 <strong>Aim_Center_Down</strong>。<br /></p></li><li class="Default"><p>打开 <strong>Aim_Center_Down</strong>，确保它在第 <strong>0</strong> 帧上，然后单击 <strong>ToNext</strong> 按钮转到第 <strong>20</strong> 帧。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/AimOffset9.jpg">
+		<img class="  lazyload" alt="AimOffset9.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/AimOffset9.jpg" />
+</picture>
+
+</p><p>角色现在将在视口中向下瞄准，这就是用来向下瞄准的姿势。<br /></p></li><li class="Default"><p><strong>右键单击</strong> 时间轴中的擦除条，然后选择 <strong>删除第0帧到第20帧（Remove frame 0 to frame 20）</strong> 选项。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/AimOffset10.jpg">
+		<img class="  lazyload" alt="AimOffset10.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/AimOffset10.jpg" />
+</picture>
+
+</p><p>根据在擦除条上 <strong>右键单击</strong> 的位置，帧范围可能差一两帧，只要确保角色向下瞄准就好。<br /></p></li><li class="Default"><p>再次 <strong>右键单击</strong> 时间轴中的擦除条，然后选择 <strong>删除第1帧到第68帧（Remove from frame 1 to frame 68）</strong> 选项。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/AimOffset11.jpg">
+		<img class="  lazyload" alt="AimOffset11.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/AimOffset11.jpg" />
+</picture>
+<br /></p></li><li class="Default"><p>在 <strong>AimPoses</strong> 文件夹中，选中 <strong>Aim_Space_Hip</strong>，按 <strong>Ctrl+W</strong> 复制并将其命名为 <strong>Aim_Center_Up</strong>。<br /></p></li><li class="Default"><p>打开 <strong>Aim_Center_Up</strong>，确保它在第 <strong>0</strong> 帧上，然后单击 <strong>ToNext</strong> 按钮转到第 <strong>10</strong> 帧。<br /></p></li><li class="Default"><p><strong>右键单击</strong> 时间轴中的擦除条，然后选择 <strong>删除第0帧到第10帧（Remove frame 0 to frame 10）</strong> 选项。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/AimOffset14.jpg">
+		<img class="  lazyload" alt="AimOffset14.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/AimOffset14.jpg" />
+</picture>
+<br /></p></li><li class="Default"><p>再次 <strong>右键单击</strong> 时间轴中的擦除条，然后选择 <strong>删除第1帧到第78帧（Remove from frame 1 to frame 78）</strong> 选项。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/AimOffset15.jpg">
+		<img class="  lazyload" alt="AimOffset15.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/AimOffset15.jpg" />
+</picture>
+<br /></p></li><li class="Default"><p>每次都 <strong>复制（Duplicate）</strong> <strong>Aim_Space_Hip</strong> 资源，并基于下表创建剩余的各个姿势。
+</p><div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>动画名称 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>起始关键帧 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>删除第1帧 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>删除第2帧 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Aim_Left_Center</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>30</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>0 - 30</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>1 - 57</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Aim_Left_Up</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>40</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>0 - 40</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>1 - 48</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Aim_Left_Down</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>50</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>0 - 50</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>1 - 37</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Aim_Right_Center</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>60</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>0 - 60</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>1 - 27</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Aim_Right_Up</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>70</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>0 - 70</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>1 - 17</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Aim_Right_Down</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>80</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>0 - 80</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>1 - 8</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div><p>对于每个动画，确保从建议的 <strong>起始关键帧（Start At Keyframe）</strong> 帧开始，然后 <strong>右键单击</strong> 擦除条并 <strong>删除第1帧（Remove Frames 1）</strong>，再次 <strong>右键单击</strong> 擦除条并 <strong>删除第2帧（Remove Frames 2）</strong>。每个动画都应是个单独的帧，角色瞄准其对应名称的方向。创建各个动画后，你的 <strong>AimPoses</strong> 文件夹中每个瞄准方向都有几种姿势。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/AimOffset17.jpg">
+		<img class="  lazyload" alt="AimOffset17.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/AimOffset17.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>内容浏览器</strong> 中，按住 <strong>Shift</strong> 并选择各个瞄准姿势。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/AimOffset18.jpg">
+		<img class="  lazyload" alt="AimOffset18.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/AimOffset18.jpg" />
+</picture>
+
+</p></li><li class="Default"><p><strong>右键单击</strong> 并在 <strong>资源操作（Asset Actions）</strong> 下选择 <strong>通过属性矩阵批量编辑（Bulk Edit via Property Matrix）</strong> 选项。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/AimOffset19.jpg">
+		<img class="  lazyload" alt="AimOffset19.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/AimOffset19.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>属性矩阵（Property Matrix）</strong> 中，在 <strong>附加设置（Additive Settings）</strong> 下，将 <strong>附加动画类型（Additive Anim Type）</strong> 更改为 <strong>模型空间（Mesh Space）</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/AimOffset20.jpg">
+		<img class="  lazyload" alt="AimOffset20.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/AimOffset20.jpg" />
+</picture>
+
+</p><div class="note">
+	<p>为了使动画与瞄准偏移兼容，必须将其附加动画类型设置为 <strong>模型空间（Mesh Space）</strong>。</p>
+</div></li><li class="Default"><p>将 <strong>基础姿势类型（Base Pose Type）</strong> 更改为 <strong>选定动画帧（Selected animation frame）</strong>，然后在 <strong>基础姿势动画（Base Pose Animation）</strong> 下，单击选取资源图标并选择 <strong>Idle_Rifle_Hip</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/add_01.jpg">
+		<img class="  lazyload" alt="add_01.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/add_01.jpg" />
+</picture>
+
+</p><p>该基础姿势类型将定义如何计算累加delta。
+</p></li><li class="Default"><p>一旦完成此操作，返回 <strong>内容浏览器</strong> 并单击 <strong>全部保存（Save All）</strong> 按钮。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/AimOffset22.jpg">
+		<img class="  lazyload" alt="AimOffset22.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/AimOffset22.jpg" />
+</picture>
+
+</p></li></ol><p>创建各个姿势资源后，下一步我们将利用这些姿势创建瞄准偏移。
+</p><h2 id="2-创建瞄准偏移">2 - 创建瞄准偏移</h2>
+<p>在这一步中，我们将使用各个瞄准姿势创建瞄准偏移，该偏移会混合在各个姿势之间。
+</p><h3 id="步骤_1">步骤</h3>
+<ol ><li class="Default"><p>在 <strong>Content/AnimStarterPack/UE4_Mannequin/Mesh</strong> 文件夹中，<strong>右键单击</strong> <strong>UE4_Mannequin</strong> 并选择 <strong>创建瞄准偏移（Create Aim Offset）</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/AimOffset23.jpg">
+		<img class="  lazyload" alt="AimOffset23.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/AimOffset23.jpg" />
+</picture>
+
+</p><p>这将基于该骨架创建瞄准偏移资源。<br /></p></li><li class="Default"><p>在瞄准偏移（Aim Offset）窗口（中央窗口）的 <strong>参数（Parameters）</strong> 下，输入如下所示的参数。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/AimOffset26.jpg">
+		<img class="  lazyload" alt="AimOffset26.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/AimOffset26.jpg" />
+</picture>
+
+</p><p>将 <strong>X轴标签（X Axis Label）</strong> 设置为 <strong>Yaw</strong>，将 <strong>Y轴标签（Y Axis Label）</strong> 设置为 <strong>Pitch</strong>，然后将两个轴范围都设置为 <strong>-90到90（-90 to 90）</strong>，并单击 <strong>应用参数更改（Apply Parameter Changes）</strong>。<br /></p><div class="note">
+	<p>瞄准偏移的工作原理非常类似于<a id="content_link"filter-data="tag_blend_space tag_animation_blending tag_animation" href="../../Blendspaces/index.html" ><span>混合空间</span></a>，可用于基于参数混合我们的姿势。</p>
+</div></li><li class="Default"><p>在 <strong>资源浏览器</strong> 中搜索 <strong>Aim</strong>，然后将 <strong>Aim_Center</strong> 动画拖动到图表中心位置上，如下所示。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/AimOffset27.jpg">
+		<img class="  lazyload" alt="AimOffset27.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/AimOffset27.jpg" />
+</picture>
+<br /></p></li><li class="Default"><p>将 <strong>Aim_Center_Up</strong> 拖动到位置 <strong>1</strong>，将 <strong>Aim_Center_Down</strong> 拖动到位置 <strong>2</strong>，如下所示。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/AimOffset28.jpg">
+		<img class="  lazyload" alt="AimOffset28.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/AimOffset28.jpg" />
+</picture>
+
+</p><p>你可以选择取消选中 <strong>启用提示文本显示（Enable Tooltip Display）</strong> 选项以关闭网格中的工具提示。<br /></p></li><li class="Default"><p>将 <strong>Aim_Left_Center</strong> 拖动到位置 <strong>1</strong>，将 <strong>Aim_Right_Center</strong> 拖动到位置 <strong>2</strong>，如下所示。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/AimOffset29.jpg">
+		<img class="  lazyload" alt="AimOffset29.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/AimOffset29.jpg" />
+</picture>
+<br /></p></li><li class="Default"><p>添加 <strong>Aim_Left_Up</strong> (1)、<strong>Aim_Right_Up</strong> (2)、<strong>Aim_Left_Down</strong> (3)和 <strong>Aim_Right_Down</strong> (4)姿势以完成瞄准偏移。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/AimOffset30.jpg">
+		<img class="  lazyload" alt="AimOffset30.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/AimOffset30.jpg" />
+</picture>
+<br /></p></li><li class="Default"><p>在 <strong>资源详情（Asset Details）</strong> 面板中，将 <strong>附加设置（Additive Settings）</strong> 下的 <strong>预览基础姿势（Preview Base Pose）</strong> 选项设置为 <strong>Idle_Rifle_Hip</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/Add01.jpg">
+		<img class="  lazyload" alt="Add01.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/Add01.jpg" />
+</picture>
+
+</p><p>你可以通过在网格中移动鼠标来预览混合的姿势，视口网格体会根据你的鼠标位置更新它的姿势。
+</p></li></ol><p>瞄准偏移现已创建，下一步我们将把它挂在我们的 <strong>动画蓝图</strong> 中使用，这样游戏进程就可以驱动混合。
+</p><h2 id="3-实现瞄准偏移">3 - 实现瞄准偏移</h2>
+<p>在这一步中，我们将瞄准偏移添加到动画蓝图，并将其挂到我们现有的动画图表上。
+</p><h3 id="步骤_2">步骤</h3>
+<ol ><li class="Default"><p>在 <strong>Content/AnimStarterPack</strong> 文件夹中，打开 <strong>UE4ASP_HeroTPP_AnimBlueprint</strong> 并 <strong>双击</strong> <strong>我的蓝图（MyBlueprint）</strong> 面板中的 <strong>动画图表（AnimGraph）</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/step3_01.jpg">
+		<img class="  lazyload" alt="step3_01.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/step3_01.jpg" />
+</picture>
+<br /></p></li><li class="Default"><p>从 <strong>资源浏览器（Asset Browser）</strong> 选项卡中，拖入瞄准偏移资源。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/step3_02.jpg">
+		<img class="  lazyload" alt="step3_02.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/step3_02.jpg" />
+</picture>
+<br /></p></li><li class="Default"><p>按如下所示连接瞄准偏移，然后 <strong>右键单击</strong> <strong>Yaw</strong> 和 <strong>Pitch</strong> 引脚，并 <strong>提升为变量（Promote to Variable）</strong>，然后将它们命名为 <strong>Aim Yaw</strong> 和 <strong>Aim Pitch</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/step3_03.jpg">
+		<img class="  lazyload" alt="step3_03.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/step3_03.jpg" />
+</picture>
+
+</p><p>每当玩家用鼠标瞄准并驱动瞄准偏移的姿势时，就会使用这两个变量。<br /></p></li><li class="Default"><p>在 <strong>我的蓝图（MyBlueprint）</strong> 面板，跳到 <strong>事件图表（EventGraph）</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/step3_04.jpg">
+		<img class="  lazyload" alt="step3_04.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/step3_04.jpg" />
+</picture>
+<br /></p></li><li class="Default"><p>在 <strong>事件图表（EventGraph）</strong> 中，找到脚本移动（Movement）部分的 <strong>Sequence</strong> 节点。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/step3_05.jpg">
+		<img class="  lazyload" alt="step3_05.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/step3_05.jpg" />
+</picture>
+
+</p><p>单击 <strong>Sequence</strong> 节点上的 <strong>添加引脚（Add pin）</strong> 按钮。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/step3_05b.jpg">
+		<img class="  lazyload" alt="step3_05b.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/step3_05b.jpg" />
+</picture>
+<br /></p></li><li class="Default"><p>从 <strong>我的蓝图（MyBlueprint）</strong> 面板，按住 <strong>Alt</strong> 并拖入 <strong>Aim Yaw</strong> 和 <strong>Aim Pitch</strong>，以连接到 <strong>Sequence</strong> 节点。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/step3_06.jpg">
+		<img class="  lazyload" alt="step3_06.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/step3_06.jpg" />
+</picture>
+<br /></p></li><li class="Default"><p>从 <strong>Cast To Ue4ASP_Character</strong> 节点拖出一根引线，并添加 <strong>Get Control Rotation</strong> 和 <strong>Get Actor Rotation</strong> 节点。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/step3_07.jpg">
+		<img class="  lazyload" alt="step3_07.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/step3_07.jpg" />
+</picture>
+<br /></p></li><li class="Default"><p>从 <strong>Get Control Rotation</strong> 节点拖出一根引线，并添加 <strong>Delta(Rotator)</strong> 节点。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/step3_08.jpg">
+		<img class="  lazyload" alt="step3_08.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/step3_08.jpg" />
+</picture>
+<br /></p></li><li class="Default"><p>将 <strong>Get Actor Rotation</strong> 连接到 <strong>Delta(Rotator) B Pin</strong>，然后从 <strong>Return Value</strong> 拖出一根引线，添加一个 <strong>RInterp To</strong> 节点（并将连接从当前（Current）切换到目标（Target））。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/step3_09.jpg">
+		<img class="  lazyload" alt="step3_09.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/step3_09.jpg" />
+</picture>
+<br /></p><div class="tip">
+	<p>可按住 <strong>Ctrl</strong> 并 <strong>单击</strong> <strong>当前（Current）</strong> 引脚，以将其连接拖动到 <strong>目标（Target）</strong> 引脚。</p>
+</div></li><li class="Default"><p>从 <strong>RInterp To</strong> 节点的 <strong>当前（Current）</strong> 引脚拖出一根引线，并选择 <strong>Make Rotator</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/step3_10.jpg">
+		<img class="  lazyload" alt="step3_10.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/step3_10.jpg" />
+</picture>
+<br /></p></li><li class="Default"><p>从 <strong>我的蓝图（MyBlueprint）</strong> 面板中，按住 <strong>Ctrl</strong> 并拖入 <strong>Aim Pitch</strong> 和 <strong>Aim Yaw</strong> 变量，然后将它们连接到 <strong>Make Rotator</strong> 节点的 <strong>Pitch</strong> 和 <strong>Yaw</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/step3_11.jpg">
+		<img class="  lazyload" alt="step3_11.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/step3_11.jpg" />
+</picture>
+<br /></p></li><li class="Default"><p>在 <strong>移动（Movement）</strong> 脚本的开头，找到 <strong>Event Blueprint Update Animation</strong> 节点并将 <strong>Delta Time X</strong> 提升为名为 <strong>Time</strong> 的变量，然后按如下方式连接。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/step3_12.jpg">
+		<img class="  lazyload" alt="step3_12.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/step3_12.jpg" />
+</picture>
+<br /></p></li><li class="Default"><p>返回 <strong>RInterp To</strong> 节点，连接新 <strong>Time</strong> 变量，并将 <strong>Interp Speed</strong> 设置为 <strong>15</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/step3_13.jpg">
+		<img class="  lazyload" alt="step3_13.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/step3_13.jpg" />
+</picture>
+
+</p><p>我们将使用角色的旋转和玩家输入的旋转来创建一个新的旋转器，它将限制角色在某个方向上可以旋转的程度。<br /></p></li><li class="Default"><p>从 <strong>RInterp To</strong> 节点拖出一根引线，添加一个 <strong>Break Rotator</strong> 以及 <strong>Pitch</strong> 和 <strong>Yaw</strong> 的 <strong>夹角（Clamp Angle）</strong>，并将最小/最大角度分别设置为 <strong>-90</strong> 和 <strong>90</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/step3_14.jpg">
+		<img class="  lazyload" alt="step3_14.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/step3_14.jpg" />
+</picture>
+<br /></p></li><li class="Default"><p>将 <strong>夹角（Clamp Angle）</strong> 从 <strong>Pitch</strong> 连接到 <strong>Aim Pitch</strong>，并从 <strong>Yaw</strong> 连接到 <strong>Aim Yaw</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/step3_15.jpg">
+		<img class="  lazyload" alt="step3_15.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/step3_15.jpg" />
+</picture>
+
+</p><p>现在，计算角色旋转和玩家当前控制器旋转时要考虑到驱动瞄准偏移的Aim Yaw和Aim Pitch值，且这两个值被夹紧以防止角色在某个方向旋转过多。如不夹紧角度，角色的腿朝向前方的同时，角色的身体可能转一圈并朝向相反方向，这是我们需要避免出现的情况。
+</p></li></ol><p>我们即将完成设置，下一步，我们将把所有的东西统合起来，测试角色的瞄准能力。
+</p><h2 id="4-完成">4 - 完成</h2>
+<p>在最后一节中，我们将更新角色蓝图，以更改控制器旋转的处理方式，并在测试前修复一些小问题。
+</p><h3 id="步骤_3">步骤</h3>
+<ol ><li class="Default"><p>在 <strong>Content/AnimStarterPack</strong> 文件夹中，打开 <strong>Ue4ASP_Character</strong> 蓝图。<br /></p></li><li class="Default"><p>在 <strong>组件（Components）</strong> 窗口中单击 <strong>Ue4ASP_Character</strong>，然后在 <strong>详情（Details）</strong> 中取消选中 <strong>使用控制器旋转Yaw（Use Controller Rotation Yaw）</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/step4_04.jpg">
+		<img class="  lazyload" alt="step4_04.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/step4_04.jpg" />
+</picture>
+
+</p><p>这将防止角色自动转向控制器的偏转位置。<br /></p></li><li class="Default"><p>在 <strong>组件（Components）</strong> 窗口中单击 <strong>胶囊体组件（CapsuleComponent）</strong>，然后在 <strong>详情（Details）</strong> 面板中选中 <strong>在游戏中隐藏（Hidden in Game）</strong> 选项。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/HideCapsule.jpg">
+		<img class="  lazyload" alt="HideCapsule.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/HideCapsule.jpg" />
+</picture>
+
+</p><p>这将在游戏进程中隐藏调试碰撞显示。<br /></p></li><li class="Default"><p>单击 <strong>我的蓝图（MyBlueprint）</strong> 中的 <strong>事件图表（EventGraph）</strong>，然后找到 <strong>蹲伏（Crouching）</strong> 部分，将 <strong>InputAction Crouch</strong> 节点替换为 <strong>C</strong> 按键事件。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/step4_05.jpg">
+		<img class="  lazyload" alt="step4_05.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/step4_05.jpg" />
+</picture>
+
+</p><p>这将删除窗口左上角编译按钮上的黄色预警信号，因为项目默认情况下没有蹲伏动作映射，我们将使用 <strong>C</strong> 按钮蹲伏（可以使用任何你想要的按键事件）。
+</p></li><li class="Default"><p><strong>编译（Compile）</strong> 并 <strong>保存（Save）</strong>，然后关闭蓝图。<br /></p></li><li class="Default"><p>从关卡中移除 <strong>第三人称角色（ThirdPersonCharacter）</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/DeleteCharacter.jpg">
+		<img class="  lazyload" alt="DeleteCharacter.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/DeleteCharacter.jpg" />
+</picture>
+
+</p><p>这可确保我们使用分配到游戏模式的角色，而不是放置在关卡中的角色。<br /></p></li><li class="Default"><p>单击 <strong>运行（Play）</strong> 按钮在编辑器中运行。
+</p></li></ol><h3 id="最终结果">最终结果</h3>
+<!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_CEIeNE9lKxI_47
+{
+	margin: 0px;
+	width: 100%;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_CEIeNE9lKxI_47:after
+{
+	content: "";
+	padding-top: 56.25%;
+	display: block;
+}
+</style> 
+<div>
+<div id="player_CEIeNE9lKxI_47"><div style="position:absolute;display:block;width:100%;height:100%;"><iframe class="embedded_video" id="CEIeNE9lKxI" width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/CEIeNE9lKxI?rel=0&amp;modestbranding=1&amp;showinfo=0&amp;loop=1&amp;controls=0" frameborder="0" allowfullscreen></iframe></div></div>
+</div>
+<p>在编辑器中运行时，角色现在将会在静止状态下瞄准，并对鼠标的移动做出反应，指向鼠标的方向。有一些限制，用于防止当鼠标在角色背后时角色转身面朝后方，以及当角色慢跑时，移动鼠标会使角色躯干转向鼠标所指向的方向。
+</p><p>我们可以更进一步，允许角色瞄准一个方向并在该方向上播放射击动画，并且（或）允许角色在朝某个方向移动时或蹲伏（通过在现有动画上<a id="content_link"filter-data="tag_animation" href="../AdditiveAnimations/index.html" ><span>叠加动画</span></a>来实现）时播放射击动画。或者以<a id="content_link" href="../../../../WorkingWithContent/Types/SkeletalMeshes/Sockets/index.html" ><span>骨架网格体套接字</span></a>为例，看看在角色可以瞄准的情况下，如何将武器附加到角色的手中。</p>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Animation">Animation</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Aim%20Offset">Aim Offset</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Animation">Animation</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Blend%20Space">Blend Space</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=blending">blending</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AimOffset/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:26:05 GMT -->
+</html>

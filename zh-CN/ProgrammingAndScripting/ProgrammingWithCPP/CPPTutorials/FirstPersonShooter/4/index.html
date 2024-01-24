@@ -1,0 +1,742 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:20:52 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var finishButton = finishButtonTemplate;
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/" />');
+				var udnCSS = '../../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>4 - 添加角色动画 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../../Include/Javascript/instructional.js" type="text/javascript"></script>
+	    <script  src="../../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/" hreflang="ko" />
+
+	<meta name="intsourcechangelist" content="14429621" />
+<meta name="availability" content="Public" />
+<meta name="title" content="4 - 添加角色动画" />
+<meta name="redirect" content="ProgrammingAndScripting/Tutorials/FirstPersonShooter/4" />
+<meta name="redirect" content="Programming/Tutorials/FirstPersonShooter/4" />
+<meta name="description" content="如何为你的第一人称射击游戏角色添加动画。" />
+<meta name="type" content="quick start" />
+<meta name="prereq" content="ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/1" />
+<meta name="prereq" content="ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2" />
+<meta name="prereq" content="ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/3" />
+<meta name="related" content="ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter" />
+<meta name="skilllevel" content="Beginner" />
+<meta name="version" content="4.25" />
+<meta name="crumbs" content="%ROOT%,ProgrammingAndScripting,ProgrammingAndScripting/ProgrammingWithCPP,ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials,ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="4 - 添加角色动画" />
+	<meta property="og:description" content="如何为你的第一人称射击游戏角色添加动画。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../../index.html">编程和脚本编写</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">编程指南</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">C++ 编程教程</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">第一人称射击游戏教程</a>
+
+<span class="separator">></span> <span id="page">4 - 添加角色动画</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">4 - 添加角色动画</h1>
+							</div>	
+							<h2 >如何为你的第一人称射击游戏角色添加动画。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Beginner"><a id="skill_link" href="../../../../../SiteIndex/index.html?skills=Beginner">Beginner</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>												<div class="tip" id="notice" style="display:none;">
+欢迎回来！要回到您上次离开的地方吗？
+<div class="button-container">
+<a href="javascript:void();" id="goButton" class="btn btn-lrg btn-default action">前往</a>
+<a href="javascript:void();" id="cancelButton" class="btn btn-lrg btn-default">取消</a>
+</div>
+</div>																		<div id="seeAlso">
+	<div style="position:relative;">
+		<div id="title">参见</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<p>
+						<a id="related_link" href="../index.html" title="学习如何实现第一人称射击游戏中的机制。">第一人称射击游戏教程</a>
+					</p>
+				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																								<div class="prereq">
+    <div class="normaltitle">
+        前置主题
+    </div>
+    <p style="margin-bottom:8px;">
+        为了理解并使用本文中的内容，请确保您已掌握以下主题：
+    </p>
+    <ul style="margin-bottom:0.5em;">
+                <li>
+            <p>
+                <a href="../1/index.html" title="如何建立第一人称射击游戏项目。">1 - 建立项目</a>
+            </p>
+        </li>
+                <li>
+            <p>
+                <a href="../2/index.html" title="如何实现第一人称射击角色。">2 - 实现你的角色</a>
+            </p>
+        </li>
+                <li>
+            <p>
+                <a href="../3/index.html" title="如何实现第一人称射击游戏中的发射物。">3 - 实现发射物</a>
+            </p>
+        </li>
+            </ul>
+</div>
+																		<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#目的">目的</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#目标">目标</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#步骤">步骤</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#4.1-为角色添加动画">4.1 - 为角色添加动画</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#导入动画">导入动画</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#创建动画蓝图">创建动画蓝图</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#添加状态机过渡变量">添加状态机过渡变量</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#4.2-设置事件图表">4.2 - 设置事件图表</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#更新状态变量">更新状态变量</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#查询角色移动">查询角色移动</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#确定角色是否在下降状态">确定角色是否在下降状态</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#确定角色是否在奔跑状态">确定角色是否在奔跑状态</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#4.3-添加动画状态机">4.3 - 添加动画状态机</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#4.4-添加动画过渡状态">4.4 - 添加动画过渡状态</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#4.4.1-添加空闲到奔跑/奔跑到空闲的过渡">4.4.1 - 添加空闲到奔跑/奔跑到空闲的过渡</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#4.4.2-添加空闲到跳跃开始的过渡">4.4.2 - 添加空闲到跳跃开始的过渡</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#4.4.3-添加奔跑到跳跃开始的过渡">4.4.3 - 添加奔跑到跳跃开始的过渡</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#4.4.4-添加跳跃开始到跳跃循环的过渡">4.4.4 - 添加跳跃开始到跳跃循环的过渡</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#4.4.5-添加跳跃循环到跳跃结束的过渡">4.4.5 - 添加跳跃循环到跳跃结束的过渡</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#4.4.6-添加跳跃结束到空闲的过渡">4.4.6 - 添加跳跃结束到空闲的过渡</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#4.5-关联动画蓝图和角色蓝图">4.5 - 关联动画蓝图和角色蓝图</a></p>
+	</li>					</ul>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/FinalShot.jpg">
+		<img class="  lazyload" alt="FinalShot.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/FinalShot.jpg" />
+</picture>
+
+</p><div class="caption">
+	<p>这是你完成本节后会看到的内容。</p>
+</div><h2 id="目的">目的</h2>
+<p>本节旨在展示如何为你的第一人称射击游戏角色添加动画。
+</p><h2 id="目标">目标</h2>
+<p>完成教程的这一节后，你将能够：
+</p><ul ><li class="Default"><p>为角色添加动画
+</p></li><li class="Default"><p>设置事件图表
+</p></li><li class="Default"><p>添加动画状态机
+</p></li><li class="Default"><p>为动画添加过渡状态
+</p></li><li class="Default"><p>关联动画蓝图与角色蓝图
+</p></li></ul><h2 id="步骤">步骤</h2>
+<ul ><li class="Default"><p>4.1 - 为角色添加动画
+</p></li><li class="Default"><p>4.2 - 设置事件图表
+</p></li><li class="Default"><p>4.3 - 添加动画状态机
+</p></li><li class="Default"><p>4.4 - 添加动画过渡状态
+</p><ul ><li class="Default"><p>4.4.1 - 添加空闲到奔跑/奔跑到空闲的过渡
+</p></li><li class="Default"><p>4.4.2 - 添加空闲到跳跃开始的过渡
+</p></li><li class="Default"><p>4.4.3 - 添加奔跑到跳跃开始的过渡
+</p></li><li class="Default"><p>4.4.4 - 添加跳跃开始到跳跃循环的过渡
+</p></li><li class="Default"><p>4.4.5 - 添加跳跃循环到跳跃结束的过渡
+</p></li><li class="Default"><p>4.4.6 - 添加跳跃结束到空闲的过渡
+</p></li></ul></li><li class="Default"><p>4.5 - 关联动画蓝图和角色蓝图
+</p></li></ul><h2 id="4.1-为角色添加动画">4.1 - 为角色添加动画</h2>
+<p>这一步中，你将在游戏中添加一些动画。
+</p><h3 id="导入动画">导入动画</h3>
+<div class="note">
+	<p>在开始之前，从以下链接下载并提取示例动画：
+</p><ul ><li class="Default"><p><a id="content_link" href="https://docs.unrealengine.com/Attachments/Programming/Tutorials/FirstPersonShooter/4/1/FPP_Animations.zip" ><span>动画示例</span></a>
+</p></li></ul>
+</div><ol ><li class="Default"><p>在 <strong>内容浏览器（Content Browser）</strong> 中点击右键，选择 <strong>新建文件夹（New Folder）</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/RightClickImport.jpg">
+		<img class="  lazyload" alt="RightClickImport.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/RightClickImport.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>将此新文件夹命名为"Animations"。
+</p></li><li class="Default"><p>双击打开该文件夹。
+</p></li><li class="Default"><p>找到以下五个本地动画文件：
+</p><ul ><li class="Default"><p><code>FPP&#95;Idle.FBX</code>
+</p></li><li class="Default"><p><code>FPP&#95;JumpEnd.FBX</code>
+</p></li><li class="Default"><p><code>FPP&#95;JumpLoop.FBX</code>
+</p></li><li class="Default"><p><code>FPP&#95;JumpStart.FBX</code>
+</p></li><li class="Default"><p><code>FPP&#95;Run.FBX</code>
+</p></li></ul></li><li class="Default"><p>在"Animations"文件夹中点击右键，然后点击 <strong>导入到/Game/Animations/（Import to /Game/Animations/...）</strong> 开始导入动画。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/ImportAnimations.jpg">
+		<img class="  lazyload" alt="ImportAnimations.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/ImportAnimations.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在弹出的的对话框中，选择 <strong>选择骨架（Select Skeleton）</strong> 标题下的 <strong>HeroFPP_Skeleton</strong>，然后点击 <strong>全部导入（Import All）</strong> 导入所有动画。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/SelectHeroFPP_Skeleton.jpg">
+		<img class="  lazyload" alt="SelectHeroFPP_Skeleton.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/SelectHeroFPP_Skeleton.jpg" />
+</picture>
+
+</p><div class="warning">
+	<p>确保在导入动画之前选择了正确的目标网格体！否则，稍后转到地图动画时可能会出现一些问题。</p>
+</div></li><li class="Default"><p>现在，<strong>内容浏览器（Content Browser）</strong> 中的 <strong>动画（Animations）</strong> 文件夹中应该有全部五个动画。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/ImportedAnimations.jpg">
+		<img class="  lazyload" alt="ImportedAnimations.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/ImportedAnimations.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>点击 <strong>保存（Save）</strong> 按钮，保存已导入的文件。
+</p></li></ol><h3 id="创建动画蓝图">创建动画蓝图</h3>
+<ol ><li class="Default"><p>在内容浏览器中右键点击动画文件夹。在 <strong>创建高级资产（Create Advanced Asset）</strong> 分段里，展开 <strong>动画（Animation）</strong> 并选择 <strong>动画蓝图（Animation Blueprint）</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/AddNewAnimBP.jpg">
+		<img class="  lazyload" alt="AddNewAnimBP.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/AddNewAnimBP.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>选择 <strong>AnimInstance</strong> 作为父类，并选择 <strong>HeroFPP_Skeleton</strong> 作为目标骨架。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/CreateAnimBP.jpg">
+		<img class="  lazyload" alt="CreateAnimBP.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/CreateAnimBP.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>将新动画蓝图命名为"Arms_AnimBP"。
+</p></li><li class="Default"><p>双击 <strong>Arms_AnimBP</strong> 打开 <strong>蓝图编辑器（Blueprint Editor）</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/DoubleClickAnimBP.jpg">
+		<img class="  lazyload" alt="DoubleClickAnimBP.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/DoubleClickAnimBP.jpg" />
+</picture>
+
+</p></li></ol><h3 id="添加状态机过渡变量">添加状态机过渡变量</h3>
+<ol ><li class="Default"><p>在 <strong>我的蓝图（My Blueprint）</strong> 选项卡中，点击 <strong>新增（Add New）</strong> 按钮，并选择 <strong>变量（Variable）</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/AddingNewVariable.jpg">
+		<img class="  lazyload" alt="AddingNewVariable.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/AddingNewVariable.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>将该变量设置为 <strong>布尔（Boolean）</strong>（可能已经这样设置了，但最好通过 <strong>细节（Details）</strong> 面板确认一下），并将其命名为"IsRunning"。
+</p></li><li class="Default"><p>在 <strong>我的蓝图（My Blueprint）</strong> 选项卡中，点击 <strong>新增（Add New）</strong> 按钮，并选择 <strong>变量（Variable）</strong>。
+</p></li><li class="Default"><p>将该变量设置为 <strong>布尔型（Boolean）</strong>，并将其命名为"IsFalling"。
+</p></li><li class="Default"><p>现在你应该有两个动画过渡变量，用于驱动动画的状态机。
+</p></li><li class="Default"><p>进入下一节时，保持 <strong>Arms_AnimBP</strong> 处于打开状态。
+</p></li></ol><h2 id="4.2-设置事件图表">4.2 - 设置事件图表</h2>
+<p>在这一步中，我们要编辑动画的事件图表，以确保我们的动画过渡变量在游戏运行时能够正确触发。
+</p><h3 id="更新状态变量">更新状态变量</h3>
+<ol ><li class="Default"><p>打开 <strong>Arms_AnimBP</strong>（如果尚未打开）。 
+</p></li><li class="Default"><p>双击 <strong>我的蓝图（My Blueprint）</strong> 选项卡中的 <strong>事件图表（EventGraph）</strong>，打开事件图表。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/OpenEventGraph.jpg">
+		<img class="  lazyload" alt="OpenEventGraph.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/OpenEventGraph.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在图表中点击右键，弹出 <strong>上下文菜单（Context Menu）</strong>。
+</p></li><li class="Default"><p>在 <strong>上下文菜单（Context Menu）</strong> 的搜索字段中输入"Update"，然后点击 <strong>Event Blueprint Update Animation</strong> 以添加该节点。
+</p><div class="note">
+	<p><strong>Event Blueprint Update Animation</strong> 节点用于在每次更新动画时更新我们的状态变量，使变量始终与游戏状态同步。<br /><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/EventBlueprintUpdateAnimationNode.jpg">
+		<img class="  lazyload" alt="EventBlueprintUpdateAnimationNode.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/EventBlueprintUpdateAnimationNode.jpg" />
+</picture>
+</p>
+</div></li><li class="Default"><p>在图表中点击右键，弹出 <strong>上下文菜单（Context Menu）</strong>。
+</p></li><li class="Default"><p>在 <strong>上下文菜单（Context Menu）</strong> 的搜索字段中输入"Owner"，然后点击 <strong>Try Get Pawn Owner</strong> 以添加该节点。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/TryGetPawnOwnerBP_Node.jpg">
+		<img class="  lazyload" alt="TryGetPawnOwnerBP_Node.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/TryGetPawnOwnerBP_Node.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>从输出引脚连出引线，并在 <strong>上下文菜单（Context Menu）</strong> 中选择 <strong>Cast to Character</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/CastToCharacterContextMenu.jpg">
+		<img class="  lazyload" alt="CastToCharacterContextMenu.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/CastToCharacterContextMenu.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>将 <strong>Event Blueprint Update Animation</strong> 节点上的输出执行引脚关联到 <strong>Cast to Character</strong> 节点上的输入执行引脚。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/ConnectedCastToCharacterNode.jpg">
+		<img class="  lazyload" alt="ConnectedCastToCharacterNode.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/ConnectedCastToCharacterNode.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>从 <strong>As Character</strong> 输出引脚连出引线，并选择 <strong>Get Character Movement</strong>（可能需要禁用上下文相关（Context Sensitivity）以方便找到此节点）。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/GetCharacterMovementNode.jpg">
+		<img class="  lazyload" alt="GetCharacterMovementNode.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/GetCharacterMovementNode.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>从 <strong>Character Movement</strong> 输出引脚连出引线，并选择 <strong>Get Movement Mode</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/GetMovementMode.jpg">
+		<img class="  lazyload" alt="GetMovementMode.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/GetMovementMode.jpg" />
+</picture>
+
+</p></li></ol><h3 id="查询角色移动">查询角色移动</h3>
+<ol ><li class="Default"><p>从 <strong>Movement Mode</strong> 输出引脚连出引线，并选择 <strong>Equal (Enum)</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/EqualEnumNode.jpg">
+		<img class="  lazyload" alt="EqualEnumNode.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/EqualEnumNode.jpg" />
+</picture>
+
+</p></li></ol><h3 id="确定角色是否在下降状态">确定角色是否在下降状态</h3>
+<ol ><li class="Default"><p>将 <strong>Equal (Enum)</strong> 节点上的下拉菜单值设置为 <strong>下降（Falling）</strong>.
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/SelectFalling.jpg">
+		<img class="  lazyload" alt="SelectFalling.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/SelectFalling.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>按住Alt键的同时点击 <strong>我的蓝图（My Blueprint）</strong> 选项卡中的 <strong>IsFalling</strong>，将其拖到图表中，创建一个 <strong>Set Is Falling</strong> 节点。
+</p></li><li class="Default"><p>将 <strong>Cast to Character</strong> 节点的未标记输出执行引脚连接到 <strong>Set Is Falling</strong> 节点的输入执行引脚，并将 <strong>Equal (Enum)</strong> 节点的输出布尔数据引脚连接到 <strong>Set Is Falling</strong> 节点的输入布尔数据引脚。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/ConnectedIsFalling.jpg">
+		<img class="  lazyload" alt="ConnectedIsFalling.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/ConnectedIsFalling.jpg" />
+</picture>
+
+</p></li></ol><h3 id="确定角色是否在奔跑状态">确定角色是否在奔跑状态</h3>
+<ol ><li class="Default"><p>返回 <strong>Cast To Character</strong> 节点，并从 <strong>As Character</strong> 引脚再次连出引线。这次选择 <strong>Get Velocity</strong> 节点。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/GetVelocityNode.jpg">
+		<img class="  lazyload" alt="GetVelocityNode.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/GetVelocityNode.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>如果角色不是站立不动，其速度向量的长度将大于零。因此，从 <strong>Return Value</strong> 向量输出引脚连出引线，并选择 <strong>Vector Length</strong> 以将该节点添加到图表。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/VectorLength.jpg">
+		<img class="  lazyload" alt="VectorLength.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/VectorLength.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>从 <strong>Return Value</strong> 浮点输出引脚连出引线，并选择 <strong>> (float)</strong> 节点。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/GreaterThan.jpg">
+		<img class="  lazyload" alt="GreaterThan.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/GreaterThan.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>按住Alt键的同时点击 <strong>我的蓝图（My Blueprint）</strong> 选项卡中的 <strong>IsRunning</strong>，将其拖到图表中，创建一个 <strong>Set Is Running</strong> 节点。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/IsRunning.jpg">
+		<img class="  lazyload" alt="IsRunning.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/IsRunning.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>将 <strong>Set Is Falling</strong> 节点的输出执行引脚连接到 <strong>Set Is Running</strong> 节点的输入执行引脚，并将 <strong>> (float)</strong> 节点的输出布尔引脚连接到 <strong>Set Is Running</strong> 节点的输入布尔引脚。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/ConnectedIsRunning.jpg">
+		<img class="  lazyload" alt="ConnectedIsRunning.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/ConnectedIsRunning.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>现在你的 <strong>事件图表</strong> 应如下所示：
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/CompleteEventGraph.png" ><span><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/CompleteEventGraph.jpg">
+		<img class="  lazyload" alt="CompleteEventGraph.png" width="750" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/CompleteEventGraph.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li></ol><h3 id="4.3-添加动画状态机">4.3 - 添加动画状态机</h3>
+<p>在这一步中，你将组合一个状态机，以利用你新创建的变量。
+</p><ol ><li class="Default"><p>双击 <strong>我的蓝图（My Blueprint）</strong> 选项卡中的 <strong>AnimGraph</strong>， 打开该图表。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/AnimGraph.jpg">
+		<img class="  lazyload" alt="AnimGraph.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/AnimGraph.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>右键点击该图表，在 <strong>上下文菜单（Context Menu）</strong> 中选择 <strong>状态机（State Machines）>添加新状态机（Add New State Machine...）</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/AddNewSM.jpg">
+		<img class="  lazyload" alt="AddNewSM.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/AddNewSM.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>右键点击 <strong>我的蓝图（My Blueprint）</strong> 选项卡中的 <strong>新状态机（New State Machine）</strong>，将其命名为"Arms State Machine"。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/NewArmsStateMachine.jpg">
+		<img class="  lazyload" alt="NewArmsStateMachine.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/NewArmsStateMachine.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>将"Arms State Machine"节点上的输出执行引脚连接到 <strong>Final Animation Pose</strong> 节点上的 <strong>Result</strong> 输入执行引脚。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/ConnectedArmsStateMachine.jpg">
+		<img class="  lazyload" alt="ConnectedArmsStateMachine.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/ConnectedArmsStateMachine.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>双击"Arms State Machine"节点，打开其图表进行编辑。
+</p></li></ol><h2 id="4.4-添加动画过渡状态">4.4 - 添加动画过渡状态</h2>
+<p>在这一步中，你将向状态图表添加五个状态，即：
+</p><ul ><li class="Default"><p>空闲（Idle）
+</p></li><li class="Default"><p>奔跑（Run）
+</p></li><li class="Default"><p>跳跃开始（JumpStart）
+</p></li><li class="Default"><p>跳跃结束（JumpEnd）
+</p></li><li class="Default"><p>跳跃循环（JumpLoop）
+</p></li></ul><ol ><li class="Default"><p>在图表中点击右键，并从下拉菜单中选择 <strong>添加状态（Add State...）</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/AddState.jpg">
+		<img class="  lazyload" alt="AddState.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/AddState.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>将该状态命名为"Idle"。
+</p></li><li class="Default"><p>双击该状态开始编辑。
+</p></li><li class="Default"><p>在图表区域内点击右键，并在 <strong>上下文菜单（Context Menu）</strong> 中搜索"空闲（Idle）"。
+</p></li><li class="Default"><p>点击 <strong>Play FPP_Idle</strong> 以插入该节点。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/PlayIdle.jpg">
+		<img class="  lazyload" alt="PlayIdle.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/PlayIdle.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>将 <strong>Play FPP_Idle</strong> 节点的输出执行引脚连接到 <strong>Output Animation Pose</strong> 节点的 <strong>Result</strong> 输入执行引脚。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/ConnectedIdleNode.jpg">
+		<img class="  lazyload" alt="ConnectedIdleNode.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/ConnectedIdleNode.jpg" />
+</picture>
+
+</p><div class="note">
+	<p>对其他4个状态重复执行步骤1-6，即：
+</p><ul ><li class="Default"><p>奔跑（Play FPP_Run > Output Animation Pose）
+</p></li><li class="Default"><p>跳跃开始（Play FPP_JumpStart > Output Animation Pose）
+</p></li><li class="Default"><p>跳跃结束（Play FPP_JumpEnd > Output Animation Pose）
+</p></li><li class="Default"><p>跳跃循环（Play FPP_JumpLoop > Output Animation Pose）
+</p></li></ul>
+</div></li><li class="Default"><p>完成以上操作后，<strong>Arms State Machine</strong> 图表应如下所示：
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/AnimationSMGraph.png" ><span><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/AnimationSMGraph.jpg">
+		<img class="  lazyload" alt="AnimationSMGraph.png" width="750" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/AnimationSMGraph.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><div class="note">
+	<p>每种状态都应包含一个 <strong>Play</strong> 节点，该节点连接到各自的 <strong>Final Animation Pose</strong> 节点。</p>
+</div></li><li class="Default"><p>从 <strong>Entry</strong> 节点拖出引线，连接到 <strong>Idle</strong> 状态节点。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/ConnectEntrytoIdle.jpg">
+		<img class="  lazyload" alt="ConnectEntrytoIdle.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/ConnectEntrytoIdle.jpg" />
+</picture>
+
+</p></li></ol><h3 id="4.4.1-添加空闲到奔跑/奔跑到空闲的过渡">4.4.1 - 添加空闲到奔跑/奔跑到空闲的过渡</h3>
+<p>在这一步中，你将设置空闲与奔跑相互之间的过渡，以便在角色开始移动时，状态机会从 <strong>空闲（Idle）</strong> 过渡到 <strong>奔跑（Run）</strong>。
+</p><ol ><li class="Default"><p>从 <strong>空闲（Idle）</strong> 状态拖出引线连接到 <strong>奔跑（Run）</strong> 状态，以创建过渡。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/WireIdletoRun.jpg">
+		<img class="  lazyload" alt="WireIdletoRun.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/WireIdletoRun.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>双击该过渡进行编辑。
+</p></li><li class="Default"><p>按住Control键的同时点击 <strong>我的蓝图（My Blueprint）</strong> 选项卡中的 <strong>IsRunning</strong>，拖到图表中，创建一个 <strong>Get Is Running</strong> 节点。
+</p></li><li class="Default"><p>将 <strong>Get Is Running</strong> 节点的输出引脚连接到 <strong>Result</strong> 节点上的 <strong>Can Enter Transition</strong> 引脚的输入引脚上。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/IsRunningtoResult.jpg">
+		<img class="  lazyload" alt="IsRunningtoResult.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/IsRunningtoResult.jpg" />
+</picture>
+
+</p><div class="note">
+	<p>角色停止移动时，状态机应从 <strong>奔跑（Run）</strong> 状态过渡到 <strong>空闲（Idle）</strong> 状态。</p>
+</div></li><li class="Default"><p>返回 <strong>Arms State Machine</strong> 图表，并从 <strong>奔跑（Run）</strong> 状态拖出一条引线连接到 <strong>空闲（Idle）</strong> 状态。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/WireRuntoIdle.jpg">
+		<img class="  lazyload" alt="WireRuntoIdle.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/WireRuntoIdle.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>双击该过渡进行编辑。
+</p></li><li class="Default"><p>按住Control键的同时点击 <strong>我的蓝图（My Blueprint）</strong> 选项卡中的 <strong>IsRunning</strong>，拖到图表中，创建一个 <strong>Get Is Running</strong> 节点。
+</p></li><li class="Default"><p>从 <strong>Get Is Running</strong> 节点上的输出布尔引脚拖出引线，创建一个 <strong>Not Boolean</strong> 节点。
+</p></li><li class="Default"><p>将 <strong>Not Boolean</strong> 节点的输出引脚连接到 <strong>Result</strong> 节点上的 <strong>Can Enter Transition</strong> 引脚的输入引脚上。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/IsNotRunningtoResult.jpg">
+		<img class="  lazyload" alt="IsNotRunningtoResult.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/IsNotRunningtoResult.jpg" />
+</picture>
+
+</p></li></ol><h3 id="4.4.2-添加空闲到跳跃开始的过渡">4.4.2 - 添加空闲到跳跃开始的过渡</h3>
+<p>在这一步中，你将设置从空闲到跳跃开始的状态过渡。
+</p><ol ><li class="Default"><p>返回 <strong>Arms State Machine</strong> 图表，并从 <strong>空闲（Idle）</strong> 状态拖出一条引线，连接到 <strong>跳跃开始（JumpStart）</strong> 状态。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/IdletoJumpStart.jpg">
+		<img class="  lazyload" alt="IdletoJumpStart.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/IdletoJumpStart.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>双击该过渡进行编辑。
+</p></li><li class="Default"><p>按住Control键的同时点击 <strong>我的蓝图（My Blueprint）</strong> 选项卡中的 <strong>IsFalling</strong>，拖到图表中，创建一个 <strong>Get Is Falling</strong> 节点。
+</p></li><li class="Default"><p>将 <strong>Get Is Running</strong> 节点的输出布尔引脚连接到 <strong>Result</strong> 节点上的 <strong>Can Enter Transition</strong> 输入布尔引脚。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/IsFallingtoResult.jpg">
+		<img class="  lazyload" alt="IsFallingtoResult.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/IsFallingtoResult.jpg" />
+</picture>
+
+</p></li></ol><h3 id="4.4.3-添加奔跑到跳跃开始的过渡">4.4.3 - 添加奔跑到跳跃开始的过渡</h3>
+<p>在这一步中，你将设置从奔跑到跳跃开始的过渡。
+</p><ol ><li class="Default"><p>返回 <strong>Arms State Machine</strong> 图表，并从 <strong>奔跑（Run）</strong> 状态拖出一条引线，连接到 <strong>跳跃开始（JumpStart）</strong> 状态。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/RuntoJumpStart.jpg">
+		<img class="  lazyload" alt="RuntoJumpStart.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/RuntoJumpStart.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>双击该过渡进行编辑。
+</p></li><li class="Default"><p>按住Control键的同时点击 <strong>我的蓝图（My Blueprint）</strong> 选项卡中的 <strong>IsFalling</strong>，拖到图表中，创建一个 <strong>Get Is Falling</strong> 节点。
+</p></li><li class="Default"><p>将 <strong>Get Is Running</strong> 节点的输出布尔引脚连接到 <strong>Result</strong> 节点上的 <strong>Can Enter Transition</strong> 输入布尔引脚。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/IsFallingtoResult.jpg">
+		<img class="  lazyload" alt="IsFallingtoResult.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/IsFallingtoResult.jpg" />
+</picture>
+
+</p></li></ol><h2 id="4.4.4-添加跳跃开始到跳跃循环的过渡">4.4.4 - 添加跳跃开始到跳跃循环的过渡</h2>
+<p>在这一步中，你将设置从跳跃开始到跳跃循环的过渡。
+</p><ol ><li class="Default"><p>返回 <strong>Arms State Machine</strong> 图表，并从 <strong>跳跃开始（JumpStart）</strong> 状态拖出一条引线，连接到 <strong>跳跃环路（JumpLoop）</strong> 状态。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/JumpStarttoJumpLoop.jpg">
+		<img class="  lazyload" alt="JumpStarttoJumpLoop.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/JumpStarttoJumpLoop.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>双击该过渡进行编辑。
+</p></li><li class="Default"><p>在图表中点击右键，搜索并选择 <strong>TimeRemaining for 'FPP_JumpStart'</strong> 节点。
+</p></li><li class="Default"><p>从 <strong>Time Remaining</strong> 输出引脚连出引线，使用 <strong>上下文菜单（Context Menu）</strong> 添加一个 <code>&lt;= (float)</code> 节点。
+</p></li><li class="Default"><p>在 <code>&lt;= (float)</code> 节点的另一个输出字段中输入0.1，然后从该节点的布尔输出引脚拖出一条引线，连接到 <strong>Result</strong> 节点的 <strong>Can Enter Transition</strong> 输入引脚。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/TimeRemaining.jpg">
+		<img class="  lazyload" alt="TimeRemaining.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/TimeRemaining.jpg" />
+</picture>
+
+</p></li></ol><h2 id="4.4.5-添加跳跃循环到跳跃结束的过渡">4.4.5 - 添加跳跃循环到跳跃结束的过渡</h2>
+<p>在这一步中，你将设置从跳跃循环到跳跃结束的过渡。
+</p><ol ><li class="Default"><p>返回 <strong>Arms State Machine</strong> 图表，并从 <strong>跳跃环路（JumpLoop）</strong> 状态拖出一条引线，连接到 <strong>跳跃结束（JumpEnd）</strong> 状态。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/JumpLooptoJumpEnd.jpg">
+		<img class="  lazyload" alt="JumpLooptoJumpEnd.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/JumpLooptoJumpEnd.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>双击该过渡进行编辑。
+</p></li><li class="Default"><p>按住Control键的同时点击 <strong>我的蓝图（My Blueprint）</strong> 选项卡中的 <strong>IsFalling</strong>，拖到图表中，创建一个 <strong>Get Is Falling</strong> 节点。
+</p></li><li class="Default"><p>从 <strong>Get Is Falling</strong> 节点上的输出布尔引脚连出引线，创建一个 <strong>Not Boolean</strong> 节点。
+</p></li><li class="Default"><p>将 <strong>Not Boolean</strong> 节点的输出引脚连接到 <strong>Result</strong> 节点上的 <strong>Can Enter Transition</strong> 引脚的输入引脚上。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/IsNotFalling.jpg">
+		<img class="  lazyload" alt="IsNotFalling.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/IsNotFalling.jpg" />
+</picture>
+
+</p></li></ol><h2 id="4.4.6-添加跳跃结束到空闲的过渡">4.4.6 - 添加跳跃结束到空闲的过渡</h2>
+<p>在这一步中，你将设置从跳跃结束到空闲状态的过渡。
+</p><ol ><li class="Default"><p>返回 <strong>Arms State Machine</strong> 图表，并从 <strong>跳跃结束（JumpEnd）</strong> 状态拖出一条引线，连接到 <strong>空闲（Idle）</strong> 状态。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/JumpEndtoIdle.jpg">
+		<img class="  lazyload" alt="JumpEndtoIdle.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/JumpEndtoIdle.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>双击该过渡进行编辑。
+</p></li><li class="Default"><p>在图表中点击右键，搜索并选择 <strong>TimeRemaining for 'FPP_JumpEnd'</strong> 节点。
+</p></li><li class="Default"><p>从 <strong>Time Remaining</strong> 输出引脚连出引线，使用 <strong>上下文菜单（Context Menu）</strong> 添加一个 <code>&lt;= (float)</code> 节点。
+</p></li><li class="Default"><p>在 <code>&lt;= (float)</code> 节点的另一个输出字段中输入0.1，然后从该节点的布尔输出引脚拖出一条引线，连接到 <strong>Result</strong> 节点的 <strong>Can Enter Transition</strong> 输入引脚。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/TimeRemaining.jpg">
+		<img class="  lazyload" alt="TimeRemaining.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/TimeRemaining.jpg" />
+</picture>
+
+</p></li></ol><h3 id="4.5-关联动画蓝图和角色蓝图">4.5 - 关联动画蓝图和角色蓝图</h3>
+<p>这是本教程的最后一部分，在这一步，你将把创建好的动画蓝图与你的角色蓝图关联起来。
+</p><ol ><li class="Default"><p>编译并保存 <strong>Arms_AnimBP</strong> 动画蓝图，然后关闭蓝图。
+</p></li><li class="Default"><p>转到 <strong>内容浏览器（Content Browser）</strong> 中的 <strong>蓝图（Blueprints）</strong> 文件夹，打开 <strong>BP_FPSCharacter</strong> 蓝图。
+</p></li><li class="Default"><p>在 <strong>组件（Components）</strong> 选项卡中选择 <strong>FPSMesh</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/LocateFPSMesh.jpg">
+		<img class="  lazyload" alt="LocateFPSMesh.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/LocateFPSMesh.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>将 <strong>FPSMesh</strong> 的 <strong>动画类（Anim Class）</strong> 设置为你刚创建的 <strong>Arms_AnimBP</strong> 动画蓝图。
+</p></li><li class="Default"><p>在 <strong>默认（Defaults）</strong> 模式下运行时，将 <strong>FPSMesh</strong> 的 <strong>位置（Location）</strong> 变换属性设为{50, -15, -150}，<strong>旋转（Rotation）</strong> 变换属性设为{0, 25, 350}。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/NewArmTransform.png" ><span><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/NewArmTransform.jpg">
+		<img class="  lazyload" alt="NewArmTransform.png" width="750" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/NewArmTransform.jpg" />
+</picture>
+</span></a></span></p>
+</div></li><li class="Default"><p>编译并保存该蓝图，然后关闭蓝图。
+</p></li><li class="Default"><p>点击 <strong>关卡编辑器工具栏</strong> 中的 <strong>运行（Play）</strong> 按钮。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/FinalGif.jpg">
+		<img class="  lazyload" alt="FinalGif.gif" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/FinalGif.jpg" />
+</picture>
+
+</p><div class="caption">
+	<p>动画状态机将不同动画组合在一起，当你的手臂在这些动画间过渡时，将呈现出动画效果。</p>
+</div></li></ol><p>恭喜！你已经学会了如何：
+</p><p>&#x2713; 建立新项目<br />&#x2713; 添加角色<br />&#x2713; 实现抛射物<br />&#x2713; 为角色添加动画<br /></p><p>你已完成了C++第一人称射击游戏教程！
+</p>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/4/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:21:09 GMT -->
+</html>

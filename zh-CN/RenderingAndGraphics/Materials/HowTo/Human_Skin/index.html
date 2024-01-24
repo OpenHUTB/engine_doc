@@ -1,0 +1,531 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/RenderingAndGraphics/Materials/HowTo/Human_Skin/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:15:17 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/RenderingAndGraphics/Materials/HowTo/Human_Skin/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>创建人体皮肤  | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/RenderingAndGraphics/Materials/HowTo/Human_Skin/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/RenderingAndGraphics/Materials/HowTo/Human_Skin/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/RenderingAndGraphics/Materials/HowTo/Human_Skin/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/RenderingAndGraphics/Materials/HowTo/Human_Skin/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Rendering/Materials/HowTo/Human_Skin" />
+<meta name="intsourcechangelist" content="13886317" />
+<meta name="availability" content="Public" />
+<meta name="title" content="创建人体皮肤" />
+<meta name="description" content="人体皮肤设置指南" />
+<meta name="parent" content="RenderingAndGraphics/Materials/HowTo" />
+<meta name="related" content="RenderingAndGraphics/Materials" />
+<meta name="related" content="RenderingAndGraphics/Materials/HowTo/Subsurface_Scattering" />
+<meta name="related" content="RenderingAndGraphics/Materials/LightingModels/SubSurfaceProfile" />
+<meta name="related" content="RenderingAndGraphics/Materials/LightingModels/SubSurface" />
+<meta name="related" content="Resources/ContentExamples/MaterialNodes/1_7" />
+<meta name="version" content="4.9" />
+<meta name="skilllevel" content="Advanced" />
+<meta name="keywords" content="Materials" />
+<meta name="course" content="creating-pbr-materials?lang=zh-CN|创建PBR材质|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fcreating-pbr-materials%2FHighresScreenshot00006-1920x1050-2c0180460478cd00327494c6e5717e227be4926d.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fcreating-pbr-materials%2FCreating-PBR-Materials-1000x1000-0d34ec4bfc3eeb466ce5a981a867921f72464e77.png?resize=1&amp;w=300" />
+<meta name="course" content="getting-to-know-materials-for-design-visualization?lang=zh-CN|了解可视化设计中的材质|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fgetting-to-know-materials-for-design-visualization%2FIntro_to_Materials_003-1919x1079-f32638266c469a6fa2b9b2f3515e5766e8177b22.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fgetting-to-know-materials-for-design-visualization%2FGetting-to-Know-Materials-for-Design-Visualization-1000x1000-8cd1670f84e0111e39d4a3faa1e7a6ba29a30bfe.png?resize=1&amp;w=300" />
+<meta name="course" content="materials---exploring-essential-concepts?lang=zh-CN|材质：基础概念|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials---exploring-essential-concepts%2FMaterialEssentialConcepts-1920x1080-1920x1080-2414bb5cf0b0c3bd7ac4b993e725d2acedd45334.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials---exploring-essential-concepts%2FMaterials--Exploring-Essential-Concepts-1000x1000-9546cdc254e6659ce73211b5955ab9d886921256.png?resize=1&amp;w=300" />
+<meta name="course" content="materials---understanding-the-production-workflow?lang=zh-CN|材质：制作工作流|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials---understanding-the-production-workflow%2FMaterialWorkflow_ThumbnailFull-1920x1080-1920x1080-638fea6d7e3b7b299a4f433096336ce1caf662d0.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials---understanding-the-production-workflow%2F104-Materials-Production-Workflow%402x-1000x1000-ae1ba588a367d239fbe513da38bb793360c9eecf.png?resize=1&amp;w=300" />
+<meta name="course" content="materials-master-learning?lang=zh-CN|材质大师课程|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials-master-learning%2FMaterialMaster_1920x1080-1920x1080-212f85045980310d6985557f84d0217e6423b709.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials-master-learning%2FMaterials-Master-Learning-1000x1000-56fd0b66f6e798313f79737126d9215cbd4a3ff9.png?resize=1&amp;w=300" />
+<meta name="crumbs" content="%ROOT%,RenderingAndGraphics,RenderingAndGraphics/Materials,RenderingAndGraphics/Materials/HowTo" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="创建人体皮肤 " />
+	<meta property="og:description" content="人体皮肤设置指南 " />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">设计视觉、渲染和图形效果</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">材质 </a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">材质 - 操作指南</a>
+
+<span class="separator">></span> <span id="page">创建人体皮肤 </span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">创建人体皮肤 </h1>
+							</div>	
+							<h2 >人体皮肤设置指南 </h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Advanced"><a id="skill_link" href="../../../../SiteIndex/index.html?skills=Advanced">Advanced</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																		<div id="seeAlso">
+	<div style="position:relative;">
+		<div id="title">参见</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<p>
+						<a id="related_link" href="../../index.html" title="使用着色器控制世界中的表面外形。">材质</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../Subsurface_Scattering/index.html" title="在材质中使用次表面散射着色模型的指南">在材质中使用次表面散射</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../LightingModels/SubSurfaceProfile/index.html" title="材质中可用的次表面轮廓着色模型的描述和技术细节。">次表面轮廓明暗处理模型</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../LightingModels/SubSurface/index.html" title="材质中可用的次表面明暗处理模型的说明及技术细节。">次表面明暗处理模型</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../../../Resources/ContentExamples/MaterialNodes/1_7/index.html" title="材质节点示例关卡概述，示例 1.7: 不透明度和次表面材质。">1.7 - 不透明度和次表面材质</a>
+					</p>
+				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																		<div id="courses">
+	<div style="position:relative;">
+		<div id="title">相关课程</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<div name="creating-pbr-materials?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/creating-pbr-materials?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_443/Unreal%20Engine/onlinelearning-courses/creating-pbr-materials/HighresScreenshot00006-1920x1050-2c0180460478cd00327494c6e5717e227be4926d4f86.png?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_443/Unreal%20Engine/onlinelearning-courses/creating-pbr-materials/Creating-PBR-Materials-1000x1000-0d34ec4bfc3eeb466ce5a981a867921f72464e77fe4b.png?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="creating-pbr-materials?lang=zh-CN_title">
+				创建PBR材质
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="getting-to-know-materials-for-design-visualization?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/getting-to-know-materials-for-design-visualization?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/getting-to-know-materials-for-design-visualizat/Intro_to_Materials_003-1919x1079-f32638266c469a6fa2b9b2f3515e5766?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/getting-to-know-materials-for-design-visualizat/Getting-to-Know-Materials-for-Design-Visualization-1000x1000-8cd1670f84e0111e39d4a3faa1e7a6b?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="getting-to-know-materials-for-design-visualization?lang=zh-CN_title">
+				了解可视化设计中的材质
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="materials---exploring-essential-concepts?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/materials---exploring-essential-concepts?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/materials---exploring-essential-concepts/MaterialEssentialConcepts-1920x1080-1920x1080-2414bb5cf0b0c3bd7ac4b993e725d2acedd45334.42c4f86.dela?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/materials---exploring-essential-concepts/Materials--Exploring-Essential-Concepts-1000x1000-9546cdc254e6659ce73211b5955ab9d886921256.42dfe4b?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="materials---exploring-essential-concepts?lang=zh-CN_title">
+				材质：基础概念
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="materials---understanding-the-production-workflow?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/materials---understanding-the-production-workflow?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/materials---understanding-the-production-workfl/MaterialWorkflow_ThumbnailFull-1920x1080-1920x1080-638fea6d7e3b7b299a4f433096336ce1caf662d0?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/materials---understanding-the-production-workfl/104-Materials-Production-Workflow%402x-1000x1000-ae1ba588a367d239fbe513da38bb793360c9eecf.42ff?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="materials---understanding-the-production-workflow?lang=zh-CN_title">
+				材质：制作工作流
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="materials-master-learning?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/materials-master-learning?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/materials-master-learning/MaterialMaster_1920x1080-1920x1080-212f85045980310d6985557f84d0217e6423b709.4314f86.del?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/materials-master-learning/Materials-Master-Learning-1000x1000-56fd0b66f6e798313f79737126d9215cbd4a3ff9.433fe4b.de?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="materials-master-learning?lang=zh-CN_title">
+				材质大师课程
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																								<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#设置">设置</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#材质（material）">材质（Material）</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#底色">底色</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#粗糙度">粗糙度</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#高光">高光</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#法线">法线</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#透明度">透明度</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#毛孔">毛孔</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#使用次表面概况">使用次表面概况</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#实用链接">实用链接</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#总结">总结</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Materials/LightingModels/SubSurfaceProfile/Results_1.png" ><span><img class="  lazyload" alt="未使用此表面轮廓" width="700" data-src="../../../../../Images/RenderingAndGraphics/Materials/LightingModels/SubSurfaceProfile/Results_1.png" />
+</span></a></span></p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Materials/LightingModels/SubSurfaceProfile/Results_2.png" ><span><img class="  lazyload" alt="使用此表面轮廓" width="700" data-src="../../../../../Images/RenderingAndGraphics/Materials/LightingModels/SubSurfaceProfile/Results_2.png" />
+</span></a></span></p>
+        <div class="overlay-last "></div>
+    </div>
+</div><p>让人体皮肤拥有正确的渲染效果是一个非常复杂的话题，并没有一劳永逸的完美方案。 
+为此，请将以下信息视为你的工作的 <em>起始点</em>，因为要获得逼真的图像，需要完成大量的工作。 
+这是因为我们的眼睛经过非常良好的训练，能够探测到人体面部很细微的细节。 
+正确做到这一点非常具有挑战性，但一旦精通了工具，就可以将它们应用于许多其他情况。
+</p><h2 id="设置">设置</h2>
+<p>在开始制作材质之前，我们应该先收集一些参考资料。 
+这是因为通常最好从多个具有不同光照情况的照片参考资料着手，以便你可以验证材质在不同光照情况下的外观。 
+如果可能，对源数据进行扫描和校准是理想情况，因为这有助于确保你获得可能的最佳结果。 
+在编辑器中查看内容时，请确保禁用 <strong>编辑器的人眼适应</strong> 功能，以获得更可控的环境：<em>"编辑（Edit）"菜单 > 项目设置（Project Settings） > 渲染（Rendering）> 默认后置处理（Default Post Processing Settings） > 自动曝光（Auto Exposure）</em>
+</p><div class="tip">
+	<p>经过校准的环境有助于你确保颜色正确，但并非必需。</p>
+</div><p>在以下示例中，我们将会使用可以在商城中下载到的内容示例（Content Example）中的 "皮肤渲染内容" 来示例。
+如果你尚未下载，请前往应用商城下载 Content Example，并打开 皮肤渲染（SkinRendering） 地图。
+你还需要记住，本文档中的图像明显分辨率过低，无法用作源素材。
+</p><div class="note">
+	<p>请确保正确设置法线贴图以使其能够在虚幻引擎中使用，这一点至关重要。某些引擎使用绿色通道已翻转的法线贴图。你可以通过比较下图中的颜色和你的法线贴图，检查你的法线贴图的绿色通道是否已翻转。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/LightingModels/SubSurfaceProfile/NormalSetup.jpg">
+		<img class="  lazyload" alt="NormalSetup.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/LightingModels/SubSurfaceProfile/NormalSetup.jpg" />
+</picture>
+</p>
+</div><p>下面列出了在你开始创建皮肤纹理和材质之前需要了解的一些事项。
+</p><ul ><li class="Default"><p>请记住，在创建纹理时，理想情况是从分辨率非常高的纹理（例如 2K x 2K 或更高分辨率）着手，因为这会产生最佳结果。 
+</p></li><li class="Default"><p>为了更快迭代，最好创建一个材质实例并显示标量和矢量参数，以更快、更简单地进行微调，因为材质在微调期间无需重新编译。 
+</p></li><li class="Default"><p>请记住，应该在不同光照条件下对资源进行验证，以确保它们正确。 
+比如如果在"后处理体积"（Post Process Volume）中启用了"人眼适应"，可能会使最终结果大相径庭。 
+</p></li><li class="Default"><p>为了避免阴影，人工制品需要额外的工作，因为你需要微调阴影偏移之类的项，或者使用聚光效果更好的光锥来获得更好的照明清晰度。
+</p></li><li class="Default"><p>微调时，通过调整编辑器 FOV 来放大可能非常有用，因为这不会导致几何体被裁剪，并且产生的变形较少。 
+</p></li><li class="Default"><p>可以通过以下方法来调整编辑器视野 (FOV)：单击"视角"（Perspective）图标旁的下拉箭头，然后使用鼠标调整 FOC 值。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Human_Skin/HS_Change_FOV.jpg">
+		<img class="  lazyload" alt="HS_Change_FOV.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Human_Skin/HS_Change_FOV.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在查看你的工作时，你可能会注意到流系统不考虑缩放，并且可能会让你的纹理变得模糊不清（当你并不希望如此时）。这是针对 3D 游戏做出的一个设计上的决策，但在将来某个时间可能会更改。为了防止发生这种情况，你可以在网格实例中更改"流距离乘数"（Streaming Distance Multiplier）。
+</p></li></ul><h2 id="材质（material）">材质（Material）</h2>
+<p>下面是"内容示例"图中一个完整材质的图像。 
+虽然此材质看起来很复杂，但我们会在接下来的小节中对该材质的每个部分进行分解。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Human_Skin/HS_Skin_Parent_Material.png" ><span><img class="  lazyload" alt="HS_Skin_Parent_Material.png" width="920" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Human_Skin/HS_Skin_Parent_Material.png" />
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><h3 id="底色">底色</h3>
+<p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Human_Skin/HS_Base_Color.jpg">
+		<img class="  lazyload" alt="HS_Base_Color.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Human_Skin/HS_Base_Color.jpg" />
+</picture>
+
+</p><p>首先需要了解的一件事是，从非常远的距离很难察觉到表面散射效果。 
+这意味着最好让纹理的底色在从远处查看时显得正常。 
+你也可以使用灰度纹理使底色变深，并使用高光效果（由于散射导致）使皮肤呈现一个较好的整体外观。 
+还可以添加一些矢量和标量控件来调整皮肤的颜色及活力，以帮助你进一步微调，从而获得想要的外观。
+</p><h3 id="粗糙度">粗糙度</h3>
+<p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Human_Skin/HS_Roughness.jpg">
+		<img class="  lazyload" alt="HS_Roughness.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Human_Skin/HS_Roughness.jpg" />
+</picture>
+
+</p><p>对于皮肤，最好从 0.4 左右的粗糙度常量值开始，并从此值进行微调。 
+请记住，实际值取决于影调范围/距离、年龄以及你试图模拟的皮肤的干湿程度。 
+ 与其他纹理不同，我们明确地想要纹理映射看起来不一样。下面是这种 MIP 链看起来的样子：
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/LightingModels/SubSurfaceProfile/DetailRoughness.jpg">
+		<img class="  lazyload" alt="DetailRoughness.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/LightingModels/SubSurfaceProfile/DetailRoughness.jpg" />
+</picture>
+
+</p><p>请注意，MIP 越小，就具有越明亮的灰度值，这意味着材质转变为更粗燥的材质。 
+还要注意，可以将此纹理放入另一个纹理的通道中（这样可减少纹理查找和纹理内存）。 
+理想情况下，此纹理应该与法线贴图纹理具有相同的分辨率。
+</p><h3 id="高光">高光</h3>
+<p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Human_Skin/HS_Spec.jpg">
+		<img class="  lazyload" alt="HS_Spec.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Human_Skin/HS_Spec.jpg" />
+</picture>
+
+</p><p>皮肤的高光值设置为值 <strong>0.35</strong>。 
+使用数字 0.35 是因为此数字是从真实世界测量出的高光值转换为我们使用的范围后得出的。 
+</p><h3 id="法线">法线</h3>
+<div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Human_Skin/HS_Normal.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Human_Skin/HS_Normal.jpg">
+		<img class="  lazyload" alt="HS_Normal.png" width="600" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Human_Skin/HS_Normal.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><p>为了让法线贴图适合于皮肤，你需要确保法线贴图满足下列条件。 
+</p><ul ><li class="Default"><p>用于面部的法线贴图应该只包含有关皱纹的细节。毛孔细节应该通过平铺纹理来完成，因为这样可以得到更好的结果。
+</p></li><li class="Default"><p>将对象的法线贴图与细节法线贴图合并时，请确保使用材质函数 BlendAngleCorrectedNormals 进行合并，因为你将获得更好的结果。 
+显示参数以调整法线贴图的混合同样非常重要。你可以采用细节法线贴图值，对其 Z 分量增加特定标量值，然后标准化。 
+这样就可以将一个普通的法线贴图转变成一个平面细节法线贴图。 
+</p></li><li class="Default"><p>由于皮肤的不同区域具有不同的阴影属性，最好将粗糙度与对象映射（非拼贴）的纹理结合起来。 
+由于细节法线贴图会导致粗糙度随着距离增大而增加，我们必须做出补偿。我们还需要从多个影调范围/视野距离验证阴影，以确保无论距离摄像头多远，阴影看起来都正常。
+</p></li><li class="Default"><p>现代的实时渲染技术使用基于像素的光照计算来产生阴影。通常，这会得到十分高质量的结果，但适用于非常精细的法线贴图。使用 Mip 贴图可以避免闪光并得到较好的性能，但 Mip 贴图对于法线贴图表现不佳，这是因为较低的 MIP 中的细节根本不存在，并且表面会显得比应有效果明亮得多。为了抵消这种效果，我们可以相应地调整粗糙度。这并不会捕获屈光参差的细节，但对于无方向的特性，这是一个不错的近似值。
+</p></li></ul><h3 id="透明度">透明度</h3>
+<p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Human_Skin/HS_Opacity.jpg">
+		<img class="  lazyload" alt="HS_Opacity.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Human_Skin/HS_Opacity.jpg" />
+</picture>
+
+</p><p>透明度输入控制所发生的次表面散射量。 
+ 值 1 或纯白意味着应全力进行次表面散射。
+ 值 0 或纯黑意味着不应发生次表面散射。 
+</p><h3 id="毛孔">毛孔</h3>
+<div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Human_Skin/HS_Pores.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Human_Skin/HS_Pores.jpg">
+		<img class="  lazyload" alt="HS_Pores.png" width="600" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Human_Skin/HS_Pores.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><p>让皮肤拥有毛孔是获得逼真皮肤过程中非常重要的一个细节。 
+然而，由于毛孔需要非常细致，因此，仅仅通过向基本法线贴图中添加毛孔很难达到所需的质量。 
+将毛孔作为单独的拼贴纹理添加不仅使它们更加突出，还可方便对它们进行调整。<br />由于此着色器中毛孔拼贴细节的变化，已使用 TexCoord 材质表达式乘以标量参数，以便我们能够在材质实例内部获得所需的毛孔。 
+</p><p>下面是近距离查看时毛孔蒙版和法线纹理贴图的外观。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/LightingModels/SubSurfaceProfile/DetailSpec.jpg">
+		<img class="  lazyload" alt="DetailSpec.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/LightingModels/SubSurfaceProfile/DetailSpec.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/LightingModels/SubSurfaceProfile/DetailNormal.jpg">
+		<img class="  lazyload" alt="DetailNormal.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/LightingModels/SubSurfaceProfile/DetailNormal.jpg" />
+</picture>
+
+</p><p>由于毛孔略低于表面区域，因此从切线角查看时，实际上很难看到它们。 
+我们可以模拟当调整被观察平面的角度时，毛孔逐渐变淡的现象。
+此计算类似于菲涅尔公式，在 SkinMaster 材质中已按如下所示实现： 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/LightingModels/SubSurfaceProfile/FresnelMask.jpg">
+		<img class="  lazyload" alt="FresnelMask.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/LightingModels/SubSurfaceProfile/FresnelMask.jpg" />
+</picture>
+
+</p><h2 id="使用次表面概况">使用次表面概况</h2>
+<p>次表面概况用来使皮肤显得逼真。 
+要在材质中使用次表面概况，你只需要提供材质或材质实例以及要使用的次表面概况。 
+</p><p>要在材质中更改次表面概况，你只需要在材质编辑器（Material Editor）的 <strong>细节（Details）</strong>面板中提供要使用的次表面概况。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Subsurface_Profile/SSP_Apply_SSP.jpg">
+		<img class="  lazyload" alt="SSP_Apply_SSP.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Subsurface_Profile/SSP_Apply_SSP.jpg" />
+</picture>
+
+</p><p>要更改在材质实例内使用的次表面概况，你只需要首先检查 <strong>覆盖次表面概况（Override Subsurface Profile）</strong>，然后在材质实例的 <strong>次表面概况（Subsurface Profile）</strong>部分中提供你想要应用的次表面概况。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Subsurface_Profile/SSP_SSP_In_Material_Instance.png" ><span><img class="  lazyload" alt="SSP_SSP_In_Material_Instance.png" width="920" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Subsurface_Profile/SSP_SSP_In_Material_Instance.png" />
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><h2 id="实用链接">实用链接</h2>
+<p>下述链接指向的外部网站，提供了如何创建高真实度游戏角色的丰富信息。 
+</p><p><a id="content_link" href="http://www.iryoku.com/stare-into-the-future" ><span>次世代角色渲染技术</span></a>
+</p><h2 id="总结">总结</h2>
+<p>设置皮肤并使其正确渲染是一个较长的复杂过程，需要花一些时间才能获得满意的结果。 
+请记住，本指南应该只用来帮助你在设置皮肤时指明正确的方向。 
+如果你发现使用与此处提供的设置略有不同的设置能够获得你想要的结果，这是正常的。
+再次强调，上述信息并不是你在设置皮肤时必须严格遵循的规则，而应该被视为可以遵循的准则。 
+</p>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Materials">Materials</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/RenderingAndGraphics/Materials/HowTo/Human_Skin/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:15:24 GMT -->
+</html>

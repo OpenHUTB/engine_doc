@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/WorkingWithContent/SpeedTree/ComputingLightmapUVs/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 10:52:34 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/WorkingWithContent/SpeedTree/ComputingLightmapUVs/" />');
+				var udnCSS = '../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>计算光照图 UV 坐标 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/WorkingWithContent/SpeedTree/ComputingLightmapUVs/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/WorkingWithContent/SpeedTree/ComputingLightmapUVs/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/WorkingWithContent/SpeedTree/ComputingLightmapUVs/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/WorkingWithContent/SpeedTree/ComputingLightmapUVs/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Content/SpeedTree/ComputingLightmapUVs" />
+<meta name="intsourcechangelist" content="3108692" />
+<meta name="availability" content="Public" />
+<meta name="title" content="计算光照图 UV 坐标" />
+<meta name="description" content="在虚幻引擎 4 中计算 SpeedTree 模型光照图 UV 坐标。" />
+<meta name="version" content="4.9" />
+<meta name="skilllevel" content="Advanced" />
+<meta name="crumbs" content="%ROOT%,WorkingWithContent,WorkingWithContent/SpeedTree" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="计算光照图 UV 坐标" />
+	<meta property="og:description" content="在虚幻引擎 4 中计算 SpeedTree 模型光照图 UV 坐标。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">管理内容</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">SpeedTree</a>
+
+<span class="separator">></span> <span id="page">计算光照图 UV 坐标</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">计算光照图 UV 坐标</h1>
+							</div>	
+							<h2 >在虚幻引擎 4 中计算 SpeedTree 模型光照图 UV 坐标。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Advanced"><a id="skill_link" href="../../../SiteIndex/index.html?skills=Advanced">Advanced</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																																				<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#步骤1：切换至lightmapdensity渲染模式">步骤 1：切换至 Lightmap Density 渲染模式</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#步骤2：选择光照图分辨率">步骤 2：选择光照图分辨率</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#步骤3：调整光照图">步骤 3：调整光照图</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#步骤4：在虚幻引擎4中选择光照图分辨率">步骤 4：在虚幻引擎 4 中选择光照图分辨率</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>如要在 UE4 中使用静态光照（全局光照），必须为模型计算一套展开的 UV 坐标。该 UV 贴图即为模型的光照图。设置优秀的光照图需要技术和艺术的结合。以下步骤将详细说明如何在 SpeedTree 中计算光照图 UV 贴图。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/WorkingWithContent/SpeedTree/ComputingLightmapUVs/ue4_lightmap.jpg" ><span><picture>
+		<source data-srcset="./../../../../Images/WorkingWithContent/SpeedTree/ComputingLightmapUVs/ue4_lightmap.jpg">
+		<img class="  lazyload" alt="ue4_lightmap.jpg" width="920" data-src="../../../../Images/WorkingWithContent/SpeedTree/ComputingLightmapUVs/ue4_lightmap.jpg" />
+</picture>
+</span></a></span></p>
+</div><p>左图为模型光照图和密度，右图为 UE4 中贴上光照图的模型。
+</p><a name="step1:switchtolightmapdensityrenderingmode" ></a><h2 id="步骤1：切换至lightmapdensity渲染模式">步骤 1：切换至 Lightmap Density 渲染模式</h2>
+<p>使用 <strong>Render</strong> 工具栏按钮，将渲染模式切换至 <strong>Lightmap Density</strong>。所示画面应与下图相似。
+</p><p><picture>
+		<source data-srcset="./../../../../Images/WorkingWithContent/SpeedTree/ComputingLightmapUVs/ue4_starting_lightmap.jpg">
+		<img class="  lazyload" alt="ue4_starting_lightmap.jpg" data-src="../../../../Images/WorkingWithContent/SpeedTree/ComputingLightmapUVs/ue4_starting_lightmap.jpg" />
+</picture>
+
+</p><p>该展示显示光照图在模型上的分布情况，旨在高度匹配 UE4 中相同的展示模式（<strong>Show</strong> -> <strong>Lightmap density</strong>）。模型的绿色部分代表理想的密度。蓝色意味着光照图精度过低，在 UE4 中构建光照图时可能出现穿帮。红色意味着光照图精度过高，应用在现有几何体上有浪费之嫌。
+</p><p>光照图在左下角进行渲染。选择模型的部分，确认其在光照图中的位置。也可选择光照图中的三角形，确定它们来自模型的哪个部分。最大化利用光照图的方法是让模型较大的部分使用较大的光照图。稍后将详细讲述如何进行此操作。
+</p><div class="note">
+	<p>模型单元在展示中具有作用。选择 <strong>Tree</strong> 生成器并编辑 <strong>Lightmap:Scale</strong>，按导入 UE4 时的相同缩放量对模型进行缩放。此默认值与导入器的默认值相同。</p>
+</div><div class="note">
+	<p>在 <strong>Window 属性</strong> 中对相关属性进行编辑，即可改变光照图在视口中的渲染尺寸。</p>
+</div><a name="step2:pickalightmapresolution" ></a><h2 id="步骤2：选择光照图分辨率">步骤 2：选择光照图分辨率</h2>
+<p>光照图的分辨率取决于项目的要求和树的复杂程度。目的是使用尽量低的光照图分辨率，为场景中模型的放置获得足够的覆盖。
+</p><p>选择 <strong>Tree</strong> 生成器并编辑 <strong>Lightmap:Resolution</strong> 属性，即可对目标光照图分辨率进行设置。有可能模型过于复杂，无法与选择的分辨率匹配。出现这种情况时，输出窗口将弹出警告提示，分辨率将变为最小分辨率；将在光照图中为模型中的每个节点添加至少一个纹素，同时保持一个纹素的边界，防止渲染穿帮。
+</p><a name="step3:tunethelightmap" ></a><h2 id="步骤3：调整光照图">步骤 3：调整光照图</h2>
+<p>选择分辨率后，下一步需要对模型上光照图的分布方式进行调整，确保最大的密度设置在最需要的模型部分上。整体而言，最大的密度应该设置在树干、低枝和根部。这些区域对玩家常见，密度较低时容易出现明显穿帮。相对而言，树叶的密度通常较小，便于在较小的光照图中匹配模型。
+</p><p>结合下列工具的使用对光照图密度分布进行调整：
+</p><ul ><li class="Default"><p><strong>Reset</strong> - 选择 <strong>Tools</strong> -> <strong>Reset lightmap</strong>，将除树叶外的全部光照图标量设为 1.0。树叶的标量被设为 0.0，因此每片树叶将获得一个纹素，不多不少（稍后详细讨论）。
+</p></li><li class="Default"><p><strong>Material Scales</strong> - 每个材质均拥有一个名为 <strong>Unwrap scale</strong> 的属性。增加或减少该数值可改变使用此材质的每块几何体的相对尺寸（便于设置上限）。
+</p></li><li class="Default"><p><strong>Generator/Node Scales</strong> - 每个存储几何体的生成器/节点组合均拥有一个 Lightmap:Scale 属性。调整此数值即可改变所选物体在光照图中的空间尺寸。枝干上的分布曲线可在物体上调整光照图空间的分布（而无需变更实际使用的光照图区域）。该曲线用于消除这样的情况：使用相同纹理空间的情况下，随几何体的缩小，顶端附近枝干光照图的密度将自然增加。
+</p></li><li class="Default"><p><strong>Lightmap Resolution</strong> - 如在所选分辨率中无法完成操作，可能需要选择更高的分辨率（如步骤 2 中所述）。布置将会产生巨大变化，可能需要重置并重新开始。
+</p></li></ul><div class="note">
+	<p>可进入节点编辑模式将单个枝干、叶片和树叶的比例调大，针对出现问题的区域进行处理。</p>
+</div><div class="tip">
+	<p><strong>最佳做法</strong>：在枝干设置好之前，使树叶保持为零。然后将树叶的比例调大，使其填充所有空白空间。</p>
+</div><p>算法将积极尝试将所有资源匹配到所选的分辨率中。如一个组件比例过大，其他组件无法匹配，算法将对其尺寸进行调整，以便完成匹配。出现这样的情况时，之前密度正常的区域可能突然变为不正常。调低之前编辑的比例使其重新获得正常距离，即可将此问题解决。
+</p><a name="step4:pickthelightmapresolutioninunrealengine4" ></a><h2 id="步骤4：在虚幻引擎4中选择光照图分辨率">步骤 4：在虚幻引擎 4 中选择光照图分辨率</h2>
+<p>在 UE4 中导入模型时，默认的光照图分辨率为 64（与所有静态网格体相同）。选择网格体资源并输入您在此处使用的光照图分辨率（<strong>Details</strong> -> <strong>Static Mesh Settings</strong> -> <strong>Lightmap Resolution</strong>）。在 UE4 中构建灯光时，可以利用光照图在一些非常复杂的几何体上实现令人惊叹的效果！
+</p>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/WorkingWithContent/SpeedTree/ComputingLightmapUVs/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 10:52:35 GMT -->
+</html>

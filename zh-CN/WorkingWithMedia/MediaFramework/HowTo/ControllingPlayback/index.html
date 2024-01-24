@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/WorkingWithMedia/MediaFramework/HowTo/ControllingPlayback/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:36:41 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var finishButton = finishButtonTemplate;
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/WorkingWithMedia/MediaFramework/HowTo/ControllingPlayback/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>使用蓝图控制播放 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+		    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+		    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/WorkingWithMedia/MediaFramework/HowTo/ControllingPlayback/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/WorkingWithMedia/MediaFramework/HowTo/ControllingPlayback/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/WorkingWithMedia/MediaFramework/HowTo/ControllingPlayback/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/WorkingWithMedia/MediaFramework/HowTo/ControllingPlayback/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/MediaFramework/HowTo/ControllingPlayback" />
+<meta name="intsourcechangelist" content="14237003" />
+<meta name="availability" content="Public" />
+<meta name="title" content="使用蓝图控制播放" />
+<meta name="description" content="演示如何在蓝图中快进、倒回、暂停和恢复视频播放。" />
+<meta name="type" content="how-to" />
+<meta name="skilllevel" content="Intermediate" />
+<meta name="version" content="4.25" />
+<meta name="parent" content="WorkingWithMedia/MediaFramework/HowTo" />
+<meta name="order" content="3" />
+<meta name="keywords" content="Media Framework" />
+<meta name="keywords" content="Video Playback" />
+<meta name="related" content="WorkingWithMedia/MediaFramework" />
+<meta name="crumbs" content="%ROOT%,WorkingWithMedia,WorkingWithMedia/MediaFramework,WorkingWithMedia/MediaFramework/HowTo" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="使用蓝图控制播放" />
+	<meta property="og:description" content="演示如何在蓝图中快进、倒回、暂停和恢复视频播放。 " />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">使用媒体</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">媒体框架</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">媒体框架指南</a>
+
+<span class="separator">></span> <span id="page">使用蓝图控制播放</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">使用蓝图控制播放</h1>
+							</div>	
+							<h2 >演示如何在蓝图中快进、倒回、暂停和恢复视频播放。 </h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Intermediate"><a id="skill_link" href="../../../../SiteIndex/index.html?skills=Intermediate">Intermediate</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																														<div id="seeAlso">
+	<div style="position:relative;">
+		<div id="title">参见</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<p>
+						<a id="related_link" href="../../index.html" title="在虚幻引擎4中使用媒体播放功能。">媒体框架</a>
+					</p>
+				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																														<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#初始设置">初始设置</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#蓝图设置">蓝图设置</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#播放/暂停-向上">播放/暂停 - 向上</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#倒回/快进-左/右">倒回/快进 - 左/右</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#结束/恢复播放-向下">结束/恢复播放 - 向下</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#最终结果">最终结果</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>除了在基于虚幻引擎4的项目中播放视频，你还可以让播放器通过一系列的<a id="content_link"filter-data="tag_blueprints" href="../../../../ProgrammingAndScripting/Blueprints/index.html" ><span>蓝图</span></a>节点来控制视频的播放。 
+</p><p>在本教程中，我们提供了一种方法，通过创建暂停、倒回、快进和恢复播放未播放完的视频的功能，让播放器控制视频的播放。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/ControllingPlayback/FinalHero.jpg">
+		<img class="  lazyload" alt="FinalHero.png" data-src="../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/ControllingPlayback/FinalHero.jpg" />
+</picture>
+
+</p><div class="note">
+	<p>并非所有的播放器插件都支持快进和/或反向播放。请参阅<a id="content_link"filter-data="tag_media_framework tag_specifications" href="../../TechReference/index.html" ><span>媒体框架技术参考</span></a>页面了解更多信息。 </p>
+</div><h2 id="初始设置">初始设置</h2>
+<p>首先，我们需要定位我们的媒体文件，然后在内容浏览器中设置一个文件夹。这能为我们之后构建蓝图做好准备。
+</p><div class="note">
+	<p>对于本教程，我们使用的是已启用 <strong>初学者内容包（Starter Content）</strong> 的 <strong>蓝图第三人称模板（Blueprint Third Person Template）</strong> 项目。
+你还需要一个视频进行播放，你可以使用自己的视频或右键单击并下载此<span class="non-localized"><a id="content_link" href="https://docs.unrealengine.com/4.26/Attachments/WorkingWithMedia/MediaFramework/HowTo/ControllingPlayback/Infiltrator Demo.mp4" ><span>示例视频</span></a></span>。</p>
+</div><ol ><li class="Default"><p>在 <strong>内容浏览器（Content Browser）</strong> 中，展开 <strong>源（Sources）</strong> 面板并创建一个名为 <strong>电影（Movies）</strong> 的文件夹，然后右键单击新建的文件夹，选择 <strong>在资源管理器中显示（Show in Explorer）</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/ControllingPlayback/ControllingPlayback_01.jpg">
+		<img class="  lazyload" alt="ControllingPlayback_01.png" data-src="../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/ControllingPlayback/ControllingPlayback_01.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>将示例视频（或你支持的视频）拖动到你计算机上项目的 <strong>内容/电影（Content/Movies）</strong> 文件夹中。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/ControllingPlayback/ControllingPlayback_02.jpg">
+		<img class="  lazyload" alt="ControllingPlayback_02.png" data-src="../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/ControllingPlayback/ControllingPlayback_02.jpg" />
+</picture>
+
+</p><div class="warning">
+	<p>为了确保视频内容与项目一起打包和部署，内容必须位于项目的 <strong>内容>电影（Content>Movies）</strong> 文件夹中。 </p>
+</div></li><li class="Default"><p>在你的项目中，创建一个 <strong>媒体播放器（Media Player）</strong> 和相关的 <strong>媒体纹理（Media Texture）</strong> 资源，分别命名为 <strong>MediaPlayer</strong> 和 <strong>MediaPlayer_Video</strong>。 
+</p></li><li class="Default"><p>创建一个名为 <strong>视频（Video）</strong> 的 <strong>文件媒体源（File Media Source）</strong> 资源，并在其中将 <strong>文件路径（File Path）</strong> 指向在 <strong>步骤2（Step 2）</strong> 中添加的视频。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/ControllingPlayback/ControllingPlayback_03.jpg">
+		<img class="  lazyload" alt="ControllingPlayback_03.png" data-src="../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/ControllingPlayback/ControllingPlayback_03.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>打开你的 <strong>媒体播放器（Media Player）</strong> 资源，并禁用 <strong>打开即播放（Play on Open）</strong> 选项。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/ControllingPlayback/ControllingPlayback_04.jpg">
+		<img class="  lazyload" alt="ControllingPlayback_04.png" data-src="../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/ControllingPlayback/ControllingPlayback_04.jpg" />
+</picture>
+
+</p><p>在本例中，我们将向播放器提供播放控制，而不是在打开媒体源后让其自动开始播放。 
+</p></li><li class="Default"><p>在 <strong>基本（Basic）</strong> 下的 <strong>放置Actor（Place Actors）</strong> 面板中的主编辑器内，将一个 <strong>平面（Plane）</strong> 拖动到关卡中并根据需要调整其大小（"放置Actor"若未开启，则可以在窗口菜单中找到）。 
+</p></li><li class="Default"><p>将 <strong>MediaPlayer_Video</strong> 纹理拖动到该 <strong>平面（Plane）</strong> 上，然后在该平面的 <strong>详细信息（Details）</strong> 面板中，添加 <strong>媒体声音组件（Media Sound Component）</strong> 并将其设置为使用你的 <strong>媒体播放器（Media Player）</strong> 资源。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/ControllingPlayback/ControllingPlayback_05.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/ControllingPlayback/ControllingPlayback_05.jpg">
+		<img class="  lazyload" alt="ControllingPlayback_05.png" width="600" data-src="../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/ControllingPlayback/ControllingPlayback_05.jpg" />
+</picture>
+</span></a></span></p>
+</div><p><div class="caption">
+	<p>点击查看大图。</p>
+</div>
+</p></li></ol><h2 id="蓝图设置">蓝图设置</h2>
+<p>接着，我们要设置我们的第一个蓝图，以便之后在其中添加函数。
+</p><ol ><li class="Default"><p>从"主工具栏"中，单击 <strong>蓝图（Blueprints）</strong> 按钮，然后选择 <strong>打开关卡蓝图（Open Level Blueprint）</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/ControllingPlayback/ControllingPlayback_06.jpg">
+		<img class="  lazyload" alt="ControllingPlayback_06.png" data-src="../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/ControllingPlayback/ControllingPlayback_06.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>关卡蓝图（Level Blueprint）</strong> 中，创建一个名为 <strong>MediaPlayer</strong>，类型为 <strong>媒体播放器对象引用（Media Player Object Reference）</strong> 的变量，并将其设置为指向你的 <strong>媒体播放器（MediaPlayer）</strong> 资源。 
+</p></li><li class="Default"><p>按住 <strong>Ctrl</strong> 并将 <strong>MediaPlayer</strong> 变量拖动到图表中，并使用 <strong>打开源（Open Source）</strong> 和 <strong>事件开始播放（Event Begin Play）</strong> 以打开你的 <strong>视频（Video）</strong> 文件媒体源资源。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/ControllingPlayback/ControllingPlayback_07.jpg">
+		<img class="  lazyload" alt="ControllingPlayback_07.png" data-src="../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/ControllingPlayback/ControllingPlayback_07.jpg" />
+</picture>
+
+</p><div class="note">
+	<p>相反，你可以使用"打开源延迟"（Open Source Latent）节点（而非"打开源"（Open Source）节点），用选项打开指定的媒体源，这样会延迟执行"完成"（Completed）输出引脚，直至源文件打开。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/ControllingPlayback/Open_Source_Latent.jpg">
+		<img class="  lazyload" alt="Open_Source_Latent.PNG" data-src="../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/ControllingPlayback/Open_Source_Latent.jpg" />
+</picture>
+
+</p><p>如果你希望设置源文件的播放速度，你可以用这个方法。</p>
+</div></li></ol><h2 id="播放/暂停-向上">播放/暂停 - 向上</h2>
+<ol ><li class="Default"><p>添加一个连接到 <strong>触发器（Flip Flop）</strong> 的 <strong>向上（Up）</strong> 键盘事件，并关闭你的 <strong>Media Player</strong> 变量，使用 <strong>播放（Play）</strong> 和 <strong>暂停（Pause）</strong>，如下所示。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/ControllingPlayback/ControllingPlayback_08.jpg">
+		<img class="  lazyload" alt="ControllingPlayback_08.png" data-src="../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/ControllingPlayback/ControllingPlayback_08.jpg" />
+</picture>
+
+</p><p>当播放器按下 <strong>向上（Up）</strong> 箭头键盘键时，媒体源将开始播放，而再按一次则会暂停视频。 
+</p><div class="note">
+	<p>暂停对应于将播放速率（Play Rate）设置为0.0，但并非所有媒体源都支持暂停（例如网络摄像头和其他视频捕捉硬件源）。 
+你可以使用 <strong>可以暂停（Can Pause）</strong> 蓝图节点来确定媒体源是否支持暂停。 </p>
+</div></li></ol><h2 id="倒回/快进-左/右">倒回/快进 - 左/右</h2>
+<ol ><li class="Default"><p>添加 <strong>向左（Left）</strong> 和 <strong>向右（Right）</strong> 键盘事件，然后关闭你的 <strong>Media Player</strong> 变量，使左键在 <strong>-2</strong> 处，右键在 <strong>2</strong> 处。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/ControllingPlayback/ControllingPlayback_09.jpg">
+		<img class="  lazyload" alt="ControllingPlayback_09.png" data-src="../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/ControllingPlayback/ControllingPlayback_09.jpg" />
+</picture>
+
+</p><p>这将使播放器能够按下左箭头键盘键把视频播放速率（Play Rate）设置为-2（以两倍的速度反向播放视频，值为1.0是正常的正向播放）。
+</p><p>当你按下右箭头键后，视频将以两倍正常播放速率快进。
+</p><p>你可以添加额外的蓝图逻辑来确定播放器按下倒回或快进键的次数，并将播放速率（Play Rate）从2倍增加或减少到4倍、6倍或更高。
+</p><div class="note">
+	<p>即使播放器插件支持1.0之外的播放速率，可以选择的实际播放速率也将取决于正在使用的媒体源。你可以使用 <strong>获取支持速率（Get Supported Rate）</strong> 函数确定是否支持该速率。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/ControllingPlayback/SupportRates.jpg">
+		<img class="  lazyload" alt="SupportRates.jpg" data-src="../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/ControllingPlayback/SupportRates.jpg" />
+</picture>
+
+</p><p>注意，<strong>稀疏化（Thinned）</strong> 和 <strong>非稀疏化（Unthinned）</strong> 速率之间存在区别。"稀疏化"意味着使用此速率时某些帧将被略过，而"非稀疏化"意味着使用此速率时所有帧都将被解码。 </p>
+</div></li></ol><h2 id="结束/恢复播放-向下">结束/恢复播放 - 向下</h2>
+<ol ><li class="Default"><p>添加一个连接到 <strong>触发器（Flip Flop）</strong> 的 <strong>向下（Down）</strong> 键盘事件，然后关闭 <strong>媒体播放器（Media Player）</strong> 引用，使用 <strong>获取时间（Get Time）</strong> 函数调用。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/ControllingPlayback/ControllingPlayback_10.jpg">
+		<img class="  lazyload" alt="ControllingPlayback_10.png" data-src="../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/ControllingPlayback/ControllingPlayback_10.jpg" />
+</picture>
+
+</p><p><strong>获取时间（Get Time）</strong> 函数调用将返回当前播放时间，当我们想要重新打开视频和恢复视频播放时，将存储和使用该当前播放时间。 
+</p></li><li class="Default"><p>右键单击 <strong>获取时间（Get Time）</strong> 节点的 <strong>返回值（Return Value）</strong>，并将其提升至名为 <strong>停止时间（Stop Time）</strong> 的变量，然后将所有节点连接到 <strong>关闭（Close）</strong> 函数调用，如图所示。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/ControllingPlayback/ControllingPlayback_11.jpg">
+		<img class="  lazyload" alt="ControllingPlayback_11.png" data-src="../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/ControllingPlayback/ControllingPlayback_11.jpg" />
+</picture>
+
+</p><p>这样将在按下向下箭头键盘键时关闭媒体播放器，但存储媒体播放器被停止于某个变量时的当前时间。 
+</p></li><li class="Default"><p>关闭 <strong>触发器（Flip Flop）</strong> 的 <strong>B</strong> 引脚，使用 <strong>打开源（Open Source）</strong> 节点并将 <strong>媒体源（Media Source）</strong> 设置为你的 <strong>视频（Video）</strong> 媒体源。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/ControllingPlayback/ControllingPlayback_12.jpg">
+		<img class="  lazyload" alt="ControllingPlayback_12.png" data-src="../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/ControllingPlayback/ControllingPlayback_12.jpg" />
+</picture>
+
+</p><p>这样将重新打开你的视频，但会从头开始播放视频，我们将在接下来的几个步骤中解决这个问题。 
+</p></li><li class="Default"><p>拖走 <strong>媒体播放器（Media Player）</strong> 引用，使用 <strong>在打开的媒体上指定（Assign On Media Opened）</strong> 事件调度器，并进行连接，如图所示。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/ControllingPlayback/ControllingPlayback_13.jpg">
+		<img class="  lazyload" alt="ControllingPlayback_13.png" data-src="../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/ControllingPlayback/ControllingPlayback_13.jpg" />
+</picture>
+
+</p><p>这样将创建一个<a id="content_link"filter-data="tag_blueprints" href="../../../../ProgrammingAndScripting/Blueprints/UserGuide/EventDispatcher/index.html" ><span>事件调度器</span></a>，该调度器仅在媒体源完全打开时才会调用连接的事件。 
+在向媒体播放器发出命令时，以这种方式操作是一种好办法，因为它可以确保在试图告诉媒体播放器做某事之前已经打开媒体源。 
+如果我们在打开媒体播放器后直接向它发出命令，则不能保证该媒体源已经完全打开并能够接收命令，而这可能会导致命令失败。 
+</p></li><li class="Default"><p>关闭你的 <strong>媒体播放器（Media Player）</strong> 引用，调用 <strong>Seek</strong> 函数，然后调用 <strong>Play</strong> 函数。 
+</p></li><li class="Default"><p>将 <strong>Stop Time</strong> 变量连接到 <strong>寻找（Seek）</strong> 节点的 <strong>时间（Time）</strong> 引脚。然后将 <strong>寻找（Seek）</strong> 和 <strong>播放（Play）</strong> 节点连接到 <strong>OnMediaOpened</strong> 事件，如图所示。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/ControllingPlayback/ControllingPlayback_14.jpg">
+		<img class="  lazyload" alt="ControllingPlayback_14.png" data-src="../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/ControllingPlayback/ControllingPlayback_14.jpg" />
+</picture>
+
+</p><p>现在，当播放器按向下箭头键时，当前时间将在关闭媒体播放器之前存储。 
+再次按下时，<strong>视频（Video）</strong> 媒体源将打开，而且当其完全打开后，在播放视频之前，该视频会移动到指定的 <strong>停止时间（Stop Time）</strong>（恢复播放）。 
+</p></li><li class="Default"><p>关闭 <strong>关卡蓝图（Level Blueprint）</strong> 并从主工具栏单击 <strong>播放（Play）</strong> 按钮以在编辑器中播放。
+</p></li></ol><h2 id="最终结果">最终结果</h2>
+<p>你现在可以使用 <strong>向上（Up）</strong>、<strong>向下（Down）</strong>、<strong>向左（Left）</strong> 和 <strong>向右（Right）</strong> 方向键来控制视频的播放。 
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_0_mvagmobx_28
+{
+	margin: 0px;
+	width: 100%;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_0_mvagmobx_28:after
+{
+	content: "";
+	padding-top: 56.25%;
+	display: block;
+}
+</style> 
+<div id="player_0_mvagmobx_28"> 
+	<div id="playerContainer_0_mvagmobx_28" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/0_mvagmobx/embed.html"></iframe>
+	</div>
+</div>
+<p>按下 <strong>向上（Up）</strong> 方向键将播放/暂停视频，按下 <strong>向下（Down）</strong> 方向键将关闭/重新播放视频，按下 <strong>向左（Left）</strong> 方向键将倒回视频，按下 <strong>向右（Right）</strong> 方向键将快进视频。 
+</p>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Media%20Framework">Media Framework</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Video%20Playback">Video Playback</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/WorkingWithMedia/MediaFramework/HowTo/ControllingPlayback/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:36:48 GMT -->
+</html>

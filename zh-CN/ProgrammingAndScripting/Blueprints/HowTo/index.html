@@ -1,0 +1,946 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/ProgrammingAndScripting/Blueprints/HowTo/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:11:53 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var finishButton = finishButtonTemplate;
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/ProgrammingAndScripting/Blueprints/HowTo/" />');
+				var udnCSS = '../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>蓝图通信项目 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/instructional.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/ProgrammingAndScripting/Blueprints/HowTo/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/ProgrammingAndScripting/Blueprints/HowTo/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/ProgrammingAndScripting/Blueprints/HowTo/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/ProgrammingAndScripting/Blueprints/HowTo/" hreflang="ko" />
+
+	<meta name="intsourcechangelist" content="11969652" />
+<meta name="availability" content="Public" />
+<meta name="title" content="蓝图通信项目" />
+<meta name="description" content="使用不同的蓝图通信方法创建的示例项目。" />
+<meta name="type" content="quick start" />
+<meta name="type" content="multi-step" />
+<meta name="version" content="4.9" />
+<meta name="parent" content="Engine/Editor/Blueprint Visual Scripting" />
+<meta name="keywords" content="Blueprints" />
+<meta name="topic-image" content="BPCommTopic.png" />
+<meta name="order" content="0" />
+<meta name="course" content="blueprints---essential-concepts?lang=zh-CN|蓝图：基础概念|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fblueprints---essential-concepts%2FBPEssentialsThumbnail_1920x1080-1920x1080-2fcdde875f1d79ade1c295fe4fef53c4b8c5ecde.PNG?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fblueprints---essential-concepts%2FBlueprint--Essential-Concepts-1000x1000-9f372ce55de42ce9596dffd6c931839e44fcc873.png?resize=1&amp;w=300" />
+<meta name="course" content="interactive-material-swaps-using-blueprints?lang=zh-CN|蓝图：可交互材质切换|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Finteractive-material-swaps-using-blueprints%2F406---Hero2-1920x1080-ce26b6199cf620364149d2d934c73ae30e983110.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Finteractive-material-swaps-using-blueprints%2FInteractive-Material-Swaps-Using-Blueprints-1000x1000-21158a5fe67365e3bf5db49712b52482382f15ac.png?resize=1&amp;w=300" />
+<meta name="course" content="blueprint-for-enterprise?lang=zh-CN|企业级蓝图开发|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fblueprint-for-enterprise%2F301-Blueprints-%281200X675%29-1200x675-d140b8a0b13b05c0619e35e1076b4c82e4a4b855.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fblueprint-for-enterprise%2FBlueprint-for-Enterprise-1000x1000-13caa11b8e5c5e91506a8dd63b39d247318c3208.png?resize=1&amp;w=300" />
+<meta name="crumbs" content="" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="蓝图通信项目" />
+	<meta property="og:description" content="使用不同的蓝图通信方法创建的示例项目。 " />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">蓝图通信项目</h1>
+							</div>	
+							<h2 >使用不同的蓝图通信方法创建的示例项目。 </h2>
+							<div id="access">
+								<div class="accessContainer">
+																																			</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>												<div class="tip" id="notice" style="display:none;">
+欢迎回来！要回到您上次离开的地方吗？
+<div class="button-container">
+<a href="javascript:void();" id="goButton" class="btn btn-lrg btn-default action">前往</a>
+<a href="javascript:void();" id="cancelButton" class="btn btn-lrg btn-default">取消</a>
+</div>
+</div>																								<div id="courses">
+	<div style="position:relative;">
+		<div id="title">相关课程</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<div name="blueprints---essential-concepts?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/blueprints---essential-concepts?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/blueprints---essential-concepts/BPEssentialsThumbnail_1920x1080-1920x1080-2fcdde875f1d79ade1c295fe4fef53c4b8c5ecd?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/blueprints---essential-concepts/Blueprint--Essential-Concepts-1000x1000-9f372ce55de42ce9596dffd6c931839e44fcc873?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="blueprints---essential-concepts?lang=zh-CN_title">
+				蓝图：基础概念
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="interactive-material-swaps-using-blueprints?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/interactive-material-swaps-using-blueprints?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/interactive-material-swaps-using-blueprints/406---Hero2-1920x1080-ce26b6199cf620364149d2d934c73ae30e983110.8314f8?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/interactive-material-swaps-using-blueprints/Interactive-Material-Swaps-Using-Blueprints-1000x1000-21158a5fe67365e3bf5db49712b52482382f15ac.8?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="interactive-material-swaps-using-blueprints?lang=zh-CN_title">
+				蓝图：可交互材质切换
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="blueprint-for-enterprise?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/blueprint-for-enterprise?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/blueprint-for-enterprise/301-Blueprints-(1200X675)-1200x675-d140b8a0b13b05c0619e35e1076b4c82e4a4b855.8344f86.dela?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/blueprint-for-enterprise/Blueprint-for-Enterprise-1000x1000-13caa11b8e5c5e91506a8dd63b39d247318c3208.836fe4b.dela?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="blueprint-for-enterprise?lang=zh-CN_title">
+				企业级蓝图开发
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																								<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#1.必需的资源设置">1. 必需的资源设置</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#2.角色设置">2. 角色设置</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#3.生成可射击岩石">3. 生成可射击岩石</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#4.从关卡传递信息到角色">4. 从关卡传递信息到角色</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#5.摧毁岩石">5. 摧毁岩石</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#6.使用hud通信">6. 使用HUD通信</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#7.看你的了！">7. 看你的了！</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>在此 <strong>蓝图通信项目</strong> 中，我们将创建一个简单的射击场游戏。在项目的进程中，您将学习到如何将信息从关卡传输到一个角色，以及如何将角色信息传递到HUD。在项目完成后，您将拥有类似以下的成果：
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_34HO1gCSJYc_2
+{
+	margin: 0px;
+	width: 640px;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_34HO1gCSJYc_2:after
+{
+	content: "";
+	padding-top: 360px;
+	display: block;
+}
+</style> 
+<div>
+<div id="player_34HO1gCSJYc_2"><div style="position:absolute;display:block;width:100%;height:100%;"><iframe class="embedded_video" id="34HO1gCSJYc" width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/34HO1gCSJYc?rel=0&amp;modestbranding=1&amp;showinfo=0" frameborder="0" allowfullscreen></iframe></div></div>
+</div>
+<p>在这个简短的游戏范例中，玩家按下键时将在角色蓝图中生成一个可破坏静态网格体。石块生成和发射的位置将在放置于关卡内的生成点之中随机进行选择，因此我们必须将生成位置从关卡传输给角色蓝图。 
+我们还将获取保存在角色蓝图中的信息（扣动扳机的次数或剩下要发射的石块、每次扣下扳机剩余的子弹数量和玩家得分），并将此信息传递到HUD，使其显示在屏幕上。 
+读完本教程后，开发人员将了解以下内容：
+</p><ul ><li class="Default"><p>需要的资源和角色设置
+</p></li><li class="Default"><p>生成可射击岩石
+</p></li><li class="Default"><p>从关卡传递信息到角色
+</p></li><li class="Default"><p>摧毁岩石
+</p></li><li class="Default"><p>通过HUD进行通信
+在这一页上，我们将做一些准备工作，并设置本指南后面需要使用的资源。我们将创建一个可破坏的静态网格体，放置一些生成位置，并创建一个基本的HUD，以向玩家显示有关游戏状态的信息。
+</p></li></ul><div class="note">
+	<p>在本指南中，我们在启用 <strong>初学者内容包（Starter Content）</strong> 的情况下基于 <strong>蓝图第一人称（Blueprint First Person）</strong> 模板创建了一个新项目。如果您不确定如何基于模板创建项目或如何启用初学者内容包（Starter Content），请参阅<a id="content_link"filter-data="tag_project tag_projects tag_create_new" href="../../../Basics/Projects/Browser/index.html" ><span>创建新项目</span></a>文档了解有关设置项目的信息。 </p>
+</div><p>创建并打开项目后，按 <strong>Ctrl+N</strong> 创建一个 <strong>新关卡（New Level）</strong>，并在弹出窗口提示时选择 <strong>默认（Default）</strong>。一旦您创建了一个新的关卡，请按照下面的部分开始设置各个必需的资源。 
+</p><h2 id="1.必需的资源设置">1. 必需的资源设置</h2>
+<h3 id="创建可破坏的静态网格体">创建可破坏的静态网格体</h3>
+<p>首先我们将创建可射击岩石，当我们击中它时，它将被摧毁。 
+</p><ol ><li class="Default"><p>在 <strong>内容浏览器（Content Browser）</strong> 中，打开 <strong>Content/StarterContent/Props</strong> 文件夹。 
+</p></li><li class="Default"><p>在 <strong>道具（Props）</strong> 文件夹中，<strong>右键单击</strong> <strong>SM_Rock</strong> 并选择 <strong>创建可破坏的网格体（Create Destructible Mesh）</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/CreateMesh.jpg">
+		<img class="  lazyload" alt="CreateMesh.png" data-src="../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/CreateMesh.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>打开 <strong>SM_Rock_DM</strong> 资源，然后从工具栏单击 <strong>破裂网格体（Fracture Mesh）</strong> 按钮。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/FractureMesh.jpg">
+		<img class="  lazyload" alt="FractureMesh.png" data-src="../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/FractureMesh.jpg" />
+</picture>
+
+</p><div class="note">
+	<p>如果在预览窗口中没有看到岩石，则关闭窗口并重新打开它。 </p>
+</div></li><li class="Default"><p><strong>保存（Save）</strong> 并关闭 <strong>SM_Rock_DM</strong> 资源。 
+</p></li><li class="Default"><p><strong>右键单击</strong> <strong>SM_Rock_DM</strong> 资源，然后选择 <strong>资源操作/使用此...创建蓝图（Asset Actions/Create Blueprint Using This...）</strong>. 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/CreateBlueprint.jpg">
+		<img class="  lazyload" alt="CreateBlueprint.png" data-src="../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/CreateBlueprint.jpg" />
+</picture>
+
+</p><p>当出现提示时，给蓝图命名，例如 <strong>BP_Rock</strong>。 
+</p></li><li class="Default"><p>当蓝图打开时，单击 <strong>添加组件（Add Component）</strong> 按钮，然后添加一个 <strong>发射物移动（Projectile Movement）</strong> 组件。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/AddProjectile.jpg">
+		<img class="  lazyload" alt="AddProjectile.png" data-src="../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/AddProjectile.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>单击 <strong>发射物移动（Projectile Movement）</strong> 组件，然后在 <strong>细节（Details）</strong> 中将 <strong>X</strong> 的 <strong>初始速度（Initial Speed）</strong>、<strong>最大速度（Max Speed）</strong> 和 <strong>速度（Velocity）</strong> 设置为 <strong>1500.00</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/ProjectileDetails.jpg">
+		<img class="  lazyload" alt="ProjectileDetails.png" data-src="../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/ProjectileDetails.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>选择 <strong>可破坏物</strong> 组件，然后在 <strong>碰撞（Collision）</strong> 下的 <strong>细节（Details）</strong> 面板中，选中 <strong>模拟生成碰撞事件（Simulation Generates Hit Events）</strong> 选项。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/GenerateHits.jpg">
+		<img class="  lazyload" alt="GenerateHits.png" data-src="../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/GenerateHits.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>单击 <strong>编译（Compile）</strong> 和 <strong>保存（Save）</strong> 按钮，然后关闭蓝图。
+</p></li></ol><h3 id="放置生成点">放置生成点</h3>
+<p>接下来，我们将在要启动可射击岩石的关卡中创建一些生成点。 
+</p><ol ><li class="Default"><p>从 <strong>模式（Modes）</strong> 菜单中，搜索 <strong>目标点（Target Point）</strong> 并将其添加到关卡。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/AddTargetPoint.jpg">
+		<img class="  lazyload" alt="AddTargetPoint.png" data-src="../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/AddTargetPoint.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在关卡中选择 <strong>目标点（TargetPoint）</strong>，并设置其 <strong>变形（Transform）</strong>，如下所示。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/TargetPointTransform.jpg">
+		<img class="  lazyload" alt="TargetPointTransform.png" data-src="../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/TargetPointTransform.jpg" />
+</picture>
+
+</p><p><strong>X</strong> 的 <strong>位置（Location）</strong> 为 <strong>7.0m、0.0m、0.0m</strong>，<strong>旋转（Rotation）</strong> 为 <strong>0.0、40.0、0.0</strong>。 
+</p><div class="note">
+	<p>输入7.0m，即可将该值转换为700cm，即等值。检查"VR最佳实践（VR Best Practies）"页面上的<a id="content_link"filter-data="tag_vr tag_best_practices tag_virtual_reality" href="../../../SharingAndReleasing/XRDevelopment/VR/DevelopVR/ContentSetup/index.html" ><span>世界场景比例</span></a>部分，因为它给出了如何计算虚幻单位以及如何更改测量值显示方式的细分。 </p>
+</div></li><li class="Default"><p>在关卡中，选择 <strong>目标点（Target Point）</strong>，按下 <strong>Ctrl+W</strong> 复制它并设置其 <strong>细节（Details）</strong>，如下所示。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/Duplicate1.jpg">
+		<img class="  lazyload" alt="Duplicate1.png" data-src="../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/Duplicate1.jpg" />
+</picture>
+
+</p><p>这将把生成点移动到第一个生成点的左边。 
+</p></li><li class="Default"><p>再次按下 <strong>Ctrl+W</strong> 复制 <strong>目标点（Target Point）</strong>，并设置新目标点的 <strong>细节（Details）</strong>，如下所示。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/NewDuplicate.jpg">
+		<img class="  lazyload" alt="NewDuplicate.png" data-src="../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/NewDuplicate.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在关卡中选择 <strong>玩家出生点（PlayerStart）</strong>，然后按下 <strong>E</strong> 进入 <strong>旋转（Rotation）</strong> 模式，旋转它以使其面对目标点。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/TargetPointsAdded.jpg">
+		<img class="  lazyload" alt="TargetPointsAdded.png" data-src="../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/TargetPointsAdded.jpg" />
+</picture>
+
+</p><p>您现在将有三个生成点在玩家出生点对面（蓝色箭头指示控制器图标和方向）。
+</p></li></ol><h3 id="创建hud">创建HUD</h3>
+<p>最后一部分的设置需要我们创建一个基本HUD来与之通信。 
+</p><ol ><li class="Default"><p>在 <strong>内容浏览器（Content Browser）</strong> 中的空白空间内，<strong>右键单击</strong> 并选择 <strong>用户界面/控件蓝图（User Interface/Widget Blueprint）</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/CreateWidgetBlueprint.jpg">
+		<img class="  lazyload" alt="CreateWidgetBlueprint.png" data-src="../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/CreateWidgetBlueprint.jpg" />
+</picture>
+
+</p><p><strong>控件蓝图（Widget Blueprint）</strong> 是一种与用于创建HUD元素的 <strong>虚幻示意图形UI（Unreal Motion Graphics UI）</strong> 一起使用的蓝图类型。 
+</p><div class="note">
+	<p>请参阅<a id="content_link"filter-data="tag_umg_ui_designer" href="../../../InteractiveExperiences/UMG/index.html" ><span>UMG UI设计器</span></a>了解更多信息。 </p>
+</div></li><li class="Default"><p>收到提示时，将其命名为 <strong>HUD</strong>，然后打开它。 
+</p></li><li class="Default"><p>在 <strong>面板（Panel）</strong> 下的 <strong>调色板（Palette）</strong> 窗口中，将一个 <strong>垂直方框（Vertical Box）</strong> 拖动到 <strong>层级（Hierarchy）</strong> 窗口中的 <strong>画布面板（CanvasPanel）</strong> 上。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/AddVerticalBox.jpg">
+		<img class="  lazyload" alt="AddVerticalBox.png" data-src="../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/AddVerticalBox.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>此外，在 <strong>面板（Panel）</strong> 下，将一个 <strong>水平方框（Horizontal Box）</strong> 拖动到 <strong>层级（Hierarchy）</strong> 窗口中的 <strong>垂直方框（Vertical Box）</strong> 上。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/AddHorizontalBox.jpg">
+		<img class="  lazyload" alt="AddHorizontalBox.png" data-src="../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/AddHorizontalBox.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>调色板（Palette）</strong> 中的 <strong>通用（Common）</strong> 部分中，将两个 <strong>文本（Text）</strong> 控件拖动到 <strong>层级（Hierarchy）</strong> 窗口中的 <strong>水平方框（Horizontal Box）</strong> 上。<br /></p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/AddTextBlocks.jpg">
+		<img class="  lazyload" alt="AddTextBlocks.png" data-src="../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/AddTextBlocks.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>层级（Hierarchy）</strong> 窗口中选择 <strong>垂直方框（Vertical Box）</strong>，然后在 <strong>细节（Details）</strong> 面板中，单击 <strong>锚点（Anchors）</strong> 并选择其中一个锚点，如下所示。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/AnchorSelected.jpg">
+		<img class="  lazyload" alt="AnchorSelected.png" data-src="../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/AnchorSelected.jpg" />
+</picture>
+
+</p><div class="note">
+	<p><strong>锚点（Anchor）</strong> 将把UI元素锁定到指定位置，而不论屏幕大小如何（请参阅<a id="content_link"filter-data="tag_umg_ui_designer" href="../../../InteractiveExperiences/UMG/UserGuide/Anchors/index.html" ><span>锚</span></a>了解更多信息）。 </p>
+</div></li><li class="Default"><p>选择 <strong>垂直方框（Vertical Box）</strong> 后，将其移动到屏幕右侧并重新调整其大小，以便显示文本。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/MovedWidget.jpg">
+		<img class="  lazyload" alt="MovedWidget.png" data-src="../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/MovedWidget.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>单击框中最左边显示的文本，然后在 <strong>文本（Text）</strong> 下的 <strong>细节（Details）</strong> 面板中输入"Pulls:"。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/EnterText1.jpg">
+		<img class="  lazyload" alt="EnterText1.png" data-src="../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/EnterText1.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>对于其他文本，为其 <strong>文本（Text）</strong> 字段输入"10"。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/EnterText2.jpg">
+		<img class="  lazyload" alt="EnterText2.png" data-src="../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/EnterText2.jpg" />
+</picture>
+
+</p><p>此文本是我们稍后会根据游戏状态进行通信和更新的内容。 
+</p></li><li class="Default"><p>在 <strong>层级（Hierarchy）</strong> 窗口中，<strong>右键单击</strong> 并 <strong>复制（Copy）</strong> <strong>水平方框（Horizontal Box）</strong>，然后将其粘贴到 <strong>垂直方框（Vertical Box）</strong> 顶部。 
+</p></li><li class="Default"><p>重复上一个步骤，从而使 <strong>垂直方框（Vertical Box）</strong> 下有三个 <strong>水平方框（Horizontal Box）</strong>，且文本显示如下。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/AddedBoxes.jpg">
+		<img class="  lazyload" alt="AddedBoxes.png" data-src="../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/AddedBoxes.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>更新其他文本字段至"射击次数（Shots）"（设置为"3"）和"分数（Score）"（设置为"0"），并单击 <strong>编译（Compile）</strong> 按钮。<br /></p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/UpdateText.jpg">
+		<img class="  lazyload" alt="UpdateText.png" data-src="../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/UpdateText.jpg" />
+</picture>
+
+</p></li><li class="Default"><p><strong>编译（Compile）</strong> 并 <strong>保存（Save）</strong>，然后关闭HUD控件蓝图。
+</p></li></ol><h2 id="2.角色设置">2. 角色设置</h2>
+<p>接下来，我们会通过添加变量来完成对角色蓝图的设置，该变量稍后将在本指南中被传递到HUD。我们还会添加一些条件来确定玩家可射击所发射岩石的次数。<br /></p><ol ><li class="Default"><p>在 <strong>Content/FirstPersonBP/Blueprints</strong> 下的 <strong>内容浏览器</strong> 中，打开 <strong>第一人称角色</strong> 蓝图。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/FirstPersonCharacter.jpg">
+		<img class="  lazyload" alt="FirstPersonCharacter.png" data-src="../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/FirstPersonCharacter.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在图表中，删除 <strong>Stick Input</strong>、<strong>Movement Input</strong> 和 <strong>Jump</strong> 部分，这样您看到的就如下图所示。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/CleanUp.jpg">
+		<img class="  lazyload" alt="CleanUp.png" data-src="../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/CleanUp.jpg" />
+</picture>
+
+</p><p>对于示例游戏来说，我们只需让玩家转身和射击，因此我们移除了其他脚本来让蓝图看起来更简洁。 
+</p></li><li class="Default"><p>在图表中 <strong>右键单击</strong> 并搜索和添加 <strong>Event Begin Play</strong> 节点。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/EventBeginPlay.jpg">
+		<img class="  lazyload" alt="EventBeginPlay.png" data-src="../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/EventBeginPlay.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>拖动 <strong>Event Being Play</strong> 节点，然后搜索并添加 <strong>Create Widget</strong> 节点。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/CreateWidget.jpg">
+		<img class="  lazyload" alt="CreateWidget.png" data-src="../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/CreateWidget.jpg" />
+</picture>
+
+</p><p>我们会在开始玩游戏时调用 <strong>HUD</strong> 控件蓝图并显示它。 
+</p></li><li class="Default"><p>在 <strong>类（Class）</strong> 的 <strong>Create Widget</strong> 节点上，选择 <strong>HUD</strong>，然后关闭 <strong>返回值（Return Value）</strong>，使用 <strong>Add to Viewport</strong> 节点。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/AddToViewport.jpg">
+		<img class="  lazyload" alt="AddToViewport.png" data-src="../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/AddToViewport.jpg" />
+</picture>
+
+</p><p>现在会显示出HUD，我们需要创建一些变量来传递给它。让我们现在进行此操作。 
+</p></li><li class="Default"><p>在 <strong>我的蓝图（MyBlueprint）</strong> 窗口中，单击 <strong>添加变量（Add Variable）</strong> 按钮。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/AddVariable.jpg">
+		<img class="  lazyload" alt="AddVariable.png" data-src="../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/AddVariable.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>选择新变量，然后在 <strong>细节（Details）</strong> 面板中，将其重命名为 <strong>IsActive</strong> 并确认其为 <strong>布尔（Boolean）</strong> 类型。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/NewVariable1.jpg">
+		<img class="  lazyload" alt="NewVariable1.png" data-src="../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/NewVariable1.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>创建另一个变量，将其重命名为 <strong>SpawnLocation</strong> 并设置其类型为 <strong>变换（Transform）</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/NewVariable2.jpg">
+		<img class="  lazyload" alt="NewVariable2.png" data-src="../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/NewVariable2.jpg" />
+</picture>
+
+</p><p>该变量将被用于告知岩石生成的位置并从关卡处进行更新。 
+</p></li><li class="Default"><p>创建另一个变量，将其重命名为 <strong>Pulls</strong> 并设置其类型为 <strong>整数（Integer）</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/NewVariable3.jpg">
+		<img class="  lazyload" alt="NewVariable3.png" data-src="../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/NewVariable3.jpg" />
+</picture>
+
+</p><p>该变量将会保存玩家按下按钮后生成的剩余岩石数量。 
+</p></li><li class="Default"><p>再创建两个 <strong>整数（Integer）</strong> 变量，一个名称为 <strong>Shots</strong>，另一个名称为 <strong>Score</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/AllVariables.jpg">
+		<img class="  lazyload" alt="AllVariables.png" data-src="../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/AllVariables.jpg" />
+</picture>
+
+</p><p>您添加的变量应该看起来和上方内容类似。 
+</p></li><li class="Default"><p>单击 <strong>编译（Compile）</strong> 按钮，然后在 <strong>Pulls</strong> 的 <strong>细节（Details）</strong> 面板中，将其 <strong>默认值（Default Value）</strong> 设置为 <strong>10</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/DefaultValuePulls.jpg">
+		<img class="  lazyload" alt="DefaultValuePulls.png" data-src="../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/DefaultValuePulls.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>设置 <strong>Shots</strong> 的 <strong>默认值（Default Value）</strong> 为 <strong>3</strong>，设置 <strong>Score</strong> 为 <strong>0</strong>。
+</p></li></ol><h3 id="武器发射设置">武器发射设置</h3>
+<p>在这里，我们要对玩家每次扣动扳机能开枪的次数进行小小的变更。 
+</p><ol ><li class="Default"><p>搜索 <strong>InputAction Fire</strong> 事件并从其拖出一根引线，然后添加 <strong>Do N</strong> 节点。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/DoN.jpg">
+		<img class="  lazyload" alt="DoN.png" data-src="../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/DoN.jpg" />
+</picture>
+
+</p><p>该节点会对脚本执行指定次数（从而让我们可以控制玩家射击的次数）。 
+</p></li><li class="Default"><p>我们把 <strong>N</strong> 设置为 <strong>3</strong>，然后在按住 <strong>Alt</strong> 的情况下，把 <strong>Shots</strong> 变量从 <strong>我的蓝图（My Blueprint）</strong> 窗口中拖入，然后重新连接节点。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/SetDoN.jpg">
+		<img class="  lazyload" alt="SetDoN.png" data-src="../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/SetDoN.jpg" />
+</picture>
+
+</p><p>在连接 <strong>Shots</strong> 节点后，把 <strong>Set</strong> 连接回 <strong>Montage Play</strong> 节点。 
+</p></li><li class="Default"><p>在按住 <strong>Control</strong> 不放的情况下，再次拉入 <strong>Shots</strong> 变量，并将其连接到 <strong>Integer - Integer</strong> 节点（设置为 <strong>1</strong>），然后按照显示内容进行连接。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/ConnectShots.jpg">
+		<img class="  lazyload" alt="ConnectShots.png" data-src="../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/ConnectShots.jpg" />
+</picture>
+
+</p><p>在这里，我们把射击次数设置为每次按下 <strong>Fire</strong> 时都-1。 
+</p></li><li class="Default"><p><strong>右键单击</strong> <strong>Shots</strong> 旁的图表，然后添加名称为 <strong>ResetShots</strong> 的 <strong>自定义事件（Custom Event）</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/CreateCustomEvent.jpg">
+		<img class="  lazyload" alt="CreateCustomEvent.png" data-src="../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/CreateCustomEvent.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>按住 <strong>Alt</strong> ，拉入 <strong>Shots</strong>，并将其设置为 <strong>3</strong>，然后先连接 <strong>自定义事件（Custom Event）</strong>，再连接到 <strong>Do N</strong> 节点的 <strong>重设（Reset）</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/ResetEventSet.jpg">
+		<img class="  lazyload" alt="ResetEventSet.png" data-src="../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/ResetEventSet.jpg" />
+</picture>
+
+</p><p>当调用这个自定义事件时，它会把射击次数设置回3，然后重设DoN节点，这样就可以再次执行它。
+</p></li></ol><h2 id="3.生成可射击岩石">3. 生成可射击岩石</h2>
+<p>接下来，我们将设置使玩家能够按下按钮以生成可射击岩石的逻辑（假如已满足其他条件）。在我们的关卡中，我们已定义了一些生成点，并且为了得到其中一个生成点的位置，我们将使用 <strong>事件调度器（Event Dispatcher）</strong>，它将在 <strong>关卡蓝图（Level Blueprint）</strong>（将在下一步中创建）中触发一个事件以获取这些位置，并将其发送给角色蓝图。 
+</p><ol ><li class="Default"><p>在 <strong>第一人称角色（FirstPersonCharacter）</strong> 蓝图中，<strong>右键单击</strong> 图表中的一个空白位置并添加一个 <strong>F</strong> 键事件。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/FKeyEvent.jpg">
+		<img class="  lazyload" alt="FKeyEvent.png" data-src="../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/FKeyEvent.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>按住 <strong>B</strong> 并在图表中 <strong>单击</strong> 以创建 <strong>分支（Branch）</strong> 节点。 
+</p></li><li class="Default"><p>按住 <strong>Alt</strong> 并拖动到 <strong>IsActive</strong> 变量中，选中复选框，然后进行连接，如下所示。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/BranchAdded.jpg">
+		<img class="  lazyload" alt="BranchAdded.png" data-src="../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/BranchAdded.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>按住 <strong>Control</strong> 并拖动到 <strong>IsActive</strong> 和 <strong>Pulls</strong> 变量中。 
+</p></li><li class="Default"><p>将 <strong>IsActive</strong> 连接到 <strong>非布尔（NOT Boolean）</strong> 节点（非真），并将 <strong>Pulls</strong> 连接到 <strong>></strong> 节点（设置为0）。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/TwoNodesAdded.jpg">
+		<img class="  lazyload" alt="TwoNodesAdded.png" data-src="../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/TwoNodesAdded.jpg" />
+</picture>
+
+</p><div class="note">
+	<p>在旧版本引擎中，<strong>非布尔（NOT Boolean）</strong> 节点指的是 <strong>!=</strong> 节点</p>
+</div></li><li class="Default"><p>将两个输出连接到一个 <strong>与（And）</strong> 节点，并将其输入到 <strong>分支（Branch）</strong> 的 <strong>条件（Condition）</strong> 中。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/AndAdded.jpg">
+		<img class="  lazyload" alt="AndAdded.png" data-src="../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/AndAdded.jpg" />
+</picture>
+
+</p><p>这里我们建立了逻辑，以通过检查名为 <strong>IsActive</strong> 的变量是否为真以及玩家的 <strong>Pulls</strong> 计数是否大于0来确定玩家是否可以生成岩石。如果这两个语句都为真，我们将继续处理 <strong>分支（Branch）</strong> 节点的 <strong>真（True）</strong> 侧，并生成岩石（脚本的这一部分仍然需要设置，我们将在下面进行设置）。 
+</p></li><li class="Default"><p>按住 <strong>Alt</strong> 并拖动到 <strong>Pulls</strong> 变量中，并将其连接到 <strong>设置IsActive（Set IsActive）</strong> 节点。
+</p></li><li class="Default"><p>按住 <strong>Control</strong> 并拖动到 <strong>Pulls</strong> 变量中，并将其连接到 <strong>整型 - 整型（Int - Int）</strong> 节点（设置为1）并连接到 <strong>设置Pulls（Set Pulls）</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/PullsSet.jpg">
+		<img class="  lazyload" alt="PullsSet.png" data-src="../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/PullsSet.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>单击 <strong>编译（Compile）</strong>，然后从 <strong>设置Pulls（Set Pulls）</strong> 节点添加 <strong>重置射击次数（ResetShots）</strong> 自定义事件。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/CallCustomEvent.jpg">
+		<img class="  lazyload" alt="CallCustomEvent.png" data-src="../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/CallCustomEvent.jpg" />
+</picture>
+
+</p><p>您的设置看上去应与下图类似。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/ScriptBeforeEventDispatcher.jpg">
+		<img class="  lazyload" alt="ScriptBeforeEventDispatcher.png" data-src="../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/ScriptBeforeEventDispatcher.jpg" />
+</picture>
+
+</p><p>有关玩家何时可以生成岩石的逻辑已经设置，现在我们需要与关卡通信以获取生成位置。我们将通过使用 <strong>事件调度器（Event Dispatcher）</strong> 来实现这一点，该调度器将在按下 <strong>F</strong> 时被调用。<strong>关卡蓝图（Level Blueprint）</strong> 将侦听事件调度器，当它被调用时，将触发它自己的事件，该事件将获取一个生成点的位置，并将其传递回角色蓝图。 
+</p></li><li class="Default"><p>单击 <strong>我的蓝图（My Blueprint）</strong> 窗口中的 <strong>+ 事件调度器（+ Event Dispatcher）</strong> 按钮。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/AddEventDispatcher.jpg">
+		<img class="  lazyload" alt="AddEventDispatcher.png" data-src="../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/AddEventDispatcher.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>单击新的事件调度器，并按 <strong>F2</strong> 选中并将其重命名为 <strong>GetSpawnLocation</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/RenameEventDispatcher.jpg">
+		<img class="  lazyload" alt="RenameEventDispatcher.png" data-src="../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/RenameEventDispatcher.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在图表中的 <strong>重置射击次数（Reset Shots）</strong> 函数后面，添加 <strong>调用GetSpawnLocation（Call GetSpawnLocation）</strong> 节点。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/CallEventDispatcher.jpg">
+		<img class="  lazyload" alt="CallEventDispatcher.png" data-src="../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/CallEventDispatcher.jpg" />
+</picture>
+
+</p><p>事件调度器随即添加，并通过节点右上角的信封图标表示。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/NewNodeAdded.jpg">
+		<img class="  lazyload" alt="NewNodeAdded.png" data-src="../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/NewNodeAdded.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>关闭 <strong>GetSpawnLocation</strong> 节点，添加 <strong>从类生成Actor（Spawn Actor from Class）</strong> 节点。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/SpawnActorNode.jpg">
+		<img class="  lazyload" alt="SpawnActorNode.png" data-src="../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/SpawnActorNode.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>生成Actor（Spawn Actor）</strong> 节点上，将 <strong>类（Class）</strong> 设置为 <strong>BP_Rock</strong>。 
+</p></li><li class="Default"><p>同时在 <strong>生成Actor（Spawn Actor）</strong> 节点上，将 <strong>SpawnLocation</strong> 变量拖放到 <strong>SpawnTransform</strong> 引脚上。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/SpawnActorComplete.jpg">
+		<img class="  lazyload" alt="SpawnActorComplete.png" data-src="../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/SpawnActorComplete.jpg" />
+</picture>
+
+</p><p>我们的角色蓝图现在已被设置为生成可射击岩石，并将接收要生成岩石的 <strong>变形（Transform）</strong> 位置。
+</p></li></ol><h2 id="4.从关卡传递信息到角色">4. 从关卡传递信息到角色</h2>
+<p>接下来，我们将使用 <strong>关卡蓝图（Level Blueprint）</strong> 获取我们的一个生成点的位置，并在我们的角色蓝图的事件调度器被调用时将该信息传递给我们的角色蓝图（因此我们将从角色蓝图转到关卡蓝图，并返回角色蓝图，在这两者之间传递信息）。 
+</p><ol ><li class="Default"><p>在主编辑器（Main Editor）视图的工具栏中，单击 <strong>蓝图（Blueprints）</strong> 按钮并选择 <strong>打开关卡蓝图（Open Level Blueprint）</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/OpenLevelBlueprint.jpg">
+		<img class="  lazyload" alt="OpenLevelBlueprint.png" data-src="../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/OpenLevelBlueprint.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在图表中，<strong>右键单击</strong> 并添加 <strong>Event Begin Play</strong> 节点以及 <strong>Get Player Character</strong> 节点。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/GetPlayerCharacter.jpg">
+		<img class="  lazyload" alt="GetPlayerCharacter.png" data-src="../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/GetPlayerCharacter.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>从 <strong>Get Player Character</strong> 拖出 <strong>返回值（Return Value）</strong>，并添加一个 <strong>Cast To FirstPersonCharacter</strong> 节点。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/CastToNode.jpg">
+		<img class="  lazyload" alt="CastToNode.png" data-src="../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/CastToNode.jpg" />
+</picture>
+
+</p><p>这里我们使用 <strong>Cast</strong> 节点来首先获取玩家角色，然后获取由该玩家使用的角色蓝图（本例中被称为 <strong>第一人称角色（FirstPersonCharacter）</strong>，并且我们使用它来为可玩角色设置其它脚本）。使用Cast节点，我们得以访问玩家角色的蓝图以及变量、事件和其中的函数。 
+</p><div class="note">
+	<p>关于 <strong>投射（Casting）</strong> 的更多信息，请参阅蓝图中的转换文档页面。 </p>
+</div></li><li class="Default"><p>按照下图显示内容来连接节点，然后在 <strong>Cast To</strong> 节点的 <strong>返回值（Return Value）</strong> 处，选择 <strong>提升为变量（Promote to variable）</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/PromoteToVariable.jpg">
+		<img class="  lazyload" alt="PromoteToVariable.png" data-src="../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/PromoteToVariable.jpg" />
+</picture>
+
+</p><p>我们会创建一个变量，从而保存对玩家正在使用的 <strong>第一人称角色（FirstPersonCharacter）</strong> 蓝图的引用，这样我们就不必每次使用Cast来获取结果。凭借在开始播放事件（Event Begin Play）时执行此操作，它将会在稍后为我们节省时间。 
+</p></li><li class="Default"><p>选择提升的变量，然后在 <strong>细节（Details）</strong> 面板中，将其重命名为 <strong>我的角色（MyCharacter）</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/RenamedMyCharacter.jpg">
+		<img class="  lazyload" alt="RenamedMyCharacter.png" data-src="../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/RenamedMyCharacter.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>将 <strong>MyCharacter</strong> 节点的 <strong>返回值（Return Value）</strong> 拖出，并添加 <strong>Assign Get Spawn Location</strong> 节点。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/AssignSpawnLocation.jpg">
+		<img class="  lazyload" alt="AssignSpawnLocation.png" data-src="../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/AssignSpawnLocation.jpg" />
+</picture>
+
+</p><p>这就是我们创建的 <strong>事件调度器（Event Dispatcher）</strong>。当您选择它时，将会添加两个额外的节点。 
+</p><div class="note">
+	<p>如果您在列表中没有看到这个节点，请确认您单击了 <strong>第一人称角色（FirstPersonCharacter）</strong> 蓝图中的 <strong>编译（Compile）</strong> 并再次尝试。 </p>
+</div></li><li class="Default"><p>请确认您连接了 <strong>绑定事件（Bind Event）</strong> 的新增加节点。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/ConnectAddedNodes.jpg">
+		<img class="  lazyload" alt="ConnectAddedNodes.png" data-src="../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/ConnectAddedNodes.jpg" />
+</picture>
+
+</p><p>现在，当我们在角色蓝图中调用 <strong>GetSpawnLocation</strong> 时，也会同时调用这个新的自定义事件。 
+</p></li><li class="Default"><p>按住 <strong>Control</strong> 键，从 <strong>我的蓝图（MyBlueprint）</strong> 窗口中拖入 <strong>MyCharacter</strong> 变量，然后添加 <strong>设置生成位置（Set Spawn Location）</strong> 节点。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/SetSpawnLocation.jpg">
+		<img class="  lazyload" alt="SetSpawnLocation.png" data-src="../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/SetSpawnLocation.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>返回主编辑器（Main Editor）窗口，并在 <strong>世界大纲视图（World Outliner）</strong> 中，搜索并通过按住 <strong>Ctrl</strong> 并单击来选择每个 <strong>目标点（Target Points）</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/SelectAllTargetPoints.jpg">
+		<img class="  lazyload" alt="SelectAllTargetPoints.png" data-src="../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/SelectAllTargetPoints.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>返回 <strong>关卡蓝图（Level Blueprint）</strong>，并在图表中 <strong>右键单击</strong> 并选择 <strong>创建到3个选定Actor的引用（Create References to 3 selected Actors）</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/AddReferences.jpg">
+		<img class="  lazyload" alt="AddReferences.png" data-src="../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/AddReferences.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在图表中 <strong>右键单击</strong> 并添加 <strong>Make Array</strong> 节点，然后将其与每个 <strong>目标点（Target Points）</strong> 连接。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/MakeArray.jpg">
+		<img class="  lazyload" alt="MakeArray.png" data-src="../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/MakeArray.jpg" />
+</picture>
+
+</p><p>您可以单击 <strong>添加引脚（Add Pin）</strong> 按钮来添加更多引脚。这个数组会存储我们可以访问的目标点集合。 
+</p></li><li class="Default"><p>从 <strong>数组（Array）</strong> 引脚拖出，添加一个 <strong>Get</strong> 节点。 
+</p></li><li class="Default"><p>从 <strong>Get</strong> 拖出，添加一个 <strong>Random Integer in Range</strong> 节点，并将 <strong>最小值（Min）</strong> 设置为"0"，并将 <strong>最大值（Max）</strong> 设置为"2"。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/GetNodeAdded.jpg">
+		<img class="  lazyload" alt="GetNodeAdded.png" data-src="../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/GetNodeAdded.jpg" />
+</picture>
+
+</p><p>这里我们获得了可用作生成点的随机目标点。如果您有更多的生成位置，您可以将它们添加到数组中，并增大Random Integer in Range节点中的 <strong>最大值（Max）</strong> 从而包含它们。 
+</p></li><li class="Default"><p>从 <strong>Get</strong> 节点拖出，添加 <strong>Get Actor Transform</strong> 节点，并将其连接到 <strong>Set Spawn Location</strong> 节点。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/FullScript.png" ><span><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/FullScript.jpg">
+		<img class="  lazyload" alt="FullScript.png" width="640" data-src="../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/FullScript.jpg" />
+</picture>
+</span></a></span></p>
+</div><p>您的完整脚本应该和上图类似，请单击以查看大图。
+</p></li></ol><h2 id="5.摧毁岩石">5. 摧毁岩石</h2>
+<p>在本步骤中，我们会让岩石在被玩家发射的发射物击中时被摧毁。为了完成这项目标，我们会使用另一个 <strong>绑定事件（Bind Event）</strong>，但我们不会将其绑定到事件调度器。我们会转而使用一个名称为 <strong>OnHit</strong> 的碰撞事件，它会在岩石被某种适合情境的东西射中时触发。 
+</p><p>让我们开始射击吧！
+</p><ol ><li class="Default"><p>返回到 <strong>第一人称角色（FirstPersonCharacter）</strong> 蓝图中，在我们生成岩石的位置处找到 <strong>Spawn Actor</strong> 节点。 
+</p></li><li class="Default"><p>从 <strong>Spawn Actor</strong> 节点的 <strong>返回值（Return Value）</strong> 拖出一根引线，并选择 <strong>在Actor碰撞时分配（Assign On Actor Hit）</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/OnActorHit.jpg">
+		<img class="  lazyload" alt="OnActorHit.png" data-src="../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/OnActorHit.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>连接 <strong>生成Actor（Spawn Actor）</strong> 和 <strong>绑定事件（Bind Event）</strong>。 
+</p></li><li class="Default"><p>从 <strong>Spawn Actor</strong> 的 <strong>返回值（Return Value）</strong> 拖出一根引线，并选择 <strong>应用半径伤害（可破坏物体）（Apply Radius Damage (Destructible)）</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/ApplyDamage.jpg">
+		<img class="  lazyload" alt="ApplyDamage.png" data-src="../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/ApplyDamage.jpg" />
+</picture>
+
+</p><p>我们可以使用 <strong>应用伤害（Apply Damage）</strong>，但还需要输入一些额外的参数。为了简单起见，我们会使用半径伤害（Radius Damage）。 
+</p></li><li class="Default"><p>在 <strong>Apply Radius Damage</strong> 节点上，对下方显示的每个字段都输入 <strong>50000</strong>，然后连接 <strong>Get Actor Location</strong> 节点。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/EnterDamage.jpg">
+		<img class="  lazyload" alt="EnterDamage.png" data-src="../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/EnterDamage.jpg" />
+</picture>
+
+</p><p>这样我们就可以对岩石做出足够大的伤害，从而让岩石碎成一块一块。 
+</p></li><li class="Default"><p>在 <strong>Apply Radius Damage</strong> 节点后，添加一个 <strong>Set Score</strong> 节点。 
+</p></li><li class="Default"><p>按住 <strong>Control</strong> 并拖动到 <strong>Score</strong> 变量中，然后将其连接到 <strong>Int + Int</strong> 节点（设置为1）并连接节点。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/IncreaseScore.jpg">
+		<img class="  lazyload" alt="IncreaseScore.png" data-src="../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/IncreaseScore.jpg" />
+</picture>
+
+</p><p>这样我们就可以获得当前的分数，并在岩石每次被撞击时增加1的值。 
+</p></li><li class="Default"><p>将 <strong>Bind Event</strong> 和 <strong>Set Score</strong> 节点连接到一个 <strong>Delay</strong> 节点，该节点设置为 <strong>3</strong> 秒。
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/DelayNode.jpg">
+		<img class="  lazyload" alt="DelayNode.png" data-src="../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/DelayNode.jpg" />
+</picture>
+
+</p><p>3秒后，当岩石生成后（无论其是否被击中），我们都会销毁它。 
+</p></li><li class="Default"><p>在 <strong>Delay</strong> 节点后添加一个 <strong>Destroy Actor</strong> 节点。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/DestroyActor.jpg">
+		<img class="  lazyload" alt="DestroyActor.png" data-src="../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/DestroyActor.jpg" />
+</picture>
+
+</p><p>从 <strong>Spawn Actor</strong> 节点的 <strong>返回值（Return Value）</strong> 拖出一根引线，然后连接到 <strong>Destroy Actor</strong> 节点的 <strong>目标（Target）</strong>。 
+</p></li><li class="Default"><p>在 <strong>Destroy Actor</strong> 节点之后，添加 <strong>Set IsActive</strong> 变量节点，并将其保持为未选中状态。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/SetIsActive.jpg">
+		<img class="  lazyload" alt="SetIsActive.png" data-src="../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/SetIsActive.jpg" />
+</picture>
+
+</p><p>也就是说，生成的岩石不再处于激活状态，这样玩家可以生成另一块岩石（如果他们有足够的扳机扣动次数残留的话）。
+</p></li></ol><p>这样核心游戏进程就设置完成了，如果我们现在要在编辑器中进行播放，您可以看到，您可以显示生成、射击和销毁在关卡中的随机生成点生成的岩石。<br /></p><h2 id="6.使用hud通信">6. 使用HUD通信</h2>
+<p>最后一步是通过与角色蓝图进行通信来获得Pulls、Shots和Score中存储的值，从而更新显示于HUD控件蓝图上的值。为完成这个目标，我们使用 <strong>Cast</strong> 节点来访问玩家的角色蓝图，然后绑定HUD中的属性到角色蓝图中的值，这样它们会在这些值在角色蓝图中更新时自动获取更新。 
+</p><p>游戏快完成了，最后让我们更新一下HUD。 
+</p><ol ><li class="Default"><p>打开您创建的 <strong>HUD</strong> 控件蓝图。 
+</p></li><li class="Default"><p>打开您的 <strong>HUD</strong> 控件蓝图中的 <strong>图表（Graph）</strong> 选项卡。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/GraphClick.jpg">
+		<img class="  lazyload" alt="GraphClick.png" data-src="../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/GraphClick.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在图表中 <strong>单击右键</strong> 并添加 <strong>Event Construct</strong> 节点。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/EventConstruct.jpg">
+		<img class="  lazyload" alt="EventConstruct.png" data-src="../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/EventConstruct.jpg" />
+</picture>
+
+</p><p>该节点类似于 <strong>Event Begin Play</strong> 节点，并且会在控件蓝图被构建时进行调用。 
+</p></li><li class="Default"><p>添加一个 <strong>Get Player Character</strong> 节点和 <strong>CastTo FirstPersonCharacter</strong> 节点。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/CastToFirstPerson.jpg">
+		<img class="  lazyload" alt="CastToFirstPerson.png" data-src="../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/CastToFirstPerson.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>从 <strong>作为第一人称角色（As First Person Character）</strong> 引脚，选择 <strong>提升至变量（Promote to variable）</strong> 并将新节点重命名为 <strong>MyCharacter</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/MyCharacter.jpg">
+		<img class="  lazyload" alt="MyCharacter.png" data-src="../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/MyCharacter.jpg" />
+</picture>
+
+</p><p>您可以选择变量并按下 <strong>F2</strong> 来从 <strong>我的蓝图（My Blueprint）</strong> 窗口重命名变量。 
+</p></li><li class="Default"><p>在 <strong>设计器（Designer）</strong> 选项卡上，单击 <strong>Pulls</strong> 的值，然后在 <strong>细节（Details）</strong> 面板中的 <strong>文本（Text）</strong> 旁边，单击 <strong>绑定（Bind）</strong> 选项，并选择 <strong>创建绑定（Create Binding）</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/Bind1.jpg">
+		<img class="  lazyload" alt="Bind1.png" data-src="../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/Bind1.jpg" />
+</picture>
+
+</p><p>这将会为绑定打开一个新的图表。 
+</p></li><li class="Default"><p>按住 <strong>Control</strong> 并拖入 <strong>MyCharacter</strong> 变量，然后从 <strong>Get Pulls</strong> 拖出一根引线并将其连接到 <strong>Return Node</strong> 的 <strong>返回值（Return Value）</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/GetPulls.jpg">
+		<img class="  lazyload" alt="GetPulls.png" data-src="../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/GetPulls.jpg" />
+</picture>
+
+</p><p>将自动创建 <strong>To Text (Int)</strong> 转换节点。我们现在已经可以正确显示Pulls的值。 
+</p></li><li class="Default"><p>在 <strong>设计器（Designer）</strong> 选项卡上，单击 <strong>Shots</strong> 的值，然后在 <strong>细节（Details）</strong> 面板中，单击 <strong>绑定（Bind）</strong> 选项，并创建下方的绑定。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/GetShots.jpg">
+		<img class="  lazyload" alt="GetShots.png" data-src="../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/GetShots.jpg" />
+</picture>
+
+</p><p>这样将会更新并显示每次扣扳机时剩余的子弹数量。 
+</p></li><li class="Default"><p>在 <strong>设计器（Designer）</strong> 选项卡上，单击 <strong>Score</strong> 的值，然后在 <strong>细节（Details）</strong> 面板中，单击 <strong>绑定（Bind）</strong> 选项，并创建下方的绑定。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/GetScore.jpg">
+		<img class="  lazyload" alt="GetScore.png" data-src="../../../../Images/ProgrammingAndScripting/Blueprints/HowTo/GetScore.jpg" />
+</picture>
+
+</p><p>最终，它会在撞击到岩石时为玩家获取并显示合适的分数。 
+</p></li><li class="Default"><p>单击 <strong>编译（Compile）</strong> 和 <strong>保存（Save）</strong>，然后关闭蓝图。 
+</p></li><li class="Default"><p>在主编辑器（Main Editor）视图中，单击 <strong>运行（Play）</strong> 按钮以在编辑器中运行。 
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_tbwor-dRyEs_2316
+{
+	margin: 0px;
+	width: 640px;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_tbwor-dRyEs_2316:after
+{
+	content: "";
+	padding-top: 360px;
+	display: block;
+}
+</style> 
+<div>
+<div id="player_tbwor-dRyEs_2316"><div style="position:absolute;display:block;width:100%;height:100%;"><iframe class="embedded_video" id="tbwor-dRyEs" width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/tbwor-dRyEs?rel=0&amp;modestbranding=1&amp;showinfo=0" frameborder="0" allowfullscreen></iframe></div></div>
+</div></li></ol><p>您的简单射击场游戏已经完成了！要生成一个岩石，按下 <strong>F</strong>，我们在前一节中绑定它来执行该事件。在这个指南中，我们学习了如何使用 <strong>事件调度器（Event Dispatcher）</strong>、<strong>Cast</strong> 节点和 <strong>绑定（Binding）</strong> 来在三种不同类型的蓝图间通信。我们学习了如何从关卡向角色蓝图传递信息，以及如何从角色向HUD进行变量通信。 
+</p><h2 id="7.看你的了！">7. 看你的了！</h2>
+<p>使用本项目的过程中学到的内容，尝试进行如下操作： 
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_yut5Feu1KxI_40
+{
+	margin: 0px;
+	width: 640px;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_yut5Feu1KxI_40:after
+{
+	content: "";
+	padding-top: 360px;
+	display: block;
+}
+</style> 
+<div>
+<div id="player_yut5Feu1KxI_40"><div style="position:absolute;display:block;width:100%;height:100%;"><iframe class="embedded_video" id="yut5Feu1KxI" width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/yut5Feu1KxI?rel=0&amp;modestbranding=1&amp;showinfo=0" frameborder="0" allowfullscreen></iframe></div></div>
+</div>
+<ul ><li class="Default"><p>在 <strong>第一人称角色（FirstPersonCharacter）</strong> 蓝图中，对首次、第二次或第三次击中岩石给予更高的分数。 
+</p></li><li class="Default"><p>同时在 <strong>第一人称角色（FirstPersonCharacter）</strong> 蓝图中，将其设置为除非生成岩石，否则玩家无法进行射击。 
+</p></li><li class="Default"><p>在关卡中，再添加两个生成点（可能在角落，或在玩家的左/右侧）。 
+</p></li><li class="Default"><p>在HUD中，添加新分类来追踪记录玩家的"首次射击"命中数量。
+</p></li></ul><p>如需获得本指南涵盖的主题以及整个编辑器的更多信息，请参阅<a id="content_link" href="../../../Basics/UI/index.html" ><span>虚幻编辑器手册</span></a>。
+</p><p>关于本指南中主题相关的信息：
+</p><ul ><li class="Default"><p>有关蓝图总体内容的更多信息，请参阅：<a id="content_link"filter-data="tag_blueprints" href="../index.html" ><span>蓝图可视化脚本</span></a>
+</p></li><li class="Default"><p>有关使用蓝图通信以及何时使用它的更多信息，请参阅：蓝图通信使用
+</p></li><li class="Default"><p>有关事件调度器的更多信息，请参阅：<a id="content_link"filter-data="tag_blueprints" href="../UserGuide/EventDispatcher/index.html" ><span>事件调度器</span></a>
+</p></li><li class="Default"><p>有关投射的更多信息，请参阅：投射
+</p></li><li class="Default"><p>有关使用虚幻示意图形（UMG）来创建HUD元素的更多信息，请参阅：<a id="content_link"filter-data="tag_umg_ui_designer" href="../../../InteractiveExperiences/UMG/index.html" ><span>虚幻示意图形</span></a>
+</p></li></ul>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../SiteIndex/index.html?tags=Blueprints">Blueprints</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/ProgrammingAndScripting/Blueprints/HowTo/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:12:21 GMT -->
+</html>

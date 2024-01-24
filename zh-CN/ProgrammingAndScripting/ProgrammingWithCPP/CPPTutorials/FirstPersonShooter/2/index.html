@@ -1,0 +1,1420 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:20:29 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var finishButton = finishButtonTemplate;
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/" />');
+				var udnCSS = '../../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>2 - 实现你的角色 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../../Include/Javascript/instructional.js" type="text/javascript"></script>
+	    <script  src="../../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/" hreflang="ko" />
+
+	<meta name="redirect" content="ProgrammingAndScripting/Tutorials/FirstPersonShooter/2" />
+<meta name="redirect" content="Programming/Tutorials/FirstPersonShooter/2" />
+<meta name="intsourcechangelist" content="15613867" />
+<meta name="availability" content="Public" />
+<meta name="title" content="2 - 实现你的角色" />
+<meta name="description" content="如何实现第一人称射击角色。" />
+<meta name="type" content="quick start" />
+<meta name="prereq" content="ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/1" />
+<meta name="related" content="ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter" />
+<meta name="skilllevel" content="Beginner" />
+<meta name="version" content="4.25" />
+<meta name="crumbs" content="%ROOT%,ProgrammingAndScripting,ProgrammingAndScripting/ProgrammingWithCPP,ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials,ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="2 - 实现你的角色" />
+	<meta property="og:description" content="如何实现第一人称射击角色。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../../index.html">编程和脚本编写</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">编程指南</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">C++ 编程教程</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">第一人称射击游戏教程</a>
+
+<span class="separator">></span> <span id="page">2 - 实现你的角色</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">2 - 实现你的角色</h1>
+							</div>	
+							<h2 >如何实现第一人称射击角色。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Beginner"><a id="skill_link" href="../../../../../SiteIndex/index.html?skills=Beginner">Beginner</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>												<div class="tip" id="notice" style="display:none;">
+欢迎回来！要回到您上次离开的地方吗？
+<div class="button-container">
+<a href="javascript:void();" id="goButton" class="btn btn-lrg btn-default action">前往</a>
+<a href="javascript:void();" id="cancelButton" class="btn btn-lrg btn-default">取消</a>
+</div>
+</div>																		<div id="seeAlso">
+	<div style="position:relative;">
+		<div id="title">参见</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<p>
+						<a id="related_link" href="../index.html" title="学习如何实现第一人称射击游戏中的机制。">第一人称射击游戏教程</a>
+					</p>
+				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																								<div class="prereq">
+    <div class="normaltitle">
+        前置主题
+    </div>
+    <p style="margin-bottom:8px;">
+        为了理解并使用本文中的内容，请确保您已掌握以下主题：
+    </p>
+    <ul style="margin-bottom:0.5em;">
+                <li>
+            <p>
+                <a href="../1/index.html" title="如何建立第一人称射击游戏项目。">1 - 建立项目</a>
+            </p>
+        </li>
+            </ul>
+</div>
+																		<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#目标">目标</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#目的">目的</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#步骤">步骤</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#2.1创建新角色">2.1 创建新角色</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#添加角色类">添加角色类</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#确认角色类">确认角色类</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#扩展你的c++fps角色类到蓝图">扩展你的C++ FPS角色类到蓝图</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#设置默认的pawn类">设置默认的Pawn类</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#2.2-设置轴映射">2.2 - 设置轴映射</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#向前移动轴映射">向前移动轴映射</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#向右移动轴映射">向右移动轴映射</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#2.3-实现角色移动函数">2.3 - 实现角色移动函数</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#移动函数接口">移动函数接口</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#移动函数的实现">移动函数的实现</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#测试角色移动">测试角色移动</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#2.4-实现鼠标摄像机控制">2.4 - 实现鼠标摄像机控制</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#转向轴映射">转向轴映射</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#查找轴映射">查找轴映射</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#实现输入处理">实现输入处理</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#测试鼠标摄像机控制">测试鼠标摄像机控制</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#2.5-实现角色跳跃">2.5 - 实现角色跳跃</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#跳跃操作映射">跳跃操作映射</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#实现输入处理_1">实现输入处理</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#测试角色跳跃">测试角色跳跃</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#2.6-将网格体添加到角色">2.6 - 将网格体添加到角色</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#导入骨骼网格体">导入骨骼网格体</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#设置第三人称网格体">设置第三人称网格体</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#确认处于pie模式的新网格体">确认处于PIE模式的新网格体</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#2.7-更改摄像机视角">2.7 - 更改摄像机视角</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#附加摄像机组件">附加摄像机组件</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#测试新摄像机">测试新摄像机</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#2.8-将第一人称网格体添加到你的角色">2.8-将第一人称网格体添加到你的角色</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#添加第一人称角色网格体">添加第一人称角色网格体</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#构建网格体蓝图">构建网格体蓝图</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#在游戏中查看新网格体">在游戏中查看新网格体</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#已完成分段代码">已完成分段代码</a></p>
+	</li>					</ul>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/Section0208.jpg">
+		<img class="  lazyload" alt="Section0208.gif" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/Section0208.jpg" />
+</picture>
+
+</p><div class="caption">
+	<p>这就是你将在本分段结束时看到的内容。</p>
+</div><h2 id="目标">目标</h2>
+<p>本分段旨在向你展示如何实现第一人称射击角色。
+</p><h2 id="目的">目的</h2>
+<p>完成本教程的此分段，你便能够：
+</p><ul ><li class="Default"><p>创建新角色
+</p></li><li class="Default"><p>设置轴映射
+</p></li><li class="Default"><p>实现角色移动函数
+</p></li><li class="Default"><p>实现鼠标摄像机控制
+</p></li><li class="Default"><p>实现角色跳跃
+</p></li><li class="Default"><p>将网格体添加到角色
+</p></li><li class="Default"><p>更改摄像机视角
+</p></li><li class="Default"><p>将第一人称网格体添加到角色
+</p></li></ul><h2 id="步骤">步骤</h2>
+<ul ><li class="Default"><p>2.1 - 创建新角色
+</p></li><li class="Default"><p>2.2 - 设置轴映射
+</p></li><li class="Default"><p>2.3 - 实现角色移动函数
+</p></li><li class="Default"><p>2.4 - 实现鼠标摄像机控制
+</p></li><li class="Default"><p>2.5 - 实现角色跳跃
+</p></li><li class="Default"><p>2.6 - 将网格体添加到角色
+</p></li><li class="Default"><p>2.7 - 更改摄像机视角
+</p></li><li class="Default"><p>2.8 - 将第一人称网格体添加到角色
+</p></li></ul><h2 id="2.1创建新角色">2.1 创建新角色</h2>
+<p>在此步骤中，你将使用引擎的 <strong>角色</strong> 基类在虚幻引擎（UE）中创建一个新角色。角色类（派生自 <strong>Pawn</strong> 类）的内置功能支持走、跑和跳等双足运动。
+</p><h3 id="添加角色类">添加角色类</h3>
+<p>虽然你可以手动将.h和.cpp文件添加到你的Visual Studio (VS)解决方案，但使用C++类向导将新类添加到你的项目是一种很好的做法。 
+</p><p>使用C++类向导，引擎可创建头文件和源文件模板，这些模板文件将为你预先设置一些虚幻特定的宏。
+</p><ol ><li class="Default"><p>在UE中启动FPS项目（如果你尚未完成此操作）。 
+</p></li><li class="Default"><p>在文件（File）菜单中，选择 <strong>新建C++类...（New C++ Class...）</strong>，以选择新的父类。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/SelectNewCPPClass.jpg">
+		<img class="  lazyload" alt="SelectNewCPPClass.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/SelectNewCPPClass.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>以上操作将打开 <strong>选择父类（Choose Parent Class）</strong> 菜单。向下滚动，选择 <strong>角色</strong> 作为父类，然后点击 <strong>下一步（Next）</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/ChooseCharacterClass.jpg">
+		<img class="  lazyload" alt="ChooseCharacterClass.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/ChooseCharacterClass.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>将新类命名为"FPSCharacter"，然后点击 <strong>创建类（Create Class）</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/MakeFPSCharacterClass.jpg">
+		<img class="  lazyload" alt="MakeFPSCharacterClass.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/MakeFPSCharacterClass.jpg" />
+</picture>
+
+</p></li></ol><h3 id="确认角色类">确认角色类</h3>
+<ol ><li class="Default"><p>在VS的 <strong>解决方案浏览器</strong> 中，依次展开 <strong>FPSProject</strong> > <strong>源（Source）</strong> > <strong>FPSProject</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/ExpandedSolutionExplorer.jpg">
+		<img class="  lazyload" alt="ExpandedSolutionExplorer.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/ExpandedSolutionExplorer.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>点击 <code>FPSCharacter.cpp</code>，打开 <strong>FPSCharacter</strong> 类的实现文件。
+</p></li><li class="Default"><p>在 <code>BeginPlay()</code> 函数中添加以下代码行（在 <code>Super::BeginPlay();</code> 下面），以便确认正在使用 <code>FPSCharacter</code> 类：
+</p><pre class="prettyprint"><code>check(GEngine != nullptr);
+
+// 显示调试消息五秒。 
+// -1"键"值参数可以防止更新或刷新消息。
+GEngine-&gt;AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("We are using FPSCharacter."));</code></pre></li><li class="Default"><p>现在 <code>FPSCharacter.cpp</code> 的内容应如下所示：
+</p><pre class="prettyprint"><code>//版权所有Epic Games, Inc。保留所有权利。
+
+#include "FPSCharacter.h"
+
+// 设置默认值
+AFPSCharacter::AFPSCharacter()
+{
+// 将此角色设置为每帧调用Tick()。  如果不需要此特性，可以关闭以提升性能。
+PrimaryActorTick.bCanEverTick = true;
+
+}
+
+// 当游戏开始或重生（Spawn）时被调用
+void AFPSCharacter::BeginPlay()
+{
+Super::BeginPlay();
+
+check(GEngine != nullptr);
+
+// 显示调试消息五秒。 
+// -1"键"值参数可以防止更新或刷新消息。
+GEngine-&gt;AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("We are using FPSCharacter."));
+
+}
+
+// 每一帧都被调用
+void AFPSCharacter::Tick(float DeltaTime)
+{
+Super::Tick(DeltaTime);
+
+}
+
+// 被调用，将功能与输入绑定
+void AFPSCharacter::SetupPlayerInputComponent(UInputComponent&#42; PlayerInputComponent)
+{
+Super::SetupPlayerInputComponent(PlayerInputComponent);
+
+}</code></pre></li><li class="Default"><p>在Visual Studio中保存 <code>FPSCharacter</code> CPP文件。
+</p></li><li class="Default"><p>在 <strong>解决方案浏览器（Solution Explorer）</strong> 中找到 <strong>FPSProject</strong>。
+</p><div class="note">
+	<p>到目前为止，你一直在使用编辑器的 <strong>构建(Build)</strong> 按钮编译项目。在此步骤中，你将使用Visual Studio的构建功能来编译代码。要从Visual Studio中编译代码，请右键点击 <strong>FPSProject</strong>，并选择 <strong>构建（Build）</strong> 来编译项目。</p>
+</div></li><li class="Default"><p>要从VS中编译代码，请右键点击 <strong>FPSProject</strong>，并选择 <strong>构建（Build）</strong> 来编译项目。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/BuildProject.jpg">
+		<img class="  lazyload" alt="BuildProject.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/BuildProject.jpg" />
+</picture>
+
+</p><div class="note">
+	<p>如果你使用的是VS的默认设置，则在界面底部附近（可能在代码编辑器的下方），你应该会看到一个对话框。当你点击构建（Build）后，在生成过程中该对话框中应该会显示一些信息，我们最希望显示的是构建成功的信息。 
+如果构建失败，不要紧张！回头看看你之前的操作步骤，确保你的代码与此处和第1分段中列出的内容相同。</p>
+</div></li><li class="Default"><p>构建完成后，打开虚幻编辑器，确认新编译的 <strong>FPSCharacter</strong> 类在 <strong>内容浏览器</strong> 中可见。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/FPSCharacterContentBrowser.jpg">
+		<img class="  lazyload" alt="FPSCharacterContentBrowser.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/FPSCharacterContentBrowser.jpg" />
+</picture>
+
+</p></li></ol><h3 id="扩展你的c++fps角色类到蓝图">扩展你的C++ FPS角色类到蓝图</h3>
+<p>现在可以扩展C++ FPS角色类到蓝图了（类似之前进行的FPSProject游戏模式操作）。请随时前往我们的<a id="content_link" href="../../../../ClassCreation/CodeAndBlueprints/index.html" ><span>C++和蓝图</span></a>参考页面，以了解更多关于扩展C++类到蓝图的信息。
+</p><ol ><li class="Default"><p>右键点击FPSCharacter类，打开 <strong>C++类操作（C++ Class Actions）</strong> 菜单。
+</p></li><li class="Default"><p>点击 <strong>基于FPSCharacter创建蓝图类（Create Blueprint class based on FPSHUD）</strong>，打开 <strong>添加蓝图类（Add Blueprint Class）</strong> 对话框菜单。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/CreateDerivedBPClass.jpg">
+		<img class="  lazyload" alt="CreateDerivedBPClass.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/CreateDerivedBPClass.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>将新的蓝图类命名为 <code>BP&#95;FPSCharacter</code>，选择蓝图（Blueprints）文件夹，然后点击 <strong>创建蓝图类（Create Blueprint Class）</strong> 按钮。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/AddBPClass.jpg">
+		<img class="  lazyload" alt="AddBPClass.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/AddBPClass.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>现在，在蓝图（Blueprints）文件夹内，你应该可以看到新创建的 <code>BP&#95;FPSCharacter</code> 蓝图类。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/AddedBPClass.jpg">
+		<img class="  lazyload" alt="AddedBPClass.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/AddedBPClass.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>请确保在关闭蓝图编辑器前保存 <code>BP&#95;FPSCharacter</code> 蓝图。
+</p></li></ol><h3 id="设置默认的pawn类">设置默认的Pawn类</h3>
+<p>现在你已经成功地把新修改的游戏模式扩展到了蓝图，接下来你需要在此步骤中设置项目，将 <code>BP&#95;FPSCharacter</code> 作为默认的 <strong>Pawn</strong>。
+</p><ol ><li class="Default"><p>在 <strong>编辑（Edit）</strong> 菜单中点击 <strong>项目设置（Project Settings）</strong>。
+</p></li><li class="Default"><p>在 <strong>项目设置（Project Settings）</strong> 选项卡左侧的 <strong>项目（Project）</strong> 标题栏下，点击 <strong>地图和模式（Maps &amp; Modes）</strong>。
+</p></li><li class="Default"><p>展开 <strong>已选择的游戏模式（Selected GameMode）</strong> 段，并在 <strong>默认Pawn类（Default Pawn Class）</strong> 下拉菜单中选择 <strong>BP_FPSCharacter</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/SettingFPSCharacter.jpg">
+		<img class="  lazyload" alt="SettingFPSCharacter.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/SettingFPSCharacter.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>关闭 <strong>项目设置（Project Settings）</strong> 菜单。
+</p></li><li class="Default"><p>在关卡编辑器工具栏中点击 <strong>运行（Play）</strong> 按钮。在视口左上角，红色文本"We are using FPSCharacter."将显示在"Hello World, this is FPSGameMode!"的下方，并持续5秒钟。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/VerifyingFPSCharacterResult.jpg">
+		<img class="  lazyload" alt="VerifyingFPSCharacterResult.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/VerifyingFPSCharacterResult.jpg" />
+</picture>
+
+</p><div class="note">
+	<p>如果你无法移动，说明你已经正确地将FPSCharacter用作了Pawn！你的新角色还没有任何移动功能按钮，因此你还不能在关卡中四处移动。</p>
+</div></li><li class="Default"><p>在进入下一步前，按退出键（Escape）或在关卡编辑器中点击 <strong>停止（Stop）</strong>，退出在编辑器中运行（Play in Editor）（PIE）模式。
+</p></li></ol><h2 id="2.2-设置轴映射">2.2 - 设置轴映射</h2>
+<p>通常，轴映射支持将键盘、鼠标和控制器输入映射到"友好名称"，该名称稍后可以绑定到游戏行为上（例如移动）。轴映射会不断被轮询，从而实现无缝的移动过渡和流畅的游戏行为。硬件轴（例如游戏摇杆）所提供的输入值为程度值，而不是离散的数字输入（例如，按下为1，不按下为0）。虽然游戏摇杆输入方法在提供可平滑伸缩的移动输入方面很有效，但轴映射也可以将常见的移动键（如WASD键或箭头键）映射到持续轮询的游戏行为。 
+</p><p>在继续此步骤之前，如果你想要了解有关玩家输入的更多信息，请参阅<a id="content_link" href="../../PlayerInput/index.html" ><span>玩家输入和Pawn</span></a>教程。在此步骤中，你将设置W、A、S和D键的输入轴映射，从而使新角色可以在地图上四处移动。
+</p><h3 id="向前移动轴映射">向前移动轴映射</h3>
+<ol ><li class="Default"><p>在 <strong>编辑（Edit）</strong> 菜单中，点击 <strong>项目设置（Project Settings）</strong>。
+</p></li><li class="Default"><p>在 <strong>项目设置（Project Settings）</strong> 选项卡左侧的 <strong>引擎（Engine）</strong> 标题栏下，点击 <strong>输入（Input）</strong>。
+</p></li><li class="Default"><p>在 <strong>绑定（Bindings）</strong> 中，点击 <strong>轴映射（Axis Mappings）</strong> 旁边的+号。
+</p></li><li class="Default"><p>点击 <strong>轴映射（Axis Mappings）</strong> 左侧的箭头。
+</p></li><li class="Default"><p>在界面显示的文本框中输入"MoveForward"，然后点击文本框左侧的箭头，展开轴绑定选项。
+</p></li><li class="Default"><p>在下拉菜单中，从 <strong>键盘（Keyboard）</strong> 下拉列表中选择 <strong>W</strong>。
+</p></li><li class="Default"><p>现在输入设置界面应如下图所示：
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/MoveForwardAxisMap_W.jpg">
+		<img class="  lazyload" alt="MoveForwardAxisMap_W.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/MoveForwardAxisMap_W.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>点击 <strong>MoveForward</strong> 旁边的+号。
+</p></li><li class="Default"><p>在第二个下拉菜单中，从 <strong>键盘（Keyboard）</strong> 下拉列表中选择 <strong>S</strong>。
+</p></li><li class="Default"><p>在 <strong>S</strong> 旁边的 <strong>比例（Scale）</strong> 字段中输入"-1"。
+</p></li><li class="Default"><p>现在输入设置界面应如下图所示：
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/MoveForwardAxisMap_S.jpg">
+		<img class="  lazyload" alt="MoveForwardAxisMap_S.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/MoveForwardAxisMap_S.jpg" />
+</picture>
+
+</p></li></ol><h3 id="向右移动轴映射">向右移动轴映射</h3>
+<ol ><li class="Default"><p>在 <strong>绑定（Bindings）</strong> 中，点击 <strong>轴映射（Axis Mappings）</strong> 旁边的+号。
+</p></li><li class="Default"><p>在显示的文本字段中输入"向右移动（MoveForward）"，然后点击文本框左侧的箭头，展开轴绑定选项。
+</p></li><li class="Default"><p>在下拉菜单中，从 <strong>键盘（Keyboard）</strong> 下拉列表中选择 <strong>D</strong>。
+</p></li><li class="Default"><p>现在输入设置界面应如下图所示：
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/MoveRightAxisMap_D.jpg">
+		<img class="  lazyload" alt="MoveRightAxisMap_D.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/MoveRightAxisMap_D.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>点击 <strong>向右移动（MoveRight）</strong> 旁边的+号。
+</p></li><li class="Default"><p>在第二个下拉菜单中，从 <strong>键盘（Keyboard）</strong> 下拉列表中选择 <strong>A</strong>。
+</p></li><li class="Default"><p>在 <strong>A</strong> 旁边的 <strong>比例（Scale）</strong> 字段中输入"-1"。
+</p></li><li class="Default"><p>现在输入设置界面应如下图所示：
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/MoveRightAxisMap_A.jpg">
+		<img class="  lazyload" alt="MoveRightAxisMap_A.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/MoveRightAxisMap_A.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>现在你已设置好向左移动（MoveLeft）和向右移动（MoveRight）轴映射，请关闭 <strong>项目设置（Project Settings）</strong> 菜单并继续。
+</p></li></ol><h2 id="2.3-实现角色移动函数">2.3 - 实现角色移动函数</h2>
+<p>在此步骤中，我们将设置玩家输入组件，并在FPSCharacter类中实现以下函数：
+</p><ul ><li class="Default"><p><code>MoveForward</code>
+</p></li><li class="Default"><p><code>MoveRight</code>
+</p></li></ul><h3 id="移动函数接口">移动函数接口</h3>
+<p>你已经设置好FPSCharacter的轴映射，现在可以切换到VS中的项目界面。
+</p><ol ><li class="Default"><p>在 <code>FPSCharacter.h</code> 中，将以下函数声明添加到 <code>SetupPlayerInputComponent</code> 成员函数的下方。
+</p><pre class="prettyprint"><code>// 处理用于前后移动的输入。
+UFUNCTION()
+void MoveForward(float Value);
+
+// 处理用于左右移动的输入。
+UFUNCTION()
+void MoveRight(float Value);</code></pre>
+<div class="note">
+	<p><code>UFUNCTION</code> 宏（位于每个函数上方）让引擎可以发觉这些函数，以便将它们纳入序列化和其他引擎功能中。</p>
+</div></li><li class="Default"><p>现在 <code>FPSCharacter.h</code> 的内容应如下所示：
+</p><pre class="prettyprint"><code>//版权所有Epic Games, Inc。保留所有权利。
+
+#pragma once
+
+#include "CoreMinimal.h"
+#include "GameFramework/Character.h"
+#include "FPSCharacter.generated.h"
+
+UCLASS()
+class FPSPROJECT&#95;API AFPSCharacter : public ACharacter
+{
+    GENERATED&#95;BODY()
+
+public:
+    // 为此角色的属性设置默认值
+    AFPSCharacter();
+
+protected:
+    // 当游戏开始或重生（Spawn）时被调用
+    virtual void BeginPlay() override;
+
+public:
+    // 每一帧都被调用
+    virtual void Tick( float DeltaTime ) override;
+
+    // 被调用，将功能与输入绑定
+    virtual void SetupPlayerInputComponent(class UInputComponent&#42; PlayerInputComponent) override;
+
+    // 处理用于前后移动的输入。
+    UFUNCTION()
+    void MoveForward(float Value);
+
+    // 处理用于左右移动的输入。
+    UFUNCTION()
+    void MoveRight(float Value);
+
+};</code></pre></li></ol><h3 id="移动函数的实现">移动函数的实现</h3>
+<p>在典型的FPS控制模式中，角色的移动轴是相对于摄像机的。"向前"移动是指"摄像机指向的方向"，"向右"是指"摄像机指向方向的右侧"。你将使用 <code>PlayerController</code> 获取角色的控制旋转输入值。另外， <code>MoveForward</code> 函数将忽略控制旋转输入值的俯仰（Pitch）分量，将输入限制在XY平面上，以确保在你向上或向下看时，你的角色将沿着地面移动。
+</p><ol ><li class="Default"><p>在 <code>FPSCharacter.cpp</code> 中，将以下行添加到`SetupPlayerInputComponent<code> 函数中的 </code>Super::SetupPlayerInputComponent(PlayerInputComponent);` 下方 。
+</p><pre class="prettyprint"><code>// 设置"移动"绑定。
+PlayerInputComponent-&gt;BindAxis("MoveForward", this, &amp;AFPSCharacter::MoveForward);
+PlayerInputComponent-&gt;BindAxis("MoveRight", this, &amp;AFPSCharacter::MoveRight);</code></pre>
+<div class="note">
+	<p><code>InputComponent</code> 是定义如何处理输入数据的组件。可以将 <code>InputComponent</code> 附加到想要接收输入的actor。</p>
+</div></li><li class="Default"><p>在 <code>FPSCharacter.cpp</code> 中， <code>SetupPlayerInputComponent</code> 下方，添加以下 <code>MoveForward</code> 函数定义。
+</p><pre class="prettyprint"><code>void AFPSCharacter::MoveForward(float Value)
+{
+    // 找出"前进"方向，并记录玩家想向该方向移动。
+    FVector Direction = FRotationMatrix(Controller-&gt;GetControlRotation()).GetScaledAxis(EAxis::X);
+    AddMovementInput(Direction, Value);
+}</code></pre></li><li class="Default"><p>在 <code>FPSCharacter.cpp</code> 中添加以下 <code>MoveRight</code> 函数定义（<code>MoveForward</code> 下方）。
+</p><pre class="prettyprint"><code>void AFPSCharacter::MoveRight(float Value)
+{
+    // 找出"右侧"方向，并记录玩家想向该方向移动。
+    FVector Direction = FRotationMatrix(Controller-&gt;GetControlRotation()).GetScaledAxis(EAxis::Y);
+    AddMovementInput(Direction, Value);
+}</code></pre></li><li class="Default"><p>现在 <code>FPSCharacter.cpp</code> 的内容应如下所示：
+</p><pre class="prettyprint"><code>//版权所有Epic Games, Inc。保留所有权利。
+
+#include "FPSCharacter.h"
+
+// 设置默认值
+AFPSCharacter::AFPSCharacter()
+{
+    // 将此角色设置为每帧调用Tick()。  如果不需要此特性，可以关闭以提升性能。
+    PrimaryActorTick.bCanEverTick = true;
+
+}
+
+// 当游戏开始或重生（Spawn）时被调用
+void AFPSCharacter::BeginPlay()
+{
+    Super::BeginPlay();
+
+    check(GEngine != nullptr);
+
+      // 显示调试消息五秒。 
+    // -1"键"值参数可以防止更新或刷新消息。
+      GEngine-&gt;AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("We are using FPSCharacter."));
+
+}
+
+// 每一帧都被调用
+void AFPSCharacter::Tick( float DeltaTime )
+{
+    Super::Tick( DeltaTime );
+
+}
+
+// 被调用，将功能与输入绑定
+void AFPSCharacter::SetupPlayerInputComponent(UInputComponent&#42; PlayerInputComponent)
+{
+    Super::SetupPlayerInputComponent(PlayerInputComponent);
+
+    // 设置"移动"绑定。
+    PlayerInputComponent-&gt;BindAxis("MoveForward", this, &amp;AFPSCharacter::MoveForward);
+    PlayerInputComponent-&gt;BindAxis("MoveRight", this, &amp;AFPSCharacter::MoveRight);
+}
+
+void AFPSCharacter::MoveForward(float Value)
+{
+    // 找出"前进"方向，并记录玩家想向该方向移动。
+    FVector Direction = FRotationMatrix(Controller-&gt;GetControlRotation()).GetScaledAxis(EAxis::X);
+    AddMovementInput(Direction, Value);
+}
+
+void AFPSCharacter::MoveRight(float Value)
+{
+    // 找出"右侧"方向，并记录玩家想向该方向移动。
+    FVector Direction = FRotationMatrix(Controller-&gt;GetControlRotation()).GetScaledAxis(EAxis::Y);
+    AddMovementInput(Direction, Value);
+}</code></pre></li></ol><h3 id="测试角色移动">测试角色移动</h3>
+<p>现在我们来编译和测试新实现的角色移动函数。
+</p><ol ><li class="Default"><p>在VS中保存 <code>FPSCharacter</code> 头文件（.h）和C++（.cpp）文件。
+</p></li><li class="Default"><p>在 <strong>解决方案浏览器（Solution Explorer）</strong> 中找到 <strong>FPSProject</strong>。
+</p></li><li class="Default"><p>右键点击 <strong>FPSProject</strong> 并选择 <strong>构建（Build）</strong>，编译你的项目。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/BuildProject.jpg">
+		<img class="  lazyload" alt="BuildProject.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/BuildProject.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>构建完毕后，在虚幻引擎中打开 <strong>FPSProject</strong>。
+</p></li><li class="Default"><p>在关卡编辑器工具栏中点击 <strong>运行（Play）</strong>。现在，你应该能够向前、向后、向左和向右移动。
+</p></li><li class="Default"><p>按退出键（Escape）或在关卡编辑器中点击 <strong>停止（Stop）</strong>，退出PIE模式。
+</p></li></ol><h2 id="2.4-实现鼠标摄像机控制">2.4 - 实现鼠标摄像机控制</h2>
+<p>在此步骤中，你将为角色添加能够环顾四周并用鼠标操纵的功能。
+</p><h3 id="转向轴映射">转向轴映射</h3>
+<ol ><li class="Default"><p>在FPS项目中，展开 <strong>编辑（Edit）</strong> 菜单，并点击 <strong>项目设置（Project Settings）</strong>。
+</p></li><li class="Default"><p>在 <strong>项目设置（Project Settings）</strong> 选项卡左侧的 <strong>引擎（Engine）</strong> 标题栏下，点击 <strong>输入（Input）</strong>。
+</p></li><li class="Default"><p>在 <strong>绑定（Bindings）</strong> 中，点击 <strong>轴映射（Axis Mappings）</strong> 旁边的+号。
+</p></li><li class="Default"><p>点击 <strong>轴映射（Axis Mappings）</strong> 左侧的箭头。
+</p></li><li class="Default"><p>在显示的文本输入框中输入"Turn"，然后点击文本框左侧的箭头，以便展开轴绑定选项
+</p></li><li class="Default"><p>在下拉菜单中，从 <strong>鼠标（Mouse）</strong> 下拉列表中选择 <strong>鼠标X（Mouse X）</strong>。
+</p></li><li class="Default"><p>现在输入设置界面应如下图所示：
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/TurnAxisMapping_MouseX.jpg">
+		<img class="  lazyload" alt="TurnAxisMapping_MouseX.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/TurnAxisMapping_MouseX.jpg" />
+</picture>
+
+</p></li></ol><h3 id="查找轴映射">查找轴映射</h3>
+<ol ><li class="Default"><p>在 <strong>绑定（Bindings）</strong> 中，点击 <strong>轴映射（Axis Mappings）</strong> 旁边的+号。
+</p></li><li class="Default"><p>在显示的文本输入框中输入"LookUp"，然后点击文本框左侧的箭头，以便展开轴绑定选项。
+</p></li><li class="Default"><p>在下拉菜单中，从 <strong>鼠标（Mouse）</strong> 下拉列表中选择 <strong>鼠标Y（Mouse Y）</strong>。
+</p></li><li class="Default"><p>在 <strong>鼠标Y（Mouse Y）</strong> 旁边的 <strong>比例（Scale）</strong> 输入框中输入"-1.0"。
+</p></li><li class="Default"><p>现在输入设置界面应如下图所示：
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/TurnAxisMapping_MouseY.jpg">
+		<img class="  lazyload" alt="TurnAxisMapping_MouseY.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/TurnAxisMapping_MouseY.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>关闭 <strong>项目设置（Project Settings）</strong> 菜单。
+</p></li></ol><h3 id="实现输入处理">实现输入处理</h3>
+<p>现在可以添加代码处理鼠标输入以便进行转向和抬头看。<code>角色</code> 基类为我们定义了两个必要函数，即：
+</p><ul ><li class="Default"><p><code>AddControllerYawInput</code>
+</p></li><li class="Default"><p><code>AddControllerPitchInput</code>
+</p><div class="note">
+	<p>如果你想要执行更多的处理，例如增加对灵敏度或轴反转的支持，那么你可以提供自己的函数，以便在将输入值传递给函数之前对其进行调整。但是，在本示例中，你将直接将输入绑定到 <code>AddControllerYawInput</code> 和<code> AddControllerPitchInput</code> 函数。</p>
+</div></li></ul><ol ><li class="Default"><p>将以下代码行添加到 <code>FPSCharacter.cpp</code> 中的 <code>SetupPlayerInputComponent</code> 函数。
+</p><pre class="prettyprint"><code>// 设置"观看"绑定。
+PlayerInputComponent-&gt;BindAxis("Turn", this, &amp;AFPSCharacter::AddControllerYawInput);
+PlayerInputComponent-&gt;BindAxis("LookUp", this, &amp;AFPSCharacter::AddControllerPitchInput);</code></pre></li><li class="Default"><p><code>SetupPlayerInputComponent</code> 函数应如下图所示：
+</p><pre class="prettyprint"><code>// 被调用，将功能与输入绑定
+void AFPSCharacter::SetupPlayerInputComponent(UInputComponent&#42; PlayerInputComponent)
+{
+    Super::SetupPlayerInputComponent(PlayerInputComponent);
+
+    // 设置"移动"绑定。
+    PlayerInputComponent-&gt;BindAxis("MoveForward", this, &amp;AFPSCharacter::MoveForward);
+    PlayerInputComponent-&gt;BindAxis("MoveRight", this, &amp;AFPSCharacter::MoveRight);
+
+    // 设置"观看"绑定。
+    PlayerInputComponent-&gt;BindAxis("Turn", this, &amp;AFPSCharacter::AddControllerYawInput);
+    PlayerInputComponent-&gt;BindAxis("LookUp", this, &amp;AFPSCharacter::AddControllerPitchInput);
+}</code></pre></li></ol><h3 id="测试鼠标摄像机控制">测试鼠标摄像机控制</h3>
+<ol ><li class="Default"><p>在VS中保存 <code>FPSCharacter</code> 的实现文件。
+</p></li><li class="Default"><p>在 <strong>解决方案浏览器（Solution Explorer）</strong> 中找到 <strong>FPSProject</strong>。
+</p></li><li class="Default"><p>右键点击 <strong>FPSProject</strong> 并选择 <strong>构建（Build）</strong>，编译你的项目。
+</p></li><li class="Default"><p>构建完毕后，在虚幻引擎中打开 <strong>FPSProject</strong>。
+</p></li><li class="Default"><p>在关卡编辑器工具栏中点击 <strong>运行（Play）</strong>。现在，你可以通过鼠标控制摄像机。
+</p></li><li class="Default"><p>按 <strong>退出键（Escape key）</strong> 或在关卡编辑器中点击 <strong>停止（Stop）</strong>，退出PIE模式。
+</p></li></ol><h2 id="2.5-实现角色跳跃">2.5 - 实现角色跳跃</h2>
+<p>通常，操作映射处理离散事件的输入，让你可以将输入映射到"友好名称"，该名称稍后可以与事件驱动的行为绑定。最终效果是，按下和/或释放单个键、鼠标按钮或辅助键盘按钮可以直接触发游戏行为。在此步骤中，你将为空格键设置输入操作映射，增加角色的跳跃能力。
+</p><h3 id="跳跃操作映射">跳跃操作映射</h3>
+<ol ><li class="Default"><p>在 <strong>编辑（Edit）</strong> 菜单中，点击 <strong>项目设置（Project Settings）</strong>。
+</p></li><li class="Default"><p>在 <strong>项目设置（Project Settings）</strong> 选项卡左侧的 <strong>引擎（Engine）</strong> 标题栏下，点击 <strong>输入（Input）</strong>。
+</p></li><li class="Default"><p>在 <strong>绑定（Bindings）</strong> 中，点击 <strong>操作映射（Action Mappings）</strong> 旁边的+号。
+</p></li><li class="Default"><p>点击 <strong>操作映射（Action Mappings）</strong> 左侧的箭头。
+</p></li><li class="Default"><p>在显示的文本输入框中输入"Jump"，然后点击文本框左侧的箭头，展开操作绑定选项。
+</p></li><li class="Default"><p>在下拉菜单中，从 <strong>键盘（Keyboard）</strong> 下拉列表中选择 <strong>空格键（Space Bar）</strong>。
+</p></li><li class="Default"><p>现在输入设置界面应如下图所示：
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/JumpActionMapping_SpaceBar.jpg">
+		<img class="  lazyload" alt="JumpActionMapping_SpaceBar.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/JumpActionMapping_SpaceBar.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>关闭 <strong>项目设置（Project Settings）</strong> 菜单。
+</p></li></ol><h3 id="实现输入处理_1">实现输入处理</h3>
+<p>如果你查看 <code>Acharacter</code> 基类的接口文件（.h）的内容，你会看到角色跳跃的内置支持。角色跳跃与 <code>bPressedJump</code> 变量绑定，因此我们需要做的就是，在跳跃操作按下时将该布尔值设置为 <code>true</code>，在跳跃操作释放时将该布尔值设置为 <code>false</code>。你需要添加以下两个函数完成此操作：
+</p><ul ><li class="Default"><p><code>StartJump</code>
+</p></li><li class="Default"><p><code>StopJump</code>
+</p></li></ul><p>返回Visual Studio，将代码添加到 <code>FPSCharacter</code> 类。
+</p><ol ><li class="Default"><p>在 <code>FPSCharacter.h</code> 中，添加以下公共函数声明：
+</p><pre class="prettyprint"><code>// 按下键时，设置跳跃标记。
+UFUNCTION()
+void StartJump();
+
+// 释放键时，清除跳跃标记。
+UFUNCTION()
+void StopJump();</code></pre></li><li class="Default"><p>现在 <code>FPSCharacter.h</code> 的内容应如下所示：
+</p><pre class="prettyprint"><code>//版权所有Epic Games, Inc。保留所有权利。
+
+#pragma once
+
+#include "CoreMinimal.h"
+#include "GameFramework/Character.h"
+#include "FPSCharacter.generated.h"
+
+UCLASS()
+class FPSPROJECT&#95;API AFPSCharacter : public ACharacter
+{
+    GENERATED&#95;BODY()
+
+public:
+    // 为此角色的属性设置默认值
+    AFPSCharacter();
+
+protected:
+    // 当游戏开始或重生（Spawn）时被调用
+    virtual void BeginPlay() override;
+
+public:
+    // 每一帧都被调用
+    virtual void Tick( float DeltaTime ) override;
+
+    // 被调用，将功能与输入绑定
+    virtual void SetupPlayerInputComponent(class UInputComponent&#42; PlayerInputComponent) override;
+
+    // 处理用于前后移动的输入。
+    UFUNCTION()
+    void MoveForward(float Value);
+
+    // 处理用于左右移动的输入。
+    UFUNCTION()
+    void MoveRight(float Value);
+
+    // 按下键时，设置跳跃标记。
+    UFUNCTION()
+    void StartJump();
+
+    // 释放键时，清除跳跃标记。
+    UFUNCTION()
+    void StopJump();
+};</code></pre></li><li class="Default"><p>在 <code>FPSCharacter.cpp</code> 中，将以下函数定义添加到代码底部：
+</p><pre class="prettyprint"><code>void AFPSCharacter::StartJump()
+{
+    bPressedJump = true;
+}
+
+void AFPSCharacter::StopJump()
+{
+    bPressedJump = false;
+}</code></pre></li><li class="Default"><p>现在，将以下代码添加到 <code>SetupPlayerInputComponent</code>，以便将跳跃操作与刚才编写的函数绑定：
+</p><pre class="prettyprint"><code>// 设置"操作"绑定。
+PlayerInputComponent-&gt;BindAction("Jump", IE&#95;Pressed, this, &amp;AFPSCharacter::StartJump);
+PlayerInputComponent-&gt;BindAction("Jump", IE&#95;Released, this, &amp;AFPSCharacter::StopJump);</code></pre></li><li class="Default"><p>现在 <code>FPSCharacter.cpp</code> 的内容应如下所示：
+</p><pre class="prettyprint"><code>//版权所有Epic Games, Inc。保留所有权利。
+
+#include "FPSCharacter.h"
+
+// 设置默认值
+AFPSCharacter::AFPSCharacter()
+{
+    // 将此角色设置为每帧调用Tick()。  如果不需要此特性，可以关闭以提升性能。
+    PrimaryActorTick.bCanEverTick = true;
+
+}
+
+// 当游戏开始或重生（Spawn）时被调用
+void AFPSCharacter::BeginPlay()
+{
+    Super::BeginPlay();
+
+    check(GEngine != nullptr);
+
+      // 显示调试消息五秒。 
+    // -1"键"值参数可以防止更新或刷新消息。
+      GEngine-&gt;AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("We are using FPSCharacter."));
+
+}
+
+// 每一帧都被调用
+void AFPSCharacter::Tick( float DeltaTime )
+{
+    Super::Tick( DeltaTime );
+
+}
+
+// 被调用，将功能与输入绑定
+void AFPSCharacter::SetupPlayerInputComponent(UInputComponent&#42; PlayerInputComponent)
+{
+    Super::SetupPlayerInputComponent(PlayerInputComponent);
+
+    // 设置"移动"绑定。
+    PlayerInputComponent-&gt;BindAxis("MoveForward", this, &amp;AFPSCharacter::MoveForward);
+    PlayerInputComponent-&gt;BindAxis("MoveRight", this, &amp;AFPSCharacter::MoveRight);
+
+    // 设置"观看"绑定。
+    PlayerInputComponent-&gt;BindAxis("Turn", this, &amp;AFPSCharacter::AddControllerYawInput);
+    PlayerInputComponent-&gt;BindAxis("LookUp", this, &amp;AFPSCharacter::AddControllerPitchInput);
+
+    // 设置"操作"绑定。
+    PlayerInputComponent-&gt;BindAction("Jump", IE&#95;Pressed, this, &amp;AFPSCharacter::StartJump);
+    PlayerInputComponent-&gt;BindAction("Jump", IE&#95;Released, this, &amp;AFPSCharacter::StopJump);
+}
+
+void AFPSCharacter::MoveForward(float Value)
+{
+    // 找出"前进"方向，并记录玩家想向该方向移动。
+    FVector Direction = FRotationMatrix(Controller-&gt;GetControlRotation()).GetScaledAxis(EAxis::X);
+    AddMovementInput(Direction, Value);
+}
+
+void AFPSCharacter::MoveRight(float Value)
+{
+    // 找出"右侧"方向，并记录玩家想向该方向移动。
+    FVector Direction = FRotationMatrix(Controller-&gt;GetControlRotation()).GetScaledAxis(EAxis::Y);
+    AddMovementInput(Direction, Value);
+}
+
+void AFPSCharacter::StartJump()
+{
+    bPressedJump = true;
+}
+
+void AFPSCharacter::StopJump()
+{
+    bPressedJump = false;
+}</code></pre></li></ol><h3 id="测试角色跳跃">测试角色跳跃</h3>
+<p>现在我们来编译和测试新实现的角色移动函数。
+</p><ol ><li class="Default"><p>在VS中保存FPSCharacter 头文件（.h）和C++（.cpp）文件。
+</p></li><li class="Default"><p>在 <strong>解决方案浏览器（Solution Explorer）</strong> 中找到 <strong>FPSProject</strong>。
+</p></li><li class="Default"><p>右键点击 <strong>FPSProject</strong> 并选择 <strong>构建（Build）</strong>，编译你的项目。
+</p></li><li class="Default"><p>构建完毕后，在虚幻引擎中打开 <strong>FPSProject</strong>。
+</p></li><li class="Default"><p>在关卡编辑器工具栏中点击 <strong>运行（Play）</strong>。你应该能够在地图上跳跃。
+</p></li><li class="Default"><p>按 <strong>退出（Escape）</strong> 键或在关卡编辑器中点击 <strong>停止（Stop）</strong>，退出PIE模式。
+</p></li></ol><h2 id="2.6-将网格体添加到角色">2.6 - 将网格体添加到角色</h2>
+<div class="note">
+	<p>通过以下链接下载并提取示例网格体：
+</p><ul ><li class="Default"><p><span class="non-localized"><a id="content_link" href="https://docs.unrealengine.com/4.26/Attachments/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/6/GenericMale.zip" ><span>示例网格体</span></a></span>
+</p></li></ul>
+</div><p>在此步骤中，你将为角色提供骨骼网格体。默认情况下，角色类为你创建了SkeletalMeshComponent对象，因此仅需了解使用哪个SkeletalMesh资产。
+</p><h3 id="导入骨骼网格体">导入骨骼网格体</h3>
+<ol ><li class="Default"><p>导航返回内容浏览器文件框内的内容（Content）文件夹。
+</p></li><li class="Default"><p>现在，右键点击内容浏览器的文件框，打开 <strong>导入资产（Import Asset）</strong> 对话框。
+</p></li><li class="Default"><p>点击 <strong>‘导入/游戏...（Import to /Game...）'</strong>，打开 <strong>导入（Import）</strong> 对话框。
+</p></li><li class="Default"><p>找到并选择 <strong>GenericMale.fbx</strong> 网格体文件。
+</p></li><li class="Default"><p>点击 <strong>打开（Open）</strong>，开始将网格体导入到你的项目中。
+</p></li><li class="Default"><p><strong>内容浏览器（Content Browser）</strong> 中将显示 <strong>FBX导入选项（FBX Import Options）</strong> 对话框。点击 <strong>全部导入（Import All）</strong>，将你的网格体添加到项目。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/ImportGenericMale.jpg">
+		<img class="  lazyload" alt="ImportGenericMale.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/ImportGenericMale.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>点击 <strong>保存（Save）</strong> 按钮保存导入的网格体。
+</p></li></ol><h3 id="设置第三人称网格体">设置第三人称网格体</h3>
+<ol ><li class="Default"><p>在 <strong>内容（Content）</strong> > <strong>蓝图（Blueprints）</strong> 中，双击 <strong>BP_FPSCharacter</strong> 蓝图类图标，在 <strong>蓝图编辑器</strong> 中打开它。
+</p><div class="note">
+	<p>如果你看到有关此蓝图为仅数据蓝图的说明，请点击 <strong>打开完整蓝图编辑器（Open Full Blueprint Editor）</strong>。</p>
+</div></li><li class="Default"><p>在 <strong>组件（Components）</strong> 选项卡中点击 <strong>网格体（Mesh）</strong> 组件。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/MeshComponent.jpg">
+		<img class="  lazyload" alt="MeshComponent.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/MeshComponent.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>滚动到 <strong>细节（Details）</strong> 选项卡（屏幕右侧，或在 <strong>窗口（Window）</strong> > <strong>细节（Details）</strong> 中）的 <strong>网格体（Mesh）</strong> 段。
+</p></li><li class="Default"><p>点击骨骼网格体（Skeletal Mesh）行中显示为"无"的下拉列表，然后选择 <strong>GenericMale</strong> 骨骼网格体。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/SelectSkeletalMesh.jpg">
+		<img class="  lazyload" alt="SelectSkeletalMesh.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/SelectSkeletalMesh.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>滚动到 <strong>细节（Details）</strong> 窗格中的 <strong>变换（Transform）</strong> 段，然后，将变换的 <strong>Z</strong> 轴向位置设置为 <strong>"-88.0"</strong>，使 <code>SkeletalMeshComponent</code> 与 <code>CapsuleComponent</code> 对齐。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/NewZLoc_Mesh.jpg">
+		<img class="  lazyload" alt="NewZLoc_Mesh.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/NewZLoc_Mesh.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>打开视口（Viewport）预览骨骼网格体。骨骼网格体应该如下图所示：
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/SkeletalMeshLocation.jpg">
+		<img class="  lazyload" alt="SkeletalMeshLocation.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/SkeletalMeshLocation.jpg" />
+</picture>
+
+</p><div class="tip">
+	<p>确认骨骼网格体在 <code>CapsuleComponent</code> 内部，并且网格体的朝向与 <code>ArrowComponent</code> 相同。正确确定骨骼网格体组件的朝向，将确保你的角色朝正确的方向在整个世界中移动。</p>
+</div></li><li class="Default"><p>请确保在关闭 <strong>蓝图编辑器（Blueprint Editor）</strong> 之前 <strong>编译（Compile)</strong> 并 <strong>保存（Save）</strong> <strong>BP_FPSCharacter</strong> 蓝图。
+</p></li></ol><h3 id="确认处于pie模式的新网格体">确认处于PIE模式的新网格体</h3>
+<p>现在可在编辑器中查看新增网格体。
+</p><ol ><li class="Default"><p>在关卡编辑器工具栏中点击 <strong>运行（Play）</strong> 按钮。在你四处移动时，你应该能看到角色的影子。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/PawnwithShadow.jpg">
+		<img class="  lazyload" alt="PawnwithShadow.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/PawnwithShadow.jpg" />
+</picture>
+
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/Section0206.jpg">
+		<img class="  lazyload" alt="Section0206.gif" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/Section0206.jpg" />
+</picture>
+
+</p><div class="note">
+	<p>如果你要在编辑器的视口中查看角色的网格体，请按F8键，使自己从pawn中弹出来。按下F8键后，你将可以在关卡中自由移动摄像机。要移动摄像机，请在移动鼠标的同时按住鼠标左键。</p>
+</div><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/FreelyMovingCamera.jpg">
+		<img class="  lazyload" alt="FreelyMovingCamera.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/FreelyMovingCamera.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>按 <strong>退出（Escape）</strong> 键或在关卡编辑器中点击 <strong>停止（Stop）</strong> 按钮，退出在编辑器中运行（Play in Editor）（PIE）模式。
+</p></li></ol><h2 id="2.7-更改摄像机视角">2.7 - 更改摄像机视角</h2>
+<p>在上一步结束时，默认摄像机放置在网格体的颈部。在此步骤中，你将设置FPS摄像机，这样你可以调整摄像机的属性（例如位置和视野）。
+在开始之前，你需要在 <code>FPSCharacter.h</code> 中包含更多的头文件。这将使你的代码可以访问更多与摄像机相关的函数，并最终使你能够操纵摄像机的位置。 
+</p><ol ><li class="Default"><p>打开Visual Studio项目，然后导航至 <code>FPSCharacter.h</code>。 
+</p></li><li class="Default"><p>将以下头文件添加到 <code>FPSCharacter.h</code>： 
+</p><pre class="prettyprint"><code>#include "Camera/CameraComponent.h"
+#include "Components/CapsuleComponent.h"</code></pre></li></ol><h3 id="附加摄像机组件">附加摄像机组件</h3>
+<ol ><li class="Default"><p>打开 <code>FPSCharacter.h</code>，添加以下代码：
+</p><pre class="prettyprint"><code>// FPS摄像机。
+UPROPERTY(VisibleAnywhere)
+UCameraComponent&#42; FPSCameraComponent;</code></pre></li><li class="Default"><p>现在 <code>FPSCharacter.h</code> 的内容应如下所示：
+</p><pre class="prettyprint"><code>//版权所有Epic Games, Inc。保留所有权利。
+
+#pragma once
+
+#include "CoreMinimal.h"
+#include "GameFramework/Character.h"
+#include "Camera/CameraComponent.h"
+#include "Components/CapsuleComponent.h"
+#include "FPSCharacter.generated.h"
+
+UCLASS()
+class FPSPROJECT&#95;API AFPSCharacter : public ACharacter
+{
+GENERATED&#95;BODY()
+
+public:
+// 为此角色的属性设置默认值
+AFPSCharacter();
+
+protected:
+// 当游戏开始或重生（Spawn）时被调用
+virtual void BeginPlay() override;
+
+public:     
+// 每一帧都被调用
+virtual void Tick( float DeltaTime ) override;
+
+// 被调用，将功能与输入绑定
+virtual void SetupPlayerInputComponent(class UInputComponent&#42; PlayerInputComponent) override;
+
+// 处理用于前后移动的输入。
+UFUNCTION()
+void MoveForward(float Value);
+
+// 处理用于左右移动的输入。
+UFUNCTION()
+void MoveRight(float Value);
+
+// 按下键时，设置跳跃标记。
+UFUNCTION()
+void StartJump();
+
+// 释放键时，清除跳跃标记。
+UFUNCTION()
+void StopJump();
+
+// FPS摄像机
+UPROPERTY(VisibleAnywhere)
+UCameraComponent&#42; FPSCameraComponent;
+};</code></pre></li><li class="Default"><p>打开 <code>FPSCharacter.cpp</code>，将以下代码添加到构造函数中： <code>PrimaryActorTick.bCanEverTick = true:</code>。
+</p><pre class="prettyprint"><code>// 创建第一人称摄像机组件。
+FPSCameraComponent = CreateDefaultSubobject&lt;UCameraComponent&gt;(TEXT("FirstPersonCamera"));
+check(FPSCameraComponent != nullptr);
+
+// 将摄像机组件附加到我们的胶囊体组件。
+FPSCameraComponent-&gt;SetupAttachment(CastChecked&lt;USceneComponent, UCapsuleComponent&gt;(GetCapsuleComponent()));</code></pre>
+<p>此代码创建 <code>UCameraComponent</code>，并将其附加到角色的 <code>CapsuleComponent</code>。
+</p></li><li class="Default"><p>现在，将以下代码添加到你刚刚在构造函数中编写的代码块下面：
+</p><pre class="prettyprint"><code>// 将摄像机置于略高于眼睛上方的位置。
+FPSCameraComponent-&gt;SetRelativeLocation(FVector(0.0f, 0.0f, 50.0f + BaseEyeHeight));
+
+// 启用Pawn控制摄像机旋转。
+FPSCameraComponent-&gt;bUsePawnControlRotation = true;</code></pre>
+<p>此代码将摄像机的位置调整为略高于角色眼睛的位置，同时允许pawn控制摄像机的旋转。
+</p><div class="note">
+	<p><code>SetRelativeLocation</code> 用于设置组件的默认值。不过，上一个值仍然会在设置在编辑器中。为纠正这点，请打开蓝图编辑器。点击 <code>FPSCameraComponent</code>，然后在 <strong>细节</strong> 面板中找到 <strong>变换 -> 位置（Transform -> Location）</strong> 数值。点击这个值旁边的 <strong>重置为默认（Reset to Default）</strong>。</p>
+</div></li><li class="Default"><p>现在 <code>FPSCharacter.cpp</code> 的内容应如下所示：
+</p><pre class="prettyprint"><code>//版权所有Epic Games, Inc。保留所有权利。
+
+#include "FPSCharacter.h"
+
+// 设置默认值
+AFPSCharacter::AFPSCharacter()
+{
+    // 将此角色设置为每帧调用Tick()。  如果不需要此特性，可以关闭以提升性能。
+    PrimaryActorTick.bCanEverTick = true;
+
+    // 创建第一人称摄像机组件。
+    FPSCameraComponent = CreateDefaultSubobject&lt;UCameraComponent&gt;(TEXT("FirstPersonCamera"));
+    check(FPSCameraComponent != nullptr);
+
+    // 将摄像机组件附加到我们的胶囊体组件。
+    FPSCameraComponent-&gt;SetupAttachment(CastChecked&lt;USceneComponent, UCapsuleComponent&gt;(GetCapsuleComponent()));
+
+    // 将摄像机置于略高于眼睛上方的位置。
+    FPSCameraComponent-&gt;SetRelativeLocation(FVector(0.0f, 0.0f, 50.0f + BaseEyeHeight));
+
+    // 启用Pawn控制摄像机旋转。
+    FPSCameraComponent-&gt;bUsePawnControlRotation = true;
+}
+
+// 当游戏开始或重生（Spawn）时被调用
+void AFPSCharacter::BeginPlay()
+{
+    Super::BeginPlay();
+
+    check(GEngine != nullptr)
+
+      // 显示调试消息五秒。 
+     // -1"键"值（第一个参数）表示我们从不需要更新或刷新此消息。
+      GEngine-&gt;AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("We are using FPSCharacter."));
+
+}
+
+// 每一帧都被调用
+void AFPSCharacter::Tick( float DeltaTime )
+{
+    Super::Tick( DeltaTime );
+
+}
+
+// 被调用，将功能与输入绑定
+void AFPSCharacter::SetupPlayerInputComponent(UInputComponent&#42; PlayerInputComponent)
+{
+    Super::SetupPlayerInputComponent(PlayerInputComponent);
+
+    // 设置"移动"绑定。
+    PlayerInputComponent-&gt;BindAxis("MoveForward", this, &amp;AFPSCharacter::MoveForward);
+    PlayerInputComponent-&gt;BindAxis("MoveRight", this, &amp;AFPSCharacter::MoveRight);
+
+    // 设置"观看"绑定。
+    PlayerInputComponent-&gt;BindAxis("Turn", this, &amp;AFPSCharacter::AddControllerYawInput);
+    PlayerInputComponent-&gt;BindAxis("LookUp", this, &amp;AFPSCharacter::AddControllerPitchInput);
+
+    // 设置"操作"绑定。
+    PlayerInputComponent-&gt;BindAction("Jump", IE&#95;Pressed, this, &amp;AFPSCharacter::StartJump);
+    PlayerInputComponent-&gt;BindAction("Jump", IE&#95;Released, this, &amp;AFPSCharacter::StopJump);
+}
+
+void AFPSCharacter::MoveForward(float Value)
+{
+    // 找出"前进"方向，并记录玩家想向该方向移动。
+    FVector Direction = FRotationMatrix(Controller-&gt;GetControlRotation()).GetScaledAxis(EAxis::X);
+    AddMovementInput(Direction, Value);
+}
+
+void AFPSCharacter::MoveRight(float Value)
+{
+    // 找出"右侧"方向，并记录玩家想向该方向移动。
+    FVector Direction = FRotationMatrix(Controller-&gt;GetControlRotation()).GetScaledAxis(EAxis::Y);
+    AddMovementInput(Direction, Value);
+}
+
+void AFPSCharacter::StartJump()
+{
+    bPressedJump = true;
+}
+
+void AFPSCharacter::StopJump()
+{
+    bPressedJump = false;
+}</code></pre></li></ol><h3 id="测试新摄像机">测试新摄像机</h3>
+<p>现在我们来编译和测试新实现的摄像机代码。
+</p><ol ><li class="Default"><p>在Visual Studio中保存 <code>FPSCharacter</code> 头文件（.h）和C++（.cpp）文件。
+</p></li><li class="Default"><p>在 <strong>解决方案浏览器（Solution Explorer）</strong> 中找到 <strong>FPSProject</strong>。
+</p></li><li class="Default"><p>右键点击 <strong>FPSProject</strong> 并选择 <strong>构建（Build）</strong>，编译你的项目。
+</p></li><li class="Default"><p>构建完毕后，在虚幻引擎中打开 <strong>FPSProject</strong>。
+</p></li><li class="Default"><p>在关卡编辑器工具栏中点击 <strong>运行（Play）</strong>。
+</p></li></ol><p>现在，摄像机应该略高于角色的头部。
+</p><div class="note">
+	<p>你还可以通过打开BP_FPSCharacter视口来确认新添加的摄像机组件。
+<picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/NewCameraComponent.jpg">
+		<img class="  lazyload" alt="NewCameraComponent.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/NewCameraComponent.jpg" />
+</picture>
+</p>
+</div><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/NewCameraPosition.jpg">
+		<img class="  lazyload" alt="NewCameraPosition.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/NewCameraPosition.jpg" />
+</picture>
+
+</p><h2 id="2.8-将第一人称网格体添加到你的角色">2.8-将第一人称网格体添加到你的角色</h2>
+<p>构建FPS游戏的常见方法是使用两个分开的角色网格体，其中一个是全身网格体，另一个是"武器和手部"网格体。全身网格体用于从第三人称视角观察角色。但是，当玩家以第一人称视角进行游戏时，全身网格体是隐藏的。"武器和手部"网格体通常附着到摄像机，并且仅当玩家以第一人称视角查看地图时才对玩家可见。在此步骤中，你将向角色添加第一人称网格体。
+</p><h3 id="添加第一人称角色网格体">添加第一人称角色网格体</h3>
+<ol ><li class="Default"><p>切换回Visual Studio并打开 <code>FPSCharacter.h</code>，在 <strong>public:</strong> 下添加以下代码：
+</p><pre class="prettyprint"><code>// 第一人称网格体（手臂），仅对所属玩家可见。
+UPROPERTY(VisibleDefaultsOnly, Category = Mesh)
+USkeletalMeshComponent&#42; FPSMesh;</code></pre></li><li class="Default"><p>现在，打开 <code>FPSCharacter.cpp</code>，找到构造函数，添加以下代码，创建和配置第一人称网格体：
+</p><pre class="prettyprint"><code>// 为所属玩家创建第一人称网格体组件。
+FPSMesh = CreateDefaultSubobject&lt;USkeletalMeshComponent&gt;(TEXT("FirstPersonMesh"));
+check(FPSMesh != nullptr);
+
+// 仅所属玩家可以看见此网格体。
+FPSMesh-&gt;SetOnlyOwnerSee(true);
+
+// 将 FPS 网格体附加到 FPS 摄像机。
+FPSMesh-&gt;SetupAttachment(FPSCameraComponent);
+
+// 禁用某些环境阴影以便实现只有单个网格体的感觉。
+FPSMesh-&gt;bCastDynamicShadow = false;
+FPSMesh-&gt;CastShadow = false;</code></pre>
+<div class="note">
+	<p><code>SetOnlyOwnerSee</code> 表示此网格体仅对拥有此角色的 <code>PlayerController</code> 可见。此代码还将网格体附加到摄像机，并禁用某些环境阴影。让手臂投射阴影会破坏第一人称角色应该只有单个网格体的感觉。</p>
+</div></li><li class="Default"><p>最后，将以下代码添加到FPSCharacter.cpp的构造函数中，以便隐藏所属角色的现有第三人称网格体：
+</p><pre class="prettyprint"><code>// 所属玩家看不到常规（第三人称）全身网格体。
+GetMesh()-&gt;SetOwnerNoSee(true);</code></pre></li><li class="Default"><p>在Visual Studio中保存FPSCharacter头文件（.h）和实现（.cpp）文件。
+</p></li><li class="Default"><p>在 <strong>解决方案浏览器（Solution Explorer）</strong> 中找到 <strong>FPSProject</strong>。
+</p></li><li class="Default"><p>右键点击 <strong>FPSProject</strong> 并选择 <strong>构建（Build）</strong>，编译你的项目。
+</p></li><li class="Default"><p>构建完成后，打开并以PIE模式运行 <strong>FPSProject</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/HiddenMeshInGame.jpg">
+		<img class="  lazyload" alt="HiddenMeshInGame.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/HiddenMeshInGame.jpg" />
+</picture>
+
+</p></li></ol><p>此时，你的角色网格体在编辑器中应该不可见。
+</p><div class="note">
+	<p>如果你仍然看到网格体及其阴影投射，请关闭并重新启动编辑器。</p>
+</div><h3 id="构建网格体蓝图">构建网格体蓝图</h3>
+<div class="note">
+	<p>在继续之前，请通过以下链接下载并提取示例网格体：
+<span class="non-localized"><a id="content_link" href="https://docs.unrealengine.com/4.26/Attachments/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/8/HeroFPP.zip" ><span>"第一人称骨骼网格体"</span></a></span></p>
+</div><ol ><li class="Default"><p>右键点击内容浏览器的文件框，打开 <strong>导入资产（Import Asset）</strong> 对话框。
+</p></li><li class="Default"><p>点击 <strong>导入/游戏...（Import to /Game...）</strong>，打开 <strong>导入（Import）</strong> 对话框。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/RightClickImport.jpg">
+		<img class="  lazyload" alt="RightClickImport.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/RightClickImport.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>找到并选择 <strong>HeroFPP.fbx</strong> 网格体文件。
+</p></li><li class="Default"><p>点击 <strong>打开（Open）</strong>，开始将网格体导入到你的项目中。
+</p></li><li class="Default"><p><strong>内容浏览器（Content Browser）</strong> 中将显示 <strong>FBX导入选项（FBX Import Options）</strong> 对话框。
+</p></li><li class="Default"><p>请确保将 <strong>骨架（Skeleton）</strong> 设置为 <strong>无（None）</strong>，然后点击 <strong>全部导入（Import All）</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/ClearSkeletonMesh.jpg">
+		<img class="  lazyload" alt="ClearSkeletonMesh.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/ClearSkeletonMesh.jpg" />
+</picture>
+ 
+</p></li><li class="Default"><p>关闭以下消息日志。<br /></p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/FBXWarning.jpg">
+		<img class="  lazyload" alt="FBXWarning.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/FBXWarning.jpg" />
+</picture>
+<br /></p><div class="note">
+	<p>此网格体仍展示第一人称网格体设置，它将与你在后面分段中设置的动画一起使用。 </p>
+</div></li><li class="Default"><p>点击 <strong>保存（Save）</strong>，保存导入的网格体。
+</p></li><li class="Default"><p>导航返回 <strong>内容浏览器（Content Browser）</strong> 中的 <strong>蓝图（Blueprints）</strong> 文件夹。
+</p></li><li class="Default"><p>双击 <strong>BP_FPSCharacter</strong> 图标，在 <strong>蓝图编辑器</strong> 中打开它。
+</p></li><li class="Default"><p>在 <strong>组件（Components）</strong> 选项卡中找到新的 <strong>FPSMesh</strong> 组件。首先，你可能需要打开 <strong>完整的蓝图编辑器</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/LocateFPSMeshComponent.jpg">
+		<img class="  lazyload" alt="LocateFPSMeshComponent.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/LocateFPSMeshComponent.jpg" />
+</picture>
+<br /></p><div class="note">
+	<p><strong>FPSMesh</strong> 组件是 <strong>FPSCameraComponent</strong> 组件的子项，这意味着它将始终附加到摄像机。</p>
+</div></li><li class="Default"><p>在 <strong>组件（Components）</strong> 菜单中点击 <strong>FPSMesh</strong>。
+</p></li><li class="Default"><p>滚动到 <strong>细节（Details）</strong> 选项卡的 <strong>网格体（Mesh）</strong> 段，然后点击显示为"无（None）"的下拉菜单。现在，选择 <strong>HeroFPP</strong> 骨骼网格体，将手臂添加到 <strong>视口（Viewport）</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/SelectHeroFPPSkeletalMesh.jpg">
+		<img class="  lazyload" alt="SelectHeroFPPSkeletalMesh.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/SelectHeroFPPSkeletalMesh.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>视口（Viewport）</strong> 中，新增的 <strong>HeroFPP</strong> 骨骼网格体应如下图所示。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/HeroFPPMesh_Viewport.jpg">
+		<img class="  lazyload" alt="HeroFPPMesh_Viewport.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/HeroFPPMesh_Viewport.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>将新增网格体的变换属性调整为在摄像机前面：将其 <strong>位置（Location）</strong> 设置为{220, 0, 35}，将其 <strong>旋转（Rotation）</strong> 设置为{180, 50, 180}。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/AdjustingArmsTransform.png" ><span><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/AdjustingArmsTransform.jpg">
+		<img class="  lazyload" alt="AdjustingArmsTransform.png" width="750" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/AdjustingArmsTransform.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>请确保在关闭 <strong>蓝图编辑器（Blueprint Editor）</strong> 之前 <strong>编译（Compile)</strong> 并 <strong>保存（Save）</strong> <strong>BP_FPSCharacter</strong> 蓝图。
+</p></li></ol><h3 id="在游戏中查看新网格体">在游戏中查看新网格体</h3>
+<ol ><li class="Default"><p>点击 <strong>关卡编辑器工具栏</strong> 中的 <strong>运行（Play）</strong> 按钮**，在游戏中查看新网格体。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/Section0208.jpg">
+		<img class="  lazyload" alt="Section0208.gif" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/Section0208.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>按 <strong>退出（Escape）</strong> 键或在关卡编辑器中点击 <strong>停止（Stop）</strong> 按钮，退出在编辑器中运行（Play in Editor）（PIE）模式。
+</p></li></ol><h3 id="已完成分段代码">已完成分段代码</h3>
+<p><strong>FPSCharacter.h</strong>
+</p><pre class="prettyprint"><code>    //版权所有Epic Games, Inc。保留所有权利。
+
+    #pragma once
+
+    #include "GameFramework/Character.h"
+    #include "Camera/CameraComponent.h"
+    #include "Components/CapsuleComponent.h"
+    #include "FPSCharacter.generated.h"
+
+    UCLASS()
+    class FPSPROJECT&#95;API AFPSCharacter : public ACharacter
+    {
+        GENERATED&#95;BODY()
+
+    public:
+        // 为此角色的属性设置默认值
+        AFPSCharacter();
+
+    protected:          
+        // 当游戏开始或重生（Spawn）时被调用
+        virtual void BeginPlay() override;
+
+    public: 
+        // 每一帧都被调用
+        virtual void Tick( float DeltaTime ) override;
+
+        // 被调用，将功能与输入绑定
+        virtual void SetupPlayerInputComponent(class UInputComponent&#42; PlayerInputComponent) override;
+
+        // 处理用于前后移动的输入。
+        UFUNCTION()
+        void MoveForward(float Value);
+
+        // 处理用于左右移动的输入。
+        UFUNCTION()
+        void MoveRight(float Value);
+
+        // 按下键时，设置跳跃标记。
+        UFUNCTION()
+        void StartJump();
+
+        // 释放键时，清除跳跃标记。
+        UFUNCTION()
+        void StopJump();
+
+        // FPS摄像机
+        UPROPERTY(VisibleAnywhere)
+        UCameraComponent&#42; FPSCameraComponent;
+
+        // 第一人称网格体（手臂），仅对所属玩家可见。
+        UPROPERTY(VisibleDefaultsOnly, Category = Mesh)
+        USkeletalMeshComponent&#42; FPSMesh;
+    };</code></pre>
+<p><strong>FPSCharacter.cpp</strong>
+</p><pre class="prettyprint"><code>    //版权所有Epic Games, Inc。保留所有权利。
+
+    #include "FPSCharacter.h"
+
+    // 设置默认值
+    AFPSCharacter::AFPSCharacter()
+    {
+        // 将此角色设置为每帧调用Tick()。  如果不需要此特性，可以关闭以提升性能。
+        PrimaryActorTick.bCanEverTick = true;
+
+        // 创建第一人称摄像机组件。
+        FPSCameraComponent = CreateDefaultSubobject&lt;UCameraComponent&gt;(TEXT("FirstPersonCamera"));
+        check(FPSCameraComponent != nullptr);
+
+        // 将摄像机组件附加到我们的胶囊体组件。
+        FPSCameraComponent-&gt;SetupAttachment(CastChecked&lt;USceneComponent&gt;(GetCapsuleComponent()));
+
+        // 将摄像机置于略高于眼睛上方的位置。
+        FPSCameraComponent-&gt;SetRelativeLocation(FVector(0.0f, 0.0f, 50.0f + BaseEyeHeight));
+
+        // 启用Pawn控制摄像机旋转。
+        FPSCameraComponent-&gt;bUsePawnControlRotation = true;
+
+        // 为所属玩家创建第一人称网格体组件。
+        FPSMesh = CreateDefaultSubobject&lt;USkeletalMeshComponent&gt;(TEXT("FirstPersonMesh"));
+        check(FPSMesh != nullptr);
+
+        // 仅所属玩家可以看见此网格体。
+        FPSMesh-&gt;SetOnlyOwnerSee(true);
+
+        // 将 FPS 网格体附加到 FPS 摄像机。
+        FPSMesh-&gt;SetupAttachment(FPSCameraComponent);
+
+        // 禁用某些环境阴影以便实现只有单个网格体的感觉。
+        FPSMesh-&gt;bCastDynamicShadow = false;
+        FPSMesh-&gt;CastShadow = false;
+
+        // 所属玩家看不到常规（第三人称）全身网格体。
+        GetMesh()-&gt;SetOwnerNoSee(true);
+    }
+
+    // 当游戏开始或重生（Spawn）时被调用
+    void AFPSCharacter::BeginPlay()
+    {
+        Super::BeginPlay();
+
+        check(GEngine != nullptr);
+
+          // 显示调试消息五秒。 
+        // -1"键"值参数可以防止更新或刷新消息。
+          GEngine-&gt;AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("We are using FPSCharacter."));
+
+    }
+
+    // 每一帧都被调用
+    void AFPSCharacter::Tick( float DeltaTime )
+    {
+        Super::Tick( DeltaTime );
+
+    }
+
+    // 被调用，将功能与输入绑定
+    void AFPSCharacter::SetupPlayerInputComponent(UInputComponent&#42; PlayerInputComponent)
+    {
+        Super::SetupPlayerInputComponent(PlayerInputComponent);
+
+        // 设置"移动"绑定。
+        PlayerInputComponent-&gt;BindAxis("MoveForward", this, &amp;AFPSCharacter::MoveForward);
+        PlayerInputComponent-&gt;BindAxis("MoveRight", this, &amp;AFPSCharacter::MoveRight);
+
+        // 设置"观看"绑定。
+        PlayerInputComponent-&gt;BindAxis("Turn", this, &amp;AFPSCharacter::AddControllerYawInput);
+        PlayerInputComponent-&gt;BindAxis("LookUp", this, &amp;AFPSCharacter::AddControllerPitchInput);
+
+        // 设置"操作"绑定。
+        PlayerInputComponent-&gt;BindAction("Jump", IE&#95;Pressed, this, &amp;AFPSCharacter::StartJump);
+        PlayerInputComponent-&gt;BindAction("Jump", IE&#95;Released, this, &amp;AFPSCharacter::StopJump);
+    }
+
+    void AFPSCharacter::MoveForward(float Value)
+    {
+        // 找出"前进"方向，并记录玩家想向该方向移动。
+        FVector Direction = FRotationMatrix(Controller-&gt;GetControlRotation()).GetScaledAxis(EAxis::X);
+        AddMovementInput(Direction, Value);
+    }
+
+    void AFPSCharacter::MoveRight(float Value)
+    {
+        // 找出"右侧"方向，并记录玩家想向该方向移动。
+        FVector Direction = FRotationMatrix(Controller-&gt;GetControlRotation()).GetScaledAxis(EAxis::Y);
+        AddMovementInput(Direction, Value);
+    }
+
+    void AFPSCharacter::StartJump()
+    {
+        bPressedJump = true;
+    }
+
+    void AFPSCharacter::StopJump()
+    {
+        bPressedJump = false;
+    }</code></pre>
+<p>祝贺你！你已经学会了如何：
+</p><p>&#x2713; 制作新角色<br />&#x2713; 设置轴映射<br />&#x2713; 实现角色移动函数<br />&#x2713; 实现鼠标摄像机控制<br />&#x2713; 实现角色跳跃<br />&#x2713; 将网格体添加到角色<br />&#x2713; 更改摄像机视角<br />&#x2713; 将第一人称网格体添加到角色<br /></p><p>现在，你可以准备在下一分段中学习如何实现发射物。
+</p>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:20:42 GMT -->
+</html>

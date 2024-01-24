@@ -1,0 +1,501 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/WorkingWithContent/Importing/Datasmith/SoftwareInteropGuides/Revit/BatchExportingRevitViewsWithDynamo/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:05:40 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/WorkingWithContent/Importing/Datasmith/SoftwareInteropGuides/Revit/BatchExportingRevitViewsWithDynamo/" />');
+				var udnCSS = '../../../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>使用Dynamo批量导出Revit视图 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/WorkingWithContent/Importing/Datasmith/SoftwareInteropGuides/Revit/BatchExportingRevitViewsWithDynamo/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/WorkingWithContent/Importing/Datasmith/SoftwareInteropGuides/Revit/BatchExportingRevitViewsWithDynamo/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/WorkingWithContent/Importing/Datasmith/SoftwareInteropGuides/Revit/BatchExportingRevitViewsWithDynamo/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/WorkingWithContent/Importing/Datasmith/SoftwareInteropGuides/Revit/BatchExportingRevitViewsWithDynamo/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Content/Importing/Datasmith/SoftwareInteropGuides/Revit/BatchExportingRevitViewsWithDynamo" />
+<meta name="intsourcechangelist" content="14378385" />
+<meta name="availability" content="Public" />
+<meta name="title" content="使用Dynamo批量导出Revit视图" />
+<meta name="description" content="如何使用Dynamo脚本语言从Revit导出内容。" />
+<meta name="parent" content="WorkingWithContent/Importing/Datasmith/SoftwareInteropGuides/Revit" />
+<meta name="type" content="howto" />
+<meta name="skilllevel" content="Intermediate" />
+<meta name="version" content="4.25" />
+<meta name="order" content="" />
+<meta name="keywords" content="how to" />
+<meta name="keywords" content="Datasmith" />
+<meta name="keywords" content="Export" />
+<meta name="keywords" content="Revit" />
+<meta name="topic-image" content="" />
+<meta name="crumbs" content="%ROOT%,WorkingWithContent,WorkingWithContent/Importing,WorkingWithContent/Importing/Datasmith,WorkingWithContent/Importing/Datasmith/SoftwareInteropGuides,WorkingWithContent/Importing/Datasmith/SoftwareInteropGuides/Revit" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="使用Dynamo批量导出Revit视图" />
+	<meta property="og:description" content="如何使用Dynamo脚本语言从Revit导出内容。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../../../index.html">管理内容</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../../../index.html">导入内容</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">虚幻Datasmith</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">Datasmith软件交互指南</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">结合Revit使用Datasmith</a>
+
+<span class="separator">></span> <span id="page">使用Dynamo批量导出Revit视图</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">使用Dynamo批量导出Revit视图</h1>
+							</div>	
+							<h2 >如何使用Dynamo脚本语言从Revit导出内容。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Intermediate"><a id="skill_link" href="../../../../../../SiteIndex/index.html?skills=Intermediate">Intermediate</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																																				<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#安装插件">安装插件</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#工作原理">工作原理</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#使用批量导出器">使用批量导出器</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p><picture>
+		<source data-srcset="./../../../../../../../Images/WorkingWithContent/Importing/Datasmith/SoftwareInteropGuides/Revit/BatchExportingRevitViewsWithDynamo/RB_RevitHero.jpg">
+		<img class="  lazyload" alt="RB_RevitHero.png" width="800" data-src="../../../../../../../Images/WorkingWithContent/Importing/Datasmith/SoftwareInteropGuides/Revit/BatchExportingRevitViewsWithDynamo/RB_RevitHero.jpg" />
+</picture>
+
+</p><p>与 <strong>虚幻引擎4</strong> 的蓝图脚本系统类似，Dynamo for Revit是一种可视化的编程语言，可以访问Revit API，并用于轻松地自动执行许多重复性任务。除了从加载项工具栏访问外，Datasmith的Autodesk Revit导出器还使用Dynamo来将Revit 3D视图自动导出为 <code>.udatasmith</code> 文件，以便在虚幻引擎中使用。
+</p><div class="note">
+	<p>导出需要用到<a id="content_link"filter-data="tag_how_to tag_datasmith tag_beta tag_revit" href="../InstallingExporterPlugin/index.html" ><span>Datasmith的Autodesk Revit导出器</span></a>插件，该插件当前支持Autodesk Revit 2018.3、2019和2020。</p>
+</div><h2 id="安装插件">安装插件</h2>
+<p>首先请下载并安装Epic Games提供的<a id="content_link" href="https://www.unrealengine.com/en-US/datasmith/plugins" ><span>Datasmith的Autodesk Revit导出器</span></a>插件。这会更新已安装的插件版本，并为Dynamo视觉效果脚本语言添加一些其他钩子（hook）：
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../../../Images/WorkingWithContent/Importing/Datasmith/SoftwareInteropGuides/Revit/BatchExportingRevitViewsWithDynamo/RB_PluginInstall.png" ><span><picture>
+		<source data-srcset="./../../../../../../../Images/WorkingWithContent/Importing/Datasmith/SoftwareInteropGuides/Revit/BatchExportingRevitViewsWithDynamo/RB_PluginInstall.jpg">
+		<img class="  lazyload" alt="RB_PluginInstall.png" width="600" data-src="../../../../../../../Images/WorkingWithContent/Importing/Datasmith/SoftwareInteropGuides/Revit/BatchExportingRevitViewsWithDynamo/RB_PluginInstall.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="warning">
+	<p>该插件要求你的Dynamo版本为2.0或更高版本。点击Dynamo UI中的 <strong>帮助（Help）</strong> 菜单，并选择 <strong>关于（About）</strong> 选项可查看版本。</p>
+</div><p>安装插件后，启动Dynamo界面：
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../../../Images/WorkingWithContent/Importing/Datasmith/SoftwareInteropGuides/Revit/BatchExportingRevitViewsWithDynamo/RB_DynamoLaunch.png" ><span><picture>
+		<source data-srcset="./../../../../../../../Images/WorkingWithContent/Importing/Datasmith/SoftwareInteropGuides/Revit/BatchExportingRevitViewsWithDynamo/RB_DynamoLaunch.jpg">
+		<img class="  lazyload" alt="RB_DynamoLaunch.png" width="600" data-src="../../../../../../../Images/WorkingWithContent/Importing/Datasmith/SoftwareInteropGuides/Revit/BatchExportingRevitViewsWithDynamo/RB_DynamoLaunch.jpg" />
+</picture>
+</span></a></span></p>
+</div><p>接下来，你需要导入DatasmithDynamoNode.dll文件。在Dynamo UI中，点击 文件（File） 菜单，然后选择 导入库（Import Library） 选项。你将在以下位置之一找到该库：
+</p><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p><strong>Revit版本</strong> </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p><strong>位置</strong> </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>2018.3</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>C:\ProgramData\Autodesk\Revit\Addins\2018\DatasmithRevit2018\DatasmithDynamoNode.dll</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>2019</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>C:\ProgramData\Autodesk\Revit\Addins\2019\DatasmithRevit2019\DatasmithDynamoNode.dll</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>2020</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>C:\ProgramData\Autodesk\Revit\Addins\2020\DatasmithRevit2020\DatasmithDynamoNode.dll</p>
+			</td>
+	
+</tr></tbody>
+</table><div class="note">
+	<p>要确认该库是否安装成功，你可以在Dynamo库的加载项分段中查看是否有 <strong>DatasmithDynamoNode</strong> 条目。</p>
+</div><h2 id="工作原理">工作原理</h2>
+<p>导入库将安装Datasmith Dynamo节点，该节点旨在从Revit文档中获取数据，并以特定的曲面细分级别导出请求视图：
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../../../Images/WorkingWithContent/Importing/Datasmith/SoftwareInteropGuides/Revit/BatchExportingRevitViewsWithDynamo/RB_DynamoNode.png" ><span><picture>
+		<source data-srcset="./../../../../../../../Images/WorkingWithContent/Importing/Datasmith/SoftwareInteropGuides/Revit/BatchExportingRevitViewsWithDynamo/RB_DynamoNode.jpg">
+		<img class="  lazyload" alt="RB_DynamoNode.png" width="500" data-src="../../../../../../../Images/WorkingWithContent/Importing/Datasmith/SoftwareInteropGuides/Revit/BatchExportingRevitViewsWithDynamo/RB_DynamoNode.jpg" />
+</picture>
+</span></a></span></p>
+</div><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p><strong>数量</strong> </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p><strong>说明</strong> </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>1</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>当前Revit文档</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>2</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>输出路径</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>3</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>基于ID的视图列表</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>4</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>曲面细分等级（整数值1-15，默认值8）</p>
+			</td>
+	
+</tr></tbody>
+</table><p>将当前的Revit文件用作文档，该节点将在3D视图中输出 <code>.udatasmith</code> 文件和对象文件夹，作为准备供Datasmith使用的 <code>.udsmesh</code> 文件。
+</p><p>为了演示Datasmith Dynamo节点的用法，该插件包含一个Dynamo示例脚本文件，该文件显示了如何使用该节点创建批处理导出器：
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../../../Images/WorkingWithContent/Importing/Datasmith/SoftwareInteropGuides/Revit/BatchExportingRevitViewsWithDynamo/RB_BatchLogic2.png" ><span><picture>
+		<source data-srcset="./../../../../../../../Images/WorkingWithContent/Importing/Datasmith/SoftwareInteropGuides/Revit/BatchExportingRevitViewsWithDynamo/RB_BatchLogic2.jpg">
+		<img class="  lazyload" alt="RB_BatchLogic2.png" width="800" data-src="../../../../../../../Images/WorkingWithContent/Importing/Datasmith/SoftwareInteropGuides/Revit/BatchExportingRevitViewsWithDynamo/RB_BatchLogic2.jpg" />
+</picture>
+</span></a></span></p>
+</div><p>该脚本执行以下步骤：
+</p><ol ><li class="Default"><p>该脚本使用Get 3D Views节点，查找当前Revit文档中的所有3D视图，并将它们添加到列表中。
+</p></li><li class="Default"><p>然后它会过滤列表，查找添加到视图名称的前缀（使用Prefix_ViewName格式）或提供特定名称的视图。在该示例中，前缀默认设置为Datasmith，而实例参数名称默认设置为DatasmithExport。
+</p></li><li class="Default"><p>接下来，脚本会查看两个布尔值，以便确定你要导出所有视图，还是仅导出在筛选列表中找到的视图。
+</p></li><li class="Default"><p>最后，将选定的视图导出到选定的文件夹，其中包含由网格体曲面细分数量定义的详细信息。
+</p></li></ol><div class="note">
+	<p>为了避免依赖Dynamo API，此版本的批处理导出器需要使用python节点获取有关当前文档的信息：
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../../../Images/WorkingWithContent/Importing/Datasmith/SoftwareInteropGuides/Revit/BatchExportingRevitViewsWithDynamo/RB_Python2.png" ><span><picture>
+		<source data-srcset="./../../../../../../../Images/WorkingWithContent/Importing/Datasmith/SoftwareInteropGuides/Revit/BatchExportingRevitViewsWithDynamo/RB_Python2.jpg">
+		<img class="  lazyload" alt="RB_Python2.png" width="400" data-src="../../../../../../../Images/WorkingWithContent/Importing/Datasmith/SoftwareInteropGuides/Revit/BatchExportingRevitViewsWithDynamo/RB_Python2.jpg" />
+</picture>
+</span></a></span></p>
+</div><p>同样，获取3D视图并提取给定视图的ElementID依赖于python节点：
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../../../Images/WorkingWithContent/Importing/Datasmith/SoftwareInteropGuides/Revit/BatchExportingRevitViewsWithDynamo/RB_Python1.png" ><span><picture>
+		<source data-srcset="./../../../../../../../Images/WorkingWithContent/Importing/Datasmith/SoftwareInteropGuides/Revit/BatchExportingRevitViewsWithDynamo/RB_Python1.jpg">
+		<img class="  lazyload" alt="RB_Python1.png" width="400" data-src="../../../../../../../Images/WorkingWithContent/Importing/Datasmith/SoftwareInteropGuides/Revit/BatchExportingRevitViewsWithDynamo/RB_Python1.jpg" />
+</picture>
+</span></a></span></p>
+</div>
+</div><h2 id="使用批量导出器">使用批量导出器</h2>
+<p>所提供的Dynamo示例可以执行并用作基本的批处理导出器：
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../../../Images/WorkingWithContent/Importing/Datasmith/SoftwareInteropGuides/Revit/BatchExportingRevitViewsWithDynamo/RB_DynamoPlayer.png" ><span><picture>
+		<source data-srcset="./../../../../../../../Images/WorkingWithContent/Importing/Datasmith/SoftwareInteropGuides/Revit/BatchExportingRevitViewsWithDynamo/RB_DynamoPlayer.jpg">
+		<img class="  lazyload" alt="RB_DynamoPlayer.png" width="400" data-src="../../../../../../../Images/WorkingWithContent/Importing/Datasmith/SoftwareInteropGuides/Revit/BatchExportingRevitViewsWithDynamo/RB_DynamoPlayer.jpg" />
+</picture>
+</span></a></span></p>
+</div><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p><strong>属性</strong> </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p><strong>说明</strong> </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>导出至（Export To）：</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>允许你浏览文件夹并指定你想要放置Datasmith文件的位置。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>网格体曲面细分量（Mesh Tessellation Amount）：</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>指定由Revit API定义的导出过程中使用的曲面细分等级。默认为等级8。这将产生与Revit FBX导出器相同的网格体分辨率。<p>曲面细分等级8 
+</p><p><picture>
+		<source data-srcset="./../../../../../../../Images/WorkingWithContent/Importing/Datasmith/SoftwareInteropGuides/Revit/BatchExportingRevitViewsWithDynamo/RB_TessImage8.jpg">
+		<img class="  lazyload" alt="RB_TessImage8.png" width="300" data-src="../../../../../../../Images/WorkingWithContent/Importing/Datasmith/SoftwareInteropGuides/Revit/BatchExportingRevitViewsWithDynamo/RB_TessImage8.jpg" />
+</picture>
+
+</p><p>曲面细分等级2 
+</p><p><picture>
+		<source data-srcset="./../../../../../../../Images/WorkingWithContent/Importing/Datasmith/SoftwareInteropGuides/Revit/BatchExportingRevitViewsWithDynamo/RB_TessImage2.jpg">
+		<img class="  lazyload" alt="RB_TessImage2.png" width="300" data-src="../../../../../../../Images/WorkingWithContent/Importing/Datasmith/SoftwareInteropGuides/Revit/BatchExportingRevitViewsWithDynamo/RB_TessImage2.jpg" />
+</picture>
+</p>
+</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>导出所有3D视图（Export All 3D Views）：</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>如果启用，这将导出当前Revit文档中找到的每个3D视图。如果关闭，这将在当前Revit文档中找到使用自定义名称或前缀的3D视图，并为Datasmith导出这些视图。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>按视图名称前缀/按视图实例参数（By View Name Prefix/By View Instance Parameter）：</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>仅导出与指定给视图实例的前缀名称或项目参数匹配的视图。<ul ><li class="Default"><p>如果为TRUE：按参数过滤。
+</p></li><li class="Default"><p>如果为FALSE：按视图名称前缀过滤。
+</p></li></ul>
+</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>查看实例参数名称（View Instance Parameter Name）：</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>定义将要导出的视图名称。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>导出3D视图前缀（Export 3D Views Prefixed With）：</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>定义将要导出的视图名称前缀。</p>
+			</td>
+	
+</tr></tbody>
+</table>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../../../SiteIndex/index.html?tags=how%20to">how to</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../../../SiteIndex/index.html?tags=Datasmith">Datasmith</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../../../SiteIndex/index.html?tags=Export">Export</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../../../SiteIndex/index.html?tags=Revit">Revit</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/WorkingWithContent/Importing/Datasmith/SoftwareInteropGuides/Revit/BatchExportingRevitViewsWithDynamo/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:05:47 GMT -->
+</html>

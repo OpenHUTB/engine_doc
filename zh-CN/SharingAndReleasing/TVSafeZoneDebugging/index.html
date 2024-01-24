@@ -1,0 +1,615 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/SharingAndReleasing/TVSafeZoneDebugging/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:44:33 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/SharingAndReleasing/TVSafeZoneDebugging/" />');
+				var udnCSS = '../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>进行电视安全区调试 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/SharingAndReleasing/TVSafeZoneDebugging/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/SharingAndReleasing/TVSafeZoneDebugging/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/SharingAndReleasing/TVSafeZoneDebugging/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/SharingAndReleasing/TVSafeZoneDebugging/" hreflang="ko" />
+
+	<meta name="redirect" content="Platforms/TVSafeZoneDebugging" />
+<meta name="intsourcechangelist" content="6535113" />
+<meta name="availability" content="Public" />
+<meta name="title" content="进行电视安全区调试" />
+<meta name="description" content="避免 UI 元素过于靠近电视屏幕边缘" />
+<meta name="version" content="4.12" />
+<meta name="skilllevel" content="Intermediate" />
+<meta name="parent" content="SharingAndReleasing" />
+<meta name="order" content="1000" />
+<meta name="crumbs" content="%ROOT%,SharingAndReleasing" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="进行电视安全区调试" />
+	<meta property="og:description" content="避免 UI 元素过于靠近电视屏幕边缘" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../index.html">项目分享及发布</a>
+
+<span class="separator">></span> <span id="page">进行电视安全区调试</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">进行电视安全区调试</h1>
+							</div>	
+							<h2 >避免 UI 元素过于靠近电视屏幕边缘</h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Intermediate"><a id="skill_link" href="../../SiteIndex/index.html?skills=Intermediate">Intermediate</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																																				<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#什么是电视安全区">什么是电视安全区</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#标题安全区（titlesafezone）和动作安全区（actionsafezone）的区别">标题安全区（Title Safe Zone）和动作安全区（Action Safe Zone）的区别</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#电视安全区命令">电视安全区命令</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#启用标题安全区调试预览">启用标题安全区调试预览</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#调整安全区和动作区的大小">调整安全区和动作区的大小</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#调整安全区和动作区覆层的透明度">调整安全区和动作区覆层的透明度</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#电视安全区疑难排解">电视安全区疑难排解</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>在开发虚幻引擎4（UE4）项目时须注意，UI元素和文本不能过于靠近屏幕边缘，以免这些元素出现扭曲失真。为避免出现类似情况，引擎中加入了电视安全区调试工具。该文档说明如何在 UE4 项目中使用此工具。
+</p><h2 id="什么是电视安全区">什么是电视安全区</h2>
+<p>电视安全区或安全域是电视生产中用于描述电视画面区域的术语，确保绝大多数电视观众能够清楚地看到播放内容。总而言之，电视节目最重要的内容将被放置在该区域内，确保在各种电视机上播放时不会出现失真。
+</p><div class="note">
+	<p>您可以在维基百科页面中查阅有关电视安全区和安全域的更多内容：<a id="content_link" href="http://tinyurl.com/zq55mzl" ><span>电视安全区</span></a>.</p>
+</div><h2 id="标题安全区（titlesafezone）和动作安全区（actionsafezone）的区别">标题安全区（Title Safe Zone）和动作安全区（Action Safe Zone）的区别</h2>
+<p>UE4 有两种不同类型的电视安全区：标题安全区（Title Safe Zone）和动作安全区（Action Safe Zone）。
+</p><ul ><li class="Default"><p><strong>T标题安全区 -</strong> 标题安全区可确保UI或文本在查看时不会出现截断或失真。
+</p></li><li class="Default"><p><strong>T动作安全区 -</strong> 动作安全区可确保角色或敌人移动时身体部分不会出屏。
+</p></li></ul><div class="note">
+	<p>动作安全区之外的区域在以过扫描显示时可能被裁掉，而动作安全区和标题安全区之间的区域可能被裁掉一部分。部分动作（如其他角色或敌人）发生在该区域中是可以接受的。在许多平台上，动作安全区和标题安全区的尺寸一致。</p>
+</div><h2 id="电视安全区命令">电视安全区命令</h2>
+<p>以下部分将介绍电视安全区的命令，以及在虚幻引擎 4（UE4）项目中启用并使用电视安全区调试的两种不同方式。
+</p><p>可在 UE4 控制台中直接输入以下电视安全区命令。
+</p><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>命令名</p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>数值</p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>描述</p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>r.DebugSafeZone.Mode</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>0</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>显示所有覆层。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>r.DebugSafeZone.Mode</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>1</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>启用标题安全区。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>r.DebugSafeZone.Mode</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>2</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>启用动作安全区。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>r.DebugSafeZone.OverlayAlpha</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>0 到 1</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>控制调试可视覆层的透明度（默认为 0.3）</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>r.DebugSafeZone.TitleRatio</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>0 到 1</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>控制 FDisplayMetrics 中返回的标题安全区边缘（默认为 0.9）。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>r.DebugActionZone.ActionRatio</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>0 到 1</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>控制 FDisplayMetrics 中返回的动作安全区边缘（默认为 0.9）。</p>
+			</td>
+	
+</tr></tbody>
+</table><p>也可将电视安全区命令放置在项目 <strong>[SystemSettings]</strong> 部分下的 <strong>DefaultEngine.ini</strong> 文件中。 
+</p><p><picture>
+		<source data-srcset="./../../../Images/SharingAndReleasing/TVSafeZoneDebugging/SZ_Default_Engine_INI.jpg">
+		<img class="  lazyload" alt="SZ_Default_Engine_INI.png" data-src="../../../Images/SharingAndReleasing/TVSafeZoneDebugging/SZ_Default_Engine_INI.jpg" />
+</picture>
+
+</p><h2 id="启用标题安全区调试预览">启用标题安全区调试预览</h2>
+<div class="warning">
+	<p>为正确显示安全区的比例，您 <strong>必须</strong> 在 <strong>窗口全屏</strong> 或 <strong>全屏</strong> 状态下运行项目。如果不这么做，安全区将无法正确显示，或显示尺寸小于预期。</p>
+</div><p>以下部分将说明如何在调试预览模式下启用安全区。
+</p><ol ><li class="Default"><p>前往 <strong>主工具栏</strong> 的 <strong>Play</strong> 部分，点击旁边的白色小箭头变更播放模式选项。
+</p><p><picture>
+		<source data-srcset="./../../../Images/SharingAndReleasing/TVSafeZoneDebugging/SZ_Play_Mode.jpg">
+		<img class="  lazyload" alt="SZ_Play_Mode.png" data-src="../../../Images/SharingAndReleasing/TVSafeZoneDebugging/SZ_Play_Mode.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>打开 <strong>Play Modes</strong> 菜单后，选择 <strong>New Editor Window (PIE)</strong> 选项，让游戏在新的独立窗口中运行。
+</p><p><picture>
+		<source data-srcset="./../../../Images/SharingAndReleasing/TVSafeZoneDebugging/SZ_NEW_PIE.jpg">
+		<img class="  lazyload" alt="SZ_NEW_PIE.png" data-src="../../../Images/SharingAndReleasing/TVSafeZoneDebugging/SZ_NEW_PIE.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>按下 <strong>Play</strong> 按钮在游戏自身的窗口中运行，然后将窗口放大为全屏。 
+</p><p><picture>
+		<source data-srcset="./../../../Images/SharingAndReleasing/TVSafeZoneDebugging/SZ_Fullscreen_Window.jpg">
+		<img class="  lazyload" alt="SZ_Fullscreen_Window.png" data-src="../../../Images/SharingAndReleasing/TVSafeZoneDebugging/SZ_Fullscreen_Window.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>接着，按下波浪符（~）键打开虚幻控制台，输入`r.DebugSafeZone.Mode 1`，然后按下 **Enter** 键应用。
+</p><p><picture>
+		<source data-srcset="./../../../Images/SharingAndReleasing/TVSafeZoneDebugging/SZ_Enter_Command.jpg">
+		<img class="  lazyload" alt="SZ_Enter_Command.png" data-src="../../../Images/SharingAndReleasing/TVSafeZoneDebugging/SZ_Enter_Command.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>现在，您应该能看到整个播放窗口周边出现了略微透明的红色边界（如下图所示）。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../Images/SharingAndReleasing/TVSafeZoneDebugging/Safe_Zone_00.png" ><span><picture>
+		<source data-srcset="./../../../Images/SharingAndReleasing/TVSafeZoneDebugging/Safe_Zone_00.jpg">
+		<img class="  lazyload" alt="Safe_Zone_00.png" width="645" data-src="../../../Images/SharingAndReleasing/TVSafeZoneDebugging/Safe_Zone_00.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看全图。</p>
+</div></li></ol><h2 id="调整安全区和动作区的大小">调整安全区和动作区的大小</h2>
+<p>在虚幻控制台中输入以下命令，调整安全区或动作区的大小。 
+</p><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>命令名</p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>数值</p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>描述</p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>r.DebugSafeZone.TitleRatio</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>范围 0 到 1</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>控制 FDisplayMetrics 中返回的安全区边缘（默认为 0.9）。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>r.DebugActionZone.ActionRatio</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>范围 0 到 1</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>控制 FDisplayMetrics 中返回的动作区边缘（默认为 0.9）。</p>
+			</td>
+	
+</tr></tbody>
+</table><div class="tip">
+	<p>无法同时启用安全区和动作区。如要查看另一个区，必须先禁用当前正在查看的区，然后再启用需要查看的区。</p>
+</div><p>下图中，命令 <strong>r.DebugActionZone.ActionRatio</strong> 将动作区的大小从 0.99 缩小到 0.1。
+</p><div class="include_wrapper" data-path="SharingAndReleasing\TVSafeZoneDebugging\\">
+<!--
+id:paramliteral
+max:paramliteral
+ext:paramliteral
+caption:paramliteral
+image_list:param
+-->
+<div class="slider_container" id="SZ">
+    <div id="SZ_Image"></div>
+    <div class="slider"></div>
+	    <div class="caption">
+        <b><p><strong>拖动滑条可显示调整安全区大小的效果。</strong></p></b>
+    </div>
+	    <div id="images" class="hidden">
+        <p><picture>
+		<source data-srcset="./../../../Images/SharingAndReleasing/TVSafeZoneDebugging/SZ_1.jpg">
+		<img class="  lazyload" alt="SZ_1.png" data-src="../../../Images/SharingAndReleasing/TVSafeZoneDebugging/SZ_1.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../Images/SharingAndReleasing/TVSafeZoneDebugging/SZ_2.jpg">
+		<img class="  lazyload" alt="SZ_2.png" data-src="../../../Images/SharingAndReleasing/TVSafeZoneDebugging/SZ_2.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../Images/SharingAndReleasing/TVSafeZoneDebugging/SZ_3.jpg">
+		<img class="  lazyload" alt="SZ_3.png" data-src="../../../Images/SharingAndReleasing/TVSafeZoneDebugging/SZ_3.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../Images/SharingAndReleasing/TVSafeZoneDebugging/SZ_4.jpg">
+		<img class="  lazyload" alt="SZ_4.png" data-src="../../../Images/SharingAndReleasing/TVSafeZoneDebugging/SZ_4.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../Images/SharingAndReleasing/TVSafeZoneDebugging/SZ_5.jpg">
+		<img class="  lazyload" alt="SZ_5.png" data-src="../../../Images/SharingAndReleasing/TVSafeZoneDebugging/SZ_5.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../Images/SharingAndReleasing/TVSafeZoneDebugging/SZ_6.jpg">
+		<img class="  lazyload" alt="SZ_6.png" data-src="../../../Images/SharingAndReleasing/TVSafeZoneDebugging/SZ_6.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../Images/SharingAndReleasing/TVSafeZoneDebugging/SZ_7.jpg">
+		<img class="  lazyload" alt="SZ_7.png" data-src="../../../Images/SharingAndReleasing/TVSafeZoneDebugging/SZ_7.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../Images/SharingAndReleasing/TVSafeZoneDebugging/SZ_8.jpg">
+		<img class="  lazyload" alt="SZ_8.png" data-src="../../../Images/SharingAndReleasing/TVSafeZoneDebugging/SZ_8.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../Images/SharingAndReleasing/TVSafeZoneDebugging/SZ_9.jpg">
+		<img class="  lazyload" alt="SZ_9.png" data-src="../../../Images/SharingAndReleasing/TVSafeZoneDebugging/SZ_9.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../Images/SharingAndReleasing/TVSafeZoneDebugging/SZ_10.jpg">
+		<img class="  lazyload" alt="SZ_10.png" data-src="../../../Images/SharingAndReleasing/TVSafeZoneDebugging/SZ_10.jpg" />
+</picture>
+</p>
+    </div>
+</div>
+</div>
+<h2 id="调整安全区和动作区覆层的透明度">调整安全区和动作区覆层的透明度</h2>
+<p>在虚幻控制台中输入以下命令，增加/减少安全区和动作区的不透明度。 
+</p><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>命令名</p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>数值</p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>描述</p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>r.DebugSafeZone.OverlayAlpha</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>0 到 1</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>控制安全区和动作区覆层的不透明度（默认为 0.3）。</p>
+			</td>
+	
+</tr></tbody>
+</table><p>在下图中可了解到 r.DebugSafeZone.OverlayAlpha 数值从 1.0 设为 0.1 后安全区和动作区覆层不透明度的变化。
+</p><div class="include_wrapper" data-path="SharingAndReleasing\TVSafeZoneDebugging\\">
+<!--
+id:paramliteral
+max:paramliteral
+ext:paramliteral
+caption:paramliteral
+image_list:param
+-->
+<div class="slider_container" id="SZA">
+    <div id="SZA_Image"></div>
+    <div class="slider"></div>
+	    <div class="caption">
+        <b><p><strong>拖动滑条可显示调整 Alpha 覆层不透明度的效果。</strong></p></b>
+    </div>
+	    <div id="images" class="hidden">
+        <p><picture>
+		<source data-srcset="./../../../Images/SharingAndReleasing/TVSafeZoneDebugging/SZA_1.jpg">
+		<img class="  lazyload" alt="SZA_1.png" data-src="../../../Images/SharingAndReleasing/TVSafeZoneDebugging/SZA_1.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../Images/SharingAndReleasing/TVSafeZoneDebugging/SZA_2.jpg">
+		<img class="  lazyload" alt="SZA_2.png" data-src="../../../Images/SharingAndReleasing/TVSafeZoneDebugging/SZA_2.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../Images/SharingAndReleasing/TVSafeZoneDebugging/SZA_3.jpg">
+		<img class="  lazyload" alt="SZA_3.png" data-src="../../../Images/SharingAndReleasing/TVSafeZoneDebugging/SZA_3.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../Images/SharingAndReleasing/TVSafeZoneDebugging/SZA_4.jpg">
+		<img class="  lazyload" alt="SZA_4.png" data-src="../../../Images/SharingAndReleasing/TVSafeZoneDebugging/SZA_4.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../Images/SharingAndReleasing/TVSafeZoneDebugging/SZA_5.jpg">
+		<img class="  lazyload" alt="SZA_5.png" data-src="../../../Images/SharingAndReleasing/TVSafeZoneDebugging/SZA_5.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../Images/SharingAndReleasing/TVSafeZoneDebugging/SZA_6.jpg">
+		<img class="  lazyload" alt="SZA_6.png" data-src="../../../Images/SharingAndReleasing/TVSafeZoneDebugging/SZA_6.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../Images/SharingAndReleasing/TVSafeZoneDebugging/SZA_7.jpg">
+		<img class="  lazyload" alt="SZA_7.png" data-src="../../../Images/SharingAndReleasing/TVSafeZoneDebugging/SZA_7.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../Images/SharingAndReleasing/TVSafeZoneDebugging/SZA_8.jpg">
+		<img class="  lazyload" alt="SZA_8.png" data-src="../../../Images/SharingAndReleasing/TVSafeZoneDebugging/SZA_8.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../Images/SharingAndReleasing/TVSafeZoneDebugging/SZA_9.jpg">
+		<img class="  lazyload" alt="SZA_9.png" data-src="../../../Images/SharingAndReleasing/TVSafeZoneDebugging/SZA_9.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../Images/SharingAndReleasing/TVSafeZoneDebugging/SZA_10.jpg">
+		<img class="  lazyload" alt="SZA_10.png" data-src="../../../Images/SharingAndReleasing/TVSafeZoneDebugging/SZA_10.jpg" />
+</picture>
+</p>
+    </div>
+</div>
+</div>
+<h2 id="电视安全区疑难排解">电视安全区疑难排解</h2>
+<p>以下部分介绍需要注意的一些信息，确保正确使用电视安全区。 
+</p><ul ><li class="Default"><p>现在安全区根据全屏尺寸进行定义（API 并非针对非主机平台设计），不会直接返回比例在窗口模式中使用。此项在未来的版本中可能会进行修改，但当下需要在 <strong>窗口全屏</strong> 或 <strong>全屏</strong> 下运行才能获得正确比例。
+</p></li><li class="Default"><p>当前 UI 还无法在运行时处理此修改，因此在运行中通过控制台变更标题比例/动作比例时需要切换游戏模式方可显示变化（如：从前端到游戏中，或相反，或再次"open FrontEndScene"）。
+</p></li><li class="Default"><p>在 PS4 上使用此工具时只需要第一个命令 <strong>r.DebugSafeZone.Mode 1</strong>，因为可在 PS4 操作系统菜单中选择系统设置决定安全区数值。
+</p></li></ul>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/SharingAndReleasing/TVSafeZoneDebugging/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:44:43 GMT -->
+</html>

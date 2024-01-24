@@ -1,0 +1,804 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:17:06 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var finishButton = finishButtonTemplate;
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>行为树快速入门指南 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/instructional.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart" />
+<meta name="intsourcechangelist" content="15018255" />
+<meta name="availability" content="Public" />
+<meta name="title" content="行为树快速入门指南" />
+<meta name="description" content="本指南说明如何使用行为树设置AI角色，使其利用行为树巡逻或追逐玩家。" />
+<meta name="type" content="quick start" />
+<meta name="version" content="4.23" />
+<meta name="parent" content="InteractiveExperiences/ArtificialIntelligence/BehaviorTrees" />
+<meta name="keywords" content="AI" />
+<meta name="keywords" content="Behavior Trees" />
+<meta name="keywords" content="BTQS" />
+<meta name="topic-image" content="BehaviorTreeQS_Topic.png" />
+<meta name="social-image" content="BehaviorTreeQS_Topic.png" />
+<meta name="topic-icon" content="BehaviorTreeQS_Topic.png" />
+<meta name="order" content="0" />
+<meta name="crumbs" content="%ROOT%,InteractiveExperiences,InteractiveExperiences/ArtificialIntelligence,InteractiveExperiences/ArtificialIntelligence/BehaviorTrees" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="行为树快速入门指南" />
+	<meta property="og:description" content="本指南说明如何使用行为树设置AI角色，使其利用行为树巡逻或追逐玩家。" />
+		<meta property="og:image" content="https://docs.unrealengine.com/4.26/Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BehaviorTreeQS_Topic.png" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">创建交互体验</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">AI</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">行为树</a>
+
+<span class="separator">></span> <span id="page">行为树快速入门指南</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">行为树快速入门指南</h1>
+							</div>	
+							<h2 >本指南说明如何使用行为树设置AI角色，使其利用行为树巡逻或追逐玩家。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																																			</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>												<div class="tip" id="notice" style="display:none;">
+欢迎回来！要回到您上次离开的地方吗？
+<div class="button-container">
+<a href="javascript:void();" id="goButton" class="btn btn-lrg btn-default action">前往</a>
+<a href="javascript:void();" id="cancelButton" class="btn btn-lrg btn-default">取消</a>
+</div>
+</div>																																				<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#1-必需的项目设置">1 - 必需的项目设置</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#2-黑板设置">2 - 黑板设置</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#3-行为树布局">3 - 行为树布局</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#4-任务设置-追逐玩家">4 - 任务设置 - 追逐玩家</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#5-任务设置-寻找随机巡逻">5 - 任务设置 - 寻找随机巡逻</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#6-ai控制器设置">6 - AI控制器设置</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#7-装饰器及最终设置">7 - 装饰器及最终设置</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#8-自行设置！">8 - 自行设置！</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>在 <strong>行为树快速入门指南</strong> 中，你将学会如何创建一个敌方AI，该AI看到玩家后会做出反应并展开追逐。当玩家离开视线后，AI将在几秒钟后（这可根据你的需求进行调整）放弃追逐，并在场景中随机移动，再次看到玩家时便会继续追逐。如下例视频所示。<br /></p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_0_pvb1oftv_2
+{
+	margin: 0px;
+	width: 640px;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_0_pvb1oftv_2:after
+{
+	content: "";
+	padding-top: 360px;
+	display: block;
+}
+</style> 
+<div id="player_0_pvb1oftv_2"> 
+	<div id="playerContainer_0_pvb1oftv_2" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/0_pvb1oftv/embed.html"></iframe>
+	</div>
+</div>
+<p>阅读完本指南后，你将了解以下系统： 
+</p><ol ><li class="Default"><p>蓝图可视化脚本（Blueprint Visual Scripting）
+</p></li><li class="Default"><p>AI控制器（AI Controllers）
+</p></li><li class="Default"><p>黑板（Blackboard）
+</p></li><li class="Default"><p>行为树（Behavior Trees）
+</p></li><li class="Default"><p>行为树服务节点（Behavior Tree Services）
+</p></li><li class="Default"><p>行为树装饰器节点（Behavior Tree Decorators）
+</p></li><li class="Default"><p>行为树任务节点（Behavior Tree Tasks）
+</p></li></ol><h2 id="1-必需的项目设置">1 - 必需的项目设置</h2>
+<p>在第一步中，我们将用需要的资产来设置项目，使AI角色在场景中活动。 
+</p><div class="note">
+	<p>在本指南中，我们使用一个新的 <strong>蓝图第三人称模板</strong> 项目。</p>
+</div><ol ><li class="Default"><p>展开 <strong>源（Sources）</strong> 面板，然后右键单击 <strong>ThirdPersonBP</strong> 文件夹，创建一个名为 <strong>AI</strong> 的 <strong>新文件夹</strong>。<br /></p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/1_CreateFolder.jpg">
+		<img class="  lazyload" alt="1_CreateFolder.png" title="1372029427CreateFolder.png" data-src="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/1_CreateFolder.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>ThirdPersonBP > Blueprints</strong> 文件夹中，将 <strong>ThirdPersonCharacter</strong> 拖到 <strong>AI</strong> 文件夹上，然后选择 <strong>复制到此处（Copy Here）</strong>。<br /></p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/2_CopyCharacter.jpg">
+		<img class="  lazyload" alt="2_CopyCharacter.png" title="2372029427CopyCharacter.png" data-src="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/2_CopyCharacter.jpg" />
+</picture>
+<br /></p></li><li class="Default"><p>在 <strong>AI</strong> 文件夹中，基于 <strong>AIController</strong> 类创建一个新的 <strong>蓝图类</strong>。<br /></p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/3_CreateAIController.jpg">
+		<img class="  lazyload" alt="3_CreateAIController.png" title="3372029427CreateAIController.png" data-src="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/3_CreateAIController.jpg" />
+</picture>
+<br /></p></li><li class="Default"><p>将 <strong>AIController</strong> 蓝图命名为 <strong>Enemy_Controller</strong>，将 <strong>ThirdPersonCharacter</strong> 蓝图命名为 <strong>Enemy_Character</strong>。<br /></p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/4_RenameAndSave.jpg">
+		<img class="  lazyload" alt="4_RenameAndSave.png" title="4372029427RenameAndSave.png" data-src="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/4_RenameAndSave.jpg" />
+</picture>
+<br /></p></li><li class="Default"><p>打开 <strong>Enemy_Character</strong>，从图表中删除所有脚本。<br /></p></li><li class="Default"><p>选择 <strong>角色移动（Character Movement）</strong> 组件，然后在 <strong>细节（Details）</strong> 面板中将 <strong>最大行走速度（Max Walk Speed）</strong> 设置为 <strong>120.0</strong>。<br /></p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/5_WalkSpeed.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/5_WalkSpeed.jpg">
+		<img class="  lazyload" alt="5_WalkSpeed.png" width="900" data-src="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/5_WalkSpeed.jpg" />
+</picture>
+</span></a></span></p>
+</div><p><em>点击查看大图。</em><br /></p><p>当AI角色（AI Character）进行巡逻且并未追逐玩家时，这会降低它们在场景中的移动速度。 <br /></p></li><li class="Default"><p>从工具栏中选择 <strong>默认类（Class Defaults）</strong>，然后在 <strong>细节（Details）</strong> 面板中，将 <strong>Enemy_Controller</strong> 分配为 <strong>AI控制器类（AI Controller Class）</strong>。<br /></p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/6_AIController.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/6_AIController.jpg">
+		<img class="  lazyload" alt="6_AIController.png" width="900" data-src="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/6_AIController.jpg" />
+</picture>
+</span></a></span></p>
+</div><p><em>点击查看大图。</em><br /></p><p>我们将会把AI放入场景，如果要在该场景加载后生成AI，则需要把 <strong>自动控制AI（Auto Possess AI）</strong> 设置改为 <strong>已生成（Spawned）</strong>。<br /></p></li><li class="Default"><p><strong>将 </strong>Enemy_Character<strong> 从 </strong>内容浏览器** 拖入关卡。 <br /></p></li><li class="Default"><p>在 <strong>放置Actor（Place Actors）</strong> 面板中，把 <strong>导航网格体边界体积（Nav Mesh Bounds Volume）</strong> 拖入关卡。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/7_NavMesh.jpg">
+		<img class="  lazyload" alt="7_NavMesh.png" title="7372029427NavMesh.png" data-src="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/7_NavMesh.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>选中 <strong>寻路网格体边界体积（Nav Mesh Bounds Volume）</strong> 后，按下 <strong>R</strong> 缩放体积，封装整个关卡。<br /></p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/8_ScaleNavMesh.jpg">
+		<img class="  lazyload" alt="8_ScaleNavMesh.png" title="8372029427ScaleNavMesh.png" data-src="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/8_ScaleNavMesh.jpg" />
+</picture>
+<br /></p><p>这将生成寻路网格体，使我们的AI角色能够在场景中移动。你可以按下 <strong>P</strong> 键打开或关闭视口中寻路网格体的显示（绿色区域表示可导航的位置）。
+</p><div class="tip">
+	<p>在游戏过程中，你可以使用 <strong>显示导航（show Navigation）</strong> 控制台命令来切换寻路网格体的显示和关闭。</p>
+</div></li></ol><p>我们的项目设置已经完成，下一步我们将设置 <strong>黑板</strong> 资产。
+</p><h2 id="2-黑板设置">2 - 黑板设置</h2>
+<p>在这步中我们将创建 <strong>黑板</strong> 资产，它本质上是AI的大脑。我们希望AI知道的任何信息都会有一个能够引用的 <strong>黑板键</strong>。我们将创建用于玩家的键，用于控制AI是否能看到玩家，以及AI不追逐玩家时可以移动到的位置。<br /></p><ol ><li class="Default"><p>在 <strong>内容浏览器</strong> 中，单击 <strong>新增（New New）</strong>，在 <strong>AI（Artificial Intelligence）</strong> 下，选择 <strong>黑板（Blackboard）</strong> 并将其命名为 <strong>BB_Enemy</strong>。<br /></p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/1_CreateBB.jpg">
+		<img class="  lazyload" alt="1_CreateBB.png" title="1372029427CreateBB.png" data-src="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/1_CreateBB.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>BB_Enemy</strong> 黑板内，单击 <strong>创建新键（New Key）</strong> 按钮并选择 <strong>Object</strong>。<br /></p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/Step_2_2.jpg">
+		<img class="  lazyload" alt="Step_2_2.png" title="Step37202942723720294272.png" data-src="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/Step_2_2.jpg" />
+</picture>
+<br /></p><p><strong>黑板</strong> 资产由两个面板组成，<strong>黑板（Blackboard）</strong> 使你能够添加并对 <strong>黑板键</strong>（要监控的变量）进行跟踪，通过 <strong>黑板细节（Blackboard Details）</strong> 能够命名和指定键的类型。<br /></p></li><li class="Default"><p>针对 <strong>Object</strong> 键，输入 <strong>EnemyActor</strong> 作为 <strong>条目名称</strong>，输入 <strong>Actor</strong> 作为 <strong>基类</strong>。<br /></p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/Step_2_3.jpg">
+		<img class="  lazyload" alt="Step_2_3.png" title="Step37202942723720294273.png" data-src="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/Step_2_3.jpg" />
+</picture>
+<br /></p></li><li class="Default"><p>添加另一个 <strong>键</strong>， 将 <strong>键类型</strong> 设置为 <strong>布尔</strong>，并命名为 <strong>HasLineOfSight</strong>。<br /></p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/Step_2_4.jpg">
+		<img class="  lazyload" alt="Step_2_4.png" title="Step37202942723720294274.png" data-src="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/Step_2_4.jpg" />
+</picture>
+<br /></p><p>这将用于记录AI是否能看到玩家。<br /></p></li><li class="Default"><p>添加另一个 <strong>键（Key）</strong>， 将 <strong>键类型</strong> 设置为 <strong>向量</strong>，并命名为 <strong>巡逻位置（PatrolLocation）</strong>。<br /></p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/Step_2_5.jpg">
+		<img class="  lazyload" alt="Step_2_5.png" title="Step37202942723720294275.png" data-src="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/Step_2_5.jpg" />
+</picture>
+<br /></p><p>这将被用来记录AI不追逐玩家时可以移动到的关卡位置。
+</p></li></ol><p>在 <strong>黑板</strong> 上设置好需要跟踪的内容后，下一步我们将对我们的 <strong>行为树</strong> 进行布局。
+</p><h2 id="3-行为树布局">3 - 行为树布局</h2>
+<p>在这一步中，我们将确定 <strong>行为树</strong> 的布局，以及我们希望AI进入的状态。通过在 <strong>行为树</strong> 中布局出AI可能进入的状态，有助于你了解进入这些状态需要创建何种类型的逻辑和规则。<br /></p><ol ><li class="Default"><p>在 <strong>内容浏览器</strong> 中，单击 <strong>新增（Add New）</strong>，在 <strong>AI（Artificial Intelligence）</strong> 下，选择 <strong>行为树（Behavior Tree）</strong> 并将其命名为 <strong>BT_Enemy</strong>。<br /></p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/CreateBehaviorTree.jpg">
+		<img class="  lazyload" alt="CreateBehaviorTree.png" title="CreateBehaviorTree.png" data-src="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/CreateBehaviorTree.jpg" />
+</picture>
+
+</p><div class="note">
+	<p>命名规则可能会有所不同，但是在命名中添加资产类型的首字母缩写通常是一个较好的做法。</p>
+</div></li><li class="Default"><p>打开 <strong>BT_Enemy</strong> ，并将 <strong>BB_Enemy</strong> 指定为 <strong>黑板资产</strong>。<br /></p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step3_2-1.jpg">
+		<img class="  lazyload" alt="BTQS_Step3_2-1.png" title="BTQS372029427Step33720294272-1.png" data-src="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step3_2-1.jpg" />
+</picture>
+<br /></p><div class="note">
+	<p>如果你没有看到之前创建的 <strong>黑板键</strong>，请单击黄色箭头清除 <strong>黑板资产</strong>，然后重新指定 <strong>Enemy_BB</strong>，将这些键刷新。</p>
+</div><p><strong>行为树</strong> 由三个面板组成：可以在 <strong>行为树（Behavior Tree）</strong> 图表面板直观地布局定义行为的分支和节点；可以在 <strong>细节（Details）</strong> 面板定义节点的属性；可以在 <strong>黑板（Blackboard）</strong> 面板看到游戏运行时的 <strong>黑板键</strong> 及其当前值，这对调试非常有用。<br /></p></li><li class="Default"><p>在图表中，单击鼠标左键并拖出 <strong>根（Root）</strong> 节点，然后添加一个 <strong>选择器（Selector）</strong> 节点。<br /></p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step3_3.jpg">
+		<img class="  lazyload" alt="BTQS_Step3_3.png" title="BTQS372029427Step33720294273.png" data-src="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step3_3.jpg" />
+</picture>
+
+</p><p><strong>合成（Composites）</strong> 节点是流控制的一种形式，决定了与其相连的子分支的执行方式。<br /></p><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>合成节点 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>描述 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>选择器（Selector）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>从左到右执行分支，通常用于在子树之间进行选择。当选择器找到能够成功执行的子树时，将停止在子树之间移动。举例而言，如果AI正在有效地追逐玩家，选择器将停留在那个分支中，直到它的执行结束，然后转到选择器的父合成节点，继续决策流。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>序列（Sequence）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>从左到右执行分支，通常用于按顺序执行一系列子项。与选择器节点不同，序列节点会持续执行其子项，直到它遇到失败的节点。举例而言，如果我们有一个序列节点移动到玩家，则会检查他们是否在射程内，然后旋转并攻击。如果检查玩家是否在射程内便已失败，则不会执行旋转和攻击动作</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>简单平行（Simple Parallel）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>简单平行节点有两个"连接"。第一个是主任务，它只能分配一个任务节点（意味着没有合成节点）。第二个连接（后台分支）是主任务仍在运行时应该执行的活动。简单平行节点可能会在主任务完成后立即结束，或者等待后台分支的结束，具体依属性而定。</p>
+			</td>
+	
+</tr></tbody>
+</table></li><li class="Default"><p>针对 <strong>选择器</strong> 节点，在**细节（Details）<strong>面板中将 </strong>节点名称（Node Name）<strong> 更改为 </strong>AI Root**。 <br /></p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step3_4.jpg">
+		<img class="  lazyload" alt="BTQS_Step3_4.png" title="BTQS372029427Step33720294274.png" data-src="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step3_4.jpg" />
+</picture>
+<br /></p><p>重命名图表中的节点是一个很好的方法，可以很容易地从较高层面识别节点所完成的操作。在本例中，我们将其命名为 <strong>AI Root</strong>，因为这是行为树真正的"根"，它将在子分支之间切换。创建行为树时自动添加的默认根节点，可用于配置行为树的属性并指定它所使用的黑板资产。 <br /></p></li><li class="Default"><p>单击左键并拖出 <strong>AI Root</strong>，添加一个名为 <strong>Chase Player</strong> 的 <strong>序列</strong> 节点。<br /></p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step3_5.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step3_5.jpg">
+		<img class="  lazyload" alt="BTQS_Step3_5.png" width="900" data-src="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step3_5.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p><em>点击查看大图。</em></p>
+</div><p>此处使用了序列节点，因为我们打算告诉AI完成一系列动作：旋转朝向玩家，改变移动速度，然后移动并追逐玩家。 <br /></p></li><li class="Default"><p>单击左键并拖出 <strong>AI Root</strong>，添加一个名为 <strong>Patrol</strong> 的 <strong>序列</strong> 节点。<br /></p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step3_6.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step3_6.jpg">
+		<img class="  lazyload" alt="BTQS_Step3_6.png" width="900" data-src="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step3_6.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p><em>点击查看大图。</em></p>
+</div><p>对于AI，我们将使用 <strong>序列</strong> 节点在地图中找到一个随机位置，移动到该位置，然后在该位置等待一段时间，最后再重复该过程来寻找新位置。 
+</p><p>你可能还会注意到节点右上角的数字：<br /></p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step3_6b.jpg">
+		<img class="  lazyload" alt="BTQS_Step3_6b.png" title="BTQS372029427Step33720294276b.png" data-src="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step3_6b.jpg" />
+</picture>
+<br /></p><p>它表示操作的顺序。<strong>行为树</strong> 会从左到右和自上而下执行，因此节点的排列很重要。对AI最重要的动作通常应该放在左边，而次要的动作（或退却行为）应该放在右边。子分支会以相同的方式执行，如果任何子分支失败，整个分支将会停止执行，导致失败并返回上级树。举例而言，如果 <strong>追逐玩家（Chase Player）</strong> 节点失败，它将返回至上级 <strong>AI根（AI Root）</strong>，然后转变为 <strong>巡逻</strong> 节点。<br /></p></li><li class="Default"><p>从 <strong>AI Root</strong> 连出引线，然后在 <strong>巡逻（Patrol）</strong> 右侧添加 <strong>等待（Wait）</strong> 任务节点，并将 <strong>等待时间（Wait Time）</strong> 设置为 <strong>1.0</strong>。 <br /></p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step3_7.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step3_7.jpg">
+		<img class="  lazyload" alt="BTQS_Step3_7.png" width="900" data-src="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step3_7.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p><em>点击查看大图。</em></p>
+</div><p>你可以看到这个节点是紫色的，表示它是一个 <strong>任务</strong> 节点。任务节点是你希望 <strong>行为树</strong> 执行的具体操作。<strong>如果某种原因使 </strong>行为树<strong> 让Chase Player或Patrol节点皆运行失败，那么 </strong>等待（Wait）** 任务节点将接管事件。。 <br /></p></li><li class="Default"><p>从 <strong>追逐玩家</strong> 节点连出引线并添加 <strong>旋转至面向黑板条目（Rotate to Face BBEntry）</strong> 节点。<br /></p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step3_8.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step3_8.jpg">
+		<img class="  lazyload" alt="BTQS_Step3_8.png" width="900" data-src="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step3_8.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p><em>点击查看大图。</em></p>
+</div><p>这个特殊的 <strong>任务</strong> 节点使你能够指定一个想要旋转并面向的 <strong>黑板条目</strong>，在本例中此条目是 <strong>Enemy Actor</strong>（玩家）。添加该节点后，你会在 <strong>细节（Details）</strong> 面板中看到 <strong>黑板键</strong> 将自动设为 <strong>EnemyActor</strong>，因为它过滤Actor的黑板变量，而且是列表中的第一个变量。如果需要调整成功条件范围并更改 <strong>节点名称（Node Name）</strong>，可对 <strong>精度（Precision）</strong> 选项进行调整。
+</p></li><li class="Default"><p>在 <strong>工具栏</strong> 中，单击 <strong>新建任务（New Task）</strong> 按钮。<br /></p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step3_9.jpg">
+		<img class="  lazyload" alt="BTQS_Step3_9.png" title="BTQS372029427Step33720294279.png" data-src="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step3_9.jpg" />
+</picture>
+<br /></p><p>除使用内置任务节点外，你还可以创建和指定自己的自定义任务节点，可以为这些节点自定义并定义附加逻辑。该任务节点将用于改变AI的移动速度，以便它追逐玩家。新建任务节点时，将自动创建并打开新的 <strong>蓝图</strong>。<br /></p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step3_9b.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step3_9b.jpg">
+		<img class="  lazyload" alt="BTQS_Step3_9b.png" width="900" data-src="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step3_9b.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p><em>点击查看大图。</em></p>
+</div></li><li class="Default"><p>在 <strong>内容浏览器</strong> 中，将该新资产重命名为 <strong>BTT _ChasePlayer</strong>。<br /></p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step3_10.jpg">
+		<img class="  lazyload" alt="BTQS_Step3_10.png" title="BTQS372029427Step337202942710.png" data-src="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step3_10.jpg" />
+</picture>
+<br /></p><p>创建 <strong>任务（Tasks）</strong>、<strong>装饰器（Decorators）</strong> 或 <strong>服务（Service）</strong> 节点时，建议立即对这些新建节点进行重命名。正确的命名规则是用创建的资产类型为资产命名添加前缀：<strong>BTT</strong> 代表行为树任务节点，<strong>BTD</strong> 代表行为树装饰器节点，<strong>BTS</strong> 代表行为树服务节点。 <br /></p></li><li class="Default"><p>在 <strong>BT_Enemy</strong> 中，添加 <strong>BTT_ChasePlayer</strong> 任务，随后添加 <strong>移动至（Move To）</strong>。 <br /></p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step3_11.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step3_11.jpg">
+		<img class="  lazyload" alt="BTQS_Step3_11.png" width="900" data-src="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step3_11.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p><em>点击查看大图。</em></p>
+</div><p>我们的新任务目前还没有逻辑，但随后将返回来添加改变AI角色移动速度的逻辑，之后AI将移动至（Move To）EnemyActor（玩家）。<br /></p></li><li class="Default"><p>创建一个新 <strong>任务节点</strong>，并将其重命名为 <strong>BTT_FindRandomPatrol</strong>，然后将其连接到 <strong>巡逻（Patrol）</strong> 节点。 <br /></p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step3_12.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step3_12.jpg">
+		<img class="  lazyload" alt="BTQS_Step3_12.png" width="900" data-src="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step3_12.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p><em>点击查看大图。</em></p>
+</div></li><li class="Default"><p>添加 <strong>移动至（Move To）</strong> 任务节点，并将 <strong>黑板键</strong> 设为 <strong>巡逻位置（PatrolLocation）</strong>。 <br /></p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step3_13.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step3_13.jpg">
+		<img class="  lazyload" alt="BTQS_Step3_13.png" width="900" data-src="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step3_13.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p><em>点击查看大图。</em></p>
+</div><p>这将指示AI移动至（Move To）巡逻位置（PatrolLocation），该位置将在BTT_FindRandomPatrol任务中进行设置。 <br /></p></li><li class="Default"><p>在 <strong>移动至（Move To）</strong> 后添加 <strong>等待（Wait）</strong> 任务节点，设置 <strong>等待时间（Wait Time）</strong> 为 <strong>4.0</strong>、<strong>随机偏差（Random Deviation）</strong> 为 <strong>1.0</strong>。 <br /></p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step3_14.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step3_14.jpg">
+		<img class="  lazyload" alt="BTQS_Step3_14.png" width="900" data-src="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step3_14.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p><em>点击查看大图。</em></p>
+</div><p>这会指示AI在巡逻位置（PatrolLocation）等待3-5秒（随机偏差将在等待时间上+或-1秒）。
+</p></li></ol><p>我们已经完成了 <strong>行为树</strong> 的框架。在下一步中，我们将添加AI在巡逻时找到一个随机的导航位置后改变其移动速度的逻辑，以及确定AI应该在什么时候追逐玩家或进行巡逻的逻辑。
+</p><h2 id="4-任务设置-追逐玩家">4 - 任务设置 - 追逐玩家</h2>
+<p>在这一步中，我们设置了 <strong>追逐玩家任务（Chase Player Task）</strong>，改变AI追逐玩家时的移动速度。<br /></p><ol ><li class="Default"><p>在 <strong>BTT_ChasePlayer</strong> 中点击右键并添加 <strong>Event Receive Execute AI</strong> 节点。 <br /></p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step4_1.jpg">
+		<img class="  lazyload" alt="BTQS_Step4_1.png" title="BTQS372029427Step43720294271.png" data-src="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step4_1.jpg" />
+</picture>
+<br /></p><p>当在 <strong>行为树</strong> 中激活此任务时将触发Event Receive Execute AI节点。 <br /></p><div class="note">
+	<p>如果代理是AI控制器，则应该固定选择AI版本的 <strong>Event Receive Execute</strong>、<strong>Event Receive Abort</strong> 和 <strong>Event Receive Tick</strong>。如果泛型和AI事件版本都已实现，则只会调用更合适的版本，这意味着会针对AI调用AI版本，其他情况下会调用泛型版本。</p>
+</div></li><li class="Default"><p><strong>Controlled Pawn</strong> 引脚后连接 <strong>Cast to Enemy_Character</strong> 节点。<br /></p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/2_EventReceiveAi.jpg">
+		<img class="  lazyload" alt="2_EventReceiveAi.png" title="2372029427EventReceiveAi.png" data-src="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/2_EventReceiveAi.jpg" />
+</picture>
+<br /></p><p>在此，我们将使用 Cast 节点来访问名为 <strong>Enemy_Character</strong> 的AI <strong>角色蓝图</strong>。<br /></p></li><li class="Default"><p>在 <strong>内容浏览器中，打开 </strong>Enemy_Character<strong> 蓝图，并添加一个名为 </strong>更新行走速度（Update Walk Speed）<strong> 的 </strong>函数**。 <br /></p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BT_AddNewFunction.jpg">
+		<img class="  lazyload" alt="BT_AddNewFunction.png" title="BT372029427AddNewFunction.png" data-src="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BT_AddNewFunction.jpg" />
+</picture>
+<br /></p><p>该函数将从我们的行为树中调用，并将用于修改AI的移动速度。 <br /></p><div class="note">
+	<p>从技术角度而言，我们可以在追逐玩家任务（Chase Player Task）中访问Cast节点之后的 <strong>角色移动（Character Movement）</strong> 组件，并在任务节点中调整移动速度，但让行为树直接改变子对象的属性并不是推荐的最佳做法。相反，我们可以让行为树在角色内部调用一个函数，然后进行所需的修改。   </p>
+</div></li><li class="Default"><p>在 <strong>更新行走速度（Update Walk Speed）</strong> 函数的 <strong>细节（Details）</strong> 面板中，添加名为 <strong>新行走速度（NewWalkSpeed）</strong> 的 <strong>浮点</strong> 输入。 <br /></p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BT_NewWalkSpeed.jpg">
+		<img class="  lazyload" alt="BT_NewWalkSpeed.png" title="BT372029427NewWalkSpeed.png" data-src="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BT_NewWalkSpeed.jpg" />
+</picture>
+<br /></p></li><li class="Default"><p>将 <strong>角色移动（CharacterMovement）</strong> 组件拖离"组件（Component）"选项卡，然后使用 <strong>设置最大行走速度（Set Max Walk Speed）</strong> 进行如下连接。 <br /></p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BT_FunctionComplete.jpg">
+		<img class="  lazyload" alt="BT_FunctionComplete.png" title="BT372029427FunctionComplete.png" data-src="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BT_FunctionComplete.jpg" />
+</picture>
+<br /></p><p>从行为树调用这个函数时，我们可以传递一个数值作为新的速度。 <br /></p></li><li class="Default"><p>回到 <strong>BTT_ChasePlayer</strong> 任务节点内，从 <strong>作为敌人角色（As Enemy Character）</strong> 节点调用 <strong>更新行走速度（Update Walk Speed）</strong> 函数并设置为 <strong>500.0</strong>，然后按下图进行连接。<br /></p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BT_ChasePlayerFunctionCall.jpg">
+		<img class="  lazyload" alt="BT_ChasePlayerFunctionCall.png" title="BT372029427ChasePlayerFunctionCall.png" data-src="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BT_ChasePlayerFunctionCall.jpg" />
+</picture>
+<br /></p><div class="note">
+	<p>看不到已创建的 <strong>更新行走速度（Update Walk Speed）</strong> 函数？你可能需要先 <strong>编译</strong> <strong>Enemy_Character</strong> 蓝图，然后才能将其添加到 <strong>追逐玩家任务（Chase Player Task）</strong> 中。</p>
+</div></li><li class="Default"><p>在 <strong>更新行走速度（Update Walk Speed）</strong> 之后，添加两个 <strong>结束执行（Finish Execute）</strong> 节点，并按下图进行连接。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BT_FinishExecute.jpg">
+		<img class="  lazyload" alt="BT_FinishExecute.png" title="BT372029427FinishExecute.png" data-src="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BT_FinishExecute.jpg" />
+</picture>
+<br /></p><p>我们成功将其投射到Enemy_Character后，我们在此将该任务标记为成功结束。如果被控制的Pawn不是Enemy_Character，我们需要处理这种情况，所以我们将任务标记为不成功，将任务中止。<br /></p></li><li class="Default"><p>右键单击 <strong>新行走速度（New Walk Speed）</strong> 引脚，然后将其提升为变量，并命名为 <strong>追逐速度（ChaseSpeed）</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BT_ChaseSpeedVariable_Promoted.jpg">
+		<img class="  lazyload" alt="BT_ChaseSpeedVariable_Promoted.png" data-src="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BT_ChaseSpeedVariable_Promoted.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>必须启用 <strong>追逐速度（ChaseSpeed）</strong> 的 <strong>实例可编辑（Instance Editable）</strong>。<br /></p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BT_ChaseSpeedVariable.jpg">
+		<img class="  lazyload" alt="BT_ChaseSpeedVariable.png" title="BT372029427ChaseSpeedVariable.png" data-src="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BT_ChaseSpeedVariable.jpg" />
+</picture>
+<br /></p><p>将 <strong>最大行走速度（Max Walk Speed）</strong> 的数值提升为 <strong>实例可编辑（Instance Editable）</strong> 变量后，我们便可以从蓝图外部对其进行设置，并将该值作为 <strong>行为树</strong> 的内部属性进行调用。 <br /></p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step4_7b.jpg">
+		<img class="  lazyload" alt="BTQS_Step4_7b.png" title="BTQS372029427Step43720294277b.png" data-src="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step4_7b.jpg" />
+</picture>
+<br /></p><p>我们现在可以很轻松地改变被发送至 <strong>Enemy_Character</strong> 蓝图的 <strong>追逐速度（Chase Speed）</strong> 数值，以便调整AI追逐玩家的速度。
+</p></li></ol><p>我们完成了 <strong>追逐玩家任务（Chase Player Task）</strong>，下一步我们将设置 <strong>寻找随机巡逻任务（Find Random Patrol Task）</strong> 逻辑，让AI获得可前往的随机位置。
+</p><h2 id="5-任务设置-寻找随机巡逻">5 - 任务设置 - 寻找随机巡逻</h2>
+<p>在这一步中，我们将设置 <strong>寻找随机巡逻任务（Find Random Patrol Task）</strong>，AI没有追逐玩家时就会移动到一个随机位置。 
+</p><div class="tip">
+	<p>应用蓝图行为树任务节点是一种快速迭代的明智方法。但是如果需要考虑性能问题，那么你可以决定转移至本地行为树任务节点。</p>
+</div><ol ><li class="Default"><p>在 <strong>BTT_FindRandomPatrol</strong> 中，使用 <strong>Event Receive Execute AI</strong> 和 <strong>Cast to Enemy_Character</strong>。
+</p></li><li class="Default"><p>在 <strong>作为敌人角色（As Enemy Character</strong> 之后调用 <strong>更新行走速度（Update Walk Speed）</strong>，并将 <strong>新行走速度（New Walk Speed）</strong> 提升为一个变量，命名为 <strong>巡逻速度（Patrol Speed）</strong>，设置步骤如下：
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BT_PatrolWalkSpeedVariable.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BT_PatrolWalkSpeedVariable.jpg">
+		<img class="  lazyload" alt="BT_PatrolWalkSpeedVariable.png" width="900" data-src="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BT_PatrolWalkSpeedVariable.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><p><strong>- Variable Name</strong> to <strong>PatrolSpeed</strong><br /><strong>- Instance Editable</strong> to <strong>Enabled</strong><br /><strong>- Patrol Speed (Default Value)</strong> to <strong>125.0</strong><br /></p><p>我们在此处降低了敌人巡逻时的移动速度。 
+</p></li><li class="Default"><p>在 <strong>Controlled Pawn</strong> 之后连出引线，连接**Get Actor Location<strong>，然后设置 </strong>GetRandomReachablePointInRadius<strong>，其 </strong>返回数值<strong> 需连接至一个 </strong>分支**。 
+</p></li><li class="Default"><p>使用以下设置将 <strong>GetRandomReachablePointInRadius</strong> 上的 <strong>半径</strong> 提升为变量： 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BT_UpdatedFindPatrol_02.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BT_UpdatedFindPatrol_02.jpg">
+		<img class="  lazyload" alt="BT_UpdatedFindPatrol_02.png" width="900" data-src="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BT_UpdatedFindPatrol_02.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><p><strong>- Variable Name</strong> to <strong>PatrolRadius</strong><br /><strong>- Instance Editable</strong> to <strong>Enabled</strong><br /><strong>- Patrol Radius (Default Value)</strong> to <strong>1000.0</strong><br /></p><p>此处我们在敌人角色当前位置的1000个单位内寻找一个随机位置。我们还要使用分支节点，处理无法找到要移动到的随机点这种极端情况。 
+</p></li><li class="Default"><p>在 <strong>随机位置（Random Location）</strong> 引脚后连出引线，使用 <strong>设置黑板数值作为向量（Set Blackboard Value as Vector）</strong>，并将 <strong>键（Key）</strong> 提升为名为 <strong>巡逻位置（PatrolLocation）</strong> 的变量。 
+</p></li><li class="Default"><p>使用另一个 <strong>设置黑板数值作为向量（Set Blackboard Value as Vector）</strong> 节点，设置该 <strong>数值</strong> 的来源为 <strong>Get Actor Location</strong>。 
+</p></li><li class="Default"><p>继续上一步，如下所示连接两个节点，使得 <strong>结束执行（Finish Execute）</strong> 被标记为 <strong>成功（Success）</strong>。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BT_UpdatedFindPatrol_03.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BT_UpdatedFindPatrol_03.jpg">
+		<img class="  lazyload" alt="BT_UpdatedFindPatrol_03.png" width="900" data-src="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BT_UpdatedFindPatrol_03.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><p>如果敌人找到了一个要前往的随机位置，它将作为要前往的位置被存储在黑板中。如果找不到位置，它将使用当前位置，并在尝试新位置之前保持不动。我们还需要对受控Pawn不是Enemy_Character的极端情况进行处理。 
+</p></li><li class="Default"><p>从 <strong>Cast</strong> 节点的 <strong>Cast Failed</strong> 引脚连出引线，使用 <strong>结束执行（Finish Execute）</strong>节点，将 <strong>成功（Success）</strong> 禁用。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BT_UpdatedFindPatrol_04.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BT_UpdatedFindPatrol_04.jpg">
+		<img class="  lazyload" alt="BT_UpdatedFindPatrol_04.png" width="900" data-src="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BT_UpdatedFindPatrol_04.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><p>如果受控Pawn不是Enemy_Character，此任务将被标记为不成功并被中止。
+</p></li></ol><p>我们已完成 <strong>寻找随机巡逻任务（Find Random Patrol Task）</strong>。在下一步中，我们将学习更多关于 <strong>装饰器节点</strong> 的知识，以及它们如何被用作条件语句、如何设置AI控制器。
+</p><h2 id="6-ai控制器设置">6 - AI控制器设置</h2>
+<p>在这一步中，我们将在AI控制器内部进行设置，为最后一步做准备，设置一个 <strong>装饰器节点</strong> 来决定进入 <strong>行为树</strong> 的哪个分支。 <br /></p><ol ><li class="Default"><p>在 <strong>内容浏览器</strong> 中打开 <strong>Enemy_Controller</strong> 蓝图，添加一个 <strong>Event On Possess</strong> 节点。 <br /></p></li><li class="Default"><p>从 <strong>Event On Possess</strong> 连出引线，添加一个 <strong>运行行为树（Run Behavior Tree）</strong> 节点，将其 <strong>BTAsset</strong> 设为 <strong>BT_Enemy</strong>。 <br /></p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step6_3.jpg">
+		<img class="  lazyload" alt="BTQS_Step6_3.png" title="BTQS372029427Step63720294273.png" data-src="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step6_3.jpg" />
+</picture>
+**<br /></p><p>运行行为树<strong> 节点是以AI控制器类蓝图为目标的情境函数调用，使你能够执行指定的 </strong>行为树** 资产。<br /></p></li><li class="Default"><p>在 <strong>组件（Components）</strong> 窗口中单击 <strong>+添加组件（Add Component）</strong>，搜索并添加 <strong>AI感知组件（AIPerception Component）</strong>。<br /></p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/2_AIPerception.jpg">
+		<img class="  lazyload" alt="2_AIPerception.png" title="2372029427AIPerception.png" data-src="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/2_AIPerception.jpg" />
+</picture>
+<br /></p><p><strong>AI感知组件（AIPerception Component）</strong> 用于在 <strong>AI感知系统（AI Perception System）</strong> 中创建一个刺激监听器，收集可以响应的已注册刺激（本例中我们可以使用视觉）。这将使我们能够确定AI何时能实际看到玩家，并做出相应的反应。<br /></p></li><li class="Default"><p>在 <strong>AI感知组件（AIPerception Component）</strong> 的 <strong>细节（Details）</strong> 面板中，添加 <strong>AI视觉配置（AI Sight config）</strong>，并启用 <strong>检测中立方（Detect Neutral）</strong>。<br /></p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/3_PerceptionSetup.jpg">
+		<img class="  lazyload" alt="3_PerceptionSetup.png" title="3372029427PerceptionSetup.png" data-src="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/3_PerceptionSetup.jpg" />
+</picture>
+<br /></p><p>使用 <strong>按归属检测检测（Detection by Affiliation）</strong> 属性可以建立基于团队的AI，与相同归属的队友并肩作战，攻击敌方成员。默认情况下 <strong>Actor</strong> 不会被指定归属，会被视为中立。<br /></p><div class="note">
+	<p>目前，你还不能通过蓝图分配归属，因此为了检测玩家，我们要启用 <strong>检测中立方（Detect Neutral）</strong> 标签。另外一种方法是使用 <strong>Actor标签（Actor Tagging）</strong> 来确定哪个角色是玩家，并强制AI角色只追逐被标记为玩家的Actor。  </p>
+</div></li><li class="Default"><p>在 <strong>AI感知（AIPerception）</strong> 的 <strong>事件（Events）</strong> 部分，点击 <strong>On Target Perception Updated</strong> 旁边的 <strong>+</strong> 符号。<br /></p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/3b_ClickAddEvent.jpg">
+		<img class="  lazyload" alt="3b_ClickAddEvent.png" title="3b372029427ClickAddEvent.png" data-src="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/3b_ClickAddEvent.jpg" />
+</picture>
+<br /></p></li><li class="Default"><p>在图表中 <strong>On Target Perception Updated</strong> 后连出引线，添加一个 <strong>Actor Has Tag</strong> 节点，将 <strong>Tag</strong> 设为 <strong>玩家</strong>。  <br /></p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step6_7.jpg">
+		<img class="  lazyload" alt="BTQS_Step6_7.png" title="BTQS372029427Step63720294277.png" data-src="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step6_7.jpg" />
+</picture>
+<br /></p></li><li class="Default"><p>从 <strong>刺激（Stimulus）</strong> 引脚，添加 <strong>Break AIStimulus</strong> 节点。<br /></p></li><li class="Default"><p>添加 <strong>分支</strong> 节点，将其 <strong>条件（Condition）</strong> 按照下图进行设置。 <br /></p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step6_8.jpg">
+		<img class="  lazyload" alt="BTQS_Step6_8.png" title="BTQS372029427Step63720294278.png" data-src="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step6_8.jpg" />
+</picture>
+<br /></p><p>此处我们检查该Actor是否被成功感知，以及该Actor是否拥有玩家标签。 <br /></p><div class="note">
+	<p>你可以选择 <strong>Break AIStimulus</strong> 节点，在 <strong>细节（Details）</strong> 面板中，使用 <strong>隐藏未连接的引脚（Hide Unconnected Pins）</strong>，隐藏所有未连接的引脚，使你的图表看起来与上图相似。</p>
+</div></li><li class="Default"><p>从该 <strong>分支</strong> 的 <strong>False</strong> 连出引线，使用 <strong>按事件设置定时器（Set Timer by Event）</strong>，将其 <strong>时间（Time）</strong>设为 <strong>4.0</strong>。 <br /></p></li><li class="Default"><p>右键单击将 <strong>时间（Time）</strong> 提升为变量，并将其命名为 <strong>Line Of Sight Timer</strong>。 <br /></p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step6_9.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step6_9.jpg">
+		<img class="  lazyload" alt="BTQS_Step6_9.png" width="900" data-src="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step6_9.jpg" />
+</picture>
+</span></a></span></p>
+</div><p><em>点击查看大图。</em><br /></p><p>该变量和指定的数值将决定AI在多长时间后将放弃追逐玩家，并在此时执行附加的事件。 <br /></p></li><li class="Default"><p>右键单击 <strong>按事件设置定时器（Set Timer by Event）</strong> 的 <strong>返回数值（Return Value）</strong>，将其提升为名为 <strong>敌人计时器（EnemyTimer）</strong> 的变量。 <br /></p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step6_10.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step6_10.jpg">
+		<img class="  lazyload" alt="BTQS_Step6_10.png" width="900" data-src="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step6_10.jpg" />
+</picture>
+</span></a></span></p>
+</div><p><em>点击查看大图。</em><br /></p><p>这通过 <strong>句柄（Handle）</strong> 的方式保存对定时器（Timer）的引用。该句柄可以通过脚本调用，从而使自身无效，并清除任何相关事件（防止相关事件被执行）。我们可以在稍后当AI在Line of Sight Timer耗尽之前再次看到玩家时使用该节点，这可以防止AI让玩家离开视野并放弃追逐。 <br /></p></li><li class="Default"><p>创建一个 <strong>自定义事件</strong>，并将其命名为 <strong>StartEnemyTimer</strong>，然后将其连接至 <strong>按事件设置定时器（Set Timer by Event）</strong> 的 <strong>事件（Event）</strong>引脚。 <br /></p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step6_11.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step6_11.jpg">
+		<img class="  lazyload" alt="BTQS_Step6_11.png" width="900" data-src="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step6_11.jpg" />
+</picture>
+</span></a></span></p>
+</div><p><em>点击查看大图。</em><br /></p></li><li class="Default"><p>单击右键，然后在 <strong>变量 > AI</strong> 下，添加一个 <strong>获取黑板（Get Blackboard）</strong> 节点。<br /></p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step6_12.jpg">
+		<img class="  lazyload" alt="BTQS_Step6_12.png" title="BTQS372029427Step637202942712.png" data-src="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step6_12.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>黑板（Blackboard）</strong> 后连出引线，使用 <strong>Set Value as Bool</strong> 和 <strong>Set Value as Object</strong>，并按如下所示进行连接。 <br /></p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step6_13.jpg">
+		<img class="  lazyload" alt="BTQS_Step6_13.png" title="BTQS372029427Step637202942713.png" data-src="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step6_13.jpg" />
+</picture>
+<br /></p><p>这使我们能够更新用新数值定义的 <strong>黑板键</strong>。  
+</p></li><li class="Default"><p>右键单击并将两个 <strong>键名（Key Name）</strong> 分别提升为名为 <strong>HasLineOfSight</strong> 和 <strong>EnemyActor</strong> 的 <strong>变量</strong>。 <br /></p></li><li class="Default"><p><strong>编译</strong> 蓝图，并将两个 <strong>键名（Key Name）</strong> 的 <strong>默认值</strong> 分别设置为 <strong>HasLineOfSight</strong> 和 <strong>EnemyActor</strong>。 <br /></p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step6_14.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step6_14.jpg">
+		<img class="  lazyload" alt="BTQS_Step6_14.png" width="900" data-src="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step6_14.jpg" />
+</picture>
+</span></a></span></p>
+</div><p><em>点击查看大图。</em>
+</p></li><li class="Default"><p>断开 <strong>分支</strong> 的 <strong>True</strong>，使用 <strong>Get EnemyTimer</strong>，然后使用 <strong>Clear and Invalidate Timer by Handle</strong>。 <br /></p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step6_15.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step6_15.jpg">
+		<img class="  lazyload" alt="BTQS_Step6_15.png" width="900" data-src="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step6_15.jpg" />
+</picture>
+</span></a></span></p>
+</div><p><em>点击查看大图。</em><br /></p><p>当AI看到玩家时，它将清除Line Of Sight Timer，直到它再次让玩家离开视线（新的Line Of Sight Timer将从这里开始）。 <br /></p></li><li class="Default"><p>复制并粘贴 <strong>黑板</strong> 节点，如图对 <strong>将数值设置为（Set Value as）</strong> 节点和 <strong>键名（Key Name）</strong> 节点进行设置。 <br /></p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step6_16.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step6_16.jpg">
+		<img class="  lazyload" alt="BTQS_Step6_16.png" width="900" data-src="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step6_16.jpg" />
+</picture>
+</span></a></span></p>
+</div><p><em>点击查看大图。</em><br /></p></li><li class="Default"><p>在 <strong>Set Value as Bool</strong> 节点上启用 <strong>Bool Value</strong>，并将 <strong>Actor**引脚拖至 </strong>Object Value**，如图所示。 <br /></p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step6_17.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step6_17.jpg">
+		<img class="  lazyload" alt="BTQS_Step6_17.png" width="900" data-src="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step6_17.jpg" />
+</picture>
+</span></a></span></p>
+</div><p><em>点击查看大图。</em><br /></p><p>这会把 <strong>Has Line Of Sight</strong> 的 <strong>黑板键数值（Blackboard Key Values）</strong> 设为 <strong>True</strong>，并把 <strong>EnemyActor</strong> 设置为被我们感知的 <strong>Actor</strong>（我们已将其设置为只有玩家才能使其触发）。 <br /></p></li><li class="Default"><p>单击 <strong>编译（Compile）</strong> 进行编译，然后关闭蓝图。<br /></p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step5_7.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step5_7.jpg">
+		<img class="  lazyload" alt="BTQS_Step5_7.png" width="900" data-src="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step5_7.jpg" />
+</picture>
+</span></a></span></p>
+</div><p><em>点击查看大图。</em><br /></p><p>完成后的图表应与上图相似。
+</p></li></ol><h2 id="7-装饰器及最终设置">7 - 装饰器及最终设置</h2>
+<p>在最后部分，我们会调整玩家角色和敌人角色蓝图上的一些设置。我们还会在 <strong>行为树</strong> 中设置 <strong>装饰器节点</strong>，它将根据特定条件决定我们可以进入哪个分支。 <br /></p><ol ><li class="Default"><p>在 <strong>内容浏览器</strong> 中的 <strong>内容 > 第三人称蓝图 > 蓝图（Content > ThirdPersonBP > Blueprints）</strong>下，打开 <strong>第三人称角色（ThirdPersonCharacter）</strong> 蓝图。
+</p></li></ol><ol ><li class="Default"><p>在 <strong>细节（Details）</strong> 面板中，查找并添加 <strong>标签</strong>，并设置为 <strong>玩家</strong>。 <br /></p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step6_18.jpg">
+		<img class="  lazyload" alt="BTQS_Step6_18.png" title="BTQS372029427Step637202942718.png" data-src="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step6_18.jpg" />
+</picture>
+<br /></p><p>通过设置添加玩家标签，AI现在可以感知玩家并对其做出反应。 <br /></p></li><li class="Default"><p>打开 <strong>AI</strong> 文件夹中的 <strong>Enemy_Character</strong> 蓝图。 <br /></p></li><li class="Default"><p>在 <strong>细节（Details）</strong> 面板中查找 <strong>旋转（Rotation）</strong> 并启用 <strong>使用控制器旋转Yaw（Use Controller Rotation Yaw）</strong>。 <br /></p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step6_19.jpg">
+		<img class="  lazyload" alt="BTQS_Step6_19.png" title="BTQS372029427Step637202942719.png" data-src="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step6_19.jpg" />
+</picture>
+<br /></p><p>这会使AI在从我们的 <strong>行为树</strong> 调用 <strong>旋转至面向黑板条目（Rotate to face BB entry）</strong> 时进行正确旋转。 <br /></p><div class="note">
+	<p>看不到Pawn选项？你可能需要首先单击工具栏中的 <strong>默认类别（Class Defaults）</strong> 按钮。</p>
+</div></li><li class="Default"><p>打开 <strong>BT_Enemy</strong>，右键单击 <strong>追逐玩家（Chase Player）</strong>，然后在 <strong>添加装饰器..（Add Decorator..）</strong> 下选择 <strong>黑板（Blackboard）</strong>。 <br /></p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step6_1-1.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step6_1-1.jpg">
+		<img class="  lazyload" alt="BTQS_Step6_1-1.png" width="900" data-src="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step6_1-1.jpg" />
+</picture>
+</span></a></span></p>
+</div><p><em>点击查看大图。</em><br /></p><p>当你右键单击 <strong>行为树</strong> 中的节点时，可以添加提供额外函数的子节点： <br /></p><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>子节点 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>描述 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>装饰器（Decorator）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>也称为条件语句。这种节点附着于另一个节点，决定着树中的一个分支，甚至单个节点是否能够被执行。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>服务（Service）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>这类节点连接至 <strong>任务（Task）</strong> 节点和 <strong>合成（Composite）</strong> 节点，只要它们的分支正在执行，它们就会以所定义的频率执行。这些节点通常用于检查和更新 <strong>黑板</strong>。它们取代了其他行为树系统中的传统平行（Parallel）节点。</p>
+			</td>
+	
+</tr></tbody>
+</table><p>我们将使用 <strong>黑板装饰器（Blackboard Decorator）</strong> 来确定 <strong>黑板键</strong> 的数值，当它有效时，将会允许这个分支的执行。 <br /></p></li><li class="Default"><p>选择所添加的 <strong>Blackboard Based Condition</strong>，并对 <strong>细节（Details）</strong> 面板进行以下设置。 <br /></p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step6_2-1.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step6_2-1.jpg">
+		<img class="  lazyload" alt="BTQS_Step6_2-1.png" width="900" data-src="../../../../../Images/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/BTQS_Step6_2-1.jpg" />
+</picture>
+</span></a></span></p>
+</div><p><em>点击查看大图。</em><br /></p><ul ><li class="Default"><p>将<strong></strong>观察者终止（Observer aborts）<strong> 设为 </strong>两者（Both）**<br /></p></li><li class="Default"><p>将 <strong>黑板键（Blackboard Key）</strong> 设为 <strong>HasLineOfSIght</strong><br /></p></li><li class="Default"><p>将 <strong>节点名称（Node Name）</strong> 设为 <strong>Has Line of Sight?</strong>
+</p></li></ul><p>我们在此说明，当 <strong>HasLineOfSight</strong> 的数值为 <strong>已设置（Is Set）</strong> （或为true）时，会执行这个 <strong>追逐玩家（Chase Player）</strong> 分支。<strong>观察者终止（Observer aborts）</strong> 中设置为 <strong>两者（Both）</strong> 意味着当我们分配的 <strong>黑板键</strong> 改变时，中止本身（<strong>追逐玩家</strong>）和任何低优先级的任务。这意味着，当 <strong>HasLineOfSight</strong> 的数值改变且未设置时，其将中止自身（<strong>追逐玩家</strong>），此时将执行下一个分支（<strong>巡逻</strong>）。当 <strong>HasLineOfSight</strong> 数值再次变成 <strong>已设置（Is Set）</strong> 时，观察者将中止优先级较低的任务，并使 <strong>追逐玩家（Chase Player）</strong> 分支能够再次被执行。 <br /></p></li><li class="Default"><p><strong>编译</strong> 并关闭 <strong>行为树</strong>，然后在编辑器中 <strong>运行</strong>。
+</p></li></ol><h3 id="最终结果">最终结果</h3>
+<p>你现在可以对AI进行测试，它看到你的时候便会尾随着你。
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_0_pvb1oftv_37
+{
+	margin: 0px;
+	width: 640px;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_0_pvb1oftv_37:after
+{
+	content: "";
+	padding-top: 360px;
+	display: block;
+}
+</style> 
+<div id="player_0_pvb1oftv_37"> 
+	<div id="playerContainer_0_pvb1oftv_37" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/0_pvb1oftv/embed.html"></iframe>
+	</div>
+</div>
+<p>当你走出AI的视野后，它仍然会尝试追踪并重新让你进入视线。输入 <strong>Line Of Sight Timer</strong> 数值后，它将放弃追逐，返回巡逻状态。<br /></p><p>你可以在运行时观察 <strong>行为树</strong> 的运行情况，看它如何在不同的分支之间切换。当你在进行游戏的时候，也可以在 <strong>行为树</strong> 中观察这些变量，以了解AI当前的数值。<br /></p><h2 id="8-自行设置！">8 - 自行设置！</h2>
+<p>现在你的AI角色将追逐玩家，如果在特定的时间之后没有看到玩家，它会返回巡逻状态，你可以尝试在 <strong>行为树</strong> 中添加以下元素！<br /></p><ul ><li class="Default"><p>在 <strong>行为树</strong> 中，向两个 <strong>移动至（Move To）</strong> 任务节点添加新的 <strong>服务</strong> 节点，该服务集成了优先于它的 <strong>任务</strong> 节点的功能。
+</p><ul ><li class="Default"><p>我们最初的 <strong>行为树</strong> 使用了一个单独的 <strong>任务</strong> 节点调整移动速度（在追逐玩家的情况下）和寻找一个随机的巡逻位置并降低移动速度（在巡逻的情况下）。将这些转换为附加到 <strong>移动至任务（Move To Task）</strong> 的 <strong>服务</strong> 节点。
+</p></li><li class="Default"><p><strong>提示：</strong>服务<strong> 节点中的脚本类似于每个 </strong>任务<strong> 节点中的脚本，但是你最好使用 </strong>Event Receive Activation AI<strong>，而不使用 </strong>Event Receive Execute AI<strong>。因为它们是 </strong>服务<strong> 节点，所以你也不需要 </strong>结束执行（Finish Execute）** 节点。
+</p></li></ul></li><li class="Default"><p>不要使用随机巡逻点来移动。创建一个 <strong>巡逻路径蓝图</strong>，其中包含一个 <a id="content_link"filter-data="tag_arrays_and_structures tag_blueprints" href="../../../../ProgrammingAndScripting/Blueprints/UserGuide/Arrays/index.html" ><span>数组</span></a>变量的向量数值，AI可以在这些向量之间移动。
+</p><ul ><li class="Default"><p><strong>提示：</strong>循环并获取数组中的下一个条目，从而在各个位置之间移动AI，然后根据数组中的当前条目更新 <strong>黑板键</strong> 的数值 <strong>巡逻位置（PatrolLocation）</strong>。
+</p></li></ul></li><li class="Default"><p>当玩家走出视线后，将AI移动到玩家最后已知的位置，而不是获取玩家的当前位置。
+</p><ul ><li class="Default"><p><strong>提示：</strong>在 <strong>转向和追逐玩家（Turning and Chasing the Player）</strong> 的 <strong>移动至（Move To）</strong> 命令中，你需要指定一个位置，而不是使用 <strong>EnemyActor</strong>，因为它当前被设为获取 <strong>EnemyActor</strong> 的位置（它会获取玩家的当前位置）。
+</p></li></ul></li><li class="Default"><p>当AI追上玩家后，为其增加攻击功能。
+</p><ul ><li class="Default"><p><strong>提示：</strong>添加一个新的 <strong>合成</strong> 节点作为 <strong>转向和追逐玩家（Turning and Chasing the Player）</strong> 的 <strong>后台任务（Background Task）</strong>。当AI追上玩家后，为其增加攻击动画的 <strong>任务</strong> 节点。
+</p></li></ul></li></ul>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=AI">AI</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Behavior%20Trees">Behavior Trees</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=BTQS">BTQS</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/InteractiveExperiences/ArtificialIntelligence/BehaviorTrees/BehaviorTreeQuickStart/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:17:36 GMT -->
+</html>

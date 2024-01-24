@@ -1,0 +1,994 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/InteractiveExperiences/HowTo/CharacterMovement/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 10:28:02 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/InteractiveExperiences/HowTo/CharacterMovement/" />');
+				var udnCSS = '../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>如何设置人物运动 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/InteractiveExperiences/HowTo/CharacterMovement/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/InteractiveExperiences/HowTo/CharacterMovement/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/InteractiveExperiences/HowTo/CharacterMovement/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/InteractiveExperiences/HowTo/CharacterMovement/" hreflang="ko" />
+
+	<meta name="redirect" content="InteractiveExperiences/CharacterMovement" />
+<meta name="redirect" content="Gameplay/HowTo/CharacterMovement" />
+<meta name="intsourcechangelist" content="14044346" />
+<meta name="availability" content="Public" />
+<meta name="title" content="如何设置人物运动" />
+<meta name="description" content="如何在虚幻引擎 4 中设置带人物动作的人物的操作指南。" />
+<meta name="parent" content="InteractiveExperiences/HowTo" />
+<meta name="skilllevel" content="Intermediate" />
+<meta name="type" content="overview" />
+<meta name="order" content="10" />
+<meta name="crumbs" content="%ROOT%,InteractiveExperiences,InteractiveExperiences/HowTo" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="如何设置人物运动" />
+	<meta property="og:description" content="如何在虚幻引擎 4 中设置带人物动作的人物的操作指南。 " />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">创建交互体验</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">Gameplay入门指南</a>
+
+<span class="separator">></span> <span id="page">如何设置人物运动</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">如何设置人物运动</h1>
+							</div>	
+							<h2 >如何在虚幻引擎 4 中设置带人物动作的人物的操作指南。 </h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Intermediate"><a id="skill_link" href="../../../SiteIndex/index.html?skills=Intermediate">Intermediate</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																																				<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#实现指南">实现指南</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>为了创建 <strong>Character Movement</strong> 需要几个部分，各部分共同产生人物在游戏中四处移动的最终结果。你将需要一个人物、该人物的输入、人物如何响应来自玩家的输入、人物动作的动画、动画间的过渡、动画间过渡背后的逻辑。 
+</p><p>在这个"入门"指南中，我们打算向你展示如何在蓝图或C++中从头设置这一切，在本指南的最后，你将拥有表现出不同形式人物动作的可玩人物。 
+</p><h2 id="实现指南">实现指南</h2>
+<div class="fullwidth">
+	<a name="-1922085666" ></a><div class="include_wrapper" data-path="InteractiveExperiences/HowTo/CharacterMovement\Blueprints">
+<p>本"快速入门"指南将对通过 <strong>蓝图</strong> 创建完整可玩动画角色所需全部步骤进行讲解。在阅读完本指南后，你将拥有能行走、跑、蹲伏和蹲走、俯卧、以静止站立姿势跳跃，或移动时跳跃的角色。 
+</p><p>欲查看成品示例，请点击以下视频样本。 
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_0_30id9nzf_2
+{
+	margin: 0px;
+	width: 640px;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_0_30id9nzf_2:after
+{
+	content: "";
+	padding-top: 360px;
+	display: block;
+}
+</style> 
+<div id="player_0_30id9nzf_2"> 
+	<div id="playerContainer_0_30id9nzf_2" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/0_30id9nzf/embed.html"></iframe>
+	</div>
+</div>
+<p>下列步骤中使用的是可在 <strong>市场</strong> 中免费下载的 <strong>动画初学者包</strong>，其中内含多个用于创建角色移动的动画。下载该动画包后，可点击启动程序中的 <strong>添加至项目</strong> 按钮，将其添加到现有项目中（最好为新的空白项目），然后指定要将要添加资源的项目。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimationStartePack1.jpg">
+		<img class="  lazyload" alt="AnimationStartePack1.jpg" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimationStartePack1.jpg" />
+</picture>
+
+</p><p>按照以下步骤开始操作。 
+</p><h3 id="1.角色设置">1. 角色设置</h3>
+<p>开始前先创建角色将使用的资源。首先创建 <strong>动画蓝图</strong>（在稍后的步骤中进行填充），其将用于驱动角色动画，然后创建 <strong>角色蓝图</strong>，其控制角色行动背后的逻辑及其响应输入的方式。 
+</p><div class="note">
+	<p>对于该项目，使用的是 <strong>动画初学者包</strong>，可从 <strong>市场</strong> 中免费下载。下载动画初学者包后，可点击启动程序中的 <strong>添加至项目</strong> 按钮，将其添加到现有项目中，然后指定要添加资源的项目。 
+</p><p>对于该项目，使用的是 <strong>空白</strong> 项目模板，以便使用新项目开始操作。</p>
+</div><ol ><li class="Default"><p>打开项目，在 <strong>内容浏览器</strong> 内 <strong>点击右键</strong>，然后依次选择 <strong>新资源</strong>、<strong>动画</strong>、<strong>动画蓝图</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/Characters_1b.jpg">
+		<img class="  lazyload" alt="Characters_1b.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/Characters_1b.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>目标骨架（Target Skeleton）</strong> 窗口中选择 <strong>UE4_Mannequin_Skeleton</strong> 资源。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/Characters_1c.jpg">
+		<img class="  lazyload" alt="Characters_1c.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/Characters_1c.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>命名 <strong>动画蓝图</strong>，例如 <strong>MyAnimationBlueprint</strong>。 
+</p></li><li class="Default"><p>在 <strong>内容浏览器</strong> 内 <strong>点击右键</strong>，创建 <strong>蓝图类</strong>，然后选择 <strong>角色</strong> 作为类。 
+</p></li><li class="Default"><p>将其命名，如 <strong>MyCharacter</strong>，然后打开。 
+</p></li><li class="Default"><p>在 <strong>组件</strong> 窗口中点击 <strong>网格体</strong> 组件。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/ClickMesh.jpg">
+		<img class="  lazyload" alt="ClickMesh.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/ClickMesh.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>细节</strong> 面板中，点击 <strong>骨架网格体</strong> 旁的 <strong>无</strong> 框，然后指定 <strong>SK_Mannequin_Skeleton</strong> 骨架网格体。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/Characters_2a.jpg">
+		<img class="  lazyload" alt="Characters_2a.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/Characters_2a.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>将 <strong>Z</strong> <strong>变换</strong> 下的 <strong>位置</strong> 和 <strong>旋转</strong> 设为 <strong>-90</strong>，然后指定步骤1中创建的 <strong>动画蓝图</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/Characters_3.jpg">
+		<img class="  lazyload" alt="Characters_3.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/Characters_3.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>点击 <strong>添加组件</strong> 按钮，然后添加 <strong>弹簧臂</strong> 组件。 
+</p></li><li class="Default"><p>在 <strong>细节</strong> 面板中，将 <strong>Z</strong> 的 <strong>位置</strong> 设为 <strong>50</strong>，<strong>Z</strong> 的 <strong>插槽偏移</strong> 设为 <strong>30</strong>，然后勾选 <strong>使用Pawn控制旋转（Use Pawn Control Rotation）</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/Characters_4.jpg">
+		<img class="  lazyload" alt="Characters_4.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/Characters_4.jpg" />
+</picture>
+
+</p><p>将同时使用 <strong>弹簧臂</strong> 组件和 <strong>相机</strong> 创建第三人称视角。
+</p></li><li class="Default"><p>点击 <strong>添加组件</strong> 按钮，然后添加 <strong>相机</strong> 组件。 
+</p></li><li class="Default"><p>在 <strong>组件窗口</strong> 中，点击 <strong>相机</strong> 并将其拖动到 <strong>弹簧臂</strong> 上，使其成为弹簧臂组件的子项。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/MakeCameraChild.jpg">
+		<img class="  lazyload" alt="MakeCameraChild.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/MakeCameraChild.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>变换</strong> 下的 <strong>相机</strong> 的 <strong>细节</strong> 面板中，将 <strong>变换</strong> 下的 <strong>位置</strong> 和 <strong>旋转</strong> 值归零。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/Characters_5.jpg">
+		<img class="  lazyload" alt="Characters_5.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/Characters_5.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>组件窗口</strong> 中点击 <strong>角色移动</strong> 组件。
+</p></li><li class="Default"><p>在 <strong>细节</strong> 面板中搜索 <strong>旋转</strong>，并且勾选 <strong>角色移动</strong> 中如下复选框。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/Characters_6.jpg">
+		<img class="  lazyload" alt="Characters_6.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/Characters_6.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>接下来搜索 <strong>行走速度（Walk Speed）</strong>，然后将 <strong>最大行走速度（Max Walk Speed）</strong> 设为 <strong>200</strong>，并将 <strong>最大蹲伏行走速度（Max Walk Speed Crouched）</strong> 设为 <strong>160</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/Characters_7.jpg">
+		<img class="  lazyload" alt="Characters_7.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/Characters_7.jpg" />
+</picture>
+
+</p><p>可将此类值改为所需值，但此值可作为良好起点。 
+</p></li><li class="Default"><p>在 <strong>我的蓝图</strong> 窗口中点击 <strong>创建变量</strong> 按钮，创建一个名为 <strong>JogPressed</strong> 的 <strong>布尔</strong> 变量。 
+</p></li><li class="Default"><p>再创建四个 <strong>布尔</strong> 变量：<strong>CrouchPressed</strong>、<strong>PronePressed</strong>、<strong>JumpPressed</strong> 和 <strong>DisableMovement</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/Characters_8.jpg">
+		<img class="  lazyload" alt="Characters_8.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/Characters_8.jpg" />
+</picture>
+
+</p></li><li class="Default"><p><strong>编译</strong> 并 <strong>保存</strong>，然后关闭蓝图。
+</p></li></ol><h3 id="2.输入和游戏模式">2. 输入和游戏模式</h3>
+<p>这里我们将设置 <strong>输入</strong>（游戏功能按钮）来控制角色，并创建将使用角色的 <strong>游戏模式</strong>。 
+</p><ol ><li class="Default"><p>在 <strong>内容浏览器</strong> 内 <strong>点击右键</strong>，创建 <strong>游戏模式</strong> 类的新 <strong>蓝图类</strong>，并将其命名为 <strong>MyGame</strong>。 
+</p></li><li class="Default"><p>打开 <strong>MyGame</strong> 蓝图，然后从工具栏点击 <strong>类默认（Class Defaults）</strong> 按钮。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/SelectClassDefaults.jpg">
+		<img class="  lazyload" alt="SelectClassDefaults.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/SelectClassDefaults.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>类</strong> 下的 <strong>细节</strong> 面板内设置 <strong>默认Pawn类</strong>，以使用 <strong>MyCharacter</strong> 蓝图。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/GameMode_1.jpg">
+		<img class="  lazyload" alt="GameMode_1.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/GameMode_1.jpg" />
+</picture>
+
+</p></li><li class="Default"><p><strong>编译</strong> 并 <strong>保存</strong>，然后关闭蓝图。 
+</p></li><li class="Default"><p>在主编辑器窗口，点击 <strong>菜单栏</strong> 中的 <strong>编辑</strong>，然后选择 <strong>项目设置</strong>。 
+</p></li><li class="Default"><p>在项目设置中点击 <strong>引擎</strong> 部分下的 <strong>输入</strong>。 
+</p></li><li class="Default"><p>在 <strong>绑定</strong> 下添加四个 <strong>动作映射</strong> 和四个 <strong>轴映射</strong>。
+</p></li><li class="Default"><p>对于前两个 <strong>轴映射</strong>，点击其旁的加号，将额外映射添加到分组。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/Input_1.jpg">
+		<img class="  lazyload" alt="Input_1.png" width="480" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/Input_1.jpg" />
+</picture>
+
+</p><p>空白绑定应如上所示。 
+</p></li><li class="Default"><p>按以下方式设置 <strong>绑定</strong>（务必将 <strong>A</strong>、<strong>S</strong> 和 <strong>鼠标Y</strong> 的 <strong>缩放Scale</strong> 设为 <strong>-1.0</strong>）。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/Input_2.jpg">
+		<img class="  lazyload" alt="Input_2.png" width="480" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/Input_2.jpg" />
+</picture>
+
+</p><p>现在已设置 <strong>动作映射</strong> 的 <strong>跳跃</strong>、<strong>蹲伏</strong>、<strong>慢跑</strong> 和 <strong>俯卧</strong> 的输入；设置 <strong>轴映射</strong> 的 <strong>MoveForward</strong>、<strong>MoveRight</strong>、<strong>转向</strong> 和 <strong>LookUp</strong> 的输入。可如图所示进行设置，或自行选择各项的输入。 
+</p><div class="note">
+	<p>欲了解此进程的更多详情，参阅如何在蓝图中设置输入更多信息。 </p>
+</div></li><li class="Default"><p>在项目设置的 <strong>项目</strong> 部分下点击 <strong>贴图和模式（Maps &amp; Modes）</strong>。 
+</p></li><li class="Default"><p>在 <strong>默认模式</strong> 下的贴图和模式（Maps &amp; Modes）中，将 <strong>默认GameMode</strong> 设为使用 <strong>MyGame</strong> 游戏模式。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/GameMode_2.jpg">
+		<img class="  lazyload" alt="GameMode_2.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/GameMode_2.jpg" />
+</picture>
+
+</p><div class="note">
+	<p>欲了解游戏模式的更多详情，参阅<a id="content_link" href="../SettingUpAGameMode/index.html" ><span>设置游戏模式</span></a>更多信息。 </p>
+</div></li><li class="Default"><p>设置输入和游戏模式设置后，关闭项目设置窗口。
+</p></li></ol><h3 id="3.完成角色设置">3. 完成角色设置</h3>
+<p>本节中将实现基于玩家输入控制角色的脚本，以完成角色的设置。 
+</p><ol ><li class="Default"><p>打开 <strong>MyCharacter</strong> 蓝图。 
+</p></li><li class="Default"><p>在图表中，<strong>右键点击</strong> 并添加 <strong>InputAxis MoveForward</strong> 和 <strong>InputAxis MoveRight</strong> 事件。 
+</p></li><li class="Default"><p>长按 <strong>控制</strong> 并拖入 <strong>DisableMovement</strong> 变量，将其连接到各事件 <strong>分支</strong> 上的 <strong>条件</strong>。 
+</p></li><li class="Default"><p>如下所示，设置节点网络的剩余部分。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/Character_Movement.png" ><span><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/Character_Movement.jpg">
+		<img class="  lazyload" alt="Character_Movement.png" width="720" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/Character_Movement.jpg" />
+</picture>
+</span></a></span></p>
+</div><p><em>点击图像显示完整视图。</em>
+</p><p>现在角色仅在 <strong>DisableMovement</strong> 为 <em>False</em> 时才可移动。此设置旨在防止角色在无动画时移动，如拥有Prone Idle动画，但无Prone Crawl动画。为防止玩家俯卧时在地面滑动，建议禁用移动。 
+</p></li><li class="Default"><p><strong>右键点击</strong> 并添加 <strong>InputAxis Turn</strong> 和 <strong>InputAxis LookUp</strong> 事件。
+</p></li><li class="Default"><p>将Turn事件添加到 <strong>Add Controller Yaw Input</strong> 节点，并将LookUp事件添加到 <strong>Add Controller Pitch Input</strong> 节点。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/Character_MouseInput.jpg">
+		<img class="  lazyload" alt="Character_MouseInput.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/Character_MouseInput.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在图表中 <strong>点击右键</strong> 并添加 <strong>InputAction Jog</strong> 事件。 
+</p></li><li class="Default"><p>在 <strong>MyBlueprint</strong> 窗口中，点击 <strong>显示继承的变量（Show Inherited Variables）</strong> 复选框，按住 <strong>Control</strong> 并将 <strong>CharacterMovement</strong> 拖入图表。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/Character_JogA.jpg">
+		<img class="  lazyload" alt="Character_JogA.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/Character_JogA.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>按住 <strong>Alt</strong> 拖入 <strong>Jog Pressed</strong> 变量，然后按住 <strong>Control</strong> 拖入 <strong>Crouch Pressed</strong> 变量。 
+</p></li><li class="Default"><p>设置节点网络，确保在正确 <strong>Set</strong> 节点中勾选 <strong>慢跑已按（Jog Pressed）</strong>，如下图所示：
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/Character_JogB.png" ><span><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/Character_JogB.jpg">
+		<img class="  lazyload" alt="Character_JogB.png" width="720" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/Character_JogB.jpg" />
+</picture>
+</span></a></span></p>
+</div><p><em>点击图像显示完整视图。</em>
+</p><p>当慢跑被 <strong>按下</strong> 时，将 <strong>Jog Pressed</strong> 设为 <em>True</em>。然后再 <strong>角色移动</strong> 组件中，将角色的 <strong>最大行走速度</strong> 设为 <strong>375</strong>（可调整此值提高/降低慢跑速度）。 
+</p><p>当慢跑被 <strong>松开</strong> 时，检查角色是否处于蹲伏状态，如果处于蹲伏状态，将最大行走速度设为 <strong>160</strong>（蹲伏行走速度）。如角色未处于蹲伏状态，将最大行走速度设为 <strong>200</strong>（默认行走速度）。利用此设置可让角色从蹲伏或行走状态开始慢跑，并正确进行返回。 
+</p></li><li class="Default"><p>在图表中 <strong>点击右键</strong> 并添加 <strong>InputAction Crouch</strong> 事件。 
+</p></li><li class="Default"><p>按住 <strong>Alt</strong> 拖入 <strong>Crouch Pressed</strong> 变量，然后按住 <strong>Control</strong> 拖入 <strong>Jog Pressed</strong> 和 <strong>Prone Pressed</strong> 变量。 
+</p></li><li class="Default"><p>设置节点网络，确保在正确 <strong>Set</strong> 节点中勾选 <strong>蹲伏已按（Crouch Pressed）</strong>，如下图所示： 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/Character_Crouch.png" ><span><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/Character_Crouch.jpg">
+		<img class="  lazyload" alt="Character_Crouch.png" width="720" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/Character_Crouch.jpg" />
+</picture>
+</span></a></span></p>
+</div><p><em>点击图像显示完整视图。</em>
+</p><p>对于蹲伏脚本，首先要检查角色目前是否处于俯卧状态，如果处于此状态，角色将不可蹲伏（因为没有从俯卧到蹲伏的动画，反之亦然。如果你拥有相关动画，可允许玩家从蹲伏进入俯卧状态）。 
+</p><p>将 <strong>FlipFlop</strong> 节点用作蹲伏的开关，无需长按蹲伏按钮（此为可选项，取决于自身偏好）。首次按下时，将 <strong>Crouch Pressed</strong> 设为 <em>True</em>，并将 <strong>最大行走速度</strong> 设为 <strong>160</strong>。二次按下关闭蹲伏时后，检查角色是否从蹲伏状态进入慢跑（如是，将最大行走速度设为 <strong>375</strong>），如否，将最大行走速度设回为 <strong>200</strong>。 
+</p></li><li class="Default"><p>在图表中 <strong>点击右键</strong> 并添加 <strong>InputAction Prone</strong> 事件。 
+</p></li><li class="Default"><p>按住 <strong>Alt</strong> 拖入 <strong>Prone Pressed</strong> 和 <strong>DisableMovement</strong> 变量。
+</p></li><li class="Default"><p>按住 <strong>Control</strong> 拖入 <strong>Crouch Pressed</strong> 变量。 
+</p></li><li class="Default"><p>设置节点网络，确保在正确 <strong>Set</strong> 节点中勾选 <strong>Prone Pressed</strong>，如下图所示： 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/Character_Prone.png" ><span><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/Character_Prone.jpg">
+		<img class="  lazyload" alt="Character_Prone.png" width="720" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/Character_Prone.jpg" />
+</picture>
+</span></a></span></p>
+</div><p><em>点击图像显示完整视图。</em>
+</p><p>对于俯卧脚本，首先需检查角色目前是否处于蹲伏状态，如果处于，则角色不可进入俯卧状态（如前所述，因为无过渡动画）。然后再次使用 <strong>FlipFlop</strong> 节点以在俯卧状态间切换。 
+</p><p>首次按下时将 <strong>Prone Pressed</strong> 和 <strong>DisableMovement</strong> 都设为 <em>True</em>，以允许角色进入俯卧状态并禁用角色移动。二次按下时将 <strong>Prone Pressed</strong> 设为 <em>False</em> 退出俯卧状态，然后添加少许延迟（设为 <strong>1.4</strong>），之后重新启用移动（防止玩家在播放返回站立动画时移动）。 
+</p></li><li class="Default"><p>在图表中 <strong>点击右键</strong>，添加 <strong>InputAction Jump</strong> 事件，并从 <strong>MyBlueprint</strong> 窗口拖入 <strong>CharacterMovement</strong> 组件。
+</p></li><li class="Default"><p>按住 <strong>Alt</strong> 拖入 <strong>Jump Pressed</strong> 变量，然后按住 <strong>Control</strong> 拖入 <strong>DisableMovement</strong> 和 <strong>CrouchPressed</strong> 变量。 
+</p></li><li class="Default"><p>设置节点网络，确保在正确 <strong>Set</strong> 节点中勾选"Jump Pressed"，如下图所示： 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/Character_Jump.png" ><span><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/Character_Jump.jpg">
+		<img class="  lazyload" alt="Character_Jump.png" width="720" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/Character_Jump.jpg" />
+</picture>
+</span></a></span></p>
+</div><p><em>点击图像显示完整视图。</em>
+</p><p>对于跳跃脚本，首先需检查角色是处于俯卧还是蹲伏状态。如果两者都不为 <em>True</em>，则使用 <strong>CharacterMovement</strong> 组件角色确定当前速度，如速度大于0，表示角色正在移动。 
+</p><p>然后根据角色是否正在移动来设置角色跳跃高度，将 <strong>JumpZVelocity</strong> 设为 <strong>365</strong>（对于正在移动的角色）或 <strong>340</strong>（角色静止时）。这两种情况下，都在跳跃被按下时将 <strong>Jump Pressed</strong> 设为 <em>True</em>，在跳跃松开时，将**Jump Pressed** 设为 _False_。
+</p></li></ol><h3 id="4.创建混合空间">4.创建混合空间</h3>
+<p>创建角色移动的下一步是创建各移动状态（行走、慢跑和蹲走）的 <strong>混合空间</strong>。混合空间是特殊资源，其可基于两个输入值混合动画。本指南的例子中将基于角色移动速度和方向，混合前/后和左/右移动。 
+</p><div class="note">
+	<p>欲了解混合空间的更多信息，查阅<a id="content_link"filter-data="tag_blend_space tag_animation_blending tag_animation" href="../../../AnimatingObjects/SkeletalMeshAnimation/Blendspaces/index.html" ><span>混合空间</span></a>文档。 </p>
+</div><p>以下为设置运动混合空间的方法步骤： 
+</p><ol ><li class="Default"><p>在 <strong>内容浏览器</strong> 内 <strong>点击右键</strong>，选择 <strong>动画</strong>，然后选择 <strong>混合空间</strong> 来新建资源。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/Blendspace_1.jpg">
+		<img class="  lazyload" alt="Blendspace_1.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/Blendspace_1.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>选择 <strong>选择骨架（Pick Skeleton）</strong> 窗口中的骨架（<strong>UE4_Mannequin_Skeleton</strong>），然后将该资源命名为 <strong>Walk_BS</strong>。 
+</p></li><li class="Default"><p>打开 <strong>Walk_BS</strong> 混合空间，然后将 <strong>参数</strong> 下的 <strong>X轴标签（X Axis Label）</strong> 设为 <strong>方向</strong>，将 <strong>Y轴标签（Y Axis Label）</strong> 设为 <strong>速度</strong>。 
+</p></li><li class="Default"><p>将 <strong>X轴范围（X Axis Range）</strong> 设为 <strong>-180</strong> 到 <strong>180</strong>，将 <strong>X轴分区（X Axis Divisions）</strong> 设为 <strong>4</strong>。 
+</p></li><li class="Default"><p>将 <strong>Y轴标签</strong> 设为 <strong>速度</strong>，将 <strong>Y轴范围</strong> 设为 <strong>0</strong> 到 <strong>200</strong>，将 <strong>Y轴分区（Axis Divisions）</strong> 设为 <strong>4</strong>。 
+</p></li><li class="Default"><p>设置X和Y轴值后，点击 <strong>应用参数更改（Apply Parameter Changes）</strong> 按钮。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/Blendspace_2.jpg">
+		<img class="  lazyload" alt="Blendspace_2.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/Blendspace_2.jpg" />
+</picture>
+
+</p><p>点击应用后，将更新 <strong>参数</strong> 窗口左侧的网格空间以使用输入值，此类值将用于决定移动动画间的混合。 
+</p></li><li class="Default"><p>在 <strong>资源浏览器</strong> 窗口内搜索 <strong>rifle ironsights</strong> 动画（角色将使用此类移动动）。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/Blendspace_3.jpg">
+		<img class="  lazyload" alt="Blendspace_3.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/Blendspace_3.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>找到 <strong>Walk_Fwd_Rifle_Ironsights</strong> 动画，然后将其拖放到网格空间的底部中心位置。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/Blendspace_4.jpg">
+		<img class="  lazyload" alt="Blendspace_4.png" width="800" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/Blendspace_4.jpg" />
+</picture>
+
+</p><p>此操作将在网格空间上创建参考点。 
+</p></li><li class="Default"><p>将 <strong>Walk_Lt_Rifle_Ironsights</strong> 和 <strong>Walk_Rt_Rifle_Ironsights</strong> 动画拖入前走点左/右侧的网格。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/Blendspace_5.jpg">
+		<img class="  lazyload" alt="Blendspace_5.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/Blendspace_5.jpg" />
+</picture>
+
+</p><p><strong>Walk_Lt_Rifle_Ironsights</strong> (L)、<strong>Walk_Fwd_Rifle_Ironsights</strong> (F)和 <strong>Walk_Rt_Rifle_Ironsights</strong> (R)显示在网格上。 
+</p></li><li class="Default"><p>拖入 <strong>Walk_Bwd_Rifle_Ironsights</strong> 动画，将其放置在左下和右下终点。 
+</p></li><li class="Default"><p>沿网格顶部，从左到右（Bwd、Lt、Fwd、Rt、Bwd）重复与底部相同的布局。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/Blendspace_6.jpg">
+		<img class="  lazyload" alt="Blendspace_6.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/Blendspace_6.jpg" />
+</picture>
+
+</p><p>在网格内移动鼠标，可看到角色在方向间行走并混合。 
+</p></li><li class="Default"><p>在 <strong>动画资源细节</strong> 中的 <strong>样本内插（Sample Interpolation）</strong> 下，将 <strong>每秒目标权重内插速度（Target Weight Interpolation Speed Per Sec）</strong> 设为 <strong>2.0</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/Blendspace_7.jpg">
+		<img class="  lazyload" alt="Blendspace_7.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/Blendspace_7.jpg" />
+</picture>
+
+</p><p>此操作可在切换方向时平滑混合。 
+</p></li><li class="Default"><p><strong>保存</strong>，然后关闭 <strong>Walk_BS</strong> 混合空间窗口。 
+</p></li><li class="Default"><p>在 <strong>内容浏览器</strong> 中 <strong>右键点击</strong> <strong>Walk_BS</strong> 资源，选择 <strong>复制</strong>。 
+</p></li><li class="Default"><p>将副本重命名为 <strong>Jog_BS</strong> 并打开。 
+</p></li><li class="Default"><p>在 <strong>参数</strong> 下，将 <strong>Y轴范围</strong> 最大值从200改为 <strong>375</strong>，然后点击 <strong>应用参数修改</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/Blendspace_8.jpg">
+		<img class="  lazyload" alt="Blendspace_8.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/Blendspace_8.jpg" />
+</picture>
+
+</p><p>375值指在MyCharacter蓝图中内所设的慢跑速度。 
+</p></li><li class="Default"><p>将更新网格使用最大速度值，但网格上的点仍处在先前位置。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/Blendspace_9.jpg">
+		<img class="  lazyload" alt="Blendspace_9.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/Blendspace_9.jpg" />
+</picture>
+
+</p></li><li class="Default"><p><strong>左键点击</strong> 并将所有点向上拖至网格顶部的对应位置。 
+</p></li><li class="Default"><p>在 <strong>资源窗口</strong> 内搜索 <strong>慢跑</strong> 动画。
+</p></li><li class="Default"><p>通过将慢跑动画拖到网格的行走点上，用慢跑动画替换网格上的行走动画。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/Blendspace_10.jpg">
+		<img class="  lazyload" alt="Blendspace_10.png" width="640" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/Blendspace_10.jpg" />
+</picture>
+
+</p><p>沿网格底部和顶部使用慢跑（Bwd、Lt、Fwd、Rt、Bwd）步枪动画。 
+</p></li><li class="Default"><p><strong>保存</strong> 并关闭 <strong>Jog_BS</strong> 混合空间窗口。 
+</p></li><li class="Default"><p>复制 <strong>Jog_BS</strong> 并将其重命名为 <strong>Crouch_BS</strong>，然后再打开。 
+</p></li><li class="Default"><p>在 <strong>参数</strong> 下，将 <strong>Y轴范围</strong> 最大值从375改为 <strong>160</strong>，然后点击 <strong>应用参数修改</strong>。 
+</p></li><li class="Default"><p>在 <strong>资源浏览器</strong> 中，搜索 <strong>rifle ironsights</strong>。 
+</p></li><li class="Default"><p>将网格上的各点替换为各自 <strong>Crouch_Walk</strong> 动画。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/Blendspace_11.jpg">
+		<img class="  lazyload" alt="Blendspace_11.png" width="640" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/Blendspace_11.jpg" />
+</picture>
+
+</p></li><li class="Default"><p><strong>保存</strong> 并关闭 <strong>Crouch_BS</strong> 混合空间窗口。
+</p></li></ol><h3 id="5.动画蓝图-闲置和行走状态">5. 动画蓝图 - 闲置和行走状态</h3>
+<p>本章节将设置 <strong>动画蓝图（Animation Blueprint）</strong>，其基于玩家在游戏中采取的行动决定要播放的动画。然后设置 <strong>状态机</strong>，并创建 <strong>闲置（Idle）</strong> 和 <strong>行走（Walk）</strong> 状态，同时设置各状态间的过渡。 
+</p><div class="note">
+	<p>欲了解动画蓝图的更多信息，参见<a id="content_link"filter-data="tag_animation tag_animation_blueprint tag_blueprints tag_state_machine tag_animation_assets" href="../../../AnimatingObjects/SkeletalMeshAnimation/AnimBlueprints/index.html" ><span>动画蓝图</span></a>文档。 </p>
+</div><p>以下为设置动画蓝图的方法步骤： 
+</p><ol ><li class="Default"><p>找到并打开 <strong>MyAnimationBlueprint</strong> 资源。 
+</p></li><li class="Default"><p>在 <strong>My Blueprint</strong> 窗口中创建四个 <strong>布尔</strong> 变量（<strong>IsJumping</strong>、<strong>IsCrouching</strong>、<strong>IsJogging</strong> 和 <strong>IsProne</strong>）。 
+</p></li><li class="Default"><p>创建2个 <strong>浮点</strong> 变量（<strong>Speed</strong> 和 <strong>Direction</strong>）。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_1.jpg">
+		<img class="  lazyload" alt="AnimBP_1.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_1.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>My Blueprint</strong> 窗口中，<strong>双击</strong> <strong>EventGraph</strong> 打开 <strong>事件图表（Event Graph）</strong> 选项卡。 
+</p></li><li class="Default"><p>在 <strong>事件图表</strong> 上重建以下设置，然后点击 <strong>编译</strong> 按钮。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_EventGraph.png" ><span><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_EventGraph.jpg">
+		<img class="  lazyload" alt="AnimBP_EventGraph.png" width="800" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_EventGraph.jpg" />
+</picture>
+</span></a></span></p>
+</div><p><em>点击图像显示完整视图。</em>
+</p><p>在上一图表中，要获取玩家角色的方向和速度，并指定到动画蓝图内使用的变量。同时，在 <strong>MyCharacter</strong> 蓝图（通过从 <strong>Try Get Pawn Owner</strong> 节点拖出线并 <strong>投射</strong> 到角色蓝图）中获取响应玩家行动的变量。然后将此类变量传到动画蓝图中的变量，该动画蓝图将决定在动画状态间过渡的时间。 
+</p></li><li class="Default"><p>点击 <strong>动画图表</strong> 选项卡，在图表中 <strong>点击右键</strong>，搜索并添加新的 <strong>状态机</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_AnimGraph2.jpg">
+		<img class="  lazyload" alt="AnimBP_AnimGraph2.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_AnimGraph2.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>命名状态机，然后将其与 <strong>Final Animation Pose</strong> 节点连接。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_AnimGraph3.jpg">
+		<img class="  lazyload" alt="AnimBP_AnimGraph3.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_AnimGraph3.jpg" />
+</picture>
+
+</p></li><li class="Default"><p><strong>双击</strong> 状态机打开。 
+</p></li><li class="Default"><p>在 <strong>资源浏览器</strong> 窗口中搜索 <strong>闲置</strong>，并将 <strong>Idle_Rifle_Hip</strong> 资源拖入图表。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_AnimGraph4.jpg">
+		<img class="  lazyload" alt="AnimBP_AnimGraph4.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_AnimGraph4.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>将 <strong>Entry</strong> 节点与 <strong>Idle_Rifle_Hip</strong> 节点连接，然后点击 <strong>编译</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_AnimGraph5.jpg">
+		<img class="  lazyload" alt="AnimBP_AnimGraph5.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_AnimGraph5.jpg" />
+</picture>
+
+</p><p>点击编译后，可在预览窗口中看到角色进入闲置姿势。 
+</p></li><li class="Default"><p>在 <strong>资源浏览器</strong> 中搜索 <strong>Walk_BS</strong>，并将其拖入图表。
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_Walk1.jpg">
+		<img class="  lazyload" alt="AnimBP_Walk1.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_Walk1.jpg" />
+</picture>
+
+</p></li><li class="Default"><p><strong>双击</strong> <strong>Walk_BS</strong>，然后按住 <strong>Control</strong> 并从 <strong>My Blueprint</strong> 选项卡将 <strong>Speed</strong> 和 <strong>Direction</strong> 变量拖入。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_Walk2.jpg">
+		<img class="  lazyload" alt="AnimBP_Walk2.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_Walk2.jpg" />
+</picture>
+
+</p><p>如上所示进行连接。现在便有了带角色值的混合空间。
+</p></li><li class="Default"><p>关闭 <strong>Walk_BS</strong> 选项卡，然后在状态机图表上创建从 <strong>Idle_Rifle_Hip</strong> 到 <strong>Walk_BS</strong> 的 <strong>过渡</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_Walk3.jpg">
+		<img class="  lazyload" alt="AnimBP_Walk3.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_Walk3.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>创建从 <strong>Walk_BS</strong> 到 <strong>Idle_Rifle_Hip</strong> 的 <strong>过渡</strong>，然后 <strong>双击</strong> 从 <strong>Idle_Rifle_Hip</strong> 到 <strong>Walk_BS</strong> 的 <strong>过渡规则</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_Walk4.jpg">
+		<img class="  lazyload" alt="AnimBP_Walk4.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_Walk4.jpg" />
+</picture>
+
+</p><p><strong>过渡规则</strong> 决定状态机在动画状态间移动的时间。
+</p></li><li class="Default"><p>在 <strong>过渡规则</strong> 中重建以下图表。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_Walk5.jpg">
+		<img class="  lazyload" alt="AnimBP_Walk5.png" width="800" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_Walk5.jpg" />
+</picture>
+
+</p><p>在以上脚本中检查，确保玩家角色目前未处于空中（无论下降或起跳），且当前速度大于160。如满足条件，则允许发生从闲置到行走的过渡。 
+</p></li><li class="Default"><p>返回状态机图表，打开从 <strong>Walk_BS</strong> 到 <strong>Idle_Rifle_Hip</strong> 的 <strong>过渡规则</strong>。 
+</p></li><li class="Default"><p>在 <strong>过渡规则</strong> 中重建以下图表。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_Walk6.jpg">
+		<img class="  lazyload" alt="AnimBP_Walk6.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_Walk6.jpg" />
+</picture>
+
+</p><p>现在如角色速度小于160，将允许过渡发生。 
+</p></li><li class="Default"><p><strong>编译</strong> 并 <strong>保存</strong> 动画蓝图。
+</p></li></ol><h3 id="6.动画蓝图-蹲伏状态">6. 动画蓝图 - 蹲伏状态</h3>
+<p>本章节将继续研究 <strong>动画蓝图</strong> 和聚焦 <strong>蹲伏</strong> 状态的 <strong>状态机</strong>。 
+</p><ol ><li class="Default"><p>在状态机图表上的 <strong>MyAnimationBlueprint</strong> 中，将 <strong>资源浏览器</strong> 中的 <strong>Crouch_BS</strong> 混合空间拖入。 
+</p></li><li class="Default"><p>创建从 <strong>Crouch_BS</strong> 到 <strong>Walk_BS</strong> 及从 <strong>Walk_BS</strong> 回到 <strong>Crouch_BS</strong> 的 <strong>过渡</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_Crouch2.jpg">
+		<img class="  lazyload" alt="AnimBP_Crouch2.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_Crouch2.jpg" />
+</picture>
+
+</p></li><li class="Default"><p><strong>双击</strong> <strong>Crouch_BS</strong> 并将 <strong>Direction</strong> 和 <strong>Speed</strong> 变量拖入，使其连接到混合空间。
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_Crouch3.jpg">
+		<img class="  lazyload" alt="AnimBP_Crouch3.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_Crouch3.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>返回状态机图表，打开从 <strong>Walk_BS</strong> 到 <strong>Crouch_BS</strong> 的 <strong>过渡规则</strong>，并重建以下图表。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_Crouch4.jpg">
+		<img class="  lazyload" alt="AnimBP_Crouch4.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_Crouch4.jpg" />
+</picture>
+
+</p><p>现在按下蹲伏且玩家速度大于0时，即可可进入蹲伏行走状态。 
+</p></li><li class="Default"><p>返回状态机图表，打开从 <strong>Crouch_BS</strong> 到 <strong>Walk_BS</strong> 的 <strong>过渡规则</strong>，并重建以下图表。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_Crouch5.jpg">
+		<img class="  lazyload" alt="AnimBP_Crouch5.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_Crouch5.jpg" />
+</picture>
+
+</p><p>以上操作使玩家在未蹲伏且速度大于0时返回行走状态。 
+</p></li><li class="Default"><p>返回状态机图表，将 <strong>资源浏览器</strong> 中的 <strong>Crouch_Idle_Rifle_Hip</strong> 动画拖入图表。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_CrouchIdle1.jpg">
+		<img class="  lazyload" alt="AnimBP_CrouchIdle1.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_CrouchIdle1.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>创建从 <strong>Crouch_BS</strong> 到 <strong>Crouch_Idle_Rifle_Hip</strong> 及从 <strong>Crouch_Idle_Rifle_Hip</strong> 回到 <strong>Crouch_BS</strong> 的 <strong>过渡</strong>。 
+</p></li><li class="Default"><p>另创建从 <strong>Crouch_Idle_Rifle_Hip</strong> 到 <strong>Idle_Rifle_Hip</strong> 及从 <strong>Idle_Rifle_Hip</strong> 回到 <strong>Crouch_Idle_Rifle_Hip</strong> 的 <strong>过渡</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_CrouchIdle2.jpg">
+		<img class="  lazyload" alt="AnimBP_CrouchIdle2.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_CrouchIdle2.jpg" />
+</picture>
+
+</p><p>现在玩家可从蹲伏行走进入蹲伏闲置（及从蹲伏闲置到蹲伏行走）的过渡。同时设置从蹲伏闲置到站立闲置（及从站立闲置到蹲伏闲置）的过渡。 
+</p><p>如有需要，可在图表上移动节点，以便更好了解过渡。 
+</p></li><li class="Default"><p>打开从 <strong>Idle_Rifle_Hip</strong> 到 <strong>Crouch_Idle_Rifle_Hip</strong> 的 <strong>过渡规则</strong>。 
+</p></li><li class="Default"><p>对于本 <strong>过渡</strong>，仅要求 <strong>IsCrouch</strong> 为 <em>True</em>。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_CrouchIdle3.jpg">
+		<img class="  lazyload" alt="AnimBP_CrouchIdle3.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_CrouchIdle3.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>返回状态机图表，打开从 <strong>Crouch_Idle_Rifle_Hip</strong> 到 <strong>Idle_Rifle_Hip</strong> 的 <strong>过渡规则</strong>。 
+</p></li><li class="Default"><p>对于本 <strong>过渡</strong>，仅要求 <strong>IsCrouch</strong> 为 <em>False</em>。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_CrouchIdle4.jpg">
+		<img class="  lazyload" alt="AnimBP_CrouchIdle4.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_CrouchIdle4.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>返回状态机图表，打开从 <strong>Crouch_BS</strong> 到 <strong>Crouch_Idle_Rifle_Hip</strong> 的 <strong>过渡规则</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_CrouchIdle5.jpg">
+		<img class="  lazyload" alt="AnimBP_CrouchIdle5.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_CrouchIdle5.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>过渡规则</strong> 内重建以下图表。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_CrouchIdle6.jpg">
+		<img class="  lazyload" alt="AnimBP_CrouchIdle6.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_CrouchIdle6.jpg" />
+</picture>
+
+</p><p>如玩家处于蹲伏状态且速度为0，其将进入蹲伏闲置动画。 
+</p></li><li class="Default"><p>返回状态机图表，打开从 <strong>Crouch_Idle_Rifle_Hip</strong> 到 <strong>Crouch_BS</strong> 的 <strong>过渡规则</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_CrouchIdle7.jpg">
+		<img class="  lazyload" alt="AnimBP_CrouchIdle7.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_CrouchIdle7.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>过渡规则</strong> 内重建以下图表。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_CrouchIdle8.jpg">
+		<img class="  lazyload" alt="AnimBP_CrouchIdle8.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_CrouchIdle8.jpg" />
+</picture>
+
+</p><p>如玩家按下蹲伏且速度大于0，其将进入蹲伏行走混合空间。 
+</p></li><li class="Default"><p><strong>编译</strong> 并 <strong>保存</strong> 动画蓝图。
+</p></li></ol><h3 id="7.动画蓝图-慢跑状态">7. 动画蓝图 - 慢跑状态</h3>
+<p>本章节将继续在 <strong>动画蓝图</strong> 和 <strong>状态机</strong> 中设置 <strong>慢跑</strong> 状态及其之间的过渡。 
+</p><ol ><li class="Default"><p>在状态机图表中，将 <strong>资源浏览器</strong> 中的 <strong>Jog_BS</strong> 拖入图表。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_Jog1.jpg">
+		<img class="  lazyload" alt="AnimBP_Jog1.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_Jog1.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>打开 <strong>Jog_BS</strong> 并将 <strong>Speed</strong> 和 <strong>Direction</strong> 变量拖入，进行以下连接。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_Jog2.jpg">
+		<img class="  lazyload" alt="AnimBP_Jog2.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_Jog2.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>返回状态机图表。
+</p></li><li class="Default"><p>创建从 <strong>Crouch_Idle_Rifle_Hip</strong> 到 <strong>Jog_BS</strong> 及从 <strong>Jog_BS</strong> 到 <strong>Crouch_Idle_Rifle_Hip</strong> 的 <strong>过渡</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_Jog3.jpg">
+		<img class="  lazyload" alt="AnimBP_Jog3.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_Jog3.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>打开从 <strong>Crouch_Idle_Rifle_Hip</strong> 到 <strong>Jog_BS</strong> 的 <strong>过渡规则</strong>，并重建以下图表。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_Jog3b.jpg">
+		<img class="  lazyload" alt="AnimBP_Jog3b.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_Jog3b.jpg" />
+</picture>
+
+</p><p>如慢跑为 <em>True</em> 且玩家速度大于0，其将进入慢跑混合空间。 
+</p></li><li class="Default"><p>返回状态机图表，打开从 <strong>Jog_BS</strong> 到 <strong>Crouch_Idle_Rifle_Hip</strong> 的 <strong>过渡规则</strong>。
+</p></li><li class="Default"><p>在 <strong>过渡规则</strong> 内创建以下图表。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_Jog3c.jpg">
+		<img class="  lazyload" alt="AnimBP_Jog3c.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_Jog3c.jpg" />
+</picture>
+
+</p><p>现在玩家可从蹲伏进入慢跑状态（停止慢跑后即返回蹲伏）。 
+</p></li><li class="Default"><p>返回状态机图形，创建从 <strong>Crouch_BS</strong> 到 <strong>Jog_BS</strong> 及从 <strong>Jog_BS</strong> 到 <strong>Crouch_BS</strong> 的 <strong>过渡</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_Jog3d.jpg">
+		<img class="  lazyload" alt="AnimBP_Jog3d.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_Jog3d.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>打开从 <strong>Crouch_BS</strong> 到 <strong>Jog_BS</strong> 的 <strong>过渡规则</strong> 并创建以下图表。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_Jog5.jpg">
+		<img class="  lazyload" alt="AnimBP_Jog5.png" width="760" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_Jog5.jpg" />
+</picture>
+
+</p><p>此操作将检查玩家是否已蹲伏并按下 <strong>左Shift键</strong>（慢跑键）；如果是，其将到慢跑状态。<br /></p></li><li class="Default"><p>返回状态机图表，打开从 <strong>Jog_BS</strong> 到 <strong>Crouch_BS</strong> 的 <strong>过渡规则</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_Jog5b.jpg">
+		<img class="  lazyload" alt="AnimBP_Jog5b.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_Jog5b.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>过渡规则</strong> 内重建以下图表。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_Jog6.jpg">
+		<img class="  lazyload" alt="AnimBP_Jog6.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_Jog6.jpg" />
+</picture>
+
+</p><p>现在检查玩家是否处于慢跑并按下 <strong>C</strong> 键（蹲伏键）；如果是，其将过渡到蹲伏行走状态。 
+</p></li><li class="Default"><p>返回状态机图表，创建从 <strong>Jog_BS</strong> 到 <strong>Idle_Rifle_Hip</strong> 的 <strong>过渡</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_Jog7.jpg">
+		<img class="  lazyload" alt="AnimBP_Jog7.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_Jog7.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>打开从 <strong>Jog_BS</strong> 到 <strong>Idle_Rifle_Hip</strong> 的 <strong>过渡规则</strong> 并创建以下图表。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_Jog8.jpg">
+		<img class="  lazyload" alt="AnimBP_Jog8.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_Jog8.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>返回状态机图形，创建从 <strong>Jog_BS</strong> 到 <strong>Walk_BS</strong> 及从 <strong>Walk_BS</strong> 到 <strong>Jog_BS</strong> 的 <strong>过渡</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_Jog9.jpg">
+		<img class="  lazyload" alt="AnimBP_Jog9.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_Jog9.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>打开从 <strong>Jog_BS</strong> 到 <strong>Walk_BS</strong> 的 <strong>过渡规则</strong> 并重建以下图表。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_Jog10.jpg">
+		<img class="  lazyload" alt="AnimBP_Jog10.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_Jog10.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>返回状态机图表，打开从 <strong>Walk_BS</strong> 到 <strong>Jog_BS</strong> 的 <strong>过渡规则</strong>。 
+</p></li><li class="Default"><p>在 <strong>过渡规则</strong> 内重建以下图表。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_Jog11.jpg">
+		<img class="  lazyload" alt="AnimBP_Jog11.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_Jog11.jpg" />
+</picture>
+
+</p></li><li class="Default"><p><strong>编译</strong> 并 <strong>保存</strong> 动画蓝图。
+</p></li></ol><h3 id="8.动画蓝图-跳跃状态">8. 动画蓝图 - 跳跃状态</h3>
+<p>接下来配置 <strong>状态机</strong> 内的 <strong>跳跃</strong> 状态。现在需要两个跳跃状态：一是玩家原地站立并按下跳跃键时；二是玩家活动时（慢跑、蹲伏行走或行走）的跳跃状态。将使用两个不同动画，一个用于静止时，一个用于活动时。 
+</p><ol ><li class="Default"><p>在状态机图表中，将 <strong>资源浏览器</strong> 中的 <strong>Jump_From_Jog</strong> 动画拖入。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_Jump1.jpg">
+		<img class="  lazyload" alt="AnimBP_Jump1.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_Jump1.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>创建在 <strong>Jog_BS</strong> 和 <strong>Jump_From_Jog</strong> 间来回 <strong>过渡</strong>。 
+</p></li><li class="Default"><p>打开从 <strong>Jog_BS</strong> 到 <strong>Jump_From_Jog</strong> 的 <strong>过渡规则</strong> 并创建以下图表。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_Jump2.jpg">
+		<img class="  lazyload" alt="AnimBP_Jump2.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_Jump2.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>返回状态机图表，打开从 <strong>Jump_From_Jog</strong> 到 <strong>Jog_BS</strong> 的 <strong>过渡规则</strong>。 
+</p></li><li class="Default"><p>在 <strong>过渡规则</strong> 图表内，<strong>右键点击</strong> 并添加 <strong>TimeRemaining for 'Jump_From_Jog'</strong> 节点。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_Jump3.jpg">
+		<img class="  lazyload" alt="AnimBP_Jump3.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_Jump3.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>重建以下图形完成规则。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_Jump4.jpg">
+		<img class="  lazyload" alt="AnimBP_Jump4.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_Jump4.jpg" />
+</picture>
+
+</p><p>利用此可查看从慢跑到跳跃动画的剩余时间，如其小于或等于0.1，将允许从跳跃到慢跑混合空间的过渡。此为确保跳跃动画已在过渡其它状态前完成的快捷方式。 
+</p></li><li class="Default"><p>返回状态机图表，创建 <strong>Jump_From_Jog</strong> 与 <strong>Walk_BS</strong> 间的来回 <strong>过渡</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_Jump5.jpg">
+		<img class="  lazyload" alt="AnimBP_Jump5.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_Jump5.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>打开从 <strong>Walk_BS</strong> 到 <strong>Jump_From_Jog</strong> 的 <strong>过渡规则</strong> 并重建以下图表。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_Jump6.jpg">
+		<img class="  lazyload" alt="AnimBP_Jump6.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_Jump6.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>返回状态机图表，打开从 <strong>Jump_From_Jog</strong> 到 <strong>Walk_BS</strong> 的 <strong>过渡规则</strong>。 
+</p></li><li class="Default"><p>在 <strong>过渡规则</strong> 内重建以下图表。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_Jump7.jpg">
+		<img class="  lazyload" alt="AnimBP_Jump7.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_Jump7.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>返回状态机图表，将 <strong>资源浏览器</strong> 中的 <strong>Jump_From_Stand</strong> 动画拖入。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_JumpStand1.jpg">
+		<img class="  lazyload" alt="AnimBP_JumpStand1.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_JumpStand1.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>创建 <strong>Idle_Rifle_Hip</strong> 和 <strong>Jump_From_Stand</strong> 间的来回 <strong>过渡</strong>。 
+</p></li><li class="Default"><p>打开从 <strong>Idle_Rifle_Hip</strong> 到 <strong>Jump_From_Stand</strong> 的 <strong>过渡规则</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_JumpStand2.jpg">
+		<img class="  lazyload" alt="AnimBP_JumpStand2.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_JumpStand2.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>过渡规则</strong> 内重建以下图表。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_JumpStand3.jpg">
+		<img class="  lazyload" alt="AnimBP_JumpStand3.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_JumpStand3.jpg" />
+</picture>
+
+</p><p>现在检查玩家是否已按下跳跃键且未处于蹲伏。 
+</p></li><li class="Default"><p>返回状态机图表，打开从 <strong>Jump_From_Stand</strong> 到 <strong>Idle_Rifle_Hip</strong> 的 <strong>过渡规则</strong>。
+</p></li><li class="Default"><p>在 <strong>过渡规则</strong> 内重建以下图表。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_JumpStand4.jpg">
+		<img class="  lazyload" alt="AnimBP_JumpStand4.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_JumpStand4.jpg" />
+</picture>
+
+</p><p>跳跃动画完成后，将使角色返回闲置。 
+</p></li><li class="Default"><p><strong>编译</strong> 并 <strong>保存</strong> 动画蓝图。
+</p></li></ol><h3 id="9.动画蓝图-俯卧状态">9. 动画蓝图 - 俯卧状态</h3>
+<p>在最后章节中，将通过添加 <strong>俯卧</strong> 状态及其之间来回的过渡，完成 <strong>状态机</strong>。 
+</p><ol ><li class="Default"><p>在状态机图表中，将 <strong>资源浏览器</strong> 中的 <strong>Stand_To_Prone</strong> 动画拖入。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_StandToProne1.jpg">
+		<img class="  lazyload" alt="AnimBP_StandToProne1.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_StandToProne1.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>创建从 <strong>Idle_Rifle_Hip</strong> 到 <strong>Stand_To_Prone</strong> 的 <strong>过渡</strong>，然后点击 <strong>过渡规则</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_StandToProne2.jpg">
+		<img class="  lazyload" alt="AnimBP_StandToProne2.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_StandToProne2.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>打开从 <strong>Idle_Rifle_Hip</strong> 到 <strong>Stand_To_Prone</strong> 的 <strong>过渡规则</strong> 并重建以下图表。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_StandToProne3.jpg">
+		<img class="  lazyload" alt="AnimBP_StandToProne3.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_StandToProne3.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>返回状态机图表，将 <strong>资源浏览器</strong> 中的 <strong>Prone_Idle</strong> 动画拖入。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_ProneIdle1.jpg">
+		<img class="  lazyload" alt="AnimBP_ProneIdle1.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_ProneIdle1.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>创建从 <strong>Stand_To_Prone</strong> 到 <strong>Prone_Idle</strong> 的 <strong>过渡</strong>。
+</p></li><li class="Default"><p>将 <strong>资源浏览器</strong> 中的 <strong>Prone_To_Stand</strong> 动画拖入，并创建从 <strong>Prone_Idle</strong> 到 <strong>Prone_To_Stand</strong> 的 <strong>过渡</strong>。 
+</p></li><li class="Default"><p>创建从 <strong>Prone_To_Stand</strong> 到 <strong>Idle_Rifle_Hip</strong> 的 <strong>过渡</strong>。 
+</p></li><li class="Default"><p>点击从 <strong>Stand_To_Prone</strong> 到 <strong>Prone_Idle</strong> 的 <strong>过渡规则</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_ProneIdle2.jpg">
+		<img class="  lazyload" alt="AnimBP_ProneIdle2.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_ProneIdle2.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>过渡规则</strong> 的 <strong>细节</strong> 面板中， 将 <strong>BlendSetting</strong> 下的 <strong>时长（Duration）</strong> 设为 <strong>0.0</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_StandToProne1b.jpg">
+		<img class="  lazyload" alt="AnimBP_StandToProne1b.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_StandToProne1b.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>打开从 <strong>Stand_To_Prone</strong> 到 <strong>Prone_Idle</strong> 的 <strong>过渡规则</strong>。 
+</p></li><li class="Default"><p>在 <strong>过渡规则</strong> 内重建以下图表。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_ProneIdle3.jpg">
+		<img class="  lazyload" alt="AnimBP_ProneIdle3.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_ProneIdle3.jpg" />
+</picture>
+
+</p><p>将检查俯卧是否仍为 <em>True</em>，及进入闲置俯卧状态前，进入俯卧动画是否已结束。 
+</p></li><li class="Default"><p>返回状态机图表，打开从 <strong>Prone_Idle</strong> 到 <strong>Prone_To_Stand</strong> 的 <strong>过渡规则</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_ProneIdle4.jpg">
+		<img class="  lazyload" alt="AnimBP_ProneIdle4.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_ProneIdle4.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>过渡规则</strong> 内重建以下图表。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_ProneIdle5.jpg">
+		<img class="  lazyload" alt="AnimBP_ProneIdle5.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_ProneIdle5.jpg" />
+</picture>
+
+</p><p>如俯卧不再为 <em>true</em>，则开始返回站立姿势的序列。 
+</p></li><li class="Default"><p>点击从 <strong>Prone_To_Stand</strong> 到 <strong>Idle_Rifle_Hip</strong> 的 <strong>过渡规则</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_ProneToStand1.jpg">
+		<img class="  lazyload" alt="AnimBP_ProneToStand1.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_ProneToStand1.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>过渡规则</strong> 的 <strong>细节</strong> 面板中， 将 <strong>BlendSetting</strong> 下的 <strong>时长（Duration）</strong> 设为 <strong>0.0</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_ProneToStand1b.jpg">
+		<img class="  lazyload" alt="AnimBP_ProneToStand1b.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_ProneToStand1b.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>打开从 <strong>Prone_To_Stand</strong> 到 <strong>Idle_Rifle_Hip</strong> 的 <strong>过渡规则</strong> 并创建以下图表。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_ProneToStand2.jpg">
+		<img class="  lazyload" alt="AnimBP_ProneToStand2.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_ProneToStand2.jpg" />
+</picture>
+
+</p><p>请务必将 <strong>==</strong> 节点设为 <em>False</em>（不勾选），表明该 <strong>俯卧</strong> 不为True。
+</p></li><li class="Default"><p>全状态机图表应与下图相同（节点的排列可能稍有不同）。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_StateMachineFull.png" ><span><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_StateMachineFull.jpg">
+		<img class="  lazyload" alt="AnimBP_StateMachineFull.png" width="720" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/AnimBP_StateMachineFull.jpg" />
+</picture>
+</span></a></span></p>
+</div><p><em>点击图像显示完整视图。</em>
+</p></li><li class="Default"><p><strong>编译</strong> 并 <strong>保存</strong> 动画蓝图。 
+</p></li><li class="Default"><p>返回 <strong>内容浏览器</strong> 和 <strong>AnimStarterPack</strong> 文件夹，打开 <strong>Prone_To_Stand</strong> 动画。 
+</p></li><li class="Default"><p>在 <strong>动画资源细节</strong> 窗口中的 <strong>动画</strong> 部分下，将 <strong>率比例（Rate Scale）</strong> 值设为 <strong>1.4</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/ProneToStand_Rate.jpg">
+		<img class="  lazyload" alt="ProneToStand_Rate.png" data-src="../../../../Images/InteractiveExperiences/HowTo/CharacterMovement/Blueprints/ProneToStand_Rate.jpg" />
+</picture>
+
+</p><p>此操作将略微加快动画播放速度，并改善从俯卧到站立时的外观。 
+</p></li><li class="Default"><p>点击 <strong>内容浏览器</strong> 主工具栏中的 <strong>保存</strong> 按钮，保存资源和关卡。 
+</p></li><li class="Default"><p>点击 <strong>播放</strong> 按钮，在编辑器中播放。
+</p></li></ol><p>现在应已拥有完全动画化的角色，其可以不同方式在关卡内移动。角色应能行走、蹲伏行走、慢跑、跳跃（从静止或移动状态），或从站立/慢跑状态变为到俯卧状态。 
+</p><p>还有其他几种可添加到该状态机状态（例如死亡和重新加载），也可将现有动作换为自创动作。现在你应学会了在 <strong>蓝图</strong> 中设置角色动作、用 <strong>动画蓝图</strong> 定义动画状态，及通过 <strong>混合空间</strong> 混合动画的方法。 </p>
+</div>
+
+</div>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/InteractiveExperiences/HowTo/CharacterMovement/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 10:28:39 GMT -->
+</html>

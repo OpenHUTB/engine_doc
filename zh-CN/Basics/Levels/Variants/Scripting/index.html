@@ -1,0 +1,580 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/Basics/Levels/Variants/Scripting/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:00:54 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var finishButton = finishButtonTemplate;
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/Basics/Levels/Variants/Scripting/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>编写变体管理器设置脚本 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+		    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+		    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/Basics/Levels/Variants/Scripting/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/Basics/Levels/Variants/Scripting/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/Basics/Levels/Variants/Scripting/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/Basics/Levels/Variants/Scripting/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Levels/Variants/Scripting" />
+<meta name="intsourcechangelist" content="14237003" />
+<meta name="availability" content="Public" />
+<meta name="title" content="编写变体管理器设置脚本" />
+<meta name="description" content="使用编辑器脚本，并利用所有场景变体设置变体管理器。" />
+<meta name="type" content="how-to" />
+<meta name="skilllevel" content="intermediate" />
+<meta name="version" content="4.23" />
+<meta name="order" content="2" />
+<meta name="keywords" content="Enterprise" />
+<meta name="keywords" content="Datasmith" />
+<meta name="keywords" content="Manufacturing" />
+<meta name="keywords" content="Variants" />
+<meta name="crumbs" content="%ROOT%,Basics,Basics/Levels,Basics/Levels/Variants" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="编写变体管理器设置脚本" />
+	<meta property="og:description" content="使用编辑器脚本，并利用所有场景变体设置变体管理器。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">理解基础概念</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">关卡</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">使用场景变体</a>
+
+<span class="separator">></span> <span id="page">编写变体管理器设置脚本</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">编写变体管理器设置脚本</h1>
+							</div>	
+							<h2 >使用编辑器脚本，并利用所有场景变体设置变体管理器。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Intermediate"><a id="skill_link" href="../../../../SiteIndex/index.html?skills=Intermediate">Intermediate</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																																																<p>对<a id="content_link"filter-data="tag_enterprise tag_datasmith tag_manufacturing tag_variants tag_getting_started" href="../Overview/index.html" ><span>变量管理器概述</span></a>完成学习后，应知道变体管理器提供蓝图API，可在运行时用于访问其所含变体集和变体的相关信息，并可动态切换变体。变体管理器同时还公开单独的API，仅对编辑器中运行的脚本可用。可使用此纯编辑器API新建关卡变体集资产和Actor，并使用场景变体进行编程设置。
+</p><p>需在虚幻引擎项目中自动设置场景变体，以反映已在其他应用程序中创建的变体或设置时，此方法十分有用。若可将此类场景变体的数据导出为虚幻编辑器脚本系统可读取的格式，则可使用本页所述方式在虚幻引擎中设置相同场景变体。利用此法无需在变体管理器UI中手动重新编译相同变体。同时其不易出错，且可重复性更高。
+</p><p>你可以使用蓝图或Python来为变体管理器编写设置脚本。
+</p><div class="togglesection">
+	<div class="normaltitle">
+	<p>选择实现方法：</p>
+</div><div class="toggleButtons">
+	<!--
+category:paramliteral
+id:paramliteral
+label:paramliteral
+active:paramliteral
+-->
+<div class="btn btn-default btn-toggle BlueprintOrCPPSelect blueprintimplementation active_button" onclick="setSelector('BlueprintOrCPPSelect', 'blueprintimplementation');">
+    <p>Blueprints</p>
+</div><!--
+category:paramliteral
+id:paramliteral
+label:paramliteral
+active:paramliteral
+-->
+<div class="btn btn-default btn-toggle BlueprintOrCPPSelect pythonimplementation " onclick="setSelector('BlueprintOrCPPSelect', 'pythonimplementation');">
+    <p>Python</p>
+</div>
+</div>
+</div><!--
+category:paramliteral
+id:paramliteral
+content:param
+active:paramliteral
+-->
+<div class="button_content BlueprintOrCPPSelect blueprintimplementation active_button_content">
+    <div class="container">
+        <p>设置场景变体所涉及的最重要的节点位于蓝图控制板的 <strong>变量管理器（Variant Manager）</strong> 类别下。此类别中的节点可用于新建 <strong>关卡变体集（Level Variant Sets）</strong> 资产，向该资产添加变体集和变体，将Actor绑定至变体，以及采集此类Actor的属性值。
+</p><div class="note">
+	<p>目前，您无法使用编辑器脚本API为绑定Actor设置<a id="content_link"filter-data="tag_enterprise tag_datasmith tag_manufacturing tag_variants" href="../CallingFunctions/index.html" ><span>变体激活时调用函数</span></a>中所述的 <strong>函数调用方（Function Caller）</strong>。仅可使用脚本API采集和设置绑定Actor上的属性值。</p>
+</div><p>下表介绍了您可能最常用的部分节点：
+</p><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><picture>
+		<source data-srcset="./../../../../../Images/Basics/Levels/Variants/Scripting/create-level-variant-sets-asset.jpg">
+		<img class="  lazyload" alt="创建关卡变体集资产" title="Create Level Variant Sets Asset" data-src="../../../../../Images/Basics/Levels/Variants/Scripting/create-level-variant-sets-asset.jpg" />
+</picture>
+</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>创建关卡变体集资产（Create Level Variant Sets Asset）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>在内容浏览器中使用指定名称和路径新建空白 <strong>关卡变体集（Level Variant Sets）</strong><code>/Game/</code></p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><picture>
+		<source data-srcset="./../../../../../Images/Basics/Levels/Variants/Scripting/add-variant-set.jpg">
+		<img class="  lazyload" alt="添加变体集" title="Add Variant Set" data-src="../../../../../Images/Basics/Levels/Variants/Scripting/add-variant-set.jpg" />
+</picture>
+</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>添加变体集（Add Variant Set）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>将指定变体集添加到关卡变体集资产。这相当于单击变体管理器UI中的 <strong>+变体集（+ Variant Set）</strong> 按钮。请参见下列提示，以了解从头开始新建变体集的说明。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><picture>
+		<source data-srcset="./../../../../../Images/Basics/Levels/Variants/Scripting/add-actor-binding.jpg">
+		<img class="  lazyload" alt="添加Actor绑定" title="Add Actor Binding" data-src="../../../../../Images/Basics/Levels/Variants/Scripting/add-actor-binding.jpg" />
+</picture>
+</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>添加Actor绑定（Add Actor Binding）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>将指定Actor添加到指定变体。这相当于将Actor从 <strong>世界大纲视图（World Outliner）</strong> 拖放到变体管理器UI中的变体上。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><picture>
+		<source data-srcset="./../../../../../Images/Basics/Levels/Variants/Scripting/get-capturable-properties.jpg">
+		<img class="  lazyload" alt="获取可采集的属性" title="Get Capturable Properties" data-src="../../../../../Images/Basics/Levels/Variants/Scripting/get-capturable-properties.jpg" />
+</picture>
+</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>获取可采集的属性（Get Capturable Properties）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>返回变体管理器可为指定Actor控制的所有属性的名称。调用 <strong>采集属性（Capture Property）</strong> 节点时可使用任意此类值。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><picture>
+		<source data-srcset="./../../../../../Images/Basics/Levels/Variants/Scripting/capture-property.jpg">
+		<img class="  lazyload" alt="采集属性" title="Capture Property" data-src="../../../../../Images/Basics/Levels/Variants/Scripting/capture-property.jpg" />
+</picture>
+</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>采集属性（Capture Property）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>保存您为指定变体中的Actor而指定的属性值。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><picture>
+		<source data-srcset="./../../../../../Images/Basics/Levels/Variants/Scripting/add-variant.jpg">
+		<img class="  lazyload" alt="添加变体" title="Add Variant" data-src="../../../../../Images/Basics/Levels/Variants/Scripting/add-variant.jpg" />
+</picture>
+</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>添加变体（Add Variant）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>将指定变体添加为指定变体集的子级。</p>
+			</td>
+	
+</tr></tbody>
+</table><div class="tip">
+	<p>如果您需要新建变体集以添加到关卡变体集资产，或需要新建变体以添加到变体集，则可使用 <strong>从类构造对象（Construct Object from Class）</strong> 节点。在第一个输入中，指定 <strong>变体集（VariantSet）</strong> 或 <strong>变体（Variant）</strong> 类，具体取决于需创建的类。在第二个 <strong>外部（Outer）</strong> 输入中，始终使用正在设置的关卡变体集资产。最后，将输出值传递给 <strong>添加（Add）</strong> 节点。例如，此片段会新建变体集并将其添加到资产，然后新建变体并将其添加到新建变体集：
+</p><div class="lightbox">
+	<p><picture>
+		<source data-srcset="./../../../../../Images/Basics/Levels/Variants/Scripting/blueprint-creation.jpg">
+		<img class="  lazyload" alt="在蓝图中创建变体和变体集" title="Creating Variants and Variant Sets in Blueprint" data-src="../../../../../Images/Basics/Levels/Variants/Scripting/blueprint-creation.jpg" />
+</picture>
+<br /><em>点击查看大图。</em></p>
+</div>
+</div><h3 id="蓝图示例">蓝图示例</h3>
+<p>下图来自编辑器工具控件，显示了如何通过编程设置变体管理器。首先，创建要使用的新Actor。然后，新建关卡变体集资产并使用新的变体集对其进行设置。最后，向此变体集添加两个变体：一个为Actor在其中处于可见状态的变体，另一个为Actor在其中处于隐藏状态的变体。
+</p><div class="lightbox">
+	<p><picture>
+		<source data-srcset="./../../../../../Images/Basics/Levels/Variants/Scripting/blueprint-example.jpg">
+		<img class="  lazyload" alt="蓝图示例" title="Blueprint example" data-src="../../../../../Images/Basics/Levels/Variants/Scripting/blueprint-example.jpg" />
+</picture>
+<br /><em>点击查看大图。</em></p>
+</div><p>运行此示例后，您将看到关卡起始点处新建了立方体。您还将拥有新的关卡变体集资产，它们使您能够通过切换变体来显示和隐藏此立方体。</p>
+
+    </div>
+</div><!--
+category:paramliteral
+id:paramliteral
+content:param
+active:paramliteral
+-->
+<div class="button_content BlueprintOrCPPSelect pythonimplementation ">
+    <div class="container">
+        <p>设置场景变体涉及最重要的类为 <code>unreal.VariantManagerLibrary</code>。利用此类可新建 <strong>关卡变体集</strong> 资产，向该资产添加变体集和变体，将Actor绑定至变体，以及捕捉此类Actor的属性值。
+</p><div class="note">
+	<p>目前不可使用编辑器脚本API设置拥有 <strong>函数调用器</strong> 的绑定Actor，<a id="content_link"filter-data="tag_enterprise tag_datasmith tag_manufacturing tag_variants" href="../CallingFunctions/index.html" ><span>变体激活时调用函数</span></a>中对此调用器进行了描述。仅可使用脚本API捕捉和设置绑定Actor上的属性值。</p>
+</div><p>下表对最常用函数进行说明。欲了解 <code>VariantManagerLibrary</code> 提供的此类函数的详情，参阅<a id="content_link" href="https://docs.unrealengine.com/en-US/PythonAPI" ><span>Python API说明</span></a>。
+</p><table >
+	<caption></caption>
+	<col align=""/>
+	<thead>
+		<tr >
+
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><code>unreal.VariantManagerLibrary.create&#95;level&#95;variant&#95;sets&#95;asset(asset&#95;name, asset&#95;path)</code><br />在内容浏览器中，使用指定名称和路径，新建一个空 <strong>关卡变体集</strong> 资产。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><code>unreal.VariantManagerLibrary.add&#95;variant&#95;set(level&#95;variant&#95;sets, variant&#95;set)</code><br />向关卡变体集资产添加指定变体集。
+这相当于单击变体管理器UI中的 <strong>+变体集（+ Variant Set）</strong> 按钮。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><code>unreal.VariantManagerLibrary.add&#95;actor&#95;binding(variant, actor)</code><br />向指定变体添加指定Actor。这相当于将Actor从 <strong>世界大纲视图（World Outliner）</strong> 拖放到变体管理器UI中的变体上。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><code>unreal.VariantManagerLibrary.get&#95;capturable&#95;properties(actor&#95;or&#95;class)</code><br />针对指定Actor，返回变体管理器可控制的所有属性名称。调用 <code>capture&#95;property()</code> 时可使用任意这些值。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><code>unreal.VariantManagerLibrary.capture&#95;property(variant, actor, property&#95;path)</code><br />保存为指定变体中的Actor指定的属性值。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><code>unreal.VariantManagerLibrary.add&#95;variant(variant&#95;set, variant)</code><br />添加指定变体作为指定变体集的子级。</p>
+			</td>
+	
+</tr></tbody>
+</table><h3 id="python示例">Python示例</h3>
+<p>下例显示了从头设置新 <strong>关卡变体集</strong> 资产的方法。
+</p><p>首先设置由立方体和球体组成的场景，然后设置变体管理器以修改此类Actor的位置和可视性。
+</p><pre class="prettyprint"><code>import math
+import unreal
+
+# 此段脚本将设置包含10个父Actor的基本起始场景。
+# 各父Actor在场景层级中拥有两个子Actor：一个球体和一个立方体。
+sphere&#95;mesh = unreal.EditorAssetLibrary.load&#95;asset('/Engine/BasicShapes/Sphere')
+cube&#95;mesh = unreal.EditorAssetLibrary.load&#95;asset('/Engine/BasicShapes/Cube')
+
+parent&#95;actors = &#91;&#93;
+sphere&#95;actors = &#91;&#93;
+cube&#95;actors = &#91;&#93;
+for i in range(0,10):
+    parent&#95;actor = unreal.EditorLevelLibrary.spawn&#95;actor&#95;from&#95;class(unreal.StaticMeshActor, unreal.Vector(0, 0, 0), unreal.Rotator(0, 0, 0))
+    parent&#95;actor.root&#95;component.set&#95;editor&#95;property("mobility", unreal.ComponentMobility.MOVABLE)
+    parent&#95;actor.set&#95;actor&#95;label("actor&#95;" + str(i).zfill(3))
+    sphere&#95;actor = unreal.EditorLevelLibrary.spawn&#95;actor&#95;from&#95;class(unreal.StaticMeshActor, unreal.Vector(0, 0, 0), unreal.Rotator(0, 0, 0))
+    sphere&#95;actor.static&#95;mesh&#95;component.set&#95;static&#95;mesh(sphere&#95;mesh)
+    sphere&#95;actor.root&#95;component.set&#95;editor&#95;property("mobility", unreal.ComponentMobility.MOVABLE)
+    sphere&#95;actor.attach&#95;to&#95;actor(parent&#95;actor, unreal.Name(), unreal.AttachmentRule.KEEP&#95;WORLD, unreal.AttachmentRule.KEEP&#95;WORLD, unreal.AttachmentRule.KEEP&#95;WORLD, False)
+    sphere&#95;actor.set&#95;actor&#95;label("sphere&#95;" + str(i).zfill(3))
+    cube&#95;actor = unreal.EditorLevelLibrary.spawn&#95;actor&#95;from&#95;class(unreal.StaticMeshActor, unreal.Vector(0, 0, 0), unreal.Rotator(0, 0, 0))
+    cube&#95;actor.static&#95;mesh&#95;component.set&#95;static&#95;mesh(cube&#95;mesh)
+    cube&#95;actor.root&#95;component.set&#95;editor&#95;property("mobility", unreal.ComponentMobility.MOVABLE)
+    cube&#95;actor.attach&#95;to&#95;component(parent&#95;actor.root&#95;component, unreal.Name(), unreal.AttachmentRule.KEEP&#95;WORLD, unreal.AttachmentRule.KEEP&#95;WORLD, unreal.AttachmentRule.KEEP&#95;WORLD, False)
+    cube&#95;actor.set&#95;actor&#95;label("cube&#95;" + str(i).zfill(3))
+    parent&#95;actors.append(parent&#95;actor)
+    sphere&#95;actors.append(sphere&#95;actor)
+    cube&#95;actors.append(cube&#95;actor)
+
+# 在内容浏览器中创建使用指定命名和路径的关卡变体集资产。
+# 此路径固定以 /Game/ 开头。
+lvs = unreal.VariantManagerLibrary.create&#95;level&#95;variant&#95;sets&#95;asset('ProceduralVariants', '/Game')
+
+# 新建变体集以管理位置变体。
+position&#95;variant&#95;set = unreal.VariantSet()
+position&#95;variant&#95;set.set&#95;display&#95;text('Position')
+# 向关卡变体集资产添加空白变体集。
+unreal.VariantManagerLibrary.add&#95;variant&#95;set(lvs, position&#95;variant&#95;set)
+
+# 此段将设置新变体，将父Actor排成一行。
+# 首先创建变体。
+position&#95;variant&#95;0 = unreal.Variant()
+position&#95;variant&#95;0.set&#95;display&#95;text('Line')
+# 对于各父Actor...
+for i, actor in enumerate(parent&#95;actors):
+    # 沿X轴将Actor排成一行。
+    actor.set&#95;actor&#95;location&#95;and&#95;rotation(unreal.Vector(i&#42;200, 0, 0), unreal.Rotator(0, 0, 0), False, True)
+    # 将Actor绑定到变体。
+    unreal.VariantManagerLibrary.add&#95;actor&#95;binding(position&#95;variant&#95;0, actor)
+    # 捕捉Actor的静态网格体组件相对位置和旋转属性，并存储其当前值。
+    unreal.VariantManagerLibrary.capture&#95;property(position&#95;variant&#95;0, actor, 'Static Mesh Component / Relative Location')
+    unreal.VariantManagerLibrary.capture&#95;property(position&#95;variant&#95;0, actor, 'Static Mesh Component / Relative Rotation')
+# 设置变体后将其添加到变体集。
+unreal.VariantManagerLibrary.add&#95;variant(position&#95;variant&#95;set, position&#95;variant&#95;0)
+
+# 此段将以同样流程设置第二个变体。
+# 但其会将父Actor围成一圈，而非排成一行。
+position&#95;variant&#95;1 = unreal.Variant()
+position&#95;variant&#95;1.set&#95;display&#95;text('Circle')
+for i, actor in enumerate(parent&#95;actors):
+    actor.set&#95;actor&#95;location&#95;and&#95;rotation(unreal.Vector(1000&#42;math.cos(i&#42;360.0/(len(parent&#95;actors)-1)), 1000&#42;math.sin(i&#42;360.0/(len(parent&#95;actors)-1)), 0), unreal.Rotator(0, 0, 0), False, True)
+    unreal.VariantManagerLibrary.add&#95;actor&#95;binding(position&#95;variant&#95;1, actor)
+    unreal.VariantManagerLibrary.capture&#95;property(position&#95;variant&#95;1, actor, 'Static Mesh Component / Relative Location')
+    unreal.VariantManagerLibrary.capture&#95;property(position&#95;variant&#95;1, actor, 'Static Mesh Component / Relative Rotation')
+unreal.VariantManagerLibrary.add&#95;variant(position&#95;variant&#95;set, position&#95;variant&#95;1)
+
+# 新建变体集，以管理显示和隐藏不同形状的Actor。
+shape&#95;variant&#95;set = unreal.VariantSet()
+shape&#95;variant&#95;set.set&#95;display&#95;text('Shape')
+unreal.VariantManagerLibrary.add&#95;variant&#95;set(lvs, shape&#95;variant&#95;set)
+
+# 创建两个变体，一个显示球体和隐藏立方体，另一个
+# 显示立方体并隐藏球体。
+shape&#95;variant&#95;0 = unreal.Variant()
+shape&#95;variant&#95;0.set&#95;display&#95;text('Sphere')
+shape&#95;variant&#95;1 = unreal.Variant()
+shape&#95;variant&#95;1.set&#95;display&#95;text('Cube')
+# 将各球体Actor绑定至这两个变体，捕捉其静态网格体组件的可视属性。
+for i, actor in enumerate(sphere&#95;actors):
+    actor.root&#95;component.set&#95;visibility(True)
+    unreal.VariantManagerLibrary.add&#95;actor&#95;binding(shape&#95;variant&#95;0, actor)
+    unreal.VariantManagerLibrary.capture&#95;property(shape&#95;variant&#95;0, actor, 'Static Mesh Component / Visible')
+    actor.root&#95;component.set&#95;visibility(False)
+    unreal.VariantManagerLibrary.add&#95;actor&#95;binding(shape&#95;variant&#95;1, actor)
+    unreal.VariantManagerLibrary.capture&#95;property(shape&#95;variant&#95;1, actor, 'Static Mesh Component / Visible')
+# 将各球体Actor绑定至这两个变体，捕捉其静态网格体组件的可视属性，
+# 但保存与上述球体Actor相反的可视性值。
+for i, actor in enumerate(cube&#95;actors):
+    actor.root&#95;component.set&#95;visibility(False)
+    unreal.VariantManagerLibrary.add&#95;actor&#95;binding(shape&#95;variant&#95;0, actor)
+    unreal.VariantManagerLibrary.capture&#95;property(shape&#95;variant&#95;0, actor, 'Static Mesh Component / Visible')
+    actor.root&#95;component.set&#95;visibility(True)
+    unreal.VariantManagerLibrary.add&#95;actor&#95;binding(shape&#95;variant&#95;1, actor)
+    unreal.VariantManagerLibrary.capture&#95;property(shape&#95;variant&#95;1, actor, 'Static Mesh Component / Visible')
+# 最后，向变体集添加这两个变体。
+unreal.VariantManagerLibrary.add&#95;variant(shape&#95;variant&#95;set, shape&#95;variant&#95;0)
+unreal.VariantManagerLibrary.add&#95;variant(shape&#95;variant&#95;set, shape&#95;variant&#95;1) 
+
+# 向当前关卡添加关卡变体集资产，以便运行时在蓝图中进行使用。
+lvs&#95;actor = unreal.VariantManagerLibrary.create&#95;level&#95;variant&#95;sets&#95;actor(lvs)</code></pre>
+<p>结果如下：两个变体集，均含两个变体。
+</p><ul ><li class="Default"><p>第一个变体集切换Actor在3D空间中的位置，将其排成直线或圆圈。
+</p></li><li class="Default"><p>第二个变体集在立方体网格体与球体网格体之间切换Actor。
+</p></li></ul><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_0_e3o0gm8f_344
+{
+	margin: 0px;
+	width: 78%;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_0_e3o0gm8f_344:after
+{
+	content: "";
+	padding-top: 56.25%;
+	display: block;
+}
+</style> 
+<div id="player_0_e3o0gm8f_344"> 
+	<div id="playerContainer_0_e3o0gm8f_344" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/0_e3o0gm8f/embed.html"></iframe>
+	</div>
+</div>
+
+
+    </div>
+</div>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Enterprise">Enterprise</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Datasmith">Datasmith</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Manufacturing">Manufacturing</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Variants">Variants</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/Basics/Levels/Variants/Scripting/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:00:58 GMT -->
+</html>

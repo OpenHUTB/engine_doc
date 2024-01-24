@@ -1,0 +1,573 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/InteractiveExperiences/UMG/HowTo/DragAndDrop/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:19:56 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var finishButton = finishButtonTemplate;
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/InteractiveExperiences/UMG/HowTo/DragAndDrop/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>创建拖放UI | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+		    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+		    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/InteractiveExperiences/UMG/HowTo/DragAndDrop/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/InteractiveExperiences/UMG/HowTo/DragAndDrop/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/InteractiveExperiences/UMG/HowTo/DragAndDrop/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/InteractiveExperiences/UMG/HowTo/DragAndDrop/" hreflang="ko" />
+
+	<meta name="redirect" content="RenderingAndGraphics/UMG/HowTo/DragAndDrop" />
+<meta name="redirect" content="Engine/UMG/HowTo/DragAndDrop" />
+<meta name="intsourcechangelist" content="14445191" />
+<meta name="availability" content="Public" />
+<meta name="title" content="创建拖放UI" />
+<meta name="description" content="介绍如何使用UMG创建可拖放UI控件。" />
+<meta name="type" content="how-to" />
+<meta name="version" content="4.22" />
+<meta name="parent" content="InteractiveExperiences/UMG/HowTo" />
+<meta name="keywords" content="UMG UI Designer" />
+<meta name="keywords" content="UI" />
+<meta name="skilllevel" content="Intermediate" />
+<meta name="order" content="6" />
+<meta name="related" content="InteractiveExperiences/UMG/UserGuide" />
+<meta name="related" content="InteractiveExperiences/UMG" />
+<meta name="course" content="your-first-hour-with-umg?lang=zh-CN|UMG入门|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fclass-not-launched%2Fyour-first-hour-with-umg%2FClass-ImageDesktop---1200x675-1200x675-735cc45bfbdaf5ac3ea8eff1ed9dad69a95418d5.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fclass-not-launched%2Fyour-first-hour-with-umg%2F127-Your-First-Hour-with-UMG%402x-1000x1000-02bf280e8a64904345e724062a7d9258ea826820.png?resize=1&amp;w=300" />
+<meta name="course" content="interactive-material-swaps-using-blueprints?lang=zh-CN|蓝图：可交互材质切换|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Finteractive-material-swaps-using-blueprints%2F406---Hero2-1920x1080-ce26b6199cf620364149d2d934c73ae30e983110.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Finteractive-material-swaps-using-blueprints%2FInteractive-Material-Swaps-Using-Blueprints-1000x1000-21158a5fe67365e3bf5db49712b52482382f15ac.png?resize=1&amp;w=300" />
+<meta name="course" content="making-a-blueprint-product-configurator?lang=zh-CN|企业级蓝图开发|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fblueprint-for-enterprise%2F301-Blueprints-%281200X675%29-1200x675-d140b8a0b13b05c0619e35e1076b4c82e4a4b855.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fblueprint-for-enterprise%2FBlueprint-for-Enterprise-1000x1000-13caa11b8e5c5e91506a8dd63b39d247318c3208.png?resize=1&amp;w=300" />
+<meta name="crumbs" content="%ROOT%,InteractiveExperiences,InteractiveExperiences/UMG,InteractiveExperiences/UMG/HowTo" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="创建拖放UI" />
+	<meta property="og:description" content="介绍如何使用UMG创建可拖放UI控件。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">创建交互体验</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">UMG UI设计器</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">UMG UI 设计器 - 操作指南</a>
+
+<span class="separator">></span> <span id="page">创建拖放UI</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">创建拖放UI</h1>
+							</div>	
+							<h2 >介绍如何使用UMG创建可拖放UI控件。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Intermediate"><a id="skill_link" href="../../../../SiteIndex/index.html?skills=Intermediate">Intermediate</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																														<div id="seeAlso">
+	<div style="position:relative;">
+		<div id="title">参见</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<p>
+						<a id="related_link" href="../../UserGuide/index.html" title="关于使用虚幻示意图形创建UI元素的指南。">UMG界面设计器用户指南</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../index.html" title="本文是使用虚幻示意图形来创建UI元素的指南。">UMG UI设计器</a>
+					</p>
+				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																		<div id="courses">
+	<div style="position:relative;">
+		<div id="title">相关课程</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<div name="your-first-hour-with-umg?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/your-first-hour-with-umg?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/class-not-launched/your-first-hour-with-umg/Class-ImageDesktop---1200x675-1200x675-735cc45bfbdaf5ac3ea8eff1ed9dad?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/class-not-launched/your-first-hour-with-umg/127-Your-First-Hour-with-UMG%402x-1000x1000-02bf280e8a64904345e724062a7d9258ea826820.8ebfe4b.delay?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="your-first-hour-with-umg?lang=zh-CN_title">
+				UMG入门
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="interactive-material-swaps-using-blueprints?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/interactive-material-swaps-using-blueprints?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/interactive-material-swaps-using-blueprints/406---Hero2-1920x1080-ce26b6199cf620364149d2d934c73ae30e983110.8314f8?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/interactive-material-swaps-using-blueprints/Interactive-Material-Swaps-Using-Blueprints-1000x1000-21158a5fe67365e3bf5db49712b52482382f15ac.8?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="interactive-material-swaps-using-blueprints?lang=zh-CN_title">
+				蓝图：可交互材质切换
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="making-a-blueprint-product-configurator?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/making-a-blueprint-product-configurator?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/blueprint-for-enterprise/301-Blueprints-(1200X675)-1200x675-d140b8a0b13b05c0619e35e1076b4c82e4a4b855.8344f86.dela?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/blueprint-for-enterprise/Blueprint-for-Enterprise-1000x1000-13caa11b8e5c5e91506a8dd63b39d247318c3208.836fe4b.dela?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="making-a-blueprint-product-configurator?lang=zh-CN_title">
+				企业级蓝图开发
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																								<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#1-项目设置">1 - 项目设置</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#2-设置生命值条控件">2 - 设置生命值条控件</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#2.1-编写onmousebuttondown功能的脚本">2.1 - 编写OnMouseButtonDown功能的脚本</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#2.2-编写ondragdetect功能的脚本">2.2 - 编写OnDragDetect功能的脚本</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#3-设置ondrop函数">3 - 设置OnDrop函数</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#4-编写dragwidget脚本">4 - 编写Drag Widget脚本</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#5-向视口添加hud控件">5 - 向视口添加HUD控件</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#最终结果">最终结果</a></p>
+	</li>					</ul>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>在项目中，玩家有时需要通过屏幕上的拖放操作与UI元素进行交互。这可以是自定义界面布局（放置体力条或单元框架），或与物品栏画面等游戏系统交互（添加/移除物品）。使用UMG，便可以借助 **DragAndDropOperation**节点创建这些类型的交互，并基于交互方法覆盖部分继承的蓝图函数。
+</p><p>在此例中，我们将实现一个玩家能用鼠标左键进行拖动和放置的体力条。在此指南的最后，您将拥有一个可以在视口中进行四处拖动、并放置到新位置的UI控件。
+</p><div class="note">
+	<p>在此教程中我们将不会制作一个拥有功能的体力条，因为这仅作展示之用。请参阅<a id="content_link"filter-data="tag_umg_ui_designer" href="../../QuickStart/index.html" ><span>显示生命值、能量和子弹</span></a>，了解如何创建HUD。 </p>
+</div><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_1_3hldpl0p_11
+{
+	margin: 0px;
+	width: 75%;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_1_3hldpl0p_11:after
+{
+	content: "";
+	padding-top: 56.25%;
+	display: block;
+}
+</style> 
+<div id="player_1_3hldpl0p_11"> 
+	<div id="playerContainer_1_3hldpl0p_11" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/1_3hldpl0p/embed.html"></iframe>
+	</div>
+</div>
+<h2 id="1-项目设置">1 - 项目设置</h2>
+<p>开始之前，我们需要在项目设置阶段创建一些资源。在本示例中，需要在HUD中拖放的元素是 <strong>HealthBar</strong>。 
+为实现此功能，我们将以生命值条的形状创建一个 <strong>DragWidget</strong>，而不拖动实际的生命值条。这样可以将生命值条编程和拖放函数区分开来。 
+</p><div class="note">
+	<p>在本操作指南中，我们现在使用 <strong>蓝图第三人称</strong> 模板项目。</p>
+</div><ol ><li class="Default"><p>在 <strong>内容浏览器</strong> 中，创建三个 <strong>控件蓝图</strong>，分别名为：<strong>DragWidget</strong>、<strong>HealthBar</strong> 和 <strong>HUD</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/UMG/HowTo/DragAndDrop/DragDrop1.jpg">
+		<img class="  lazyload" alt="DragDrop1.png" data-src="../../../../../Images/InteractiveExperiences/UMG/HowTo/DragAndDrop/DragDrop1.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>内容浏览器</strong> 中单击右键，为 <strong>DragDropOperation</strong> 类创建新的 <strong>蓝图类</strong>，命名为 <strong>WidgetDrag</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/UMG/HowTo/DragAndDrop/DragDrop2.jpg">
+		<img class="  lazyload" alt="DragDrop2.png" data-src="../../../../../Images/InteractiveExperiences/UMG/HowTo/DragAndDrop/DragDrop2.jpg" />
+</picture>
+
+</p><p>这个专用蓝图类使我们能够在拖放操作的过程中传递信息。
+</p></li><li class="Default"><p>打开 <strong>WidgetDrag</strong> 蓝图，创建 <strong>用户控件</strong> 变量，命名为 <strong>WidgetReference</strong>。选中 <strong>实例可编辑（Instance Editable）</strong> 和 <strong>生成时公开（Expose on Spawn）</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/UMG/HowTo/DragAndDrop/DragDrop3a1.jpg">
+		<img class="  lazyload" alt="DragDrop3a1.png" data-src="../../../../../Images/InteractiveExperiences/UMG/HowTo/DragAndDrop/DragDrop3a1.jpg" />
+</picture>
+
+</p><p>这将用于存放我们想要在屏幕上四处拖动的UMG控件。
+</p></li><li class="Default"><p>创建 <strong>矢量2D</strong> 变量，命名为 <strong>DragOffset</strong>。选中 <strong>实例可编辑（Instance Editable）</strong> 和 <strong>生成时公开（Expose on Spawn）</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/UMG/HowTo/DragAndDrop/DragDrop3b1.jpg">
+		<img class="  lazyload" alt="DragDrop3b1.png" data-src="../../../../../Images/InteractiveExperiences/UMG/HowTo/DragAndDrop/DragDrop3b1.jpg" />
+</picture>
+
+</p><p>这会使位置从我们开始拖放控件的位置偏移。<br /></p></li><li class="Default"><p><strong>编译</strong> 并 <strong>保存</strong> <strong>WidgetDrag</strong> 蓝图。 
+</p></li><li class="Default"><p>打开 <strong>DragWidget</strong> 蓝图，创建 <strong>用户控件</strong> 变量，命名为 <strong>WidgetReference</strong>。选中 <strong>实例可编辑（Instance Editable）</strong> 和 <strong>生成时公开（Expose on Spawn）</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/UMG/HowTo/DragAndDrop/UpdatedDragDrop2.1.jpg">
+		<img class="  lazyload" alt="UpdatedDragDrop2.1.png" data-src="../../../../../Images/InteractiveExperiences/UMG/HowTo/DragAndDrop/UpdatedDragDrop2.1.jpg" />
+</picture>
+
+</p></li><li class="Default"><p><strong>编译</strong> 并 <strong>保存</strong> <strong>DragWidget</strong> 蓝图。
+</p></li></ol><p>项目设置完成后，接下来开始处理HealthBar控件蓝图，这是我们希望进行拖拽的UI元素。
+</p><h2 id="2-设置生命值条控件">2 - 设置生命值条控件</h2>
+<p>在这步中，我们将决定何时按下鼠标左键，并保存其在屏幕空间中按下的位置。我们还使用 <strong>DetectDragIfPressed</strong> 节点来确定玩家是否使用指定键进行拖拽。
+</p><ol ><li class="Default"><p>打开 <strong>HealthBar</strong> 控件蓝图，删除 <strong>层级（Hierarchy）</strong> 窗口中的 <strong>画布面板</strong>。
+</p></li><li class="Default"><p>添加 <strong>缩放框</strong>，并为这个框添加 <strong>进度条</strong>。在缩放框的 <strong>细节（Details）</strong> 面板中，将 <strong>宽度（Width）</strong> 和 <strong>高度覆盖（Height Override）</strong> 设为 <strong>500x50</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/UMG/HowTo/DragAndDrop/DragDrop4a.jpg">
+		<img class="  lazyload" alt="DragDrop4a.png" data-src="../../../../../Images/InteractiveExperiences/UMG/HowTo/DragAndDrop/DragDrop4a.jpg" />
+</picture>
+
+</p><p>您还可以通过将预览设置为 <strong>适应屏幕（Desired on Screen）</strong>，调整进度条的样式。然后，将 <strong>百分比（Percent）</strong> 设为 <strong>1.0</strong>，填充进度条并改变它的颜色。<br /></p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/UMG/HowTo/DragAndDrop/DragDrop4b.jpg">
+		<img class="  lazyload" alt="DragDrop4b.png" data-src="../../../../../Images/InteractiveExperiences/UMG/HowTo/DragAndDrop/DragDrop4b.jpg" />
+</picture>
+
+</p></li></ol><h3 id="2.1-编写onmousebuttondown功能的脚本">2.1 - 编写OnMouseButtonDown功能的脚本</h3>
+<p>这一步使我们能够确定玩家是否在拖动鼠标左键。 
+</p><ol ><li class="Default"><p>在 <strong>事件图表</strong> 中，添加 <strong>OnMouseButtonDown</strong> 和 <strong>OnDragDetected</strong> 覆盖。这样会为事件图表中的每个覆盖创建选项卡。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/UMG/HowTo/DragAndDrop/DragDrop5.1.jpg">
+		<img class="  lazyload" alt="DragDrop5.1.png" data-src="../../../../../Images/InteractiveExperiences/UMG/HowTo/DragAndDrop/DragDrop5.1.jpg" />
+</picture>
+
+</p><p>调用自定义脚本需要置换几个函数。鼠标键按下时将进行一些检查，还将检查出现控件拖动时发生的状况。
+</p></li><li class="Default"><p>选择 <strong>OnMouseButtonDown</strong> 选项卡。从 <strong>OnMouseButtonDown</strong> 节点上 <strong>我的几何结构（My Geometry）</strong> 引脚拖出引线并添加 <strong>绝对到局部（Absolute to Local）</strong> 节点。
+</p></li><li class="Default"><p>从 <strong>鼠标事件（Mouse Event）</strong> 引脚拖出引线，添加 <strong>获取屏幕空间位置（Get Screen Space Position）</strong> 节点，并将返回值连接到 <strong>绝对坐标（Absolute Coordinate）</strong> 引脚。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/UMG/HowTo/DragAndDrop/DragDrop6.jpg">
+		<img class="  lazyload" alt="DragDrop6.png" data-src="../../../../../Images/InteractiveExperiences/UMG/HowTo/DragAndDrop/DragDrop6.jpg" />
+</picture>
+
+</p><p>此操作会将生命值条控件的绝对坐标转换为局部空间，原理是 
+获取鼠标按钮注册按下鼠标键的屏幕位置。这样会将位置存储为变量，以便我们确定玩家实际点击控件的位置以及放下控件的位置。<br /></p></li><li class="Default"><p>右键单击 <strong>绝对到局部（Absolute to Local）</strong> 节点的 <strong>返回值（Return Value）</strong>，并选择 <strong>提升为变量（Promote to Variable）</strong>。将变量命名为 <strong>拖拽偏移（Drag Offset）</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/UMG/HowTo/DragAndDrop/DragDrop7.jpg">
+		<img class="  lazyload" alt="DragDrop7.png" data-src="../../../../../Images/InteractiveExperiences/UMG/HowTo/DragAndDrop/DragDrop7.jpg" />
+</picture>
+
+</p><div class="note">
+	<p>如果看到OnMouseButtonDown节点出现错误，不必担心。编写完这个功能后，错误就会消失。</p>
+</div></li><li class="Default"><p>在图中单击右键，并添加 <strong>按下后检测拖拽（Detect Drag if Pressed）</strong> 节点。将 <strong>拖拽键（Drag Key）</strong> 设置为 <strong>鼠标左键（Left Mouse Button）</strong>。
+</p></li><li class="Default"><p>完成其余引脚的连接。 
+</p><ul ><li class="Default"><p>将 <strong>鼠标事件（Mouse Event）</strong> 连接到 <strong>指针事件（Pointer Event）</strong>。 
+</p></li><li class="Default"><p>将 <strong>按下后检测拖拽（Detect Drag if Pressed）</strong> 的 <strong>返回值（Return Value）</strong> 引脚连接到 <strong>返回节点</strong>
+</p></li><li class="Default"><p>将四个节点的 <strong>执行（Exec）</strong> 引脚连接起来。
+</p></li></ul><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/UMG/HowTo/DragAndDrop/DragDrop8.jpg">
+		<img class="  lazyload" alt="DragDrop8.png" data-src="../../../../../Images/InteractiveExperiences/UMG/HowTo/DragAndDrop/DragDrop8.jpg" />
+</picture>
+
+</p><p>这将确定玩家是否拖拽鼠标左键，从而启动OnDragDetected脚本。
+</p></li><li class="Default"><p><strong>编译</strong> 并 <strong>保存</strong> <strong>HealthBar</strong> 蓝图。
+</p></li></ol><h3 id="2.2-编写ondragdetect功能的脚本">2.2 - 编写OnDragDetect功能的脚本</h3>
+<p>在这步中，我们将决定玩家实际在屏幕上拖动HealthBar时发生的状况。
+</p><ol ><li class="Default"><p>选择 <strong>OnDragDetected</strong> 选项卡。在 <strong>OnDragDetected</strong> 节点上单击右键并添加 <strong>创建控件（Create Widget）</strong> 节点。将 <strong>类（Class）</strong> 设置为 <strong>拖拽控件（Drag Widget）</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/UMG/HowTo/DragAndDrop/UpdatedDragDrop1.jpg">
+		<img class="  lazyload" alt="UpdatedDragDrop1.png" data-src="../../../../../Images/InteractiveExperiences/UMG/HowTo/DragAndDrop/UpdatedDragDrop1.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>从 <strong>控件引用（Widget Reference）</strong> 引脚连接 <strong>Self</strong> 节点。将返回值 <strong>提升</strong> 为变量，命名为 <strong>已拖拽控件（Dragged Widget）</strong> 并连接引脚。<br /></p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/UMG/HowTo/DragAndDrop/UpdatedDragDrop3.jpg">
+		<img class="  lazyload" alt="UpdatedDragDrop3.png" data-src="../../../../../Images/InteractiveExperiences/UMG/HowTo/DragAndDrop/UpdatedDragDrop3.jpg" />
+</picture>
+
+</p><p>现在，当我们创建拖拽控件时，它将引用现有的HealthBar控件。我们还会将虚拟拖拽控件提升为变量，以便稍后访问它，并在选择放下控件时从显示画面中将它移除。
+</p></li><li class="Default"><p>单击右键并创建 <strong>Drag &amp; Drop Operation</strong> 节点。将 <strong>类（Class）</strong> 设置为 <strong>控件拖拽（Widget Drag）</strong>，并将 <strong>枢轴（Pivot）</strong> 设为 <strong>鼠标按下（Mouse Down）</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/UMG/HowTo/DragAndDrop/UpdatedDragDrop4.jpg">
+		<img class="  lazyload" alt="UpdatedDragDrop4.png" data-src="../../../../../Images/InteractiveExperiences/UMG/HowTo/DragAndDrop/UpdatedDragDrop4.jpg" />
+</picture>
+
+</p><p>如果相对于指针拖拽，枢轴将确定在执行拖拽操作时拖拽控件显示（Drag Widget Visual）应出现的位置。
+</p></li><li class="Default"><p>将以下节点连接到 <strong>DragAndDropOperation</strong> 节点引脚。 
+</p><ul ><li class="Default"><p>从 <strong>被拖拽控件设置（Dragged Widget Set）</strong> 到 <strong>返回节点</strong> 的 <strong>执行</strong> 线
+</p></li><li class="Default"><p><strong>Self</strong> 到 <strong>控件引用（Widget Reference）</strong>
+</p></li><li class="Default"><p><strong>被拖拽控件（Dragged Widget）</strong> 到 <strong>默认拖拽显示（Default Drag Visual）</strong>
+</p></li><li class="Default"><p><strong>拖拽偏移（Drag Offset）</strong> 到 <strong>拖拽偏移（Drag Offset）</strong>
+</p></li></ul><p><span class="non-localized"><a id="content_link" href="../../../../../Images/InteractiveExperiences/UMG/HowTo/DragAndDrop/UpdatedDragDrop5.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/UMG/HowTo/DragAndDrop/UpdatedDragDrop5.jpg">
+		<img class="  lazyload" alt="UpdatedDragDrop5.png" data-src="../../../../../Images/InteractiveExperiences/UMG/HowTo/DragAndDrop/UpdatedDragDrop5.jpg" />
+</picture>
+</span></a></span>
+</p><p>前文中我们说明了哪个控件蓝图是引用，拖动可视应该是什么，并提供了一个开始拖动的偏移。默认情况下，节点上有一个偏移引脚；但我们使用自己的计算来确定按下鼠标按钮时要开始偏移的位置。
+</p></li><li class="Default"><p><strong>编译</strong> 并 <strong>保存</strong> <strong>HealthBar</strong> 蓝图。
+</p></li></ol><p>接下来需要确定玩家按下鼠标左键时应该发生的操作并执行OnDrop函数。 
+</p><h2 id="3-设置ondrop函数">3 - 设置OnDrop函数</h2>
+<p>这里，我们设置主 <strong>HUD</strong> 控件蓝图，并覆盖我们执行 <strong>OnDrop</strong> 函数时要发生的操作。
+</p><ol ><li class="Default"><p>打开 <strong>HUD</strong> 控件蓝图。在 <strong>画布面板</strong> 的 <strong>细节（Details）</strong> 面板中，将 <strong>可视性（Visibility）</strong> 设为 <strong>可见（Visible）</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/UMG/HowTo/DragAndDrop/DragDrop13.jpg">
+		<img class="  lazyload" alt="DragDrop13.png" data-src="../../../../../Images/InteractiveExperiences/UMG/HowTo/DragAndDrop/DragDrop13.jpg" />
+</picture>
+
+</p><p>我们在HealthBar控件内部编写了拖拽检测脚本；但松开鼠标左键时，我们希望将生命值条放到HUD控件蓝图中。为了让HUD接收到命中检测，需要让面板可见。 
+</p></li><li class="Default"><p>在 <strong>调色板（Palette）</strong> 窗口中，将 <strong>HealthBar</strong> 控件添加到画布。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/UMG/HowTo/DragAndDrop/DragDrop14.jpg">
+		<img class="  lazyload" alt="DragDrop14.png" data-src="../../../../../Images/InteractiveExperiences/UMG/HowTo/DragAndDrop/DragDrop14.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>事件图表</strong> 中，从 <strong>我的蓝图（My Blueprint）</strong> 面板添加 <strong>OnDrop</strong> 函数覆盖。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/UMG/HowTo/DragAndDrop/DragDrop15.jpg">
+		<img class="  lazyload" alt="DragDrop15.png" data-src="../../../../../Images/InteractiveExperiences/UMG/HowTo/DragAndDrop/DragDrop15.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>OnDrop</strong> 节点上 <strong>运算（Operation）</strong> 拖出引线，并添加 <strong>转换为控件拖拽（Cast to WidgetDrag）</strong> 节点。然后，添加 <strong>获取控件引用（Get Widget Reference）</strong> 并将 <strong>作为控件拖拽（As Widget Drag）</strong> 引脚连接到 <strong>控件引用（Widget Reference）</strong> 和 <strong>拖拽偏移（Drag Offset）</strong> 节点。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/UMG/HowTo/DragAndDrop/DragDrop16.jpg">
+		<img class="  lazyload" alt="DragDrop16.png" data-src="../../../../../Images/InteractiveExperiences/UMG/HowTo/DragAndDrop/DragDrop16.jpg" />
+</picture>
+
+</p><p>此操作将检查哪类操作正作为 <strong>OnDrop</strong> 函数的部分在执行。如果是 <strong>控件拖拽（Widget Drag）</strong>，我们会获得 <strong>WidgetReference</strong>（作为被拖拽的控件传递）以及 <strong>DragOffset</strong>（或开始拖拽的位置）。
+</p></li><li class="Default"><p>从 <strong>我的几何结构（My Geometry）</strong> 引脚，添加 <strong>绝对到局部（Absolute to Local）</strong> 节点。从 <strong>指针事件（Pointer Event）</strong> 引脚，添加 <strong>GetScreenSpacePosition</strong> 节点。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/UMG/HowTo/DragAndDrop/DragDrop17.jpg">
+		<img class="  lazyload" alt="DragDrop17.png" data-src="../../../../../Images/InteractiveExperiences/UMG/HowTo/DragAndDrop/DragDrop17.jpg" />
+</picture>
+
+</p><p>这将告诉我们在2D空间中松开鼠标左键放置控件的位置。我们将用这个值减去 <strong>DragOffset</strong>，确定应该在什么位置放下控件。
+</p></li><li class="Default"><p>添加 <strong>Vector2D - Vector 2D</strong> 节点，从 <strong>绝对到局部（Absolute to Local）</strong> 的 <strong>返回值</strong> 减去 <strong>DragOffset</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/UMG/HowTo/DragAndDrop/UpdateDragDrop1.1.jpg">
+		<img class="  lazyload" alt="UpdateDragDrop1.1.png" data-src="../../../../../Images/InteractiveExperiences/UMG/HowTo/DragAndDrop/UpdateDragDrop1.1.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>单击右键并添加 <strong>从父项移除（Remove from Parent）</strong>、<strong>添加到视口（Add to Viewport）</strong> 和 <strong>设置视口中的位置（Set Position in Viewport）</strong> 节点。按照以上所列的顺序将所有3个节点的 <strong>执行（Exec）</strong> 引脚连接起来，并将 <strong>设置视口中的位置（Set Position in Viewport）</strong> 节点连接到 <strong>返回节点</strong>。 
+</p></li><li class="Default"><p>进行以下连接和调整： 
+</p><ul ><li class="Default"><p><strong>控件引用（Widget Reference）</strong> 引脚连接到所有三个节点上的 <strong>目标（Target）</strong> 引脚。 
+</p></li><li class="Default"><p><strong>Vector2D - Vector 2D</strong> 节点的 <strong>返回值</strong> 引脚连接到 <strong>位置（Position）</strong> 引脚。 
+</p></li><li class="Default"><p>取消选中 <strong>移除DPIScale（Remove DPIScale）</strong>
+</p></li><li class="Default"><p>选中 <strong>返回值（Return Value）</strong>
+</p></li></ul><p><span class="non-localized"><a id="content_link" href="../../../../../Images/InteractiveExperiences/UMG/HowTo/DragAndDrop/UpdateDragDrop2.1.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/UMG/HowTo/DragAndDrop/UpdateDragDrop2.1.jpg">
+		<img class="  lazyload" alt="UpdateDragDrop2.1.png" data-src="../../../../../Images/InteractiveExperiences/UMG/HowTo/DragAndDrop/UpdateDragDrop2.1.jpg" />
+</picture>
+</span></a></span>
+</p><p>取消勾选 <strong>移除DPIScale（Remove DPIScale）</strong> 并选中 <strong>返回值</strong>，因为无需移除<a id="content_link"filter-data="tag_umg_ui_designer" href="../../UserGuide/DPIScaling/index.html" ><span>DPI缩放</span></a>。我们已经处理了这个函数，因此返回为true。我们首先通过此脚本移除现有的体力条控件，然后将其重新添加到相对于Drag Offset的新位置中的画面。
+</p></li><li class="Default"><p><strong>编译</strong> 并 <strong>保存</strong> <strong>HUD</strong> 控件蓝图。
+</p></li></ol><p>我们已设置HUD处理拖拽控件的放置，它还将显示体力条。接下来将设置被拖拽控件模拟体力条的外形，并对角色蓝图发出指令将 HUD 添加到视口。
+</p><h2 id="4-编写dragwidget脚本">4 - 编写Drag Widget脚本</h2>
+<p>在这一步中，配置 <strong>DragWidget</strong>，这是我们将拖到视口中的可视控件。 
+</p><ol ><li class="Default"><p>打开 <strong>DragWidget</strong> 控件蓝图，并将 <strong>画布面板</strong> 替换为拥有子 <strong>边框</strong> 的 <strong>缩放框</strong>。
+</p></li><li class="Default"><p>将 <strong>缩放框</strong> 重命名为 <strong>WidgetSize</strong>，并将 <strong>isVariable</strong> 设为 true。选中 <strong>宽度覆盖（Width Override）</strong> 和 <strong>高度覆盖（Height Override）</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/UMG/HowTo/DragAndDrop/UpdateDragDrop3.jpg">
+		<img class="  lazyload" alt="UpdateDragDrop3.png" data-src="../../../../../Images/InteractiveExperiences/UMG/HowTo/DragAndDrop/UpdateDragDrop3.jpg" />
+</picture>
+
+</p><p>我们将对缩放框的宽度和高度进行设置，使其成为体力条控件的尺寸。
+</p></li><li class="Default"><p>选择 <strong>边框</strong>，并将 <strong>笔刷颜色（Brush Color）</strong> 设为 <strong>黑色（Black）</strong>，<strong>Alpha</strong> 值为 <strong>0.5</strong>，以呈现一定的透明度。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/UMG/HowTo/DragAndDrop/UpdateDragDrop4.1.jpg">
+		<img class="  lazyload" alt="UpdateDragDrop4.1.png" data-src="../../../../../Images/InteractiveExperiences/UMG/HowTo/DragAndDrop/UpdateDragDrop4.1.jpg" />
+</picture>
+
+</p><p>在本示例中，我们的生命值条轮廓为拖拽显示，同时在同一个位置保留实际的生命值条。
+</p></li><li class="Default"><p>在 <strong>事件图表</strong> 中，从 <strong>事件构造</strong> 拖出引线，添加 <strong>转换为生命值条（Cast to HealthBar）</strong> 节点。从 <strong>控件引用（Widget Reference）</strong> 连出引线，并将它连接到 <strong>对象（Object）</strong> 引脚。 
+</p></li><li class="Default"><p>从 <strong>作为生命值条（As Health Bar）</strong> 引脚，添加 <strong>获取所需大小（Get Desired Size）</strong> 节点。将返回值连接到 <strong>中断矢量2D（Break Vector 2D）</strong> 节点。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/UMG/HowTo/DragAndDrop/UpdateDragDrop5.jpg">
+		<img class="  lazyload" alt="UpdateDragDrop5.png" data-src="../../../../../Images/InteractiveExperiences/UMG/HowTo/DragAndDrop/UpdateDragDrop5.jpg" />
+</picture>
+
+</p><p>这样就获得了生命值条的大小，并可以将缩放框设置为相同大小。我们可以手动输入覆盖；但如果要更改生命值条的大小，也必须在此处更改。
+</p></li><li class="Default"><p>单击右键并添加 <strong>设置高度覆盖（Set Height Override）</strong> 和 <strong>设置控件覆盖（Set Widget Override）</strong> 节点，并将它们分别连接到 <strong>转换为生命值条（Cast to HealthBar）</strong> 节点。然后拖入 <strong>控件大小（Widget Size）</strong> 节点。 
+</p></li><li class="Default"><p>连接以下引脚：
+</p><ul ><li class="Default"><p><strong>控件大小（Widget Size）</strong> 到两个 <strong>目标（Target）</strong> 引脚
+</p></li><li class="Default"><p>中断矢量2D <strong>X</strong> 到 <strong>输入高度覆盖（In Height Override）</strong>
+</p></li><li class="Default"><p>中断矢量2D <strong>Y</strong> 到 <strong>输入宽度覆盖（In Width Override）</strong>
+</p></li></ul><p><span class="non-localized"><a id="content_link" href="../../../../../Images/InteractiveExperiences/UMG/HowTo/DragAndDrop/UpdateDragDrop6.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/UMG/HowTo/DragAndDrop/UpdateDragDrop6.jpg">
+		<img class="  lazyload" alt="UpdateDragDrop6.png" data-src="../../../../../Images/InteractiveExperiences/UMG/HowTo/DragAndDrop/UpdateDragDrop6.jpg" />
+</picture>
+</span></a></span>
+</p></li><li class="Default"><p><strong>编译</strong> 并 <strong>保存</strong> <strong>DragWidget</strong> 蓝图。
+</p></li></ol><h2 id="5-向视口添加hud控件">5 - 向视口添加HUD控件</h2>
+<p>最后，需要将 <strong>HUD</strong> 控件蓝图添加到 <strong>角色</strong> 蓝图中的视口并启用鼠标光标，以便能够看到拖拽位置。
+</p><ol ><li class="Default"><p>在 <strong>内容浏览器</strong> 中的 <strong>Content/ThirdPersonBP/Blueprints</strong> 下，打开 <strong>ThirdPersonCharacter</strong> 蓝图。
+</p></li><li class="Default"><p>从 <strong>事件开始播放（Event Begin Play）</strong> 节点拖出引线，添加 <strong>创建控件（Create Widget）</strong> 节点并将 <strong>类（Class）</strong> 设置为 <strong>HUD</strong>。创建 <strong>添加到视口（Add to Viewport）</strong> 节点并将它连接到 <strong>设置显示鼠标光标（SET Show Mouse Cursor）</strong>。添加 <strong>获取玩家控制器（Get Player Controller）</strong> 节点，并将 <strong>返回值</strong> 连接到 <strong>设置目标（SET Target）</strong>。<br /></p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/UMG/HowTo/DragAndDrop/DragDrop19.jpg">
+		<img class="  lazyload" alt="DragDrop19.png" data-src="../../../../../Images/InteractiveExperiences/UMG/HowTo/DragAndDrop/DragDrop19.jpg" />
+</picture>
+
+</p></li><li class="Default"><p><strong>编译</strong>、<strong>保存</strong> 并单击 <strong>运行（Play）</strong> 按钮，以运行拖拽控件。
+</p></li></ol><h3 id="最终结果">最终结果</h3>
+<p>在编辑器中运行时，可以单击左键，并将生命值条拖到屏幕上，然后将它放到新位置。
+</p><p>这只是开始拖放流程的一个元素范例。可能需要进行额外检查，确保玩家不会将控件拖至安全区外，或放在其他控件之上。
+</p>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=UMG%20UI%20Designer">UMG UI Designer</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=UI">UI</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/InteractiveExperiences/UMG/HowTo/DragAndDrop/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:20:07 GMT -->
+</html>

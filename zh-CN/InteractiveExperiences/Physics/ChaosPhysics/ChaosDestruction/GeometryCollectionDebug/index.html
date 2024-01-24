@@ -1,0 +1,876 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/InteractiveExperiences/Physics/ChaosPhysics/ChaosDestruction/GeometryCollectionDebug/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:57:51 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "../../../../../../Images/InteractiveExperiences/Physics/ChaosPhysics/ChaosDestruction/GeometryCollectionDebug/GeoCollectionDebugBanner.png";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/InteractiveExperiences/Physics/ChaosPhysics/ChaosDestruction/GeometryCollectionDebug/" />');
+				var udnCSS = '../../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>几何体集调试绘制 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/InteractiveExperiences/Physics/ChaosPhysics/ChaosDestruction/GeometryCollectionDebug/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/InteractiveExperiences/Physics/ChaosPhysics/ChaosDestruction/GeometryCollectionDebug/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/InteractiveExperiences/Physics/ChaosPhysics/ChaosDestruction/GeometryCollectionDebug/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/InteractiveExperiences/Physics/ChaosPhysics/ChaosDestruction/GeometryCollectionDebug/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Chaos/ChaosDestruction/GeometryCollectionDebug" />
+<meta name="intsourcechangelist" content="15125102" />
+<meta name="availability" content="public" />
+<meta name="title" content="几何体集调试绘制" />
+<meta name="description" content="对使用几何体集调试绘制和公开Chaos刚体属性的方法进行讲解。" />
+<meta name="type" content="Overview" />
+<meta name="version" content="4.26" />
+<meta name="parent" content="InteractiveExperiences/Physics/ChaosPhysics/ChaosDestruction" />
+<meta name="order" content="" />
+<meta name="keywords" content="Beta" />
+<meta name="keywords" content="Overview" />
+<meta name="keywords" content="Chaos" />
+<meta name="keywords" content="Destruction" />
+<meta name="keywords" content="Physics" />
+<meta name="keywords" content="Geometry Collection Debug Draw" />
+<meta name="topic-image" content="GeometryCollectcionDebug.png" />
+<meta name="social-image" content="GeometryCollectcionDebug.png" />
+<meta name="hero-image" content="GeoCollectionDebugBanner.png" />
+<meta name="crumbs" content="%ROOT%,InteractiveExperiences,InteractiveExperiences/Physics,InteractiveExperiences/Physics/ChaosPhysics,InteractiveExperiences/Physics/ChaosPhysics/ChaosDestruction" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="几何体集调试绘制" />
+	<meta property="og:description" content="对使用几何体集调试绘制和公开Chaos刚体属性的方法进行讲解。 " />
+		<meta property="og:image" content="https://docs.unrealengine.com/4.26/Images/InteractiveExperiences/Physics/ChaosPhysics/ChaosDestruction/GeometryCollectionDebug/GeometryCollectcionDebug.png" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../../index.html">创建交互体验</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">物理</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">Chaos Physics</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">Chaos破坏系统</a>
+
+<span class="separator">></span> <span id="page">几何体集调试绘制</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+					<div id="banner" class="beta">
+	<div id="message">
+		学习使用此<span>测试</span>功能，但在用它发布产品时请谨慎行事。
+	</div>
+	<div id="bannerDescription">
+		测试功能主要供您学习如何使用、规划工作流程和创建测试内容之用。<strong>在实际生产中使用这些功能必须谨慎</strong>，因为我们仍在努力完善以使它们的性能、稳定性和平台支持达到发布水准。我们支持资源的向后兼容，这些功能的API也是稳定的。
+	</div>
+</div>
+															<div class="hero  background">
+						<div class="imgContainer"><img src="../../../../../../Images/InteractiveExperiences/Physics/ChaosPhysics/ChaosDestruction/GeometryCollectionDebug/GeoCollectionDebugBanner.png" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">几何体集调试绘制</h1>
+							</div>	
+							<h2 >对使用几何体集调试绘制和公开Chaos刚体属性的方法进行讲解。 </h2>
+							<div id="access">
+								<div class="accessContainer">
+																																			</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																																				<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#在编辑器中调试">在编辑器中调试</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#使用控制台调试">使用控制台调试</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#后期处理效果">后期处理效果</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<div class="warning">
+	<p>根据你使用的版本，你可能不一定需要启用Chaos插件。
+</p><ul ><li class="Default"><p>如果你用的是虚幻引擎4.26或更早的版本的标准版本，必须通过源码版本编译并启用Chaos破坏工具。
+</p></li><li class="Default"><p>假如用户用的是UE_4.26Chaos版本或更高版本，Chaos是默认启用的。
+更多信息请参阅<a id="content_link"filter-data="tag_early_access tag_overview tag_chaos tag_destruction tag_physics" href="../ChaosDestructionOverview/index.html" ><span>Chaos破坏系统概述</span></a>文档。
+</p></li></ul>
+</div><p>使用几何体集时，显示特定几何体集（或一组几何体集）的信息十分实用。 
+利用**几何体集调试绘制Actor<strong> 可利用 </strong>细节** 面板或控制台命令切换如层级、群集、刚体信息等显示信息。 
+</p><h2 id="在编辑器中调试">在编辑器中调试</h2>
+<p>关卡中有要调试的几何体集后，在 <strong>在编辑器中运行</strong> 会话期间，使用 <strong>世界大纲视图</strong> 查找并选择 <strong>GeometryCollectionDebugDrawActor</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/InteractiveExperiences/Physics/ChaosPhysics/ChaosDestruction/GeometryCollectionDebug/DebugDrawActor_Outliner.jpg">
+		<img class="  lazyload" alt="DebugDrawActor_Outliner.png" data-src="../../../../../../Images/InteractiveExperiences/Physics/ChaosPhysics/ChaosDestruction/GeometryCollectionDebug/DebugDrawActor_Outliner.jpg" />
+</picture>
+
+</p><p>此操作将显示 <strong>调试绘制</strong> 属性面板，其控制当前关卡中几何体集内可用的不同可视化模式类型。 
+</p><h3 id="显示刚体id">显示刚体ID</h3>
+<p>上手调试的最佳地点便是显示刚体ID。在Actor的 <strong>调试绘制（Debug Draw）</strong> 类别和 <strong>刚体（Rigid Body）</strong> 子类别中，启用 <strong>显示刚体ID（Show Rigid Body Id）</strong> 复选框。 
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/InteractiveExperiences/Physics/ChaosPhysics/ChaosDestruction/GeometryCollectionDebug/DebugDrawActor_RigidBodyIDs.jpg">
+		<img class="  lazyload" alt="DebugDrawActor_RigidBodyIDs.png" data-src="../../../../../../Images/InteractiveExperiences/Physics/ChaosPhysics/ChaosDestruction/GeometryCollectionDebug/DebugDrawActor_RigidBodyIDs.jpg" />
+</picture>
+
+</p><p>利用 <strong>选定刚体（Selected Rigid Body）</strong> 属性可查看所有刚体（-1）或输入想要显示的刚体ID。 
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/InteractiveExperiences/Physics/ChaosPhysics/ChaosDestruction/GeometryCollectionDebug/DebugDrawActor_SelectedBody.jpg">
+		<img class="  lazyload" alt="DebugDrawActor_SelectedBody.png" data-src="../../../../../../Images/InteractiveExperiences/Physics/ChaosPhysics/ChaosDestruction/GeometryCollectionDebug/DebugDrawActor_SelectedBody.jpg" />
+</picture>
+
+</p><div class="caption">
+	<p>在上图中的 <strong>Id</strong> 字段中输入 <strong>95</strong>，可仅显示左侧的柱体，而非场景中的两个物体。 </p>
+</div><div class="warning">
+	<p>启用场景中所有几何体集的可视化对于小测试场景十分有用，但可能会严重影响大关卡的帧率。 </p>
+</div><p>除在 <strong>选定刚体（Selected Rigid Body）</strong> 字段输入Id外，还可使用滴管选择场景中的对象。 
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/InteractiveExperiences/Physics/ChaosPhysics/ChaosDestruction/GeometryCollectionDebug/DebugDrawActor_EyeDropper.jpg">
+		<img class="  lazyload" alt="DebugDrawActor_EyeDropper.png" data-src="../../../../../../Images/InteractiveExperiences/Physics/ChaosPhysics/ChaosDestruction/GeometryCollectionDebug/DebugDrawActor_EyeDropper.jpg" />
+</picture>
+
+</p><p>同样可通过启用 <strong>调试绘制群集（Debug Draw Clustering）</strong> 选项，显示群集几何体集的非活跃子项来获取更多信息。 
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/InteractiveExperiences/Physics/ChaosPhysics/ChaosDestruction/GeometryCollectionDebug/DebugDrawActor_DrawClustering.jpg">
+		<img class="  lazyload" alt="DebugDrawActor_DrawClustering.png" data-src="../../../../../../Images/InteractiveExperiences/Physics/ChaosPhysics/ChaosDestruction/GeometryCollectionDebug/DebugDrawActor_DrawClustering.jpg" />
+</picture>
+
+</p><h3 id="导航群集">导航群集</h3>
+<p>在 <strong>选定刚体（Selected Rigid Body）</strong> 选项下，可在子项/父项间移动及在不同群集间循环。 
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_1_dc68t6vk_41
+{
+	margin: 0px;
+	width: 75%;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_1_dc68t6vk_41:after
+{
+	content: "";
+	padding-top: 56.25%;
+	display: block;
+}
+</style> 
+<div id="player_1_dc68t6vk_41"> 
+	<div id="playerContainer_1_dc68t6vk_41" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/1_dc68t6vk/embed.html"></iframe>
+	</div>
+</div>
+<div class="caption">
+	<p>以上视频启用了 <strong>调试绘制层级（Debug Draw Hierarchy）</strong> 和 <strong>显示面（Show Faces）</strong>，以便在循环时查看各群集的面。 </p>
+</div><h3 id="可视化选项">可视化选项</h3>
+<p>使用 <strong>调试绘制完整集（Debug Draw Whole Collection）</strong> 属性可选择是否显示完整集。此操作将显示与选定刚体Id属于相同几何体集的所有刚体调试信息。 
+</p><div class="warning">
+	<p>启用完整几何体集将会增加显示难度，并会对帧率产生负面影响，具体取决于集合大小。 </p>
+</div><p>也可通过下拉列表的方式显示几何体信息（几何体集的图表代表默认位于层级底部）。 
+如着重于探索顶部节点的几何体，<strong>调试绘制层级（Debug Draw Hierarchy）</strong> 选项将首先启用父项显示。该选项还可与 <strong>调试绘制群集（Debug Draw Clustering）</strong> 选项合并以同时显示父项和子项。 
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/InteractiveExperiences/Physics/ChaosPhysics/ChaosDestruction/GeometryCollectionDebug/DebugDrawActor_TopDownGeo.jpg">
+		<img class="  lazyload" alt="DebugDrawActor_TopDownGeo.png" data-src="../../../../../../Images/InteractiveExperiences/Physics/ChaosPhysics/ChaosDestruction/GeometryCollectionDebug/DebugDrawActor_TopDownGeo.jpg" />
+</picture>
+
+</p><div class="note">
+	<p>由于刚体信息已在父项中显示，因此 <strong>调试绘制层级（Debug Draw Hierarchy）</strong> 选项仅影响几何体集组件属性的显示。 </p>
+</div><h3 id="隐藏几何体">隐藏几何体</h3>
+<p>默认仅在显示碰撞体积时隐藏与选定刚体Id相关的几何体，但 <strong>隐藏几何体（Hide Geometry）</strong> 属性下还有部分其他选项。 
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_1_cb30fwpx_91
+{
+	margin: 0px;
+	width: 75%;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_1_cb30fwpx_91:after
+{
+	content: "";
+	padding-top: 56.25%;
+	display: block;
+}
+</style> 
+<div id="player_1_cb30fwpx_91"> 
+	<div id="playerContainer_1_cb30fwpx_91" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/1_cb30fwpx/embed.html"></iframe>
+	</div>
+</div>
+<div class="fullwidth">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>选项 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>说明 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>不隐藏（Hide None）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>不隐藏任何几何体。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>隐藏碰撞（Hide Collision）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>隐藏与刚体关联的几何体（默认选项），此类刚体被选中用于显示碰撞体积。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>隐藏选中项（Hide Selected）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>隐藏与选中刚体相关的几何体。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>隐藏整个集（Hide Whole Collection）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>隐藏与选中刚体相关的整个几何体集。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>全部隐藏（Hide All）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>隐藏所有几何体集。</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div><div class="note">
+	<p>将-1用作选中 <strong>刚体Id</strong> 时，最后四个选项相同（将隐藏所有几何体集）。</p>
+</div><h3 id="开关要显示的属性">开关要显示的属性</h3>
+<p>在 <strong>细节</strong> 面板（或通过控制台）中可开关要显示的属性。 
+结合多个属性可产生不同的效果，例如下方范例中启用 <strong>显示刚体碰撞（Show Rigid Body Collision）</strong> 和 <strong>显示刚体Id（Show Rigid Body Id）</strong> 以及选择 <strong>隐藏选中项（Hide Selected）</strong> 选项的 <strong>隐藏几何体（Hide Geometry）</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/InteractiveExperiences/Physics/ChaosPhysics/ChaosDestruction/GeometryCollectionDebug/DebugDrawActor_MultipleOptions.jpg">
+		<img class="  lazyload" alt="DebugDrawActor_MultipleOptions.png" data-src="../../../../../../Images/InteractiveExperiences/Physics/ChaosPhysics/ChaosDestruction/GeometryCollectionDebug/DebugDrawActor_MultipleOptions.jpg" />
+</picture>
+
+</p><div class="note">
+	<p>显示关卡集类型碰撞体积时，一次只能显示一个体积，即使启用 <strong>调试绘制整个集（Debug Draw Whole Collection）</strong> 选项也同样如此。</p>
+</div><p>可将多个不同类别分组到多个类别：<strong>刚体</strong>、<strong>刚体群集</strong> 和 <strong>几何体集组件</strong>。 
+这些类别适用于选中刚体或包含选中刚体的整个几何体集。 
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/InteractiveExperiences/Physics/ChaosPhysics/ChaosDestruction/GeometryCollectionDebug/GeometryCollectionDebugDraw_Properties.jpg">
+		<img class="  lazyload" alt="GeometryCollectionDebugDraw_Properties.png" data-src="../../../../../../Images/InteractiveExperiences/Physics/ChaosPhysics/ChaosDestruction/GeometryCollectionDebug/GeometryCollectionDebugDraw_Properties.jpg" />
+</picture>
+
+</p><p>多数属性为自解释类型，例如 <strong>显示顶点（Show Vertices）</strong> 切换显示刚体顶点，或者 <strong>显示边界框（Show Bounding Box）</strong> 切换显示刚体边界框。 
+以下为部分例外。 
+</p><ul ><li class="Default"><p><strong>显示刚体速度（Show Rigid Body Velocity）</strong> - 此属性显示线性（箭头长度）和角速度（圆半径）。 
+<picture>
+		<source data-srcset="./../../../../../../Images/InteractiveExperiences/Physics/ChaosPhysics/ChaosDestruction/GeometryCollectionDebug/GeometryCollectionDebugDraw_Velocity.jpg">
+		<img class="  lazyload" alt="GeometryCollectionDebugDraw_Velocity.png" data-src="../../../../../../Images/InteractiveExperiences/Physics/ChaosPhysics/ChaosDestruction/GeometryCollectionDebug/GeometryCollectionDebugDraw_Velocity.jpg" />
+</picture>
+
+</p></li><li class="Default"><p><strong>显示刚体力（Show Rigid Body Force）</strong> - 显示力（箭头）和扭矩（圆）。 
+</p></li><li class="Default"><p><strong>显示刚体信息（Show Rigid Body Infos）</strong> - 显示选中刚体完整的屏幕文本调试信息。 
+<picture>
+		<source data-srcset="./../../../../../../Images/InteractiveExperiences/Physics/ChaosPhysics/ChaosDestruction/GeometryCollectionDebug/DebugDrawActor_ShowInfo.jpg">
+		<img class="  lazyload" alt="DebugDrawActor_ShowInfo.png" data-src="../../../../../../Images/InteractiveExperiences/Physics/ChaosPhysics/ChaosDestruction/GeometryCollectionDebug/DebugDrawActor_ShowInfo.jpg" />
+</picture>
+
+</p></li><li class="Default"><p><strong>显示连接边缘（Show Connectivity Edges）</strong> - 显示仍为群集的兄弟刚体的各逻辑连接。 
+<picture>
+		<source data-srcset="./../../../../../../Images/InteractiveExperiences/Physics/ChaosPhysics/ChaosDestruction/GeometryCollectionDebug/DebugDrawActor_ClusterConnectivity.jpg">
+		<img class="  lazyload" alt="DebugDrawActor_ClusterConnectivity.png" data-src="../../../../../../Images/InteractiveExperiences/Physics/ChaosPhysics/ChaosDestruction/GeometryCollectionDebug/DebugDrawActor_ClusterConnectivity.jpg" />
+</picture>
+
+</p><div class="note">
+	<p>由于 <strong>调试绘制群集（Debug Draw Clustering）</strong> 选项显示子节点信息，因此需进行使用。 </p>
+</div></li><li class="Default"><p><strong>显示单个面（Show Single Face）</strong> 和 <strong>单个面索引（Single Face Index）</strong> - 显示选中面以协助调试几何体。 
+</p><div class="note">
+	<p>该可视化仅在选中特定几何体集时可用（<strong>选中刚体</strong> 不可为-1）。 </p>
+</div></li></ul><h3 id="可视化设置">可视化设置</h3>
+<p>可在 <strong>设置（Settings）</strong> 类别下切换调试可视化设置。 
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/InteractiveExperiences/Physics/ChaosPhysics/ChaosDestruction/GeometryCollectionDebug/GeometryCollectionDebugDraw_Settings.jpg">
+		<img class="  lazyload" alt="GeometryCollectionDebugDraw_Settings.png" data-src="../../../../../../Images/InteractiveExperiences/Physics/ChaosPhysics/ChaosDestruction/GeometryCollectionDebug/GeometryCollectionDebugDraw_Settings.jpg" />
+</picture>
+
+</p><p>在此可进行如更改绘制颜色或变换缩放属性等自定义。因颜色背景造成可视化不清时，该功能将十分有用。
+多数属性为自解释类型，并会影响基本调试绘制元素的绘制。
+此外，启用 <strong>使用活跃可视化（Use Active Visualization）</strong> 后可视化将随几何体集的各群集级别而变，调试行和文本将变暗，同时变形轴将随群集级别增大而变小。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/InteractiveExperiences/Physics/ChaosPhysics/ChaosDestruction/GeometryCollectionDebug/DebugDrawActor_ActiveVisualization.jpg">
+		<img class="  lazyload" alt="DebugDrawActor_ActiveVisualization.png" data-src="../../../../../../Images/InteractiveExperiences/Physics/ChaosPhysics/ChaosDestruction/GeometryCollectionDebug/DebugDrawActor_ActiveVisualization.jpg" />
+</picture>
+
+</p><h2 id="使用控制台调试">使用控制台调试</h2>
+<p>还可在控制台中更改所有 <strong>几何体集调试绘制Actor</strong> 属性，具体步骤如下。
+</p><h3 id="列出调试绘制命令">列出调试绘制命令</h3>
+<p>所有几何体集调试绘制命令均位于 <code>p.gc</code> 前缀下：
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/InteractiveExperiences/Physics/ChaosPhysics/ChaosDestruction/GeometryCollectionDebug/GeometryCollectionDebugDraw_ConsoleCommandList.jpg">
+		<img class="  lazyload" alt="GeometryCollectionDebugDraw_ConsoleCommandList.png" data-src="../../../../../../Images/InteractiveExperiences/Physics/ChaosPhysics/ChaosDestruction/GeometryCollectionDebug/GeometryCollectionDebugDraw_ConsoleCommandList.jpg" />
+</picture>
+
+</p><p>在命令结尾处添加问号 <code>?</code> ，可访问各命令的描述：
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/InteractiveExperiences/Physics/ChaosPhysics/ChaosDestruction/GeometryCollectionDebug/GeometryCollectionDebugDraw_ConsoleCommandInfo.jpg">
+		<img class="  lazyload" alt="GeometryCollectionDebugDraw_ConsoleCommandInfo.png" data-src="../../../../../../Images/InteractiveExperiences/Physics/ChaosPhysics/ChaosDestruction/GeometryCollectionDebug/GeometryCollectionDebugDraw_ConsoleCommandInfo.jpg" />
+</picture>
+
+</p><div class="note">
+	<p>由于所有命令均与调试绘制Actor的属性匹配，因此请同时参见<a id="content_link" href="#" ><span>在编辑器中调试</span></a>部分，了解属性效果的额外说明。</p>
+</div><h3 id="显示刚体id_1">显示刚体Id</h3>
+<p>使用命令： 
+</p><pre class="prettyprint"><code>p.gc.ShowRigidBodyIds 1</code></pre>
+<h3 id="选择用于调试绘制的刚体">选择用于调试绘制的刚体</h3>
+<p>使用命令： 
+</p><pre class="prettyprint"><code>p.gc.SelectedRigidBodyId X</code></pre>
+<p>在以上命令中，将X替换为需要显示其信息的刚体Id。 
+</p><h3 id="启用/禁用整个集的可视化。">启用/禁用整个集的可视化。</h3>
+<p>使用命令： 
+</p><pre class="prettyprint"><code>p.gc.DebugDrawWholeCollection 1</code></pre>
+<p>此操作将显示与选定刚体Id同属相同几何体集的所有刚体调试信息。 
+</p><h3 id="隐藏几何体_1">隐藏几何体</h3>
+<p>默认仅在显示碰撞体积时隐藏与选定刚体Id相关的几何体，使用以下命令可选择另一选项：
+</p><pre class="prettyprint"><code>p.gc.HideGeometry &#91;0&#124;1&#124;2&#124;3&#124;4&#124;&#93;
+0 不隐藏，不隐藏任何几何体。
+1 隐藏碰撞，隐藏与选中碰撞体积可视化刚体相关的几何体（默认）。
+2 隐藏选中项，隐藏与选中刚体相关的几何体。
+3 隐藏整个集，隐藏与选中刚体相关的整个几何体集。
+4 全部隐藏，隐藏所有几何体集。</code></pre>
+<div class="note">
+	<p>将-1用作选中 刚体Id 时，最后四个选项相同（将隐藏所有几何体集）。</p>
+</div><h3 id="启用/禁用/查询调试绘制属性">启用/禁用/查询调试绘制属性</h3>
+<p>还可通过命令台使用以下命令： 
+</p><div class="fullwidth">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>命令 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>说明 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><code>p.gc.DebugDrawHierarchy &#91;0|1&#93;</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>从选中刚体ID开始（如未选择则从根开始），显示层级顶部的可视化调试，而非叶节点。默认值 = 0。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><code>p.gc.DebugDrawClustering &#91;0|1&#93;</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>显示当前选中刚体ID的群集子项可视化调试。默认值 = 0。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><code>p.gc.ShowRigidBodyCollision &#91;0|1&#93;</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>显示选中刚体的碰撞体积。默认值 = 1。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><code>p.gc.CollisionAtOrigin &#91;0|1&#93;</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>显示局部空间中原点处的碰撞体积。默认值 = 0。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><code>p.gc.ShowRigidBodyTransform &#91;0|1&#93;</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>显示选中刚体的变形。默认值 = 1。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><code>p.gc.ShowRigidBodyVelocity &#91;0|1&#93;</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>显示选中刚体的线性和角速度。默认值 = 0。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><code>p.gc.ShowRigidBodyForce &#91;0|1&#93;</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>显示选中刚体的应用力和扭矩。默认值 = 0。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><code>p.gc.ShowRigidBodyInfo &#91;0|1&#93;</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>显示选中刚体的信息。默认值 = 0。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><code>p.gc.ShowConnectivityEdges &#91;0|1&#93;</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>显示选中刚体的群集连接边缘。默认值 = 0。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><code>p.gc.ShowTransformIndex &#91;0|1&#93;</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>显示与选中刚体匹配的几何体集变形索引。默认值 = 0。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><code>p.gc.ShowLevel &#91;0|1&#93;</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>显示与选中刚体匹配的几何体集层级。默认值 = 0。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><code>p.gc.ShowTransform &#91;0|1&#93;</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>显示与选中刚体匹配的几何体集变形。默认值 = 0。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><code>p.gc.ShowBoundingBox &#91;0|1&#93;</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>显示与选中刚体匹配的几何体集边界框。默认值 = 0。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><code>p.gc.ShowFace &#91;0|1&#93;</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>显示与选中刚体匹配的几何体集面。默认值 = 0。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><code>p.gc.ShowFaceIndex &#91;0|1&#93;</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>显示与选中刚体匹配的几何体集面索引。默认值 = 0。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><code>p.gc.ShowFaceNormal &#91;0|1&#93;</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>显示与选中刚体匹配的几何体集面法线。默认值 = 0。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><code>p.gc.ShowVertex &#91;0|1&#93;</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>显示与选中刚体匹配的几何体集顶点。默认值 = 0。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><code>p.gc.ShowVertexIndex &#91;0|1&#93;</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>显示与选中刚体匹配的几何体集顶点索引。默认值 = 0。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><code>p.gc.ShowVertexNormal &#91;0|1&#93;</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>显示与选中刚体匹配的几何体集顶点法线。默认值 = 0。</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div><h3 id="刚体碰撞">刚体碰撞</h3>
+<p>以下命令可用于显示刚体碰撞： 
+</p><p>启用： 
+</p><pre class="prettyprint"><code>p.gc.ShowRigidBodyCollision 1</code></pre>
+<p>禁用： 
+</p><pre class="prettyprint"><code>p.gc.ShowRigidBodyCollision 0</code></pre>
+<p>查询： 
+</p><pre class="prettyprint"><code>p.gc.ShowRigidBodyCollision</code></pre>
+<h3 id="更改可视化设置">更改可视化设置</h3>
+<p>以下命令也可用于自定义绘制信息的方式：
+</p><div class="fullwidth">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>命令 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>说明 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><code>p.gc.PointThickness &#91;float&#93;</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>点厚度。默认值 = 6。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><code>p.gc.LineThickness &#91;float&#93;</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>线厚度。默认值 = 1。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><code>p.gc.TextShadow &#91;0|1&#93;</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>指数文本下的阴影，提高可读性。默认值 = 1。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><code>p.gc.TextScale &#91;float&#93;</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>文本缩放。默认值 = 1。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><code>p.gc.NormalScale &#91;float&#93;</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>法线大小。默认值 = 10。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><code>p.gc.TransformScale &#91;float&#93;</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>变形大小。默认值 = 20。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><code>p.gc.ArrowScale &#91;float&#93;</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>法线的箭头大小。默认值 = 2.5。</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div><h2 id="后期处理效果">后期处理效果</h2>
+<p>若发现调试绘制线上有瑕疵，可能是由于后期处理影响了调试绘制线条的渲染方式。
+</p><h3 id="关闭线的后期处理">关闭线的后期处理</h3>
+<p>使用控制台命令可关闭后期处理：
+</p><pre class="prettyprint"><code>ShowFlag.PostProcessing 0</code></pre>
+<p>之前，开启后期处理： 
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/InteractiveExperiences/Physics/ChaosPhysics/ChaosDestruction/GeometryCollectionDebug/GeometryCollectionDebugDraw_PostprocessingOn.jpg">
+		<img class="  lazyload" alt="GeometryCollectionDebugDraw_PostprocessingOn.png" data-src="../../../../../../Images/InteractiveExperiences/Physics/ChaosPhysics/ChaosDestruction/GeometryCollectionDebug/GeometryCollectionDebugDraw_PostprocessingOn.jpg" />
+</picture>
+
+</p><p>之后，关闭后期处理： 
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/InteractiveExperiences/Physics/ChaosPhysics/ChaosDestruction/GeometryCollectionDebug/GeometryCollectionDebugDraw_PostprocessingOff.jpg">
+		<img class="  lazyload" alt="GeometryCollectionDebugDraw_PostprocessingOff.png" data-src="../../../../../../Images/InteractiveExperiences/Physics/ChaosPhysics/ChaosDestruction/GeometryCollectionDebug/GeometryCollectionDebugDraw_PostprocessingOff.jpg" />
+</picture>
+
+</p><div class="warning">
+	<p>关闭后期处理将阻止渲染LevelSet碰撞体积（参见下一章）。 </p>
+</div><h3 id="打开levelset渲染的后期处理">打开LevelSet渲染的后期处理</h3>
+<p>使用调试绘制显示LevelSet前务必开启后期处理，否则将不会渲染光线行进材质。
+</p><pre class="prettyprint"><code>ShowFlag.PostProcessing 2</code></pre>
+<p>之前，关闭后期处理，未渲染LevelSet：
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/InteractiveExperiences/Physics/ChaosPhysics/ChaosDestruction/GeometryCollectionDebug/GeometryCollectionDebugDraw_LevelSetPostprocessingOff.jpg">
+		<img class="  lazyload" alt="GeometryCollectionDebugDraw_LevelSetPostprocessingOff.png" data-src="../../../../../../Images/InteractiveExperiences/Physics/ChaosPhysics/ChaosDestruction/GeometryCollectionDebug/GeometryCollectionDebugDraw_LevelSetPostprocessingOff.jpg" />
+</picture>
+
+</p><p>之后，开启后期处理，照常绘制LevelSet：
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/InteractiveExperiences/Physics/ChaosPhysics/ChaosDestruction/GeometryCollectionDebug/GeometryCollectionDebugDraw_LevelSetPostprocessingOn.jpg">
+		<img class="  lazyload" alt="GeometryCollectionDebugDraw_LevelSetPostprocessingOn.png" data-src="../../../../../../Images/InteractiveExperiences/Physics/ChaosPhysics/ChaosDestruction/GeometryCollectionDebug/GeometryCollectionDebugDraw_LevelSetPostprocessingOn.jpg" />
+</picture>
+</p>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../../SiteIndex/index.html?tags=Beta">Beta</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../../SiteIndex/index.html?tags=Overview">Overview</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../../SiteIndex/index.html?tags=Chaos">Chaos</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../../SiteIndex/index.html?tags=Destruction">Destruction</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../../SiteIndex/index.html?tags=Physics">Physics</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../../SiteIndex/index.html?tags=Geometry%20Collection%20Debug%20Draw">Geometry Collection Debug Draw</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/InteractiveExperiences/Physics/ChaosPhysics/ChaosDestruction/GeometryCollectionDebug/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:58:02 GMT -->
+</html>

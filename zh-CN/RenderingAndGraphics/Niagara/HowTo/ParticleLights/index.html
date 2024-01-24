@@ -1,0 +1,761 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/RenderingAndGraphics/Niagara/HowTo/ParticleLights/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:02:42 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "../../../../../Images/RenderingAndGraphics/Niagara/HowTo/ParticleLights/Light_Hero.png";
+				var finishButton = finishButtonTemplate;
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/RenderingAndGraphics/Niagara/HowTo/ParticleLights/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>创建粒子光源 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+		    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+		    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/RenderingAndGraphics/Niagara/HowTo/ParticleLights/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/RenderingAndGraphics/Niagara/HowTo/ParticleLights/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/RenderingAndGraphics/Niagara/HowTo/ParticleLights/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/RenderingAndGraphics/Niagara/HowTo/ParticleLights/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Niagara/HowTo/ParticleLights" />
+<meta name="intsourcechangelist" content="15716074" />
+<meta name="availability" content="Public" />
+<meta name="title" content="创建粒子光源" />
+<meta name="description" content="介绍如何在粒子系统内创建光源。" />
+<meta name="type" content="how-to" />
+<meta name="skilllevel" content="Beginner" />
+<meta name="version" content="4.26" />
+<meta name="parent" content="RenderingAndGraphics/Niagara/HowTo" />
+<meta name="order" content="5" />
+<meta name="keywords" content="Niagara" />
+<meta name="keywords" content="VFX" />
+<meta name="keywords" content="Effects" />
+<meta name="keywords" content="Visual Effects" />
+<meta name="keywords" content="Particle Effects" />
+<meta name="prereq" content="RenderingAndGraphics/Niagara/HowTo/EnableNiagara" />
+<meta name="hero-image" content="Light_Hero.png" />
+<meta name="topic-image" content="Light_Topic.png" />
+<meta name="crumbs" content="%ROOT%,RenderingAndGraphics,RenderingAndGraphics/Niagara,RenderingAndGraphics/Niagara/HowTo" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="创建粒子光源" />
+	<meta property="og:description" content="介绍如何在粒子系统内创建光源。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">设计视觉、渲染和图形效果</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">Niagara视觉效果</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">Niagara - 使用指南</a>
+
+<span class="separator">></span> <span id="page">创建粒子光源</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  background">
+						<div class="imgContainer"><img src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/ParticleLights/Light_Hero.png" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">创建粒子光源</h1>
+							</div>	
+							<h2 >介绍如何在粒子系统内创建光源。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Beginner"><a id="skill_link" href="../../../../SiteIndex/index.html?skills=Beginner">Beginner</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																																										<div class="prereq">
+    <div class="normaltitle">
+        前置主题
+    </div>
+    <p style="margin-bottom:8px;">
+        为了理解并使用本文中的内容，请确保您已掌握以下主题：
+    </p>
+    <ul style="margin-bottom:0.5em;">
+                <li>
+            <p>
+                <a href="../EnableNiagara/index.html" title="描述如何启动Niagara。">启用Niagara插件</a>
+            </p>
+        </li>
+            </ul>
+</div>
+																		<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#创建系统和发射器">创建系统和发射器</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#编辑发射器更新组设置">编辑发射器更新组设置</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#编辑粒子生成组设置">编辑粒子生成组设置</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#编辑粒子更新组设置">编辑粒子更新组设置</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#添加光源渲染器">添加光源渲染器</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#最终结果">最终结果</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>如果能让粒子照亮它们周边的场景，你就能为项目的视觉效果增添一层额外的真实感。在本指南中，我们将了解如何设置Niagara发射器以便同时生成粒子和光源。
+</p><div class="note">
+	<p><strong>操作前提（Prerequisite Step）</strong>：本教程使用 <strong>M_Radial_Gradient* 材质，该材质可在 </strong>初学者内容包（Starter Content）** 中找到。你应该<a id="content_link"filter-data="tag_project tag_projects tag_create_new" href="../../../../Basics/Projects/Browser/index.html" ><span>新建一个项目</span></a>（其中包括初学者内容包），或使用已经创建的、包含初学者内容包的项目。</p>
+</div><h2 id="创建系统和发射器">创建系统和发射器</h2>
+<p>Niagara发射器和系统是独立的。当前推荐工作流将从现有发射器或发射器模板创建系统。
+</p><ol ><li class="Default"><p>首先，在内容浏览器中点击右键以创建Niagara系统，然后从显示菜单中选择 <strong>FX > Niagara系统（FX > Niagara System）</strong>。将显示Niagara发射器（Niagara Emitter）向导。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/ParticleLights/CreateSystem_NewMenuSelections.png" title="Create System Menu"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/ParticleLights/CreateSystem_NewMenuSelections.jpg">
+		<img class="  lazyload" alt="创建系统菜单" title="Create System Menu" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/ParticleLights/CreateSystem_NewMenuSelections.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>选择 <strong>从所选发射器新建系统（New system from selected emitters）</strong>，然后单击 <strong>下一步（Next）</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/ParticleLights/CreateSystem_SystemWizard.png" title="Open System Wizard"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/ParticleLights/CreateSystem_SystemWizard.jpg">
+		<img class="  lazyload" alt="打开系统向导" title="Open System Wizard" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/ParticleLights/CreateSystem_SystemWizard.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>在 <strong>模板（Templates）</strong> 中，选择 <strong>喷泉（Fountain）</strong>。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/ParticleLights/CreateSystem_SelectFountainTemplate.png" title="Select Fountain Template"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/ParticleLights/CreateSystem_SelectFountainTemplate.jpg">
+		<img class="  lazyload" alt="选择喷泉模板" title="Select Fountain Template" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/ParticleLights/CreateSystem_SelectFountainTemplate.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>单击 <strong>加号</strong> 图标（<strong>+</strong>），将发射器添加到发射器列表中，以便之后添加到系统中。单击 <strong>完成（Finish）</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/ParticleLights/CreateSystem_AddEmitterAndFinish.png" title="Add Emitter and Click Finish"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/ParticleLights/CreateSystem_AddEmitterAndFinish.jpg">
+		<img class="  lazyload" alt="添加发射器并点击完成" title="Add Emitter and Click Finish" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/ParticleLights/CreateSystem_AddEmitterAndFinish.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>将新系统命名为 <strong>ParticleLight</strong>。双击以在Niagara编辑器中将其打开。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/ParticleLights/CreateSystem_NameSystem.jpg">
+		<img class="  lazyload" alt="命名系统" width="100" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/ParticleLights/CreateSystem_NameSystem.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>新系统中发射器实例的默认名称为 <strong>喷泉（Fountain）</strong>。但你可以对其重命名。在 <strong>系统概览（System Overview）</strong> 中单击发射器实例名称，该字段将转变为可编辑状态。将发射器命名为 <strong>FX_ParticleLight</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/ParticleLights/CreateSystem_RenameEmitter.png" title="Rename Emitter"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/ParticleLights/CreateSystem_RenameEmitter.jpg">
+		<img class="  lazyload" alt="重命名发射器" title="Rename Emitter" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/ParticleLights/CreateSystem_RenameEmitter.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>将 <strong>ParticleLight</strong> 拖到关卡中。
+</p></li></ol><div class="note">
+	<p>制作粒子效果时，最好将系统拖到关卡中。这样便可查看每一项更改并在上下文中进行编辑。你对系统所做的任何更改都将自动传播到关卡中的系统实例。</p>
+</div><h2 id="编辑发射器更新组设置">编辑发射器更新组设置</h2>
+<p>首先，你将在发射器更新组中编辑模块。这些是将应用于发射器并更新每一帧的行为。
+</p><ol ><li class="Default"><p>在 <strong>系统概览（System Overview）</strong> 中，单击 <strong>发射器更新（Emitter Update）</strong> 组，以便在 <strong>选择（Selection）</strong> 面板中将其打开。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/ParticleLights/SystemOverview_OpenEmitterUpdate.png" title="Open Emitter Update Group"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/ParticleLights/SystemOverview_OpenEmitterUpdate.jpg">
+		<img class="  lazyload" alt="打开发射器更新组" title="Open Emitter Update Group" width="700" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/ParticleLights/SystemOverview_OpenEmitterUpdate.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>展开 <strong>发射器状态（Emitter State）</strong> 模块。由于你使用了喷泉模板，因此生命周期模式设置为"自身"。单击下拉菜单，并将生命周期模式设置为"系统"。此操作将使系统能够计算生命周期设置，而这通常可以优化性能。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/ParticleLights/EmitterUpdate_SetLifecycleMode.png" title="Set Life Cycle Mode"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/ParticleLights/EmitterUpdate_SetLifecycleMode.jpg">
+		<img class="  lazyload" alt="设置生命周期模式" title="Set Life Cycle Mode" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/ParticleLights/EmitterUpdate_SetLifecycleMode.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>当发射器处于激活状态时，<strong>生成速率（Spawn Rate）</strong> 模块创建连续粒子流。此模块已经存在于喷泉模板中。将 <strong>生成速率（Spawn Rate）</strong> 设置为 <strong>500</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/ParticleLights/EmitterUpdate_SpawnRate.png" title="Set Spawn Rate"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/ParticleLights/EmitterUpdate_SpawnRate.jpg">
+		<img class="  lazyload" alt="设置生成速率" title="Set Spawn Rate" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/ParticleLights/EmitterUpdate_SpawnRate.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li></ol><h2 id="编辑粒子生成组设置">编辑粒子生成组设置</h2>
+<p>下一步，你将编辑粒子生成组中的模块。这些模块会对粒子首次生成时的行为产生影响。
+</p><ol ><li class="Default"><p>在 <strong>系统概览（System Overview）</strong> 中，单击 <strong>粒子生成（Particle Spawn）</strong> 组，在 <strong>选择（Selection）</strong> 面板中将其打开。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/ParticleLights/SystemOverview_OpenParticleSpawn.png" title="Open Particle Spawn Group"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/ParticleLights/SystemOverview_OpenParticleSpawn.jpg">
+		<img class="  lazyload" alt="打开粒子生成组" title="Open Particle Spawn Group" width="700" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/ParticleLights/SystemOverview_OpenParticleSpawn.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>展开 <strong>初始化粒子（Initialize Particle）</strong> 模块。此模块将多个相关参数采集到一个模块中，从而最大程度地减少堆栈中的混乱。在 <strong>点属性（Point Attributes）</strong> 下，找到 <strong>生命周期模式（Lifetime Mode）</strong> 参数并设置成 <strong>随机（Random）</strong>。这个参数将决定粒子在消失前会持续显示多长时间。在本效果中，你将使用一个名为 <strong>随机范围浮点（Random Ranged Float）</strong> 的动态输入，以便随机设置粒子的持续显示时间。在喷泉模板中，生命周期参数已经应用了随机范围浮点。请按照下文设置 <strong>最小（Minimum）</strong> 和 <strong>最大（Maximum）</strong> 值。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/ParticleLights/ParticleSpawn_InitParticleLifetime.png" title="Set Lifetime Parameter"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/ParticleLights/ParticleSpawn_InitParticleLifetime.jpg">
+		<img class="  lazyload" alt="设置生命周期参数" title="Set Lifetime Parameter" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/ParticleLights/ParticleSpawn_InitParticleLifetime.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>设置 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>数值 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>最小值（Minimum）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>1.75</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>最大值（Maximum）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>2.5</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr></tbody>
+</table>
+</div></li><li class="Default"><p>同时，在 <strong>点属性（Point Attributes）</strong> 下，找到 <strong>颜色（Color）</strong> 参数。此参数可设置粒子在其生成时的初始颜色。将 <strong>RGB</strong> 字段设置为以下值。
+</p><div class="note">
+	<p>虚幻引擎取色器将把RGB颜色值规范化为0与1之间的整数。但是，若将颜色值设置为大于1，则颜色将变为自发光色。将系统放置在关卡中时，粒子将呈现该颜色。</p>
+</div><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/ParticleLights/ParticleSpawn_SetColor.png" title="Set Color Parameter"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/ParticleLights/ParticleSpawn_SetColor.jpg">
+		<img class="  lazyload" alt="设置颜色参数" title="Set Color Parameter" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/ParticleLights/ParticleSpawn_SetColor.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>设置 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>数值 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>红色（Red）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>.1</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>绿色（Green）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>.3</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>蓝色（Blue）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>50</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr></tbody>
+</table>
+</div></li><li class="Default"><p>在 <strong>Sprite属性（Sprite Attributes）</strong> 下，找到 <strong>Sprite大小（Sprite Size）</strong> 参数并勾选此复选框，以启用它。若要对喷泉粒子大小添加些许随机性，请调整Sprite大小模式。点击下拉菜单并选择"随机化均匀"（Random Uniform）。它可以在值中添加 <strong>最小</strong> 和 <strong>最大</strong> 字段。
+</p></li><li class="Default"><p>将 <strong>Sprite大小（Sprite Size）</strong> 的 <strong>最小值（Minimum）</strong> 和 <strong>最大值（Maximum）</strong> 设置如下。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/ParticleLights/ParticleSpawn_SpriteSizeMinMax.png" title="Set Sprite Size Min and Max"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/ParticleLights/ParticleSpawn_SpriteSizeMinMax.jpg">
+		<img class="  lazyload" alt="设置Sprite大小的最小值和最大值" title="Set Sprite Size Min and Max" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/ParticleLights/ParticleSpawn_SpriteSizeMinMax.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>设置 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>数值 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>最小值（Minimum）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>2.5</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>最大值（Maximum）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>8.0</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr></tbody>
+</table>
+</div></li><li class="Default"><p><strong>球体位置（Sphere location）</strong> 控制Sprite生成所在位置的形状和原点。你可以通过指定半径来设置球体形状的大小。喷泉模板中包含 <strong>球体位置（Sphere Location）</strong> 模块。将 <strong>球体半径（Sphere Radius）</strong> 设置为 <strong>15</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/ParticleLights/ParticleSpawn_SetSphereRadius.png" title="Set Sphere Radius"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/ParticleLights/ParticleSpawn_SetSphereRadius.jpg">
+		<img class="  lazyload" alt="设置球体半径" title="Set Sphere Radius" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/ParticleLights/ParticleSpawn_SetSphereRadius.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>喷泉模板还包含 <strong>在椎体中添加速度（Add Velocity in Cone）</strong> 模块。当粒子生成时，此模块会增加粒子的运动。椎体点位于粒子生成点，且你可以设置 <strong>X</strong>、<strong>Y</strong> 和 <strong>Z</strong> 值，以确定椎体的扩展方向。<strong>速度强度（Velocity Strength）</strong> 已应用名为 <strong>随机范围浮点（Random Ranged Float）</strong> 的动态输入。将 <strong>最小值（Minimum）</strong> 和 <strong>最大值（Maximum）</strong> 值设置如下。将其他设置保留为默认值。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/ParticleLights/ParticleSpawn_AddVelocityInCone.png" title="Add Velocity in Cone"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/ParticleLights/ParticleSpawn_AddVelocityInCone.jpg">
+		<img class="  lazyload" alt="在椎体中添加速度" title="Add Velocity in Cone" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/ParticleLights/ParticleSpawn_AddVelocityInCone.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>设置 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>数值 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>最小值（Minimum）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>300</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>最大值（Maximum）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>600</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr></tbody>
+</table>
+</div></li></ol><h2 id="编辑粒子更新组设置">编辑粒子更新组设置</h2>
+<p>现在，你需要在粒子更新组中更新模块。这些行为将应用于发射器的粒子并且在每一帧更新。
+</p><ol ><li class="Default"><p>在 <strong>系统概览（System Overview）</strong> 中，单击 <strong>粒子更新（Particle Update）</strong> 组，以便在 <strong>选择（Selection）</strong> 面板中将其打开。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/ParticleLights/SystemOverview_OpenParticleUpdate.png" title="Open Particle Update Group"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/ParticleLights/SystemOverview_OpenParticleUpdate.jpg">
+		<img class="  lazyload" alt="打开粒子更新组" title="Open Particle Update Group" width="700" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/ParticleLights/SystemOverview_OpenParticleUpdate.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p><strong>重力（Gravity Force）</strong> 模块模拟重力如何影响对象。*阻力（Drag）** 模块将阻力应用于粒子，这样将减慢粒子的速度。重力和阻力的默认设置适用于此效果，因此你可以通过该方式保留默认设置。 
+</p></li><li class="Default"><p>若不设置碰撞，效果中的粒子将掉落到地板或关卡中的其他固体对象上。若要添加 <strong>碰撞（Collision）</strong> 模块，请单击 <strong>粒子更新（Particle Update）</strong> 的 <strong>加号（Plus sign）</strong>（<strong>+</strong>）图标，然后选择 <strong>碰撞 > 碰撞（Collision > Collision）</strong>。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/ParticleLights/ParticleUpdate_AddCollision.png" title="Add Collision Module"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/ParticleLights/ParticleUpdate_AddCollision.jpg">
+		<img class="  lazyload" alt="添加碰撞模块" title="Add Collision Module" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/ParticleLights/ParticleUpdate_AddCollision.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p><strong>碰撞（Collision）</strong> 模块插入到堆栈的底部，位于 <strong>解算力和速度（Solve Forces and Velocity）</strong> 模块之后。这会导致错误。单击 <strong>修复问题（Fix Issue）</strong> 以移动碰撞模块并解决错误。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/ParticleLights/ParticleUpdate_CollisionFixIssue.png" title="Fix Collision Module Error"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/ParticleLights/ParticleUpdate_CollisionFixIssue.jpg">
+		<img class="  lazyload" alt="修复碰撞模块错误" title="Fix Collision Module Error" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/ParticleLights/ParticleUpdate_CollisionFixIssue.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>将 <strong>碰撞（Collision）</strong> 模块的默认设置保留在原位。
+</p></li></ol><h2 id="添加光源渲染器">添加光源渲染器</h2>
+<p>现在，你将把光源渲染器添加到喷泉效果中。
+</p><ol ><li class="Default"><p>在 <strong>系统概览（System Overview）</strong> 中，单击 <strong>渲染器（Render）</strong> 组，以在 <strong>选择（Selection）</strong> 面板中将其打开。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/ParticleLights/SystemOverview_OpenRender.png" title="Open Render Group"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/ParticleLights/SystemOverview_OpenRender.jpg">
+		<img class="  lazyload" alt="打开渲染器组" title="Open Render Group" width="700" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/ParticleLights/SystemOverview_OpenRender.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>单击 <strong>渲染器（Render）</strong> 的 <strong>加号（Plus sign）</strong>（<strong>+</strong>）图标，然后选择 <strong>光源渲染器（Light Renderer）</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/ParticleLights/Render_AddLightRenderer.png" title="Add Light Renderer"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/ParticleLights/Render_AddLightRenderer.jpg">
+		<img class="  lazyload" alt="添加光源渲染器" title="Add Light Renderer" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/ParticleLights/Render_AddLightRenderer.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>将 <strong>半径比例（Radius Scale）</strong> 设置为 <strong>5.0</strong>。这样可以确定光源与粒子生成点之间的传播距离。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/ParticleLights/Render_LightRendererSettings.png" title="Light Renderer Settings"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/ParticleLights/Render_LightRendererSettings.jpg">
+		<img class="  lazyload" alt="光源渲染器设置" title="Light Renderer Settings" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/ParticleLights/Render_LightRendererSettings.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>你可以通过 <strong>颜色添加（Color Add）</strong> 值来更改效果所发射光的颜色。这些值分别用 <strong>X</strong>、<strong>Y</strong> 和 <strong>Z</strong> 标记；要说明的是，它们分别对应RGB值，其中 <strong>X=红色（X=Red）</strong>，<strong>Y=绿色（Y=Green）</strong>，<strong>Z=蓝色（Z=Blue）</strong>。要将光源颜色与颗粒颜色匹配，请将值设置如下。
+</p><div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>设置 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>数值 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>红色（Red）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>0</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>绿色（Green）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>0</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>蓝色（Blue）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>15</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr></tbody>
+</table>
+</div></li></ol><h2 id="最终结果">最终结果</h2>
+<p>祝贺你！你成功创建了一个包含粒子光源、能在场景中发光的效果。
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_1_68rd5xvy_23
+{
+	margin: 0px;
+	width: 640px;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_1_68rd5xvy_23:after
+{
+	content: "";
+	padding-top: 360px;
+	display: block;
+}
+</style> 
+<div id="player_1_68rd5xvy_23"> 
+	<div id="playerContainer_1_68rd5xvy_23" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/1_68rd5xvy/embed.html"></iframe>
+	</div>
+</div>
+
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Niagara">Niagara</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=VFX">VFX</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Effects">Effects</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Visual%20Effects">Visual Effects</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Particle%20Effects">Particle Effects</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/RenderingAndGraphics/Niagara/HowTo/ParticleLights/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:02:59 GMT -->
+</html>

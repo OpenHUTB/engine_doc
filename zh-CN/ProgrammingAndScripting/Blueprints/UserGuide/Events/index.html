@@ -1,0 +1,1160 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/ProgrammingAndScripting/Blueprints/UserGuide/Events/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:18:40 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/ProgrammingAndScripting/Blueprints/UserGuide/Events/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>事件（Events） | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/ProgrammingAndScripting/Blueprints/UserGuide/Events/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/ProgrammingAndScripting/Blueprints/UserGuide/Events/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/ProgrammingAndScripting/Blueprints/UserGuide/Events/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/ProgrammingAndScripting/Blueprints/UserGuide/Events/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Blueprints/UserGuide/Events" />
+<meta name="intsourcechangelist" content="11969652" />
+<meta name="availability" content="Public" />
+<meta name="title" content="事件（Events）" />
+<meta name="description" content="从游戏性代码中调用的节点，在 EventGraph 中开始执行个体网络。" />
+<meta name="version" content="4.23" />
+<meta name="parent" content="ProgrammingAndScripting/Blueprints/Scripting" />
+<meta name="keywords" content="Execution Flow" />
+<meta name="keywords" content="Blueprints" />
+<meta name="keywords" content="Special Nodes" />
+<meta name="topic-image" content="ProgrammingAndScripting/Blueprints\UserGuide\Events.png" />
+<meta name="type" content="reference" />
+<meta name="course" content="blueprints---essential-concepts?lang=zh-CN|蓝图：基础概念|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fblueprints---essential-concepts%2FBPEssentialsThumbnail_1920x1080-1920x1080-2fcdde875f1d79ade1c295fe4fef53c4b8c5ecde.PNG?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fblueprints---essential-concepts%2FBlueprint--Essential-Concepts-1000x1000-9f372ce55de42ce9596dffd6c931839e44fcc873.png?resize=1&amp;w=300" />
+<meta name="course" content="interactive-material-swaps-using-blueprints?lang=zh-CN|蓝图：可交互材质切换|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Finteractive-material-swaps-using-blueprints%2F406---Hero2-1920x1080-ce26b6199cf620364149d2d934c73ae30e983110.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Finteractive-material-swaps-using-blueprints%2FInteractive-Material-Swaps-Using-Blueprints-1000x1000-21158a5fe67365e3bf5db49712b52482382f15ac.png?resize=1&amp;w=300" />
+<meta name="course" content="making-a-blueprint-product-configurator?lang=zh-CN|企业级蓝图开发|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fblueprint-for-enterprise%2F301-Blueprints-%281200X675%29-1200x675-d140b8a0b13b05c0619e35e1076b4c82e4a4b855.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fblueprint-for-enterprise%2FBlueprint-for-Enterprise-1000x1000-13caa11b8e5c5e91506a8dd63b39d247318c3208.png?resize=1&amp;w=300" />
+<meta name="crumbs" content="%ROOT%,ProgrammingAndScripting,ProgrammingAndScripting/Blueprints,ProgrammingAndScripting/Blueprints/Scripting" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="事件（Events）" />
+	<meta property="og:description" content="从游戏性代码中调用的节点，在 EventGraph 中开始执行个体网络。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">编程和脚本编写</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">蓝图可视化脚本</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../Scripting/index.html">脚本编写基础</a>
+
+<span class="separator">></span> <span id="page">事件（Events）</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">事件（Events）</h1>
+							</div>	
+							<h2 >从游戏性代码中调用的节点，在 EventGraph 中开始执行个体网络。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																																			</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																								<div id="courses">
+	<div style="position:relative;">
+		<div id="title">相关课程</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<div name="blueprints---essential-concepts?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/blueprints---essential-concepts?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/blueprints---essential-concepts/BPEssentialsThumbnail_1920x1080-1920x1080-2fcdde875f1d79ade1c295fe4fef53c4b8c5ecd?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/blueprints---essential-concepts/Blueprint--Essential-Concepts-1000x1000-9f372ce55de42ce9596dffd6c931839e44fcc873?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="blueprints---essential-concepts?lang=zh-CN_title">
+				蓝图：基础概念
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="interactive-material-swaps-using-blueprints?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/interactive-material-swaps-using-blueprints?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/interactive-material-swaps-using-blueprints/406---Hero2-1920x1080-ce26b6199cf620364149d2d934c73ae30e983110.8314f8?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/interactive-material-swaps-using-blueprints/Interactive-Material-Swaps-Using-Blueprints-1000x1000-21158a5fe67365e3bf5db49712b52482382f15ac.8?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="interactive-material-swaps-using-blueprints?lang=zh-CN_title">
+				蓝图：可交互材质切换
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="making-a-blueprint-product-configurator?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/making-a-blueprint-product-configurator?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/blueprint-for-enterprise/301-Blueprints-(1200X675)-1200x675-d140b8a0b13b05c0619e35e1076b4c82e4a4b855.8344f86.dela?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/blueprint-for-enterprise/Blueprint-for-Enterprise-1000x1000-13caa11b8e5c5e91506a8dd63b39d247318c3208.836fe4b.dela?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="making-a-blueprint-product-configurator?lang=zh-CN_title">
+				企业级蓝图开发
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																								<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#eventlevelreset">Event Level Reset</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#eventactorbeginoverlap">Event Actor Begin Overlap</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#eventactorendoverlap">Event Actor End Overlap</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#eventhit">Event Hit</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#eventanydamage">Event Any Damage</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#eventpointdamage">Event Point Damage</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#eventradialdamage">Event Radial Damage</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#eventactorbegincursorover">Event Actor Begin Cursor Over</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#eventactorendcursorover">Event Actor End Cursor Over</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#eventbeginplay">Event Begin Play</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#eventendplay">Event End Play</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#eventdestroyed">Event Destroyed</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#eventtick">Event Tick</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#eventreceivedrawhud">Event Receive Draw HUD</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#customevent">Custom Event</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p><strong>事件（Events）</strong> 是从游戏性代码中调用的节点，
+在 <strong>事件图表（EventGraph）</strong> 中开始执行个体网络。
+它们使蓝图执行一系列操作，对游戏中发生的特定事件（如游戏开始、关卡重置、受到伤害等）进行回应。
+</p><p>这些事件可在蓝图中访问，以便实现新功能，或覆盖/扩充默认功能。任意数量的 <strong>Events</strong> 均可在单一 <strong>EventGraph</strong> 中使用，但每种类型只能使用一个。
+</p><p>一个事件只能执行一个目标。如果想要从一个事件触发多个操作，需要将它们线性串联起来。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Events/EventsExpanded.jpg">
+		<img class="  lazyload" alt="Blueprint Class Events Expanded" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Events/EventsExpanded.jpg" />
+</picture>
+ <picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Events/LevelBPEventsExpanded.jpg">
+		<img class="  lazyload" alt="Level Blueprint Events Expanded" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Events/LevelBPEventsExpanded.jpg" />
+</picture>
+
+</p><h2 id="eventlevelreset">Event Level Reset</h2>
+<div class="note">
+	<p>此蓝图事件节点仅在关卡蓝图中可用。
+</p><p>此蓝图事件节点仅在服务器上执行。在单人游戏中，本地客户端即视为服务器。</p>
+</div><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Events/LevelReset.jpg">
+		<img class="  lazyload" alt="LevelReset.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Events/LevelReset.jpg" />
+</picture>
+
+</p><p><strong>Level Reset</strong> 事件在关卡重启时发出执行信号。
+它在关卡重新加载后进行某项触发时非常实用。
+如玩家角色已死亡，但关卡无需重新加载时。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Events/LevelReset_Example.jpg">
+		<img class="  lazyload" alt="LevelReset_Example.png" width="500" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Events/LevelReset_Example.jpg" />
+</picture>
+
+</p><h2 id="eventactorbeginoverlap">Event Actor Begin Overlap</h2>
+<p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Events/BeginOverlap.jpg">
+		<img class="  lazyload" alt="BeginOverlap.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Events/BeginOverlap.jpg" />
+</picture>
+
+</p><p>多项条件同时满足时，将执行该事件：
+</p><ul ><li class="Default"><p>Actor 之间的碰撞响应必须允许重叠。
+</p></li><li class="Default"><p>执行事件的两个 Actor 的 <strong>Generate Overlap Events</strong> 均设为 true。
+</p></li><li class="Default"><p>最后，两个 Actor 的碰撞开始重叠；两者移到一起或其中一个创建时与另一个重叠。
+</p></li></ul><div class="note">
+	<p>关于碰撞详细信息，请查阅：<a id="content_link" href="../../../../InteractiveExperiences/Physics/Collision/index.html" ><span>碰撞响应</span></a>。</p>
+</div><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Events/BeginOverlapEX.jpg">
+		<img class="  lazyload" alt="BeginOverlapEX.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Events/BeginOverlapEX.jpg" />
+</picture>
+
+<div class="caption">
+	<p>此蓝图 Actor 和保存在 Player Actor 变量中的 Actor 重叠时，它将增加 Counter 整数变量。</p>
+</div>
+</p><div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>项目 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>描述 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="2" align="">
+			<p><div class="tablesection">
+	<p>输出引脚</p>
+</div></p>
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Other Actor</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>Actor - 这是与此蓝图发生重叠的 Actor。</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div><h2 id="eventactorendoverlap">Event Actor End Overlap</h2>
+<p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Events/EndOverlap.jpg">
+		<img class="  lazyload" alt="EndOverlap.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Events/EndOverlap.jpg" />
+</picture>
+
+</p><p>多项条件同时满足时，将执行该事件：
+</p><ul ><li class="Default"><p>Actor 之间的碰撞响应必须允许重叠。
+</p></li><li class="Default"><p>执行事件的两个 Actor 的 <strong>Generate Overlap Events</strong> 均设为 true。
+</p></li><li class="Default"><p>最后，两个 Actor 的碰撞停止重叠；它们将分离，或在其中一个将被销毁。
+</p></li></ul><div class="note">
+	<p>关于碰撞详细信息，请查阅：<a id="content_link" href="../../../../InteractiveExperiences/Physics/Collision/index.html" ><span>碰撞响应</span></a>。</p>
+</div><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Events/EndOverlapEX.jpg">
+		<img class="  lazyload" alt="EndOverlapEX.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Events/EndOverlapEX.jpg" />
+</picture>
+
+<div class="caption">
+	<p>当此蓝图 Actor 不与其他 Actor 发生重叠时（保存在 Player Actor 变量中的 Actor 除外），它将销毁重叠的 Actor。</p>
+</div>
+</p><div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>项目 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>描述 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="2" align="">
+			<p><div class="tablesection">
+	<p>输出引脚</p>
+</div></p>
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Other Actor</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>Actor - 这是与此蓝图发生重叠的 Actor。</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div><h2 id="eventhit">Event Hit</h2>
+<p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Events/EventHit.jpg">
+		<img class="  lazyload" alt="EventHit.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Events/EventHit.jpg" />
+</picture>
+
+</p><p>只要其中一个相关 Actor 的碰撞设置中 <strong>Simulation Generates Hit Events</strong> 设为 true，该事件便会执行。 
+</p><div class="note">
+	<p>如您使用 Sweeps 创建运动，即使未选中标记也将获得此事件。只要 Sweep 阻止您移过阻挡物体，这便会发生。</p>
+</div><div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>项目 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>描述 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="2" align="">
+			<p><div class="tablesection">
+	<p>输出引脚</p>
+</div></p>
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>My Comp</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>原始组件 - 被命中的执行 Actor 上的组件。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Other</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>Actor - 参与碰撞的其他 Actor。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Other Comp</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>原始组件 - 参与碰撞，被命中的其他 Actor 上的组件。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Self Moved</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>布尔型 - 接受来自另一个物体运动的命中时使用（如为 false），对 Hit Normal 和 Hit Impact Normal 的方向进行调整，以便表现其他物体对被命中物体施加的力。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Hit Location</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>矢量 - 两个碰撞 Actor 之间的接触位置。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Hit Normal</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>矢量 - 碰撞方向。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Normal Impulse</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>矢量 - Actor 碰撞的力。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Hit</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>命中结果结构体 - 一次命中中收集到的所有数据，可剥离并"打破"该结果，访问数据的单个位元。</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Events/EventHitEX.jpg">
+		<img class="  lazyload" alt="EventHitEX.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Events/EventHitEX.jpg" />
+</picture>
+
+</p><p><strong>Hit</strong></p><h2 id="eventanydamage">Event Any Damage</h2>
+<p>此蓝图事件节点仅在服务器上执行。在单人游戏中，本地客户端即视为服务器。</p>
+<p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Events/AnyDamage.jpg">
+		<img class="  lazyload" alt="AnyDamage.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Events/AnyDamage.jpg" />
+</picture>
+
+</p><p>此事件在造成整体伤害时出现。如溺死或环境伤害，并非点伤害或放射伤害。
+</p><div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>项目 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>描述 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="2" align="">
+			<p><div class="tablesection">
+	<p>输出引脚</p>
+</div></p>
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Damage</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>浮点型 - 传入 Actor 的伤害量。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Damage Type</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>伤害类型对象 - 这是在输出伤害上包含额外数据的对象。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Instigated By</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>Actor - 负责伤害的 Actor。这就是开枪或投手雷造成伤害的 Actor。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Damage Causer</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>Actor - 输出伤害的 Actor。这可以是子弹或爆炸。</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Events/AnyDamageEX.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Events/AnyDamageEX.jpg">
+		<img class="  lazyload" alt="AnyDamageEX.png" width="940" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Events/AnyDamageEX.jpg" />
+</picture>
+</span></a></span></p>
+</div><p><div class="caption">
+	<p>此处，如果对 Actor 造成的伤害来自水，将减少体力值并在屏幕上生成警告。</p>
+</div>
+</p><h2 id="eventpointdamage">Event Point Damage</h2>
+<p>此蓝图事件节点仅在服务器上执行。在单人游戏中，本地客户端即视为服务器。</p>
+<p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Events/PointDamage.jpg">
+		<img class="  lazyload" alt="PointDamage.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Events/PointDamage.jpg" />
+</picture>
+
+</p><p><strong>点伤害（Point Damage）</strong> 代表由投射物、扫射武器、甚至近战武器造成的伤害。
+</p><div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>项目 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>描述 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="2" align="">
+			<p><div class="tablesection">
+	<p>输出引脚</p>
+</div></p>
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Damage</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>浮点型 - 传入 Actor 的伤害量。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Damage Type</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>伤害类型对象 - 这是在输出伤害上包含额外数据的对象。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Hit Location</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>矢量 - 应用伤害的位置。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Hit Normal</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>矢量 - 碰撞方向。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Hit Component</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>原始组件 - 被命中的执行 Actor 上的组件。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Bone Name</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>名称 - 命中的骨骼名称。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Shot from Direction</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>矢量 - 伤害来源的方向。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Instigated By</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>Actor - 负责伤害的 Actor。这是开枪或投手雷造成伤害的 Actor。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Damage Causer</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>Actor - 输出伤害的 Actor。这可以是子弹或爆炸。</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Events/PointDamageEX.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Events/PointDamageEX.jpg">
+		<img class="  lazyload" alt="PointDamageEX.png" width="940" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Events/PointDamageEX.jpg" />
+</picture>
+</span></a></span></p>
+</div><p><div class="caption">
+	<p>在此例中，受到任意伤害时均会从 Actor 的体力值减去造成的伤害。但如果 Actor 的头部被击中，则 Actor 的体力值设为 -1。</p>
+</div>
+</p><h2 id="eventradialdamage">Event Radial Damage</h2>
+<p>此蓝图事件节点仅在服务器上执行。在单人游戏中，本地客户端即视为服务器。</p>
+<p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Events/RadialDamage.jpg">
+		<img class="  lazyload" alt="RadialDamage.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Events/RadialDamage.jpg" />
+</picture>
+
+</p><p><strong>放射伤害（Radial Damage）</strong> 事件在该序列的父 Actor 受到放射伤害时调用。这可用于处理基于爆炸伤害或间接伤害的事件。
+</p><div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>项目 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>描述 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="2" align="">
+			<p><div class="tablesection">
+	<p>输出引脚</p>
+</div></p>
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Damage Received</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>浮点型 - 从事件接收的伤害量。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Damage Type</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>伤害类型对象 - 这是在输出伤害上包含额外数据的对象。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Origin</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>矢量 - 3D 空间中的伤害来源位置。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Hit Info</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>命中结果结构体 - 一次命中中收集到的所有数据，可剥离并"打破"该结果，访问数据的单个位元。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Instigated By</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>控制器 - 发起伤害的控制器（AI 或玩家）。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Damage Causer</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>Actor - 输出伤害的 Actor。可以是子弹、火箭、激光或角色的拳击。</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Events/RadialDamageEX.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Events/RadialDamageEX.jpg">
+		<img class="  lazyload" alt="RadialDamageEX.png" width="940" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Events/RadialDamageEX.jpg" />
+</picture>
+</span></a></span></p>
+</div><h2 id="eventactorbegincursorover">Event Actor Begin Cursor Over</h2>
+<p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Events/BeginCursorOver.jpg">
+		<img class="  lazyload" alt="BeginCursorOver.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Events/BeginCursorOver.jpg" />
+</picture>
+
+</p><p>使用鼠标界面时，鼠标光标在 Actor 上悬停时执行的事件。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Events/BeginCursorOverEX.jpg">
+		<img class="  lazyload" alt="BeginCursorOverEX.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Events/BeginCursorOverEX.jpg" />
+</picture>
+
+<div class="caption">
+	<p>鼠标经过此 Actor 后，它将把动态材质实例上名为 Highlight 的标量参数设为 1.0。</p>
+</div>
+</p><h2 id="eventactorendcursorover">Event Actor End Cursor Over</h2>
+<p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Events/EndCursorOver.jpg">
+		<img class="  lazyload" alt="EndCursorOver.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Events/EndCursorOver.jpg" />
+</picture>
+
+</p><p>使用鼠标界面时，鼠标光标在 Actor 上移开时执行的事件。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Events/EndCursorOverEX.jpg">
+		<img class="  lazyload" alt="EndCursorOverEX.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Events/EndCursorOverEX.jpg" />
+</picture>
+<strong>Target Notification</strong></p><h2 id="eventbeginplay">Event Begin Play</h2>
+<p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Events/BeginPlay.jpg">
+		<img class="  lazyload" alt="BeginPlay.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Events/BeginPlay.jpg" />
+</picture>
+
+</p><p>游戏开始时将在所有 Actor 上触发此事件。游戏开始后生成的所有 Actor 上均会立即调用此事件。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Events/BeginPlayEX.jpg">
+		<img class="  lazyload" alt="BeginPlayEX.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Events/BeginPlayEX.jpg" />
+</picture>
+
+<div class="caption">
+	<p>开始游戏时，此 Actor 将把其体力值设为 1000，分数设为 0。</p>
+</div>
+</p><h2 id="eventendplay">Event End Play</h2>
+<p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Events/EndPlay.jpg">
+		<img class="  lazyload" alt="EndPlay.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Events/EndPlay.jpg" />
+</picture>
+
+</p><p>Actor 不存在于世界场景中时执行此事件。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Events/EndPlayEX.jpg">
+		<img class="  lazyload" alt="EndPlayEX.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Events/EndPlayEX.jpg" />
+</picture>
+
+<div class="caption">
+	<p>此 Actor 不存在于世界场景中时，字符串将输出，说明事件被调用的原因。</p>
+</div>
+</p><div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>项目 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>描述 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="2" align="">
+			<p><div class="tablesection">
+	<p>输出引脚</p>
+</div></p>
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>End Play Reason</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>EEndPlayReason 枚举 - 说明 Event End Play 被调用原因的枚举。</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div><h2 id="eventdestroyed">Event Destroyed</h2>
+<p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Events/Destroyed.jpg">
+		<img class="  lazyload" alt="Destroyed.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Events/Destroyed.jpg" />
+</picture>
+
+</p><p>Actor 被销毁时执行此事件。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Events/DestroyedEX.jpg">
+		<img class="  lazyload" alt="DestroyedEX.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Events/DestroyedEX.jpg" />
+</picture>
+<strong>Score</strong> 变量设为 <strong>Value</strong> 加 <strong>Score</strong></p><div class="warning">
+	<p>Destroyed 事件将在之后的版本中移除！Destroyed 函数的功能已合并到 EndPlay 函数。</p>
+</div><h2 id="eventtick">Event Tick</h2>
+<p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Events/Tick.jpg">
+		<img class="  lazyload" alt="Tick.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Events/Tick.jpg" />
+</picture>
+
+</p><p>游戏进程中每帧调用的简单事件。 
+</p><div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>项目 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>描述 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="2" align="">
+			<p><div class="tablesection">
+	<p>输出引脚</p>
+</div></p>
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Delta Seconds</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>浮点型 - 输出帧之间的时间量。</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div><p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Events/TickEX.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Events/TickEX.jpg">
+		<img class="  lazyload" alt="TickEX.png" width="940" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Events/TickEX.jpg" />
+</picture>
+</span></a></span>
+<div class="caption">
+	<p>此例使用 Delta Seconds 构成倒数计时器显示日志，最后的 tick 为"Blast Off!"</p>
+</div>
+</p><h2 id="eventreceivedrawhud">Event Receive Draw HUD</h2>
+<div class="note">
+	<p>此事件仅限继承自 HUD 类的蓝图类可用。</p>
+</div><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Events/DrawHud.jpg">
+		<img class="  lazyload" alt="DrawHud.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Events/DrawHud.jpg" />
+</picture>
+
+</p><p>这是一个特殊事件，使蓝图可绘制到 HUD。此事件须创建 HUD 绘制节点。
+</p><div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>项目 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>描述 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="2" align="">
+			<p><div class="tablesection">
+	<p>输出引脚</p>
+</div></p>
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Size X</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>Int - 渲染窗口的像素宽度。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Size Y</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>Int - 渲染窗口的像素高度。</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Events/DrawHudEX.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Events/DrawHudEX.jpg">
+		<img class="  lazyload" alt="DrawHudEX.png" width="940" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Events/DrawHudEX.jpg" />
+</picture>
+</span></a></span></p>
+</div><p><strong>Hit Box</strong></p><h2 id="customevent">Custom Event</h2>
+<p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Events/Custom/name_custom_event.jpg">
+		<img class="  lazyload" alt="Custom Event Node" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Events/Custom/name_custom_event.jpg" />
+</picture>
+
+</p><p>Custom Event 节点是拥有自身工作流程的特殊节点，请查阅 <a id="content_link"filter-data="tag_execution_flow tag_blueprints" href="Custom/index.html" ><span>自定义事件节点</span></a> 中的更多内容。
+</p><div class="note">
+	<p>扩展阅读：
+</p><ul ><li class="Default"><p><a id="content_link"filter-data="tag_execution_flow tag_blueprints" href="Custom/index.html" ><span>自定义事件</span></a>：创建可以在蓝图序列的任意点上被调用的事件。
+</p></li><li class="Default"><p><a id="content_link"filter-data="tag_sequencer tag_event_track" href="../../../../AnimatingObjects/Sequencer/HowTo/TracksEvent/index.html" ><span>通过Sequencer调用事件</span></a>：创建在播放动画序列时在指定时间触发的事件。
+</p></li></ul>
+</div>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Execution%20Flow">Execution Flow</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Blueprints">Blueprints</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Special%20Nodes">Special Nodes</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/ProgrammingAndScripting/Blueprints/UserGuide/Events/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:18:53 GMT -->
+</html>

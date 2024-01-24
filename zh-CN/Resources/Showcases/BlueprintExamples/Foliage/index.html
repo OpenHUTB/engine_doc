@@ -1,0 +1,445 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/Resources/Showcases/BlueprintExamples/Foliage/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:47:57 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/Resources/Showcases/BlueprintExamples/Foliage/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>植被的随机生成 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/Resources/Showcases/BlueprintExamples/Foliage/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/Resources/Showcases/BlueprintExamples/Foliage/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/Resources/Showcases/BlueprintExamples/Foliage/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/Resources/Showcases/BlueprintExamples/Foliage/" hreflang="ko" />
+
+	<meta name="intsourcechangelist" content="16146891" />
+<meta name="availability" content="Public" />
+<meta name="title" content="植被的随机生成" />
+<meta name="description" content="植被蓝图概览。" />
+<meta name="related" content="ProgrammingAndScripting/Blueprints/Overview" />
+<meta name="related" content="ProgrammingAndScripting/Blueprints/UserGuide/Variables" />
+<meta name="related" content="AnimatingObjects/SkeletalMeshAnimation/AnimBlueprints/EventGraph" />
+<meta name="related" content="ProgrammingAndScripting/Blueprints/UserGuide/UserConstructionScript" />
+<meta name="version" content="4.9" />
+<meta name="crumbs" content="%ROOT%,Resources,Resources/Showcases,Resources/Showcases/BlueprintExamples" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="植被的随机生成" />
+	<meta property="og:description" content="植被蓝图概览。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">示例与教学</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">引擎特性示例</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">蓝图</a>
+
+<span class="separator">></span> <span id="page">植被的随机生成</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">植被的随机生成</h1>
+							</div>	
+							<h2 >植被蓝图概览。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																																			</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																		<div id="seeAlso">
+	<div style="position:relative;">
+		<div id="title">参见</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<p>
+						<a id="related_link" href="../../../../ProgrammingAndScripting/Blueprints/Overview/index.html" title="蓝图总览页面包含蓝图剖析和可用的不同蓝图类型。">蓝图总览</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../../../ProgrammingAndScripting/Blueprints/UserGuide/Variables/index.html" title="保存值或参考世界场景中的对象或Actor的属性。">蓝图变量</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../../../AnimatingObjects/SkeletalMeshAnimation/AnimBlueprints/EventGraph/index.html" title="基于事件的图表，用于更新动画蓝图和计算动画图表中使用的值。">事件图表</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../../../ProgrammingAndScripting/Blueprints/UserGuide/UserConstructionScript/index.html" title="当创建一个蓝图实例来执行初始化动作时执行该构造脚本。">构造脚本</a>
+					</p>
+				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																														<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#蓝图设置">蓝图设置</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#可编辑变量">可编辑变量</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<div class="fullwidth">
+	<p><picture>
+		<source data-srcset="./../../../../../Images/Resources/Showcases/BlueprintExamples/Foliage/Foliage.jpg">
+		<img class="  lazyload" alt="Foliage.png" data-src="../../../../../Images/Resources/Showcases/BlueprintExamples/Foliage/Foliage.jpg" />
+</picture>
+</p>
+</div><p><strong>植被（Foliage）</strong> 蓝图显示了如何使用蓝图来创建随机生成的植被（或其他结构），它们会被自动放置以便贴合表面。用户可以控制特效的范围以及系统尝试生成的网格体数量。随着蓝图的移动，网格体会更新以重新适应新环境。
+</p><p>可以一目了然的是，系统采用了固定的半径，然后选择该半径内随机生成的点作为潜在的生成点来使用。随后，它会执行向下的轨迹检查，以便查看每个点下方的表面位置，并将其作为可能的位置来使用。系统还会检查每个网格体的单独半径以防止网格体过度重叠，并将在当前无网格体的空间的任意位置处选择新的随机位置。
+</p><h2 id="蓝图设置">蓝图设置</h2>
+<p>此蓝图的组件列表、构造脚本和事件图表执行以下任务：
+</p><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>蓝图部分 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>用途 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>组件列表（Components List）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>添加公告板组件（BillboardComponent）代表中心，添加框组件（BoxComponent）帮助将半径可视化。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>构造脚本（Construction Script）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><em>构建脚本</em> 执行以下任务：
+</p><ul ><li class="Default"><p>缩放盒体组件以辅助可视化效果。
+</p></li><li class="Default"><p>使用循环从而在半径内的随机位置处创建植被网格体，生成指定数量的网格体。
+</p></li><li class="Default"><p>检测一系列情况以便查看是否以及如何生成网格体。
+</p></li></ul>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>事件图表（Event Graph）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>此蓝图不含 <em>事件图表</em>，意味着一旦设置其属性后，便会在游戏进程中保持不变。</p>
+			</td>
+	
+</tr></tbody>
+</table><div class="lightbox">
+	<p><picture>
+		<source data-srcset="./../../../../../Images/Resources/Showcases/BlueprintExamples/Foliage/FoliageCS.jpg">
+		<img class="  lazyload" alt="FoliageCS.png" width="920" data-src="../../../../../Images/Resources/Showcases/BlueprintExamples/Foliage/FoliageCS.jpg" />
+</picture>
+</p>
+</div><div class="caption">
+	<p>这张图片展示了如何用蓝图脚本生成植被。如需了解脚本的完整内容，请参见Epic Games启动程序中学习（Learn）选项卡内的蓝图示例项目。</p>
+</div><h2 id="可编辑变量">可编辑变量</h2>
+<p>你可能已经想到了，此蓝图的大多数工作在 <strong>构造脚本（Construction Script）</strong> 中完成，十分全面。以下是显示的关键公开属性及其作用。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/Resources/Showcases/BlueprintExamples/Foliage/MyBlueprintNoVar.jpg">
+		<img class="  lazyload" alt="MyBlueprintNoVar.jpg" data-src="../../../../../Images/Resources/Showcases/BlueprintExamples/Foliage/MyBlueprintNoVar.jpg" />
+</picture>
+ <picture>
+		<source data-srcset="./../../../../../Images/Resources/Showcases/BlueprintExamples/Foliage/Properties_Foliage.jpg">
+		<img class="  lazyload" alt="Properties_Foliage.png" data-src="../../../../../Images/Resources/Showcases/BlueprintExamples/Foliage/Properties_Foliage.jpg" />
+</picture>
+
+</p><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>属性 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>用途 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>网格体数量（Number of Meshes）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>这个整数值代表了蓝图将要生成的网格体数量。在构造脚本中，此值决定了 <em>ForLoop</em> 节点触发的次数。每个来自于 <em>ForLoop</em> 节点的执行都会经过负责创建静态网格体的脚本部分。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>半径（Radius）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>控制特效的半径，植被将被随机散布于其中。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>碰撞检测范围（Collision Trace Range）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>查找在有效表面生成植被的的垂直距离（系统在垂直方向上需要查看的距离）。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>待生成的网格体（Meshes To Spawn）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>这是数组变量，可将来自内容浏览器的网格体添加到此数组。构造脚本生成网格体组件后，它被变更为来自于数组的随机网格体。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>垂直偏移（Vertical Offset）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>控制生成的网格体的表面 <em>深度</em>，可以让网格体看起来更贴近地面。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>对齐至表面（Align To Surface）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>这个布尔值变量会让由蓝图生成的网格体自适应，这样它们可以与其所处的表面角度相匹配。从内部来说，这个变量影响确定植被网格体放置方式的构造脚本中的一个分支。启用变量后，脚本会在尝试生成每个网格体前描画线形轨迹。当此轨迹撞击表面时，获取冲击点的角度和高度并以此确定生成的网格体的角度和高度。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>最大缩放（Scale Max）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>生成的网格体所允许的最大缩放。这个百分比值在0.0-1.0之间，1.0代表100%。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>最小缩放（Scale Min）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>生成的网格体所允许的最小缩放。这个百分比值在0.0-1.0之间，1.0代表100%。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>中心周围的群集（Cluster Around Center）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>此布尔值变量确定网格体的随机位置是否主要位于半径中心的周围。启用该选项后，可由中心点生成的距离网格体的数量将随机减少，会造成生成更少远离系统（从半径处观察）的网格体。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>缩放衰减（Scale Falloff）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>这个布尔值变量确定了当网格体远离中心点时，生成的网格体是否会越来越小。 布尔值决定了网格体的缩放是否会与网格体和中心位置的距离值相乘。如果我们使用蓝图来生成植被网格体，那么当花草的大小在群组的外部边缘周围逐渐减小时，网格体群集看起来更为自然。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>随机种子（Random Seed）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>控制应用的种子以创建随机数量。变更此值来改变你的运算结果。</p>
+			</td>
+	
+</tr></tbody>
+</table>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/Resources/Showcases/BlueprintExamples/Foliage/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:47:59 GMT -->
+</html>

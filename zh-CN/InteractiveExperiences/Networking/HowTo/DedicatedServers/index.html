@@ -1,0 +1,504 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/InteractiveExperiences/Networking/HowTo/DedicatedServers/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 10:25:17 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/InteractiveExperiences/Networking/HowTo/DedicatedServers/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>设置专用服务器 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/InteractiveExperiences/Networking/HowTo/DedicatedServers/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/InteractiveExperiences/Networking/HowTo/DedicatedServers/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/InteractiveExperiences/Networking/HowTo/DedicatedServers/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/InteractiveExperiences/Networking/HowTo/DedicatedServers/" hreflang="ko" />
+
+	<meta name="redirect" content="Gameplay/Networking/HowTo/DedicatedServers" />
+<meta name="intsourcechangelist" content="15970176" />
+<meta name="availability" content="Public" />
+<meta name="title" content="设置专用服务器" />
+<meta name="parent" content="InteractiveExperiences/Networking" />
+<meta name="description" content="如何为项目设置和打包专用服务器。" />
+<meta name="keywords" content="network" />
+<meta name="keywords" content="multiplayer " />
+<meta name="keywords" content="gameplay" />
+<meta name="keywords" content="Fundamentals" />
+<meta name="related" content="InteractiveExperiences/Networking/Overview" />
+<meta name="related" content="InteractiveExperiences/Networking/Server" />
+<meta name="related" content="InteractiveExperiences/Networking/Quickstart" />
+<meta name="version" content="4.25" />
+<meta name="skillevel" content="Intermediate" />
+<meta name="crumbs" content="%ROOT%,InteractiveExperiences,InteractiveExperiences/Networking" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="设置专用服务器" />
+	<meta property="og:description" content="如何为项目设置和打包专用服务器。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">创建交互体验</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">联网和多人游戏</a>
+
+<span class="separator">></span> <span id="page">设置专用服务器</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">设置专用服务器</h1>
+							</div>	
+							<h2 >如何为项目设置和打包专用服务器。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																																			</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																		<div id="seeAlso">
+	<div style="position:relative;">
+		<div id="title">参见</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<p>
+						<a id="related_link" href="../../Overview/index.html" title="设置多人游戏的联网游戏。">网络概述</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../Server/index.html" title="关于服务器在多人游戏中担当角色的概述。">客户端-服务器模式</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../Quickstart.html" title="用C++创建简单的多人游戏。">多人游戏编程快速入门指南</a>
+					</p>
+				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																														<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#1.必要的设置">1.必要的设置</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#2.设置服务器构建目标">2.设置服务器构建目标</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#3.设置起始地图和默认地图">3.设置起始地图和默认地图</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#4.打包你的项目">4.打包你的项目</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#5.启动和测试你的专用服务器">5.启动和测试你的专用服务器</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#看你的了">看你的了</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p><strong>虚幻引擎</strong> 使用 <strong>服务器-客户端</strong> 模型来模拟多人网络游戏，其中一台服务器充当游戏 <strong>主机</strong>，而加入该游戏的玩家则为 <strong>客户端</strong>。实际的游戏状态由服务器调整，而每个玩家都使用 <strong>自主代理</strong> 远程控制其pawn。然后，服务器将改动内容 <strong>复制</strong> 到网络中的每台联网客户端，以便所有玩家都能享有接近于在服务器上进行游戏的体验。 
+</p><p><strong>监听服务器</strong> 表示玩家在其计算机上创建游戏，而 <strong>专用服务器</strong> 则是一种无界面运行的服务器。无界面服务器不会呈现任何视觉效果，并且玩家不会在服务器本地运行游戏。这使得专用服务器可以专注于游戏逻辑并调整来自客户端的传入信息，从而充分利用其资源来主持游戏。此外，这确保了参与多人游戏的所有玩家都能享有公平竞技环境。监听服务器通常适用于多人休闲游戏和合作游戏，而专用服务器则是大型或竞技游戏的理想之选。
+</p><p>本操作指南将向你展示如何为自己的多人游戏构建和打包专用服务器。
+</p><h2 id="1.必要的设置">1.必要的设置</h2>
+<p>要遵循此操作方法中的步骤，你的项目需要满足以下要求：
+</p><p>+你必须使用虚幻引擎的源代码构建版本，你可以从<a id="content_link" href="https://www.unrealengine.com/en-US/ue4-on-github" ><span>Epic Games Github</span></a>下载。</p><pre class="prettyprint"><code>+如果你的项目使用的是Epic Games启动器的二进制构建版本，你需要将其迁移到Github源代码构建版本。</code></pre>
+<ul ><li class="Default"><p>你必须有一个可以支持服务器-客户端多人游戏模式的C++项目。
+</p><ul ><li class="Default"><p>如果你使用的是蓝图项目，你需要先将其转换为C++项目才能继续。
+</p></li></ul></li></ul><p>本示例将以 <strong>第三人称模板</strong> 中的新项目为例。
+</p><div class="tip">
+	<p>要从头开始构建新的多人游戏项目，请参阅多人网络游戏快速入门指南，它在第三人称模板中添加了一些基本的多人游戏机制。</p>
+</div><h2 id="2.设置服务器构建目标">2.设置服务器构建目标</h2>
+<p>专用服务器是你的项目的单独 <strong>构建目标</strong>。当你创建构建目标时，与游戏本身相比，你会创建另一种可执行文件。它不是"TestProjectGame.exe"，而是"TestProjectServer.exe"，启动该可执行文件将启动计算机上的专用服务器。本小节将向你介绍将服务器构建目标添加到项目中并进行编译的过程。
+</p><ol ><li class="Default"><p>打开项目的C++解决方案。它位于你的项目文件夹中。此处称其为 <strong>MyProject.sln</strong>。
+</p><p><span class="non-localized"><a id="content_link" href="../../../../../Images/InteractiveExperiences/Networking/HowTo/DedicatedServers/ProjectSolutionInFolder.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/Networking/HowTo/DedicatedServers/ProjectSolutionInFolder.jpg">
+		<img class="  lazyload" alt="ProjectSolutionInFolder.png" width="450" data-src="../../../../../Images/InteractiveExperiences/Networking/HowTo/DedicatedServers/ProjectSolutionInFolder.jpg" />
+</picture>
+</span></a></span>
+</p><div class="note">
+	<p>如果你没有C++解决方案，你可以右键点击.uproject文件，然后点击 <strong>生成Visual Studio项目文件（Generate Visual Studio Project Files）</strong>，创建解决方案。</p>
+</div></li><li class="Default"><p>在 <strong>解决方案资源管理器</strong> 中，展开 <strong>源（Source）</strong> 文件夹，然后找到 <code>&#91;Project&#93;.Target.cs</code> 文件。这是项目的默认构建目标。还有一个 <code>&#91;Project&#93;Editor.Target.cs</code> 文件，用于配置虚幻编辑器如何为此项目进行构建。我们将在同一目录中创建服务器构建目标。
+</p><p><span class="non-localized"><a id="content_link" href="../../../../../Images/InteractiveExperiences/Networking/HowTo/DedicatedServers/TestProjectTarget.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/Networking/HowTo/DedicatedServers/TestProjectTarget.jpg">
+		<img class="  lazyload" alt="TestProjectTarget.png" data-src="../../../../../Images/InteractiveExperiences/Networking/HowTo/DedicatedServers/TestProjectTarget.jpg" />
+</picture>
+</span></a></span>
+</p></li><li class="Default"><p>在 <strong>Windows资源管理器</strong> 中打开 <strong>源（Source）文件夹</strong>。创建 <code>&#91;ProjectName&#93;.Target.cs</code> 的副本，并将其重命名为 <code>&#91;ProjectName&#93;Server.Target.cs</code>。此处生成的文件称为 <code>TestProjectServer.Target.cs</code>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/Networking/HowTo/DedicatedServers/ServerTargetInFolder.jpg">
+		<img class="  lazyload" alt="ServerTargetInFolder.png" width="450" data-src="../../../../../Images/InteractiveExperiences/Networking/HowTo/DedicatedServers/ServerTargetInFolder.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>返回Visual Studio，然后从资源管理器窗口中点击 <code>&#42;Server.Target.cs</code> 并将其拖动到 <strong>解决方案资源管理器</strong> 中的源文件夹中。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/Networking/HowTo/DedicatedServers/TestProjectServerTarget.jpg">
+		<img class="  lazyload" alt="TestProjectServerTarget.png" data-src="../../../../../Images/InteractiveExperiences/Networking/HowTo/DedicatedServers/TestProjectServerTarget.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>打开 <code>&#91;ProjectName&#93;Server.Target.cs</code> 并将其内容替换为以下目标文件说明：
+</p><p>//版权所有Epic Games, Inc。保留所有权利。
+</p><p>using UnrealBuildTool;
+using System.Collections.Generic;
+</p><pre class="prettyprint"><code>public TestProjectServerTarget(TargetInfo Target) : base(Target) //根据你的项目名称更改此行
+{
+    Type = TargetType.Server;
+    DefaultBuildSettings = BuildSettingsVersion.V2;
+    ExtraModuleNames.Add("TestProject"); //根据你的项目名称更改此行
+}</code></pre>
+<div class="warning">
+	<p>确保将所有出现TestProject的地方替换为你自己项目的名称。</p>
+</div></li><li class="Default"><p>在基本目录中找到项目的.uproject文件，然后 <strong>右键点击</strong> 它，并选择 <strong>生成Visual Studio项目文件（Generate Visual Studio Project Files）</strong>。这将为你的游戏重新生成Visual Studio解决方案，并会发现你的 <code>&#42;Server.Target.cs file</code>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/InteractiveExperiences/Networking/HowTo/DedicatedServers/GenerateProjectFiles.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/Networking/HowTo/DedicatedServers/GenerateProjectFiles.jpg">
+		<img class="  lazyload" alt="GenerateProjectFiles.png" width="350" data-src="../../../../../Images/InteractiveExperiences/Networking/HowTo/DedicatedServers/GenerateProjectFiles.jpg" />
+</picture>
+</span></a></span></p>
+</div></li><li class="Default"><p>选择 <strong>开发编辑器（Development Editor）</strong> 构建配置。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/InteractiveExperiences/Networking/HowTo/DedicatedServers/DevelopmentEditor.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/Networking/HowTo/DedicatedServers/DevelopmentEditor.jpg">
+		<img class="  lazyload" alt="DevelopmentEditor.png" height="300" data-src="../../../../../Images/InteractiveExperiences/Networking/HowTo/DedicatedServers/DevelopmentEditor.jpg" />
+</picture>
+</span></a></span></p>
+</div></li><li class="Default"><p>点击工具栏中的 <strong>构建（Build）</strong> > <strong>构建解决方案（Build Solution）</strong>，<strong>构建</strong> 你的解决方案。你也可以通过右键点击解决方案资源管理器窗口中的菜单执行此操作。
+</p></li><li class="Default"><p>选择 <strong>开发服务器</strong> 构建配置，然后再次 <strong>构建</strong> 解决方案。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/InteractiveExperiences/Networking/HowTo/DedicatedServers/DevelopmentServer.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/Networking/HowTo/DedicatedServers/DevelopmentServer.jpg">
+		<img class="  lazyload" alt="DevelopmentServer.png" height="300" data-src="../../../../../Images/InteractiveExperiences/Networking/HowTo/DedicatedServers/DevelopmentServer.jpg" />
+</picture>
+</span></a></span></p>
+</div></li><li class="Default"><p>找到你项目的 <strong>二进制/Win64</strong> 文件夹。你应该在此文件夹中看到服务器文件，包括 <code>&#91;ProjectName&#93;Server.exe</code>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/Networking/HowTo/DedicatedServers/DedicatedServerExecutables.jpg">
+		<img class="  lazyload" alt="DedicatedServerExecutables.png" data-src="../../../../../Images/InteractiveExperiences/Networking/HowTo/DedicatedServers/DedicatedServerExecutables.jpg" />
+</picture>
+
+</p><p>该可执行文件是你用于部署专用服务器的可执行文件。
+</p></li></ol><h2 id="3.设置起始地图和默认地图">3.设置起始地图和默认地图</h2>
+<p>要测试专用服务器，我们需要为项目设置默认地图，以便服务器运行可播放地图，并让用户连接至服务器。有许多方法可以完成此操作，但是最快、最直接的方法是在用户启动应用程序时，将连接流直接构建到用户的起始地图中。
+</p><ol ><li class="Default"><p>在 <strong>虚幻编辑器</strong> 中打开你的项目。在 <strong>内容浏览器</strong> 中，请确保将所有 <strong>关卡（Level）</strong> 文件都重新放置到 <strong>内容/地图（Content/Maps）</strong> 文件夹中。可以通过将地图（Maps）文件夹从 <strong>ThirdPersonCPP</strong> 移到 <strong>内容（Content）</strong> 文件夹中完成此操作。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/Networking/HowTo/DedicatedServers/MoveMapFiles.jpg">
+		<img class="  lazyload" alt="MoveMapFiles.png" data-src="../../../../../Images/InteractiveExperiences/Networking/HowTo/DedicatedServers/MoveMapFiles.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>创建名为 <strong>[ProjectName]Entry</strong> 的新关卡，其中[ProjectName]替换为你的项目名称。在此示例中，称其为 <strong>TestProjectEntry</strong>。你可以使用空白地图作为起始模板。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/Networking/HowTo/DedicatedServers/EntryMap.jpg">
+		<img class="  lazyload" alt="EntryMap.png" data-src="../../../../../Images/InteractiveExperiences/Networking/HowTo/DedicatedServers/EntryMap.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>打开 <strong>起始（Entry）</strong> 地图，然后打开 <strong>关卡蓝图（Level Blueprint）</strong> 脚本。在 <strong>BeginPlay</strong> 节点上，添加 <strong>打开关卡</strong> 节点，并将其值设置为 <strong>127.0.0.1</strong>。这是你的本地IP地址，这意味着你告知游戏连接到位于你自己计算机上的服务器。如果你用有效的IP地址替换该值，你将连接到位于该地址的服务器。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/InteractiveExperiences/Networking/HowTo/DedicatedServers/OpenIPAddress.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/Networking/HowTo/DedicatedServers/OpenIPAddress.jpg">
+		<img class="  lazyload" alt="OpenIPAddress.png" width="350" data-src="../../../../../Images/InteractiveExperiences/Networking/HowTo/DedicatedServers/OpenIPAddress.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="note">
+	<p>通常，起始地图是你设置主菜单UI的位置。在此示例中，起始关卡仅直接连接到用户自己的本地IP，因此我们可以快速连接到专用服务器。有关带有UI的功能齐全的起始地图示例，请参阅<a id="content_link"filter-data="tag_sample_game" href="../../../../Resources/SampleGames/ShooterGame/index.html" ><span>ShooterGame示例项目</span></a>。</p>
+</div></li><li class="Default"><p>打开 <strong>ThirdPersonExampleMap</strong>，并删除通常在关卡中预先放置的 <strong>第三人称角色</strong>。相反，请确保该关卡中有两个 <strong>PlayerStarts</strong>。这将确保玩家连接时，他们享有一致的启动体验。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/InteractiveExperiences/Networking/HowTo/DedicatedServers/PlayerStart.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/Networking/HowTo/DedicatedServers/PlayerStart.jpg">
+		<img class="  lazyload" alt="PlayerStart.png" width="450" data-src="../../../../../Images/InteractiveExperiences/Networking/HowTo/DedicatedServers/PlayerStart.jpg" />
+</picture>
+</span></a></span></p>
+</div></li><li class="Default"><p>打开你的项目设置，导航至项目（Project）> 地图和模式（Maps and Modes），然后展开默认地图。将它们更改为以下内容：
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/InteractiveExperiences/Networking/HowTo/DedicatedServers/DefaultMaps.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/Networking/HowTo/DedicatedServers/DefaultMaps.jpg">
+		<img class="  lazyload" alt="DefaultMaps.png" height="300" data-src="../../../../../Images/InteractiveExperiences/Networking/HowTo/DedicatedServers/DefaultMaps.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>参数名 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>值 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>编辑器启动地图（Editor Startup Map）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>[ProjectName]条目</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>游戏默认地图（Game Default Map）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>[ProjectName]条目</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>过渡地图（Transition Map）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>无</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>服务器默认地图（Server Default Map）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>ThirdPersonExampleMap</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div><p>这将确保ThirdPersonExampleMap直接向服务器开放，起始地图对用户开放，并且用户与服务器连接。
+</p></li></ol><h2 id="4.打包你的项目">4.打包你的项目</h2>
+<ol ><li class="Default"><p>点击 <strong>文件（File）</strong> > <strong>打包（Packaging）</strong> > <strong>打包设置（Packaging Settings）</strong>，打开打包设置。
+</p></li><li class="Default"><p>点击带有箭头的矩形按钮，展开 <strong>打包</strong> 分段底部的 <strong>高级设置</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/InteractiveExperiences/Networking/HowTo/DedicatedServers/PackagingOptions.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/Networking/HowTo/DedicatedServers/PackagingOptions.jpg">
+		<img class="  lazyload" alt="PackagingOptions.png" width="450" data-src="../../../../../Images/InteractiveExperiences/Networking/HowTo/DedicatedServers/PackagingOptions.jpg" />
+</picture>
+</span></a></span></p>
+</div></li><li class="Default"><p>找到 <strong>要包含在打包构建中的地图列表</strong>，然后添加你的 <strong>起始</strong> 地图和 <strong>ThirdPersonExampleMap</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/InteractiveExperiences/Networking/HowTo/DedicatedServers/IncludedMaps.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/Networking/HowTo/DedicatedServers/IncludedMaps.jpg">
+		<img class="  lazyload" alt="IncludedMaps.png" width="300" data-src="../../../../../Images/InteractiveExperiences/Networking/HowTo/DedicatedServers/IncludedMaps.jpg" />
+</picture>
+</span></a></span></p>
+</div></li><li class="Default"><p>点击 <strong>文件（File）</strong> > <strong>打包项目（Package Project）</strong> > <strong>Windows（64位）（Windows (64-bit)）</strong>，然后选择要打包项目的目录。此处，我们将 <code>TestProject/Packaged</code> 用作我们的输出文件夹。
+</p></li><li class="Default"><p>点击 <strong>文件（File）</strong> > <strong>打包项目（Package Project）</strong> > <strong>构建目标（Build Target）</strong>。你应该在正常的构建目标旁边看到 <strong>[ProjectName]服务器</strong>。选择此选项。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/InteractiveExperiences/Networking/HowTo/DedicatedServers/SetBuildTargetServer.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/Networking/HowTo/DedicatedServers/SetBuildTargetServer.jpg">
+		<img class="  lazyload" alt="SetBuildTargetServer.png" height="300" data-src="../../../../../Images/InteractiveExperiences/Networking/HowTo/DedicatedServers/SetBuildTargetServer.jpg" />
+</picture>
+</span></a></span></p>
+</div></li><li class="Default"><p>再次打包该项目，然后选择与之前相同的输出文件夹。现在，<strong>WindowsNoEditor</strong> 旁边有一个名为 <strong>WindowsServer</strong> 的文件夹。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/InteractiveExperiences/Networking/HowTo/DedicatedServers/PackagedFiles.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/Networking/HowTo/DedicatedServers/PackagedFiles.jpg">
+		<img class="  lazyload" alt="PackagedFiles.png" width="350" data-src="../../../../../Images/InteractiveExperiences/Networking/HowTo/DedicatedServers/PackagedFiles.jpg" />
+</picture>
+</span></a></span></p>
+</div></li></ol><h2 id="5.启动和测试你的专用服务器">5.启动和测试你的专用服务器</h2>
+<p>最后，来测试我们的专用服务器。
+</p><ol ><li class="Default"><p>打开你在上一节中创建的 <strong>WindowsServer</strong> 文件夹，然后找到 <strong>[ProjectName]Server.exe</strong>。这里，假设它叫做TestProjectServer.exe。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/InteractiveExperiences/Networking/HowTo/DedicatedServers/DedicatedServerExecutable2.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/Networking/HowTo/DedicatedServers/DedicatedServerExecutable2.jpg">
+		<img class="  lazyload" alt="DedicatedServerExecutable2.png" width="350" data-src="../../../../../Images/InteractiveExperiences/Networking/HowTo/DedicatedServers/DedicatedServerExecutable2.jpg" />
+</picture>
+</span></a></span></p>
+</div></li><li class="Default"><p>创建 <strong>Server.exe</strong> 的快捷方式，编辑其名称，并在其末尾添加 <strong>" - ThirdPersonExampleMap"</strong>。此处，我们将其重命名为 <strong>TestProjextServer.exe - ThirdPersonExampleMap</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/InteractiveExperiences/Networking/HowTo/DedicatedServers/DedicatedServerShortcut.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/Networking/HowTo/DedicatedServers/DedicatedServerShortcut.jpg">
+		<img class="  lazyload" alt="DedicatedServerShortcut.png" width="350" data-src="../../../../../Images/InteractiveExperiences/Networking/HowTo/DedicatedServers/DedicatedServerShortcut.jpg" />
+</picture>
+</span></a></span></p>
+</div></li><li class="Default"><p><strong>右键点击</strong> <strong>服务器快捷方式</strong>，然后打开其 <strong>属性</strong>。在其 <strong>目标</strong> 字段的末尾添加 <strong>"-log"</strong>，然后点击 <strong>应用（Apply）</strong>。 
+</p><p><span class="non-localized"><a id="content_link" href="../../../../../Images/InteractiveExperiences/Networking/HowTo/DedicatedServers/ShortcutProperties.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/Networking/HowTo/DedicatedServers/ShortcutProperties.jpg">
+		<img class="  lazyload" alt="ShortcutProperties.png" height="300" data-src="../../../../../Images/InteractiveExperiences/Networking/HowTo/DedicatedServers/ShortcutProperties.jpg" />
+</picture>
+</span></a></span>
+</p><p>这样，当我们运行专用服务器时，它将在命令提示符工具中显示日志。根据前面小节中的设置，ThirdPersonExampleMap将已对服务器开放，因此无需在此快捷方式中添加地图参数。
+</p></li><li class="Default"><p><strong>双击</strong> <strong>快捷方式</strong>，启动专用服务器。将打开 <strong>命令提示符</strong> 窗口，显示输出日志。如果服务器启动成功，你会在底部看到说明启动关卡所需时间的输出。
+</p><p><span class="non-localized"><a id="content_link" href="../../../../../Images/InteractiveExperiences/Networking/HowTo/DedicatedServers/DedicatedServerCommandPrompt.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/Networking/HowTo/DedicatedServers/DedicatedServerCommandPrompt.jpg">
+		<img class="  lazyload" alt="DedicatedServerCommandPrompt.png" width="350" data-src="../../../../../Images/InteractiveExperiences/Networking/HowTo/DedicatedServers/DedicatedServerCommandPrompt.jpg" />
+</picture>
+</span></a></span>
+</p></li><li class="Default"><p>转到 <strong>WindowsNoEditor</strong> 文件夹，然后双击 <strong>TestProject.exe</strong>。这会在新窗口中启动游戏，并且直接转到ThirdPersonExampleMap。
+</p></li><li class="Default"><p>使用 <strong>ALT+Tab</strong> 离开游戏窗口，然后运行 <strong>TestProject.exe</strong>，启动游戏的第二个实例。如果成功，你将在你启动的窗口中看到玩家。你还可以检查服务器日志，以便查看两个玩家连接到服务器的确认信息。
+</p></li></ol><div class="fullwidth">
+	<p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/Networking/HowTo/DedicatedServers/DedicatedServerRunning.jpg">
+		<img class="  lazyload" alt="DedicatedServerRunning.png" data-src="../../../../../Images/InteractiveExperiences/Networking/HowTo/DedicatedServers/DedicatedServerRunning.jpg" />
+</picture>
+</p>
+</div><p>祝贺你！你已经为项目成功构建、打包并测试了专用服务器。
+</p><h2 id="看你的了">看你的了</h2>
+<p>本示例介绍了关于如何在本地计算机上构建、打包和测试服务器的基础知识。下一步将是准备可正常运行的前端程序，扩展游戏的游戏性，并提供一种玩家通过Internet连接到专用服务器的方式。
+</p><p>要查看实际工作中的前端示例，可以参阅<a id="content_link"filter-data="tag_sample_game" href="../../../../Resources/SampleGames/ShooterGame/index.html" ><span>ShooterGame示例项目</span></a>，其中使用的是ShooterEntry地图中的内容。
+</p><p>如需扩展你的游戏逻辑，你可以参阅多人网络游戏快速入门指南。
+</p><p>要通过网络连接到服务器，你可以用该服务器的IP地址代替127.0.0.1。你可以将其合并到简单的UMG UI中，而不用在起始地图中运行BeginPlay。你也可以在控制台中使用"打开（open）"命令，并提供IP地址来代替关卡名称。
+</p>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=network">network</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=multiplayer">multiplayer </a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=gameplay">gameplay</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Fundamentals">Fundamentals</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/InteractiveExperiences/Networking/HowTo/DedicatedServers/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 10:25:34 GMT -->
+</html>

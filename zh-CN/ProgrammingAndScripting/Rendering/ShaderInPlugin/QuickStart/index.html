@@ -1,0 +1,1546 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/ProgrammingAndScripting/Rendering/ShaderInPlugin/QuickStart/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 10:22:43 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var finishButton = finishButtonTemplate;
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/ProgrammingAndScripting/Rendering/ShaderInPlugin/QuickStart/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>新建全局着色器为插件 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+		    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+		    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/ProgrammingAndScripting/Rendering/ShaderInPlugin/QuickStart/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/ProgrammingAndScripting/Rendering/ShaderInPlugin/QuickStart/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/ProgrammingAndScripting/Rendering/ShaderInPlugin/QuickStart/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/ProgrammingAndScripting/Rendering/ShaderInPlugin/QuickStart/" hreflang="ko" />
+
+	<meta name="redirect" content="Programming/Rendering/ShaderInPlugin/QuickStart" />
+<meta name="intsourcechangelist" content="14417591" />
+<meta name="availability" content="Public" />
+<meta name="title" content="新建全局着色器为插件" />
+<meta name="description" content="通过插件新建和设置全局着色器。" />
+<meta name="type" content="how-to" />
+<meta name="skilllevel" content="Advanced" />
+<meta name="version" content="4.25" />
+<meta name="parent" content="ProgrammingAndScripting/Rendering/ShaderInPlugin" />
+<meta name="order" content="1" />
+<meta name="keywords" content="Rendering" />
+<meta name="keywords" content="Render Targets" />
+<meta name="keywords" content="Plugin" />
+<meta name="crumbs" content="%ROOT%,ProgrammingAndScripting,ProgrammingAndScripting/Rendering,ProgrammingAndScripting/Rendering/ShaderInPlugin" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="新建全局着色器为插件" />
+	<meta property="og:description" content="通过插件新建和设置全局着色器。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">编程和脚本编写</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">图形编程</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">在插件里写 Shaders</a>
+
+<span class="separator">></span> <span id="page">新建全局着色器为插件</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">新建全局着色器为插件</h1>
+							</div>	
+							<h2 >通过插件新建和设置全局着色器。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Advanced"><a id="skill_link" href="../../../../SiteIndex/index.html?skills=Advanced">Advanced</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																																																<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#1-代码设置">1 - 代码设置</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#最终结果">最终结果</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#2-蓝图设置">2 - 蓝图设置</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#最终结果_1">最终结果</a></p>
+	</li>					</ul>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>虚幻引擎4插件系统能帮助用户添加大量新功能，而无需重编译和发布整个引擎。以下指南中将重建光学变形（Lens Distortion）全局着色器，展示实现可由蓝图进行控制的全局着色器的方法。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Rendering/ShaderInPlugin/QuickStart/HT_Hero_Image.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Rendering/ShaderInPlugin/QuickStart/HT_Hero_Image.jpg">
+		<img class="  lazyload" alt="HT_Hero_Image.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Rendering/ShaderInPlugin/QuickStart/HT_Hero_Image.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><div class="note">
+	<p>此例中将重建现有的Lens Distortion插件（位于 <strong>Engine\Plugins\Compositing\LensDistortion</strong> 中），将其改为名为 <strong>Foo</strong> 的新插件，展示此工作流的实现过程。</p>
+</div><p>Shaders in 插件快速入门将对创建全局着色器并用作插件进行讲解。 
+</p><h2 id="1-代码设置">1 - 代码设置</h2>
+<p>开始新建虚幻引擎4的插件之前，需要先安装 Visual Studio。此快速入门需要Visual Studio，用户需要对插件代码进行编译，使其能正常运行。如不了解此操作，请查阅<a id="content_link"filter-data="tag_visual_studio" href="../../../../ProductionPipelines/DevelopmentSetup/VisualStudioSetup/index.html" ><span>设置 UE4 的 Visual Studio]</span></a>文档。<br /></p><ol ><li class="Default"><p>首先新建一个 <strong>游戏</strong> 项目并选择 <strong>空白</strong> 模板。确保将其设置为 <strong>最高质量</strong>，且不带 <strong>初学者内容包</strong>。
+</p></li><li class="Default"><p>项目创建后，Visual Studio将打开，之后即可右键点击ShadersInPlugins项目并选择 <strong>编译</strong> 选项编译项目。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Rendering/ShaderInPlugin/QuickStart/HT_ShadersInPlugins_01.jpg">
+		<img class="  lazyload" alt="HT_ShadersInPlugins_01.png" width="481" data-src="../../../../../Images/ProgrammingAndScripting/Rendering/ShaderInPlugin/QuickStart/HT_ShadersInPlugins_01.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>项目编译完成后，在Visual Studio中按下 <strong>F5</strong> 键在 UE4 编辑器中启动ShadersInPlugins项目。
+</p></li><li class="Default"><p>UE4编辑器完成加载后，前往 <strong>编辑</strong> > <strong>插件</strong> 打开 <strong>插件</strong> 管理器，然后点击"插件"窗口右下角的 <strong>新建插件（New Plugin）</strong> 选项，调出"新建插件"窗口。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Rendering/ShaderInPlugin/QuickStart/HT_ShadersInPlugins_02.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Rendering/ShaderInPlugin/QuickStart/HT_ShadersInPlugins_02.jpg">
+		<img class="  lazyload" alt="HT_ShadersInPlugins_02.png" width="564" data-src="../../../../../Images/ProgrammingAndScripting/Rendering/ShaderInPlugin/QuickStart/HT_ShadersInPlugins_02.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>在 <strong>新建插件</strong> 窗口中，选择 <strong>空白（Blank）</strong> 插件，将其命名为 <strong>Foo</strong> ，保留所有默认设置。所有操作完成后，按下 <strong>创建插件</strong> 键创建插件最初需要的全部内容。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Rendering/ShaderInPlugin/QuickStart/HT_ShadersInPlugins_03.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Rendering/ShaderInPlugin/QuickStart/HT_ShadersInPlugins_03.jpg">
+		<img class="  lazyload" alt="HT_ShadersInPlugins_03.png" width="564" data-src="../../../../../Images/ProgrammingAndScripting/Rendering/ShaderInPlugin/QuickStart/HT_ShadersInPlugins_03.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。 </p>
+</div></li><li class="Default"><p>完成后，关闭UE4和Visual Studio，前往在项目文件夹中创建的 <strong>Plugins</strong>  > <strong>Foo</strong> 插件文件夹。
+</p></li><li class="Default"><p>在Foo plugins文件夹中添加一个名为 <strong>Shaders</strong> 的新文件夹，并在其中再新建一个名为 <strong>Private</strong> 的文件夹。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Rendering/ShaderInPlugin/QuickStart/HT_ShadersInPlugins_04.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Rendering/ShaderInPlugin/QuickStart/HT_ShadersInPlugins_04.jpg">
+		<img class="  lazyload" alt="HT_ShadersInPlugins_04.png" width="564" data-src="../../../../../Images/ProgrammingAndScripting/Rendering/ShaderInPlugin/QuickStart/HT_ShadersInPlugins_04.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>在Private文件夹中新建一个文本文件并将其命名为 <strong>MyShader.USF</strong>，然后将以下HLSL代码复制粘贴到此文件中，完成操作后保存文件。
+</p><div class="note">
+	<p>须将文件扩展名改为 <strong>.USF</strong>，否则UE4无法将其识别为着色器文件。</p>
+</div><pre class="prettyprint"><code>// Copyright 1998-2018 Epic Games, Inc. All Rights Reserved.
+
+/&#42;=============================================================================
+    LensDistortionUVGeneration.usf:将光学变形和不
+    变形UV置换贴图生成到一个渲染目标中。
+
+    像素着色器直接计算变形视口UV，
+    不对使用Sv&#95;Position和参考方程式的视口UV置换执行变形，
+    并将它们保存到红色和绿色的通道中。
+
+    为避免用费拉里法进行解析、
+    或在 GPU 上执行牛顿法计算不变形视口 UV 这两种方式
+    来对视口UV置换进行变形，这对着色器的工作方式如下：顶点着色器不对网格的顶点执行变形，
+    并下传到像素着色器视口 UV 应在屏幕上
+    所处的位置，而不进行变形。像素
+    着色器可生成不变形视口UV，
+    减去像素的视口UV后即可对视口UV置换进行变形。
+=============================================================================&#42;/
+
+#include "/Engine/Public/Platform.ush"
+
+// 视口UV坐标中的像素大小。
+float2 PixelUVSize;
+
+// K1, K2, K3
+float3 RadialDistortionCoefs;
+
+// P1, P2
+float2 TangentialDistortionCoefs;
+
+// 未变形视口的相机矩阵。
+float4 UndistortedCameraMatrix;
+
+// 变形视口的相机矩阵。
+float4 DistortedCameraMatrix;
+
+// 对渲染目标输出乘法和加法。
+float2 OutputMultiplyAndAdd;
+
+// 不对V.z=1视图位置进行变形。
+float2 UndistortNormalizedViewPosition(float2 V)
+{
+    float2 V2 = V &#42; V;
+    float R2 = V2.x + V2.y;
+
+    // 径向变形（额外添加括号是为匹配 MF&#95;Undistortion.uasset）。
+    float2 UndistortedV = V &#42; (1.0 + R2 &#42; (RadialDistortionCoefs.x + R2 &#42; (RadialDistortionCoefs.y + R2 &#42; RadialDistortionCoefs.z)));
+
+    // 切向变形。
+    UndistortedV.x += TangentialDistortionCoefs.y &#42; (R2 + 2 &#42; V2.x) + 2 &#42; TangentialDistortionCoefs.x &#42; V.x &#42; V.y;
+    UndistortedV.y += TangentialDistortionCoefs.x &#42; (R2 + 2 &#42; V2.y) + 2 &#42; TangentialDistortionCoefs.y &#42; V.x &#42; V.y;
+
+    return UndistortedV;
+}
+
+// 返回变形视口UV的未变形视口UV。
+//
+// 注意：
+//        UV创建于左下角。
+float2 UndistortViewportUV(float2 ViewportUV)
+{
+    // 已变形视口UV -&gt; 已变形视图位置（z=1）
+    float2 DistortedViewPosition = (ViewportUV - DistortedCameraMatrix.zw) / DistortedCameraMatrix.xy;
+
+    // 计算未变形的视图位置（z=1）
+    float2 UndistortedViewPosition = UndistortNormalizedViewPosition(DistortedViewPosition);
+
+    // 未变形的视图位置（z=1） -&gt; 未变形的视口UV。
+    return UndistortedCameraMatrix.xy &#42; UndistortedViewPosition + UndistortedCameraMatrix.zw;
+}
+
+// 翻转UV的y组件。
+float2 FlipUV(float2 UV)
+{
+    return float2(UV.x, 1 - UV.y);
+}
+
+void MainVS(
+    in uint GlobalVertexId :SV&#95;VertexID,
+    out float2 OutVertexDistortedViewportUV :TEXCOORD0,
+    out float4 OutPosition :SV&#95;POSITION
+    )
+{
+    // 计算单元索引。
+    uint GridCellIndex = GlobalVertexId / 6;
+
+    // 计算网格中单元行和列的ID。
+    uint GridColumnId = GridCellIndex / GRID&#95;SUBDIVISION&#95;Y;
+    uint GridRowId = GridCellIndex - GridColumnId &#42; GRID&#95;SUBDIVISION&#95;Y;
+
+    // 计算双三角形网格单元中的顶点ID。
+    uint VertexId = GlobalVertexId - GridCellIndex &#42; 6;
+
+    // 计算单元中三角形顶点源自左下角的UV坐标。
+    float2 CellVertexUV = float2(0x1 &amp; ((VertexId + 1) / 3), VertexId &amp; 0x1);
+
+    // 计算网格中顶点源自左上角的UV。
+    float2 GridInvSize = 1.f / float2(GRID&#95;SUBDIVISION&#95;X, GRID&#95;SUBDIVISION&#95;Y);
+    float2 GridVertexUV = FlipUV(
+        GridInvSize &#42; (CellVertexUV + float2(GridColumnId, GridRowId)));
+
+    // 标准不含半像素位移。
+    GridVertexUV -= PixelUVSize &#42; 0.5;
+
+    // 输出顶点位置。
+    OutPosition = float4(FlipUV(
+        UndistortViewportUV(GridVertexUV) + PixelUVSize &#42; 0.5) &#42; 2 - 1, 0, 1);
+
+    // 输出顶点源自左上角的UV。
+    OutVertexDistortedViewportUV = GridVertexUV;
+}
+
+void MainPS(
+    in noperspective float2 VertexDistortedViewportUV :TEXCOORD0,
+    in float4 SvPosition :SV&#95;POSITION,
+    out float4 OutColor :SV&#95;Target0
+    )
+{
+    // 计算像素源自左上角的UV。
+    float2 ViewportUV = SvPosition.xy &#42; PixelUVSize;
+
+    // 标准不含半像素位移。
+    ViewportUV -= PixelUVSize &#42; 0.5;
+
+    float2 DistortUVtoUndistortUV = (UndistortViewportUV((ViewportUV))) - ViewportUV;
+    float2 UndistortUVtoDistortUV = VertexDistortedViewportUV - ViewportUV;
+
+    // 输出置换通道。
+    OutColor = OutputMultiplyAndAdd.y + OutputMultiplyAndAdd.x &#42; float4(
+        DistortUVtoUndistortUV, UndistortUVtoDistortUV);
+}</code></pre></li><li class="Default"><p>现在找到 <strong>Foo.uplugin</strong> 文件并将其在文本编辑器中打开，用以下文本替代文件中的信息，完成后保存文件。
+</p><pre class="prettyprint"><code>{
+    "FileVersion" :3,
+    "Version" :1,
+    "VersionName" :"1.0",
+    "FriendlyName" :"Foo",
+    "Description" :"Plugin to play around with shaders.",
+    "Category" :"Sandbox",
+    "CreatedBy" :"Epic Games, Inc.",
+    "CreatedByURL" :"http://epicgames.com",
+    "DocsURL" :"",
+    "MarketplaceURL" :"",
+    "SupportURL" :"",
+    "EnabledByDefault" : false,
+    "CanContainContent" : true,
+    "IsBetaVersion" : false,
+    "Installed" : false,
+    "Modules" :
+    &#91;
+        {
+            "Name" :"Foo",
+            "Type" :"Developer",
+            "LoadingPhase" :"PostConfigInit"
+        }
+    &#93;
+}</code></pre></li><li class="Default"><p>接下来前往 <strong>Plugins\Foo\Source\Foo</strong> 并新建文件夹 <strong>Classes</strong>，然后从 <strong>Engine\Plugins\Compositing\LensDistortion</strong> 路径下复制 <strong>LensDistortionAPI.h</strong> 和 <strong>LensDistortionBlueprintLibrary.h</strong> 文件到该新建文件夹中。
+</p><div class="note">
+	<p>要复制的文件位于 <strong>Engine\Plugins\Compositing\LensDistortion</strong> 中。</p>
+</div><ul ><li class="Default"><p>类 - 新建文件夹
+</p><ul ><li class="Default"><p>复制 - LensDistortionAPI.h
+</p></li><li class="Default"><p>复制 - LensDistortionBlueprintLibrary.h
+</p></li></ul><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Rendering/ShaderInPlugin/QuickStart/HT_ShadersInPlugins_05.jpg">
+		<img class="  lazyload" alt="HT_ShadersInPlugins_05.png" data-src="../../../../../Images/ProgrammingAndScripting/Rendering/ShaderInPlugin/QuickStart/HT_ShadersInPlugins_05.jpg" />
+</picture>
+
+</p></li></ul></li><li class="Default"><p>然后前往 <strong>Private</strong> 文件夹并将 <strong>LensDistortionBlueprintLibrary.cpp</strong> 和 <strong>LensDistortionRendering.cpp</strong> 文件复制到此Private文件夹。
+</p><ul ><li class="Default"><p>Private - 现有文件夹
+</p><ul ><li class="Default"><p>复制 - LensDistortionBlueprintLibrary.cpp
+</p></li><li class="Default"><p>复制 - LensDistortionRendering.cpp
+</p></li></ul><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Rendering/ShaderInPlugin/QuickStart/HT_ShadersInPlugins_06.jpg">
+		<img class="  lazyload" alt="HT_ShadersInPlugins_06.png" data-src="../../../../../Images/ProgrammingAndScripting/Rendering/ShaderInPlugin/QuickStart/HT_ShadersInPlugins_06.jpg" />
+</picture>
+
+</p></li></ul></li><li class="Default"><p>现在关闭UE4编辑器和Visual Studio，然后找到项目.U项目文件。找到以后，对其点击右键，选择 <strong>生成Visual Studio项目文件（Generate Visual Studio project files）</strong> 选项。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Rendering/ShaderInPlugin/QuickStart/HT_ShadersInPlugins_07.jpg">
+		<img class="  lazyload" alt="HT_ShadersInPlugins_07.png" data-src="../../../../../Images/ProgrammingAndScripting/Rendering/ShaderInPlugin/QuickStart/HT_ShadersInPlugins_07.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>重新打开Visual Studio解决方案，然后前往Foo > Classes并打开 <strong>LensDistortionAPI.h</strong> 文件。在此文件中，将 <strong>FLensDistortionCameraModel</strong> 替换为 <strong>FFooCameraModel</strong>。
+</p><div class="note">
+	<p>需在此文件中用FFooCameraModel替换FLensDistortionCameraModel <strong>四次</strong> 。</p>
+</div><pre class="prettyprint"><code>    // Copyright 1998-2018 Epic Games, Inc. All Rights Reserved.
+
+    #pragma once
+
+    #include "CoreMinimal.h"
+    #include "LensDistortionAPI.generated.h"
+
+    /&#42;&#42; 光学变形/不变形的数学相机模型。
+     &#42;
+     &#42; 相机矩阵 =
+     &#42;  &#124; F.X  0  C.x &#124;
+     &#42;  &#124;  0  F.Y C.Y &#124;
+     &#42;  &#124;  0   0   1  &#124;
+     &#42;/
+    USTRUCT(BlueprintType)
+    struct FFooCameraModel
+    {
+        GENERATED&#95;USTRUCT&#95;BODY()
+        FFooCameraModel()
+        {
+            K1 = K2 = K3 = P1 = P2 = 0.f;
+            F = FVector2D(1.f, 1.f);
+            C = FVector2D(0.5f, 0.5f);
+        }
+
+        /&#42;&#42; Radial parameter #1.&#42;/
+        UPROPERTY(Interp, EditAnywhere, BlueprintReadWrite, Category = "Lens Distortion&#124;Camera Model")
+        float K1;
+
+        /&#42;&#42; 径向参数 #2。&#42;/
+        UPROPERTY(Interp, EditAnywhere, BlueprintReadWrite, Category = "Lens Distortion&#124;Camera Model")
+        float K2;
+
+        /&#42;&#42; 径向参数 #3。&#42;/
+        UPROPERTY(Interp, EditAnywhere, BlueprintReadWrite, Category = "Lens Distortion&#124;Camera Model")
+        float K3;
+
+        /&#42;&#42; 切向参数 #1。&#42;/
+        UPROPERTY(Interp, EditAnywhere, BlueprintReadWrite, Category = "Lens Distortion&#124;Camera Model")
+        float P1;
+
+        /&#42;&#42; 切向参数 #2。&#42;/
+        UPROPERTY(Interp, EditAnywhere, BlueprintReadWrite, Category = "Lens Distortion&#124;Camera Model")
+        float P2;
+
+        /&#42;&#42; 相机矩阵的Fx和Fy。&#42;/
+        UPROPERTY(Interp, EditAnywhere, BlueprintReadWrite, Category = "Lens Distortion&#124;Camera Model")
+        FVector2D F;
+
+        /&#42;&#42; 相机矩阵的Cx和Cy。&#42;/
+        UPROPERTY(Interp, EditAnywhere, BlueprintReadWrite, Category = "Lens Distortion&#124;Camera Model")
+        FVector2D C;
+
+        /&#42;&#42; 不在视图空间中进行3D向量变形（x, y, z=1.f）并返回（x', y', z'=1.f）。&#42;/
+        FVector2D UndistortNormalizedViewPosition(FVector2D V) const;
+
+        /&#42;&#42; 返回不变形渲染所需的过扫描因子，避免出现未渲染的变形像素。&#42;/
+        float GetUndistortOverscanFactor(
+            float DistortedHorizontalFOV,
+            float DistortedAspectRatio) const;
+
+        /&#42;&#42; 在输出渲染目标中绘制UV置换贴图。
+         &#42; - 红色和绿色通道负责变形置换；
+         &#42; - 蓝色和透明通道负责不变形置换。
+         &#42; @param World 获取渲染设置的当前场景（如特征场景）。
+         &#42; @param DistortedHorizontalFOV 变形渲染中理想的水平视野。
+         &#42; @param DistortedAspectRatio 变形渲染中理想的高宽比。
+         &#42; @param UndistortOverscanFactor 未变形渲染的过扫描因子。
+         &#42; @param OutputRenderTarget 进行绘制的渲染目标。不必拥有和变形渲染相同的分辨率或高宽比。
+         &#42; @param OutputMultiply 应用在置换上的乘法因子。
+         &#42; @param OutputAdd 保存到输出渲染目标中之前被添加到相乘置换的值。
+         &#42;/
+        void DrawUVDisplacementToRenderTarget(
+            class UWorld&#42; World,
+            float DistortedHorizontalFOV,
+            float DistortedAspectRatio,
+            float UndistortOverscanFactor,
+            class UTextureRenderTarget2D&#42; OutputRenderTarget,
+            float OutputMultiply,
+            float OutputAdd) const;
+
+        /&#42;&#42; 对比两个光学变形模型并返回其是否相同。&#42;/
+        bool operator == (const FFooCameraModel&amp; Other) const
+        {
+            return (
+                K1 == Other.K1 &amp;&amp;
+                K2 == Other.K2 &amp;&amp;
+                K3 == Other.K3 &amp;&amp;
+                P1 == Other.P1 &amp;&amp;
+                P2 == Other.P2 &amp;&amp;
+                F == Other.F &amp;&amp;
+                C == Other.C);
+        }
+
+        /&#42;&#42; 对比两个光学变形模型并返回其是否不同。&#42;/
+        bool operator != (const FFooCameraModel&amp; Other) const
+        {
+            return !(&#42;this == Other);
+        }
+    };</code></pre></li><li class="Default"><p>接下来打开 <strong>LensDistortionBlueprintLibrary.h</strong> 文件。此文件控制此节点在蓝图中的显示方式，因此不仅需要将 <strong>FLensDistortionCameraModel</strong> 替换为 <strong>FFooCameraModel</strong>，还需要将 <strong>Category = "Lens Distortion"</strong> 改为 <strong>Category = "Foo | Lens Distortion"</strong>。
+</p><div class="note">
+	<p>需要在此文件中用FFooCameraModel替换FLensDistortionCameraModel <strong>六次</strong>。</p>
+</div><pre class="prettyprint"><code>// Copyright 1998-2018 Epic Games, Inc. All Rights Reserved.
+
+#pragma once
+
+#include "CoreMinimal.h"
+#include "UObject/ObjectMacros.h"
+#include "Classes/Kismet/BlueprintFunctionLibrary.h"
+#include "LensDistortionAPI.h"
+#include "LensDistortionBlueprintLibrary.generated.h"
+
+UCLASS(MinimalAPI)
+class ULensDistortionBlueprintLibrary : public UBlueprintFunctionLibrary
+{
+    GENERATED&#95;UCLASS&#95;BODY()
+
+    /&#42;&#42; 返回不变形渲染所需的过扫描因子，避免出现未渲染的变形像素。&#42;/
+    UFUNCTION(BlueprintPure, Category = "Foo &#124; Lens Distortion")
+    static void GetUndistortOverscanFactor(
+        const FFooCameraModel&amp; CameraModel,
+        float DistortedHorizontalFOV,
+        float DistortedAspectRatio,
+        float&amp; UndistortOverscanFactor);
+
+    /&#42;&#42; 在输出渲染目标中绘制UV置换贴图。
+     &#42; - 红色和绿色通道负责变形置换；
+     &#42; - 蓝色和透明通道负责不变形置换。
+     &#42; @param DistortedHorizontalFOV 变形渲染中理想的水平视野。
+     &#42; @param DistortedAspectRatio 变形渲染中理想的高宽比。
+     &#42; @param UndistortOverscanFactor 未变形渲染的过扫描因子。
+     &#42; @param OutputRenderTarget 进行绘制的渲染目标。不必拥有和变形渲染相同的分辨率或高宽比。
+     &#42; @param OutputMultiply 应用在置换上的乘法因子。
+     &#42; @param OutputAdd 保存到输出渲染目标中之前被添加到相乘置换的值。
+     &#42;/
+    UFUNCTION(BlueprintCallable, Category = "Foo &#124; Lens Distortion", meta = (WorldContext = "WorldContextObject"))
+    static void DrawUVDisplacementToRenderTarget(
+        const UObject&#42; WorldContextObject,
+        const FFooCameraModel&amp; CameraModel,
+        float DistortedHorizontalFOV,
+        float DistortedAspectRatio,
+        float UndistortOverscanFactor,
+        class UTextureRenderTarget2D&#42; OutputRenderTarget,
+        float OutputMultiply = 0.5,
+        float OutputAdd = 0.5
+        );
+
+    /&#42; 如果A等于B（A == B）则返回true &#42;/
+    UFUNCTION(BlueprintPure, meta=(DisplayName = "Equal (LensDistortionCameraModel)", CompactNodeTitle = "==", Keywords = "== equal"), Category = "Foo &#124; Lens Distortion")
+    static bool EqualEqual&#95;CompareLensDistortionModels(
+        const FFooCameraModel&amp; A,
+        const FFooCameraModel&amp; B)
+    {
+        return A == B;
+    }
+
+    /&#42; 如A不等于B（A != B），则返回true &#42;/
+    UFUNCTION(BlueprintPure, meta = (DisplayName = "NotEqual (LensDistortionCameraModel)", CompactNodeTitle = "!=", Keywords = "!= not equal"), Category = "Foo &#124; Lens Distortion")
+    static bool NotEqual&#95;CompareLensDistortionModels(
+        const FFooCameraModel&amp; A,
+        const FFooCameraModel&amp; B)
+    {
+        return A != B;
+    }
+};</code></pre></li><li class="Default"><p>现在前往 <strong>Private</strong> 文件夹打开 <strong>LensDistortionBlueprintLibrary.cpp</strong> 进行以下替换：
+</p><ul ><li class="Default"><p><strong>FLensDistortionCameraModel</strong> 替换为 <strong>FFooCameraModel</strong>
+</p></li><li class="Default"><p><strong>ULensDistortionBlueprintLibrary</strong> 替换为 <strong>UFooBlueprintLibrary</strong>
+</p></li></ul><div class="note">
+	<p>应用FFooCameraModel替换FLensDistortionCameraModel <strong>两</strong> 次，用UFooBlueprintLibrary替换ULensDistortionBlueprintLibrary <strong>四</strong> 次。</p>
+</div><pre class="prettyprint"><code>    // Copyright 1998-2018 Epic Games, Inc. All Rights Reserved.
+
+    #include "LensDistortionBlueprintLibrary.h"
+
+    ULensDistortionBlueprintLibrary::ULensDistortionBlueprintLibrary(const FObjectInitializer&amp; ObjectInitializer)
+        :Super(ObjectInitializer)
+    { }
+
+    // 静态
+    void ULensDistortionBlueprintLibrary::GetUndistortOverscanFactor(
+        const FFooCameraModel&amp; CameraModel,
+        float DistortedHorizontalFOV,
+        float DistortedAspectRatio,
+        float&amp; UndistortOverscanFactor)
+    {
+        UndistortOverscanFactor = CameraModel.GetUndistortOverscanFactor(DistortedHorizontalFOV, DistortedAspectRatio);
+    }
+
+    // 静态
+    void ULensDistortionBlueprintLibrary::DrawUVDisplacementToRenderTarget(
+        const UObject&#42; WorldContextObject,
+        const FFooCameraModel&amp; CameraModel,
+        float DistortedHorizontalFOV,
+        float DistortedAspectRatio,
+        float UndistortOverscanFactor,
+        class UTextureRenderTarget2D&#42; OutputRenderTarget,
+        float OutputMultiply,
+        float OutputAdd)
+    {
+        CameraModel.DrawUVDisplacementToRenderTarget(
+            WorldContextObject-&gt;GetWorld(),
+            DistortedHorizontalFOV, DistortedAspectRatio,
+            UndistortOverscanFactor, OutputRenderTarget,
+            OutputMultiply, OutputAdd);
+    }</code></pre></li><li class="Default"><p>接下来，在 <strong>Private</strong> 文件夹中打开 <strong>LensDistortionRendering.cpp</strong> 文件，将 <strong>FLensDistortionCameraModel</strong> 替换为 <strong>FFooCameraModel</strong>
+</p><div class="note">
+	<p>需要在此文件中用FFooCameraModel替换FLensDistortionCameraModel <strong>六次</strong>。</p>
+</div><pre class="prettyprint"><code>    // Copyright 1998-2018 Epic Games, Inc. All Rights Reserved.
+
+    #include "LensDistortionAPI.h"
+    #include "Classes/Engine/TextureRenderTarget2D.h"
+    #include "Classes/Engine/World.h"
+    #include "Public/GlobalShader.h"
+    #include "Public/PipelineStateCache.h"
+    #include "Public/RHIStaticStates.h"
+    #include "Public/SceneUtils.h"
+    #include "Public/SceneInterface.h"
+    #include "Public/ShaderParameterUtils.h"
+
+    static const uint32 kGridSubdivisionX = 32;
+    static const uint32 kGridSubdivisionY = 16;
+
+    /&#42;&#42;
+     &#42; 派生自 FFooCameraModel 的中间结构体，
+     &#42; 由游戏线程交付给渲染线程。
+     &#42;/
+    struct FCompiledCameraModel
+    {
+        /&#42;&#42; 生成此编译模型的原始相机模型。&#42;/
+        FFooCameraModel OriginalCameraModel;
+
+        /&#42;&#42; 未变形和变形渲染光学变形的相机矩阵。
+         &#42;  XY保存缩放因子，ZW保存平移。
+         &#42;/
+        FVector4 DistortedCameraMatrix;
+        FVector4 UndistortedCameraMatrix;
+
+        /&#42;&#42; 对渲染目标输出通道的乘法和加法。&#42;/
+        FVector2D OutputMultiplyAndAdd;
+    };
+
+    /&#42;&#42; 不对源自左上角的视口UV进行变形，将其放入视图空间（x', y', z'=1.f）&#42;/
+    static FVector2D LensUndistortViewportUVIntoViewSpace(
+        const FFooCameraModel&amp; CameraModel,
+        float TanHalfDistortedHorizontalFOV, float DistortedAspectRatio,
+        FVector2D DistortedViewportUV)
+    {
+        FVector2D AspectRatioAwareF = CameraModel.F &#42; FVector2D(1, -DistortedAspectRatio);
+        return CameraModel.UndistortNormalizedViewPosition((DistortedViewportUV - CameraModel.C) / AspectRatioAwareF);
+    }
+
+    class FLensDistortionUVGenerationShader : public FGlobalShader
+    {
+    public:
+        static bool ShouldCache(EShaderPlatform Platform)
+        {
+            return IsFeatureLevelSupported(Platform, ERHIFeatureLevel::SM4);
+        }
+
+        static void ModifyCompilationEnvironment(EShaderPlatform Platform, FShaderCompilerEnvironment&amp; OutEnvironment)
+        {
+            FGlobalShader::ModifyCompilationEnvironment(Platform, OutEnvironment);
+            OutEnvironment.SetDefine(TEXT("GRID&#95;SUBDIVISION&#95;X"), kGridSubdivisionX);
+            OutEnvironment.SetDefine(TEXT("GRID&#95;SUBDIVISION&#95;Y"), kGridSubdivisionY);
+        }
+
+        FLensDistortionUVGenerationShader() {}
+
+        FLensDistortionUVGenerationShader(const ShaderMetaType::CompiledShaderInitializerType&amp; Initializer)
+            :FGlobalShader(Initializer)
+        {
+            PixelUVSize.Bind(Initializer.ParameterMap, TEXT("PixelUVSize"));
+            RadialDistortionCoefs.Bind(Initializer.ParameterMap, TEXT("RadialDistortionCoefs"));
+            TangentialDistortionCoefs.Bind(Initializer.ParameterMap, TEXT("TangentialDistortionCoefs"));
+            DistortedCameraMatrix.Bind(Initializer.ParameterMap, TEXT("DistortedCameraMatrix"));
+            UndistortedCameraMatrix.Bind(Initializer.ParameterMap, TEXT("UndistortedCameraMatrix"));
+            OutputMultiplyAndAdd.Bind(Initializer.ParameterMap, TEXT("OutputMultiplyAndAdd"));
+        }
+
+        template&lt;typename TShaderRHIParamRef&gt;
+        void SetParameters(
+            FRHICommandListImmediate&amp; RHICmdList,
+            const TShaderRHIParamRef ShaderRHI,
+            const FCompiledCameraModel&amp; CompiledCameraModel,
+            const FIntPoint&amp; DisplacementMapResolution)
+        {
+            FVector2D PixelUVSizeValue(
+                1.f / float(DisplacementMapResolution.X), 1.f / float(DisplacementMapResolution.Y));
+            FVector RadialDistortionCoefsValue(
+                CompiledCameraModel.OriginalCameraModel.K1,
+                CompiledCameraModel.OriginalCameraModel.K2,
+                CompiledCameraModel.OriginalCameraModel.K3);
+            FVector2D TangentialDistortionCoefsValue(
+                CompiledCameraModel.OriginalCameraModel.P1,
+                CompiledCameraModel.OriginalCameraModel.P2);
+
+            SetShaderValue(RHICmdList, ShaderRHI, PixelUVSize, PixelUVSizeValue);
+            SetShaderValue(RHICmdList, ShaderRHI, DistortedCameraMatrix, CompiledCameraModel.DistortedCameraMatrix);
+            SetShaderValue(RHICmdList, ShaderRHI, UndistortedCameraMatrix, CompiledCameraModel.UndistortedCameraMatrix);
+            SetShaderValue(RHICmdList, ShaderRHI, RadialDistortionCoefs, RadialDistortionCoefsValue);
+            SetShaderValue(RHICmdList, ShaderRHI, TangentialDistortionCoefs, TangentialDistortionCoefsValue);
+            SetShaderValue(RHICmdList, ShaderRHI, OutputMultiplyAndAdd, CompiledCameraModel.OutputMultiplyAndAdd);
+        }
+
+        virtual bool Serialize(FArchive&amp; Ar) override
+        {
+            bool bShaderHasOutdatedParameters = FGlobalShader::Serialize(Ar);
+            Ar &lt;&lt; PixelUVSize &lt;&lt; RadialDistortionCoefs &lt;&lt; TangentialDistortionCoefs &lt;&lt; DistortedCameraMatrix &lt;&lt; UndistortedCameraMatrix &lt;&lt; OutputMultiplyAndAdd;
+            return bShaderHasOutdatedParameters;
+        }
+
+    private:
+        FShaderParameter PixelUVSize;
+        FShaderParameter RadialDistortionCoefs;
+        FShaderParameter TangentialDistortionCoefs;
+        FShaderParameter DistortedCameraMatrix;
+        FShaderParameter UndistortedCameraMatrix;
+        FShaderParameter OutputMultiplyAndAdd;
+
+    };
+
+    class FLensDistortionUVGenerationVS : public FLensDistortionUVGenerationShader
+    {
+        DECLARE&#95;SHADER&#95;TYPE(FLensDistortionUVGenerationVS, Global);
+
+    public:
+
+        /&#42;&#42; 默认构造函数。&#42;/
+        FLensDistortionUVGenerationVS() {}
+
+        /&#42;&#42; 初始化构造函数。&#42;/
+        FLensDistortionUVGenerationVS(const ShaderMetaType::CompiledShaderInitializerType&amp; Initializer)
+            :FLensDistortionUVGenerationShader(Initializer)
+        {
+        }
+    };
+
+    class FLensDistortionUVGenerationPS : public FLensDistortionUVGenerationShader
+    {
+        DECLARE&#95;SHADER&#95;TYPE(FLensDistortionUVGenerationPS, Global);
+
+    public:
+
+        /&#42;&#42; 默认构造函数。&#42;/
+        FLensDistortionUVGenerationPS() {}
+
+        /&#42;&#42; 初始化构造函数。&#42;/
+        FLensDistortionUVGenerationPS(const ShaderMetaType::CompiledShaderInitializerType&amp; Initializer)
+            :FLensDistortionUVGenerationShader(Initializer)
+        { }
+    };
+
+    IMPLEMENT&#95;SHADER&#95;TYPE(, FLensDistortionUVGenerationVS, TEXT("/Plugin/Foo/Private/MyShader.usf"), TEXT("MainVS"), SF&#95;Vertex)
+    IMPLEMENT&#95;SHADER&#95;TYPE(, FLensDistortionUVGenerationPS, TEXT("/Plugin/Foo/Private/MyShader.usf"), TEXT("MainPS"), SF&#95;Pixel)
+
+    static void DrawUVDisplacementToRenderTarget&#95;RenderThread(
+        FRHICommandListImmediate&amp; RHICmdList,
+        const FCompiledCameraModel&amp; CompiledCameraModel,
+        const FName&amp; TextureRenderTargetName,
+        FTextureRenderTargetResource&#42; OutTextureRenderTargetResource,
+        ERHIFeatureLevel::Type FeatureLevel)
+    {
+        check(IsInRenderingThread());
+
+    #if WANTS&#95;DRAW&#95;MESH&#95;EVENTS
+        FString EventName;
+        TextureRenderTargetName.ToString(EventName);
+        SCOPED&#95;DRAW&#95;EVENTF(RHICmdList, SceneCapture, TEXT("LensDistortionDisplacementGeneration %s"), &#42;EventName);
+    #else
+        SCOPED&#95;DRAW&#95;EVENT(RHICmdList, DrawUVDisplacementToRenderTarget&#95;RenderThread);
+    #endif
+
+        // 设置渲染目标
+        SetRenderTarget(
+            RHICmdList,
+            OutTextureRenderTargetResource-&gt;GetRenderTargetTexture(),
+            FTextureRHIRef(),
+            ESimpleRenderTargetMode::EUninitializedColorAndDepth,
+            FExclusiveDepthStencil::DepthNop&#95;StencilNop);
+
+        FIntPoint DisplacementMapResolution(OutTextureRenderTargetResource-&gt;GetSizeX(), OutTextureRenderTargetResource-&gt;GetSizeY());
+
+        // 更新视口。
+        RHICmdList.SetViewport(
+            0, 0, 0.f,
+            DisplacementMapResolution.X, DisplacementMapResolution.Y, 1.f);
+
+        // 获取着色器。
+        TShaderMap&lt;FGlobalShaderType&gt;&#42; GlobalShaderMap = GetGlobalShaderMap(FeatureLevel);
+        TShaderMapRef&lt; FLensDistortionUVGenerationVS &gt; VertexShader(GlobalShaderMap);
+        TShaderMapRef&lt; FLensDistortionUVGenerationPS &gt; PixelShader(GlobalShaderMap);
+
+        // 设置图像管线状态。
+        FGraphicsPipelineStateInitializer GraphicsPSOInit;
+        RHICmdList.ApplyCachedRenderTargets(GraphicsPSOInit);
+        GraphicsPSOInit.DepthStencilState = TStaticDepthStencilState&lt;false, CF&#95;Always&gt;::GetRHI();
+        GraphicsPSOInit.BlendState = TStaticBlendState&lt;&gt;::GetRHI();
+        GraphicsPSOInit.RasterizerState = TStaticRasterizerState&lt;&gt;::GetRHI();
+        GraphicsPSOInit.PrimitiveType = PT&#95;TriangleList;
+        GraphicsPSOInit.BoundShaderState.VertexDeclarationRHI = GetVertexDeclarationFVector4();
+        GraphicsPSOInit.BoundShaderState.VertexShaderRHI = GETSAFERHISHADER&#95;VERTEX(&#42;VertexShader);
+        GraphicsPSOInit.BoundShaderState.PixelShaderRHI = GETSAFERHISHADER&#95;PIXEL(&#42;PixelShader);
+        SetGraphicsPipelineState(RHICmdList, GraphicsPSOInit);
+
+        // 更新视口。
+        RHICmdList.SetViewport(
+            0, 0, 0.f,
+            OutTextureRenderTargetResource-&gt;GetSizeX(), OutTextureRenderTargetResource-&gt;GetSizeY(), 1.f);
+
+        // 更新着色器的统一参数。
+        VertexShader-&gt;SetParameters(RHICmdList, VertexShader-&gt;GetVertexShader(), CompiledCameraModel, DisplacementMapResolution);
+        PixelShader-&gt;SetParameters(RHICmdList, PixelShader-&gt;GetPixelShader(), CompiledCameraModel, DisplacementMapResolution);
+
+        // 绘制网格。
+        uint32 PrimitiveCount = kGridSubdivisionX &#42; kGridSubdivisionY &#42; 2;
+        RHICmdList.DrawPrimitive(PT&#95;TriangleList, 0, PrimitiveCount, 1);
+
+        // 解析渲染目标。
+        RHICmdList.CopyToResolveTarget(
+            OutTextureRenderTargetResource-&gt;GetRenderTargetTexture(),
+            OutTextureRenderTargetResource-&gt;TextureRHI,
+            false, FResolveParams());
+    }
+
+    FVector2D FFooCameraModel::UndistortNormalizedViewPosition(FVector2D EngineV) const
+    {
+        // 引擎视图空间 -&gt; 标准视图空间。
+        FVector2D V = FVector2D(1, -1) &#42; EngineV;
+
+        FVector2D V2 = V &#42; V;
+        float R2 = V2.X + V2.Y;
+
+        // 径向变形（额外添加括号是为匹配 MF&#95;Undistortion.uasset）。
+        FVector2D UndistortedV = V &#42; (1.0 + (R2 &#42; K1 + (R2 &#42; R2) &#42; K2 + (R2 &#42; R2 &#42; R2) &#42; K3));
+
+        // 切向变形。
+        UndistortedV.X += P2 &#42; (R2 + 2 &#42; V2.X) + 2 &#42; P1 &#42; V.X &#42; V.Y;
+        UndistortedV.Y += P1 &#42; (R2 + 2 &#42; V2.Y) + 2 &#42; P2 &#42; V.X &#42; V.Y;
+
+        // 返回引擎V。
+        return UndistortedV &#42; FVector2D(1, -1);
+    }
+
+    /&#42;&#42; 编译相机模型。&#42;/
+    float FFooCameraModel::GetUndistortOverscanFactor(
+        float DistortedHorizontalFOV, float DistortedAspectRatio) const
+    {
+        // 如光学变形模型为同一，则会及早返回1。
+        if (&#42;this == FFooCameraModel())
+        {
+            return 1.0f;
+        }
+
+        float TanHalfDistortedHorizontalFOV = FMath::Tan(DistortedHorizontalFOV &#42; 0.5f);
+
+        // 获取变形视口UV坐标系统中不同关键点在z'=1处视图空间中所处的位置。
+        // 这非常近似于知晓未变形视口所需的过扫描缩放因子，但在实际操作中效果极佳。
+        //
+        //  视图空间中未变形UV位置：
+        //                 &#94; 视图空间的Y轴
+        //                 &#124;
+        //        0        1        2
+        //     
+        //        7        0        3 --&gt; 视图空间的X轴
+        //     
+        //        6        5        4
+        FVector2D UndistortCornerPos0 = LensUndistortViewportUVIntoViewSpace(
+            &#42;this, TanHalfDistortedHorizontalFOV, DistortedAspectRatio, FVector2D(0.0f, 0.0f));
+        FVector2D UndistortCornerPos1 = LensUndistortViewportUVIntoViewSpace(
+            &#42;this, TanHalfDistortedHorizontalFOV, DistortedAspectRatio, FVector2D(0.5f, 0.0f));
+        FVector2D UndistortCornerPos2 = LensUndistortViewportUVIntoViewSpace(
+            &#42;this, TanHalfDistortedHorizontalFOV, DistortedAspectRatio, FVector2D(1.0f, 0.0f));
+        FVector2D UndistortCornerPos3 = LensUndistortViewportUVIntoViewSpace(
+            &#42;this, TanHalfDistortedHorizontalFOV, DistortedAspectRatio, FVector2D(1.0f, 0.5f));
+        FVector2D UndistortCornerPos4 = LensUndistortViewportUVIntoViewSpace(
+            &#42;this, TanHalfDistortedHorizontalFOV, DistortedAspectRatio, FVector2D(1.0f, 1.0f));
+        FVector2D UndistortCornerPos5 = LensUndistortViewportUVIntoViewSpace(
+            &#42;this, TanHalfDistortedHorizontalFOV, DistortedAspectRatio, FVector2D(0.5f, 1.0f));
+        FVector2D UndistortCornerPos6 = LensUndistortViewportUVIntoViewSpace(
+            &#42;this, TanHalfDistortedHorizontalFOV, DistortedAspectRatio, FVector2D(0.0f, 1.0f));
+        FVector2D UndistortCornerPos7 = LensUndistortViewportUVIntoViewSpace(
+            &#42;this, TanHalfDistortedHorizontalFOV, DistortedAspectRatio, FVector2D(0.0f, 0.5f));
+
+        // 寻找z'=1处视图空间中未变形视口的内方最大与最小值。
+        FVector2D MinInnerViewportRect;
+        FVector2D MaxInnerViewportRect;
+        MinInnerViewportRect.X = FMath::Max3(UndistortCornerPos0.X, UndistortCornerPos6.X, UndistortCornerPos7.X);
+        MinInnerViewportRect.Y = FMath::Max3(UndistortCornerPos4.Y, UndistortCornerPos5.Y, UndistortCornerPos6.Y);
+        MaxInnerViewportRect.X = FMath::Min3(UndistortCornerPos2.X, UndistortCornerPos3.X, UndistortCornerPos4.X);
+        MaxInnerViewportRect.Y = FMath::Min3(UndistortCornerPos0.Y, UndistortCornerPos1.Y, UndistortCornerPos2.Y);
+
+        check(MinInnerViewportRect.X &lt; 0.f);
+        check(MinInnerViewportRect.Y &lt; 0.f);
+        check(MaxInnerViewportRect.X &gt; 0.f);
+        check(MaxInnerViewportRect.Y &gt; 0.f);
+
+        // 计算正切（VerticalFOV &#42; 0.5）
+        float TanHalfDistortedVerticalFOV = TanHalfDistortedHorizontalFOV / DistortedAspectRatio;
+
+        // 计算各轴上所需的未变形视口比例。
+        FVector2D ViewportScaleUpFactorPerViewAxis = 0.5 &#42; FVector2D(
+            TanHalfDistortedHorizontalFOV / FMath::Max(-MinInnerViewportRect.X, MaxInnerViewportRect.X),
+            TanHalfDistortedVerticalFOV / FMath::Max(-MinInnerViewportRect.Y, MaxInnerViewportRect.Y));
+
+        // 将视图空间中未变形视口尺寸调大2%，
+        // 即可解决奇数未变形位置在切向
+        // 桶状光学变形中并不为最小的问题。
+        const float ViewportScaleUpConstMultiplier = 1.02f;
+        return FMath::Max(ViewportScaleUpFactorPerViewAxis.X, ViewportScaleUpFactorPerViewAxis.Y) &#42; ViewportScaleUpConstMultiplier;
+    }
+
+    void FFooCameraModel::DrawUVDisplacementToRenderTarget(
+        UWorld&#42; World,
+        float DistortedHorizontalFOV,
+        float DistortedAspectRatio,
+        float UndistortOverscanFactor,
+        UTextureRenderTarget2D&#42; OutputRenderTarget,
+        float OutputMultiply,
+        float OutputAdd) const
+    {
+        check(IsInGameThread());
+
+        // 编译相机模型，以了解过扫描比例因子。
+        float TanHalfUndistortedHorizontalFOV = FMath::Tan(DistortedHorizontalFOV &#42; 0.5f) &#42; UndistortOverscanFactor;
+        float TanHalfUndistortedVerticalFOV = TanHalfUndistortedHorizontalFOV / DistortedAspectRatio;
+
+        // 输出。
+        FCompiledCameraModel CompiledCameraModel;
+        CompiledCameraModel.OriginalCameraModel = &#42;this;
+
+        CompiledCameraModel.DistortedCameraMatrix.X = 1.0f / TanHalfUndistortedHorizontalFOV;
+        CompiledCameraModel.DistortedCameraMatrix.Y = 1.0f / TanHalfUndistortedVerticalFOV;
+        CompiledCameraModel.DistortedCameraMatrix.Z = 0.5f;
+        CompiledCameraModel.DistortedCameraMatrix.W = 0.5f;
+
+        CompiledCameraModel.UndistortedCameraMatrix.X = F.X;
+        CompiledCameraModel.UndistortedCameraMatrix.Y = F.Y &#42; DistortedAspectRatio;
+        CompiledCameraModel.UndistortedCameraMatrix.Z = C.X;
+        CompiledCameraModel.UndistortedCameraMatrix.W = C.Y;
+
+        CompiledCameraModel.OutputMultiplyAndAdd.X = OutputMultiply;
+        CompiledCameraModel.OutputMultiplyAndAdd.Y = OutputAdd;
+
+        const FName TextureRenderTargetName = OutputRenderTarget-&gt;GetFName();
+        FTextureRenderTargetResource&#42; TextureRenderTargetResource = OutputRenderTarget-&gt;GameThread&#95;GetRenderTargetResource();
+
+        ERHIFeatureLevel::Type FeatureLevel = World-&gt;Scene-&gt;GetFeatureLevel();
+
+        ENQUEUE&#95;RENDER&#95;COMMAND(CaptureCommand)(
+            &#91;CompiledCameraModel, TextureRenderTargetResource, TextureRenderTargetName, FeatureLevel&#93;(FRHICommandListImmediate&amp; RHICmdList)
+            {
+                DrawUVDisplacementToRenderTarget&#95;RenderThread(
+                    RHICmdList,
+                    CompiledCameraModel,
+                    TextureRenderTargetName,
+                    TextureRenderTargetResource,
+                    FeatureLevel);
+            }
+        );
+    }</code></pre></li><li class="Default"><p>最后，在 <strong>LensDistortionRendering.cpp</strong> 文件中第155和156行，将以下两行代码改为指向先前新建的MyShader.USF文件。
+</p><p>修改：
+</p><ul ><li class="Default"><p>IMPLEMENT_SHADER_TYPE(, FLensDistortionUVGenerationVS, TEXT("/Plugin/LensDistortion/Private/UVGeneration.usf"), TEXT("MainVS"), SF_Vertex)
+</p></li></ul><p>为： 
+</p><ul ><li class="Default"><p>IMPLEMENT_SHADER_TYPE(, FLensDistortionUVGenerationVS, TEXT("/Plugin/Foo/Private/MyShader.usf"), TEXT("MainVS"), SF_Vertex)
+</p></li></ul><p>修改： 
+</p><ul ><li class="Default"><p>IMPLEMENT_SHADER_TYPE(, FLensDistortionUVGenerationPS, TEXT("/Plugin/LensDistortion/Private/UVGeneration.usf"), TEXT("MainPS"), SF_Pixel)
+</p></li></ul><p> 为： 
+</p><ul ><li class="Default"><p>IMPLEMENT_SHADER_TYPE(, FLensDistortionUVGenerationPS, TEXT("/Plugin/Foo/Private/MyShader.usf"), TEXT("MainPS"), SF_Pixel)
+</p></li></ul></li><li class="Default"><p>现在前往 <strong>Foo/Source</strong> 文件夹打开 <strong>Foo.Build.cs</strong> 文件，在 <strong>Foo.Build.cs</strong> 中的 <strong>PublicDependencyModuleNames.AddRange</strong> 部分下添加以下代码行：
+</p><pre class="prettyprint"><code>    PublicDependencyModuleNames.AddRange(
+    new string&#91;&#93;
+    {
+        "Core",
+        "RenderCore",
+        "ShaderCore",
+        "RHI",
+        // ... 在此处添加静态连接的其他公共依赖性 ...
+    }
+    );</code></pre></li><li class="Default"><p>然后在 <strong>Foo.Build.cs</strong> 文件中的 <strong>PrivateDependencyModuleNames.AddRange</strong> 部分移除 <strong>Slate</strong> 和 <strong>SlateCore</strong>。操作完成后Foo.Build.cs应如下：
+</p><pre class="prettyprint"><code>// Copyright 1998-2018 Epic Games, Inc. All Rights Reserved.
+
+using UnrealBuildTool;
+
+public class Foo :ModuleRules
+{
+    public Foo(ReadOnlyTargetRules Target) : base(Target)
+    {
+        PCHUsage = ModuleRules.PCHUsageMode.UseExplicitOrSharedPCHs;
+
+        PublicIncludePaths.AddRange(
+            new string&#91;&#93; {
+                "Foo/Public"
+                // ... 在此处添加所需的公共包含路径 ...
+            }
+            );    
+        PrivateIncludePaths.AddRange(
+            new string&#91;&#93; {
+                "Foo/Private",
+                // ... 在此处添加所需的其他私有包含路径 ...
+            }
+            );
+
+        PublicDependencyModuleNames.AddRange(
+            new string&#91;&#93;
+            {
+                "Core",
+                "RenderCore",
+                "ShaderCore",
+                "RHI",
+                // ... 在此处添加静态连接的其他公共依赖性 ...
+            }
+            );
+        PrivateDependencyModuleNames.AddRange(
+            new string&#91;&#93;
+            {
+                "CoreUObject",
+                "Engine",
+                // ... 在此处添加静态连接的私有依赖性 ...    
+            }
+            );
+
+        DynamicallyLoadedModuleNames.AddRange(
+            new string&#91;&#93;
+            {
+                // ... 在此处添加模式动态加载的模式 ...
+            }
+            );
+    }
+}</code></pre></li><li class="Default"><p>重新启动项目的Visual Studio解决方案文件，并按下 <strong>CRTL + 5</strong> 重新编译项目。编译完成后按下 <strong>F5</strong> 启动UE4编辑器。 
+</p></li><li class="Default"><p>UE4编辑器完成加载后，前往 <strong>编辑</strong> > <strong>插件</strong> 以打开 <strong>插件</strong> 管理器。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Rendering/ShaderInPlugin/QuickStart/HT_ShadersInPlugins_08.jpg">
+		<img class="  lazyload" alt="HT_ShadersInPlugins_08.png" width="250" data-src="../../../../../Images/ProgrammingAndScripting/Rendering/ShaderInPlugin/QuickStart/HT_ShadersInPlugins_08.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在Plugins管理器中向下滚动寻找 <strong>Project</strong> 部分，在此部分中找到插件。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Rendering/ShaderInPlugin/QuickStart/HT_ShadersInPlugins_09.jpg">
+		<img class="  lazyload" alt="HT_ShadersInPlugins_09.png" data-src="../../../../../Images/ProgrammingAndScripting/Rendering/ShaderInPlugin/QuickStart/HT_ShadersInPlugins_09.jpg" />
+</picture>
+
+</p><div class="note">
+	<p>如插件未启用，则点击其命名旁边的勾选框将其启用，并重启UE4编辑器。 </p>
+</div></li><li class="Default"><p>打开关卡蓝图，在事件图表中点击右键，在搜索框中输入 <strong>Foo</strong> 即可检查是否所有内容均齐备。完成后，便可看到所有项目均被添加到Foo Camera。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Rendering/ShaderInPlugin/QuickStart/HT_ShadersInPlugins_10.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Rendering/ShaderInPlugin/QuickStart/HT_ShadersInPlugins_10.jpg">
+		<img class="  lazyload" alt="HT_ShadersInPlugins_10.png" width="950" data-src="../../../../../Images/ProgrammingAndScripting/Rendering/ShaderInPlugin/QuickStart/HT_ShadersInPlugins_10.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li></ol><h3 id="最终结果">最终结果</h3>
+<p>恭喜，您已成功重建和编译了UE4 Lense Distortion插件的新版本。下一部分将讲述如何从蓝图调用这个新全局着色器，以及其如何对渲染目标进行变形。
+</p><h2 id="2-蓝图设置">2 - 蓝图设置</h2>
+<p>验证插件正常工作后，以下部分将说明如何使用蓝图调用全局着色器。
+</p><ol ><li class="Default"><p>如需查看其工作原理，在 <strong>内容浏览器</strong> 中右键点击并新建 <strong>蓝图类</strong>，以 <strong>Actor</strong> 作为父类，命名为 <strong>DrawUVDisToRenderTarget</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Rendering/ShaderInPlugin/QuickStart/HT_ShadersInPlugins_11.jpg">
+		<img class="  lazyload" alt="HT_ShadersInPlugins_11.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Rendering/ShaderInPlugin/QuickStart/HT_ShadersInPlugins_11.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>接下来，新建名为 <strong>RT_00</strong> 的 <strong>渲染目标</strong> 和名为 <strong>MAT_RT</strong> 的材质。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Rendering/ShaderInPlugin/QuickStart/HT_ShadersInPlugins_12.jpg">
+		<img class="  lazyload" alt="HT_ShadersInPlugins_12.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Rendering/ShaderInPlugin/QuickStart/HT_ShadersInPlugins_12.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>打开MAT_RT材质，然后将RT_00渲染目标添加到材质图表，将其输出连接到主材质节点上的"Base Color"输入，完成后按 <strong>应用</strong> 和 <strong>保存</strong> 按钮。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Rendering/ShaderInPlugin/QuickStart/HT_ShadersInPlugins_13.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Rendering/ShaderInPlugin/QuickStart/HT_ShadersInPlugins_13.jpg">
+		<img class="  lazyload" alt="HT_ShadersInPlugins_13.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Rendering/ShaderInPlugin/QuickStart/HT_ShadersInPlugins_13.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>接下来打开DrawUVDisToRenderTarget蓝图并将以下变量和节点创建/添加到事件图表。
+</p><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>变量 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>默认值</p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>K1</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>1.0</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>K2</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>1.0</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>inc</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>1.0</p>
+			</td>
+	
+</tr></tbody>
+</table><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>节点 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>默认值</p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>W</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>不适用</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>S</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>不适用</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>Event Tick</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>N/A</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>Draw UVDisplacement to Render Target</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>在视野（FOV）、高宽比（Aspect Ratio）、过扫描因子（Overscan Factor）中输入 <strong>1</strong></p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>Make FooCameraModel</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>N/A</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>Clear Render Target 2D</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>N/A</p>
+			</td>
+	
+</tr></tbody>
+</table><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Rendering/ShaderInPlugin/QuickStart/HT_ShadersInPlugins_14.jpg">
+		<img class="  lazyload" alt="HT_ShadersInPlugins_14.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Rendering/ShaderInPlugin/QuickStart/HT_ShadersInPlugins_14.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>为简单地展示Draw UVDisplacement to Render Target节点如何对提供的渲染目标进行变形，用户需要对蓝图进行设置，使此节点上 <strong>K1</strong> 和 <strong>K2</strong> 输入中输入的值能够通过按键进行增加或减少。为完成此操作，需要在事件图表中设置节点，使其与下图相匹配： 
+</p><!--
+type:paramliteral
+id:paramliteral
+image:param
+snippet:param
+-->
+
+<div id="snippet_image">
+    <div id="snippet_copy" onclick="if ($('#DrawDIS_snippet code').length != 0) { copyToClipboard($('#DrawDIS_snippet code').html()); } else if ($('#DrawDIS_snippet > p').length != 0) { copyToClipboard($('#DrawDIS_snippet > p').html()); } else { copyToClipboard($('#DrawDIS_snippet').html()); }">Copy Node Graph</div>
+    <div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Rendering/ShaderInPlugin/QuickStart/HT_ShadersInPlugins_15.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Rendering/ShaderInPlugin/QuickStart/HT_ShadersInPlugins_15.jpg">
+		<img class="  lazyload" alt="HT_ShadersInPlugins_15.png" width="750" data-src="../../../../../Images/ProgrammingAndScripting/Rendering/ShaderInPlugin/QuickStart/HT_ShadersInPlugins_15.jpg" />
+</picture>
+</span></a></span></p>
+</div>
+    <div id="DrawDIS_snippet" style="display:none;"><pre class="prettyprint"><code>BEGIN OBJECT
+    Begin Object Class=/Script/BlueprintGraph.K2Node&#95;CallFunction Name="K2Node&#95;CallFunction&#95;415"
+   FunctionReference=(MemberParent=Class'/Script/Foo.FooBlueprintLibrary',MemberName="DrawUVDisplacementToRenderTarget")
+   NodePosX=-320
+   NodePosY=320
+   NodeGuid=6A47664B4ECC988FD0BC3083A247DEE4
+   CustomProperties Pin (PinId=37A50945406550EE210602B9EDA46A00,PinName="execute",PinToolTip="\n执行",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node&#95;CallFunction&#95;416 90ED15F94550FFA4BBC36CA3442B9E34,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=A229BA4C4B3AB1E96CD8FCB7337B7E81,PinName="then",PinToolTip="\n执行",Direction="EGPD&#95;Output",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=074FA9FC4524DDA34DE5FD9182A32C96,PinName="self",PinFriendlyName=NSLOCTEXT("K2Node", "Target", "Target"),PinToolTip="目标\nFoo 蓝图库对象引用",PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject=Class'/Script/Foo.FooBlueprintLibrary',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultObject="/Script/Foo.Default&#95;&#95;FooBlueprintLibrary",PersistentGuid=00000000000000000000000000000000,bHidden=True,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=E7AD9BC443D9AE707AB792B6E1B4C883,PinName="WorldContextObject",PinToolTip="场景内容物体\n对象物体引用",PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject=Class'/Script/CoreUObject.Object',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PersistentGuid=00000000000000000000000000000000,bHidden=True,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=F2AB8E6441774533823DD2A413DEF544,PinName="CameraModel",PinToolTip="相机模型\nFoo相机模型结构（按引用）",PinType.PinCategory="struct",PinType.PinSubCategory="",PinType.PinSubCategoryObject=ScriptStruct'/Script/Foo.FooCameraModel',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=True,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node&#95;MakeStruct&#95;96 9EB96E474F8D2725864D30B6ECDFF41F,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=True,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=997B44ED47F8AFC32E1E3D8D076096B4,PinName="DistortedHorizontalFOV",PinToolTip="变形水平视野\n浮动\n\n变形渲染中理想的水平视野。",PinType.PinCategory="float",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultValue="1",AutogeneratedDefaultValue="0.0",PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=7D39B8B24ECD165F87E3AE8A7B13FA35,PinName="DistortedAspectRatio",PinToolTip="变形高宽比\n浮动\n\n变形渲染中理想的高宽比。",PinType.PinCategory="float",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultValue="1",AutogeneratedDefaultValue="0.0",PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=FBC9F81D4E3E519A67B8DB9F8DF3EE82,PinName="UndistortOverscanFactor",PinToolTip="未变形过扫描因子\n浮动\n\n未变形渲染的过扫描因子。",PinType.PinCategory="float",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultValue="1",AutogeneratedDefaultValue="0.0",PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=F7F38CFD47D34A5FE4DE3A9FEE2F2B82,PinName="OutputRenderTarget",PinToolTip="输出渲染目标\n纹理渲染目标2D物体引用\n\n进行绘制的渲染目标。不必拥有和变形渲染相同的分辨率或高宽比。",PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject=Class'/Script/Engine.TextureRenderTarget2D',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultObject="/Game/RT&#95;00.RT&#95;00",PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=3EA265BD4D6E66170D25E4B760B8C4B9,PinName="OutputMultiply",PinToolTip="输出乘法\n浮动\n\n应用在置换上的乘法因子。",PinType.PinCategory="float",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultValue="0.500000",AutogeneratedDefaultValue="0.500000",PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=41D4A4834F5BF73382730A915976A8AA,PinName="OutputAdd",PinToolTip="输出加法\n浮动\n\n保存到输出渲染目标之前被添加到相乘置换的值。",PinType.PinCategory="float",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultValue="0.500000",AutogeneratedDefaultValue="0.500000",PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+End Object
+Begin Object Class=/Script/BlueprintGraph.K2Node&#95;MakeStruct Name="K2Node&#95;MakeStruct&#95;96"
+   bMadeAfterOverridePinRemoval=True
+   ShowPinForProperties(0)=(PropertyName="K1",PropertyFriendlyName="K1",PropertyTooltip=NSLOCTEXT("", "AAE0E1744CF690D4533F5B8735A92401", "Radial parameter #1."),CategoryName="Lens Distortion&#124;Camera Model",bShowPin=True,bCanToggleVisibility=True,bPropertyIsCustomized=True)
+   ShowPinForProperties(1)=(PropertyName="K2",PropertyFriendlyName="K2",PropertyTooltip=NSLOCTEXT("", "21EF07AD4C81C729E14C25902E1EC1D4", "Radial parameter #2."),CategoryName="Lens Distortion&#124;Camera Model",bShowPin=True,bCanToggleVisibility=True,bPropertyIsCustomized=True)
+   ShowPinForProperties(2)=(PropertyName="K3",PropertyFriendlyName="K3",PropertyTooltip=NSLOCTEXT("", "51EE62C949CD22B416EAF4932244E40C", "Radial parameter #3."),CategoryName="Lens Distortion&#124;Camera Model",bShowPin=True,bCanToggleVisibility=True,bPropertyIsCustomized=True)
+   ShowPinForProperties(3)=(PropertyName="P1",PropertyFriendlyName="P1",PropertyTooltip=NSLOCTEXT("", "739015D3419D714685C9AB810122ECC7", "Tangential parameter #1."),CategoryName="Lens Distortion&#124;Camera Model",bShowPin=True,bCanToggleVisibility=True,bPropertyIsCustomized=True)
+   ShowPinForProperties(4)=(PropertyName="P2",PropertyFriendlyName="P2",PropertyTooltip=NSLOCTEXT("", "294AD7ED4093BCA7AFBF01B8EC0C9A93", "Tangential parameter #2."),CategoryName="Lens Distortion&#124;Camera Model",bShowPin=True,bCanToggleVisibility=True,bPropertyIsCustomized=True)
+   ShowPinForProperties(5)=(PropertyName="F",PropertyFriendlyName="F",PropertyTooltip=NSLOCTEXT("", "A99C20144CE2EBB9DD0A62B672BE148D", "Camera matrix\'s Fx and Fy."),CategoryName="Lens Distortion&#124;Camera Model",bShowPin=True,bCanToggleVisibility=True,bPropertyIsCustomized=True)
+   ShowPinForProperties(6)=(PropertyName="C",PropertyFriendlyName="C",PropertyTooltip=NSLOCTEXT("", "68542CDC4C0F33F2FA893981BFBFAF16", "Camera matrix\'s Cx and Cy."),CategoryName="Lens Distortion&#124;Camera Model",bShowPin=True,bCanToggleVisibility=True,bPropertyIsCustomized=True)
+   StructType=ScriptStruct'/Script/Foo.FooCameraModel'
+   NodePosX=-656
+   NodePosY=384
+   AdvancedPinDisplay=Shown
+   NodeGuid=891CB1A843FED8C70EA3B28B103CB264
+   CustomProperties Pin (PinId=9EB96E474F8D2725864D30B6ECDFF41F,PinName="FooCameraModel",Direction="EGPD&#95;Output",PinType.PinCategory="struct",PinType.PinSubCategory="",PinType.PinSubCategoryObject=ScriptStruct'/Script/Foo.FooCameraModel',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node&#95;CallFunction&#95;415 F2AB8E6441774533823DD2A413DEF544,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=2B2D8DA343819F2653E8FD8EDB5CCF2E,PinName="K1",PinFriendlyName=NSLOCTEXT("", "51FD07904E508F7CB13C93BD688F8053", "K1"),PinToolTip="K1\n浮动\n\n径向参数 #1。",PinType.PinCategory="float",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultValue="0.000000",AutogeneratedDefaultValue="0.000000",LinkedTo=(K2Node&#95;VariableGet&#95;576 A5D1350D4684134EB5EDE0B43F3983D6,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=3704C64244726B58EC95F2A67CFF69A6,PinName="K2",PinFriendlyName=NSLOCTEXT("", "E801FDE14963B939270257AD8B050D63", "K2"),PinToolTip="K2\n浮动\n\n径向参数 #2。",PinType.PinCategory="float",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultValue="0.000000",AutogeneratedDefaultValue="0.000000",LinkedTo=(K2Node&#95;VariableGet&#95;577 F9AAFCFC4510CDA989300C82B66FDD0A,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=6BBE5F394D044BCFCB0DE791007C3C29,PinName="K3",PinFriendlyName=NSLOCTEXT("", "23B742A84529B786D655BAA474DF093F", "K3"),PinToolTip="K3\n浮动\n\n径向参数 #3。",PinType.PinCategory="float",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultValue="0.000000",AutogeneratedDefaultValue="0.000000",PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=True,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=750F705D4ABB4FEC5A0E2F94FAFC71D2,PinName="P1",PinFriendlyName=NSLOCTEXT("", "12DC4DF74BEABC4D838FC1B6B6AE31D9", "P1"),PinToolTip="P1\n浮动\n\nT切向参数 #1。",PinType.PinCategory="float",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultValue="0.000000",AutogeneratedDefaultValue="0.000000",PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=True,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=0CC9318C424EDB349C2708B0FC278312,PinName="P2",PinFriendlyName=NSLOCTEXT("", "F697F2D046F8BCE75C362E907893C2CE", "P2"),PinToolTip="P2\n浮动\n\n切向参数 #2。",PinType.PinCategory="float",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultValue="0.000000",AutogeneratedDefaultValue="0.000000",PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=True,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=C1ED9647469C1C9EEB589195C808CA4F,PinName="F",PinFriendlyName=NSLOCTEXT("", "87C4A2A842A30F6626475C9B1A20B3C1", "F"),PinToolTip="F\n向量2D结构\n\n相机矩阵的Fx和Fy。",PinType.PinCategory="struct",PinType.PinSubCategory="",PinType.PinSubCategoryObject=ScriptStruct'/Script/CoreUObject.Vector2D',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultValue="(X=1.000000,Y=1.000000)",AutogeneratedDefaultValue="(X=1.000000,Y=1.000000)",PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=True,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=D3F2C462415328548B3A7DB01661C58B,PinName="C",PinFriendlyName=NSLOCTEXT("", "0D0E5404467E73DD95C63F894611758E", "C"),PinToolTip="C\n向量2D结构\n\n相机矩阵的Cx和Cy。",PinType.PinCategory="struct",PinType.PinSubCategory="",PinType.PinSubCategoryObject=ScriptStruct'/Script/CoreUObject.Vector2D',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultValue="(X=0.500000,Y=0.500000)",AutogeneratedDefaultValue="(X=0.500000,Y=0.500000)",PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=True,bOrphanedPin=False,)
+End Object
+Begin Object Class=/Script/BlueprintGraph.K2Node&#95;VariableGet Name="K2Node&#95;VariableGet&#95;576"
+   VariableReference=(MemberName="K1",MemberGuid=4839CC3849FA034E4200C5930E5527BE,bSelfContext=True)
+   NodePosX=-880
+   NodePosY=528
+   NodeGuid=9D923D8B485BDBC67AE6C49857387A19
+   CustomProperties Pin (PinId=A5D1350D4684134EB5EDE0B43F3983D6,PinName="K1",Direction="EGPD&#95;Output",PinType.PinCategory="float",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultValue="0.0",AutogeneratedDefaultValue="0.0",LinkedTo=(K2Node&#95;MakeStruct&#95;96 2B2D8DA343819F2653E8FD8EDB5CCF2E,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=855757D34C3ACB48D139749625D425A1,PinName="self",PinFriendlyName=NSLOCTEXT("K2Node", "Target", "Target"),PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject=BlueprintGeneratedClass'/Game/DrawUVDisToRenderTarget.DrawUVDisToRenderTarget&#95;C',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PersistentGuid=00000000000000000000000000000000,bHidden=True,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+End Object
+Begin Object Class=/Script/BlueprintGraph.K2Node&#95;VariableGet Name="K2Node&#95;VariableGet&#95;577"
+   VariableReference=(MemberName="K2",MemberGuid=D895BC2A4F39BE80B8EAD096E8B7700E,bSelfContext=True)
+   NodePosX=-880
+   NodePosY=576
+   NodeGuid=EF3CEEFE4A1744607E5ADFAAFC05FD12
+   CustomProperties Pin (PinId=F9AAFCFC4510CDA989300C82B66FDD0A,PinName="K2",Direction="EGPD&#95;Output",PinType.PinCategory="float",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultValue="0.0",AutogeneratedDefaultValue="0.0",LinkedTo=(K2Node&#95;MakeStruct&#95;96 3704C64244726B58EC95F2A67CFF69A6,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=21CD4CBD4F198D2481CD28BDE8611989,PinName="self",PinFriendlyName=NSLOCTEXT("K2Node", "Target", "Target"),PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject=BlueprintGeneratedClass'/Game/DrawUVDisToRenderTarget.DrawUVDisToRenderTarget&#95;C',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PersistentGuid=00000000000000000000000000000000,bHidden=True,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+End Object
+Begin Object Class=/Script/BlueprintGraph.K2Node&#95;Event Name="K2Node&#95;Event&#95;192"
+   EventReference=(MemberParent=Class'/Script/Engine.Actor',MemberName="ReceiveTick")
+   bOverrideFunction=True
+   NodePosX=-1024
+   NodePosY=320
+   NodeGuid=B7AA8C13412B9A161A352B92CA6A517B
+   CustomProperties Pin (PinId=0946FFD548ACE53983F881B5777ABC2F,PinName="OutputDelegate",Direction="EGPD&#95;Output",PinType.PinCategory="delegate",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(MemberParent=Class'/Script/Engine.Actor',MemberName="ReceiveTick"),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=CF3109B747079A44B53B3DB5B51020FC,PinName="then",Direction="EGPD&#95;Output",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node&#95;CallFunction&#95;416 79BFE6EF42D85E5A60B44D92A288F50C,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=42C21E7D47A3E8C35F8585A663FFBFB5,PinName="DeltaSeconds",PinToolTip="Delta Seconds\n浮动",Direction="EGPD&#95;Output",PinType.PinCategory="float",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultValue="0.0",AutogeneratedDefaultValue="0.0",PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+End Object
+Begin Object Class=/Script/BlueprintGraph.K2Node&#95;InputKey Name="K2Node&#95;InputKey&#95;192"
+   InputKey=W
+   NodePosX=-976
+   NodePosY=-161
+   NodeGuid=4FBA7A1249F1F885C74D75AA91AC55F2
+   CustomProperties Pin (PinId=0429EAAA4F3A1525226DAE8C05168835,PinName="Pressed",Direction="EGPD&#95;Output",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node&#95;VariableSet&#95;384 34FD5FE0407CEFD46D3AE59501650E22,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=1AAED7B94E1848D93AC4D1A2C1FF372D,PinName="Released",Direction="EGPD&#95;Output",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=5E9345974B5A3DDD591CC19CB2AAB597,PinName="Key",Direction="EGPD&#95;Output",PinType.PinCategory="struct",PinType.PinSubCategory="",PinType.PinSubCategoryObject=ScriptStruct'/Script/InputCore.Key',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultValue="AnyKey",PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+End Object
+Begin Object Class=/Script/BlueprintGraph.K2Node&#95;VariableGet Name="K2Node&#95;VariableGet&#95;578"
+   VariableReference=(MemberName="K1",MemberGuid=4839CC3849FA034E4200C5930E5527BE,bSelfContext=True)
+   NodePosX=-880
+   NodePosY=-65
+   NodeGuid=B4638D624BC2F7C9D6FD4588B8F3E398
+   CustomProperties Pin (PinId=4B8548F545AA42E5DEAA30BB788BDFD5,PinName="K1",Direction="EGPD&#95;Output",PinType.PinCategory="float",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultValue="0.0",AutogeneratedDefaultValue="0.0",LinkedTo=(K2Node&#95;CommutativeAssociativeBinaryOperator&#95;288 2881016344EEA036B25198B1A2901731,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=ED52FD8B45FABD0DB36912A73E4B4A42,PinName="self",PinFriendlyName=NSLOCTEXT("K2Node", "Target", "Target"),PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject=BlueprintGeneratedClass'/Game/DrawUVDisToRenderTarget.DrawUVDisToRenderTarget&#95;C',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PersistentGuid=00000000000000000000000000000000,bHidden=True,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+End Object
+Begin Object Class=/Script/BlueprintGraph.K2Node&#95;CommutativeAssociativeBinaryOperator Name="K2Node&#95;CommutativeAssociativeBinaryOperator&#95;288"
+   bIsPureFunc=True
+   FunctionReference=(MemberParent=Class'/Script/Engine.KismetMathLibrary',MemberName="Add&#95;FloatFloat")
+   NodePosX=-736
+   NodePosY=-43
+   NodeGuid=9C35063A4FDEA57DACE141B8111FD85F
+   CustomProperties Pin (PinId=31DA9D4E432BCD1808FA6E85CB5FAC16,PinName="self",PinFriendlyName=NSLOCTEXT("K2Node", "Target", "Target"),PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject=Class'/Script/Engine.KismetMathLibrary',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultObject="/Script/Engine.Default&#95;&#95;KismetMathLibrary",PersistentGuid=00000000000000000000000000000000,bHidden=True,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=2881016344EEA036B25198B1A2901731,PinName="A",PinType.PinCategory="float",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultValue="0.0",AutogeneratedDefaultValue="0.0",LinkedTo=(K2Node&#95;VariableGet&#95;578 4B8548F545AA42E5DEAA30BB788BDFD5,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=0F92D08C4BA9B44D30CBD388DA7B164C,PinName="B",PinType.PinCategory="float",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultValue="1.000000",AutogeneratedDefaultValue="1.000000",LinkedTo=(K2Node&#95;VariableGet&#95;580 2980C241419284FB7AE273AF1E29C508,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=16B924E244A4C93A9D11E5B6D0644337,PinName="ReturnValue",Direction="EGPD&#95;Output",PinType.PinCategory="float",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultValue="0.0",AutogeneratedDefaultValue="0.0",LinkedTo=(K2Node&#95;VariableSet&#95;384 5F4C474943E3F540C19AB698F5128FD4,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+End Object
+Begin Object Class=/Script/BlueprintGraph.K2Node&#95;VariableSet Name="K2Node&#95;VariableSet&#95;384"
+   VariableReference=(MemberName="K1",MemberGuid=4839CC3849FA034E4200C5930E5527BE,bSelfContext=True)
+   NodePosX=-560
+   NodePosY=-80
+   NodeGuid=193B539C4A92386BB27C14ACC1591AFE
+   CustomProperties Pin (PinId=34FD5FE0407CEFD46D3AE59501650E22,PinName="execute",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node&#95;InputKey&#95;192 0429EAAA4F3A1525226DAE8C05168835,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=4855AEC64D016016F1DBA0B7F06F6E34,PinName="then",Direction="EGPD&#95;Output",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=5F4C474943E3F540C19AB698F5128FD4,PinName="K1",PinType.PinCategory="float",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultValue="0.0",AutogeneratedDefaultValue="0.0",LinkedTo=(K2Node&#95;CommutativeAssociativeBinaryOperator&#95;288 16B924E244A4C93A9D11E5B6D0644337,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=B369DA294B0EFE460125B89D37B36016,PinName="Output&#95;Get",PinToolTip="获取变量的值，可用于替代单独的Get节点",Direction="EGPD&#95;Output",PinType.PinCategory="float",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultValue="0.0",AutogeneratedDefaultValue="0.0",PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=375B1D804A328D8760AD28AE350A5683,PinName="self",PinFriendlyName=NSLOCTEXT("K2Node", "Target", "Target"),PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject=BlueprintGeneratedClass'/Game/DrawUVDisToRenderTarget.DrawUVDisToRenderTarget&#95;C',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PersistentGuid=00000000000000000000000000000000,bHidden=True,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+End Object
+Begin Object Class=/Script/BlueprintGraph.K2Node&#95;InputKey Name="K2Node&#95;InputKey&#95;193"
+   InputKey=S
+   NodePosX=-976
+   NodePosY=32
+   NodeGuid=15E31E514BEC9996A60ABB8835A76ECC
+   CustomProperties Pin (PinId=8E7ECA29433D7EDD8DCDA9AEF8A6CAB3,PinName="Pressed",Direction="EGPD&#95;Output",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node&#95;VariableSet&#95;385 34FD5FE0407CEFD46D3AE59501650E22,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=68CE8604440CA4A0CEACDFAB4483450D,PinName="Released",Direction="EGPD&#95;Output",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=811D73054ED84FD4651E0D94C848DB85,PinName="Key",Direction="EGPD&#95;Output",PinType.PinCategory="struct",PinType.PinSubCategory="",PinType.PinSubCategoryObject=ScriptStruct'/Script/InputCore.Key',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultValue="AnyKey",PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+End Object
+Begin Object Class=/Script/BlueprintGraph.K2Node&#95;VariableGet Name="K2Node&#95;VariableGet&#95;579"
+   VariableReference=(MemberName="K1",MemberGuid=4839CC3849FA034E4200C5930E5527BE,bSelfContext=True)
+   NodePosX=-848
+   NodePosY=117
+   NodeGuid=FF6F5BDF4D0BFAF03F5310BAEDD12754
+   CustomProperties Pin (PinId=4B8548F545AA42E5DEAA30BB788BDFD5,PinName="K1",Direction="EGPD&#95;Output",PinType.PinCategory="float",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultValue="0.0",AutogeneratedDefaultValue="0.0",LinkedTo=(K2Node&#95;CommutativeAssociativeBinaryOperator&#95;289 2881016344EEA036B25198B1A2901731,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=ED52FD8B45FABD0DB36912A73E4B4A42,PinName="self",PinFriendlyName=NSLOCTEXT("K2Node", "Target", "Target"),PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject=BlueprintGeneratedClass'/Game/DrawUVDisToRenderTarget.DrawUVDisToRenderTarget&#95;C',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PersistentGuid=00000000000000000000000000000000,bHidden=True,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+End Object
+Begin Object Class=/Script/BlueprintGraph.K2Node&#95;CommutativeAssociativeBinaryOperator Name="K2Node&#95;CommutativeAssociativeBinaryOperator&#95;289"
+   bIsPureFunc=True
+   FunctionReference=(MemberParent=Class'/Script/Engine.KismetMathLibrary',MemberName="Add&#95;FloatFloat")
+   NodePosX=-688
+   NodePosY=133
+   NodeGuid=B6EF6E4D40028BE66750DFBFC28D5026
+   CustomProperties Pin (PinId=31DA9D4E432BCD1808FA6E85CB5FAC16,PinName="self",PinFriendlyName=NSLOCTEXT("K2Node", "Target", "Target"),PinToolTip="目标\nKismet数学库引用",PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject=Class'/Script/Engine.KismetMathLibrary',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultObject="/Script/Engine.Default&#95;&#95;KismetMathLibrary",PersistentGuid=00000000000000000000000000000000,bHidden=True,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=2881016344EEA036B25198B1A2901731,PinName="A",PinToolTip="A\n浮动",PinType.PinCategory="float",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultValue="0.0",AutogeneratedDefaultValue="0.0",LinkedTo=(K2Node&#95;VariableGet&#95;579 4B8548F545AA42E5DEAA30BB788BDFD5,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=0F92D08C4BA9B44D30CBD388DA7B164C,PinName="B",PinToolTip="B\n浮动",PinType.PinCategory="float",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultValue="1.000000",AutogeneratedDefaultValue="1.000000",LinkedTo=(K2Node&#95;CommutativeAssociativeBinaryOperator&#95;290 783E07954DAB142BA4459BA53C394344,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=16B924E244A4C93A9D11E5B6D0644337,PinName="ReturnValue",PinToolTip="返回值\n浮动",Direction="EGPD&#95;Output",PinType.PinCategory="float",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultValue="0.0",AutogeneratedDefaultValue="0.0",LinkedTo=(K2Node&#95;VariableSet&#95;385 5F4C474943E3F540C19AB698F5128FD4,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+End Object
+Begin Object Class=/Script/BlueprintGraph.K2Node&#95;VariableSet Name="K2Node&#95;VariableSet&#95;385"
+   VariableReference=(MemberName="K1",MemberGuid=4839CC3849FA034E4200C5930E5527BE,bSelfContext=True)
+   NodePosX=-512
+   NodePosY=96
+   NodeGuid=2D13E4BF4CB4A7FC1523E1AE69AA90A3
+   CustomProperties Pin (PinId=34FD5FE0407CEFD46D3AE59501650E22,PinName="execute",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node&#95;InputKey&#95;193 8E7ECA29433D7EDD8DCDA9AEF8A6CAB3,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=4855AEC64D016016F1DBA0B7F06F6E34,PinName="then",Direction="EGPD&#95;Output",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=5F4C474943E3F540C19AB698F5128FD4,PinName="K1",PinType.PinCategory="float",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultValue="0.0",AutogeneratedDefaultValue="0.0",LinkedTo=(K2Node&#95;CommutativeAssociativeBinaryOperator&#95;289 16B924E244A4C93A9D11E5B6D0644337,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=B369DA294B0EFE460125B89D37B36016,PinName="Output&#95;Get",PinToolTip="获取变量的值，可用于替代单独的Get节点",Direction="EGPD&#95;Output",PinType.PinCategory="float",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultValue="0.0",AutogeneratedDefaultValue="0.0",PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=375B1D804A328D8760AD28AE350A5683,PinName="self",PinFriendlyName=NSLOCTEXT("K2Node", "Target", "Target"),PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject=BlueprintGeneratedClass'/Game/DrawUVDisToRenderTarget.DrawUVDisToRenderTarget&#95;C',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PersistentGuid=00000000000000000000000000000000,bHidden=True,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+End Object
+Begin Object Class=/Script/BlueprintGraph.K2Node&#95;VariableGet Name="K2Node&#95;VariableGet&#95;580"
+   VariableReference=(MemberName="inc",MemberGuid=4884B3C94FC8DF3C61FE879F885C0513,bSelfContext=True)
+   NodePosX=-880
+   NodePosY=-1
+   NodeGuid=04CFCC974D09F5C39905CC92FE6A1713
+   CustomProperties Pin (PinId=2980C241419284FB7AE273AF1E29C508,PinName="inc",Direction="EGPD&#95;Output",PinType.PinCategory="float",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultValue="0.0",AutogeneratedDefaultValue="0.0",LinkedTo=(K2Node&#95;CommutativeAssociativeBinaryOperator&#95;288 0F92D08C4BA9B44D30CBD388DA7B164C,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=F03E9DF14235EE0A66DA7A8AE9CCEC0A,PinName="self",PinFriendlyName=NSLOCTEXT("K2Node", "Target", "Target"),PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject=BlueprintGeneratedClass'/Game/DrawUVDisToRenderTarget.DrawUVDisToRenderTarget&#95;C',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PersistentGuid=00000000000000000000000000000000,bHidden=True,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+End Object
+Begin Object Class=/Script/BlueprintGraph.K2Node&#95;VariableGet Name="K2Node&#95;VariableGet&#95;581"
+   VariableReference=(MemberName="inc",MemberGuid=4884B3C94FC8DF3C61FE879F885C0513,bSelfContext=True)
+   NodePosX=-1024
+   NodePosY=165
+   NodeGuid=0EB1B27D4A04A1C09B751CA82FBE119E
+   CustomProperties Pin (PinId=3A16050E455FC2A7B8753280F3B3A49F,PinName="inc",Direction="EGPD&#95;Output",PinType.PinCategory="float",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultValue="0.0",AutogeneratedDefaultValue="0.0",LinkedTo=(K2Node&#95;CommutativeAssociativeBinaryOperator&#95;290 A361B639411834B96FE764A2D4906668,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=B918EB1D428E95863AB5D7B814A3BB9E,PinName="self",PinFriendlyName=NSLOCTEXT("K2Node", "Target", "Target"),PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject=BlueprintGeneratedClass'/Game/DrawUVDisToRenderTarget.DrawUVDisToRenderTarget&#95;C',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PersistentGuid=00000000000000000000000000000000,bHidden=True,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+End Object
+Begin Object Class=/Script/BlueprintGraph.K2Node&#95;CommutativeAssociativeBinaryOperator Name="K2Node&#95;CommutativeAssociativeBinaryOperator&#95;290"
+   bIsPureFunc=True
+   FunctionReference=(MemberParent=Class'/Script/Engine.KismetMathLibrary',MemberName="Multiply&#95;FloatFloat")
+   NodePosX=-848
+   NodePosY=168
+   NodeGuid=BDAB4F194B50AE675B4401BB9D6C8C39
+   CustomProperties Pin (PinId=3FDEE1EC4FC5966307A607902689EAEB,PinName="self",PinFriendlyName=NSLOCTEXT("K2Node", "Target", "Target"),PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject=Class'/Script/Engine.KismetMathLibrary',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultObject="/Script/Engine.Default&#95;&#95;KismetMathLibrary",PersistentGuid=00000000000000000000000000000000,bHidden=True,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=A361B639411834B96FE764A2D4906668,PinName="A",PinType.PinCategory="float",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultValue="0.0",AutogeneratedDefaultValue="0.0",LinkedTo=(K2Node&#95;VariableGet&#95;581 3A16050E455FC2A7B8753280F3B3A49F,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=BC525A6F442150954DE5E5BEE36BC24A,PinName="B",PinType.PinCategory="float",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultValue="-1",AutogeneratedDefaultValue="0.0",PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=783E07954DAB142BA4459BA53C394344,PinName="ReturnValue",Direction="EGPD&#95;Output",PinType.PinCategory="float",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultValue="0.0",AutogeneratedDefaultValue="0.0",LinkedTo=(K2Node&#95;CommutativeAssociativeBinaryOperator&#95;289 0F92D08C4BA9B44D30CBD388DA7B164C,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+End Object
+Begin Object Class=/Script/BlueprintGraph.K2Node&#95;CallFunction Name="K2Node&#95;CallFunction&#95;416"
+   FunctionReference=(MemberParent=Class'/Script/Engine.KismetRenderingLibrary',MemberName="ClearRenderTarget2D")
+   NodePosX=-880
+   NodePosY=320
+   NodeGuid=FE0330D94D3366BD6864BDB61EE7936C
+   CustomProperties Pin (PinId=79BFE6EF42D85E5A60B44D92A288F50C,PinName="execute",PinToolTip="\n执行",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node&#95;Event&#95;192 CF3109B747079A44B53B3DB5B51020FC,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=90ED15F94550FFA4BBC36CA3442B9E34,PinName="then",PinToolTip="\n执行",Direction="EGPD&#95;Output",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node&#95;CallFunction&#95;415 37A50945406550EE210602B9EDA46A00,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=701455F543533B934DAD6D9724A33137,PinName="self",PinFriendlyName=NSLOCTEXT("K2Node", "Target", "Target"),PinToolTip="目标\nKismet 渲染库对象引用",PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject=Class'/Script/Engine.KismetRenderingLibrary',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultObject="/Script/Engine.Default&#95;&#95;KismetRenderingLibrary",PersistentGuid=00000000000000000000000000000000,bHidden=True,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=0410B7A34146C336929C98820F4C4F9A,PinName="WorldContextObject",PinToolTip="场景内容物体\n对象物体引用",PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject=Class'/Script/CoreUObject.Object',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PersistentGuid=00000000000000000000000000000000,bHidden=True,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=BC869BDB4035291D58A4F5BCF647E7BC,PinName="TextureRenderTarget",PinToolTip="纹理渲染目标\n纹理渲染目标2D对象引用",PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject=Class'/Script/Engine.TextureRenderTarget2D',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultObject="/Game/RT&#95;00.RT&#95;00",PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=B131BC83400BC3963FBF45A829987EA1,PinName="ClearColor",PinToolTip="清楚颜色\n线性颜色结构",PinType.PinCategory="struct",PinType.PinSubCategory="",PinType.PinSubCategoryObject=ScriptStruct'/Script/CoreUObject.LinearColor',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultValue="(R=0.000000,G=0.000000,B=0.000000,A=1.000000)",AutogeneratedDefaultValue="(R=0.000000,G=0.000000,B=0.000000,A=1.000000)",PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+End Object
+Begin Object Class=/Script/UnrealEd.EdGraphNode&#95;Comment Name="EdGraphNode&#95;Comment&#95;5"
+   NodePosX=-1048
+   NodePosY=-222
+   NodeWidth=688
+   NodeHeight=480
+   NodeComment="增加（W）或降低（S）UV置换"
+   NodeGuid=F9DBA6D24A88AC009B27B0A979C22582
+End Object
+Begin Object Class=/Script/UnrealEd.EdGraphNode&#95;Comment Name="EdGraphNode&#95;Comment&#95;3"
+   NodePosX=-1056
+   NodePosY=272
+   NodeWidth=1088
+   NodeHeight=400
+   NodeComment="确保仅绘制最新K1和K2输入值"
+   NodeGuid=8A0F32874A5E6677357A34A938594544
+End Object
+END OBJECT</code></pre>
+</div>
+    <div id="snippet_overlay" onclick="if ($('#DrawDIS_snippet code').length != 0) { copyToClipboard($('#DrawDIS_snippet code').html()); } else if ($('#DrawDIS_snippet > p').length != 0) { copyToClipboard($('#DrawDIS_snippet > p').html()); } else { copyToClipboard($('#DrawDIS_snippet').html()); }"></div>
+</div>
+<div class="caption">
+	<p>可直接将此蓝图代码复制粘贴到蓝图中。</p>
+</div><div class="note">
+	<p>需要将渲染目标输入 <strong>Output Render Target</strong>，否则不会有效果。</p>
+</div></li><li class="Default"><p>所需的蓝图逻辑设置完成后，<strong>编译</strong> 并 保存 <strong>蓝图</strong>，然后将蓝图从 <strong>内容浏览器</strong> 拖入 <strong>关卡。完成后，选择蓝图，在 </strong>输入<strong> 下将 </strong>自动接收输入（Auto Receive Input）<strong> 从 </strong>禁用（Disabled）<strong> 改为 </strong>Player 0**。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Rendering/ShaderInPlugin/QuickStart/HT_ShadersInPlugins_16.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Rendering/ShaderInPlugin/QuickStart/HT_ShadersInPlugins_16.jpg">
+		<img class="  lazyload" alt="HT_ShadersInPlugins_16.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Rendering/ShaderInPlugin/QuickStart/HT_ShadersInPlugins_16.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>接下来选中地面，按下 <strong>CTRL + W</strong> 复制，然后在 <strong>X</strong> 轴中将其旋转 <strong>-90 度</strong>，然后将材质 <strong>MAT_RT</strong> 拖到其上方，即可看到Draw UVDisplacement to Render Target的效果。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Rendering/ShaderInPlugin/QuickStart/HT_ShadersInPlugins_17.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Rendering/ShaderInPlugin/QuickStart/HT_ShadersInPlugins_17.jpg">
+		<img class="  lazyload" alt="HT_ShadersInPlugins_17.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Rendering/ShaderInPlugin/QuickStart/HT_ShadersInPlugins_17.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>所有内容设置完成后，按下 <strong>Play</strong> 按钮，再按下 <strong>W</strong> 和 <strong>S</strong> 键对输入Draw UVDisplacement to Render Target节点的渲染目标执行变形，效果与以下视频相似。
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_VCMGiSTM3-s_991
+{
+	margin: 0px;
+	width: 100%;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_VCMGiSTM3-s_991:after
+{
+	content: "";
+	padding-top: 56.25%;
+	display: block;
+}
+</style> 
+<div>
+<div id="player_VCMGiSTM3-s_991"><div style="position:absolute;display:block;width:100%;height:100%;"><iframe class="embedded_video" id="VCMGiSTM3-s" width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/VCMGiSTM3-s?rel=0&amp;modestbranding=1&amp;showinfo=0&amp;loop=1&amp;controls=0" frameborder="0" allowfullscreen></iframe></div></div>
+</div></li></ol><h3 id="最终结果_1">最终结果</h3>
+<p>此时您便已学习到如何通过蓝图对渲染目标中的内容执行变形，创建各种有趣的形状。下一步可以尝试新建一个插件，或对现有插件进行编辑，看能否创建出有趣的图像和效果。
+</p>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Rendering">Rendering</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Render%20Targets">Render Targets</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Plugin">Plugin</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/ProgrammingAndScripting/Rendering/ShaderInPlugin/QuickStart/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 10:22:54 GMT -->
+</html>

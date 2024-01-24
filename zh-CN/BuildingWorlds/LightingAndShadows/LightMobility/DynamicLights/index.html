@@ -1,0 +1,507 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/BuildingWorlds/LightingAndShadows/LightMobility/DynamicLights/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 10:54:21 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/BuildingWorlds/LightingAndShadows/LightMobility/DynamicLights/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>可移动光源 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/BuildingWorlds/LightingAndShadows/LightMobility/DynamicLights/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/BuildingWorlds/LightingAndShadows/LightMobility/DynamicLights/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/BuildingWorlds/LightingAndShadows/LightMobility/DynamicLights/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/BuildingWorlds/LightingAndShadows/LightMobility/DynamicLights/" hreflang="ko" />
+
+	<meta name="redirect" content="RenderingAndGraphics/LightingAndShadows/LightMobility/DynamicLights" />
+<meta name="redirect" content="Engine/Rendering/LightingAndShadows/LightMobility/DynamicLights" />
+<meta name="intsourcechangelist" content="13879143" />
+<meta name="availability" content="Public" />
+<meta name="title" content="可移动光源" />
+<meta name="description" content="能在运行时修改所有属性的全动态光源。" />
+<meta name="version" content="4.25" />
+<meta name="parent" content="BuildingWorlds/LightingAndShadows/LightMobility" />
+<meta name="order" content="3" />
+<meta name="type" content="overview" />
+<meta name="topic-image" content="PL_Topic.png" />
+<meta name="course" content="lighting-essential-concepts-and-effects?lang=zh-CN|光照基础概念和效果|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Flighting-essential-concepts-and-effects%2FLightingEssentials_Topic_1920x1080-1920x1080-3e04dcaf168d9a530720df1573b417807ae00784.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Flighting-essential-concepts-and-effects%2FLighting-Essential-Concepts-and-Effects-1000x1000-14831d7f280345717b0bdd66be9422b40ffb91bd.png?resize=1&amp;w=300" />
+<meta name="course" content="introducing-global-illumination?lang=zh-CN|全局光照入门|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fintroducing-global-illumination%2F105_GlobalIllum%281200x675%29-1200x675-97270dbdc7595455b4c9acf0e83bf01da8efbfd4.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fintroducing-global-illumination%2FIntroducing-Global-Illumination-1000x1000-af5267ea2a6721b1cc73af7825d226aedbbaf5ce.png?resize=1&amp;w=300" />
+<meta name="crumbs" content="%ROOT%,BuildingWorlds,BuildingWorlds/LightingAndShadows,BuildingWorlds/LightingAndShadows/LightMobility" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="可移动光源" />
+	<meta property="og:description" content="能在运行时修改所有属性的全动态光源。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">构建虚拟世界</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">照亮环境</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">光源移动性</a>
+
+<span class="separator">></span> <span id="page">可移动光源</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">可移动光源</h1>
+							</div>	
+							<h2 >能在运行时修改所有属性的全动态光源。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																																			</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																								<div id="courses">
+	<div style="position:relative;">
+		<div id="title">相关课程</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<div name="lighting-essential-concepts-and-effects?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/lighting-essential-concepts-and-effects?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/lighting-essential-concepts-and-effects/LightingEssentials_Topic_1920x1080-1920x1080-3e04dcaf168d9a530720df1573b417807ae00784.4884f86.delaye?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/lighting-essential-concepts-and-effects/Lighting-Essential-Concepts-and-Effects-1000x1000-14831d7f280345717b0bdd66be9422b40ffb91bd.489fe4b.d?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="lighting-essential-concepts-and-effects?lang=zh-CN_title">
+				光照基础概念和效果
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="introducing-global-illumination?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/introducing-global-illumination?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/introducing-global-illumination/105_GlobalIllum(1200x675)-1200x675-97270dbdc7595455b4c9acf0e83bf01da8efbfd4.48b4f?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/introducing-global-illumination/Introducing-Global-Illumination-1000x1000-af5267ea2a6721b1cc73af7825d226aedbbaf5c?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="introducing-global-illumination?lang=zh-CN_title">
+				全局光照入门
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																								<div class="fullwidth raw">
+	<p><img class="  lazyload" alt="lighting_overview_banner_001.png" data-src="../../../../../Images/BuildingWorlds/LightingAndShadows/lighting_overview_banner_001.png" />
+</p>
+</div><div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#阴影">阴影</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#使用">使用</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#阴影偏差">阴影偏差</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#使用_1">使用</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#阴影偏差设置">阴影偏差设置</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#阴影贴图缓存">阴影贴图缓存</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#阴影贴图缓存和性能">阴影贴图缓存和性能</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#性能">性能</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#限制">限制</a></p>
+	</li>					</ul>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p><strong>可移动光源</strong> 将投射完全动态的光照和阴影。可修改位置、旋转、颜色、亮度、衰减、半径等所有属性。其投射的光照不会烘焙到光照贴图中，在无全局光照方法时不支持间接光照。
+</p><h2 id="阴影">阴影</h2>
+<p>可移动光源设为使用全场景动态阴影来投射阴影，此方式性能开销很高。性能开销主要取决于受该光源影响的网格体数量以及这些网格体的三角形数量。这意味着半径较大的可移动光源的阴影投射性能开销是半径较小的可移动光源的数倍之多。 
+</p><h2 id="使用">使用</h2>
+<p>在光源的 <strong>变换</strong> 类别有一个名为 <strong>移动性（Mobility）</strong> 的下拉属性；将此属性改为 <strong>可移动（Movable）</strong>。此属性也会出现在添加到蓝图的光源组件上。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/BuildingWorlds/LightingAndShadows/LightMobility/DynamicLights/ML_movableProp.jpg">
+		<img class="  lazyload" alt="ML_movableProp.png" data-src="../../../../../Images/BuildingWorlds/LightingAndShadows/LightMobility/DynamicLights/ML_movableProp.jpg" />
+</picture>
+
+</p><h2 id="阴影偏差">阴影偏差</h2>
+<p>使用动态光照时，调整光源的 <strong>阴影偏差</strong> 属性可减少因阴影映射方法（如小面化几何体表面）导致的瑕疵。
+</p><h3 id="使用_1">使用</h3>
+<p>使用 <strong>倾斜偏差</strong>（或常量偏差）和 <strong>阴影倾斜偏差</strong> 属性，可逐光源调整阴影偏差。调整 <strong>阴影倾斜偏差</strong> 与 <strong>阴影偏差</strong> 成正比，在这两个属性间可减少发生阴影映射瑕疵。
+</p><!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../../../Images/BuildingWorlds/LightingAndShadows/LightMobility/DynamicLights/ShadowBias_Actor_0.jpg">
+		<img class="  lazyload" alt="阴影偏差（常量和倾斜）：默认值" data-src="../../../../../Images/BuildingWorlds/LightingAndShadows/LightMobility/DynamicLights/ShadowBias_Actor_0.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../../../Images/BuildingWorlds/LightingAndShadows/LightMobility/DynamicLights/ShadowBias_Actor_1.jpg">
+		<img class="  lazyload" alt="阴影偏差（常量和倾斜）：已调整" data-src="../../../../../Images/BuildingWorlds/LightingAndShadows/LightMobility/DynamicLights/ShadowBias_Actor_1.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div><div class="note">
+	<p>调整 <strong>阴影倾斜偏差</strong> 将减少自投影瑕疵，但会降低阴影精度，导致场景中地面物体出现"彼得潘"（漂浮）效果。倾斜偏差调整无法解决 <em>所有</em> 与动态光照有关的自投影问题，但可解决其中多数问题。项目的 <em>正确</em> 平衡将由你决定。</p>
+</div><p>定向光源拥有额外的深度偏差属性，可控制级联阴影贴图（CSM）间的偏差强度，减少级联过渡点处的阴影瑕疵不连续性。
+</p><!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../../../Images/BuildingWorlds/LightingAndShadows/LightMobility/DynamicLights/ShadowBias_Landscape_0.jpg">
+		<img class="  lazyload" alt="阴影偏差（常量和倾斜）：默认值" data-src="../../../../../Images/BuildingWorlds/LightingAndShadows/LightMobility/DynamicLights/ShadowBias_Landscape_0.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../../../Images/BuildingWorlds/LightingAndShadows/LightMobility/DynamicLights/ShadowBias_Landscape_1.jpg">
+		<img class="  lazyload" alt="阴影偏差（常量和倾斜）：已调整" data-src="../../../../../Images/BuildingWorlds/LightingAndShadows/LightMobility/DynamicLights/ShadowBias_Landscape_1.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div><p>除逐光源调整属性外，还可通过全局控制台变量，逐光源类型使用0-1间的值，控制常量、倾斜和接收者偏差。 
+</p><ul ><li class="Default"><p><strong>定向光源：</strong><code>r.Shadow.CSMReceiverBias</code>
+</p></li><li class="Default"><p><strong>聚光源：</strong><code>r.Shadow.SpotReceiverBias</code>
+</p></li><li class="Default"><p><strong>点光源：</strong><code>r.Shadow.PointReceiverBias</code>
+</p></li><li class="Default"><p><strong>矩形光源：</strong><code>r.Shadow.RectReceiverBias</code>
+</p></li></ul><h3 id="阴影偏差设置">阴影偏差设置</h3>
+<p>使用以下设置可调整场景中照明和阴影的偏差：
+</p><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>属性 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>说明 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="2" align="">
+			<p><div class="tablesection">
+	<p> 点光源、聚光源和矩形光源</p>
+</div></p>
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>阴影偏差（Shadow Bias）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>控制此光源投射的整个场景阴影的自投影精度。值为0时，阴影将从投射方表面开始产生，但会出现诸多自投影瑕疵。值越增大，阴影产生处与投射者的距离越远，不会导致自投影瑕疵，但物体可能会浮于表面。值约为0.5时，精度和自投影瑕疵减少间可达到最佳平衡。<div class="note">
+	<p>此设置也会影响阴影的柔和过渡。</p>
+</div></p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>阴影倾斜偏差（Shadow Slope Bias）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>除 <strong>阴影偏差（Shadow Bias）</strong> 外，此属性还将控制该光源投射的整个场景阴影的自阴影精度。其工作原理是根据给定表面的斜率增大偏差量。值为0时，阴影从投射者表面开始产生，但将出现很多自阴影瑕疵。随着值的增大，阴影将从距离投射方更远的距离开始产生，不会出现自阴影瑕疵，但物体可能看起来像漂浮在表面上。值约为0.5时，精度和自投影瑕疵减少间可达到最佳平衡。<div class="note">
+	<p>这也将影响阴影的柔和过渡。</p>
+</div></p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="2" align="">
+			<p><div class="tablesection">
+	<p> 定向光源 </p>
+</div></p>
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>阴影偏差（Shadow Bias）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>控制此光源投射的整个场景阴影的自投影精度。值为0时，阴影从投射方表面开始产生，但将出现很多自阴影瑕疵。随着值增大，阴影将从距离投射者更远的距离开始产生，不会出现自阴影瑕疵，但物体可能看起来像漂浮在表面上。值约为0.5时，精度和自投影瑕疵减少间可达到最佳平衡。<div class="note">
+	<p>这也将影响阴影的柔和过渡。</p>
+</div></p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>阴影倾斜偏差（Shadow Slope Bias）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>除 <strong>阴影偏差（Shadow Bias）</strong> 外，此属性还将控制该光源投射的整个场景阴影的自阴影精度。其工作原理是根据给定表面的倾斜增大偏差量。值为0时，阴影将从投射方表面开始产生，但会出现诸多自投影瑕疵。值越增大，阴影产生处与投射者的距离越远，不会导致自投影瑕疵，但物体可能会浮于表面。值约为0.5时，精度和自投影瑕疵减少间可达到最佳平衡。<div class="note">
+	<p>此设置也会影响阴影的柔和过渡。</p>
+</div></p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>阴影级联偏差分布（Shadow Cascade Bias Distribution）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>控制定向光源级联间的深度偏差缩放。此属性可减轻阴影级联过渡间的阴影瑕疵差异。值为1将根据各级联大小缩放阴影偏差，而值为0将在所有级联上统一缩放阴影偏差。</p>
+			</td>
+	
+</tr></tbody>
+</table><h2 id="阴影贴图缓存">阴影贴图缓存</h2>
+<p>点光源或聚光源未移动时，可存储该光源的阴影贴图并在下一帧重复使用。在环境通常不移动的游戏中，此功能可显著降低可移动点光源和聚光源的阴影投射开销。此章节将介绍在项目中使用阴影贴图缓存的方法。
+</p><h3 id="阴影贴图缓存和性能">阴影贴图缓存和性能</h3>
+<p>所有UE4项目将自动启用阴影贴图缓存功能。执行以下操作启用和禁用阴影贴图缓存，可检查性能：
+</p><div class="note">
+	<p>以下阴影贴图缓存演示使用Sun Temple项目。在Epic Games Launcher"学习（Learn）"选项卡中可找到Sun Temple地图。</p>
+</div><ol ><li class="Default"><p>选择要在项目关卡中投射动态阴影的所有光源。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/BuildingWorlds/LightingAndShadows/LightMobility/DynamicLights/SMC_Select_All_Lights.jpg">
+		<img class="  lazyload" alt="SMC_Select_All_Lights.png" data-src="../../../../../Images/BuildingWorlds/LightingAndShadows/LightMobility/DynamicLights/SMC_Select_All_Lights.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>将光源的 <strong>移动性（Mobility）</strong> 设为 <strong>可移动（Movable）</strong>，并启用 <strong>投射阴影（Cast Shadows）</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/BuildingWorlds/LightingAndShadows/LightMobility/DynamicLights/SMC_Set_Mob_Shadow_Cast.jpg">
+		<img class="  lazyload" alt="SMC_Set_Mob_Shadow_Cast.png" data-src="../../../../../Images/BuildingWorlds/LightingAndShadows/LightMobility/DynamicLights/SMC_Set_Mob_Shadow_Cast.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>按 <strong>反引号（`）</strong> 键打开 <strong>控制台</strong>，输入 <code>Stat Shadowrendering</code> 查看动态阴影当前开销。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/BuildingWorlds/LightingAndShadows/LightMobility/DynamicLights/SMC_Console_ShadowRendering.jpg">
+		<img class="  lazyload" alt="SMC_Console_ShadowRendering.png" data-src="../../../../../Images/BuildingWorlds/LightingAndShadows/LightMobility/DynamicLights/SMC_Console_ShadowRendering.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>再次按 <strong>反引号（`）</strong> 键打开 <strong>控制台</strong>，输入 <code>r.Shadow.CacheWholeSceneShadows 0</code> 禁用动态阴影缓存。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/BuildingWorlds/LightingAndShadows/LightMobility/DynamicLights/SMC_Disable_Shadow_Cache.jpg">
+		<img class="  lazyload" alt="SMC_Disable_Shadow_Cache.png" data-src="../../../../../Images/BuildingWorlds/LightingAndShadows/LightMobility/DynamicLights/SMC_Disable_Shadow_Cache.jpg" />
+</picture>
+
+</p><div class="note">
+	<p> 记录 <strong>CallCount</strong> 和 <strong>InclusiveAug</strong> 部分中的数字。</p>
+</div></li><li class="Default"><p>现在再次按下 <strong>反引号</strong> 键打开 <strong>控制台</strong>，输入 <code>r.Shadow.CacheWholeSceneShadows 1</code> 重新启用阴影缓存。通过比较 <strong>CallCount</strong> 和 <strong>InclusiveAug</strong> 的数字，可观察此功能对动态阴影性能的影响。
+</p><!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../../../Images/BuildingWorlds/LightingAndShadows/LightMobility/DynamicLights/SMC_On.jpg">
+		<img class="  lazyload" alt="阴影缓存开启" data-src="../../../../../Images/BuildingWorlds/LightingAndShadows/LightMobility/DynamicLights/SMC_On.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../../../Images/BuildingWorlds/LightingAndShadows/LightMobility/DynamicLights/SMC_Off.jpg">
+		<img class="  lazyload" alt="阴影缓存关闭" data-src="../../../../../Images/BuildingWorlds/LightingAndShadows/LightMobility/DynamicLights/SMC_Off.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div></li></ol><h3 id="性能">性能</h3>
+<p>阴影贴图缓存会对性能产生极大影响。以下为使用NVIDIA 970 GTX GPU以1920x1200屏幕分辨率进行优化测试的结果。
+</p><ul ><li class="Default"><p>在启用此功能之前，无缓存的3个阴影投射点光源花费了14.89毫秒完成阴影深度渲染。
+</p></li><li class="Default"><p>启用缓存阴影贴图后，相同的3个阴影投射光源花费0.9毫秒便完成渲染，大约 <strong>快16倍</strong>！
+</p><div class="note">
+	<p>注意：渲染33个点光源的贡献仍花费了2毫秒，可通过其他方式进行优化，此修改无法对其产生影响。</p>
+</div></li><li class="Default"><p>可使用 <strong>r.Shadow.WholeSceneShadowCacheMb</strong> 控制阴影贴图缓存使用的最大内存量
+</p></li></ul><h3 id="限制">限制</h3>
+<p>虽然阴影贴图缓存可降低在UE4项目中使用动态阴影的开销，但其仍存在部分限制，结合不支持的功能使用时可能引起渲染瑕疵。
+</p><ul ><li class="Default"><p>默认仅在对象满足以下要求时才会进行缓存：
+</p><ul ><li class="Default"><p>基元将其 <strong>移动性</strong> 设为 <strong>静态</strong> 或 <strong>静止</strong>。 
+</p></li><li class="Default"><p>关卡中使用的材质不使用 <strong>场景位置偏移</strong>。
+</p></li><li class="Default"><p>光源必须是 <strong>点光源</strong> 或 <strong>聚光源</strong>，<strong>移动性</strong> 设为 <strong>可移动</strong>，并启用 <strong>阴影投射</strong>。
+</p></li><li class="Default"><p>光源必须停留在一处。
+</p></li><li class="Default"><p>使用动画 <strong>曲面细分</strong> 或 <strong>像素深度偏移</strong> 的材质可能会在缓存其阴影深度时产生瑕疵。
+</p></li></ul></li></ul>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/BuildingWorlds/LightingAndShadows/LightMobility/DynamicLights/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 10:54:26 GMT -->
+</html>

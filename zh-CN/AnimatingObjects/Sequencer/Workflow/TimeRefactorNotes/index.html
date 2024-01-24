@@ -1,0 +1,439 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/AnimatingObjects/Sequencer/Workflow/TimeRefactorNotes/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:29:26 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/AnimatingObjects/Sequencer/Workflow/TimeRefactorNotes/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>Sequencer时间重构技术说明 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/AnimatingObjects/Sequencer/Workflow/TimeRefactorNotes/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/AnimatingObjects/Sequencer/Workflow/TimeRefactorNotes/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/AnimatingObjects/Sequencer/Workflow/TimeRefactorNotes/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/AnimatingObjects/Sequencer/Workflow/TimeRefactorNotes/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Sequencer/Workflow/TimeRefactorNotes" />
+<meta name="intsourcechangelist" content="6061192" />
+<meta name="availability" content="Public" />
+<meta name="title" content="Sequencer时间重构技术说明" />
+<meta name="description" content="4.20中对Sequencer工具进行时间重构的技术信息。" />
+<meta name="navigation" content="topic" />
+<meta name="parent" content="AnimatingObjects/Sequencer/Workflow" />
+<meta name="order" content="1" />
+<meta name="version" content="4.20" />
+<meta name="keywords" content="Sequencer" />
+<meta name="crumbs" content="%ROOT%,AnimatingObjects,AnimatingObjects/Sequencer,AnimatingObjects/Sequencer/Workflow" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="Sequencer时间重构技术说明" />
+	<meta property="og:description" content="4.20中对Sequencer工具进行时间重构的技术信息。 " />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">为角色和对象添加动画</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">Sequencer 编辑器</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">使用Sequencer</a>
+
+<span class="separator">></span> <span id="page">Sequencer时间重构技术说明</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">Sequencer时间重构技术说明</h1>
+							</div>	
+							<h2 >4.20中对Sequencer工具进行时间重构的技术信息。 </h2>
+							<div id="access">
+								<div class="accessContainer">
+																																			</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																																				<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#发生了哪些转变？">发生了哪些转变？</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#c++升级说明">C++ 升级说明</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<div class="warning">
+	<p>在UE4 4.20发行版中，我们对Sequencer中时间的表示方法进行了大幅修改。这样做是为了更好地支持电影性流程和情境，对于电影性流程和情境来说，帧准确性极为重要。该页概述了重要概念转变并详细介绍了为实现升级所做的突破性C++代码更改。</p>
+</div><a name="whathaschanged?" ></a><h2 id="发生了哪些转变？">发生了哪些转变？</h2>
+<p>自从问世以来，<strong>Sequencer</strong> 就一直使用 <strong>浮点数</strong> 将时间表示为 <strong>秒数</strong>。这大大增加了支持稳定帧准确性的难度，并且会导致关键帧定位误差、渲染时出现错误、摄像机剪辑帧不稳定、求值模糊等问题。从引擎4.20发行版开始，已转变为使用整数更新来表示时间，这即使解决不了所有问题，也能解决很多问题。
+</p><p>这些更新的解译方式是通过序列的 <strong>更新分辨率</strong> 逐序列定义的，"更新分辨率"定义每秒的更新数。使用该机制，用户可以控制sequencer数据的粒度。例如，对于不太关注帧准确性的实时应用，人们可能会选择极高的分辨率，但是渲染后的过场动画的主序列可能会为项目选择真正想要的帧率。
+</p><p>该方法可赋予Sequencer适应不同情境的极大灵活性，同时不影响稳定性或性能。默认情况下，将会以 <strong>60,000 fps</strong> 的更新分辨率升级使用4.20之前的版本创建的内容，该更新分辨率涵盖了除 <strong>23.976（NTSC）</strong> 以外的所有常见帧率。新序列的默认更新分辨率为 <strong>24,000</strong>，它可以涵盖所有常见的整数速率以及 <strong>23.976（NTSC）</strong>。
+</p><p>自定义用于任何给定项目的默认值时，以下cvar非常有用。
+</p><ul ><li class="Default"><p>MovieScene.LegacyConversionFrameRate（<strong>默认值：60000fps</strong>）
+</p><ul ><li class="Default"><p>为使用4.20之前的版本保存的UMovieScene数据指定默认帧分辨率。 
+</p></li><li class="Default"><p>对使用4.20之后的版本（重新）保存的资源没有影响。
+</p></li></ul></li><li class="Default"><p>LevelSequence.DefaultTickResolution（<strong>默认值：24000fps</strong>）
+</p><ul ><li class="Default"><p>为新建的关卡序列指定默认更新分辨率。
+</p></li></ul></li><li class="Default"><p>LevelSequence.DefaultDisplayRate（<strong>默认值：30fps</strong>）
+</p><ul ><li class="Default"><p>为新建的关卡序列指定默认显示帧率；也指定序列设置为帧锁定情况下的锁定帧帧率。
+</p></li></ul></li></ul><p>需要注意的是，Sequencer仍然支持使用浮点子帧的关键帧数据求值，这意味着我们仍然可以在运行时针对更新分辨率极低的序列执行平滑插值。只有片段边界和关键帧自身会受到更新分辨率约束。
+</p><p>给定序列的时序信息现在都位于Sequencer工具栏的 <strong>显示速率</strong> 下拉菜单中，工具提示会说明当前序列的更新分辨率：
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/AnimatingObjects/Sequencer/Workflow/TimeRefactorNotes/image_0.png" ><span><img class="  lazyload" alt="image alt text" width="624" height="314" data-src="../../../../../Images/AnimatingObjects/Sequencer/Workflow/TimeRefactorNotes/image_0.png" />
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看全图。</p>
+</div><p>该菜单允许您更改序列的显示帧率、时间显示模式和求值类型。与当前序列的更新分辨率兼容的常见显示速率会显示在顶部。可以使用不与更新分辨率兼容的帧率来进行显示，但是我们建议您不要这样做。
+</p><div class="warning">
+	<p>创建后可以更改序列的更新分辨率，但是需要注意的是，将序列转换为非其当前分辨率倍数的更新分辨率可能将导致片段边界和键被四舍五入到 <strong>高级选项</strong> 菜单中的新分辨率。</p>
+</div><p><img class="  lazyload" alt="image alt text" width="624" height="416" data-src="../../../../../Images/AnimatingObjects/Sequencer/Workflow/TimeRefactorNotes/image_1.png" />
+
+</p><a name="c++upgradenotes" ></a><h2 id="c++升级说明">C++ 升级说明</h2>
+<p>为支持新的时间格式，需要修改很多内部Sequencer和MovieScene类及数据结构。鉴于修改的规模和范围，无法为部分API提供简单的弃用路径。 
+</p><p>该部分将详细说明主要更改并提供从4.19迁移到4.20的示例代码。
+</p><a name="changesandadditions" ></a><h3 id="更改和添加">更改和添加</h3>
+<ul ><li class="Default"><p><strong>TimeManagement </strong>模块：提供常见的与时间相关的数据结构和操作及处理工具：
+</p></li></ul><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>代码                        </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>说明                                       </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>FFrameNumber（32位）</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>类型安全的32位整数，主要用于表示与上下文无关的更新号或帧号。不支持从int32以外的任何其他数值类型进行转换。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>FFrameTime（64位）</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>由与上下文无关的帧号和浮点子帧组成的时间表示。主要在求值时使用。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>FFrameRate（64位）</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>以整数分子和分母（帧数 / 秒数）形式存储的分数帧率。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>FQualifiedFrameTime（128位）</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>由FFrameTime和FFrameRate组合而成，便于在秒值和其他帧率间来回转换。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>FTimecode（20字节）</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>由对应时、分、秒和帧的整数组成的时间码表示，包含表示丢帧/非丢帧时间码的布尔标志。</p>
+			</td>
+	
+</tr></tbody>
+</table><ul ><li class="Default"><p><strong>MovieScene Data</strong>：UMovieScene现在包含更新分辨率和显示速率，并且使用求值类型列举对之前的"强制固定帧间隔"求值进行了增强。对UMovieScene的API的明显更改包括：
+</p></li></ul><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>代码                               </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>说明                                       </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>UMovieScene::GetEvaluationType()</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>检索指定如何对该序列进行求值的列举：<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>代码                </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>说明                                       </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>WithSubFrames（默认）</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>使用子帧插值进行求值</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>FrameLocked</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>锁定到序列的DisplayRate，仅对四舍五入的帧号进行求值，无子帧，在求值过程中设置t.maxfps。</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>UMovieScene::GetTickResolution()</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>检索该过场动画场景中所有 FFrameNumber 解译时应使用的更新分辨率（除非另有说明）</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>UMovieScene::GetDisplayRate()</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>检索面向用户的UI、蓝图节点和序列播放器与该序列交互时使用的帧率。当EvaluationType设置为FrameLocked时，也会定义t.maxfps和锁定帧率。</p>
+			</td>
+	
+</tr></tbody>
+</table><p>已基于所在UMovieScene的更新分辨率将与时间相关的所有过场动画场景数据转换为使用FFrameNumber。其中包括： 
+</p><ul ><li class="Default"><p>UMovieSceneSection范围。片段范围现在独占公开为TRange<FFrameNumber>。该范围现在也暗指无上限或无下限，从而不再需要单独的IsInfinite标志。支持无穷范围的片段现在可以将bSupportsInfiniteRange设置为true。 
+</p></li><li class="Default"><p>UMovieScene播放和选择范围。现在可正确处理包含性和排他性上限和下限。
+</p></li><li class="Default"><p>预卷/后卷量
+</p></li><li class="Default"><p>UMovieSceneSubSection开始偏移（在内部序列的更新分辨率中）
+</p></li><li class="Default"><p><strong>曲线数据</strong>：已在内部将所有现有曲线类（例如，FRichCurve、FIntegralCurve、FNameCurve）替换为在所在UMovieScene的更新分辨率中基于FFrameNumber时间而非浮点运行的新信道类型。由于时间类型差异，无法向后兼容浮点时间表示。通过SerializeFromMismatchedTag支持使用上面列出的旧升级更新分辨率从旧类型自动升级。
+</p><ul ><li class="Default"><p>FRichCurve变为FMovieSceneFloatChannel
+</p></li><li class="Default"><p>FIntegralCurve变为FMovieSceneIntegerChannel
+</p></li><li class="Default"><p>FStringCurve变为FMovieSceneStringChannel
+</p></li><li class="Default"><p>FNameCurve已不再在内部使用
+</p></li><li class="Default"><p>已添加了FMovieSceneByteChannel（包括列举）和FMovieSceneBoolChannel。
+</p></li></ul></li></ul><p>只要提供TMovieSceneChannelData&lt;> GetData()方法，之前使用TCurveInterface的自定义曲线数据类型都可轻松迁移到新的FMovieSceneXYZChannel模型。
+</p><a name="moviescenechannels" ></a><h3 id="过场动画场景信道">过场动画场景信道</h3>
+<p>由于对曲线（现在称为信道）数据作出了必要的突破性更改，我们也借机统一了几个编辑器代码路径并减少了支持关键帧的片段的重复。添加了可为编辑器和运行时代码提供与关键帧进行交互并操纵关键帧的通用语言的新类型FMovieSceneChannelProxy。 
+</p><p>为此，已彻底删除不再需要的IKeyframeSection&lt;>。支持关键帧的片段现在只需正确填充其信道代理，以支持一般关键帧交互。这一更改也将大大简化未来创建带有关键帧的新片段类型的方式，因为通用的键操纵接口在信道级别存在，而非片段级别。
+</p><p>该新系统包含几个组成部分，每一个都提供略微不同的编辑器自定义方法：
+</p><h4 id="fmoviescenechannelproxy">FMovieSceneChannelProxy</h4>
+<p>存储在UMovieSceneSection:上，派生类型会使用其所有信道填充该结构体，如以下示例所示。信道依据其基FMovieSceneChannel*存储在依据派生类型排序的桶中。因此，在重新分配信道之后，应立即接着重新创建信道代理；这样做会使存储在旧代理中的所有信道的指针和句柄失效。
+</p><p>根据于上下文，与信道的所有交互要么直接通过FMovieSceneChannel接口进行，要么通过ISequencerChannelInterface。后者通过sequencer模块（ISequencerModule::RegisterChannelEditor）按类型注册。
+</p><p><div class=" warning">
+	<p>如果不这样做将导致尝试编辑这些信道时出现运行时断言失败。通过TSequencerChannelInterface提供模板化辅助方法，从而允许对任何给定的信道类型进行单独概念重载，通过参数依赖查找（ADL）解析。</p>
+</div>
+</p><p>该方法允许在不重新实现整个接口的情况下自定义特定行为（如果缺省值对于大部分信道都适用）。这也意味着核心sequencer代码可以自动填充UI的信道数据，无需在编辑器及运行时中手动定义ISequencerSection接口及手动定义信道布局。这在一定程度上简化了创建自定义片段类型的过程，尤其是在从已经受支持的内部信道数据创建片段时。
+</p><p>ISequencerChannelInterface的默认实现函数在Sequencer命名空间中定义，但是应该向信道的命名空间或全局命名空间添加重载。
+</p><p><div class=" note">
+	<p>我们建议自定义信道遵循以平行数组形式存储时间和值的模式，并提供TMovieSceneChannelData<T> GetData()方法以与键进行交互。FMovieSceneChannel的大部分接口都直接映射到在TMovieSceneChannelData上可调用的函数。</p>
+</div>
+</p><p>使用该代理方法，构建UI和与信道的键交互所需的所有数据都可方便地用于Sequencer UI代码。 
+</p><h4 id="fmoviescenechannel">FMovieSceneChannel</h4>
+<p>提供藉以与所有常用信道数据进行交互的接口。添加到信道代理的所有信道都必须实现该类型。
+</p><h4 id="isequencerchannelinterface">ISequencerChannelInterface</h4>
+<p>Sequencer针对给定信道要求的所有与UI交互和操纵相关的重载的接口。必须通过ISequencerModule类针对每个信道类型注册（通常使用编辑器模块的StartupModule方法）。
+</p><h4 id="tmoviescenechanneltraits">TMovieSceneChannelTraits</h4>
+<p>为信道类型指定扩展的编辑器数据等编译时特性，并指定信道是否支持默认值。许多sequencer UI实用程序都使用MovieSceneChannelTraits.h中指定的函数重载与每个具体的信道类型交互。如果默认模板化重载与信道类型不兼容，就应该为特定信道重载所需的函数。
+</p><a name="otherutilities" ></a><h3 id="其他实用程序">其他实用程序</h3>
+<p>已添加了多个辅助实用程序以简化处理过场动画场景范围的过程。现在我们使用了离散时间轴，方便了关于片段边界的合理化。在内部范围表示为TRange<FFrameNumber>，它支持包含性、排他性和开放边界。要简化处理离散时间轴的范围的过程，可以使用MovieScene::DiscreteInclusiveLower、DiscreteExclusiveUpper和DiscreteSize，以一致的方式处理不同的边界条件。
+</p><a name="migrationguide" ></a><h3 id="迁移指南">迁移指南</h3>
+<p>鉴于这些更改的性质，如果你在C++中编写了自己的轨迹、片段或曲线，将需要进行要求迁移的C++更改。请参阅我们为协助您进行升级而准备的轨迹、片段和信道类型<a id="content_link" href="https://bitbucket.org/BrakePad/custom-sequencer-example/commits/all" ><span>示例迁移</span></a>项目。
+</p>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Sequencer">Sequencer</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/AnimatingObjects/Sequencer/Workflow/TimeRefactorNotes/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:29:27 GMT -->
+</html>

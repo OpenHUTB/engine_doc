@@ -1,0 +1,775 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/RenderingAndGraphics/Materials/HowTo/Transparency/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:16:11 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/RenderingAndGraphics/Materials/HowTo/Transparency/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>使用透明度 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/RenderingAndGraphics/Materials/HowTo/Transparency/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/RenderingAndGraphics/Materials/HowTo/Transparency/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/RenderingAndGraphics/Materials/HowTo/Transparency/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/RenderingAndGraphics/Materials/HowTo/Transparency/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Rendering/Materials/HowTo/Transparency" />
+<meta name="intsourcechangelist" content="15516225" />
+<meta name="availability" content="Public" />
+<meta name="title" content="使用透明度" />
+<meta name="description" content="有关在材质中使用透明度的指南" />
+<meta name="related" content="RenderingAndGraphics/Materials/MaterialProperties/BlendModes" />
+<meta name="related" content="RenderingAndGraphics/Materials/Functions/Reference/Opacity" />
+<meta name="related" content="BuildingWorlds/LightingAndShadows/LitTranslucency" />
+<meta name="version" content="4.25" />
+<meta name="parent" content="RenderingAndGraphics/Materials/HowTo" />
+<meta name="type" content="Overview" />
+<meta name="skilllevel" content="Intermediate" />
+<meta name="keywords" content="Materials" />
+<meta name="course" content="creating-pbr-materials?lang=zh-CN|创建PBR材质|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fcreating-pbr-materials%2FHighresScreenshot00006-1920x1050-2c0180460478cd00327494c6e5717e227be4926d.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fcreating-pbr-materials%2FCreating-PBR-Materials-1000x1000-0d34ec4bfc3eeb466ce5a981a867921f72464e77.png?resize=1&amp;w=300" />
+<meta name="course" content="getting-to-know-materials-for-design-visualization?lang=zh-CN|了解可视化设计中的材质|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fgetting-to-know-materials-for-design-visualization%2FIntro_to_Materials_003-1919x1079-f32638266c469a6fa2b9b2f3515e5766e8177b22.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fgetting-to-know-materials-for-design-visualization%2FGetting-to-Know-Materials-for-Design-Visualization-1000x1000-8cd1670f84e0111e39d4a3faa1e7a6ba29a30bfe.png?resize=1&amp;w=300" />
+<meta name="course" content="materials---exploring-essential-concepts?lang=zh-CN|材质：基础概念|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials---exploring-essential-concepts%2FMaterialEssentialConcepts-1920x1080-1920x1080-2414bb5cf0b0c3bd7ac4b993e725d2acedd45334.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials---exploring-essential-concepts%2FMaterials--Exploring-Essential-Concepts-1000x1000-9546cdc254e6659ce73211b5955ab9d886921256.png?resize=1&amp;w=300" />
+<meta name="course" content="materials---understanding-the-production-workflow?lang=zh-CN|材质：制作工作流|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials---understanding-the-production-workflow%2FMaterialWorkflow_ThumbnailFull-1920x1080-1920x1080-638fea6d7e3b7b299a4f433096336ce1caf662d0.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials---understanding-the-production-workflow%2F104-Materials-Production-Workflow%402x-1000x1000-ae1ba588a367d239fbe513da38bb793360c9eecf.png?resize=1&amp;w=300" />
+<meta name="course" content="materials-master-learning?lang=zh-CN|材质大师课程|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials-master-learning%2FMaterialMaster_1920x1080-1920x1080-212f85045980310d6985557f84d0217e6423b709.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials-master-learning%2FMaterials-Master-Learning-1000x1000-56fd0b66f6e798313f79737126d9215cbd4a3ff9.png?resize=1&amp;w=300" />
+<meta name="crumbs" content="%ROOT%,RenderingAndGraphics,RenderingAndGraphics/Materials,RenderingAndGraphics/Materials/HowTo" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="使用透明度" />
+	<meta property="og:description" content="有关在材质中使用透明度的指南" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">设计视觉、渲染和图形效果</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">材质 </a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">材质 - 操作指南</a>
+
+<span class="separator">></span> <span id="page">使用透明度</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">使用透明度</h1>
+							</div>	
+							<h2 >有关在材质中使用透明度的指南</h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Intermediate"><a id="skill_link" href="../../../../SiteIndex/index.html?skills=Intermediate">Intermediate</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																		<div id="seeAlso">
+	<div style="position:relative;">
+		<div id="title">参见</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<p>
+						<a id="related_link" href="../../MaterialProperties/BlendModes/index.html" title="概述材质混合模式及其如何影响材质的渲染。">材质混合模式</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../Functions/Reference/Opacity/index.html" title="这些函数用于处理材质网络中的不透明值。">不透明度</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../../../BuildingWorlds/LightingAndShadows/LitTranslucency/index.html" title="说明如何对半透明表面施以光照，并投射包括自身阴影在内的阴影。">光照半透明</a>
+					</p>
+				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																		<div id="courses">
+	<div style="position:relative;">
+		<div id="title">相关课程</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<div name="creating-pbr-materials?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/creating-pbr-materials?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_443/Unreal%20Engine/onlinelearning-courses/creating-pbr-materials/HighresScreenshot00006-1920x1050-2c0180460478cd00327494c6e5717e227be4926d4f86.png?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_443/Unreal%20Engine/onlinelearning-courses/creating-pbr-materials/Creating-PBR-Materials-1000x1000-0d34ec4bfc3eeb466ce5a981a867921f72464e77fe4b.png?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="creating-pbr-materials?lang=zh-CN_title">
+				创建PBR材质
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="getting-to-know-materials-for-design-visualization?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/getting-to-know-materials-for-design-visualization?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/getting-to-know-materials-for-design-visualizat/Intro_to_Materials_003-1919x1079-f32638266c469a6fa2b9b2f3515e5766?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/getting-to-know-materials-for-design-visualizat/Getting-to-Know-Materials-for-Design-Visualization-1000x1000-8cd1670f84e0111e39d4a3faa1e7a6b?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="getting-to-know-materials-for-design-visualization?lang=zh-CN_title">
+				了解可视化设计中的材质
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="materials---exploring-essential-concepts?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/materials---exploring-essential-concepts?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/materials---exploring-essential-concepts/MaterialEssentialConcepts-1920x1080-1920x1080-2414bb5cf0b0c3bd7ac4b993e725d2acedd45334.42c4f86.dela?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/materials---exploring-essential-concepts/Materials--Exploring-Essential-Concepts-1000x1000-9546cdc254e6659ce73211b5955ab9d886921256.42dfe4b?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="materials---exploring-essential-concepts?lang=zh-CN_title">
+				材质：基础概念
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="materials---understanding-the-production-workflow?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/materials---understanding-the-production-workflow?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/materials---understanding-the-production-workfl/MaterialWorkflow_ThumbnailFull-1920x1080-1920x1080-638fea6d7e3b7b299a4f433096336ce1caf662d0?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/materials---understanding-the-production-workfl/104-Materials-Production-Workflow%402x-1000x1000-ae1ba588a367d239fbe513da38bb793360c9eecf.42ff?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="materials---understanding-the-production-workflow?lang=zh-CN_title">
+				材质：制作工作流
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="materials-master-learning?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/materials-master-learning?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/materials-master-learning/MaterialMaster_1920x1080-1920x1080-212f85045980310d6985557f84d0217e6423b709.4314f86.del?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/materials-master-learning/Materials-Master-Learning-1000x1000-56fd0b66f6e798313f79737126d9215cbd4a3ff9.433fe4b.de?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="materials-master-learning?lang=zh-CN_title">
+				材质大师课程
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																								<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#透明度">透明度</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#透明度的用途">透明度的用途</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#透明度与不透明度">透明度与不透明度</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#在材质中使用透明度">在材质中使用透明度</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#透明度与反射">透明度与反射</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#染色或彩色透明度">染色或彩色透明度</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#半透明彩色阴影">半透明彩色阴影</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#透明度与性能">透明度与性能</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#半透明优先顺序（translucencysortpriority）">半透明优先顺序（Translucency Sort Priority）</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#总结">总结</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>创建特定表面类型（例如，水面或玻璃）时，你需要能够使该表面不仅通透，还具有某种深度和颜色感。 
+在现实世界中，经常将这些属性称为 <strong>透明度</strong> 或 <strong>不透明度</strong>，并且经常互换使用以说明同一件事情。 
+但是，在虚幻引擎 4 (UE4) 中，"透明度"用来说明表面是否通透，而"不透明度"用来定义表面的通透度。在以下操作指南中，你将学习在虚幻引擎 4 中将透明度引入材质所需了解的所有内容。
+</p><h2 id="透明度">透明度</h2>
+<p><strong>透明度</strong> 术语用来说明表面阻挡或允许光线穿过的能力。 
+例如，砖块是不具有透明度的对象，而彩绘玻璃是具有透明度的对象。
+在 UE4 中，实现透明度的方式是让像素并非 100% 不透明（即，并非通透），而是具有不同程度的透明性（通透性）。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Transparency/Trans_Ramp_Example.jpg">
+		<img class="  lazyload" alt="Trans_Ramp_Example.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Transparency/Trans_Ramp_Example.jpg" />
+</picture>
+
+</p><p>上图使用一个纹理来帮助定义哪些区域应具有透明度以及这些区域应该具有的透明程度，说明 UE4 中透明度的工作方式。 
+这个纹理是一个渐变，其顶部为黑色，表示完全透明，而底部为白色，表示不透明。 
+中间的区域根据纹理像素距离黑色或白色的远近程度，具有不同的透明度。 
+</p><h3 id="透明度的用途">透明度的用途</h3>
+<p>透明度可被用于模拟各种现实世界中的表面类型。
+以下为透明度在UE4中最常见的用途。
+</p><ul ><li class="Default"><p>毛发
+</p></li><li class="Default"><p>玻璃 
+</p></li><li class="Default"><p>水体
+</p></li><li class="Default"><p>烟雾或火焰视觉效果
+</p></li><li class="Default"><p>云彩
+</p></li><li class="Default"><p>Impact贴花
+</p></li><li class="Default"><p>植被
+</p></li></ul><h2 id="透明度与不透明度">透明度与不透明度</h2>
+<p>在 UE4 中处理透明度时，你还会见到我们使用 <strong>不透明度</strong> 等术语。 
+"不透明度"指的是表面的通透程度，而"透明度"用来说明表面通透。
+在下图中，我们可以看到作用中的效果。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Transparency/Trans_Opacity_Settings.jpg">
+		<img class="  lazyload" alt="Trans_Opacity_Settings.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Transparency/Trans_Opacity_Settings.jpg" />
+</picture>
+
+</p><p>从左到右，材质的不透明度从 0 增大到 1。 
+这使材质从完全透明（通透）变为完全不透明（非通透）。 
+但是，只有在将材质设置为使用"透明度"的情况下，才会发生这种情况。
+针对未设置为使用"透明度"的材质更改不透明度对于该材质的通透程度没有影响。
+</p><ul ><li class="Default"><p><strong>透明度：</strong>用于定义表面是否通透。
+</p></li><li class="Default"><p><strong>不透明度：</strong>用来定义表面的透明或不透明程度（通透/非通透程度）。
+</p></li></ul><h2 id="在材质中使用透明度">在材质中使用透明度</h2>
+<p>以下是设置材质以使用透明度的步骤。
+</p><div class="note">
+	<p>本教程将使用项目中包含 <strong>起步内容</strong> 时可以找到的内容。如果你未将起步内容包括在项目中，请参阅 <div class="errorhighlight" id="Error5">[迁移](Basics/AssetsAndPackages/Migrate)</div> 
+内容页面，以了解有关如何在项目之间移动内容的信息。通过这种方法，你可以将起步内容添加到项目中，而不必建立新项目。  </p>
+</div><ol ><li class="Default"><p>首先，在 <strong>内容浏览器</strong> 中 <strong>右键单击</strong>，然后在弹出菜单的 <strong>创建基本资产（Create Basic Asset）</strong>部分中，选择 <strong>材质（Material）</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Transparency/Trans_Create_New_Material.jpg">
+		<img class="  lazyload" alt="Trans_Create_New_Material.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Transparency/Trans_Create_New_Material.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>将材质命名为 <strong>Transparency_Material</strong>，然后在 <strong>内容浏览器</strong> 中使用 <strong>鼠标左键双击</strong> 此材质以将其打开。 
+</p></li><li class="Default"><p>材质现已打开，请转到 <strong>细节（Details）</strong>面板，在 <strong>材质（Material）</strong>部分中，将 <strong>混合模式（Blend Mode）</strong>由 <strong>不透明（Opaque）</strong>更改为 <strong>半透明（Translucent）</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Transparency/Trans_Change_Blend_Mode.jpg">
+		<img class="  lazyload" alt="Trans_Change_Blend_Mode.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Transparency/Trans_Change_Blend_Mode.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>现已正确设置 <strong>混合模式（Blend Mode</strong>），你可查找下列材质表达式节点。
+你可通过在材质选用板中搜索下列名称来找到这些节点。 
+找到之后，请使用 <strong>鼠标左键</strong> 单击它们，将其拖到材质图中，然后释放 <strong>鼠标左键</strong> 以将它们放入图中。
+</p><ul ><li class="Default"><p><strong>矢量参数（Vector Parameter）</strong>x 1
+</p></li><li class="Default"><p><strong>标量参数（Scalar Parameter）</strong>x 1
+</p></li></ul><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Transparency/Trans_Required_Nodes.jpg">
+		<img class="  lazyload" alt="Trans_Required_Nodes.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Transparency/Trans_Required_Nodes.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>正确的材质表达式节点现已添加完毕，你可以开始将这些节点连接到一起。 
+首先，将"矢量参数"（Vector Parameter）节点命名为 <strong>Base_Color</strong>，并对其指定颜色值。在本示例中，已输入白色作为默认颜色。
+接着，将"矢量参数"（Vector Parameter）节点的输出连接到 <strong>底色（Base Color）</strong>输入。 
+然后，将"标量参数"（Scalar Parameter）命名为 <strong>Transparency_Amount</strong>，并对其指定默认值 0.5。 
+然后，将"标量参数"（Scalar Parameter）的输出连接到主着色器节点的 <strong>不透明（Opacity）</strong>输入。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Transparency/Trans_Completed_Shader.jpg">
+		<img class="  lazyload" alt="Trans_Completed_Shader.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Transparency/Trans_Completed_Shader.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>确保单击 <strong>应用（Apply）</strong>和 <strong>保存（Save）</strong>按钮，并关闭材质编辑器。<br /><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Refraction/R_Apply_&_Save.jpg">
+		<img class="  lazyload" alt="R_Apply_&_Save.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Refraction/R_Apply_%26_Save.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>内容浏览器</strong> 中找到 <strong>Transparency_Material</strong>，<strong>右键单击</strong>，并从显示的菜单中选择 <strong>创建材质实例（Create Material Instance）</strong>选项。<br /></p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_PhhorP5ae28_291
+{
+	margin: 0px;
+	width: 640px;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_PhhorP5ae28_291:after
+{
+	content: "";
+	padding-top: 360px;
+	display: block;
+}
+</style> 
+<div>
+<div id="player_PhhorP5ae28_291"><div style="position:absolute;display:block;width:100%;height:100%;"><iframe class="embedded_video" id="PhhorP5ae28" width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/PhhorP5ae28?rel=0&amp;modestbranding=1&amp;showinfo=0" frameborder="0" allowfullscreen></iframe></div></div>
+</div></li><li class="Default"><p>现在，我们需要找到一个要应用该材质实例的对象，以查看作用中的材质。在 <strong>内容浏览器</strong> 中的"起步内容"（Starter Content）文件夹下面，有一个 <strong>形状（Shapes）</strong>文件夹。
+找到 <strong>Shape_Sphere</strong>，使用 <strong>鼠标左键</strong> 将其选中，然后按住 <strong>鼠标左键</strong> 将其拖到当前关卡。到达你喜欢的位置后，释放 <strong>鼠标左键</strong>，以将该网格放入关卡。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Transparency/Trans_Add_Test_Mesh.jpg">
+		<img class="  lazyload" alt="Trans_Add_Test_Mesh.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Transparency/Trans_Add_Test_Mesh.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>现在，关卡中已经有了用来执行测试的对象，请在 <strong>内容浏览器</strong> 中找到你早先创建的 <strong>Transparency_Material_Inst</strong>。找到后，请使用 <strong>鼠标左键</strong> 将其选中，然后将其从 <strong>内容浏览器</strong> 拖到 <strong>Shape_Sphere</strong> 上。
+拖到 <strong>Shape_Sphere</strong> 上之后，释放 <strong>鼠标左键</strong>，以将该材质实例应用于该网格。
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_zJP1NO1DdB8_366
+{
+	margin: 0px;
+	width: 640px;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_zJP1NO1DdB8_366:after
+{
+	content: "";
+	padding-top: 360px;
+	display: block;
+}
+</style> 
+<div>
+<div id="player_zJP1NO1DdB8_366"><div style="position:absolute;display:block;width:100%;height:100%;"><iframe class="embedded_video" id="zJP1NO1DdB8" width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/zJP1NO1DdB8?rel=0&amp;modestbranding=1&amp;showinfo=0" frameborder="0" allowfullscreen></iframe></div></div>
+</div></li><li class="Default"><p>将该材质实例应用于该网格后，请在 <strong>内容浏览器</strong> 中使用 <strong>鼠标左键双击</strong> 该材质实例，以将其打开。打开后，通过使用 <strong>鼠标左键</strong> 单击灰色的复选框，启用 <strong>Transparency_Amount</strong>。启用后，你可以调整 <strong>Transparency_Amount</strong> 的值，以更改对象的透明度。 
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_65Oo_DNzYyA_420
+{
+	margin: 0px;
+	width: 640px;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_65Oo_DNzYyA_420:after
+{
+	content: "";
+	padding-top: 360px;
+	display: block;
+}
+</style> 
+<div>
+<div id="player_65Oo_DNzYyA_420"><div style="position:absolute;display:block;width:100%;height:100%;"><iframe class="embedded_video" id="65Oo_DNzYyA" width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/65Oo_DNzYyA?rel=0&amp;modestbranding=1&amp;showinfo=0" frameborder="0" allowfullscreen></iframe></div></div>
+</div></li></ol><h2 id="透明度与反射">透明度与反射</h2>
+<p>设置下列选项后，使用了透明度的对象可以显示场景反射。 
+但是，请记住，启用大量具有反射的半透明材质可能会引起性能问题。 
+</p><ol ><li class="Default"><p>在 <strong>内容浏览器</strong> 中，使用 <strong>鼠标左键双击</strong> 上文所创建的 <strong>Transparency_Material</strong>，以将其打开。打开后，在 <strong>细节（Details）</strong>面板的 <strong>半透明（Translucency）</strong>部分中，将 <strong>半透明照明模式（Translucent Light Mode）</strong>从 <strong>TLM 体积无方向（TLM_Volumetric Non Directional</strong> 更改为 <strong>TLM 表面（TLM Surface）</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Transparency/Trans_Change_LM.jpg">
+		<img class="  lazyload" alt="Trans_Change_LM.png" width="400" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Transparency/Trans_Change_LM.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在材质图中，选中 <strong>透明量（Transparency_Amount）</strong>材质表达式，并通过在键盘上按 <strong>CTRL + W</strong> 将其复制两次。完成之后，你的材质图应该类似于下图。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Transparency/Trans_Dup_Nodes.jpg">
+		<img class="  lazyload" alt="Trans_Dup_Nodes.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Transparency/Trans_Dup_Nodes.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>将两个材质表达式节点分别重命名为 <strong>Metallic</strong> 和 <strong>Roughness</strong>。将 Metallic 材质表达式的默认值设置为 1.0，并将 Roughness 的默认值设置为 0。然后，将各个材质表达式节点连接到主材质节点上的相应输入。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Transparency/Trans_Reflection_Final_Material.jpg">
+		<img class="  lazyload" alt="Trans_Reflection_Final_Material.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Transparency/Trans_Reflection_Final_Material.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>确保 <strong>应用（Apply）</strong>并 <strong>保存（Save）</strong>该材质，然后关闭材质图。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Refraction/R_Apply_&_Save.jpg">
+		<img class="  lazyload" alt="R_Apply_&_Save.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Refraction/R_Apply_%26_Save.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>现在，当你查看关卡时，你应该能够在网格上看到反射和透明效果。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Transparency/Trans_Reflection_In_Level.jpg">
+		<img class="  lazyload" alt="Trans_Reflection_In_Level.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Transparency/Trans_Reflection_In_Level.jpg" />
+</picture>
+
+</p></li></ol><p>透过调整材质实例的参数，可以使透明度具有极为不同的视觉效果。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Transparency/Trans_Reflection_Different_Results.jpg">
+		<img class="  lazyload" alt="Trans_Reflection_Different_Results.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Transparency/Trans_Reflection_Different_Results.jpg" />
+</picture>
+
+</p><h2 id="染色或彩色透明度">染色或彩色透明度</h2>
+<p><strong>薄半透明</strong> 着色模型和材质表达式可以精准再现染色和彩色半透明材质，比如染色或彩色玻璃和塑料。这种着色模型可以正确重现半透明表面的白色高光和染色背景。
+</p><!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Transparency/Transparency.jpg">
+		<img class="  lazyload" alt="标准半透明着色模型" width="700" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Transparency/Transparency.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Transparency/ThinTransparency.jpg">
+		<img class="  lazyload" alt="薄半透明着色模型" width="700" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Transparency/ThinTransparency.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div><p>在材质细节面板中进行以下设置即可启用薄半透明材质输出：
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Transparency/ThinTranslucencyGraph.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Transparency/ThinTranslucencyGraph.jpg">
+		<img class="  lazyload" alt="ThinTranslucencyGraph.png" width="600" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Transparency/ThinTranslucencyGraph.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图</p>
+</div><ul ><li class="Default"><p><strong>混合模式（Blend Mode）</strong>：半透明
+</p></li><li class="Default"><p><strong>着色模型（Shading Model）</strong>：薄半透明
+</p></li><li class="Default"><p><strong>光照模式（Lighting Mode）</strong>：表面ForwardShading
+</p></li></ul><h2 id="半透明彩色阴影">半透明彩色阴影</h2>
+<p>在某些情况下，半透明材质可通过光线投射投射下彩色的阴影。通过材质的光线数量由材质的不透明度值，以及投射到材质上的光线数量决定。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Transparency/translucent_T.jpg">
+		<img class="  lazyload" alt="translucent_T.jpg" width="600" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Transparency/translucent_T.jpg" />
+</picture>
+
+</p><div class="note">
+	<p>目前，<a id="content_link" href="../../../../BuildingWorlds/LightingAndShadows/LightMobility/StaticLights/index.html" ><span>静态光照</span></a>和<a id="content_link" href="../../../Lightmass/index.html" ><span>Lightmass</span></a>可实现半透明彩色阴影。
+</p><p>更多信息与用法，请参阅<a id="content_link"filter-data="tag_materials" href="../ColoredTransluscentShadows/index.html" ><span>使用彩色半透明阴影</span></a>。</p>
+</div><h2 id="透明度与性能">透明度与性能</h2>
+<p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Transparency/Trans_Shader_Complexity.jpg">
+		<img class="  lazyload" alt="Trans_Shader_Complexity.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Transparency/Trans_Shader_Complexity.jpg" />
+</picture>
+
+</p><p>渲染大量彼此重叠且具有透明度的对象可能会迅速产生渲染/性能瓶颈，在使用点亮透明度时尤其如此。 
+用来说明此问题的术语是"过度绘制"，当你有大量彼此重叠且要进行透明度渲染的对象时，就会发生过度绘制。 
+过度绘制可能会导致这类性能问题的原因是，对于每引入一层透明度，渲染成本就会水涨船高。 
+</p><p>为了帮助你更好地确定是否存在此问题以及何处存在此问题，UE4 有一种称为 <strong>着色器复杂性</strong> 的特殊视图模式。 
+"着色器复杂性"模式通过使用颜色来显示复杂性，让你了解给定表面的渲染复杂度。 
+你看到的颜色越绿，表示渲染成本越低，而颜色越红，表示渲染成本越高。 
+要启用此视图模式，只需完成下列步骤。
+</p><ol ><li class="Default"><p>要启用 <strong>着色器复杂性</strong>，请使用鼠标左键单击编辑器视口顶部的 <strong>视图模式（View Mode）</strong>选项。目前，<strong>视图模式（View Mode）</strong>设置为默认值，即 <strong>点亮（Lit）</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Transparency/Trans_SC_View_Mode.jpg">
+		<img class="  lazyload" alt="Trans_SC_View_Mode.png" width="588" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Transparency/Trans_SC_View_Mode.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>你使用鼠标左键单击 <strong>视图模式（View Mode）</strong>时，系统会显示菜单。请从菜单中选择 <strong>着色器复杂性（Shader Complexity）</strong>选项。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Transparency/Trans_Set_To_SC.jpg">
+		<img class="  lazyload" alt="Trans_Set_To_SC.png" width="600" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Transparency/Trans_Set_To_SC.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>单击 <strong>着色器复杂性（Shader Complexity）</strong>选项之后，关卡视口应该如下所示。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Transparency/Trans_Shader_Complexity_On.jpg">
+		<img class="  lazyload" alt="Trans_Shader_Complexity_On.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Transparency/Trans_Shader_Complexity_On.jpg" />
+</picture>
+
+</p></li></ol><p>从这个视图中，你可确定可能的性能问题的发生位置。 
+红色区域的渲染成本非常高，而绿色区域的渲染成本较低。 
+虽然并不是 100% 有可能或适合消除所有过度绘制，但此视图模式在你尝试 
+判断性能问题的确切来源时非常有帮助。 
+</p><h2 id="半透明优先顺序（translucencysortpriority）">半透明优先顺序（Translucency Sort Priority）</h2>
+<p>当场景中存在多个彼此接近的透明对象时，你有时会注意到，在确定哪个透明对象在其他透明对象 
+前面或后面渲染时存在问题。以下示例使用你此前创建的材质以及起步内容中的点亮烟雾 VFX 来演示这种情况。
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_1_ga425gf2_58
+{
+	margin: 0px;
+	width: 75%;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_1_ga425gf2_58:after
+{
+	content: "";
+	padding-top: 56.25%;
+	display: block;
+}
+</style> 
+<div id="player_1_ga425gf2_58"> 
+	<div id="playerContainer_1_ga425gf2_58" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/1_ga425gf2/embed.html"></iframe>
+	</div>
+</div>
+<p>请注意，烟雾先是显示在网格前面，接着突然跳到网格后面。 
+为了防止发生此问题，需要设置 <strong>半透明优先顺序（Translucency Sort Priority）</strong>，以使烟雾的 VFX 始终在场景中其他半透明效果前面渲染。
+要更改 VFX 的 <strong>半透明优先顺序（Translucency Sort Priority）</strong>，请完成下列步骤。 
+</p><ol ><li class="Default"><p>首先，通过使用鼠标左键单击，选中一个或多个要在关卡中所有其他半透明效果前面渲染的对象。在本示例中，我们将选中气雾 VFX。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Transparency/Trans_Select_VFX.jpg">
+		<img class="  lazyload" alt="Trans_Select_VFX.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Transparency/Trans_Select_VFX.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>细节（Details）</strong>面板的 <strong>渲染（Rendering）</strong>部分中，单击 <strong>白色三角形</strong> 以显示其他属性。
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_78ZOswFZbj8_663
+{
+	margin: 0px;
+	width: 640px;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_78ZOswFZbj8_663:after
+{
+	content: "";
+	padding-top: 360px;
+	display: block;
+}
+</style> 
+<div>
+<div id="player_78ZOswFZbj8_663"><div style="position:absolute;display:block;width:100%;height:100%;"><iframe class="embedded_video" id="78ZOswFZbj8" width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/78ZOswFZbj8?rel=0&amp;modestbranding=1&amp;showinfo=0" frameborder="0" allowfullscreen></iframe></div></div>
+</div></li><li class="Default"><p>在新的选项列表中，找到 <strong>半透明优先顺序（Translucency Sort Priority）</strong>，然后输入值 100。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Transparency/Trans_Set_Sort_Order.jpg">
+		<img class="  lazyload" alt="Trans_Set_Sort_Order.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Transparency/Trans_Set_Sort_Order.jpg" />
+</picture>
+
+</p><div class="note">
+	<p>默认情况下，所有添加到关卡的对象的 <strong>半透明优先顺序（Translucency Sort Priority）</strong>均为 0。如果你希望某个透明对象始终在其他透明对象前面渲染，请使用正数值。如果你希望某些透明对象始终在其他透明对象后面渲染，请使用负数值。 </p>
+</div></li><li class="Default"><p>现在，检查场景中的气雾 VFX。因为 <strong>半透明优先顺序（Translucency Sort Priority）</strong>设置为 100，所以气雾将始终显示在其他半透明对象前面。
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_A4OcPB_wSoc_723
+{
+	margin: 0px;
+	width: 640px;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_A4OcPB_wSoc_723:after
+{
+	content: "";
+	padding-top: 360px;
+	display: block;
+}
+</style> 
+<div>
+<div id="player_A4OcPB_wSoc_723"><div style="position:absolute;display:block;width:100%;height:100%;"><iframe class="embedded_video" id="A4OcPB_wSoc" width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/A4OcPB_wSoc?rel=0&amp;modestbranding=1&amp;showinfo=0" frameborder="0" allowfullscreen></iframe></div></div>
+</div></li><li class="Default"><p>如果将 <strong>半透明优先顺序（Translucency Sort Priority）</strong>设置为 -100，那么气雾将始终显示在其他半透明对象后面。
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_MBjshrSST4Q_753
+{
+	margin: 0px;
+	width: 640px;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_MBjshrSST4Q_753:after
+{
+	content: "";
+	padding-top: 360px;
+	display: block;
+}
+</style> 
+<div>
+<div id="player_MBjshrSST4Q_753"><div style="position:absolute;display:block;width:100%;height:100%;"><iframe class="embedded_video" id="MBjshrSST4Q" width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/MBjshrSST4Q?rel=0&amp;modestbranding=1&amp;showinfo=0" frameborder="0" allowfullscreen></iframe></div></div>
+</div></li></ol><p>虽然调整 <strong>半透明优先顺序（Translucency Sort Priority）</strong>可以修正关卡中的顺序问题，但可能会在游戏期间产生效果或对象时引入新的顺序问题。 因此，最好定义要使用的 <strong>半透明优先顺序（Translucency Sort Priority）</strong>数值以及使用位置。例如，你可以指定产生的所有效果的 <strong>半透明优先顺序（Translucency Sort Priority）</strong>均为 100。因此，如果关卡中存在一些顺序问题，你可将关卡中对象的 <strong>半透明优先顺序（Translucency Sort Priority）</strong>调整为任何不大于 99 的数值。这样，产生的游戏效果将始终在所有其他对象前面渲染，而无论关卡中这些对象的 <strong>半透明优先顺序（Translucency Sort Priority）</strong>为何。
+</p><h2 id="总结">总结</h2>
+<p>透明度是功能非常强大的工具，可以帮助你真正实现 3D 项目。 但是，就像所有其他功能强大的工具一样，你必须十分谨慎，确保这种强大的功能在你的掌控之下。 请记得尝试将使用反射效果的透明对象数尽可能保持在最低限度。 并且，在编辑器中以及游戏期间，务必时常检查"着色器复杂性"模式，以确保最大限度减少透明度过度绘制。 
+</p>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Materials">Materials</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/RenderingAndGraphics/Materials/HowTo/Transparency/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:16:19 GMT -->
+</html>

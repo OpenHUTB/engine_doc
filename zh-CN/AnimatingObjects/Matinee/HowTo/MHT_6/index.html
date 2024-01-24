@@ -1,0 +1,560 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/AnimatingObjects/Matinee/HowTo/MHT_6/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:35:57 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/AnimatingObjects/Matinee/HowTo/MHT_6/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>实现材质动画 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/AnimatingObjects/Matinee/HowTo/MHT_6/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/AnimatingObjects/Matinee/HowTo/MHT_6/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/AnimatingObjects/Matinee/HowTo/MHT_6/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/AnimatingObjects/Matinee/HowTo/MHT_6/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Matinee/HowTo/MHT_6" />
+<meta name="intsourcechangelist" content="10086382" />
+<meta name="availability" content="Public" />
+<meta name="title" content="实现材质动画" />
+<meta name="description" content="玩家角色靠近时 Actor 材质颜色发生变化，另一个 Actor 的材质闪烁变化。" />
+<meta name="version" content="4.24" />
+<meta name="skilllevel" content="Intermediate" />
+<meta name="banner" content="在虚幻引擎4.24中，无法再通过过场动画（Cinematics）菜单和细节面板访问Matinee编辑器。" />
+<meta name="banner-description" content="这是为4.25将Matinee从UE4中彻底移除做准备。你现在仍然可以使用[从Matinee到Sequencer转化工具](AnimatingObjects/Sequencer\HowTo\MatineeConversionTool)将Matinee Actor转换为Sequencer资源。" />
+<meta name="crumbs" content="%ROOT%,AnimatingObjects,AnimatingObjects/Matinee,AnimatingObjects/Matinee/HowTo" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="实现材质动画" />
+	<meta property="og:description" content="玩家角色靠近时 Actor 材质颜色发生变化，另一个 Actor 的材质闪烁变化。 " />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">为角色和对象添加动画</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">Matinee和过场动画</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">Matinee 指导</a>
+
+<span class="separator">></span> <span id="page">实现材质动画</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+					<div id="banner" class="deprecated">
+	<div id="message">
+		<span>在虚幻引擎4.24中，无法再通过过场动画（Cinematics）菜单和细节面板访问Matinee编辑器。</span>
+	</div>
+			<div id="bannerDescription">
+		这是为4.25将Matinee从UE4中彻底移除做准备。你现在仍然可以使用<a id="content_link"filter-data="tag_matinee tag_sequencer tag_conversion" href="../../../Sequencer/HowTo/MatineeConversionTool/index.html" ><span>从Matinee到Sequencer转化工具</span></a>将Matinee Actor转换为Sequencer资源。
+	</div>
+		</div>
+															<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">实现材质动画</h1>
+							</div>	
+							<h2 >玩家角色靠近时 Actor 材质颜色发生变化，另一个 Actor 的材质闪烁变化。 </h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Intermediate"><a id="skill_link" href="../../../../SiteIndex/index.html?skills=Intermediate">Intermediate</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																																				<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#添加matineeactor、道具和matinee中的轨迹">添加 Matinee Actor、道具和 Matinee 中的轨迹</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#矢量材质参数matinee">矢量材质参数 Matinee</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#float材质参数matinee">Float 材质参数 Matinee</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>在以下步骤中，我们将在对象上创建闪烁变化的 <strong>材质</strong>，并使玩家角色靠近时 <strong>材质</strong> 颜色发生变化。 
+</p><div class="include_wrapper" data-path="AnimatingObjects/Matinee/HowTo/MHT_1">
+<h2 id="创建项目">创建项目</h2>
+<p>在这部分中，我们将设置项目。 
+</p><ol ><li class="Default"><p>在 <strong>虚幻项目浏览器（Unreal Project Browser）</strong> 窗口中创建一个 <strong>新项目（New Project）</strong>，然后使用 <strong>蓝图第三人称（Blueprint Third Person）</strong> 模板。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_1/MatineeHowTo.jpg">
+		<img class="  lazyload" alt="MatineeHowTo.jpg" width="640" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_1/MatineeHowTo.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>启用 <strong>包括初学者内容包（Include starter content）</strong> 选项。 
+</p></li><li class="Default"><p>命名项目。 
+</p></li><li class="Default"><p>上述步骤完成后点击 <strong>创建项目（Create Project）</strong> 新建项目。
+</p></li></ol>
+</div>
+<h2 id="添加matineeactor、道具和matinee中的轨迹">添加 Matinee Actor、道具和 Matinee 中的轨迹</h2>
+<p>在这步中，我们将添加 <strong>Matinee Actor</strong>，添加场景中使用的一些道具，以及在 <strong>Matinee</strong> 中使用的轨迹。
+</p><ol ><li class="Default"><p>在 <strong>工具栏</strong> 菜单中选择 Matinee 并点击 <strong>Add Matinee</strong> 按钮。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_1/MHT1_AddMatinee.jpg">
+		<img class="  lazyload" alt="MHT1_AddMatinee.png" width="720" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_1/MHT1_AddMatinee.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>如出现 Matinee 撤销警告提示，点击 <strong>继续</strong> 按钮。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_1/MHT1_MatineeWarning.jpg">
+		<img class="  lazyload" alt="MHT1_MatineeWarning.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_1/MHT1_MatineeWarning.jpg" />
+</picture>
+
+</p></li><li class="Default"><p><strong>Matinee Editor</strong> 窗口将打开。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_1/MHT1_MatineeOpen.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_1/MHT1_MatineeOpen.jpg">
+		<img class="  lazyload" alt="MHT1_MatineeOpen.png" width="640" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_1/MHT1_MatineeOpen.jpg" />
+</picture>
+</span></a></span></p>
+</div><p><em>点击查看全图。</em>
+</p></li><li class="Default"><p>关闭 Matinee，然后重复步骤 1-3 创建另一个 Matinee Actor，使关卡中存在两个 Matinee Actor。 
+</p></li><li class="Default"><p>关闭第二个 Matinee 窗口，然后在 <strong>Content Browser</strong> 的 <strong>Game/Props</strong> 路径下找到 <strong>SM_Chair</strong>，将其拖入关卡。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_6/MHT6_AddChair.jpg">
+		<img class="  lazyload" alt="MHT6_AddChair.png" width="740" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_6/MHT6_AddChair.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 Game/Props 文件夹中将 <strong>SM_Stairs</strong> 拖入关卡。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_6/MHT6_AddStairs.jpg">
+		<img class="  lazyload" alt="MHT6_AddStairs.png" width="740" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_6/MHT6_AddStairs.jpg" />
+</picture>
+
+</p><p><em>可在关卡中随意放置椅子和台阶。</em>
+</p></li><li class="Default"><p>在 <strong>Modes</strong> 菜单的 <strong>Basic</strong> 标签下，点击将 <strong>Box Trigger</strong> 拖入关卡，然后按下 <strong>R</strong> 键 调整框的大小，使椅子位于其中。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_6/MHT6_AddTrigger.jpg">
+		<img class="  lazyload" alt="MHT6_AddTrigger.png" width="740" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_6/MHT6_AddTrigger.jpg" />
+</picture>
+
+</p><p><em>玩家进入触发框后，椅子将改变颜色（将在本页之后的步骤中进行设置）。</em>
+</p></li><li class="Default"><p>在 <strong>World Outliner</strong> 中点击 Matinee Actor（添加的首个 Matinee），然后在 <strong>Details</strong> 面板中点击 <strong>Open Matinee</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_6/MHT6_OpenMatinee.jpg">
+		<img class="  lazyload" alt="MHT6_OpenMatinee.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_6/MHT6_OpenMatinee.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>最小化 Matinee，点击 SM_Chair，重新打开 Matinee，然后在 <strong>Tracks 窗口</strong> 中 <strong>单击右键</strong> 并选择 <strong>Add New Empty Group</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_6/MHT6_AddNewEmptyGroup.jpg">
+		<img class="  lazyload" alt="MHT6_AddNewEmptyGroup.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_6/MHT6_AddNewEmptyGroup.jpg" />
+</picture>
+
+</p><p><em>在 <strong>Name Group</strong> 窗口中，为群组赋予描述性的命名，如 <strong>Chair</strong>。</em>
+</p></li><li class="Default"><p>在 Matinee 的新群组上 <strong>单击右键</strong> 并选择 <strong>Add New Vector Material Parameter Track</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_6/MHT6_AddVectorMaterialTrack.jpg">
+		<img class="  lazyload" alt="MHT6_AddVectorMaterialTrack.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_6/MHT6_AddVectorMaterialTrack.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>选择 Matinee 并打开其他 Matinee Actor。 
+</p></li><li class="Default"><p>最小化 Matinee，点击 SM_Stairs，重新打开 Matinee，然后在 Tracks 窗口 中 <strong>单击右键</strong> 并选择 Add New Empty Group。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_6/MHT6_AddStairsToMatinee.jpg">
+		<img class="  lazyload" alt="MHT6_AddStairsToMatinee.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_6/MHT6_AddStairsToMatinee.jpg" />
+</picture>
+
+</p><p><em>在 <strong>Name Group</strong> 窗口中，为群组赋予描述性的命名，如 <strong>Stairs</strong>。</em>
+</p></li><li class="Default"><p>在 Matinee 的新群组上 <strong>单击右键</strong> 并选择 <strong>Add New Float Material Parameter Track</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_6/MHT6_AddFloatMaterialTrack.jpg">
+		<img class="  lazyload" alt="MHT6_AddFloatMaterialTrack.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_6/MHT6_AddFloatMaterialTrack.jpg" />
+</picture>
+
+</p></li></ol><h2 id="矢量材质参数matinee">矢量材质参数 Matinee</h2>
+<p>在以下步骤中，我们将在 <strong>Matinee</strong> 中通过 <strong>矢量材质参数（Vector Material Parameter）</strong> 轨迹改变玩家角色靠近时椅子的颜色。
+</p><ol ><li class="Default"><p>选择关卡中的椅子，然后在 <strong>Materials</strong> 下的 Details 面板中点击 Browse To（放大镜）图表。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_6/MHT6_MaterialsSearch.jpg">
+		<img class="  lazyload" alt="MHT6_MaterialsSearch.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_6/MHT6_MaterialsSearch.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>用于椅子的材质将在 <strong>Content Browser</strong> 中高亮，<strong>双击</strong> <strong>M_Chair 材质</strong> 将其在 <strong>材质编辑器（Material Editor）</strong> 中打开。 
+</p></li><li class="Default"><p><strong>向下滚动鼠标滚轮</strong> 拉远视角，点击带橘色方块的节点，然后在 <strong>Details</strong> 面板中点击 <strong>Default Value</strong> 条。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_6/MHT6_ChairDefaultColor.jpg">
+		<img class="  lazyload" alt="MHT6_ChairDefaultColor.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_6/MHT6_ChairDefaultColor.jpg" />
+</picture>
+ 
+</p></li><li class="Default"><p>在 <strong>Color Picker</strong> 窗口中，点击并拖动橘色（黄色框中）到 <strong>Save Color</strong> 条保存颜色。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_6/MHT6_ColorPicker.jpg">
+		<img class="  lazyload" alt="MHT6_ColorPicker.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_6/MHT6_ColorPicker.jpg" />
+</picture>
+
+</p><p><em>我们稍后会用到它，现在已经有了一个座位默认颜色的引用。</em>
+</p></li><li class="Default"><p>关闭 <strong>Color Picker</strong> 窗口（无需保存）并关闭材质。 
+</p></li><li class="Default"><p>在 Content Browser 中，<strong>右键单击</strong> <strong>M_Chair 材质</strong> 并选择 <strong>Create Material Instance</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_6/MHT6_MaterialInstance1.jpg">
+		<img class="  lazyload" alt="MHT6_MaterialInstance1.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_6/MHT6_MaterialInstance1.jpg" />
+</picture>
+
+</p><p><em>在 Content Browser 中将创建一个可用于编辑的 <strong>材质实例（Material Instance）</strong>。可沿用默认命名。</em>
+</p></li><li class="Default"><p>选择关卡中的椅子，在 Content Browser 中选择 <strong>M_Chair_Inst</strong>，然后在 Details 面板中点击 <strong>Arrow</strong> 图标。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_6/MHT6_AssignNewMaterial.jpg">
+		<img class="  lazyload" alt="MHT6_AssignNewMaterial.png" width="780" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_6/MHT6_AssignNewMaterial.jpg" />
+</picture>
+
+</p><p><em>此操作将把 <strong>材质实例（Material Instance）</strong> 指定给椅子。</em>
+</p></li><li class="Default"><p>打开 Matinee Actor（指定到椅子的 Matinee）并点击 <strong>...Material Param</strong>（<strong>Material Parameter</strong> 轨迹）。 
+</p></li><li class="Default"><p>在右边的 <strong>Details</strong> 面板中点击 <strong>Add</strong> 图标。
+</p></li><li class="Default"><p>返回 Content Browser 确认 <strong>M_Chair_Inst Material Instance</strong> 已高亮，然后在 Matinee 中点击 <strong>Arrow</strong> 图标。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_6/MHT6_AddInstanceToMatinee.jpg">
+		<img class="  lazyload" alt="MHT6_AddInstanceToMatinee.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_6/MHT6_AddInstanceToMatinee.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>Param Name</strong> 框中输入 <strong>ColorSeats</strong>（这是步骤 3 中材质中的节点名），之后进行修改。 
+</p></li><li class="Default"><p>点击材质参数轨迹，按下 <strong>Enter</strong> 键在 <strong>0.00</strong> 处添加一个关键帧，然后将 <strong>时间条</strong> 移至 <strong>2.00</strong> 并添加另一个关键帧。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_6/MHT6_M1_KeysAdded.jpg">
+		<img class="  lazyload" alt="MHT6_M1_KeysAdded.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_6/MHT6_M1_KeysAdded.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在结束标记上 <strong>单击右键</strong> 并选择 <strong>Move To Longest Track Endpoint</strong>，将 Matinee 长度缩减至 2 秒钟。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_6/MHT6_ReduceMatineeLength.jpg">
+		<img class="  lazyload" alt="MHT6_ReduceMatineeLength.png" width="720" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_6/MHT6_ReduceMatineeLength.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在第一个关键帧上 <strong>单击右键</strong> 并选择 Set Color，然后在 Color Picker 菜单中选择顶部的条指定默认椅子颜色。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_6/MHT6_Key1Chair.jpg">
+		<img class="  lazyload" alt="MHT6_Key1Chair.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_6/MHT6_Key1Chair.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在第二个关键帧上 <strong>单击右键</strong> 并选择 Set Color，在 Color Picker 菜单中选择默认颜色外的任何颜色，然后关闭 Matinee。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_6/MHT6_Key2Chair.jpg">
+		<img class="  lazyload" alt="MHT6_Key2Chair.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_6/MHT6_Key2Chair.jpg" />
+</picture>
+
+</p><p><em>这是玩家角色靠近时椅子将会进行混合的颜色。</em>
+</p></li><li class="Default"><p>在 World Outliner 中选择 Matinee Actor，然后从工具栏选择 <strong>Blueprints - Open Level Blueprint</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_6/MHT6_AddMatineeToBlueprint.jpg">
+		<img class="  lazyload" alt="MHT6_AddMatineeToBlueprint.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_6/MHT6_AddMatineeToBlueprint.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>Level Blueprint Event Graph</strong> 窗口中，<strong>单击右键</strong> 并从快捷菜单中选择 <strong>Add Reference to MatineeActor</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_6/MHT6_AddMatineeReference.jpg">
+		<img class="  lazyload" alt="MHT6_AddMatineeReference.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_6/MHT6_AddMatineeReference.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>最小化关卡蓝图，然后在 World Outliner 中选择 <strong>TriggerBox1</strong> 将其高亮。 
+</p></li><li class="Default"><p>重新打开关卡蓝图，在 <strong>事件图表</strong> 中 <strong>单击右键</strong> 并选择 <strong>Add Event for TriggerBox1</strong>、<strong>Collision</strong>、以及 <strong>Add OnActorBeginOverlap</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_6/MHT6_AddOnOverlap.jpg">
+		<img class="  lazyload" alt="MHT6_AddOnOverlap.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_6/MHT6_AddOnOverlap.jpg" />
+</picture>
+
+</p><p><em>当 <strong>Actor</strong>（在此例中为玩家角色）和触发框发生重叠时，该事件将执行。</em>
+</p></li><li class="Default"><p>重复前一步骤，选择 Add OnActorEndOverlap。 
+</p></li><li class="Default"><p>点击并拖动 MatineeActor 节点的输出引脚，然后释放；在快捷菜单中搜索 <strong>Play</strong>，然后从菜单中选择 Play。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_6/MHT6_PlayMatinee.jpg">
+		<img class="  lazyload" alt="MHT6_PlayMatinee.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_6/MHT6_PlayMatinee.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>重复前一步骤，搜索并选择 <strong>Reverse</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_6/MHT6_PlayAndReverse.jpg">
+		<img class="  lazyload" alt="MHT6_PlayAndReverse.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_6/MHT6_PlayAndReverse.jpg" />
+</picture>
+
+</p><p><em><strong>Matinee</strong> 应该与 <strong>Play</strong> 和 <strong>Reverse</strong> 节点衔接起来。</em>
+</p></li><li class="Default"><p>点击并拖动 OnActorBeginOverlap 节点的 <strong>执行</strong> 输出引脚，将其和 <strong>Play</strong> 节点的 <strong>执行</strong> 输入引脚连接起来。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_6/MHT6_HookUpPlay.jpg">
+		<img class="  lazyload" alt="MHT6_HookUpPlay.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_6/MHT6_HookUpPlay.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>重复前一步骤，拖动 OnActorEndOverlap 节点将其与 <strong>Reverse</strong> 节点连接起来。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_6/MHT6_BlueprintComplete.jpg">
+		<img class="  lazyload" alt="MHT6_BlueprintComplete.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_6/MHT6_BlueprintComplete.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>点击蓝图窗口左上角的 <strong>Compile</strong> 按钮。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_6/MHT6_Compile.jpg">
+		<img class="  lazyload" alt="MHT6_Compile.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_6/MHT6_Compile.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>关闭蓝图，然后在主工具栏中点击 Play 按钮即可在编辑器中进行游戏。 
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_Wr4AROZC4iU_709
+{
+	margin: 0px;
+	width: 640px;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_Wr4AROZC4iU_709:after
+{
+	content: "";
+	padding-top: 360px;
+	display: block;
+}
+</style> 
+<div>
+<div id="player_Wr4AROZC4iU_709"><div style="position:absolute;display:block;width:100%;height:100%;"><iframe class="embedded_video" id="Wr4AROZC4iU" width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/Wr4AROZC4iU?rel=0&amp;modestbranding=1&amp;showinfo=0" frameborder="0" allowfullscreen></iframe></div></div>
+</div>
+<p><em>椅子默认为橘色。玩家角色靠近时将进行颜色混合并变为所选颜色。</em>
+</p><p><em>玩家角色离开椅子后，它将变回默认颜色。</em>
+</p></li></ol><h2 id="float材质参数matinee">Float 材质参数 Matinee</h2>
+<p>在下列步骤中，我们将使用 <strong>Matinee</strong> 中的 <strong>Float 材质参数</strong> 轨迹创建应用在台阶阶梯上闪烁变化的 <strong>材质</strong>。
+</p><ol ><li class="Default"><p>在 Content Browser 的 <strong>Game/Materials</strong> 文件夹下，在 <strong>M_Basic_Wall Material</strong> 上 <strong>单击右键</strong>，选择 <strong>Create Copy</strong> 并为其命名。
+</p></li><li class="Default"><p><strong>双击</strong> <strong>材质</strong> 的副本将其在 <strong>材质编辑器（Material Editor）</strong> 中打卡，然后点击并删除 <strong>Color</strong> 节点。 
+</p><div class="lightbox">
+	<p> <span class="non-localized"><a id="content_link" href="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_6/MHT6_Material_Editor.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_6/MHT6_Material_Editor.jpg">
+		<img class="  lazyload" alt="MHT6_Material_Editor.png" width="740" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_6/MHT6_Material_Editor.jpg" />
+</picture>
+</span></a></span></p>
+</div><p><em>点击图片查看全图。</em>
+</p></li><li class="Default"><p>在图表窗口中 <strong>单击右键</strong> 并输入 <strong>scalar</strong>，然后从窗口中选择 <strong>ScalarParameter</strong> 选项。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_6/MHT6_ScalarParameter.jpg">
+		<img class="  lazyload" alt="MHT6_ScalarParameter.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_6/MHT6_ScalarParameter.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>将节点命名为 <strong>StepsColor</strong>，将其和 <strong>Material Attributes</strong> 节点的 <strong>Base Color</strong> 引脚 <strong>连接</strong> 起来。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_6/MHT6_StepsColor.jpg">
+		<img class="  lazyload" alt="MHT6_StepsColor.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_6/MHT6_StepsColor.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>按下 <strong>Apply</strong> 和 <strong>Save</strong> 按钮，然后关闭 <strong>材质编辑器</strong> 窗口。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_6/MHT6_ApplyAndSave.jpg">
+		<img class="  lazyload" alt="MHT6_ApplyAndSave.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_6/MHT6_ApplyAndSave.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>选择关卡视口中的台阶将其高亮。 
+</p></li><li class="Default"><p>选择 Content Browser 中的 <strong>M_Basic_Wall Material</strong> 将其高亮。 
+</p></li><li class="Default"><p>在台阶 Details 面板的 Materials 下，点击 <strong>Element 1</strong> 的 <strong>箭头</strong> 图标指定材质。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_6/MHT6_AssignBaseStairsMat.jpg">
+		<img class="  lazyload" alt="MHT6_AssignBaseStairsMat.png" width="740" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_6/MHT6_AssignBaseStairsMat.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 Content Browser 中选中 <strong>步骤 1</strong> 中创建的材质，将其高亮。 
+</p></li><li class="Default"><p>在台阶 Details 面板的 Materials 下，<strong>点击</strong> <strong>Element 0</strong> 的 <strong>箭头</strong> 图标指定材质。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_6/MHT6_StairsMaterials.jpg">
+		<img class="  lazyload" alt="MHT6_StairsMaterials.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_6/MHT6_StairsMaterials.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 World Outliner 中选择 <strong>MatineeActor1</strong>（与台阶相关的 Matinee），然后在 Details 面板中点击 Open Matinee 按钮。 
+</p></li><li class="Default"><p>点击 <strong>...Material Param</strong>（<strong>材质参数</strong>）轨迹，然后在 Details 面板中的 <strong>Target Materials</strong> 下点击 <strong>Add</strong> 图标。
+</p></li><li class="Default"><p>返回 Content Browser 确认步骤 1 中的材质已高亮，然后在 Matinee 中点击 <strong>Arrow</strong> 图标。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_6/MHT6_ApplyFloatMaterial.jpg">
+		<img class="  lazyload" alt="MHT6_ApplyFloatMaterial.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_6/MHT6_ApplyFloatMaterial.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>Param Name</strong> 框中 <strong>输入</strong> <strong>StepsColor</strong>。 
+</p></li><li class="Default"><p>在材质参数轨迹上的 <strong>0.00</strong>、<strong>0.50</strong>、<strong>1.00</strong> 处添加关键帧，并将结束标记 <strong>移至</strong> <strong>1.00</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_6/MHT6_M2_KeysAdded.jpg">
+		<img class="  lazyload" alt="MHT6_M2_KeysAdded.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_6/MHT6_M2_KeysAdded.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在第二个关键帧上 <strong>单击右键</strong>，选择 <strong>Set Value</strong> 将值设为 <strong>1</strong>，然后 <strong>关闭</strong> Matinee。 
+</p></li><li class="Default"><p>在 World Outliner 中选择 <strong>MatineeActor1</strong>，然后在 Details 面板中 Play 下勾选 <strong>Play on Level Load and Looping</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_6/MHT6_FinishingMatinee2.jpg">
+		<img class="  lazyload" alt="MHT6_FinishingMatinee2.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_6/MHT6_FinishingMatinee2.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在主编辑器中，点击 <strong>Play</strong> 按钮在编辑器中进行游戏。 
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_3PqBOUj22vg_1059
+{
+	margin: 0px;
+	width: 640px;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_3PqBOUj22vg_1059:after
+{
+	content: "";
+	padding-top: 360px;
+	display: block;
+}
+</style> 
+<div>
+<div id="player_3PqBOUj22vg_1059"><div style="position:absolute;display:block;width:100%;height:100%;"><iframe class="embedded_video" id="3PqBOUj22vg" width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/3PqBOUj22vg?rel=0&amp;modestbranding=1&amp;showinfo=0" frameborder="0" allowfullscreen></iframe></div></div>
+</div>
+<p><em>可以看到台阶阶梯在黑色和白色之间来回闪烁变化。</em>
+</p><p><em>如需加快闪烁速度，在 <strong>Matinee</strong> 中将关键帧之间的时间调短即可。</em>
+</p></li></ol>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/AnimatingObjects/Matinee/HowTo/MHT_6/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:36:08 GMT -->
+</html>

@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/SharingAndReleasing/Mobile/Rendering/MobileFramePacing/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:08:39 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/SharingAndReleasing/Mobile/Rendering/MobileFramePacing/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>移动设备的帧平滑 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/SharingAndReleasing/Mobile/Rendering/MobileFramePacing/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/SharingAndReleasing/Mobile/Rendering/MobileFramePacing/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/SharingAndReleasing/Mobile/Rendering/MobileFramePacing/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/SharingAndReleasing/Mobile/Rendering/MobileFramePacing/" hreflang="ko" />
+
+	<meta name="redirect" content="Platforms/Mobile/Rendering/MobileFramePacing" />
+<meta name="intsourcechangelist" content="13814947" />
+<meta name="availability" content="public" />
+<meta name="version" content="4.25" />
+<meta name="title" content="移动设备的帧平滑" />
+<meta name="description" content="为移动设备启用并自定义帧平滑" />
+<meta name="parent" content="SharingAndReleasing/Mobile/Rendering" />
+<meta name="skilllevel" content="Intermediate" />
+<meta name="type" content="reference" />
+<meta name="keywords" content="Mobile" />
+<meta name="keywords" content="Android" />
+<meta name="keywords" content="Swappy" />
+<meta name="keywords" content="iOS" />
+<meta name="keywords" content="Performance" />
+<meta name="keywords" content="Rendering" />
+<meta name="related" content="SharingAndReleasing/Mobile/Android/CustomizingDeviceProfiles" />
+<meta name="related" content="SharingAndReleasing/DeviceProfiles" />
+<meta name="related" content="TestingAndOptimization/PerformanceAndProfiling/Scalability" />
+<meta name="related" content="ProductionPipelines/ConfigurationFiles" />
+<meta name="crumbs" content="%ROOT%,SharingAndReleasing,SharingAndReleasing/Mobile,SharingAndReleasing/Mobile/Rendering" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="移动设备的帧平滑" />
+	<meta property="og:description" content="为移动设备启用并自定义帧平滑" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">项目分享及发布</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">移动平台游戏开发</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">移动渲染</a>
+
+<span class="separator">></span> <span id="page">移动设备的帧平滑</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">移动设备的帧平滑</h1>
+							</div>	
+							<h2 >为移动设备启用并自定义帧平滑</h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Intermediate"><a id="skill_link" href="../../../../SiteIndex/index.html?skills=Intermediate">Intermediate</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																		<div id="seeAlso">
+	<div style="position:relative;">
+		<div id="title">参见</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<p>
+						<a id="related_link" href="../../Android/CustomizingDeviceProfiles/index.html" title="设备描述规则和可延展性设置的参考。">自定义Android的设备描述和可延展性</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../../DeviceProfiles/index.html" title="设置指定平台配置的设备描述">设置设备描述</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../../../TestingAndOptimization/PerformanceAndProfiling/Scalability/index.html" title="用于调整质量和性能的选项">可延展性</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../../../ProductionPipelines/ConfigurationFiles/index.html" title="包含用于配置游戏进程或引擎行为的属性设置的文本文件。">配置文件</a>
+					</p>
+				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																														<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#在设备描述中编辑帧平滑设置">在设备描述中编辑帧平滑设置</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#高刷新率指南">高刷新率指南</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#适用于android的swappy帧平滑">适用于Android的Swappy帧平滑</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#在c++中控制帧平滑">在C++中控制帧平滑</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p><strong>帧平滑（Frame Pacing）</strong> 用于限制应用程序的渲染帧率不超过设备的本地刷新率。它使应用程序能够在渲染中优先考虑一致性和稳定性，避免无止尽地提升帧率，从而提供更为流畅的用户体验。<strong>在虚幻引擎4(UE4)中</strong>，你可以借助项目配置文件中的 <strong>设备描述（Device Profiles）</strong>，为每台设备单独设置帧率。
+</p><h2 id="在设备描述中编辑帧平滑设置">在设备描述中编辑帧平滑设置</h2>
+<p>你可以通过 <code>DeviceProfiles.ini</code> 文件中的CVar控制帧平滑；该文件包含了你的目标设备信息。
+</p><ul ><li class="Default"><p>如果是iOS设备，你可以在 <code>&#91;/Script/IOSRuntimeSettings.IOSRuntimeSettings&#93;</code> 下添加设备描述
+</p></li><li class="Default"><p>如果是Android设备，你可以在 <code>&#91;/Script/AndroidRuntimeSettings.AndroidRuntimeSettings&#93;</code> 下添加设备描述
+</p></li></ul><p>控制帧平滑的参数如下：
+</p><div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>参数 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>使用 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>说明 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><code>FrameRateLock = &#91;value&#93;</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><code>FrameRateLock=True</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>若设置为true，则允许所有帧平滑。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><code>bEnableDynamicMaxFPS = &#91;value&#93;</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><code>bEnableDynamicMaxFPS=True</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>若设为true，则只要设备支持，刷新率最高就允许为120Hz。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="3" align="">
+			<p><div class="tablesection">
+	<p> 适用于4.24和更早版本</p>
+</div></p>
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><code>rhi.synchinterval = &#91;value&#93;</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><code>rhi.synchinterval = 1</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>4.24和更早版本中的参数，用于设置帧平滑的刷新率。当值为1时，表示刷新率为60Hz。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="3" align="">
+			<p><div class="tablesection">
+	<p> 适用于4.25和更高版本</p>
+</div></p>
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><code>r.setframepace &#91;value&#93; </code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><code>r.setframepace 30</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>4.25中推荐用于iOS和Android设备的新方法。刷新率直接为设置的数值。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><code>a.UseSwappyForFramePacing = &#91;value&#93;</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><code>a.UseSwappyForFramePacing=1</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>默认设为0。将此值设置为1将启用Google的Swappy帧平滑解决方案，以替代Android设备的标准UE4帧平滑器。Swappy使用的CVar和UE4帧平滑器所用的相同。</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div><h2 id="高刷新率指南">高刷新率指南</h2>
+<p>帧平滑的最大刷新率通常被限制为60Hz，但启用 <code>bEnableDynamixMaxFPS</code> 会将这一限值提高到120Hz。支持60Hz以上刷新率的移动设备包括：
+</p><ul ><li class="Default"><p>Samsung Galaxy S20
+</p></li><li class="Default"><p>OnePlus 7T
+</p></li><li class="Default"><p>Google Pixel 4
+</p></li><li class="Default"><p>iPad Pro第2代及更高型号
+</p></li></ul><h2 id="适用于android的swappy帧平滑">适用于Android的Swappy帧平滑</h2>
+<p>除传统帧平滑系统外，虚幻引擎4.25还从 <strong>Android游戏SDK</strong> 集成了Google的 <strong>Swappy帧平滑器</strong>。
+</p><p>在检测到帧提交延迟后，Android硬件的通常做法是，使用帧缓存来显示之前的帧，从而防止画面撕裂。但游戏渲染器往往不知道此过程，导致同步失效，进而先于显示的帧。这会导致帧的显示时间发生大幅变化，而且由于停滞通常发生在输入取样后，这还会导致触屏控件发生明显的输入延迟。
+</p><p>Swappy是Android专门用于解决此问题的帧平滑解决方案，它不仅能提供帧平滑的优势，还能让游戏的渲染周期和Android设备的刷新周期能更有效地通信。这种方法可以取代传统的、在所有其他硬件上使用的UE4帧平滑器， 它是用于所有其他硬件的传统UE4帧平滑器的替代方案。
+</p><h3 id="启用swappy">启用Swappy</h3>
+<p>在4.25中，由于还需进行测试，Swappy目前还不是虚幻中Android项目的默认帧平滑器，但与传统帧平滑器相比，它始终保持着更流畅的性能。我们建议你启用它，并且我们还计划在未来的引擎版本中，将Swappy作为Android新的默认帧平滑器。
+</p><p>若要为Android项目启用Swappy，请将 <code>UseSwappyForFramePacing=1</code> 添加到对应的Android描述文件中。你可将它添加到 <code>Android&#95;Default</code> 来让所有Android设备启用它。
+</p><h2 id="在c++中控制帧平滑">在C++中控制帧平滑</h2>
+<p>要在C++中控制帧平滑，你可以从 <code>FPlatformRHIFramePacer</code> 接口调用静态函数。在此类函数中，帧平滑以32位整数的形式作为参数传递。
+</p><p><code>FPlatformRHIFramePacer::SupportsFramePace</code> 用于检查指定的帧平滑是否与当前设备的刷新率兼容。<code>FPlatformRHIFramePacer::SetFramePace</code> 用于将帧平滑设为指定的整数值，而 <code>FPlatformRHIFramePacer::GetFramePace</code> 则会返回当前帧平滑。</p>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Mobile">Mobile</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Android">Android</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Swappy">Swappy</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=iOS">iOS</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Performance">Performance</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Rendering">Rendering</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/SharingAndReleasing/Mobile/Rendering/MobileFramePacing/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:08:43 GMT -->
+</html>

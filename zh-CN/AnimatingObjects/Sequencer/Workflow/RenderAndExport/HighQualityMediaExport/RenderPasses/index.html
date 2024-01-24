@@ -1,0 +1,862 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:28:25 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/" />');
+				var udnCSS = '../../../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>Movie Render Queue渲染通道 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/" hreflang="ko" />
+
+	<meta name="intsourcechangelist" content="15340730" />
+<meta name="availability" content="public" />
+<meta name="title" content="Movie Render Queue渲染通道" />
+<meta name="description" content="关于Movie Render Queue支持的渲染通道的参考指南" />
+<meta name="parent" content="AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport" />
+<meta name="type" content="reference" />
+<meta name="order" content="2" />
+<meta name="version" content="4.26" />
+<meta name="related" content="AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/Reference" />
+<meta name="related" content="AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/OutputFormats" />
+<meta name="keywords" content="Movie Render Queue" />
+<meta name="keywords" content="Render Passes" />
+<meta name="keywords" content="Rendering" />
+<meta name="keywords" content="Output" />
+<meta name="keywords" content="Output Formats" />
+<meta name="keywords" content="Beta" />
+<meta name="keywords" content="SettingsReference" />
+<meta name="crumbs" content="%ROOT%,AnimatingObjects,AnimatingObjects/Sequencer,AnimatingObjects/Sequencer/Workflow,AnimatingObjects/Sequencer/Workflow/RenderAndExport,AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="Movie Render Queue渲染通道" />
+	<meta property="og:description" content="关于Movie Render Queue支持的渲染通道的参考指南" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../../../index.html">为角色和对象添加动画</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../../../index.html">Sequencer 编辑器</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">使用Sequencer</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">渲染并导出Sequencer的内容</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">影片渲染队列概述</a>
+
+<span class="separator">></span> <span id="page">Movie Render Queue渲染通道</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+					<div id="banner" class="beta">
+	<div id="message">
+		学习使用此<span>测试</span>功能，但在用它发布产品时请谨慎行事。
+	</div>
+	<div id="bannerDescription">
+		测试功能主要供您学习如何使用、规划工作流程和创建测试内容之用。<strong>在实际生产中使用这些功能必须谨慎</strong>，因为我们仍在努力完善以使它们的性能、稳定性和平台支持达到发布水准。我们支持资源的向后兼容，这些功能的API也是稳定的。
+	</div>
+</div>
+															<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">Movie Render Queue渲染通道</h1>
+							</div>	
+							<h2 >关于Movie Render Queue支持的渲染通道的参考指南</h2>
+							<div id="access">
+								<div class="accessContainer">
+																																			</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																		<div id="seeAlso">
+	<div style="position:relative;">
+		<div id="title">参见</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<p>
+						<a id="related_link" href="../Reference/index.html" title="High-Quality Media Export的UI和设置参考指南。">影片渲染队列设置参考</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../OutputFormats/index.html" title="有关Movie Render Queue当前支持的输出格式的参考">Movie Render Queue输出格式</a>
+					</p>
+				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																														<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#支持的渲染通道">支持的渲染通道</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#延迟渲染">延迟渲染</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#模板层">模板层</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#减少路径追踪器渲染中的噪点">减少路径追踪器渲染中的噪点</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#对象id">对象ID</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#世界深度">世界深度</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#运动向量（速度）">运动向量（速度）</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#在后期制作中合并对象id、深度和速度">在后期制作中合并对象ID、深度和速度</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#ui渲染器（非合成）">UI渲染器（非合成）</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>在渲染作业的设置中对 <strong>渲染通道（render passes）</strong> 进行设置，即可将其添加到 <strong>Movie Render Queue</strong> 输出。 
+</p><div class="fullwidth">
+	<!--
+id:paramliteral
+max:paramliteral
+ext:paramliteral
+caption:paramliteral
+image_list:param
+-->
+<div class="slider_container" id="FS">
+    <div id="FS_Image"></div>
+    <div class="slider"></div>
+	    <div class="caption">
+        <b><p>点击并拖动滑块可查看Movie Render Queue支持的部分渲染通道示例。</p></b>
+    </div>
+	    <div id="images" class="hidden">
+        <p><picture>
+		<source data-srcset="./../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/imageseq1.jpg">
+		<img class="  lazyload" alt="imageseq1.png" data-src="../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/imageseq1.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/imageseq2.jpg">
+		<img class="  lazyload" alt="imageseq2.png" data-src="../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/imageseq2.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/imageseq3.jpg">
+		<img class="  lazyload" alt="imageseq3.png" data-src="../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/imageseq3.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/imageseq4.jpg">
+		<img class="  lazyload" alt="imageseq4.png" data-src="../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/imageseq4.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/imageseq5.jpg">
+		<img class="  lazyload" alt="imageseq5.png" data-src="../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/imageseq5.jpg" />
+</picture>
+</p>
+    </div>
+</div>
+</div><p>每个渲染通道都会以单独的渲染模式输出你的电影。所有选中的渲染通道都将在最终输出文件夹中依次输出。你可以在外部后期制作中或合成所选的节目时使用它们。
+</p><div class="note">
+	<p>添加渲染通道不会将它们额外应用到最终渲染。每个通道都以选中的输出格式输出为一个单独序列。 </p>
+</div><p>在UI中单击 <strong>+设置（+ Setting）</strong> 下拉菜单并选择要输出的渲染模式，即可将渲染通道添加到你在 <strong>设置（Settings）</strong> 窗口中的渲染作业。所有渲染通道都列示在 <strong>渲染（Render）</strong> 组下。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/RenderPassesSettings.png" ><span><picture>
+		<source data-srcset="./../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/RenderPassesSettings.jpg">
+		<img class="  lazyload" alt="Rendering Settings" height="300" data-src="../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/RenderPassesSettings.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><p>单击其中任意选项，将它们添加到输出 <strong>渲染（Rendering）</strong> 下的设置（Settings）列表中。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/RenderingSettings.png" ><span><picture>
+		<source data-srcset="./../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/RenderingSettings.jpg">
+		<img class="  lazyload" alt="Rendering Settings" width="450" data-src="../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/RenderingSettings.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><p>你可以像使用任何其他设置一样启用和禁用渲染通道，并且可以选择它们来编辑其属性（若有任何可用）。
+</p><h3 id="支持的渲染通道">支持的渲染通道</h3>
+<p>虚幻（Unreal）的主要输出由默认的 <strong>延迟渲染（Deferred Rendering）</strong> 设置来处理，将产生你在视口中看到的最终图像。提供了一些变体，包括细节光照、仅光照、路径追踪器、反射和无光照。这些变体不会在创建最终图像时使用，在此处提供只是为了匹配关卡编辑器视口。本部分详细介绍渲染通道的完整列表。
+</p><h3 id="延迟渲染">延迟渲染</h3>
+<p>延迟渲染（Deferred Rendering）包括如下选项：
+</p><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>渲染通道 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>示例图像（点击可放大） </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>说明 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>延迟渲染（Deferred Rendering）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><span class="non-localized"><a id="content_link" href="../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/RenderFinal.jpg" ><span><picture>
+		<source data-srcset="./../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/RenderFinal.jpg">
+		<img class="  lazyload" alt="最终渲染（Final render）" width="450" data-src="../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/RenderFinal.jpg" />
+</picture>
+</span></a></span></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>显示场景的最终图像，与你在视口中看到的相匹配。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>细节光照（Detail Lighting）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><span class="non-localized"><a id="content_link" href="../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/RenderDetailLighting.jpg" ><span><picture>
+		<source data-srcset="./../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/RenderDetailLighting.jpg">
+		<img class="  lazyload" alt="细节光照（Detail Lighting）" width="450" data-src="../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/RenderDetailLighting.jpg" />
+</picture>
+</span></a></span></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>一种特殊的着色器变体，仅显示与法线贴图相结合的光照。在显示场景的几何体时非常有用。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>仅光照（Lighting Only）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><span class="non-localized"><a id="content_link" href="../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/RenderLightning.jpg" ><span><picture>
+		<source data-srcset="./../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/RenderLightning.jpg">
+		<img class="  lazyload" alt="仅光照（Lighting Only）" width="450" data-src="../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/RenderLightning.jpg" />
+</picture>
+</span></a></span></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>类似于细节光照，但没有影响光照的法线贴图。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>路径追踪器（Path Tracer）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><span class="non-localized"><a id="content_link" href="../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/RenderPathTracer.jpg" ><span><picture>
+		<source data-srcset="./../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/RenderPathTracer.jpg">
+		<img class="  lazyload" alt="路径追踪器（Path Tracer）" width="450" data-src="../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/RenderPathTracer.jpg" />
+</picture>
+</span></a></span></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>在累加每个帧时，显示路径追踪数据。如需了解如何保持此模式的高图像质量，请参阅"减少路径跟踪器渲染中的噪点（Reducing Noise in Path Tracer Renders）"。路径追踪器目前并不支持所有渲染功能。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>仅反射（Reflections Only）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><span class="non-localized"><a id="content_link" href="../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/RenderReflective.jpg" ><span><picture>
+		<source data-srcset="./../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/RenderReflective.jpg">
+		<img class="  lazyload" alt="仅反射（Reflections Only）" width="450" data-src="../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/RenderReflective.jpg" />
+</picture>
+</span></a></span></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>一种特殊的着色器变体，使世界场景中的所有内容都100%反光。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>无光照（Unlit）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><span class="non-localized"><a id="content_link" href="../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/RenderUnlit.jpg" ><span><picture>
+		<source data-srcset="./../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/RenderUnlit.jpg">
+		<img class="  lazyload" alt="仅无光照（Unlit Only）" width="450" data-src="../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/RenderUnlit.jpg" />
+</picture>
+</span></a></span></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>一种特殊的着色器变体，仅显示反射率，但没有光照信息。</p>
+			</td>
+	
+</tr></tbody>
+</table><p>所有延迟渲染（Deferred Rendering）通道都具有相同的属性，但每个渲染通道都可以单独配置。
+</p><p><picture>
+		<source data-srcset="./../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/DeferredRenderOptions.jpg">
+		<img class="  lazyload" alt="延迟渲染选项（Deferred Rendering Options）" data-src="../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/DeferredRenderOptions.jpg" />
+</picture>
+
+</p><div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>ID </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>属性 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>说明 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>1</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>累加器包含Alpha（Accumulator Includes Alpha）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>如果启用，多重时间/空间取样将针对alpha通道进行累加。这要求将r.PostProcessing.PropagateAlpha设置为1或2，为此，你可以转到"项目设置（Project Settings）" > "渲染（Rendering）"，然后使用"在后期处理中启用Alpha通道支持（Enable Alpha Channel Support in Post Processing）"设置。必须从你的场景中移除天空和迷雾，确保它们不会使所有像素不透明。如果启用此设置，将会使累加成本增加约30%，因此除非必要，应避免使用此设置。这适用于不使用多重时间或空间取样的渲染。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>2</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>禁用多重采样效果（Disable Multisample Effects）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>禁用混合了多种像素的后期处理效果，例如景深、时间抗锯齿、动态模糊和色相差，在使用对象Id渲染通道时不需要这些效果。你可以使用此设置为渲染作业排除这些后期处理，而不必在场景中手动禁用它们。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>3</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>其他后期处理材质（Additional Post Process Materials）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>在完成渲染后应用的其他后期处理材质数组。这可能会显著增加额外的时间。默认包括 <strong>MovieRenderQueue_WorldDepth</strong> 和 <strong>MovieRenderQueue_MotionVectors</strong>。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>4</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>添加默认层（Add Default Layer）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>创建一个额外的模板层，其中包含Stencil Layers（模板层）数组中未包含的所有对象（见下文）。此默认层将单独渲染，让你可以创建不包含较小的对象组的渲染，以便稍后重新合成。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>5</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>模板层（Stencil Layers）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>模板层的列表，其中包含场景中的很多对象组。此场景将重新渲染所有对象，然后，不包含指定层中的对象的像素将被剪切并变成黑色。随后应用后期处理，并保留使用DoF、动态模糊和TAA的能力。可以通过"窗口（Window） > 层（Layers）"创建新层。模板层不支持每个层都具有后期处理材质，因为它们将与基础层的其他后期处理材质匹配，且仅与支持自定义深度/模板的材质兼容。</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div><h4 id="模板层">模板层</h4>
+<p>实时渲染中的很多效果要求将内容绘制到屏幕，这些效果稍后可以用于屏幕空间后期处理，例如 <strong>屏幕空间反射（Screen Space Reflections）</strong> 或 <strong>屏幕空间环境光遮蔽（Screen Space Ambient Occlusion）</strong>。在更加传统的分层系统中，你只能渲染一个角色，同时需要从周围的环境中选取反射效果。这在实时渲染中通常是不可能的，因此转而实施了 <strong>模板层（Stencil Layers）</strong>。
+</p><p>利用模板层，针对每个层重新渲染整个场景，但属于一个层的actor也会渲染到模板缓冲区中。然后使用 <strong>模板层（stencil layers）</strong> 剪切不属于要置于此层上的actor范围内的像素。优势在于阴影投射对象将仍然可以将阴影投射到你的actor上，并且你的actor将能够将阴影投射到其他层上。 
+</p><p>一旦渲染到模板缓冲区，应用的后期处理效果将占用每个像素，并将半透明黑色写入到像素中。此过程在半透明之后并在后期处理之前发生，然后将对此层应用后期处理。alpha通道可以保留，以便在后期制作中了解哪些像素实际受到影响以及受影响程度。
+</p><p>以下是三个模板层和默认层的示例。你可以看到后期处理效果（例如景深）已经正确应用，并且前景中的对象已经从背景图像中剪切出来。这些图像可以一起添加回去，从而形成与最终渲染相似的结果，虽然这可能需要取消预乘数据。
+</p><div class="fullwidth">
+	<!--
+id:paramliteral
+max:paramliteral
+ext:paramliteral
+caption:paramliteral
+image_list:param
+-->
+<div class="slider_container" id="FS">
+    <div id="FS_Image"></div>
+    <div class="slider"></div>
+	    <div class="caption">
+        <b><p>渲染划分成不同的模板层。</p></b>
+    </div>
+	    <div id="images" class="hidden">
+        <p><picture>
+		<source data-srcset="./../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/stencilseq1.jpg">
+		<img class="  lazyload" alt="stencilseq1.png" data-src="../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/stencilseq1.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/stencilseq2.jpg">
+		<img class="  lazyload" alt="stencilseq2.png" data-src="../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/stencilseq2.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/stencilseq3.jpg">
+		<img class="  lazyload" alt="stencilseq3.png" data-src="../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/stencilseq3.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/stencilseq4.jpg">
+		<img class="  lazyload" alt="stencilseq4.png" data-src="../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/stencilseq4.jpg" />
+</picture>
+</p>
+    </div>
+</div>
+</div><p>以下是Nuke中的示例，该示例对原始图像中的某个指定层应用了一次色调偏移。渲染原始图像时，在颜色输出（Color Output）设置中启用了alpha通道累加，但禁用了色调曲线（Tone Curve）。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/nukeexample1.png" ><span><picture>
+		<source data-srcset="./../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/nukeexample1.jpg">
+		<img class="  lazyload" alt="Nuke示例图表" width="400" data-src="../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/nukeexample1.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/nukeexample2.png" ><span><picture>
+		<source data-srcset="./../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/nukeexample2.jpg">
+		<img class="  lazyload" alt="Nuke示例输出" width="400" data-src="../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/nukeexample2.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><div class="warning">
+	<p>模板层不是真正的层系统，因为半透明对象将显示其后面其他层中的不透明对象，并且在前景对象挡住半透明对象时，背景层将显示黑洞。</p>
+</div><h4 id="减少路径追踪器渲染中的噪点">减少路径追踪器渲染中的噪点</h4>
+<p><a id="content_link"filter-data="tag_beta tag_ray_tracing" href="../../../../../../RenderingAndGraphics/RayTracing/PathTracer/index.html" ><span>路径追踪器（Path Tracer）</span></a>渲染模式累加渲染的每个帧的路径数据。这会产生有噪点的图像，因为填充了图像的像素，尤其是当摄像机帧的内容发生显著变化时。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/pathtracernoise.jpg" ><span><picture>
+		<source data-srcset="./../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/pathtracernoise.jpg">
+		<img class="  lazyload" alt="路径追踪器渲染示例（Path Tracer render example）" width="400" data-src="../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/pathtracernoise.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><p>要减少此噪点，你应该增加抗锯齿（Anti-Aliasing）设置中的空间采样数。
+</p><p><picture>
+		<source data-srcset="./../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/IncreaseSpatialSamples.jpg">
+		<img class="  lazyload" alt="增加的空间采样计数（Increased spatial sample count）" data-src="../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/IncreaseSpatialSamples.jpg" />
+</picture>
+
+</p><p>这将多次渲染图像，并且额外的采样将使路径追踪器更有效地填充间隙。需要大量空间样本才能有效去除路径追踪器渲染中的噪点，而这将极大增加输出图像所需的时间。
+</p><div class="fullwidth">
+	<!--
+id:paramliteral
+max:paramliteral
+ext:paramliteral
+caption:paramliteral
+image_list:param
+-->
+<div class="slider_container" id="FS">
+    <div id="FS_Image"></div>
+    <div class="slider"></div>
+	    <div class="caption">
+        <b><p>具有1、8、16、32、64、128个采样的路径追踪器渲染示例</p></b>
+    </div>
+	    <div id="images" class="hidden">
+        <p><picture>
+		<source data-srcset="./../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/spatialsamplecountseq1.jpg">
+		<img class="  lazyload" alt="spatialsamplecountseq1.jpg" data-src="../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/spatialsamplecountseq1.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/spatialsamplecountseq2.jpg">
+		<img class="  lazyload" alt="spatialsamplecountseq2.jpg" data-src="../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/spatialsamplecountseq2.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/spatialsamplecountseq3.jpg">
+		<img class="  lazyload" alt="spatialsamplecountseq3.jpg" data-src="../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/spatialsamplecountseq3.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/spatialsamplecountseq4.jpg">
+		<img class="  lazyload" alt="spatialsamplecountseq4.jpg" data-src="../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/spatialsamplecountseq4.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/spatialsamplecountseq5.jpg">
+		<img class="  lazyload" alt="spatialsamplecountseq5.jpg" data-src="../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/spatialsamplecountseq5.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/spatialsamplecountseq6.jpg">
+		<img class="  lazyload" alt="spatialsamplecountseq6.jpg" data-src="../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/spatialsamplecountseq6.jpg" />
+</picture>
+</p>
+    </div>
+</div>
+</div><p>目前无法确保完全没有噪点的渲染。
+</p><div class="note">
+	<p>路径追踪器渲染模式在虚幻引擎4.26中是试验性质的。未来会进行进一步调整。</p>
+</div><h3 id="对象id">对象ID</h3>
+<div class="fullwidth">
+	<!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/objectidcomp1.jpg">
+		<img class="  lazyload" alt="延迟渲染（Deferred Render）" width="650" data-src="../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/objectidcomp1.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/objectidcomp2.jpg">
+		<img class="  lazyload" alt="对象ID渲染（Object ID Render）" width="650" data-src="../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/objectidcomp2.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div>
+</div><div class="note">
+	<p>对象ID渲染通道在虚幻引擎4.26中是试验性质的。此外，此功能仅在虚幻编辑器中可用，不能在发布版中使用。</p>
+</div><p><strong>对象ID（Object Id）</strong> 渲染通道输出一个图像，其中，场景中的每个组件都会分配到唯一的ID。你可以在后期制作套件中使用此图像，以在场景中选择单独的对象，并为这些对象创建遮罩，以便可以有选择地将调整应用到特定对象。例如，你可以仅更改一个对象或一组对象的色调，而不会影响整个图像的色调。
+</p><p>对象ID通道具有几个具体的要求，需要提供有用的信息。按照这些步骤来启用该通道，并设置你的渲染队列来提供支持：
+</p><ol ><li class="Default"><p>打开 <strong>插件（Plugins）</strong> > <strong>内置（Built-In）</strong> > <strong>渲染（Rendering）</strong>，然后启用 <strong>Movie Render Queue其他渲染通道（Movie Render Queue Additional Render Passes）</strong> 插件。启用插件后，需要重新启动编辑器。这会将对象ID添加为Movie Render Queue设置菜单中的选项。
+</p><p><picture>
+		<source data-srcset="./../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/AdditionalRenderPassPlugin.jpg">
+		<img class="  lazyload" alt="其他渲染通道（Additional render passes）" data-src="../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/AdditionalRenderPassPlugin.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>将 <strong>对象ID（有限）（Object Ids (Limited)）</strong> 渲染通道添加到作业设置中。
+</p><p><picture>
+		<source data-srcset="./../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/ObjectIdsSetting.jpg">
+		<img class="  lazyload" alt="对象ID设置（The Object IDs setting）" data-src="../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/ObjectIdsSetting.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>对于计划与对象ID通道组合在一起的其他渲染通道，将 <strong>禁用多重采样效果（Disable Multisample Effects）</strong> 设置为 <strong>真（true）</strong>。这将排除动态模糊、景深、抗锯齿和其他将混合多个像素层的后期处理，确保所有对象保持清晰的边缘。为了让对象ID通道需要与最终图像正确排队，此设置是必需的。
+</p></li><li class="Default"><p>在 <strong>延迟渲染（Deferred Rendering）</strong> 设置的 <strong>延迟渲染（Deferred Rendering）</strong> 数据下，展开 <strong>其他后期处理材质（Additional Post Process Materials）</strong>，并同时启用 <strong>MovieRenderQueue_WorldDepth</strong> 和 <strong>MovieRenderQueue_MotionVectors</strong> 材质。
+</p><div class="lightbox">
+	<p><picture>
+		<source data-srcset="./../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/DisableMultisample.jpg">
+		<img class="  lazyload" alt="Disabling multisample effects" data-src="../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/DisableMultisample.jpg" />
+</picture>
+</p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>对于要渲染的所有摄像机，确保将 <strong>屏幕百分比（Screen Percentage）</strong> 设置为 <strong>100</strong>。为了让对象ID通道需要与最终图像正确排队，此设置是必需的。
+</p><p><picture>
+		<source data-srcset="./../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/ScreenPercentage100.jpg">
+		<img class="  lazyload" alt="屏幕百分比100%（Screen Percentage 100 percent）" data-src="../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/ScreenPercentage100.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>将 <strong>抗锯齿（Anti-aliasing）</strong> 设置添加到你的作业，并将 <strong>空间采样计数（Spatial Sample Count）</strong> 至少设置为 <strong>8</strong>。这有助于克服不支持TAA的限制。使用 <strong>时间采样计数（Temporal Sample Count）</strong> 不会产生所需的结果，因为每个采样之间缺少可以覆盖缝隙的动态模糊；你最终将得到对象的多个副本，彼此隐约重叠在一起。
+</p><p><picture>
+		<source data-srcset="./../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/IncreaseSpatialSamples.jpg">
+		<img class="  lazyload" alt="将空间采样计数设置为8（Set spatial sample count to 8）" data-src="../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/IncreaseSpatialSamples.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>将 <strong>.exr序列（.exr Sequence）</strong> 输出模式添加到你的设置，并停用或移除任何其他输出。确保启用了 <strong>多层（Multilayer）</strong> 属性。
+</p><p><picture>
+		<source data-srcset="./../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/SetMultilayerEXR.jpg">
+		<img class="  lazyload" alt="设置多层EXR（Set multilayer EXR）" data-src="../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/SetMultilayerEXR.jpg" />
+</picture>
+
+</p></li></ol><p>在完成这些设置后启动Movie Render Queue时，它将输出一个多层EXR，其中包含最终图像、对象ID、世界深度和运动向量。
+</p><p>对象ID使用Cryptomatte [ https://github.com/Psyop/Cryptomatte]规范存储在EXR文件中，用于读取此数据的插件可用于第三方软件。
+</p><h4 id="世界深度">世界深度</h4>
+<p><strong>世界深度（World Depth）</strong> 是以世界单位编写的深度，存储在红色通道中。这可以用于在后期制作中重新创建 <strong>景深（Depth of Field）</strong>。可以从EXR元数据中读取摄像机焦距和快门大小，以自动匹配游戏内的景深。
+</p><p>下面是 <strong>Nuke Zdefocus2</strong> 节点的示例。此示例将从EXR文件中读取元数据，并生成与实时发现的模糊相似的模糊。
+</p><p>   set cut_paste_input [stack 0]</p><pre class="prettyprint"><code>version 12.0 v3
+push $cut&#95;paste&#95;input
+add&#95;layer {FinalImageMovieRenderQueue&#95;WorldDepth FinalImageMovieRenderQueue&#95;WorldDepth.red FinalImageMovieRenderQueue&#95;WorldDepth.green FinalImageMovieRenderQueue&#95;WorldDepth.blue FinalImageMovieRenderQueue&#95;WorldDepth.alpha}
+ZDefocus2 {
+ z&#95;channel FinalImageMovieRenderQueue&#95;WorldDepth.red
+ math depth
+ fill&#95;foreground false
+ center {{"[metadata exr/unreal/camera/FinalImage/focalDistance&#93;"}}
+ focal&#95;point {960 540}
+ size {{"((input.height&#42;(focalLength&#42;focalLength / (fstop &#42; (focalDistance - focalLength)))&#42;.5 / sensorWidth)/10)" x1 26}}
+ max&#95;size 100
+ filter&#95;type bladed
+ legacy&#95;resize&#95;mode false
+ show&#95;legacy&#95;resize&#95;mode false
+ blades {{"[metadata exr/unreal/camera/FinalImage/dofDiaphragmBladeCount&#93;"}}
+ name ZDefocus1
+ selected true
+ xpos 959
+ ypos 229
+ addUserKnob {20 User}
+ addUserKnob {7 focalLength l "Focal Length"}
+ focalLength {{"[metadata exr/unreal/camera/FinalImage/focalLength&#93;"}}
+ addUserKnob {7 focalDistance l "Focal Distance"}
+ focalDistance {{"[metadata exr/unreal/camera/FinalImage/focalDistance&#93;"}}
+ addUserKnob {7 sensorWidth l "Sensor Width"}
+ sensorWidth {{"[metadata exr/unreal/camera/FinalImage/sensorWidth&#93;"}}
+ addUserKnob {7 fstop l Fstop}
+ fstop {{"[metadata exr/unreal/camera/FinalImage/fstop&#93;"}}
+}</code></pre>
+<h4 id="运动向量（速度）">运动向量（速度）</h4>
+<p>运动向量存储在X和Y为[0,1]的坐标上，其中[0.5, 0.5]表示无运动。 
+</p><p>以下Nuke VectorBlur节点可以用于将运动向量应用至你的图像。虚幻将规格化的运动向量存储到整个屏幕上，这可能与其他渲染包不同。因此，在Nuke VectorBlur节点中，uv_offset设置为-0.5（重新调节为[-.5, .5]，而非[0, 1]），然后根据图像的宽度来推动动态模糊比例。
+</p><pre class="prettyprint"><code>set cut&#95;paste&#95;input &#91;stack 0&#93;
+version 12.0 v3
+push $cut&#95;paste&#95;input
+add&#95;layer {FinalImageMovieRenderQueue&#95;MotionVectors FinalImageMovieRenderQueue&#95;MotionVectors.red FinalImageMovieRenderQueue&#95;MotionVectors.green FinalImageMovieRenderQueue&#95;MotionVectors.blue FinalImageMovieRenderQueue&#95;MotionVectors.alpha}
+VectorBlur2 {
+ uv FinalImageMovieRenderQueue&#95;MotionVectors
+ uv&#95;offset -0.5
+ blur&#95;type uniform
+ scale {{input.width}}
+ soft&#95;lines true
+ name Unreal&#95;VectorBlur
+ selected true
+ xpos 1338
+ ypos -93
+}</code></pre>
+<p>根据你选择的软件，可能需要分别重新调节运动向量的X和Y通道。请参阅下一部分，了解详细信息。
+</p><h4 id="在后期制作中合并对象id、深度和速度">在后期制作中合并对象ID、深度和速度</h4>
+<p>可以通过合并多重空间采样、深度和速度，生成与虚幻的后期处理管线相似的结果；通过深度贴图得到景深，通过速度纹理得到动态模糊。这样可以使用对象ID遮片来选择对象和颜色以进行更正，然后再应用后期处理。初始渲染时，可以通过8个或更多空间采样重新创建抗锯齿。 
+</p><p>要通过DoF和MotionBlur保留正确的光亮高光，应在禁用色调曲线（设置（Settings） -> 颜色选项（Color Options） -> 禁用色调曲线（Disable Tone Curve））的情况下渲染场景。这将在sRGB色彩空间中输出HDR线性数值。应用DoF和MotionBlur之后，现在可以将其（从线性sRGB中）转换为所需的色彩空间如果你没有禁用色调曲线，则在应用DoF和MotionBlur之后，高光看起来会非常暗淡，因为HDR数值在应用模糊之前会显著降低。
+</p><p><picture>
+		<source data-srcset="./../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/ColorOutput.jpg">
+		<img class="  lazyload" alt="ColorOutput.png" data-src="../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/ColorOutput.jpg" />
+</picture>
+
+</p><p>以下是一个示例Nuke图表，该图表使用了上述ZDefocus和VectorBlur节点。对于要在Nuke中使用的速度纹理，需交换其红色和绿色通道（下面图表中的RG_TO_GR，使用ShuffleCopy节点）。
+</p><p>此外，由于虚幻将规格化的运动向量[0-1]同时存储在X和Y中，你需要将红色通道重新调节为ImageHeight/ImageWidth（此示例中为1080/1920），或0.5625。为了完成此重新调节，我们从速度通道中减去-0.5，乘以0.5625，然后再将0.5加回速度通道，最后再将其插入VectorBlur节点。如果不重新调节红色通道，将导致动态模糊出现错误的角度。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/NukeGraphEffects.png" ><span><picture>
+		<source data-srcset="./../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/NukeGraphEffects.jpg">
+		<img class="  lazyload" alt="NukeGraphEffects.png" width="400" data-src="../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/NukeGraphEffects.jpg" />
+</picture>
+</span></a></span></p>
+</div><p>此Nuke图表利用8次空间采样、对象ID通道、运动向量和世界深度来渲染exr。景深信息是自动从exr元数据中提取的。Cryptomatte节点可用于创建风扇叶片和地毯的遮罩，然后用作单次色调偏移的遮罩。应用色调偏移之后，将会应用此前提及的ZDefocus节点，然后应用VectorBlur。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/objectidfinal.jpg" ><span><picture>
+		<source data-srcset="./../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/objectidfinal.jpg">
+		<img class="  lazyload" alt="objectidfinal.jpg" width="400" data-src="../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/objectidfinal.jpg" />
+</picture>
+</span></a></span></p>
+</div><p>要使用此功能，必须在项目设置中启用"基础通道期间的输出速度（Output Velocities During Base Pass）"。更改此项目设置之后，必须重新启动编辑器。
+</p><p>此外，<code>r.BasePassForceOutputsVelocity</code> CVar必须设置为1。通过编辑/Engine/Config/ConsoleVariables.ini，可以在整个引擎中应用此设置，或者可以在每次开始电影渲染时将其应用为控制台变量。
+</p><p><picture>
+		<source data-srcset="./../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/BasePassOutputsVel.jpg">
+		<img class="  lazyload" alt="BasePassOutputsVel.png" data-src="../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/BasePassOutputsVel.jpg" />
+</picture>
+
+</p><div class="codetitlebar">
+	<p>ConsoleVariables.ini</p>
+</div><p>[Startup]
+r.BasePassForceOutputsVelocity=1
+</p><h3 id="ui渲染器（非合成）">UI渲染器（非合成）</h3>
+<p>UI渲染器将渲染作为含有alpha的单独输出添加到视口的Slate或UMG控件。你可以将此功能与合成程序中的最终图像结合使用，从而添加要渲染的任何UI元素。</p>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../../../SiteIndex/index.html?tags=Movie%20Render%20Queue">Movie Render Queue</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../../../SiteIndex/index.html?tags=Render%20Passes">Render Passes</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../../../SiteIndex/index.html?tags=Rendering">Rendering</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../../../SiteIndex/index.html?tags=Output">Output</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../../../SiteIndex/index.html?tags=Output%20Formats">Output Formats</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../../../SiteIndex/index.html?tags=Beta">Beta</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../../../SiteIndex/index.html?tags=SettingsReference">SettingsReference</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RenderPasses/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:28:43 GMT -->
+</html>

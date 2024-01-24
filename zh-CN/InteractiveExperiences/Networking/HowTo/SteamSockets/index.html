@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/InteractiveExperiences/Networking/HowTo/SteamSockets/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 10:26:00 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var finishButton = finishButtonTemplate;
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/InteractiveExperiences/Networking/HowTo/SteamSockets/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>使用Steam Sockets | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+		    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+		    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/InteractiveExperiences/Networking/HowTo/SteamSockets/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/InteractiveExperiences/Networking/HowTo/SteamSockets/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/InteractiveExperiences/Networking/HowTo/SteamSockets/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/InteractiveExperiences/Networking/HowTo/SteamSockets/" hreflang="ko" />
+
+	<meta name="redirect" content="Gameplay/Networking/HowTo/SteamSockets" />
+<meta name="intsourcechangelist" content="15340666" />
+<meta name="availability" content="Public" />
+<meta name="title" content="使用Steam Sockets" />
+<meta name="description" content="如何为虚幻4项目启用Steam网络协议层。" />
+<meta name="type" content="how-to" />
+<meta name="skilllevel" content="Advanced" />
+<meta name="version" content="4.24" />
+<meta name="parent" content="InteractiveExperiences/Networking" />
+<meta name="keywords" content="Steam" />
+<meta name="keywords" content="Networking" />
+<meta name="keywords" content="Plugins" />
+<meta name="keywords" content="Advanced" />
+<meta name="prereq" content="ProductionPipelines/Plugins" />
+<meta name="prereq" content="ProductionPipelines/ConfigurationFiles" />
+<meta name="order" content="6" />
+<meta name="crumbs" content="%ROOT%,InteractiveExperiences,InteractiveExperiences/Networking" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="使用Steam Sockets" />
+	<meta property="og:description" content="如何为虚幻4项目启用Steam网络协议层。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">创建交互体验</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">联网和多人游戏</a>
+
+<span class="separator">></span> <span id="page">使用Steam Sockets</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">使用Steam Sockets</h1>
+							</div>	
+							<h2 >如何为虚幻4项目启用Steam网络协议层。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Advanced"><a id="skill_link" href="../../../../SiteIndex/index.html?skills=Advanced">Advanced</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																																										<div class="prereq">
+    <div class="normaltitle">
+        前置主题
+    </div>
+    <p style="margin-bottom:8px;">
+        为了理解并使用本文中的内容，请确保您已掌握以下主题：
+    </p>
+    <ul style="margin-bottom:0.5em;">
+                <li>
+            <p>
+                <a href="../../../../ProductionPipelines/Plugins/index.html" title="创建虚幻引擎插件的方法。">插件</a>
+            </p>
+        </li>
+                <li>
+            <p>
+                <a href="../../../../ProductionPipelines/ConfigurationFiles/index.html" title="包含用于配置游戏进程或引擎行为的属性设置的文本文件。">配置文件</a>
+            </p>
+        </li>
+            </ul>
+</div>
+																		<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#启用steamsockets插件">启用Steam Sockets插件</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#使用steamsockets功能">使用Steam Sockets功能</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p><strong>Steam Sockets</strong> 是一款利用Steam新网络协议层的网络插件，从 <strong>Steamworks SDK</strong> 1.46版起，<strong>虚幻引擎</strong> 支持此款插件。
+</p><p>与上一个SteamNetworking协议相比，此插件利用Steam通信网络提供更高的安全性和可靠性，并内置DDoS保护、端到端加密和NAT遍历。Steam Sockets还为监听服务器提供 <strong>ping计算</strong> 功能，匹配系统可利用此功能将用户匹配到性能更佳的服务器。与仅在用户连接到服务器后才能提供ping计算的SteamNetworking相比，这是一个重大的改进。
+</p><div class="note">
+	<p>Steam Sockets用自身的网络驱动器取代了虚幻引擎的默认网络驱动器，且使用Steam Sockets创建的版本仅可连接其他使用Steam Sockets的版本。此外，Steam Sockets版本支持Windows、Mac和Linux之间的跨平台运行，但不支持其他设备。</p>
+</div><h2 id="启用steamsockets插件">启用Steam Sockets插件</h2>
+<p>基于Windows、Mac和Linux的版本可通过以下步骤启用Steam Sockets：
+</p><ol ><li class="Default"><p>在 <strong>虚幻编辑器</strong> 中打开项目，单击 <strong>编辑（Edit）</strong> > <strong>插件（Plugins）</strong>。
+</p></li><li class="Default"><p>在 <strong>插件菜单（Plugins Menu）</strong> 中，单击 <strong>内置插件（Built-in Plugins）</strong> 下的 <strong>网络（Networking）</strong> 插件组。
+</p></li><li class="Default"><p>找到 <strong>Steam Sockets</strong> 插件，单击 <strong>启用（enabled）</strong>。需重启虚幻编辑器，使更改生效。
+</p></li></ol><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/Networking/HowTo/SteamSockets/SteamSocketsPluginLocation.jpg">
+		<img class="  lazyload" alt="Steam Sockets Plugin" data-src="../../../../../Images/InteractiveExperiences/Networking/HowTo/SteamSockets/SteamSocketsPluginLocation.jpg" />
+</picture>
+
+</p><ol ><li class="Default"><p>对于要使用Steam Sockets插件的各个平台，打开其 <strong>Engine.ini</strong> 文件，将 <strong>Net Driver Definitions</strong> 更改为使用 <code>SteamSockets.SteamSocketsNetDriver</code>。例如，若要为某个Windows版本启用Steam Sockets，可将以下内容添加到 <strong>WindowsEngine.ini</strong>：
+</p></li></ol><div class="codetitlebar">
+	<p>WindowsEngine.ini</p>
+</div><pre class="prettyprint"><code>&#91;/Script/Engine.GameEngine&#93;
+!NetDriverDefinitions=ClearArray
++NetDriverDefinitions=(DefName="GameNetDriver",DriverClassName="/Script/SteamSockets.SteamSocketsNetDriver",DriverClassNameFallback="/Script/SteamSockets.SteamNetSocketsNetDriver")</code></pre>
+<p>完成这些步骤后，项目即可启用Steam Sockets及其功能。
+</p><div class="note">
+	<p>任何针对非Windows、Mac和Linux设备的版本在打包前都将剥离Steam Sockets，而默认使用UE4的标准网络协议。 
+</p><p>若在任意这些操作系统上使用非Steam平台，例如Windows上的Oculus商店，则版本仍将使用Steam网络驱动器打包，但针对该平台的设置会不正确。考虑到这一点，有必要为分布于不同PC平台上的版本适当地配置项目。</p>
+</div><h2 id="使用steamsockets功能">使用Steam Sockets功能</h2>
+<p>可使用配置参数自定义Steam Sockets，以启用和禁用大规模功能。
+</p><p>OnlineSubsystemSteam.bUseSteamNetworking 控制是否将SteamSockets SocketSubsystem作为默认子系统。此参数默认设为true。大部分项目不需要更改此设置，对于从之前的SteamNetworking协议迁移过来的开发人员，此参数主要作为向后兼容选项。 
+</p><p>OnlineSubsystemSteam.bAllowP2PPacketRelay控制在使用专用服务器时，数据包是否应通过Steam通信网络传递。此参数默认设为true。禁用此设置后，专用服务器直接公开连接地址，提供自定义实施。启用此设置后，专用服务器通过Steam的中继网络运行，从而免受DDoS攻击，获得更高的安全性。P2P监听服务器始终使用Steam的通信网络，不受此设置影响。
+</p><p>包括ping计算在内的其他功能是通过UE4中的现有网络接口提供的。
+</p><p>欲了解Steamworks SDK的更多详情，参见Valve的官方文档。</p>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Steam">Steam</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Networking">Networking</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Plugins">Plugins</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Advanced">Advanced</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/InteractiveExperiences/Networking/HowTo/SteamSockets/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 10:26:03 GMT -->
+</html>

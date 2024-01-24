@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/TestingAndOptimization/PerformanceAndProfiling/CSVProfiler/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:40:52 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/TestingAndOptimization/PerformanceAndProfiling/CSVProfiler/" />');
+				var udnCSS = '../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>CSV分析器 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/TestingAndOptimization/PerformanceAndProfiling/CSVProfiler/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/TestingAndOptimization/PerformanceAndProfiling/CSVProfiler/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/TestingAndOptimization/PerformanceAndProfiling/CSVProfiler/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/TestingAndOptimization/PerformanceAndProfiling/CSVProfiler/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Performance/CSVProfiler" />
+<meta name="intsourcechangelist" content="9900794" />
+<meta name="availability" content="Public" />
+<meta name="title" content="CSV分析器" />
+<meta name="description" content="一种轻量级、限定范围、基于时间戳的分析器，可输出每帧时间，将渲染线程和游戏线程的时间轴分离开来。" />
+<meta name="parent" content="TestingAndOptimization/PerformanceAndProfiling" />
+<meta name="order" content="1" />
+<meta name="keywords" content="Performance" />
+<meta name="keywords" content="Tools" />
+<meta name="crumbs" content="%ROOT%,TestingAndOptimization,TestingAndOptimization/PerformanceAndProfiling" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="CSV分析器" />
+	<meta property="og:description" content="一种轻量级、限定范围、基于时间戳的分析器，可输出每帧时间，将渲染线程和游戏线程的时间轴分离开来。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">测试并优化你的内容</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">性能及分析</a>
+
+<span class="separator">></span> <span id="page">CSV分析器</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">CSV分析器</h1>
+							</div>	
+							<h2 >一种轻量级、限定范围、基于时间戳的分析器，可输出每帧时间，将渲染线程和游戏线程的时间轴分离开来。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																																			</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																																				<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#将统计数据采集至csv">将统计数据采集至CSV</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#输出">输出</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#统计信息类别">统计信息类别</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#添加统计数据">添加统计数据</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#事件">事件</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#gpu统计数据">GPU统计数据</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#性能和内存注意事项">性能和内存注意事项</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<div class="note">
+	<p>为尽早提供信息，本页在发布之时仍处于草稿状态。请检查更新。</p>
+</div><p>CSV分析器一种轻量级、限定范围、基于时间戳的分析器，可输出每帧时间，并将渲染线程和游戏线程的时间轴分离开。适用于所有主机和电脑，并适用于除发布版本之外的所有版本。
+</p><h2 id="将统计数据采集至csv">将统计数据采集至CSV</h2>
+<p><strong>在命令行上</strong>
+</p><p>运行项目可执行文件，并用 <code>-csvCaptureFrames=N</code> 参数采集从启动时算起的第 <code>N</code> 帧。
+</p><pre class="prettyprint"><code>UE4.exe &#91;Project&#93; -csvCaptureFrames=N</code></pre>
+<p><strong>在控制台上</strong>
+</p><p>可使用 <code>csvprofile &#91;start/stop&#93;</code> 控制台命令在运行时开始或停止采集。<code>csvprofile frames=N</code> 可采集固定数量的帧
+</p><h2 id="输出">输出</h2>
+<p>CSV分析器生成的CSV文件将写入 <code>&#91;ProjectDirectory&#93;/Saved/Profiling/CSV</code> 目录。 
+</p><h2 id="统计信息类别">统计信息类别</h2>
+<p>可使用 <code>CSV&#95;DEFINE&#95;CATEGORY(CategoryName, bEnableByDefault)</code> 定义统计数据类别。可通过 <code>CSV&#95;DECLARE&#95;CATEGORY&#95;EXTERN(CategoryName)</code> 在外部使用现有的类别。其有 <code>&#95;MODULE</code> 变体，可跨模块使用。
+</p><p>通过命令行-csvcategories进行分类，例如-csvcategories="First,Second"。
+</p><div class="note">
+	<p>理想情况下，默认只启用关键统计数据。在默认启用新类别之前须仔细规划。如非必要，请不要向默认启用的现有类别添加统计信息。 </p>
+</div><h2 id="添加统计数据">添加统计数据</h2>
+<p>单位统计数据和可用内存拥有内置检测工具，但可以使用 <code>CSV&#95;</code> 宏来添加要额外采集的统计数据。<code>CsvProfiler.h</code> 的顶部定义了 <code>CSV&#95;</code> 宏。可添加以下类型的统计数据：
+</p><ul ><li class="Default"><p>时间范围统计数据 - <code>CSV&#95;SCOPED&#95;TIMING&#95;STAT(Category, StatName)</code>
+</p></li><li class="Default"><p>自定义（值）统计数据 - <code>CSV&#95;CUSTOM&#95;STAT(Category, StatName,Value, Op)</code> 或其变体
+</p><div class="note">
+	<p>Op是统计数据运算列举(ECsvCustomStatOp)，可以是以下其中一项：Set、Min、Max、Accumulate</p>
+</div></li></ul><p>范例请参见 <code>CSVProfiler.cpp</code> 中的 <code>CSVTest()</code>。
+</p><p>可以内联添加统计数据，无需预先定义。但必要时可预先定义。参见 <code>CSV&#95;DEFINE&#95;STAT(Category,StatName)</code> 和 <code>CSV&#95;CUSTOM&#95;STAT&#95;DEFINED</code> 宏。
+</p><p>将累计每一帧统计数据并将其写入CSV，一行为一帧，一列为一项统计数据。它们在CSV中显示为标题，并带有 <code>CategoryName/StatName</code>。如为定时器统计数据，则带有 <code>CategoryName/ThreadName/StatName</code>。由于存在此特性，使用通配符通过CsvToSvg工具即可轻松完成绘图。例如： 
+</p><pre class="prettyprint"><code>-stats MyCategory/&#42;</code></pre>
+<h2 id="事件">事件</h2>
+<p>可使用 <code>CSV&#95;EVENT</code> 宏添加事件，此宏使用的参数与 <code>printf</code> 相同。事件显示在CSV中的特殊 <em>events</em> 列中，如果帧中有多个事件，用分号隔开。可使用CSVToSVG绘图工具，借助-showevents参数对带事件的图表进行注解。详情请参见<a id="content_link"filter-data="tag_performance tag_tools" href="../CSVToSVG/index.html" ><span>CSVToSVG工具</span></a>。
+</p><div class="note">
+	<p>应尽量少用事件采集不常见的状况。滥用事件会导致极高的性能和内存开销。 </p>
+</div><h2 id="gpu统计数据">GPU统计数据</h2>
+<p>CSV分析器支持GPU统计数据，包括禁用 <code>STATS</code> 的测试版本。记录GPU统计数据会带来一些开销，因此默认禁用。 
+</p><p>要启用记录GPU统计数据，执行以下操作之一：
+</p><ul ><li class="Default"><p>在控制台中将 <code>r.GPUCsvStatsEnabled</code> 设为1。
+</p></li><li class="Default"><p>在命令行上传递 <code>-csvGpuStats</code>。
+</p></li></ul><h2 id="性能和内存注意事项">性能和内存注意事项</h2>
+<p>工具开销应尽可能低，以便检测每帧调用数百次的函数，同时尽量减小时间数据失真。对统计数据进行最少的处理，比如在线程本地块中积累计时间，这些数据只在采集结束时处理。 
+</p><p>原始统计数据每60ms处理一次（默认设置），以减少内存开销。分析期间产生的开销是每帧每个统计数据4字节，一直累积到采集结束，因为采集结束之前不会在磁盘内写入任何内容。这意味着如果长时间采集大量统计数据，则可能需要考虑内存的问题。内存使用情况在采集结束时将汇总到日志中。 </p>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../SiteIndex/index.html?tags=Performance">Performance</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../SiteIndex/index.html?tags=Tools">Tools</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/TestingAndOptimization/PerformanceAndProfiling/CSVProfiler/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:40:52 GMT -->
+</html>

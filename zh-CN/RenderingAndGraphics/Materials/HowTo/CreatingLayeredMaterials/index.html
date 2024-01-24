@@ -1,0 +1,600 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/RenderingAndGraphics/Materials/HowTo/CreatingLayeredMaterials/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:14:40 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/RenderingAndGraphics/Materials/HowTo/CreatingLayeredMaterials/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>创建分层材质 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/RenderingAndGraphics/Materials/HowTo/CreatingLayeredMaterials/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/RenderingAndGraphics/Materials/HowTo/CreatingLayeredMaterials/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/RenderingAndGraphics/Materials/HowTo/CreatingLayeredMaterials/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/RenderingAndGraphics/Materials/HowTo/CreatingLayeredMaterials/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Rendering/Materials/HowTo/CreatingLayeredMaterials" />
+<meta name="intsourcechangelist" content="11969630" />
+<meta name="availability" content="Public" />
+<meta name="title" content="创建分层材质" />
+<meta name="description" content="有关 UE4 中分层材质技术的介绍文档。" />
+<meta name="version" content="4.9" />
+<meta name="skilllevel" content="Intermediate" />
+<meta name="keywords" content="Materials" />
+<meta name="topic-image" content="layered_tutorial_topic.png" />
+<meta name="course" content="creating-pbr-materials?lang=zh-CN|创建PBR材质|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fcreating-pbr-materials%2FHighresScreenshot00006-1920x1050-2c0180460478cd00327494c6e5717e227be4926d.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fcreating-pbr-materials%2FCreating-PBR-Materials-1000x1000-0d34ec4bfc3eeb466ce5a981a867921f72464e77.png?resize=1&amp;w=300" />
+<meta name="course" content="getting-to-know-materials-for-design-visualization?lang=zh-CN|了解可视化设计中的材质|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fgetting-to-know-materials-for-design-visualization%2FIntro_to_Materials_003-1919x1079-f32638266c469a6fa2b9b2f3515e5766e8177b22.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fgetting-to-know-materials-for-design-visualization%2FGetting-to-Know-Materials-for-Design-Visualization-1000x1000-8cd1670f84e0111e39d4a3faa1e7a6ba29a30bfe.png?resize=1&amp;w=300" />
+<meta name="course" content="materials---exploring-essential-concepts?lang=zh-CN|材质：基础概念|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials---exploring-essential-concepts%2FMaterialEssentialConcepts-1920x1080-1920x1080-2414bb5cf0b0c3bd7ac4b993e725d2acedd45334.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials---exploring-essential-concepts%2FMaterials--Exploring-Essential-Concepts-1000x1000-9546cdc254e6659ce73211b5955ab9d886921256.png?resize=1&amp;w=300" />
+<meta name="course" content="materials---understanding-the-production-workflow?lang=zh-CN|材质：制作工作流|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials---understanding-the-production-workflow%2FMaterialWorkflow_ThumbnailFull-1920x1080-1920x1080-638fea6d7e3b7b299a4f433096336ce1caf662d0.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials---understanding-the-production-workflow%2F104-Materials-Production-Workflow%402x-1000x1000-ae1ba588a367d239fbe513da38bb793360c9eecf.png?resize=1&amp;w=300" />
+<meta name="course" content="materials-master-learning?lang=zh-CN|材质大师课程|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials-master-learning%2FMaterialMaster_1920x1080-1920x1080-212f85045980310d6985557f84d0217e6423b709.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials-master-learning%2FMaterials-Master-Learning-1000x1000-56fd0b66f6e798313f79737126d9215cbd4a3ff9.png?resize=1&amp;w=300" />
+<meta name="crumbs" content="%ROOT%,RenderingAndGraphics,RenderingAndGraphics/Materials,RenderingAndGraphics/Materials/HowTo" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="创建分层材质" />
+	<meta property="og:description" content="有关 UE4 中分层材质技术的介绍文档。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">设计视觉、渲染和图形效果</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">材质 </a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">材质 - 操作指南</a>
+
+<span class="separator">></span> <span id="page">创建分层材质</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">创建分层材质</h1>
+							</div>	
+							<h2 >有关 UE4 中分层材质技术的介绍文档。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Intermediate"><a id="skill_link" href="../../../../SiteIndex/index.html?skills=Intermediate">Intermediate</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																								<div id="courses">
+	<div style="position:relative;">
+		<div id="title">相关课程</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<div name="creating-pbr-materials?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/creating-pbr-materials?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_443/Unreal%20Engine/onlinelearning-courses/creating-pbr-materials/HighresScreenshot00006-1920x1050-2c0180460478cd00327494c6e5717e227be4926d4f86.png?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_443/Unreal%20Engine/onlinelearning-courses/creating-pbr-materials/Creating-PBR-Materials-1000x1000-0d34ec4bfc3eeb466ce5a981a867921f72464e77fe4b.png?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="creating-pbr-materials?lang=zh-CN_title">
+				创建PBR材质
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="getting-to-know-materials-for-design-visualization?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/getting-to-know-materials-for-design-visualization?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/getting-to-know-materials-for-design-visualizat/Intro_to_Materials_003-1919x1079-f32638266c469a6fa2b9b2f3515e5766?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/getting-to-know-materials-for-design-visualizat/Getting-to-Know-Materials-for-Design-Visualization-1000x1000-8cd1670f84e0111e39d4a3faa1e7a6b?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="getting-to-know-materials-for-design-visualization?lang=zh-CN_title">
+				了解可视化设计中的材质
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="materials---exploring-essential-concepts?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/materials---exploring-essential-concepts?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/materials---exploring-essential-concepts/MaterialEssentialConcepts-1920x1080-1920x1080-2414bb5cf0b0c3bd7ac4b993e725d2acedd45334.42c4f86.dela?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/materials---exploring-essential-concepts/Materials--Exploring-Essential-Concepts-1000x1000-9546cdc254e6659ce73211b5955ab9d886921256.42dfe4b?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="materials---exploring-essential-concepts?lang=zh-CN_title">
+				材质：基础概念
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="materials---understanding-the-production-workflow?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/materials---understanding-the-production-workflow?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/materials---understanding-the-production-workfl/MaterialWorkflow_ThumbnailFull-1920x1080-1920x1080-638fea6d7e3b7b299a4f433096336ce1caf662d0?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/materials---understanding-the-production-workfl/104-Materials-Production-Workflow%402x-1000x1000-ae1ba588a367d239fbe513da38bb793360c9eecf.42ff?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="materials---understanding-the-production-workflow?lang=zh-CN_title">
+				材质：制作工作流
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="materials-master-learning?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/materials-master-learning?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/materials-master-learning/MaterialMaster_1920x1080-1920x1080-212f85045980310d6985557f84d0217e6423b709.4314f86.del?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/materials-master-learning/Materials-Master-Learning-1000x1000-56fd0b66f6e798313f79737126d9215cbd4a3ff9.433fe4b.de?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="materials-master-learning?lang=zh-CN_title">
+				材质大师课程
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																								<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#简单铬合金">简单铬合金</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#铬合金层网络">铬合金层网络</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#简单的雪">简单的雪</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#雪层网络">雪层网络</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#分层材质">分层材质</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#分层材质网络">分层材质网络</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#分层材质实例化">分层材质实例化</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<div class="fullwidth">
+	<p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/CreatingLayeredMaterials/SnowyStuff.jpg">
+		<img class="  lazyload" alt="SnowyStuff.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/CreatingLayeredMaterials/SnowyStuff.jpg" />
+</picture>
+</p>
+</div><p>在这个简短教程中，我们将概述创建简单 <strong>分层材质</strong> 的过程，该材质包含两个材质层：铬合金和雪。最终的分层材质会自动将雪置于对象的顶部表面，从而在两种材质之间有效地进行切换。材质之间的混合将总是检查顶部表面，这意味着即使您旋转对象，雪也总是停留在顶部。
+</p><div class="note">
+	<p>创建材质层时，通常将层创建为材质，然后将节点网络复制/粘贴到新函数中。但是，为了节省时间，我们先在函数内构建层。</p>
+</div><h2 id="简单铬合金">简单铬合金</h2>
+<div class="imagetable">
+	<table >
+	<caption></caption>
+	<col align="center"/>
+	<col align="center"/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="2" >
+			<p>铬合金纹理</p>
+			</th>
+	
+</tr><tr >
+
+	<th rowspan="1" colspan="1" >
+			<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Materials/HowTo/CreatingLayeredMaterials/T_ExampleLayers_Metal01_BC.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/CreatingLayeredMaterials/T_ExampleLayers_Metal01_BC.jpg">
+		<img class="  lazyload" alt="T_ExampleLayers_Metal01_BC.png" width="300" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/CreatingLayeredMaterials/T_ExampleLayers_Metal01_BC.jpg" />
+</picture>
+</span></a></span> </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Materials/HowTo/CreatingLayeredMaterials/T_ExampleLayers_Metal01_N.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/CreatingLayeredMaterials/T_ExampleLayers_Metal01_N.jpg">
+		<img class="  lazyload" alt="T_ExampleLayers_Metal01_N.png" width="300" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/CreatingLayeredMaterials/T_ExampleLayers_Metal01_N.jpg" />
+</picture>
+</span></a></span> </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="center">
+			<p>T_ExampleLayers_Metal_1_BC.png</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="center">
+			<p>T_ExampleLayers_Metal01_N.png</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="center">
+			<p>（右键单击并选择"另存为"）</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="center">
+			<p>（右键单击并选择"另存为"）</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div><p>在第一个材质层中，我们将创建一个相当简单的铬合金，其表面有少许腐蚀或瑕疵。为了帮助说明一些可编辑性，我们还将创建一些输入来控制整体外观。
+</p><ol ><li class="Default"><p>在 <strong>内容浏览器</strong> 中，单击 <strong>新增（Add New）</strong>按钮并选择 <strong>材质与纹理（Materials &amp; Textures）</strong>> <strong>材质函数（Material Function）</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/CreatingLayeredMaterials/NewFunction.jpg">
+		<img class="  lazyload" alt="NewFunction.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/CreatingLayeredMaterials/NewFunction.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>将新函数命名为 <strong>Layer_Chrome</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/CreatingLayeredMaterials/Layer_Chrome.jpg">
+		<img class="  lazyload" alt="Layer_Chrome.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/CreatingLayeredMaterials/Layer_Chrome.jpg" />
+</picture>
+
+</p></li><li class="Default"><p><strong>双击</strong> 该函数，以在材质编辑器中将其打开。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/CreatingLayeredMaterials/EditLayerChrome.jpg">
+		<img class="  lazyload" alt="EditLayerChrome.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/CreatingLayeredMaterials/EditLayerChrome.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在材质图区域中 <strong>右键单击</strong> 以打开快捷菜单，搜索 <strong>Make</strong> 并选择 <strong>建立材质属性（Make Material Attributes）</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/CreatingLayeredMaterials/MakeMaterialAttributesContext.jpg">
+		<img class="  lazyload" alt="MakeMaterialAttributesContext.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/CreatingLayeredMaterials/MakeMaterialAttributesContext.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>将新的 <em>建立材质属性（Make Material Attributes）</em> 节点连接到 <em>输出结果（Output Result）</em>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/CreatingLayeredMaterials/ConnectedMMA.jpg">
+		<img class="  lazyload" alt="ConnectedMMA.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/CreatingLayeredMaterials/ConnectedMMA.jpg" />
+</picture>
+
+</p></li></ol><h3 id="铬合金层网络">铬合金层网络</h3>
+<p>此材质层的网络相当简单。为了加快构建速度，它已进行拆分。使用的两个纹理分别是 <strong>T_ExampleLayers_Metal_1_BC.png</strong>（用于底色及粗糙度）和 <strong>T_ExampleLayers_Metal01_N.png</strong>（用于法线贴图），这两个纹理均可从本页顶部下载。
+</p><p><strong>请单击以查看标准大小的图片，或者右键单击并选择"另存为"（Save As）</strong>
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Materials/HowTo/CreatingLayeredMaterials/ChromGraph.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/CreatingLayeredMaterials/ChromGraph.jpg">
+		<img class="  lazyload" alt="ChromGraph.png" width="700" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/CreatingLayeredMaterials/ChromGraph.jpg" />
+</picture>
+</span></a></span></p>
+</div><p>此材质层已拆分为注释块，说明如下：
+</p><ol ><li class="Default"><p><strong>底色（Base Color）</strong>- 此部分的网络非常简单。我们已设置线性插值，该插值在铬合金底色与非常深的灰色之间进行混合。底色实际上是名为 <em>Tint</em> 的函数输入。这个输入设置为 Vector3，从而允许我们将颜色输入到函数中，并更改铬合金颜色。我们使用 <em>T_ExampleLayers_Metal_1_BC</em> 纹理的红色通道在这两者之间驱动插值。
+</p></li><li class="Default"><p><strong>金属色（Metallic）</strong>- 因为我们要创建金属，所以将"金属色"（Metallic）设置为 1。
+</p></li><li class="Default"><p><strong>粗糙度（Roughness）</strong>- 我们是在创建铬合金，因此粗糙度通常非常低。但是，我们要在较暗的区域稍稍加大粗糙度，以使材质整体看起来有一定的深度。实际上，除了仅仅在 0.2 与 0.4 之间插值之外，此网络与用于底色（Base Color）的网络相同。
+</p></li><li class="Default"><p><strong>可定制的法线（Customizable Normal）</strong>- 此网络仅仅接收切线空间法线贴图，并分隔控制着大量贴图细节的绿色和红色通道。我们将每个通道乘以从另一个函数输入提供的值。此输入设置为标量类型，名为 <em>Normal Multiplier</em>，其默认值为 1.0。产生的结果将通过"附加矢量"（AppendVector）节点附加到一起，然后附加到法线贴图的蓝色通道。这样，用户就能够通过更改"法线乘数"（Normal Multiplier）值来调整法线的高度。
+</p></li></ol><p>完成后，务请保存材质层函数。
+</p><h2 id="简单的雪">简单的雪</h2>
+<div class="imagetable">
+	<table >
+	<caption></caption>
+	<col align="center"/>
+	<col align="center"/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="2" >
+			<p>雪纹理</p>
+			</th>
+	
+</tr><tr >
+
+	<th rowspan="1" colspan="1" >
+			<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Materials/HowTo/CreatingLayeredMaterials/T_Cave_Ice_Tiling_D.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/CreatingLayeredMaterials/T_Cave_Ice_Tiling_D.jpg">
+		<img class="  lazyload" alt="T_Cave_Ice_Tiling_D.png" width="300" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/CreatingLayeredMaterials/T_Cave_Ice_Tiling_D.jpg" />
+</picture>
+</span></a></span> </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Materials/HowTo/CreatingLayeredMaterials/T_Cave_Ice_Noise_N.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/CreatingLayeredMaterials/T_Cave_Ice_Noise_N.jpg">
+		<img class="  lazyload" alt="T_Cave_Ice_Noise_N.png" width="300" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/CreatingLayeredMaterials/T_Cave_Ice_Noise_N.jpg" />
+</picture>
+</span></a></span> </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="center">
+			<p>T_Cave_Ice_Tiling_D.png</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="center">
+			<p>T_Cave_Ice_Noise_N.png</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="center">
+			<p>（右键单击并选择"另存为"）</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="center">
+			<p>（右键单击并选择"另存为"）</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div><p>现在，我们创建雪效果材质层：
+</p><ol ><li class="Default"><p>在 <strong>内容浏览器</strong> 中，单击 <strong>新增（Add New）</strong>按钮并选择 <strong>材质与纹理（Materials &amp; Textures）> 材质函数（Material Function）</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/CreatingLayeredMaterials/NewFunction.jpg">
+		<img class="  lazyload" alt="NewFunction.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/CreatingLayeredMaterials/NewFunction.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>将新函数命名为 <strong>Layer_Snow</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/CreatingLayeredMaterials/Layer_Snow.jpg">
+		<img class="  lazyload" alt="Layer_Snow.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/CreatingLayeredMaterials/Layer_Snow.jpg" />
+</picture>
+
+</p></li><li class="Default"><p><strong>双击</strong> 该函数，以在材质编辑器中将其打开。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/CreatingLayeredMaterials/EditLayerChrome.jpg">
+		<img class="  lazyload" alt="EditLayerChrome.png" width="600" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/CreatingLayeredMaterials/EditLayerChrome.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在材质图区域中 <strong>右键单击</strong> 以打开快捷菜单，搜索 <strong>Make</strong> 并选择 <strong>建立材质属性（Make Material Attributes）</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/CreatingLayeredMaterials/MakeMaterialAttributesContext.jpg">
+		<img class="  lazyload" alt="MakeMaterialAttributesContext.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/CreatingLayeredMaterials/MakeMaterialAttributesContext.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>将新的 <em>建立材质属性（Make Material Attributes）</em> 节点连接到 <em>输出结果（Output Result）</em>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/CreatingLayeredMaterials/ConnectedMMA.jpg">
+		<img class="  lazyload" alt="ConnectedMMA.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/CreatingLayeredMaterials/ConnectedMMA.jpg" />
+</picture>
+
+</p></li></ol><h3 id="雪层网络">雪层网络</h3>
+<p>下图是雪材质层的简单明细。这个层使用 <strong>T_Cave_Ice_Tiling_D.png</strong> 和 <strong>T_Cave_Ice_Noise_N.png</strong>，这两个纹理均可从本页顶部下载。 
+</p><p><strong>请单击以使用完整大小，或者右键单击并选择"另存为"（Save As）</strong>
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Materials/HowTo/CreatingLayeredMaterials/SnowNetwork.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/CreatingLayeredMaterials/SnowNetwork.jpg">
+		<img class="  lazyload" alt="SnowNetwork.png" width="700" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/CreatingLayeredMaterials/SnowNetwork.jpg" />
+</picture>
+</span></a></span></p>
+</div><ol ><li class="Default"><p><strong>底色（Base Color）</strong>- 这可能是此网络中唯一相对复杂的部分，这仅仅是因为使用了 <em>FuzzyShading</em> 材质函数。此函数的作用仅仅是避免材质在接收到光线时变得太暗。这有点像光线穿过纤维状表面。因此它是用于天鹅绒、苔藓或本例中的雪的完美选择。首先，我们处理底色（Base Color）纹理 (T_Cave_Ice_Tiling_D.png)，通过对它进行 0.3 幂运算来消除一定的对比度。 
+</p><p>接着，我们将结果插入 FuzzyShading 材质函数，该函数可从材质编辑器的"函数"（Functions）选项卡拉取。将 <em>核心暗度（Core Darkness）</em> 设置为 0，将 <em>幂（Power）</em> 设置为 1，并将 <em>边缘亮度（EdgeBrightness）</em> 设置为 0.5。最后，我们将整体结果乘以非常淡的蓝色 (R=0.8, G=0.9, B=0.95)，产生一种冰冷的颜色投射效果。
+</p></li><li class="Default"><p><strong>金属色（Metallic）</strong>- 这是非金属表面，所以将"金属色"（Metallic）设置为 0。
+</p></li><li class="Default"><p><strong>粗糙度（Roughness）</strong>- 我们希望雪在受到光线直射时发出一点光亮，因此使用 _Cave_Ice_Tiling_D.png 纹理的红色通道来驱动 0.6 与 0.3 之间的插值。 
+</p></li><li class="Default"><p><strong>法线（Normal）</strong>- 此设置也相当基本。我们希望降低切线空间法线贴图的效果，这可通过成倍增强蓝色通道来实现。加强蓝色会降低法线贴图高度的整体外观。
+</p></li></ol><p>完成后，请保存结果！
+</p><h2 id="分层材质">分层材质</h2>
+<p>现在，我们可以使用目前为止生成的层来创建分层材质。我们将稍微增大空间以进行实例定制，使得雪总是出现在表面的顶部。
+</p><ol ><li class="Default"><p>在 <strong>内容浏览器</strong> 中，单击 <strong>新增（Add New）</strong>按钮并从快捷菜单中选择"材质"（Material）。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/CreatingLayeredMaterials/NewMaterialContextMenu.jpg">
+		<img class="  lazyload" alt="NewMaterialContextMenu.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/CreatingLayeredMaterials/NewMaterialContextMenu.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>将新函数命名为 <strong>Mat_SnowyChrome</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/CreatingLayeredMaterials/Mat_SnowyChrome.jpg">
+		<img class="  lazyload" alt="Mat_SnowyChrome.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/CreatingLayeredMaterials/Mat_SnowyChrome.jpg" />
+</picture>
+
+</p></li><li class="Default"><p><strong>双击</strong> 该材质，以在材质编辑器中将其打开。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/CreatingLayeredMaterials/SnowyChromeMatEd.jpg">
+		<img class="  lazyload" alt="SnowyChromeMatEd.png" width="600" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/CreatingLayeredMaterials/SnowyChromeMatEd.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>从 <strong>内容浏览器</strong> 拖放上述步骤中创建的 <strong>Layer_Chrome</strong> 和 <strong>Layer_Snow</strong> 材质层。 
+</p><div class="lightbox raw">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Materials/HowTo/CreatingLayeredMaterials/cnd_Chrome_Snow.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/CreatingLayeredMaterials/cnd_Chrome_Snow.jpg">
+		<img class="  lazyload" alt="cnd_Chrome_Snow.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/CreatingLayeredMaterials/cnd_Chrome_Snow.jpg" />
+</picture>
+</span></a></span></p>
+</div></li><li class="Default"><p>在 <strong>细节（Details）</strong>面板中，启用 <strong>使用材质属性（Use Material Attributes）</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/CreatingLayeredMaterials/enableMatAttrib.jpg">
+		<img class="  lazyload" alt="enableMatAttrib.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/CreatingLayeredMaterials/enableMatAttrib.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在"函数"（Functions）面板中，拖入 <strong>MatLayerBlend_Simple</strong> 函数和 <strong>World_Aligned_Blend</strong> 函数。我们将使用 MatLayerBlend_Simple 来处理从铬合金到雪的过渡，并使用 World_Aligned_Blend 根据表面的方向加强层混合效果。
+</p></li></ol><h3 id="分层材质网络">分层材质网络</h3>
+<p>以下是 Mat_SnowyChrome 网络的明细以及每个注释区域的说明。
+</p><p><strong>请单击以查看标准大小的图片，或者右键单击并选择"另存为"（Save As）</strong>
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Materials/HowTo/CreatingLayeredMaterials/SnowCoveredChromeNetwork.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/CreatingLayeredMaterials/SnowCoveredChromeNetwork.jpg">
+		<img class="  lazyload" alt="SnowCoveredChromeNetwork.png" width="700" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/CreatingLayeredMaterials/SnowCoveredChromeNetwork.jpg" />
+</picture>
+</span></a></span></p>
+</div><ol ><li class="Default"><p><strong>铬合金设置（Chrome Setup）</strong>- 在此处，我们已引入铬合金材质层，并将 2 个材质参数与之相连。第一个是标量参数 <em>Chrome Normal</em>，用于驱动 <em>法线乘数（Normal Multiplier）</em> 输入。第二个是矢量参数 <em>Chrome Tint</em>，用于驱动 <em>色调（Tint）</em> 输入。这些参数可以用来改变法线贴图的强度，以及稍后进行实例化时更改铬合金颜色。
+</p></li><li class="Default"><p><strong>雪设置（Snow Setup）</strong>- 这是最简单的操作：我们只需要雪材质层。 
+</p></li><li class="Default"><p><strong>全局一致混合设置（World Aligned Blend Setup）</strong>- 在这部分网络中，我们首先将 <em>混合清晰度（Blend Sharpness）</em> 设置为 10。然后，我们将标量参数 <em>雪偏差（Snow Bias）</em> 连接到 <em>混合偏差（Blend Bias）</em> 输入。这样，在将此材质实例化时，就可以编辑雪覆盖范围。
+</p></li><li class="Default"><p><strong>材质层混合（MatLayerBlend）</strong>- 仅包含用于驱动混合的节点。基本材质为铬合金。顶部材质为雪。<em>World_Aligned_Blend</em> 负责处理过渡。
+</p></li></ol><p>完成后，请记得保存材质！
+</p><h2 id="分层材质实例化">分层材质实例化</h2>
+<p>我们已使用参数来设置此材质，这些参数进而驱动材质层的各个方面，现在，我们可以将此材质实例化并进行编辑。此过程在 UE4 中非常简单。
+</p><ol ><li class="Default"><p>如果您创建项目时已包括"起步内容"，那么您有可应用新材质的一组椅子和桌子。否则，请随意添加您自己的资产或 BSP。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/CreatingLayeredMaterials/DefaultLevel.jpg">
+		<img class="  lazyload" alt="DefaultLevel.png" width="500" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/CreatingLayeredMaterials/DefaultLevel.jpg" />
+</picture>
+
+</p></li><li class="Default"><p><strong>右键单击</strong> Mat_SnowyChrome 材质，并选择 <strong>创建材质实例（Create Material Instance）</strong>。可以接受默认名称。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/CreatingLayeredMaterials/CreateMaterialInstance_ContextMenu.jpg">
+		<img class="  lazyload" alt="CreateMaterialInstance_ContextMenu.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/CreatingLayeredMaterials/CreateMaterialInstance_ContextMenu.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>将新实例从 <strong>内容浏览器</strong> 拖放到场景中的某个对象上。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/CreatingLayeredMaterials/DragDropMaterialSnowy.jpg">
+		<img class="  lazyload" alt="DragDropMaterialSnowy.png" width="700" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/CreatingLayeredMaterials/DragDropMaterialSnowy.jpg" />
+</picture>
+
+</p></li><li class="Default"><p><strong>双击</strong> 该实例，并根据需要任意更改其属性。您可以更改铬合金的颜色、铬合金法线贴图的深度以及该实例顶部的积雪量。
+</p><div class="raw">
+	<p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/CreatingLayeredMaterials/SnowChromeInstanceTesting.jpg">
+		<img class="  lazyload" alt="SnowChromeInstanceTesting.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/CreatingLayeredMaterials/SnowChromeInstanceTesting.jpg" />
+</picture>
+</p>
+</div></li></ol>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Materials">Materials</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/RenderingAndGraphics/Materials/HowTo/CreatingLayeredMaterials/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:14:51 GMT -->
+</html>

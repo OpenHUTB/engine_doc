@@ -1,0 +1,607 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:02:59 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/Ribbon_HeroImage.png";
+				var finishButton = finishButtonTemplate;
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>在Niagara中创建条带效果 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+		    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+		    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Niagara/HowTo/RibbonEffect" />
+<meta name="intsourcechangelist" content="15384898" />
+<meta name="availability" content="Public" />
+<meta name="title" content="在Niagara中创建条带效果" />
+<meta name="description" content="此文档描述如何使用Niagara创建条带视觉效果。" />
+<meta name="type" content="how-to" />
+<meta name="skilllevel" content="Intermediate" />
+<meta name="version" content="4.25" />
+<meta name="parent" content="RenderingAndGraphics/Niagara/HowTo" />
+<meta name="order" content="6" />
+<meta name="keywords" content="Niagara" />
+<meta name="keywords" content="Vfx" />
+<meta name="keywords" content="Effects" />
+<meta name="keywords" content="Visual Effects" />
+<meta name="keywords" content="Particle Effects" />
+<meta name="prereq" content="RenderingAndGraphics/Niagara/HowTo/EnableNiagara" />
+<meta name="hero-image" content="Ribbon_HeroImage.png" />
+<meta name="crumbs" content="%ROOT%,RenderingAndGraphics,RenderingAndGraphics/Niagara,RenderingAndGraphics/Niagara/HowTo" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="在Niagara中创建条带效果" />
+	<meta property="og:description" content="此文档描述如何使用Niagara创建条带视觉效果。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">设计视觉、渲染和图形效果</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">Niagara视觉效果</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">Niagara - 使用指南</a>
+
+<span class="separator">></span> <span id="page">在Niagara中创建条带效果</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  background">
+						<div class="imgContainer"><img src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/Ribbon_HeroImage.png" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">在Niagara中创建条带效果</h1>
+							</div>	
+							<h2 >此文档描述如何使用Niagara创建条带视觉效果。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Intermediate"><a id="skill_link" href="../../../../SiteIndex/index.html?skills=Intermediate">Intermediate</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																																										<div class="prereq">
+    <div class="normaltitle">
+        前置主题
+    </div>
+    <p style="margin-bottom:8px;">
+        为了理解并使用本文中的内容，请确保您已掌握以下主题：
+    </p>
+    <ul style="margin-bottom:0.5em;">
+                <li>
+            <p>
+                <a href="../EnableNiagara/index.html" title="描述如何启动Niagara。">启用Niagara插件</a>
+            </p>
+        </li>
+            </ul>
+</div>
+																		<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#创建系统和发射器">创建系统和发射器</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#更改渲染器">更改渲染器</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#编辑发射器更新组设置">编辑发射器更新组设置</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#编辑粒子生成组设置">编辑粒子生成组设置</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#编辑粒子更新组设置">编辑粒子更新组设置</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#最终结果">最终结果</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<div class="note">
+	<p>操作前提：本教程将用到Niagara插件中的"默认条带材质"（DefaultRibbonMaterial）。但是，如果你已完成<a id="content_link"filter-data="tag_niagara tag_vfx tag_effects tag_visual_effects tag_particle_effects" href="../MeshEffect/index.html" ><span>创建网格体粒子效果</span></a>教程，则可以使用该教程中使用的M_Balloon材质。</p>
+</div><p>模拟自然现象是很有挑战性的，特别是当使用基于sprite或网格体的粒子来模拟烟雾或蒸汽轨迹时。<strong>条带发射器（Ribbon Emitters）</strong> 是模拟这些对象的优秀解决方案。在接下来的教程中，你将了解如何设置Niagara发射器以将连续条带状粒子效果发射到世界场景中。
+</p><h2 id="创建系统和发射器">创建系统和发射器</h2>
+<p>与在Cascade中不同，Niagara发射器和系统是独立的。当前推荐工作流将从现有发射器或发射器模板创建系统。
+</p><ol ><li class="Default"><p>首先，在内容浏览器中点击右键并选择 <strong>FX > Niagara系统（FX > Niagara System）</strong>，以创建Niagara系统。将显示Niagara发射器（Niagara Emitter）向导。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/CreateSystem_NewMenuSelections.png" title="Create System Menu"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/CreateSystem_NewMenuSelections.jpg">
+		<img class="  lazyload" alt="Create System Menu" title="Create System Menu" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/CreateSystem_NewMenuSelections.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>选择 <strong>从所选发射器新建系统（New system from selected emitters）</strong>。然后单击 <strong>下一步（Next）</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/CreateSystem_SystemWizard.png" title="System Wizard New from Selected"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/CreateSystem_SystemWizard.jpg">
+		<img class="  lazyload" alt="System Wizard New from Selected" title="System Wizard New from Selected" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/CreateSystem_SystemWizard.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>在 <strong>模板（Templates）</strong> 下选择 <strong>简单Sprite迸发（Simple Sprite Burst）</strong>。 
+</p><div class="note">
+	<p>使用模板将在新系统中放置发射器实例，且此发射器实例将没有任何继承。</p>
+</div><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/CreateSystem_SelectSpriteBurstTemplate.png" title="Select Template"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/CreateSystem_SelectSpriteBurstTemplate.jpg">
+		<img class="  lazyload" alt="Select Template" title="Select Template" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/CreateSystem_SelectSpriteBurstTemplate.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>单击 <strong>加号（Plus sign）</strong> 图标（<strong>+</strong>），以将所选发射器添加要添加到系统的发射器列表中。然后单击 <strong>完成（Finish）</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/CreateSystem_AddEmitterAndFinish.png" title="Add Selected Emitter and Finish"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/CreateSystem_AddEmitterAndFinish.jpg">
+		<img class="  lazyload" alt="Add Selected Emitter and Finish" title="Add Selected Emitter and Finish" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/CreateSystem_AddEmitterAndFinish.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>将新系统命名为 <strong>RibbonSystem</strong>。双击以在Niagara编辑器中将其打开。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/CreateSystem_NameSystem.jpg">
+		<img class="  lazyload" alt="Name New System" title="Name New System" width="100" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/CreateSystem_NameSystem.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>新系统中发射器实例的默认名称为 <strong>SimpleSpriteBurst</strong>，但你可以对其重命名。在 <strong>系统概览（System Overview）</strong> 中单击发射器实例名称，该字段将转变为可编辑状态。将发射器命名为 <strong>FX_Ribbon</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/CreateSystem_RenameEmitter.png" title="Rename Emitter"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/CreateSystem_RenameEmitter.jpg">
+		<img class="  lazyload" alt="Rename Emitter" title="Rename Emitter" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/CreateSystem_RenameEmitter.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li></ol><h2 id="更改渲染器">更改渲染器</h2>
+<p>虽然 <strong>渲染</strong> 组是堆栈中的最后一项，但你需要更改部分内容，以便效果按预期方式显示。原始模板使用了Sprite渲染器，但此效果需要条带渲染器。
+</p><ol ><li class="Default"><p>在 <strong>系统概览（System Overview）</strong> 中，单击 <strong>渲染（Render）</strong>，以便在 <strong>选择（Selection）</strong> 面板中将其打开。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/SystemOverview_OpenRender.png" title="Open Render Group"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/SystemOverview_OpenRender.jpg">
+		<img class="  lazyload" alt="Open Render Group" title="Open Render Group" width="700" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/SystemOverview_OpenRender.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>若要创建条带效果，你需要 <strong>条带渲染器（Ribbon Renderer）</strong> 模块。但该模板具有 <strong>Sprite渲染器</strong> 模块。单击 <strong>垃圾桶（Trashcan）</strong> 图标，以删除Sprite渲染器。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/ChangeRenderer_RemoveSpriteRenderer.png" title="Remove Sprite Renderer"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/ChangeRenderer_RemoveSpriteRenderer.jpg">
+		<img class="  lazyload" alt="Remove Sprite Renderer" title="Remove Sprite Renderer" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/ChangeRenderer_RemoveSpriteRenderer.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>单击 <strong>渲染器（Render）</strong> 的 <strong>加号</strong> 图标(<strong>+</strong>)，并选择 <strong>条带渲染器（Ribbon Renderer）</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/ChangeRenderer_AddRibbonRenderer.png" title="Add Ribbon Renderer"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/ChangeRenderer_AddRibbonRenderer.jpg">
+		<img class="  lazyload" alt="Add Ribbon Renderer" title="Add Ribbon Renderer" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/ChangeRenderer_AddRibbonRenderer.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>在默认情况下，此所需材质不显示。单击 <strong>材质（Material）</strong> 下拉列表，并单击 <strong>查看选项（View Options）</strong> 以打开选项列表。勾选 <strong>显示引擎内容（Show Engine Content）</strong> 和 <strong>显示插件内容（Show Plugin Content）</strong> 的复选框。现在，你将能够看到此材质。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/ChangeRenderer_SetViewOptions.png" title="Set View Options"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/ChangeRenderer_SetViewOptions.jpg">
+		<img class="  lazyload" alt="Set View Options" title="Set View Options" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/ChangeRenderer_SetViewOptions.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>单击 <strong>材质（Material）</strong> 下拉列表，并选择 <strong>DefaultRibbonMaterial</strong>。
+</p><div class="note">
+	<p>如果你完成了<a id="content_link"filter-data="tag_niagara tag_vfx tag_effects tag_visual_effects tag_particle_effects" href="../MeshEffect/index.html" ><span>创建网格体粒子效果</span></a>课程，则可以选择 <strong>M_Balloon</strong> 材质。你可以借此获得不透明条带，而不是由"DefaultRibbonMaterial"创建的半透明条带。</p>
+</div><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/ChangeRenderer_SelectDefaultRibbonMat.png" title="Select Material"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/ChangeRenderer_SelectDefaultRibbonMat.jpg">
+		<img class="  lazyload" alt="Select Material" title="Select Material" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/ChangeRenderer_SelectDefaultRibbonMat.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>将 <strong>RibbonSystem</strong> 拖到关卡中。
+</p><div class="note">
+	<p>制作粒子效果时，最好将系统拖到关卡中。这样便可查看每一项更改并在上下文中进行编辑。你对系统所做的任何更改都会自动应用到关卡中的系统实例上。</p>
+</div></li></ol><h2 id="编辑发射器更新组设置">编辑发射器更新组设置</h2>
+<p>首先，你将在 <strong>发射器更新（Emitter Update）</strong> 组中编辑模块。这些是将应用于发射器并更新每一帧的行为。
+</p><div class="note">
+	<p>即使是添加Ribbon渲染器并在发射器更新组中编辑设置后，你也不会看到条带出现。这属于正常情况！当你转到本文的"粒子生成"部分后，你将开始看到实际条带。</p>
+</div><ol ><li class="Default"><p>在 <strong>系统概览（System Overview）</strong> 中，单击 <strong>发射器更新（Emitter Update）</strong> 组，以便在 <strong>选择（Selection）</strong> 面板中将其打开。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/SystemOverview_OpenEmitterUpdate.png" title="Open Emitter Update Group"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/SystemOverview_OpenEmitterUpdate.jpg">
+		<img class="  lazyload" alt="Open Emitter Update Group" title="Open Emitter Update Group" width="700" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/SystemOverview_OpenEmitterUpdate.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>展开 <strong>发射器状态（Emitter State）</strong> 模块。此模块控制此发射器的时间和可延展性。由于你使用了 <strong>简单Sprite迸发（Simple Sprite Burst）</strong> 模板，因此 <strong>生命周期模式（Life Cycle Mode）</strong> 设置为 <strong>自身（Self）</strong>。通常，该模式用于为此特定发射器完全定制发射器生命周期逻辑，但此效果并不需要它。单击下拉列表，并将 <strong>生命周期模式（Life Cycle Mode）</strong> 设置为 <strong>系统（System）</strong>。此操作将使系统能够计算生命周期设置，而这通常可以优化性能。在默认情况下，系统以5秒的间隔无限循环。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/EmitterUpdate_SetLifecycleMode.png" title="Set Life Cycle Mode"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/EmitterUpdate_SetLifecycleMode.jpg">
+		<img class="  lazyload" alt="Set Life Cycle Mode" title="Set Life Cycle Mode" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/EmitterUpdate_SetLifecycleMode.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>当发射器处于活动状态时，<strong>生成速率（Spawn Rate）</strong> 模块创建连续粒子流。此模块已经存在于简单Sprite迸发模板中。将 <strong>生成速率（Spawn Rate）</strong> 设置为 <strong>100</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/EmitterUpdate_AddSpawnRate.png" title="Add the Spawn Rate Module"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/EmitterUpdate_AddSpawnRate.jpg">
+		<img class="  lazyload" alt="添加生成速率模块" title="Add the Spawn Rate Module" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/EmitterUpdate_AddSpawnRate.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>Click image for full size.</p>
+</div></li><li class="Default"><p>将 <strong>生成速率（Spawn Rate）</strong> 设置成 <strong>100</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/EmitterUpdate_SetSpawnRate.png" title="Set Spawn Rate"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/EmitterUpdate_SetSpawnRate.jpg">
+		<img class="  lazyload" alt="设置生成速率" title="Set Spawn Rate" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/EmitterUpdate_SetSpawnRate.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li></ol><h2 id="编辑粒子生成组设置">编辑粒子生成组设置</h2>
+<p>下一步，你将在 <strong>粒子生成（Particle Spawn）</strong> 组中编辑模块。这些是粒子首次生成时将应用于粒子的行为。
+</p><ol ><li class="Default"><p>在 <strong>系统概览（System Overview）</strong> 中，单击 <strong>粒子生成（Particle Spawn）</strong> 组，以便在 <strong>选择（Selection）</strong> 面板中将其打开。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/SystemOverview_OpenParticleSpawn.png" title="Open Particle Spawn Group"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/SystemOverview_OpenParticleSpawn.jpg">
+		<img class="  lazyload" alt="Open Particle Spawn Group" title="Open Particle Spawn Group" width="700" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/SystemOverview_OpenParticleSpawn.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>展开 <strong>初始化粒子（Initialize Particle）</strong> 模块。单击 <strong>垃圾桶（Trashcan）</strong> 图标，以将其删除。由于有另一模块用于初始化条带，因此你无需此模块。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/ParticleSpawn_RemoveInitParticle.png" title="Remove Initialize Particle Module"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/ParticleSpawn_RemoveInitParticle.jpg">
+		<img class="  lazyload" alt="Remove Initialize Particle Module" title="Remove Initialize Particle Module" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/ParticleSpawn_RemoveInitParticle.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>由于 <strong>初始化条带（Initialize Ribbon）</strong> 将多个参数收集到一个模块中，因此它可以执行与初始化粒子类似的功能。单击 <strong>粒子生成（Particle Spawn）</strong> 的 <strong>加号</strong> 图标(<strong>+</strong>)，然后选择 <strong>初始化 > 初始化条带（Initialize > Initialize Ribbon）</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/ParticleSpawn_AddInitRibbon.png" title="Add Initialize Ribbon Module"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/ParticleSpawn_AddInitRibbon.jpg">
+		<img class="  lazyload" alt="Add Initialize Ribbon Module" title="Add Initialize Ribbon Module" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/ParticleSpawn_AddInitRibbon.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>在 <strong>点属性（Point Attributes）</strong> 下，找到 <strong>生命周期（Lifetime）</strong> 参数。此参数确定了粒子在消失之前将显示多久。将 <strong>生命周期（Lifetime）</strong> 设置为 <strong>5</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/ParticleSpawn_InitRibbonLifetime.png" title="Set Ribbon Lifetime"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/ParticleSpawn_InitRibbonLifetime.jpg">
+		<img class="  lazyload" alt="Set Ribbon Lifetime" title="Set Ribbon Lifetime" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/ParticleSpawn_InitRibbonLifetime.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>将 *质量（Mass）** 参数设置为 **10**。这会影响条带向外扩散的方式及其下降的速度。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/ParticleSpawn_InitRibbonMass.png" title="Set Mass"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/ParticleSpawn_InitRibbonMass.jpg">
+		<img class="  lazyload" alt="Set Mass" title="Set Mass" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/ParticleSpawn_InitRibbonMass.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>关于 <strong>颜色</strong> 参数，将 <strong>R</strong>（红色）值设置为 <strong>1</strong>。将其他值保留为 <strong>0</strong>。如果你愿意，也可以稍后更改颜色。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/ParticleSpawn_InitRibbonColor.png" title="Set Color"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/ParticleSpawn_InitRibbonColor.jpg">
+		<img class="  lazyload" alt="Set Color" title="Set Color" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/ParticleSpawn_InitRibbonColor.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>在 <strong>点属性（Point Attributes）</strong> 下，将 <strong>条带宽度（Ribbon Width）</strong> 设置为 <strong>10</strong>。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/ParticleSpawn_InitRibbonRibbonWidth.png" title="Set Ribbon Width"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/ParticleSpawn_InitRibbonRibbonWidth.jpg">
+		<img class="  lazyload" alt="Set Ribbon Width" title="Set Ribbon Width" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/ParticleSpawn_InitRibbonRibbonWidth.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>若要使条带以螺旋方式旋转，你可以添加 <strong>环形曲面位置（Torus Location）</strong> 模块。位置模块会影响粒子生成时所在位置的形状。单击 <strong>粒子生成（Particle Spawn）</strong> 的 <strong>加号</strong> 图标(<strong>+</strong>)，然后选择 <strong>位置 > 环形曲面位置（Location > Torus Location）</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/ParticleSpawn_AddTorusLocation.png" title="Add Torus Location Module"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/ParticleSpawn_AddTorusLocation.jpg">
+		<img class="  lazyload" alt="Add Torus Location Module" title="Add Torus Location Module" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/ParticleSpawn_AddTorusLocation.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>在 <strong>形状（Shape）</strong> 下，单击 <strong>环形曲面模式（Torus Mode）</strong> 下拉列表，并选择 <strong>环（Ring）</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/ParticleSpawn_SetTorusMode.png" title="Set Torus Mode"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/ParticleSpawn_SetTorusMode.jpg">
+		<img class="  lazyload" alt="Set Torus Mode" title="Set Torus Mode" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/ParticleSpawn_SetTorusMode.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>将 <strong>大半径（Large Radius）</strong> 设置为 <strong>50</strong>。大半径确定了主环形状的大小。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/ParticleSpawn_SetLargeRadius.png" title="Set Large Radius"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/ParticleSpawn_SetLargeRadius.jpg">
+		<img class="  lazyload" alt="Set Large Radius" title="Set Large Radius" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/ParticleSpawn_SetLargeRadius.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>在 <strong>分布（Distribution）</strong> 下，单击 <strong>环形曲面分布模式（Torus Distribution Mode）</strong> 下拉列表，并选择 <strong>直接（Direct）</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/ParticleSpawn_SetTorusDistribution.png" title="Set Distribution Mode"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/ParticleSpawn_SetTorusDistribution.jpg">
+		<img class="  lazyload" alt="Set Distribution Mode" title="Set Distribution Mode" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/ParticleSpawn_SetTorusDistribution.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p><strong>U位置（U Position）</strong> 参数将在环形形状上设置位置。展开 <strong>参数（Parameters）</strong> 面板的 <strong>发射器属性（Emitter Attributes）</strong> 部分。将 <strong>Emitter.Age</strong> 参数拖到 <strong>选择（Selection）</strong> 面板上；你将看到可使用此参数的字段周围出现绿色虚线。将 <strong>Emitter.Age</strong> 参数放在 <strong>U位置（U Position）</strong> 值上。条带现在看起来像在静态环中旋转，但你将在下一步改变这种状况！
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/ParticleSpawn_TorusLocationUPosition.png" title="Set UPosition to Emitter.Age"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/ParticleSpawn_TorusLocationUPosition.jpg">
+		<img class="  lazyload" alt="Set UPosition to Emitter.Age" title="Set UPosition to Emitter.Age" width="600" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/ParticleSpawn_TorusLocationUPosition.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>现在，你将向条带添加一些速度。单击 <strong>粒子生成（Particle Spawn）</strong> 的 <strong>加号</strong> 图标(<strong>+</strong>)，然后选择 <strong>速度 > 从点添加速度（Velocity > Add Velocity From Point）</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/ParticleSpawn_AddVelocityFromPointModule.png" title="Add the Add Velocity From Point Module"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/ParticleSpawn_AddVelocityFromPointModule.jpg">
+		<img class="  lazyload" alt="Add the Add Velocity From Point Module" title="Add the Add Velocity From Point Module" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/ParticleSpawn_AddVelocityFromPointModule.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>将 <strong>速度强度（Velocity Strength）</strong> 设置为 <strong>50</strong>。现在，你将看到条带开始呈螺旋形旋转！出现这种情况是因为位置在围绕大半径旋转，速度将条带从原来的圆环位置向外推。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/ParticleSpawn_SetVelocityStrength.png" title="Set Velocity Strength"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/ParticleSpawn_SetVelocityStrength.jpg">
+		<img class="  lazyload" alt="Set Velocity Strength" title="Set Velocity Strength" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/ParticleSpawn_SetVelocityStrength.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li></ol><h2 id="编辑粒子更新组设置">编辑粒子更新组设置</h2>
+<p>现在，你将在 <strong>粒子更新（Particle Update）</strong> 组中编辑模块。这些行为将应用于发射器的粒子并更新每一帧。
+</p><ol ><li class="Default"><p>在 <strong>系统概览（System Overview）</strong> 中，单击 <strong>粒子更新（Particle Update）</strong> 组，以在 <strong>选择（Selection）</strong> 面板中将其打开。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/SystemOverview_OpenParticleUpdate.png" title="Open Particle Update Group"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/SystemOverview_OpenParticleUpdate.jpg">
+		<img class="  lazyload" alt="打开粒子更新组" title="Open Particle Update Group" width="700" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/SystemOverview_OpenParticleUpdate.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>此效果只有一种颜色，因此无需 <strong>缩放色阶（Scale Color）</strong> 模块。单击 <strong>垃圾桶（Trashcan）</strong> 图标，以将其删除。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/ParticleUpdate_RemoveScaleColor.png" title="Remove Scale Color Module"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/ParticleUpdate_RemoveScaleColor.jpg">
+		<img class="  lazyload" alt="移除缩放色阶模块" title="Remove Scale Color Module" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/ParticleUpdate_RemoveScaleColor.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>添加 <strong>加速力（Acceleration Force）</strong> 模块。正是它在模拟重力而使螺旋条带掉落。单击 <strong>粒子更新（Particle Update）</strong> 的 <strong>加号</strong> 图标(<strong>+</strong>)，然后选择 <strong>力 > 加速力（Forces > Acceleration Force）</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/ParticleUpdate_AddAccelerationForce.png" title="Add the Acceleration Force Module"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/ParticleUpdate_AddAccelerationForce.jpg">
+		<img class="  lazyload" alt="Add the Acceleration Force Module" title="Add the Acceleration Force Module" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/ParticleUpdate_AddAccelerationForce.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>由于Niagara将新模块添加到组堆栈底部，因此你会收到一条显示"模块有未满足的依赖关系（The module has unmet dependencies）"的错误消息。这是因为 <strong>加速力（Acceleration Force）</strong> 模块放置在 <strong>解算力和速度（Solve Forces and Velocity）</strong> 模块之后。单击 <strong>解决问题（Fix Issue）</strong> 以重新定位模块并解决错误。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/ParticleUpdate_AccelerationForceFixIssue.png" title="Resolve Position Error"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/ParticleUpdate_AccelerationForceFixIssue.jpg">
+		<img class="  lazyload" alt="Resolve Position Error" title="Resolve Position Error" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/ParticleUpdate_AccelerationForceFixIssue.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>将 <strong>加速（Acceleration）</strong> 的 <strong>Z</strong> 值设为 <strong>-200</strong>。正Z值会使条带螺旋上升；负Z值会使条带以抛物线形状下降。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/ParticleUpdate_SetAcceleration.png" title="Set Acceleration"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/ParticleUpdate_SetAcceleration.jpg">
+		<img class="  lazyload" alt="Set Acceleration" title="Set Acceleration" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/ParticleUpdate_SetAcceleration.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li></ol><h2 id="最终结果">最终结果</h2>
+<p>祝贺你！你已经在Niagara中创建了条带效果。在下方视频中，你可以看到左侧使用 <strong>DefaultRibbonMaterial</strong> 实现了条带效果，而在右侧看到使用 <strong>M_Balloon</strong> 纹理实现的相同条带效果。
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_1_rog2zvhy_16
+{
+	margin: 0px;
+	width: 640px;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_1_rog2zvhy_16:after
+{
+	content: "";
+	padding-top: 360px;
+	display: block;
+}
+</style> 
+<div id="player_1_rog2zvhy_16"> 
+	<div id="playerContainer_1_rog2zvhy_16" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/1_rog2zvhy/embed.html"></iframe>
+	</div>
+</div>
+
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Niagara">Niagara</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Vfx">Vfx</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Effects">Effects</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Visual%20Effects">Visual Effects</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Particle%20Effects">Particle Effects</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/RenderingAndGraphics/Niagara/HowTo/RibbonEffect/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:03:25 GMT -->
+</html>

@@ -1,0 +1,492 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/AnimatingObjects/Sequencer/HowTo/GameplayAnimBlending/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:31:18 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var finishButton = finishButtonTemplate;
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/AnimatingObjects/Sequencer/HowTo/GameplayAnimBlending/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>混合Gameplay和Sequencer动画 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+		    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+		    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/AnimatingObjects/Sequencer/HowTo/GameplayAnimBlending/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/AnimatingObjects/Sequencer/HowTo/GameplayAnimBlending/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/AnimatingObjects/Sequencer/HowTo/GameplayAnimBlending/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/AnimatingObjects/Sequencer/HowTo/GameplayAnimBlending/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Sequencer/HowTo/GameplayAnimBlending" />
+<meta name="intsourcechangelist" content="15018255" />
+<meta name="availability" content="Public" />
+<meta name="title" content="混合Gameplay和Sequencer动画" />
+<meta name="description" content="说明如何将游戏进程中的动画平滑地混合到基于关卡序列的动画中。" />
+<meta name="type" content="how-to" />
+<meta name="version" content="4.25" />
+<meta name="parent" content="AnimatingObjects/Sequencer/HowTo" />
+<meta name="keywords" content="Sequencer" />
+<meta name="keywords" content="Animation" />
+<meta name="skilllevel" content="Advanced" />
+<meta name="related" content="AnimatingObjects/Sequencer/Overview" />
+<meta name="crumbs" content="%ROOT%,AnimatingObjects,AnimatingObjects/Sequencer,AnimatingObjects/Sequencer/HowTo" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="混合Gameplay和Sequencer动画" />
+	<meta property="og:description" content="说明如何将游戏进程中的动画平滑地混合到基于关卡序列的动画中。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">为角色和对象添加动画</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">Sequencer 编辑器</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">Sequencer - 操作指南</a>
+
+<span class="separator">></span> <span id="page">混合Gameplay和Sequencer动画</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">混合Gameplay和Sequencer动画</h1>
+							</div>	
+							<h2 >说明如何将游戏进程中的动画平滑地混合到基于关卡序列的动画中。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Advanced"><a id="skill_link" href="../../../../SiteIndex/index.html?skills=Advanced">Advanced</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																														<div id="seeAlso">
+	<div style="position:relative;">
+		<div id="title">参见</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<p>
+						<a id="related_link" href="../../Overview/index.html" title="Sequencer是虚幻引擎4的多轨迹编辑器，用于实时创建和预览过场动画序列。">Sequencer概述</a>
+					</p>
+				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																														<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#1-序列设置">1 - 序列设置</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#2-动画和角色蓝图设置">2 - 动画和角色蓝图设置</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#3-使用过场动画公开变量">3 - 使用过场动画公开变量</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#4-触发序列播放和混合">4 - 触发序列播放和混合</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>在创建过场动画序列时，你可能希望将现有的游戏进程动画与包含在关卡序列中的动画混合在一起。例如，一个可操作的角色在游戏过程中走到一扇门前，你想要Sequencer显示该角色的动画并打开这扇门。或者玩家在第三人称射击游戏中控制他们的角色绕过一个死角，而你想要混入一个死亡的过场动画序列。通过使用Sequencer、蓝图和动画蓝图的组合，你可以将你的角色所处的任何游戏姿势与Sequencer定义的 <strong>插槽（Slot）</strong> 动画混合在一起。
+</p><p>在本例中，我们获取角色在进入触发体积时所处的任何游戏姿势，并将其与Sequencer中的死亡动画混合在一起。
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_0_nzg60ps5_2
+{
+	margin: 0px;
+	width: 100%;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_0_nzg60ps5_2:after
+{
+	content: "";
+	padding-top: 56.25%;
+	display: block;
+}
+</style> 
+<div id="player_0_nzg60ps5_2"> 
+	<div id="playerContainer_0_nzg60ps5_2" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/0_nzg60ps5/embed.html"></iframe>
+	</div>
+</div>
+<h2 id="1-序列设置">1 - 序列设置</h2>
+<p>在这一步中，我们设置关卡序列，并添加我们想要混合的可操作角色和动画。
+</p><div class="note">
+	<p>本教程指南中使用的是 <strong>蓝图第三人称模板（Blueprint Third Person Template）</strong> 和可从Epic市场免费获得的 <strong>动画初学者包（Animation Starter Pack）</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/GameplayAnimBlending/AnimStarterPack.jpg">
+		<img class="  lazyload" alt="AnimStarterPack.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/GameplayAnimBlending/AnimStarterPack.jpg" />
+</picture>
+</p>
+</div><ol ><li class="Default"><p>在你的项目中，从关卡中删除 <strong>第三人称角色（ThirdPersonCharacter）</strong> 并添加 <strong>Ue4ASP_Character</strong>，将 <strong>自动拥有玩家（Auto Possess Player）</strong> 设置为 <strong>玩家0（Player 0）</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/GameplayAnimBlending/GameBlend_01.jpg">
+		<img class="  lazyload" alt="GameBlend_01.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/GameplayAnimBlending/GameBlend_01.jpg" />
+</picture>
+
+</p><p>你可以选择禁止显示胶囊体组件，方法是选择该胶囊体组件，然后勾选 <strong>游戏中隐藏（Hidden in Game）</strong> 选项。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/GameplayAnimBlending/GameBlend_01b.jpg">
+		<img class="  lazyload" alt="GameBlend_01b.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/GameplayAnimBlending/GameBlend_01b.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在主工具栏中，单击 <strong>过场动画（Cinematics）</strong> 按钮，然后选择 <strong>添加关卡序列（Add Level Sequence）</strong> 并使用任意名称保存它。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/GameplayAnimBlending/GameBlend_02.jpg">
+		<img class="  lazyload" alt="GameBlend_02.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/GameplayAnimBlending/GameBlend_02.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在你的关卡序列中，添加 <strong>Ue4ASP_Character</strong> 和一个 <strong>动画轨迹（Animation Track）</strong>，并将 <strong>Death_3</strong> 指定为该动画。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/GameplayAnimBlending/GameBlend_03.jpg">
+		<img class="  lazyload" alt="GameBlend_03.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/GameplayAnimBlending/GameBlend_03.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>右键单击关键帧窗口中的动画，然后在属性下，将 <strong>完成时（When Finished）</strong> 更改为 <strong>保持状态（Keep State）</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/GameplayAnimBlending/GameBlend_03b.jpg">
+		<img class="  lazyload" alt="GameBlend_03b.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/GameplayAnimBlending/GameBlend_03b.jpg" />
+</picture>
+
+</p><p>这将使我们能够在关卡序列结束时保存动画状态。另外，请注意下面突出显示的 <strong>插槽名称（Slot Name）</strong> 属性。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/GameplayAnimBlending/GameBlend_03c.jpg">
+		<img class="  lazyload" alt="GameBlend_03c.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/GameplayAnimBlending/GameBlend_03c.jpg" />
+</picture>
+
+</p><p>当动画蓝图控制一个骨架网格体时，Sequencer在该蓝图中的插槽上播放动画，并可通过 <strong>插槽名称（Slot Name）</strong> 属性进行控制。然后动画蓝图可以混合插槽动画和任何游戏逻辑驱动的动画（你的角色恰好在该动画中）。
+</p></li></ol><p>在下一步中，我们设置动画蓝图和角色蓝图，以便我们可以将游戏进程动画混合到我们在这一步中创建的死亡动画中。
+</p><h2 id="2-动画和角色蓝图设置">2 - 动画和角色蓝图设置</h2>
+<p>在这一步中，我们将设置动画蓝图，以便能够获取我们的游戏进程姿势，并混合到我们的关卡序列所定义的某个插槽动画中。
+</p><ol ><li class="Default"><p>在 <strong>内容浏览器（Content Browser）</strong> 中，找到并打开 <strong>UE4ASP_HeroTPP_AnimBlueprint</strong>，然后双击 <strong>我的蓝图（My Blueprint）</strong> 窗口中的 <strong>动画图表（AnimGraph）</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/GameplayAnimBlending/GameBlend_04.jpg">
+		<img class="  lazyload" alt="GameBlend_04.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/GameplayAnimBlending/GameBlend_04.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在现有 <strong>Locomotion</strong> 状态机的 <strong>动画图表（AnimGraph）</strong> 中，创建一个 <strong>新保存的缓存姿势（New Save cached pose）</strong> 并称其为 <strong>lococache</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/GameplayAnimBlending/GameBlend_05.jpg">
+		<img class="  lazyload" alt="GameBlend_05.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/GameplayAnimBlending/GameBlend_05.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>使用 <strong>lococache</strong> 两次，并将其中一个连接到提供 <strong>最终动画姿势（Final Animation Pose）</strong> 的 <strong>Blend</strong> 节点的 <strong>A</strong> 引脚。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/GameplayAnimBlending/GameBlend_06.jpg">
+		<img class="  lazyload" alt="GameBlend_06.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/GameplayAnimBlending/GameBlend_06.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>离开另一个 <strong>lococache</strong>，使用一个 <strong>Slot</strong> 节点并将其连接到该 <strong>Blend</strong> 节点的 <strong>B</strong> 引脚，然后右键单击 <strong>Alpha</strong> 和 <strong>提升到变量（Promote to Variable）</strong>，并称其为 <strong>Blend Interp</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/GameplayAnimBlending/GameBlend_07.jpg">
+		<img class="  lazyload" alt="GameBlend_07.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/GameplayAnimBlending/GameBlend_07.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>内容浏览器（Content Browser）</strong> 中，打开 <strong>Ue4ASP_Character</strong> 蓝图并将 <strong>蹲伏（Crouching）</strong> 部分替换为以下图表。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/GameplayAnimBlending/GameBlend_08.jpg">
+		<img class="  lazyload" alt="GameBlend_08.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/GameplayAnimBlending/GameBlend_08.jpg" />
+</picture>
+
+</p><p>上文中，我们将 <strong>InputAction Crouch</strong> 节点替换为 <strong>C</strong> 键盘事件和一个 <strong>Flip Flop</strong> 节点，以切换蹲伏状态。
+</p><div class="note">
+	<p>该蓝图最初是为另一个项目创建的，其中包含蹲伏的输入绑定，而我们的模板项目不包含该输入绑定。通过将InputAction Crouch替换为标准的C键盘事件，我们将消除蓝图警告消息，并使我们能够按下C键以在蹲伏和非蹲伏状态之间切换。</p>
+</div></li><li class="Default"><p>创建一个名为 <strong>DefaultSlotInterp</strong> 的新 <strong>Float</strong> 变量，并将 <strong>可编辑实例（Instance Editable）</strong> 和 <strong>向过场动画公开（Expose to Cinematics）</strong> 设置为 <strong>True</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/GameplayAnimBlending/GameBlend_09.jpg">
+		<img class="  lazyload" alt="GameBlend_09.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/GameplayAnimBlending/GameBlend_09.jpg" />
+</picture>
+
+</p><p>我们将在Sequencer中使用该变量进行混合，并将值传递给用于处理实际混合的动画蓝图变量 <strong>Blend Interp</strong>。
+</p></li><li class="Default"><p>在 <strong>细节（Details）</strong> 面板中创建一个名为 <strong>SetDefaultSlotInterp</strong> 的新函数，并添加一个名为 <strong>Interp</strong>，类型为 <strong>浮点（Float）</strong> 的 <strong>输入（Input）</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/GameplayAnimBlending/GameBlend_10.jpg">
+		<img class="  lazyload" alt="GameBlend_10.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/GameplayAnimBlending/GameBlend_10.jpg" />
+</picture>
+
+</p><p>通过创建一个名为 <strong>Set (Property Value Name)</strong> 的函数，我们创建了一个 <strong>Proxy</strong> 函数，当相关属性值发生更改时，Sequencer将调用该函数。该函数仅在属性值发生更改时才调用，并且比使用 <strong>时钟事件（Even Tick）</strong> 或某个 <strong>自定义事件（Custom Event）</strong> 和 <strong>时间轴（Timeline）</strong> 更能有效地反映 <strong>DefaultSlotInterp</strong> 属性值中的变化。
+</p></li><li class="Default"><p>从 <strong>组件（Components）</strong> 窗口中，拖入 <strong>网格体（Mesh）</strong> 并使用 <strong>获取动画实例（Get Anim Instance）</strong> 和 <strong>转换为UE4ASP_HeroTPP_AnimBlueprint（Cast to UE4ASP_HeroTPP_AnimBlueprint）</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/GameplayAnimBlending/GameBlend_11.jpg">
+		<img class="  lazyload" alt="GameBlend_11.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/GameplayAnimBlending/GameBlend_11.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>离开 <strong>As UE4ASP Hero TPP Anim Blueprint</strong> 节点，使用 <strong>Set Blend Interp</strong> 节点并将 <strong>Interp</strong> 值传递到 <strong>Blend Interp</strong> 输入。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/GameplayAnimBlending/GameBlend_12.jpg">
+		<img class="  lazyload" alt="GameBlend_12.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/GameplayAnimBlending/GameBlend_12.jpg" />
+</picture>
+
+</p><p>当我们的 <strong>DefaultSlotInterp</strong> 值通过Sequencer进行更改时，将调用 <strong>SetDefaultSlotInterp</strong> 代理函数，并将浮点值传递给动画蓝图的 <strong>Blend Interp</strong> 值，该值将影响姿势的混合。
+</p></li></ol><p>在下一步中，我们将添加 <strong>默认插槽插值（Default Slot Interp）</strong> 属性到我们的关卡序列中，以便我们能够控制动画蓝图中的 <strong>混合插值（Blend Interp）</strong>。我们还将在关卡中添加一个触发框，这样我们就可以激活关卡序列并在玩家进入触发框体积时播放它。
+</p><h2 id="3-使用过场动画公开变量">3 - 使用过场动画公开变量</h2>
+<p>这里我们添加浮点型变量 <strong>Default Slot Interp</strong>，它在动画蓝图中提供插值，确定何时将游戏进程姿势与插槽动画混合。我们还向关卡添加了一个触发框，该触发框仅在下一个步骤中使用，以允许玩家在进入关卡序列体积时触发该关卡序列的播放。
+</p><ol ><li class="Default"><p>在 <strong>Ue4ASP_Character</strong> 的关卡序列中，单击 <strong>追踪（Track）</strong> 按钮并分配新的 <strong>默认插槽插值（Default Slot Interp）</strong> 属性。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/GameplayAnimBlending/GameBlend_13.jpg">
+		<img class="  lazyload" alt="GameBlend_13.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/GameplayAnimBlending/GameBlend_13.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>将时间轴向前拉动到帧 <strong>25</strong>（或你喜欢的任何帧），并为 <strong>默认插槽插值（Default Slot Interp）</strong> 添加一个值为 <strong>1.0</strong> 的键。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/GameplayAnimBlending/GameBlend_14.jpg">
+		<img class="  lazyload" alt="GameBlend_14.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/GameplayAnimBlending/GameBlend_14.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在主关卡编辑器的 <strong>放置Actor（Place Actors）</strong> 面板中，将一个 <strong>触发框（Triggerbox）</strong> 拖动到关卡中，并根据需要调整其大小和位置。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/GameplayAnimBlending/GameBlend_15.jpg">
+		<img class="  lazyload" alt="GameBlend_15.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/GameplayAnimBlending/GameBlend_15.jpg" />
+</picture>
+
+</p><p>如果你要在播放过程中看到触发体积，你可以选择将 <strong>隐藏在游戏中的Actor（Actor Hidden In Game）</strong> 设置为false。
+</p></li></ol><p>在本指南的下一个也是最后一个步骤中，我们设置关卡蓝图，以便在进入触发框体积时播放关卡序列。
+</p><h2 id="4-触发序列播放和混合">4 - 触发序列播放和混合</h2>
+<p>在测试设置之前的最后一步中，当玩家进入触发框时，我们使用关卡蓝图来激活关卡序列。当序列开始时，公开给过场动画的属性 <strong>DefaultSlotInterp</strong> 被更改，从而启动更新插值的过程。这会告知我们的动画蓝图开始从游戏进程动画混合到插槽动画。
+</p><ol ><li class="Default"><p>选中 <strong>触发框（Triggerbox）</strong> 后，从主工具栏中单击 <strong>蓝图（Blueprint）</strong> 按钮，然后单击 <strong>打开关卡蓝图（Open Level Blueprint）</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/GameplayAnimBlending/GameBlend_16.jpg">
+		<img class="  lazyload" alt="GameBlend_16.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/GameplayAnimBlending/GameBlend_16.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在图表中右键单击，然后在触发框的 <strong>碰撞（Collision）</strong> 下，选择 <strong>在Actor开始重叠时添加（Add On Actor Begin Overlap）</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/GameplayAnimBlending/GameBlend_17.jpg">
+		<img class="  lazyload" alt="GameBlend_17.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/GameplayAnimBlending/GameBlend_17.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>返回关卡视口并选择你的关卡序列，然后在 <strong>关卡蓝图（Level Blueprint）</strong> 中右键单击并向你的关卡序列添加一个引用。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/GameplayAnimBlending/GameBlend_18.jpg">
+		<img class="  lazyload" alt="GameBlend_18.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/GameplayAnimBlending/GameBlend_18.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>离开你的关卡序列，使用 <strong>获取序列玩家（Get Sequence Player）</strong>，然后离开它，使用 <strong>Play</strong> 节点，并连接如下。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/GameplayAnimBlending/GameBlend_19.jpg">
+		<img class="  lazyload" alt="GameBlend_19.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/GameplayAnimBlending/GameBlend_19.jpg" />
+</picture>
+
+</p></li><li class="Default"><p><strong>编译（Compile）</strong> 并 <strong>保存（Save）</strong>，然后单击 <strong>运行（Play）</strong> 以在编辑器中运行。
+</p></li></ol><h3 id="最终结果">最终结果</h3>
+<p>当我们的角色进入触发体积时，无论它们当前的动画状态如何，我们都开始将游戏进程姿势混合到由Sequencer定义的死亡姿势中。
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_0_wmcrvms1_46
+{
+	margin: 0px;
+	width: 640px;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_0_wmcrvms1_46:after
+{
+	content: "";
+	padding-top: 360px;
+	display: block;
+}
+</style> 
+<div id="player_0_wmcrvms1_46"> 
+	<div id="playerContainer_0_wmcrvms1_46" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/0_wmcrvms1/embed.html"></iframe>
+	</div>
+</div>
+<p>我们可以通过向我们的序列添加一个摄像机以更进一步，并通过更改死亡动画在序列中的起始点位置来改善混合。
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_0_nzg60ps5_67
+{
+	margin: 0px;
+	width: 640px;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_0_nzg60ps5_67:after
+{
+	content: "";
+	padding-top: 360px;
+	display: block;
+}
+</style> 
+<div id="player_0_nzg60ps5_67"> 
+	<div id="playerContainer_0_nzg60ps5_67" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/0_nzg60ps5/embed.html"></iframe>
+	</div>
+</div>
+<p>在上例中，玩家可以行走、奔跑、蹲着走或者跳到触发器中，每一种情况下，他们都会在进入触发体积时混合到死亡动画中。
+</p>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Sequencer">Sequencer</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Animation">Animation</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/AnimatingObjects/Sequencer/HowTo/GameplayAnimBlending/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:31:27 GMT -->
+</html>

@@ -1,0 +1,816 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/RenderingAndGraphics/Niagara/HowTo/MeshEffect/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:02:15 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/Mesh_Hero.png";
+				var finishButton = finishButtonTemplate;
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/RenderingAndGraphics/Niagara/HowTo/MeshEffect/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>在Niagara中创建网格体粒子效果 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+		    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+		    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/RenderingAndGraphics/Niagara/HowTo/MeshEffect/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/RenderingAndGraphics/Niagara/HowTo/MeshEffect/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/RenderingAndGraphics/Niagara/HowTo/MeshEffect/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/RenderingAndGraphics/Niagara/HowTo/MeshEffect/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Niagara/HowTo/MeshEffect" />
+<meta name="intsourcechangelist" content="15716074" />
+<meta name="availability" content="Public" />
+<meta name="title" content="在Niagara中创建网格体粒子效果" />
+<meta name="description" content="本文档介绍如何利用Niagara在粒子效果中使用静态网格体。" />
+<meta name="type" content="how-to" />
+<meta name="skilllevel" content="Beginner" />
+<meta name="version" content="4.26" />
+<meta name="parent" content="RenderingAndGraphics/Niagara/HowTo" />
+<meta name="order" content="4" />
+<meta name="keywords" content="Niagara" />
+<meta name="keywords" content="Vfx" />
+<meta name="keywords" content="Effects" />
+<meta name="keywords" content="Visual Effects" />
+<meta name="keywords" content="Particle Effects" />
+<meta name="prereq" content="RenderingAndGraphics/Niagara/HowTo/EnableNiagara" />
+<meta name="hero-image" content="Mesh_Hero.png" />
+<meta name="topic-image" content="Mesh_Topic.png" />
+<meta name="crumbs" content="%ROOT%,RenderingAndGraphics,RenderingAndGraphics/Niagara,RenderingAndGraphics/Niagara/HowTo" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="在Niagara中创建网格体粒子效果" />
+	<meta property="og:description" content="本文档介绍如何利用Niagara在粒子效果中使用静态网格体。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">设计视觉、渲染和图形效果</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">Niagara视觉效果</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">Niagara - 使用指南</a>
+
+<span class="separator">></span> <span id="page">在Niagara中创建网格体粒子效果</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  background">
+						<div class="imgContainer"><img src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/Mesh_Hero.png" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">在Niagara中创建网格体粒子效果</h1>
+							</div>	
+							<h2 >本文档介绍如何利用Niagara在粒子效果中使用静态网格体。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Beginner"><a id="skill_link" href="../../../../SiteIndex/index.html?skills=Beginner">Beginner</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																																										<div class="prereq">
+    <div class="normaltitle">
+        前置主题
+    </div>
+    <p style="margin-bottom:8px;">
+        为了理解并使用本文中的内容，请确保您已掌握以下主题：
+    </p>
+    <ul style="margin-bottom:0.5em;">
+                <li>
+            <p>
+                <a href="../EnableNiagara/index.html" title="描述如何启动Niagara。">启用Niagara插件</a>
+            </p>
+        </li>
+            </ul>
+</div>
+																		<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#创建材质">创建材质</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#创建系统和发射器">创建系统和发射器</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#更改渲染器">更改渲染器</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#编辑发射器更新组设置">编辑发射器更新组设置</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#编辑粒子生成组设置">编辑粒子生成组设置</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#编辑粒子更新组设置">编辑粒子更新组设置</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#最终结果">最终结果</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>如果生成静态网格体替代<a id="content_link"filter-data="tag_niagara tag_vfx tag_effects tag_visual_effects tag_particle_effects" href="../SpriteEffect/index.html" ><span>朝向镜头的Sprite</span></a>，便能能为创建的效果增加真实感。在以下操作指南中，我们将展示如何设置Niagara发射器，进而生成静态网格体来取代Sprite。
+</p><div class="note">
+	<p><strong>操作前提：</strong> 本操作指南使用 <strong>Shape_Sphere</strong> 静态网格体，它包含在 <strong>初学者内容包</strong> 中。如尚未将该静态网格体或初学者内容包添加到项目，请务必进行添加。</p>
+</div><h2 id="创建材质">创建材质</h2>
+<p>本指南中的效果应当起来像一大片释放的气球。为了增强此效果，你将制作使网格体看起来像橡胶气球的简单材质。
+</p><ol ><li class="Default"><p>在 <strong>内容浏览器（Content Browser）</strong> 中右键点击，在"创建基本资产（Create Basic Asset）"中选择 <strong>材质（Material）</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/CreateMaterial_CreateNewMaterial.png" title="Create New Material"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/CreateMaterial_CreateNewMaterial.jpg">
+		<img class="  lazyload" alt="创建新材质" title="Create New Material" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/CreateMaterial_CreateNewMaterial.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>将新材质命名为 <strong>M_Balloon</strong>。双击它以在材质编辑器中打开。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/CreateMaterial_NameMaterial.png" title="命名材质"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/CreateMaterial_NameMaterial.jpg">
+		<img class="  lazyload" alt="命名材质" title="命名材质" width="100" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/CreateMaterial_NameMaterial.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>在 <strong>控制板（Palette）</strong> 面板中，向搜索栏中键入 <code>Particle</code>。选择 <strong>粒子颜色（Particle Color）</strong>，将粒子颜色节点添加到图表。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/CreateMaterial_AddParticleColor.png" title="Add Particle Color Node"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/CreateMaterial_AddParticleColor.jpg">
+		<img class="  lazyload" alt="添加粒子颜色节点" title="Add Particle Color Node" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/CreateMaterial_AddParticleColor.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>拖移 <strong>RGB输出（RGB output）</strong>，并将接线连接到 <strong>材质（Material）</strong> 节点上的 <strong>底色（Base Color）</strong> 输入。
+</p></li><li class="Default"><p>按住 <strong>1</strong> 键的同时，在图表中单击。这样将创建 <strong>常量（Constant）</strong> 节点。将其复制并粘贴两次，以获得总共 <strong>三个常量节点（three Constant nodes）</strong>。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/CreateMaterial_AddConstantNode.png" title="Add Constant Nodes"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/CreateMaterial_AddConstantNode.jpg">
+		<img class="  lazyload" alt="添加常量节点" title="Add Constant Nodes" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/CreateMaterial_AddConstantNode.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>将一个 <strong>常量（Constant）</strong> 节点上的输出连接到 <strong>材质（Material）</strong> 节点上的 <strong>金属感（Metallic）</strong> 输入。
+</p></li><li class="Default"><p>你可以可在 <strong>材质表达式常量（Material Expression Constant）</strong> 下的 <strong>细节（Details）</strong> 面板中设置所选常量的 <strong>值（Value）</strong>。这种材质不具金属感，因此将 <strong> 金属感（Metallic）</strong> 常量的值保留为 <strong>0</strong>。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/CreateMaterial_SetMetallicConstant.png" title="Set Metallic Constant"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/CreateMaterial_SetMetallicConstant.jpg">
+		<img class="  lazyload" alt="设置金属常量" title="Set Metallic Constant" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/CreateMaterial_SetMetallicConstant.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>将第二个 <strong>常量（Constant）</strong> 节点上的输出连接到 <strong>材质（Material）</strong> 节点上的 <strong>高光度（Specular）</strong> 输入。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/CreateMaterial_ConnectSpecularNode.png" title="Connect Specular Node"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/CreateMaterial_ConnectSpecularNode.jpg">
+		<img class="  lazyload" alt="连接高光节点" title="Connect Specular Node" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/CreateMaterial_ConnectSpecularNode.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>选择 <strong>高光度（Specular）</strong> 常量节点后，将 <strong>细节（Details）</strong> 面板中的高光度 <strong>值（Value）</strong> 设置为 <strong>0.7</strong>。这将使该材质具有轻微反光的表面。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/CreateMaterial_SetSpecularConstant.png" title="Set Specular Constant"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/CreateMaterial_SetSpecularConstant.jpg">
+		<img class="  lazyload" alt="设置高光常量" title="Set Specular Constant" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/CreateMaterial_SetSpecularConstant.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>将第三个 <strong>常量（Constant）</strong> 节点上的输出连接到 <strong>材质（Material）</strong> 节点上的 <strong>粗糙度（Roughness）</strong> 输入。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/CreateMaterial_ConnectRoughnessNode.png" title="Connect Roughness Node"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/CreateMaterial_ConnectRoughnessNode.jpg">
+		<img class="  lazyload" alt="连接粗糙度节点" title="Connect Roughness Node" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/CreateMaterial_ConnectRoughnessNode.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>选择 <strong>粗糙度（Roughness）</strong> 常量节点后，将 <strong>细节（Details）</strong> 面板中的粗糙度 <strong>值（Value）</strong> 设置为 <strong>0.2</strong>。这将创建几乎光滑的表面。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/CreateMaterial_SetRoughnessConstant.png" title="Set Roughness Constant"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/CreateMaterial_SetRoughnessConstant.jpg">
+		<img class="  lazyload" alt="设置粗糙度常量" title="Set Roughness Constant" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/CreateMaterial_SetRoughnessConstant.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li></ol><p>材质的最终结果应如下图所示。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/CreateMaterial_FinalResult.jpg">
+		<img class="  lazyload" alt="材质最终结果" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/CreateMaterial_FinalResult.jpg" />
+</picture>
+
+</p><h2 id="创建系统和发射器">创建系统和发射器</h2>
+<p>Niagara发射器和系统是独立的。当前推荐工作流将从现有发射器或发射器模板创建系统。
+</p><ol ><li class="Default"><p>首先，在内容浏览器中点击右键，并选择 <strong>FX > Niagara系统（FX > Niagara System）</strong>，以创建Niagara系统。将显示Niagara发射器（Niagara Emitter）向导。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/CreateSystem_NewMenuSelections.png" title="Create System Menu"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/CreateSystem_NewMenuSelections.jpg">
+		<img class="  lazyload" alt="创建系统菜单" title="Create System Menu" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/CreateSystem_NewMenuSelections.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>选择 <strong>从所选发射器新建系统（New system from selected emitters）</strong>。然后单击 <strong>下一步（Next）</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/CreateSystem_SystemWizard.png" title="Niagara System Wizard"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/CreateSystem_SystemWizard.jpg">
+		<img class="  lazyload" alt="Niagara系统向导" title="Niagara System Wizard" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/CreateSystem_SystemWizard.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>在 <strong>模板（Templates）</strong> 中，选择 <strong>喷泉（Fountain）</strong>。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/CreateSystem_SelectFountainTemplate.png" title="Select Fountain Template"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/CreateSystem_SelectFountainTemplate.jpg">
+		<img class="  lazyload" alt="选择喷泉模板" title="Select Fountain Template" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/CreateSystem_SelectFountainTemplate.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>单击 <strong>加号（Plus sign）</strong>（<strong>+</strong>）图标，以将发射器添加到要添加到系统的发射器列表中。然后单击 <strong>完成（Finish）</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/CreateSystem_AddEmitterAndFinish.png" title="Add Emitter and Finish"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/CreateSystem_AddEmitterAndFinish.jpg">
+		<img class="  lazyload" alt="添加发射器并收尾" title="Add Emitter and Finish" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/CreateSystem_AddEmitterAndFinish.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>将新系统命名为 <strong>MeshSystem</strong>。双击以在Niagara编辑器中将其打开。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/CreateSystem_NameSystem.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/CreateSystem_NameSystem.jpg">
+		<img class="  lazyload" alt="命名系统" width="200" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/CreateSystem_NameSystem.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>新系统中发射器实例的默认名称为 <strong>喷泉（Fountain）</strong>，但你可以对其重命名。在 <strong>系统概览（System Overview）</strong> 中单击发射器实例名称，该字段将转变为可编辑状态。将发射器命名为 <strong>FX_Mesh</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/CreateSystem_RenameEmitter.png" title="Rename Emitter"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/CreateSystem_RenameEmitter.jpg">
+		<img class="  lazyload" alt="重新命名发射器" title="Rename Emitter" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/CreateSystem_RenameEmitter.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>将 <strong>MeshSystem</strong> 拖到关卡中。
+</p></li></ol><div class="note">
+	<p>制作粒子效果时，最好将系统拖到关卡中。这样便可查看每一项更改并在上下文中进行编辑。你对系统所做的任何更改都将自动传播到关卡中的系统实例。</p>
+</div><h2 id="更改渲染器">更改渲染器</h2>
+<p>虽然渲染组是堆栈中的最后一项，但你需要更改部分内容，以便效果按照预期方式显示。此本例中，模板包含Sprite渲染器，其此效果需要网格体渲染器。
+</p><ol ><li class="Default"><p>在 <strong>系统概览（System Overview）</strong> 中，单击 <strong>渲染（Render）</strong>，以在 <strong>选择（Selection）</strong> 面板中将其打开。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/SystemOverview_OpenRender.png" title="Open Render Group"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/SystemOverview_OpenRender.jpg">
+		<img class="  lazyload" alt="打开渲染组" title="Open Render Group" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/SystemOverview_OpenRender.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>若要制作网格体粒子效果，你需要 <strong>网格体渲染器（Mesh Renderer）</strong> 模块，但该模板提供的是 <strong>Sprite渲染器（Sprite Renderer）</strong> 模块。单击 <strong>垃圾桶（Trashcan）</strong> 图标，以删除Sprite渲染器。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/ChangeRenderer_RemoveSpriteRenderer.png" title="Remove Sprite Renderer"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/ChangeRenderer_RemoveSpriteRenderer.jpg">
+		<img class="  lazyload" alt="删除Sprite渲染器" title="Remove Sprite Renderer" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/ChangeRenderer_RemoveSpriteRenderer.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>单击渲染器的 <strong>加号（Plus sign）</strong>（<strong>+</strong>）图标，然后选择 <strong>网格体渲染器（Mesh Renderer）</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/ChangeRenderer_AddMeshRenderer.png" title="Add Mesh Renderer"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/ChangeRenderer_AddMeshRenderer.jpg">
+		<img class="  lazyload" alt="添加网格体渲染器" title="Add Mesh Renderer" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/ChangeRenderer_AddMeshRenderer.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>单击 <strong>粒子网格体（Particle Mesh）</strong> 的下拉菜单，然后选择 <strong>Shape_Sphere</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/ChangeRenderer_SelectMesh.png" title="Select Mesh Shape"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/ChangeRenderer_SelectMesh.jpg">
+		<img class="  lazyload" alt="选择网格体形状" title="Select Mesh Shape" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/ChangeRenderer_SelectMesh.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>此效果中使用的球体形状已应用默认材质。启用覆盖材质后，你可以改为使用你先前创建的自定义材质。单击以启用 <strong>覆盖材质（Override Materials）</strong>，然后单击 <strong>加号</strong>（<strong>+</strong>）图标以将元素添加到数组。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/ChangeRenderer_EnableOverrideMaterials.png" title="Enable Override Materials"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/ChangeRenderer_EnableOverrideMaterials.jpg">
+		<img class="  lazyload" alt="启用覆盖材质" title="Enable Override Materials" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/ChangeRenderer_EnableOverrideMaterials.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>单击 <strong>显式材质（Explicit Mat）</strong> 的下拉菜单，然后选择 <strong>M_Balloon</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/ChangeRenderer_SelectMaterial.png" title="Select Balloon Material"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/ChangeRenderer_SelectMaterial.jpg">
+		<img class="  lazyload" alt="选择气球材质" title="Select Balloon Material" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/ChangeRenderer_SelectMaterial.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li></ol><h2 id="编辑发射器更新组设置">编辑发射器更新组设置</h2>
+<p>首先，你将在 <strong>发射器更新</strong> 组中编辑模块。这些是将应用于发射器并更新每一帧的行为。
+</p><ol ><li class="Default"><p>在 <strong>系统概览（System Overview）</strong> 中，单击 <strong>发射器更新（Emitter Update）</strong> 组，以在 <strong>选择（Selection）</strong> 面板中将其打开。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/SystemOverview_OpenEmitterUpdate.png" title="Open Emitter Update"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/SystemOverview_OpenEmitterUpdate.jpg">
+		<img class="  lazyload" alt="打开发射器更新" title="Open Emitter Update" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/SystemOverview_OpenEmitterUpdate.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>展开 <strong>发射器状态（Emitter State）</strong> 模块。由于你使用了喷泉模板，因此生命周期模式设置为 <strong>自身（Self）</strong>。单击下拉列表，并将 <strong>生命周期模式（Life Cycle Mode）</strong> 设置为 <strong>系统（System）</strong>。此操作将使系统能够计算生命周期设置，而这通常可以优化性能。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/EmitterUpdate_SetLifeCycleMode.png" title="设置生命周期模式"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/EmitterUpdate_SetLifeCycleMode.jpg">
+		<img class="  lazyload" alt="设置生命周期模式" title="设置生命周期模式" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/EmitterUpdate_SetLifeCycleMode.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>当发射器处于活动状态时，<strong>生成速率（Spawn Rate）</strong> 模块创建连续粒子流。此模块已经存在于喷泉模板中。将 <strong>生成速率（Spawn Rate）</strong> 设置为 <strong>100</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/EmitterUpdate_SetSpawnRate.png" title="Set Spawn Rate"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/EmitterUpdate_SetSpawnRate.jpg">
+		<img class="  lazyload" alt="设置生成速率" title="Set Spawn Rate" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/EmitterUpdate_SetSpawnRate.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li></ol><h2 id="编辑粒子生成组设置">编辑粒子生成组设置</h2>
+<p>下一步，你将编辑 <strong>粒子生成</strong> 组中的模块。这些是粒子首次生成时将应用于粒子的行为。
+</p><ol ><li class="Default"><p>在 <strong>系统概览（System Overview）</strong> 中，单击 <strong>粒子生成（Particle Spawn）</strong> 组，以在 <strong>选择（Selection）</strong> 面板中将其打开。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/SystemOverview_OpenParticleSpawn.png" title="Open Particle Spawn"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/SystemOverview_OpenParticleSpawn.jpg">
+		<img class="  lazyload" alt="打开粒子生成" title="Open Particle Spawn" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/SystemOverview_OpenParticleSpawn.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>展开 <strong>初始化粒子（Initialize Particle）</strong> 模块。此模块将多个相关参数采集到一个模块中，从而最大程度地减少堆栈中的混乱。在 <strong>点属性（Point Attributes）</strong> 下，找到 <strong>生命周期（Lifetime）</strong> 参数。这个参数确定了粒子在消失之前将显示多久。对于此效果，你将使用名为 <strong>随机范围浮点（Random Range Float）</strong> 的动态输入来随机化粒子的显示时长。随机范围浮点已应用到喷泉模板中的生命周期参数中。将 <strong>最小值（Minimum）</strong> 和 <strong>最大值（Maximum）</strong> 值设置如下。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/ParticleSpawn_InitParticleLifetime.png" title="Initialize Particle - Lifetime Parameter"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/ParticleSpawn_InitParticleLifetime.jpg">
+		<img class="  lazyload" alt="初始化参数 - 生命周期参数" title="Initialize Particle - Lifetime Parameter" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/ParticleSpawn_InitParticleLifetime.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>Setting</p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>Value</p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>最小值（Minimum）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>2.0</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>最大值（Maximum）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>4.0</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div></li><li class="Default"><p>找到 <strong>颜色（Color）</strong> 参数。将 <strong>RGB</strong> 值更改如下。你在 <strong>创建材质（Create a Material）</strong> 部分中所创建的材质在其内部没有指定颜色。若要使网格体粒子看起来像气球，你必须设置颜色。在粒子更新组中，有一些模块可通过各种方式更改颜色，但是对于此效果，纯色更简单并且非常适用。
+</p><div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>设置 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>数值 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>红色</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>1.0</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>绿色</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>0.0</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>蓝色</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>0.0</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div></li><li class="Default"><p>在 <strong>Sprite属性（Sprite Attributes）</strong> 下，取消勾选 <strong>Sprite大小（Sprite Size）</strong> 和 <strong>Sprite旋转（Sprite Rotation）</strong> 复选框。因为你现在使用的是网格体，所以此效果无需这些属性。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/ParticleSpawn_InitParticleDisableSpriteAttributes.png" title="Disable Sprite Attributes"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/ParticleSpawn_InitParticleDisableSpriteAttributes.jpg">
+		<img class="  lazyload" alt="禁用Sprite属性" title="Disable Sprite Attributes" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/ParticleSpawn_InitParticleDisableSpriteAttributes.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>原始的球体网格体非常大，因此，如果我们将其大幅缩小，则它看起来效果会更好。在 <strong>网格属性（Mesh Attributes）</strong> 下，将 <strong>网格体缩放（Mesh Scale）</strong> 设置成 <strong>非统一（Non-Uniform）</strong>。将**X<strong>、</strong>Y<strong> 和 </strong>Z<strong> 值设置为 </strong>0.2**。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/ParticleSpawn_SetMeshScale.png" title="Set Mesh Scale"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/ParticleSpawn_SetMeshScale.jpg">
+		<img class="  lazyload" alt="设置网格体缩放" title="Set Mesh Scale" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/ParticleSpawn_SetMeshScale.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p><strong>添加速度（Add Velocity）</strong> 模块将使粒子在生成时立即移动。单击 <strong>加号（Plus sign）</strong>（<strong>+</strong>）图标并选择 <strong>速度 > 添加速度（Velocity > Add Velocity）</strong>，以将添加速度（Add Velocity）模块添加到粒子生成部分。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/ParticleSpawn_AddVelocity.png" title="Add the Add Velocity Module"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/ParticleSpawn_AddVelocity.jpg">
+		<img class="  lazyload" alt="添加&quot;添加速度模块&quot;" title="Add the Add Velocity Module" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/ParticleSpawn_AddVelocity.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>由于此效果应当看起来像释放的气球，因此粒子速度需要些许随机性。单击 <strong>速度（Velocity）</strong> 值字段旁的向下箭头，然后选择 <strong>动态输入 > 随机范围向量（Dynamic Inputs > Random Range Vector）</strong>。这样可使粒子扩散，并使粒子在X轴、Y轴和Z轴上进行小幅运动。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/ParticleSpawn_AddUniformRangedVector.png" title="Add Velocity Uniform Ranged Vector"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/ParticleSpawn_AddUniformRangedVector.jpg">
+		<img class="  lazyload" alt="添加统一范围向量" title="Add Velocity Uniform Ranged Vector" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/ParticleSpawn_AddUniformRangedVector.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>将速度的 <strong>最小值（Minimum）</strong> 和 <strong>最大值（Maximum）</strong> 值设置如下。这样可使效果在X和Y轴上小幅运动，而在Z轴上则大幅运动。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/ParticleSpawn_SetVelocityMinMax.png" title="Set Velocity Minimum and Maximum"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/ParticleSpawn_SetVelocityMinMax.jpg">
+		<img class="  lazyload" alt="设置速度最小值和最大值" title="Set Velocity Minimum and Maximum" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/ParticleSpawn_SetVelocityMinMax.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>设置 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>数值 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>最小值（Minimum）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>X</strong>: 15, <strong>Y</strong>: 25, <strong>Z</strong>: 50</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>最大值（Maximum）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>X</strong>: 30，<strong>Y</strong>：30，<strong>Z</strong>：100</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div></li><li class="Default"><p><strong>球体位置（Sphere Location）</strong> 模块控制Sprite生成所在位置的形状。你可以使Sprite以球体形状生成，并可以指定半径以设置球体形状的大小。将 <strong>球体半径（Sphere Radius）</strong> 设置为 <strong>200</strong>。这样可使粒子的扩散范围更大，就像气球释放时那样。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/ParticleSpawn_SetSphereRadius.png" title="Set Sphere Radius"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/ParticleSpawn_SetSphereRadius.jpg">
+		<img class="  lazyload" alt="设置球体半径" title="Set Sphere Radius" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/ParticleSpawn_SetSphereRadius.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li></ol><h2 id="编辑粒子更新组设置">编辑粒子更新组设置</h2>
+<p>现在，你将在粒子更新组中更新模块。这些行为将应用于发射器的粒子并更新每一帧。
+</p><ol ><li class="Default"><p>在 <strong>系统概览（System Overview）</strong> 中，单击 <strong>粒子更新（Particle Update）</strong> 组，以在 <strong>选择（Selection）</strong> 面板中将其打开。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/SystemOverview_OpenParticleUpdate.png" title="Open Particle Update"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/SystemOverview_OpenParticleUpdate.jpg">
+		<img class="  lazyload" alt="打开粒子更新" title="Open Particle Update" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/SystemOverview_OpenParticleUpdate.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>通常，你将使用 <strong>重力（Gravity Force）</strong> 模块来模拟重力如何影响对象。你也可以更广泛地使用它来向粒子添加加速度。将重力 <strong>X、Y和Z（X, Y and Z）</strong> 值设置如下。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/ParticleUpdate_SetGravityForce.png" title="Set Gravity Force"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/ParticleUpdate_SetGravityForce.jpg">
+		<img class="  lazyload" alt="设置重力" title="Set Gravity Force" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/ParticleUpdate_SetGravityForce.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>设置 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>数值 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>X</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>10</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Y</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>10</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Z</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>40</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div></li><li class="Default"><p>*阻力（Drag）** 模块将阻力应用于粒子，这样将减慢粒子的速度。将 **阻力（Drag）** 设置为 **1.0**。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/ParticleUpdate_SetDrag.png" title="Set Drag"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/ParticleUpdate_SetDrag.jpg">
+		<img class="  lazyload" alt="设置阻力" title="Set Drag" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/ParticleUpdate_SetDrag.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p><strong>缩放色阶（Scale Color）</strong> 模块是喷泉模板的一部分，但此效果无需该模块。单击 <strong>垃圾桶</strong> 图标，以移除缩放色阶模块。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/ParticleUpdate_RemoveScaleColor.png" title="Remove Scale Color"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/ParticleUpdate_RemoveScaleColor.jpg">
+		<img class="  lazyload" alt="移除缩放色阶" title="Remove Scale Color" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/MeshEffect/ParticleUpdate_RemoveScaleColor.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li></ol><h2 id="最终结果">最终结果</h2>
+<p>祝贺你！你已在Niagara中创建网格体粒子效果。虽然该效果旨在模拟一大片释放的气球，但是它使用的网格体和材质却非常简单。通过将简单的网格体和材质替换为更精细的网格体和材质，你可以获得更逼真的外观效果。
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_1_x902ybg8_23
+{
+	margin: 0px;
+	width: 640px;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_1_x902ybg8_23:after
+{
+	content: "";
+	padding-top: 360px;
+	display: block;
+}
+</style> 
+<div id="player_1_x902ybg8_23"> 
+	<div id="playerContainer_1_x902ybg8_23" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/1_x902ybg8/embed.html"></iframe>
+	</div>
+</div>
+
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Niagara">Niagara</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Vfx">Vfx</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Effects">Effects</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Visual%20Effects">Visual Effects</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Particle%20Effects">Particle Effects</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/RenderingAndGraphics/Niagara/HowTo/MeshEffect/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:02:42 GMT -->
+</html>

@@ -1,0 +1,815 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/AnimatingObjects/SkeletalMeshAnimation/WorkingwithModularCharacters/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:25:09 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/AnimatingObjects/SkeletalMeshAnimation/WorkingwithModularCharacters/" />');
+				var udnCSS = '../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>使用模块化角色 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/AnimatingObjects/SkeletalMeshAnimation/WorkingwithModularCharacters/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/AnimatingObjects/SkeletalMeshAnimation/WorkingwithModularCharacters/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/AnimatingObjects/SkeletalMeshAnimation/WorkingwithModularCharacters/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/AnimatingObjects/SkeletalMeshAnimation/WorkingwithModularCharacters/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Animation/WorkingwithModularCharacters" />
+<meta name="intsourcechangelist" content="15554324" />
+<meta name="availability" content="Public" />
+<meta name="title" content="使用模块化角色" />
+<meta name="description" content="描述创建由多个骨架网格体组成的模块化角色的多种方法。" />
+<meta name="type" content="overview" />
+<meta name="version" content="4.20" />
+<meta name="parent" content="AnimatingObjects/SkeletalMeshAnimation" />
+<meta name="order" content="2" />
+<meta name="keywords" content="Animation" />
+<meta name="keywords" content="Skeletal Mesh" />
+<meta name="keywords" content="Animation Features" />
+<meta name="keywords" content="Master Pose Component" />
+<meta name="related" content="AnimatingObjects/SkeletalMeshAnimation/Persona/Modes" />
+<meta name="related" content="WorkingWithContent/Importing/FBX/Animations" />
+<meta name="related" content="WorkingWithContent/Types/SkeletalMeshes" />
+<meta name="crumbs" content="%ROOT%,AnimatingObjects,AnimatingObjects/SkeletalMeshAnimation" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="使用模块化角色" />
+	<meta property="og:description" content="描述创建由多个骨架网格体组成的模块化角色的多种方法。 " />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">为角色和对象添加动画</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">骨架网格体动画系统</a>
+
+<span class="separator">></span> <span id="page">使用模块化角色</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">使用模块化角色</h1>
+							</div>	
+							<h2 >描述创建由多个骨架网格体组成的模块化角色的多种方法。 </h2>
+							<div id="access">
+								<div class="accessContainer">
+																																			</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																		<div id="seeAlso">
+	<div style="position:relative;">
+		<div id="title">参见</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<p>
+						<a id="related_link" href="../Persona/Modes/index.html" title="虚幻引擎4中不同动画工具及其相应编辑器的使用者指南。">动画工具</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../../WorkingWithContent/Importing/FBX/Animations/index.html" title="使用FBX内容通道设置、导出和导入骨架网格体的动画。">FBX动画流程</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../../WorkingWithContent/Types/SkeletalMeshes/index.html" title="绑定到层次化骨骼骨架上的网格物体，它可以产生动画，以便使网格物体发生变形。">骨架网格体</a>
+					</p>
+				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																														<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#主姿势组件">主姿势组件</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#从网格体复制姿势">从网格体复制姿势</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#骨架网格体合并">骨架网格体合并</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#网格体合并示例">网格体合并示例</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#比较图表">比较图表</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p><picture>
+		<source data-srcset="./../../../../Images/AnimatingObjects/SkeletalMeshAnimation/WorkingwithModularCharacters/ModularBanner.jpg">
+		<img class="  lazyload" alt="ModularBanner.png" data-src="../../../../Images/AnimatingObjects/SkeletalMeshAnimation/WorkingwithModularCharacters/ModularBanner.jpg" />
+</picture>
+
+</p><p>在创建允许玩家自定义角色并切换不同部位的系统时，例如不同的头部或身体类型、衣着或其他选项，你需要以模块化方式构造角色。作为取代完整角色骨架网格体的替代方法，可以将骨架网格体分解成多个分段，例如躯干、腿和头，然后将它们导入到引擎中；接下来你可以使用本页所述的一些方法来组装这些部件并添加动画。这样不仅提高了生成不同角色的灵活性，也可以提高性能。 
+</p><h2 id="主姿势组件">主姿势组件</h2>
+<p><strong>主姿势组件</strong> 是一个可以通过蓝图调用的函数，你可以用它将一个 <strong>有皮肤网格体组件对象</strong>（或多个有皮肤网格体组件对象）设置为另一个打算用作主对象的有皮肤网格体组件对象的子代。例如，你可以将躯干定义为主姿势组件，为躯干分配动画，然后添加脚、腿、手和头作为子代，这些部位将跟随为躯干分配的动画而动。 
+</p><p>在后台，子代不使用任何骨骼变换缓冲，即使对子代设置了动画也不会运行任何动画，在渲染时，子代仅使用躯干的骨骼变换缓冲，这样就会形成一个超轻量级的连接系统。唯一必须运行动画的组件是躯干，所有连接的组件都将使用躯干的骨骼变换。在以下示例设置中，我们为躯干分配了动画。我们使用蓝图中的构造脚本将骨架网格体设置为 <strong>主骨骼组件</strong>，而我们模块化角色其他方面则作为子代。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/AnimatingObjects/SkeletalMeshAnimation/WorkingwithModularCharacters/SetMasterPoseComponentImage.jpg">
+		<img class="  lazyload" alt="SetMasterPoseComponentImage.png" data-src="../../../../Images/AnimatingObjects/SkeletalMeshAnimation/WorkingwithModularCharacters/SetMasterPoseComponentImage.jpg" />
+</picture>
+
+</p><p><em>在上图中，我们在蓝图内部使用 <strong>构造脚本（Construction Script）</strong> 将躯干骨架网格体设置为 <strong>主骨骼组件（Master Bone Component）</strong>，并将其他模块化角色部位设置为子代。</em><br /></p><div class="note">
+	<p><strong>设置主姿势组件</strong> 功能还有一个布尔型参数，名为 <strong>强制更新（Force Update）</strong>。如果强制更新（Force Update）被禁用，则在所有运行时信息与输入主组件相同时则跳过更新。如果启用强制更新，将强制更新运行时信息。这只适用于注册期间，因为注册是可以序列化的，并且需要刷新所有运行时数据。</p>
+</div><p>角色的每个方面都是一个骨架网格体，我们可以换成另一个 <strong>骨架网格体组件</strong>。 在下图中，我们关闭了躯干和脚的显示（我们可以将它们更换为具有相同骨架层级的不同的骨架网格体）。
+</p><p><picture>
+		<source data-srcset="./../../../../Images/AnimatingObjects/SkeletalMeshAnimation/WorkingwithModularCharacters/HiddenComponents.jpg">
+		<img class="  lazyload" alt="HiddenComponents.png" data-src="../../../../Images/AnimatingObjects/SkeletalMeshAnimation/WorkingwithModularCharacters/HiddenComponents.jpg" />
+</picture>
+
+</p><p>但有一个需要考虑的问题，就是在使用 <strong>主姿势组件</strong> 时，虽然会降低游戏线程成本，但不会降低渲染成本。你仍需要单独渲染相同数量的组件，需要牢记的是每个组件的分段越多，就会需要越多的绘制调用。 
+</p><div class="note">
+	<p>还有一个限制，即主骨骼的任何子代都必须是具有完全匹配结构的子集，不能有任何多余的关节或省略任何关节。由于多余关节没有骨骼缓冲数据，因此将使用引用姿势进行渲染。此外，还无法对任何子代运行任何其他动画或物理效果。</p>
+</div><h2 id="从网格体复制姿势">从网格体复制姿势</h2>
+<p><strong>从网格体复制姿势</strong> 是一个可以在子代的 <strong>动画蓝图</strong> 上使用的 <strong>动画图形</strong> 节点，允许你从任意 <strong>骨架网格体组件</strong> 复制动画姿势。从网格体复制姿势不仅复制匹配的骨骼，还会复制使用引用姿势的所有内容。但是，你可以如下图所示，在任何复制的变换上播放动画。<br /></p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/AnimatingObjects/SkeletalMeshAnimation/WorkingwithModularCharacters/CopyPoseFromMesh.png" ><span><picture>
+		<source data-srcset="./../../../../Images/AnimatingObjects/SkeletalMeshAnimation/WorkingwithModularCharacters/CopyPoseFromMesh.jpg">
+		<img class="  lazyload" alt="CopyPoseFromMesh.png" width="900" data-src="../../../../Images/AnimatingObjects/SkeletalMeshAnimation/WorkingwithModularCharacters/CopyPoseFromMesh.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>单击查看大图。</p>
+</div><p>在使用<a id="content_link"filter-data="tag_animation tag_animation_blueprint tag_copy_pose" href="../AnimHowTo/CopyPose/index.html" ><span>从网格体复制姿势</span></a>时，你需要确保作为复制来源的骨架网格体组件已经有了tick事件，否则将复制最后一帧动画（例如，从身体进行复制且头是子代）。为确保身体有tick事件，可以将头与身体连接起来，这样就可以确保父代先发生tick事件，而后轮到子代。 
+</p><div class="note">
+	<p>你还可以用代码设置此关系。如果将其设置为先决条件，便可确保它们先发生tick事件，而后轮到当前组件。请参阅<a id="content_link" href="../../../ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/Actors/Ticking/index.html" ><span>Tick依赖关系</span></a>页面以了解更多信息。</p>
+</div><p>使用"从网格体复制姿势"时要考虑的一些要素包括，它比主姿势组件的开销更大，因为它会在每个子代上运行动画。此外，如果想要在子代上使用物理效果，则需要改为使用<a id="content_link"filter-data="tag_animation tag_animation_blueprint tag_skeletal_controls" href="../NodeReference/SkeletalControls/RigidBody/index.html" ><span>刚体</span></a>或<a id="content_link" href="../NodeReference/SkeletalControls/AnimDynamics/index.html" ><span>AnimDynamics</span></a>骨架控制节点。
+</p><p>在动画编辑器中预览动画时，可以指定更多将自动使用"从网格体复制姿势"的网格体。你还可以创建自定义 <strong>预览网格体集合</strong>，用来构建一起制作动画的相关骨架网格体集合（例如，一个角色的组成部分）。下面我们将说明如何为预览更改和分配不同的骨架网格体，以便为角色切换不同的头部。 
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_0_zm2bt4dr_40
+{
+	margin: 0px;
+	width: 640px;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_0_zm2bt4dr_40:after
+{
+	content: "";
+	padding-top: 360px;
+	display: block;
+}
+</style> 
+<div id="player_0_zm2bt4dr_40"> 
+	<div id="playerContainer_0_zm2bt4dr_40" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/0_zm2bt4dr/embed.html"></iframe>
+	</div>
+</div>
+<h2 id="骨架网格体合并">骨架网格体合并</h2>
+<p>你可以在运行时使用代码 [`FSkeletalMeshMerge`]() 将多个骨架网个体合并和一个骨架网格体。虽然创建骨架网个体的初始开销很高，但因为只需要一个骨架网格体，而不是多个，所以渲染开销会更低。例如，如果你的角色只有3个组件（头部、身体和腿），同时屏幕上会出现50个角色，这就需要 <strong>50次绘制调用</strong>。如果不使用骨架网格体合并，每个组件都需要单独绘制调用，这样每个角色都需要绘制调用三次，总共就需要 <strong>150次绘制调用</strong>.  
+</p><p>在使用 <code>FSkeletalMeshMerge</code> 时，你的主"身体"必须包含所有动画，因为合并后的网格体仅使用设置的骨架，而不包含你需要添加动画的所有关节。如果你的某些身体部位有额外的关节，还必须在身体上包含所有动画。其他要考虑的事情包括，只能在合并的网格体上运行一个动画，而且不支持将变形目标传输到合并的网格体。但是，如果查看 <code>FSkeletalMeshMerge::GenerateLODModel</code>，当你有了骨架网格体后，就可以通过计算基本网格体和任意变形之间的 <code>FMorphTargetDelta</code> 来创建变形目标。 
+</p><p>此外，在使用 <code>FSkeletalMeshMerge</code> 时，你很可能需要从头开始以一种特定方式构建内容。你需要使用一个常用材质，并决定纹理图集（例如，靴子放这个区域，手套放这个区域等），这样就可以对纹理进行裁剪和拼接，创建新纹理并将整个角色渲染为一个分段。 
+</p><h3 id="网格体合并示例">网格体合并示例</h3>
+<p>在以下示例中，我们使用网格体合并代码在运行时组装多个骨架网格体。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/AnimatingObjects/SkeletalMeshAnimation/WorkingwithModularCharacters/Individual_Meshes.jpg">
+		<img class="  lazyload" alt="Individual_Meshes.png" data-src="../../../../Images/AnimatingObjects/SkeletalMeshAnimation/WorkingwithModularCharacters/Individual_Meshes.jpg" />
+</picture>
+
+</p><p>在上图中，我们需要在运行时连接多个骨架网格体以形成一个骨架网格体。在该示例中，我们创建一个可以通过蓝图调用的函数，名为 <strong>网格体合并（Mesh Merge）</strong>，它将让我们能够定义想要合并起来的网格体。需要做的第一件事是根据<a id="content_link"filter-data="tag_blueprint_function_libraries tag_c++" href="../../../ProgrammingAndScripting/ProgrammingWithCPP/BlueprintFunctionLibraries/index.html" ><span>蓝图函数库</span></a>创建C++类，以便从任意蓝图调用该函数，我们将其命名为 <strong>MeshMergeFunctionLibrary</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/AnimatingObjects/SkeletalMeshAnimation/WorkingwithModularCharacters/Blueprint_FunctionLibrary.jpg">
+		<img class="  lazyload" alt="Blueprint_FunctionLibrary.png" data-src="../../../../Images/AnimatingObjects/SkeletalMeshAnimation/WorkingwithModularCharacters/Blueprint_FunctionLibrary.jpg" />
+</picture>
+
+</p><p>下面我们提供了相同的代码块，供你在你的 <strong>标头</strong> 和 <strong>源代码</strong> 文件中使用： 
+</p><p><strong>.h示例代码</strong>
+</p><pre class="prettyprint"><code>//在项目设置的"描述"页面中填写版权声明。
+#pragma once
+#include "CoreMinimal.h"
+#include "Kismet/BlueprintFunctionLibrary.h"
+#include "UObject/NoExportTypes.h"
+#include "MeshMergeFunctionLibrary.generated.h"
+/&#42;&#42;
+&#42; 等效于FSkeleMeshMergeSectionMapping的蓝图
+&#42; 用于将单个源骨架网格体的所有分段映射到
+&#42; 合并后骨架网格体中的最后一个分段条目的信息。
+&#42;/
+USTRUCT(BlueprintType)
+struct PROJECTNAME&#95;API FSkelMeshMergeSectionMapping&#95;BP
+{
+    GENERATED&#95;BODY()
+        /&#42;&#42;合并后骨架网格体的最终分段条目的索引&#42;/
+        UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Mesh Merge Params")
+        TArray &lt; int32 &gt; SectionIDs;
+};
+/&#42;&#42;
+&#42; 用于包含一个网格体的一组UV变换。
+&#42;/
+USTRUCT(BlueprintType)
+struct PROJECTNAME&#95;API FSkelMeshMergeUVTransform
+{
+    GENERATED&#95;BODY()
+        /&#42;&#42; 在给定网格体上应如何变换UV的列表，其中索引表示具体的UV通道。&#42;/
+        UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Mesh Merge Params")
+        TArray &lt; FTransform &gt; UVTransforms;
+};
+/&#42;&#42;
+&#42; 等效于FSkelMeshMergeUVTransforms的蓝图
+&#42; 用于映射所有分段的有关如何变换UV的信息
+&#42;/
+USTRUCT(BlueprintType)
+struct PROJECTNAME&#95;API FSkelMeshMergeUVTransformMapping
+{
+    GENERATED&#95;BODY()
+        /&#42;&#42; 对于每个网格体上的每个UV通道，描述应如何变换UVS。&#42;/
+        UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Mesh Merge Params")
+        TArray &lt; FSkelMeshMergeUVTransform &gt; UVTransformsPerMesh;
+};
+/&#42;&#42;
+&#42; 包含用于执行骨架网格体合并的所有参数的结构。
+&#42;/
+USTRUCT(BlueprintType)
+struct PROJECTNAME&#95;API FSkeletalMeshMergeParams
+{
+    GENERATED&#95;BODY()
+        FSkeletalMeshMergeParams()
+    {
+        StripTopLODS = 0;
+        bNeedsCpuAccess = false;
+        bSkeletonBefore = false;
+        Skeleton = nullptr;
+    }
+    // 一个可选数组，用于将源网格体的分段映射到合并后的分段条目
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+        TArray &lt; FSkelMeshMergeSectionMapping&#95;BP &gt; MeshSectionMappings;
+    // 一个可选数组，用于变换每个网格体中的UV
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+        TArray &lt; FSkelMeshMergeUVTransformMapping &gt; UVTransformsPerMesh;
+    // 要合并的骨架网格体的列表。
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+        TArray &lt; USkeletalMesh&#42; &gt; MeshesToMerge;
+    // 要从输入网格体移除的高LOD的数量
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+        int32 StripTopLODS;
+    // CPU是否会因任何原因（例如，产生粒子效果）而需要访问所产生的网格体。
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+        uint32 bNeedsCpuAccess :1;
+    // 先更新骨架再合并。否则，合并后更新。
+    // 还必须提供骨架。
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+        uint32 bSkeletonBefore :1;
+    // 将用于合并后网格体的骨架。
+    // 如果生成的骨架正常，则留空。
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+        class USkeleton&#42; Skeleton;
+};
+/&#42;&#42;
+&#42;
+&#42;/
+UCLASS()
+class PROJECTNAME&#95;API UMeshMergeFunctionLibrary : public UBlueprintFunctionLibrary
+{
+    GENERATED&#95;BODY()
+public:
+    /&#42;&#42;
+    &#42; 将指定的网格体合并为一个网格体。
+    &#42; @return合并的网格体（如果合并失败将失效）。
+    &#42;/
+    UFUNCTION(BlueprintCallable, Category = "Mesh Merge", meta = (UnsafeDuringActorConstruction = "true"))
+        static class USkeletalMesh&#42; MergeMeshes(const FSkeletalMeshMergeParams&amp; Params);
+};</code></pre>
+<p>在标头中，需要将所有 <strong>PROJECTNAME_API</strong> 引用更改为引用实际项目名称。例如，如果项目名为"MyProject"，需要在所有出现的引用中改为使用 <strong>MYPROJECT_API</strong>，这样代码才能起作用。 
+</p><p><strong>.cpp示例代码</strong>
+</p><pre class="prettyprint"><code>//在项目设置的"描述"页面中填写版权声明。
+#include "MeshMergeFunctionLibrary.h"
+#include "SkeletalMeshMerge.h"
+#include "Engine/SkeletalMeshSocket.h"
+#include "Engine/SkeletalMesh.h"
+#include "Animation/Skeleton.h"
+static void ToMergeParams(const TArray&lt;FSkelMeshMergeSectionMapping&#95;BP&gt;&amp; InSectionMappings, TArray&lt;FSkelMeshMergeSectionMapping&gt;&amp; OutSectionMappings)
+{
+    if (InSectionMappings.Num() &gt; 0)
+    {
+        OutSectionMappings.AddUninitialized(InSectionMappings.Num());
+        for (int32 i = 0; i &lt; InSectionMappings.Num(); ++i)
+        {
+            OutSectionMappings&#91;i&#93;.SectionIDs = InSectionMappings&#91;i&#93;.SectionIDs;
+        }
+    }
+};
+static void ToMergeParams(const TArray&lt;FSkelMeshMergeUVTransformMapping&gt;&amp; InUVTransformsPerMesh, TArray&lt;FSkelMeshMergeUVTransforms&gt;&amp; OutUVTransformsPerMesh)
+{
+    if (InUVTransformsPerMesh.Num() &gt; 0)
+    {
+        OutUVTransformsPerMesh.Empty();
+        OutUVTransformsPerMesh.AddUninitialized(InUVTransformsPerMesh.Num());
+        for (int32 i = 0; i &lt; InUVTransformsPerMesh.Num(); ++i)
+        {
+            TArray&lt;TArray&lt;FTransform&gt;&gt;&amp; OutUVTransforms = OutUVTransformsPerMesh&#91;i&#93;.UVTransformsPerMesh;
+            const TArray&lt;FSkelMeshMergeUVTransform&gt;&amp; InUVTransforms = InUVTransformsPerMesh&#91;i&#93;.UVTransformsPerMesh;
+            if (InUVTransforms.Num() &gt; 0)
+            {
+                OutUVTransforms.Empty();
+                OutUVTransforms.AddUninitialized(InUVTransforms.Num());
+                for (int32 j = 0; j &lt; InUVTransforms.Num(); j++)
+                {
+                    OutUVTransforms&#91;i&#93; = InUVTransforms&#91;i&#93;.UVTransforms;
+                }
+            }
+        }
+    }
+};
+USkeletalMesh&#42; UMeshMergeFunctionLibrary::MergeMeshes(const FSkeletalMeshMergeParams&amp; Params)
+{
+    TArray&lt;USkeletalMesh&#42;&gt; MeshesToMergeCopy = Params.MeshesToMerge;
+    MeshesToMergeCopy.RemoveAll(&#91;&#93;(USkeletalMesh&#42; InMesh)
+    {
+        return InMesh == nullptr;
+    });
+    if (MeshesToMergeCopy.Num() &lt;= 1)
+    {
+        UE&#95;LOG(LogTemp, Warning, TEXT("Must provide multiple valid Skeletal Meshes in order to perform a merge."));
+        return nullptr;
+    }
+    EMeshBufferAccess BufferAccess = Params.bNeedsCpuAccess ?
+        EMeshBufferAccess::ForceCPUAndGPU :
+        EMeshBufferAccess::Default;
+    TArray&lt;FSkelMeshMergeSectionMapping&gt; SectionMappings;
+    TArray&lt;FSkelMeshMergeUVTransforms&gt; UvTransforms;
+    ToMergeParams(Params.MeshSectionMappings, SectionMappings);
+    ToMergeParams(Params.UVTransformsPerMesh, UvTransforms);
+    bool bRunDuplicateCheck = false;
+    USkeletalMesh&#42; BaseMesh = NewObject&lt;USkeletalMesh&gt;();
+    if (Params.Skeleton &amp;&amp; Params.bSkeletonBefore)
+    {
+        BaseMesh-&gt;Skeleton = Params.Skeleton;
+        bRunDuplicateCheck = true;
+        for (USkeletalMeshSocket&#42; Socket : BaseMesh-&gt;GetMeshOnlySocketList())
+        {
+            if (Socket)
+            {
+                UE&#95;LOG(LogTemp, Warning, TEXT("SkelMeshSocket: %s"), &#42;(Socket-&gt;SocketName.ToString()));
+            }
+        }
+        for (USkeletalMeshSocket&#42; Socket : BaseMesh-&gt;Skeleton-&gt;Sockets)
+        {
+            if (Socket)
+            {
+                UE&#95;LOG(LogTemp, Warning, TEXT("SkelSocket: %s"), &#42;(Socket-&gt;SocketName.ToString()));
+            }
+        }
+    }
+    FSkeletalMeshMerge Merger(BaseMesh, MeshesToMergeCopy, SectionMappings, Params.StripTopLODS, BufferAccess, UvTransforms.GetData());
+    if (!Merger.DoMerge())
+    {
+        UE&#95;LOG(LogTemp, Warning, TEXT("Merge failed!"));
+        return nullptr;
+    }
+    if (Params.Skeleton &amp;&amp; !Params.bSkeletonBefore)
+    {
+        BaseMesh-&gt;Skeleton = Params.Skeleton;
+    }
+    if (bRunDuplicateCheck)
+    {
+        TArray&lt;FName&gt; SkelMeshSockets;
+        TArray&lt;FName&gt; SkelSockets;
+        for (USkeletalMeshSocket&#42; Socket : BaseMesh-&gt;GetMeshOnlySocketList())
+        {
+            if (Socket)
+            {
+                SkelMeshSockets.Add(Socket-&gt;GetFName());
+                UE&#95;LOG(LogTemp, Warning, TEXT("SkelMeshSocket: %s"), &#42;(Socket-&gt;SocketName.ToString()));
+            }
+        }
+        for (USkeletalMeshSocket&#42; Socket : BaseMesh-&gt;Skeleton-&gt;Sockets)
+        {
+            if (Socket)
+            {
+                SkelSockets.Add(Socket-&gt;GetFName());
+                UE&#95;LOG(LogTemp, Warning, TEXT("SkelSocket: %s"), &#42;(Socket-&gt;SocketName.ToString()));
+            }
+        }
+        TSet&lt;FName&gt; UniqueSkelMeshSockets;
+        TSet&lt;FName&gt; UniqueSkelSockets;
+        UniqueSkelMeshSockets.Append(SkelMeshSockets);
+        UniqueSkelSockets.Append(SkelSockets);
+        int32 Total = SkelSockets.Num() + SkelMeshSockets.Num();
+        int32 UniqueTotal = UniqueSkelMeshSockets.Num() + UniqueSkelSockets.Num();
+        UE&#95;LOG(LogTemp, Warning, TEXT("SkelMeshSocketCount: %d &#124; SkelSocketCount: %d &#124; Combined: %d"), SkelMeshSockets.Num(), SkelSockets.Num(), Total);
+        UE&#95;LOG(LogTemp, Warning, TEXT("SkelMeshSocketCount: %d &#124; SkelSocketCount: %d &#124; Combined: %d"), UniqueSkelMeshSockets.Num(), UniqueSkelSockets.Num(), UniqueTotal);
+        UE&#95;LOG(LogTemp, Warning, TEXT("Found Duplicates: %s"), &#42;((Total != UniqueTotal) ? FString("True") : FString("False")));
+    }
+    return BaseMesh;
+}</code></pre>
+<p>当你在编辑器中编译完代码后，就会创建具有 <strong>骨架网格体组件</strong> 和 <strong>骨架网格体参数</strong> 类型的公开变量的ActorBlueprint。该变量将为你提供多个属性，不仅可以定义要合并的骨架网格体，还可以定义如何合并这些网格体和其他选项。
+</p><p><picture>
+		<source data-srcset="./../../../../Images/AnimatingObjects/SkeletalMeshAnimation/WorkingwithModularCharacters/SkelMeshParams.jpg">
+		<img class="  lazyload" alt="SkelMeshParams.png" data-src="../../../../Images/AnimatingObjects/SkeletalMeshAnimation/WorkingwithModularCharacters/SkelMeshParams.jpg" />
+</picture>
+
+</p><p>以下是你可以用来定义如何合并骨架网格体的选项： 
+</p><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>属性 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>说明 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>网格体分段映射（Mesh Section Mappings）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>这是一个可选数组，用于将源网格体的分段映射到合并后的分段条目。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>每个网格体的UV变换（UVTransforms Per Mesh）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>这是一个可选数组，用于变换每个网格体中的UV。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>要合并的网格体（Meshes to Merge）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>这些是将要合并起来的骨架网格体。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>分割顶级LOD（Strip Top LOD）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>要从输入网格体中移除的顶级LOD数量。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>需要CPU访问（Needs Cpu Access）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>CPU是否会因任何原因（例如，产生粒子效果）而需要访问所产生的网格体。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>骨架先于（Skeleton Before）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>是在合并之前还是之后更新骨架（还必须提供骨架）。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>骨架（Skeleton）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>这是将用于合并后网格体的骨架。如果生成的骨架正常，则留空。</p>
+			</td>
+	
+</tr></tbody>
+</table><p>在 <strong>事件图形（Event Graph）</strong> 内部，在 <strong>事件开始播放（Event Begin Play）</strong> 时，使用以下节点网络。 <br /></p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/AnimatingObjects/SkeletalMeshAnimation/WorkingwithModularCharacters/MeshMergeBPScript.png" ><span><picture>
+		<source data-srcset="./../../../../Images/AnimatingObjects/SkeletalMeshAnimation/WorkingwithModularCharacters/MeshMergeBPScript.jpg">
+		<img class="  lazyload" alt="MeshMergeBPScript.png" width="900" data-src="../../../../Images/AnimatingObjects/SkeletalMeshAnimation/WorkingwithModularCharacters/MeshMergeBPScript.jpg" />
+</picture>
+</span></a></span></p>
+</div><p>单击查看大图。<br /></p><p>你可以使用新的蓝图函数 <strong>合并网格体</strong>，通过网格体合并参数传递来返回骨架网格体对象引用。然后可以使用添加到蓝图的 <strong>骨架网格体组件</strong> 作为目标，以设置要使用的新骨架网格体，并将它指向合并网格体函数调用的返回值。在以上示例中，我们还可以为骨架网格体分配闲置动画，以在所有网格体合并完成后播放。 <br /></p><p>在将网格体合并蓝图添加到关卡后，在 <strong>细节（Details）</strong> 面板内部，可以定义 <strong>网格体合并参数（Mesh Merge Parameters）</strong>，包括要使用的 <strong>要使用的网格体（Meshes to Use）</strong> 和 <strong>骨架（Skeleton）</strong> 资源。 <br /></p><p><picture>
+		<source data-srcset="./../../../../Images/AnimatingObjects/SkeletalMeshAnimation/WorkingwithModularCharacters/AssignedDetails-1.jpg">
+		<img class="  lazyload" alt="AssignedDetails-1.png" data-src="../../../../Images/AnimatingObjects/SkeletalMeshAnimation/WorkingwithModularCharacters/AssignedDetails-1.jpg" />
+</picture>
+
+</p><p>在运行时，网格体合并函数将根据定义的网格体执行并组装骨架网格体。
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_0_qu0vv333_68
+{
+	margin: 0px;
+	width: 640px;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_0_qu0vv333_68:after
+{
+	content: "";
+	padding-top: 360px;
+	display: block;
+}
+</style> 
+<div id="player_0_qu0vv333_68"> 
+	<div id="playerContainer_0_qu0vv333_68" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/0_qu0vv333/embed.html"></iframe>
+	</div>
+</div>
+<h2 id="比较图表">比较图表</h2>
+<p>无论你是使用 <strong>主姿势组件</strong>、<strong>从网格体复制姿势</strong> 还是 <strong>骨架网格体合并</strong>，每种方法都存在一些优势和劣势。下表概括了各自关联的设置和性能成本，以及支持（或不支持）的其他功能。<br /></p><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>主姿势 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>复制姿势 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>网格体合并 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>设置成本</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>最小</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>中等</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>高</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>游戏线程成本</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>最小</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>高</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>中等</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>渲染线程成本</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>高</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>高</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>低</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>物理</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>否</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>AnimDynamics或刚体</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>是</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>变形目标</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>是</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>是</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>否</p>
+			</td>
+	
+</tr></tbody>
+</table>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../SiteIndex/index.html?tags=Animation">Animation</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../SiteIndex/index.html?tags=Skeletal%20Mesh">Skeletal Mesh</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../SiteIndex/index.html?tags=Animation%20Features">Animation Features</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../SiteIndex/index.html?tags=Master%20Pose%20Component">Master Pose Component</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/AnimatingObjects/SkeletalMeshAnimation/WorkingwithModularCharacters/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:25:14 GMT -->
+</html>

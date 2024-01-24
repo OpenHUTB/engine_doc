@@ -1,0 +1,738 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/BuildingWorlds/LightingAndShadows/HDRIBackdrop/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 10:22:14 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "../../../../Images/BuildingWorlds/LightingAndShadows/HDRIBackdrop/HDRI_Hero.png";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/BuildingWorlds/LightingAndShadows/HDRIBackdrop/" />');
+				var udnCSS = '../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>HDRI背景 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/BuildingWorlds/LightingAndShadows/HDRIBackdrop/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/BuildingWorlds/LightingAndShadows/HDRIBackdrop/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/BuildingWorlds/LightingAndShadows/HDRIBackdrop/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/BuildingWorlds/LightingAndShadows/HDRIBackdrop/" hreflang="ko" />
+
+	<meta name="redirect" content="RenderingAndGraphics/LightingAndShadows/HDRIBackdrop" />
+<meta name="redirect" content="Engine/Rendering/LightingAndShadows/HDRIBackdrop" />
+<meta name="intsourcechangelist" content="16146891" />
+<meta name="availability" content="Public" />
+<meta name="title" content="HDRI背景" />
+<meta name="description" content="使用HDRI背景，快速设置带有实时光照和阴影的HDR图像投射的产品可视化。" />
+<meta name="type" content="Overview" />
+<meta name="version" content="4.23" />
+<meta name="parent" content="BuildingWorlds/LightingAndShadows" />
+<meta name="keywords" content="Overview" />
+<meta name="keywords" content="Visualization" />
+<meta name="topic-image" content="" />
+<meta name="hero-image" content="HDRI_Hero.png" />
+<meta name="course" content="lighting-essential-concepts-and-effects?lang=zh-CN|光照基础概念和效果|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Flighting-essential-concepts-and-effects%2FLightingEssentials_Topic_1920x1080-1920x1080-3e04dcaf168d9a530720df1573b417807ae00784.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Flighting-essential-concepts-and-effects%2FLighting-Essential-Concepts-and-Effects-1000x1000-14831d7f280345717b0bdd66be9422b40ffb91bd.png?resize=1&amp;w=300" />
+<meta name="course" content="introducing-global-illumination?lang=zh-CN|全局光照入门|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fintroducing-global-illumination%2F105_GlobalIllum%281200x675%29-1200x675-97270dbdc7595455b4c9acf0e83bf01da8efbfd4.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fintroducing-global-illumination%2FIntroducing-Global-Illumination-1000x1000-af5267ea2a6721b1cc73af7825d226aedbbaf5ce.png?resize=1&amp;w=300" />
+<meta name="crumbs" content="%ROOT%,BuildingWorlds,BuildingWorlds/LightingAndShadows" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="HDRI背景" />
+	<meta property="og:description" content="使用HDRI背景，快速设置带有实时光照和阴影的HDR图像投射的产品可视化。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">构建虚拟世界</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">照亮环境</a>
+
+<span class="separator">></span> <span id="page">HDRI背景</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  background">
+						<div class="imgContainer"><img src="../../../../Images/BuildingWorlds/LightingAndShadows/HDRIBackdrop/HDRI_Hero.png" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">HDRI背景</h1>
+							</div>	
+							<h2 >使用HDRI背景，快速设置带有实时光照和阴影的HDR图像投射的产品可视化。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																																			</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																								<div id="courses">
+	<div style="position:relative;">
+		<div id="title">相关课程</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<div name="lighting-essential-concepts-and-effects?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/lighting-essential-concepts-and-effects?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/lighting-essential-concepts-and-effects/LightingEssentials_Topic_1920x1080-1920x1080-3e04dcaf168d9a530720df1573b417807ae00784.4884f86.delaye?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/lighting-essential-concepts-and-effects/Lighting-Essential-Concepts-and-Effects-1000x1000-14831d7f280345717b0bdd66be9422b40ffb91bd.489fe4b.d?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="lighting-essential-concepts-and-effects?lang=zh-CN_title">
+				光照基础概念和效果
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="introducing-global-illumination?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/introducing-global-illumination?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/introducing-global-illumination/105_GlobalIllum(1200x675)-1200x675-97270dbdc7595455b4c9acf0e83bf01da8efbfd4.48b4f?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/introducing-global-illumination/Introducing-Global-Illumination-1000x1000-af5267ea2a6721b1cc73af7825d226aedbbaf5c?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="introducing-global-illumination?lang=zh-CN_title">
+				全局光照入门
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																								<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#启用hdri背景">启用HDRI背景</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>通常将高动态范围（HDR）图像用作背景，能在视觉丰富的情境下最为有效的展示模型。将HDR图像用作产品可视化背景的关键优势在于设置相对较快、可自定义，同时能获得精美的光照和反射。但仅将HDR图像用作背景还不够。为实现合理效果，在HDR图像环境中需用假的背景平面捕捉阴影，当物体被照亮时，阴影将投射到此假平面，从而在可视化放置物体和背景之间创造一致性。 
+</p><p>利用 <strong>HDRI背景</strong> Actor可完成所有此类操作，改善产品可视化工作流程。其自动处理以下操作：
+</p><ul ><li class="Default"><p>背景网格体（如穹顶或自定义几何体）
+</p></li><li class="Default"><p>来自动态天空光照的环境照明
+</p></li><li class="Default"><p>动态反射
+</p></li><li class="Default"><p>使用阴影捕捉投射到地面
+</p></li></ul><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_0_bz6qntop_2
+{
+	margin: 0px;
+	width: 100%;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_0_bz6qntop_2:after
+{
+	content: "";
+	padding-top: 56.25%;
+	display: block;
+}
+</style> 
+<div id="player_0_bz6qntop_2"> 
+	<div id="playerContainer_0_bz6qntop_2" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/0_bz6qntop/embed.html"></iframe>
+	</div>
+</div>
+<h3 id="启用hdri背景">启用HDRI背景</h3>
+<p>在使用此资产前，需要先为项目启用 <strong>HDRI背景</strong> 插件。 
+</p><ol ><li class="Default"><p>在虚幻编辑器中打开项目。
+</p></li><li class="Default"><p>在主菜单中选择 <strong>编辑 > 插件</strong>。
+</p></li><li class="Default"><p>在 <strong>渲染</strong> 目录下找到 <strong>HDRI背景</strong> 插件并勾选 <strong>启用</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/HDRIBackdrop/1_EnablingHDRIBackdropPlugin.jpg">
+		<img class="  lazyload" alt="1_EnablingHDRIBackdropPlugin.png" width="900" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/HDRIBackdrop/1_EnablingHDRIBackdropPlugin.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>点击 <strong>立即重启</strong> 重启项目并应用更改。
+</p><p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/HDRIBackdrop/1_EnablePluginRestart.jpg">
+		<img class="  lazyload" alt="1_EnablePluginRestart.png" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/HDRIBackdrop/1_EnablePluginRestart.jpg" />
+</picture>
+
+</p></li></ol><h2 id="工作流">工作流</h2>
+<ol ><li class="Default"><p>利用 <strong>内容浏览器</strong> 将使用经纬度的球形HDR图像导入UE4。可<a id="content_link" href="../../../WorkingWithContent/Importing/HowTo/ContentBrowserImport/index.html" ><span>使用导入按钮</span></a>、<a id="content_link" href="../../../WorkingWithContent/Importing/HowTo/RightClickImport/index.html" ><span>右键点击快捷菜单</span></a>或<a id="content_link" href="../../../WorkingWithContent/Importing/HowTo/DragAndDropImport/index.html" ><span>拖放</span></a>方法进行导入。
+</p><div class="note">
+	<p>导入后，确保在纹理编辑器中设置合适的HDR图像 <strong>最大纹理尺寸（Maximum Texture Size）</strong> 和 <strong>Mip生成设置（Mip Gen Settings）</strong>。如需了解更多信息，请参见本页的<a id="content_link" href="#hdr图像设置" ><span>HDR图像设置</span></a>章节。</p>
+</div><div class="tip">
+	<p>使用<a id="content_link" href="https://hdrihaven.com/" ><span>HDRI Haven</span></a>站点免费下载一些有趣的HDR图像，或使用UE4中适用于HDRI背景Actor的一些图像。使用内容浏览器的 <strong>查看选项（View Options）</strong> 启用 <strong>显示引擎内容（Show Engine Content）</strong> 和 <strong>显示插件内容（Show Plugin Content）</strong> 以显示可用的 <strong>立方体贴图（Cubemap）</strong> 资产。UE4默认包含部分资产，存储在 <code>DatasmithContent Content/Textures</code> 文件夹中。</p>
+</div></li><li class="Default"><p>点击 <strong>文件（File）</strong> 菜单，选择 <strong>新建关卡（New Level）</strong>。然后，在"新建关卡"窗口中，选择 <strong>空白关卡（Empty Level）</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/HDRIBackdrop/CreateNewBlankLevel.jpg">
+		<img class="  lazyload" alt="CreateNewBlankLevel.png" width="500" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/HDRIBackdrop/CreateNewBlankLevel.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>放置Actor（Place Actors）</strong> 面板的 <strong>光源（Lights）</strong> 下，点击并将 <strong>HDRI背景（HDRI Backdrop）</strong> 资产拖入关卡视口。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/BuildingWorlds/LightingAndShadows/HDRIBackdrop/DragIntoLevel.png" ><span><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/HDRIBackdrop/DragIntoLevel.jpg">
+		<img class="  lazyload" alt="DragIntoLevel.png" width="500" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/HDRIBackdrop/DragIntoLevel.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。 </p>
+</div></li><li class="Default"><p>选中关卡中的HDRI背景资产，使用 <strong>细节</strong> 面板设置以下各项：
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/BuildingWorlds/LightingAndShadows/HDRIBackdrop/HDRInitialSettings.png" ><span><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/HDRIBackdrop/HDRInitialSettings.jpg">
+		<img class="  lazyload" alt="HDRInitialSettings.png" width="500" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/HDRIBackdrop/HDRInitialSettings.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。 </p>
+</div><p>1.<strong>立方体贴图（Cubemap）：</strong> 在可用选项中选取立方体贴图，然后将其从内容浏览器中拖到此插槽上。 </p><pre class="prettyprint"><code>&#91;REGION:tip&#93;
+使用无法在穹顶或球形网格体（如仓库或箱式空间）上正常显示的立方体贴图时，需使用 &#42;&#42;网格体（Mesh）&#42;&#42; 指定参数选择合适的网格体。
+&#91;/REGION&#93;</code></pre>
+<p>1.<strong>大小（Size）：</strong> 调整此值设置网格体（HDR图像投射到之上）的大小。 
+1.<strong>投射中心（Projection Center）：</strong>选择3D小工具移动投射中心，以便与摄像机位置匹配，并根据需要进行调整，减少背景上HDR图像的偏斜和拉伸。
+</p><div class="note">
+	<p>如需了解此类及其他可调整设置的详细信息，参见本页的<a id="content_link" href="#hdri背景设置" ><span>HDRI背景设置</span></a>章节。</p>
+</div></li><li class="Default"><p>如要在可视化中使用动态阴影，还可选择添加 <strong>光源（Light Source）</strong> 并将其设为 <strong>可移动（Movable）</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/HDRIBackdrop/AddDirectionalLight.jpg">
+		<img class="  lazyload" alt="AddDirectionalLight.png" width="500" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/HDRIBackdrop/AddDirectionalLight.jpg" />
+</picture>
+
+</p></li></ol><h3 id="hdr图像设置">HDR图像设置</h3>
+<p>将HDR图像导入为虚幻资产时，HDRI背景Actor不会对其进行修改。首先需在<a id="content_link" href="../../../RenderingAndGraphics/Textures/Properties/Interface/index.html" ><span>纹理编辑器</span></a>中手动应用若干设置： 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/BuildingWorlds/LightingAndShadows/HDRIBackdrop/HDR_TextureEditorSettings.png" ><span><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/HDRIBackdrop/HDR_TextureEditorSettings.jpg">
+		<img class="  lazyload" alt="HDR_TextureEditorSettings.png" width="500" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/HDRIBackdrop/HDR_TextureEditorSettings.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。 </p>
+</div><ol ><li class="Default"><p>该HDR图像的 <strong>已导入（Imported）</strong>、<strong>已显示（Displayed）</strong> 和**游戏最大（Max-In-Game）** 分辨率。 
+</p></li><li class="Default"><p><strong>最大纹理尺寸（Maximum Texture Size）</strong> 应与已导入HDR图像的较大分辨率值匹配——在本例中为4096。
+</p></li><li class="Default"><p>应将 <strong>Mip生成设置（Mip Gen Settings）</strong> 设为 <strong>NoMipmaps</strong> 以使用完全品质。
+</p></li></ol><div class="warning">
+	<p>如不更改此类值，HDR图像可能无法正确显示。其分辨率较低，图像较为模糊。</p>
+</div><h3 id="hdr图像背景网格体设置">HDR图像背景网格体设置</h3>
+<p>并非所有HDR图像创建时都相同，可能需要各自自定义几何体以便投射。除了HDR图像外，UE4还在编辑器中提供多个可供选择的背景网格体。
+</p><div class="note">
+	<p>首先须使用 <strong>查看选项（View Options）</strong> 启用 <strong>显示引擎内容（Show Engine Content）</strong> 和 <strong>显示插件内容（Show Plugin Content）</strong>，才能在资产选择框中看到可用的静态网格体。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/BuildingWorlds/LightingAndShadows/HDRIBackdrop/ViewOptions.png" ><span><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/HDRIBackdrop/ViewOptions.jpg">
+		<img class="  lazyload" alt="ViewOptions.png" width="300" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/HDRIBackdrop/ViewOptions.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。 </p>
+</div>
+</div><p>使用 <strong>网格体</strong> 旁的资产选择框来选择将HDR图像投射之上的环境网格体。其可为任意静态网格体，如创建的自定义几何体，或UE4提供的三个几何体之一。
+</p><p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/HDRIBackdrop/HDRIMeshSelect.jpg">
+		<img class="  lazyload" alt="HDRIMeshSelect.png" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/HDRIBackdrop/HDRIMeshSelect.jpg" />
+</picture>
+
+</p><div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>背景网格体 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>网格体 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>描述 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>EnviroDome</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/HDRIBackdrop/SkyDome.jpg">
+		<img class="  lazyload" alt="SkyDome.png" width="100" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/HDRIBackdrop/SkyDome.jpg" />
+</picture>
+</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>拥有地面平面的穹顶网格体，是大型外部环境HDR图像的理想选择。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>EnviroBoxSharp</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/HDRIBackdrop/BoxSharp.jpg">
+		<img class="  lazyload" alt="BoxSharp.png" width="100" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/HDRIBackdrop/BoxSharp.jpg" />
+</picture>
+</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>拥有毛边的箱体环境，是室内环境的理想选择，例如仓库或明确包含墙壁的空间。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>EnviroBox</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/HDRIBackdrop/BoxSmooth.jpg">
+		<img class="  lazyload" alt="BoxSmooth.png" width="100" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/HDRIBackdrop/BoxSmooth.jpg" />
+</picture>
+</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>拥有平滑边缘的箱体环境，是工作室环境的理想选择，通常适用于如有单色背景布的环境。</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div><p>以下展示了UE4中各网格体背景的示例：
+</p><div class="imagetable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/HDRIBackdrop/Scene_SkyDome.jpg">
+		<img class="  lazyload" alt="Scene_SkyDome.png" width="400" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/HDRIBackdrop/Scene_SkyDome.jpg" />
+</picture>
+ </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/HDRIBackdrop/Scene_BoxSharp.jpg">
+		<img class="  lazyload" alt="Scene_BoxSharp.png" width="400" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/HDRIBackdrop/Scene_BoxSharp.jpg" />
+</picture>
+ </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/HDRIBackdrop/Scene_BoxSmooth.jpg">
+		<img class="  lazyload" alt="Scene_BoxSmooth.png" width="400" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/HDRIBackdrop/Scene_BoxSmooth.jpg" />
+</picture>
+ </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>默认EnviroDome</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>EnviroBoxSharp</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>EnviroBox</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div><h2 id="hdri背景设置">HDRI背景设置</h2>
+<p>在关卡中选中HDRI背景资产后，可在该资产的 <strong>细节（Details）</strong> 面板中设置、启用和调整以下设置：
+</p><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>属性 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>描述</p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>立方体贴图（Cubemap）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>指定将投射到地面和背景的已导入HDR图像，内置天空光源将使用此图像。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>强度（Intensity）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>设置嵌入天空光照的强度及背景HDR图像的自发光程度。值越大，在HDR图像中采样的环境光照越亮（cd/m2）。<div class="note">
+	<p> 注意：天空光照或自发光材质等物理照明单位的测量单位为cd/m2。太阳和天空光源的范围高达数千单位，这与物理摄像机的关系密切，该摄像机的曝光值（EV）范围是EV100:14（请参阅"Sunny 16"定理）。不过，拥有HDRI背景资产时，无需使用正确物理值，但可能需将EV设为远低于EV100:14的值。还需注意的是某些HDR图像范围为0-5.0或大于5 cd/m2，而其他图像的范围为0-100K单位。这意味着在切换HDR图像时，会有明显的亮度变化。</p>
+</div></p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>大小（Size）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>设置用于投射HDR图像的网格体大小（以米计）。其控制背景网格体的直径，应根据所用HDR图像、水平高度和场景中内容进行调整。对于多数室外场景而言，标准大小应约为100米。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>投射中心（Projection Center）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>定义HDR图像的投射点。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>光照距离因子（Lighting Distance Factor）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>指定将受光照和阴影影响的地面区域。光照区域将拥有稍微不同的着色，具体取决于强度和场景中的其他光照参数。此设置将使光照区域范围围绕摄像机平滑混合，从而减少与背景HDR投射的着色差异。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>使用摄像机投射（Use Camera Projection）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>禁用地面追踪，并启用HDR图像以跟踪摄像机。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>网格体（Mesh）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>指定自定义静态网格体对象以用作背景，HDR图像投射自该背景。</p>
+			</td>
+	
+</tr></tbody>
+</table><h3 id="投射中心">投射中心</h3>
+<p>应将背景上的HDR图像投射中心设为与用于捕捉图像的摄像机高度匹配。 
+</p><p>选择3D小工具来定义3D空间中的投射中心位置：
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_1_2a2zwzjl_205
+{
+	margin: 0px;
+	width: 75%;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_1_2a2zwzjl_205:after
+{
+	content: "";
+	padding-top: 56.25%;
+	display: block;
+}
+</style> 
+<div id="player_1_2a2zwzjl_205"> 
+	<div id="playerContainer_1_2a2zwzjl_205" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/1_2a2zwzjl/embed.html"></iframe>
+	</div>
+</div>
+<p>也可在变换文本框中手动输入此类数值（建议使用视口中的3D小工具以获得最为顺滑的交互）：
+</p><p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/HDRIBackdrop/HDRIBackdrop_ProjectionCenterTransform.jpg">
+		<img class="  lazyload" alt="HDRIBackdrop_ProjectionCenterTransform.png" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/HDRIBackdrop/HDRIBackdrop_ProjectionCenterTransform.jpg" />
+</picture>
+
+</p><ul ><li class="Default"><p>Z（高度）应约为90厘米（cm），此为用于捕捉HDR图像的摄像机三脚架平均高度。由于高度取决于用于捕捉图像的摄像机高度，因此可使用不同值。
+</p></li><li class="Default"><p>利用X和Y可偏移投射原点。多数情况下，不应更改该值。
+</p></li></ul><h3 id="光照距离因子">光照距离因子</h3>
+<p>你可以向场景添加自己的光照和调整参数；但有时光照和阴影强度与背景有差异。利用 <strong>光照距离因子（Lighting Distance Factor）</strong> 可定义摄像机周围的地面区域，以混合场景光照和阴影来减小此类差异。
+</p><!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/HDRIBackdrop/Scene_LightingDistanceFactor_0.jpg">
+		<img class="  lazyload" alt="光照距离系数：0" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/HDRIBackdrop/Scene_LightingDistanceFactor_0.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/HDRIBackdrop/Scene_LightingDistanceFactor_1.jpg">
+		<img class="  lazyload" alt="光照距离系数：0.5（默认）" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/HDRIBackdrop/Scene_LightingDistanceFactor_1.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div><p><strong>光照距离因子</strong> 值为穹顶 <strong>大小</strong> 值的百分比。一般约为0.5或稍高的数值。如使用不当将导致瑕疵。设置过高时，背景边缘将出现水平线，较低值有助于解决此类瑕疵。
+</p><div class="tip">
+	<p>在实例中无需合成阴影和环境光遮蔽（AO）时，可将该值设为0。</p>
+</div><h2 id="附加说明">附加说明</h2>
+<p>以下是一些使用HDRI背景资产时的额外注意事项和建议：
+</p><ul ><li class="Default"><p><strong>与天空光照Actor互动</strong>
+</p><p>将HDRI背景添加到场景时，将创建作为子组件的动态<a id="content_link"filter-data="tag_lighting" href="../LightTypes/SkyLight/index.html" ><span>天空光照</span></a>。如有常规天空光照，应将其删除。否则，场景将包含多个天空光照，影响性能、质量和理想的场景效果。<br /></p></li><li class="Default"><p><strong>HDR图像拉伸</strong>
+</p><p>为确保在最小拉伸下达到最佳效果，放置UE4摄像机时应使其朝向投射原点周围。调整<a id="content_link" href="#投射中心" ><span>投射中心</span></a>可减少拉伸，便于相对缩放。 
+</p></li><li class="Default"><p><strong>光线追踪功能</strong>
+</p><p>HDRI背景适用于所有UE4光源类型及支持的<a id="content_link"filter-data="tag_ray_tracing" href="../../../RenderingAndGraphics/RayTracing/index.html" ><span>光线追踪</span></a>功能。HDRI背景蓝图默认包含启用 <strong>投射光线追踪阴影（Cast Ray Tracing Shadow）</strong> 的天空光照组件，此为利用光线追踪进行正确的基于图像光照（IBL）的先决条件。 
+</p><p>此外还需谨记，向场景添加功能时可在后期处理体积中启用和设置额外光线追踪功能。可控制环境光遮蔽、全局光照、半透明和反射。
+</p></li><li class="Default"><p><strong>强度、HDR内容和曝光</strong>
+</p><p>HDR图像由天空光照输入和驱动。HDR图像的内容会对场景亮度产生极大影响。无论HDR图像内容是什么，HDRI背景资产均不会在其中执行像素值规范化来提供 <em>稳定</em> 强度。这意味在切换不同HDR图像时，由于无法自动处理，因此需调整此强度。但可能会在未来版本中新增此功能。 
+</p></li><li class="Default"><p><strong>高精度法线</strong>
+</p><p>修改此G Buffer格式选项将以每通道16位对 <code>默认</code> 格式进行编码。它能在平滑的高模上形成高精度反射。使用默认格式时，这些平滑的反射表面上可能出现波纹反射瑕疵。 
+</p><p>在**项目设置（Project Settings）<strong> > </strong>渲染（Rendering）<strong> > </strong>优化（Optimizations）<strong> 中，使用 </strong>GBuffer格式（GBuffer Format）<strong> 下拉菜单选择 </strong>高精度法线（High Precision Normals）**。 
+</p><!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/HDRIBackdrop/HighPrecisionNormal_0.jpg">
+		<img class="  lazyload" alt="高精度法线：已禁用" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/HDRIBackdrop/HighPrecisionNormal_0.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/HDRIBackdrop/HighPrecisionNormal_1.jpg">
+		<img class="  lazyload" alt="高精度法线：已启用" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/HDRIBackdrop/HighPrecisionNormal_1.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div></li><li class="Default"><p><strong>反射采集分辨率</strong>
+</p><p>修改此值即可将高精度反射从立方体贴图和HDR图像投射到场景中的天幕和反射采集Actor上。
+</p><p>在 <strong>项目设置（Project Settings)</strong> > <strong>渲染（Rendering）</strong> > <strong>反射（Reflections）</strong> 中，设置所需的 <strong>反射采集分辨率（Reflection Capture Resolution）</strong> 值（须为2的幂次方）。此分辨率将自动应用到场景中放置的所有反射采集。可将 <strong>天空光照</strong> 的值设为希望使用的最大分辨率。
+</p><!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/HDRIBackdrop/ReflectionCaptureResolution_128.jpg">
+		<img class="  lazyload" alt="反射采集分辨率：128（默认）" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/HDRIBackdrop/ReflectionCaptureResolution_128.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/HDRIBackdrop/ReflectionCaptureResolution_1024.jpg">
+		<img class="  lazyload" alt="反射采集分辨率：1024" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/HDRIBackdrop/ReflectionCaptureResolution_1024.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div><div class="note">
+	
+</div></li></ul><h2 id="其他资源">其他资源</h2>
+<ul ><li class="Default"><p>NASA的Juno 3D模型，由"<a id="content_link" href="https://nasa3d.arc.nasa.gov/detail/eoss-juno" ><span>NASA 3D资源</span></a>"提供。
+</p></li><li class="Default"><p>HDR图像，由"<a id="content_link" href="https://hdrihaven.com/" ><span>HDRI Haven</span></a>"提供。
+</p></li></ul>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../SiteIndex/index.html?tags=Overview">Overview</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../SiteIndex/index.html?tags=Visualization">Visualization</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/BuildingWorlds/LightingAndShadows/HDRIBackdrop/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 10:22:30 GMT -->
+</html>

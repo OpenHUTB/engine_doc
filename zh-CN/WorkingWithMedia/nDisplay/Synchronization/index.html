@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/WorkingWithMedia/nDisplay/Synchronization/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:40:08 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "../../../../Images/WorkingWithMedia/nDisplay/Synchronization/SynchHeroImage.png";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/WorkingWithMedia/nDisplay/Synchronization/" />');
+				var udnCSS = '../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>nDisplay中的同步机制 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/WorkingWithMedia/nDisplay/Synchronization/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/WorkingWithMedia/nDisplay/Synchronization/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/WorkingWithMedia/nDisplay/Synchronization/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/WorkingWithMedia/nDisplay/Synchronization/" hreflang="ko" />
+
+	<meta name="redirect" content="RenderingAndGraphics/nDisplay/Synchronization" />
+<meta name="redirect" content="Engine/Rendering/nDisplay/Synchronization" />
+<meta name="intsourcechangelist" content="14343589" />
+<meta name="availability" content="Public" />
+<meta name="title" content="nDisplay中的同步机制" />
+<meta name="description" content="介绍多台显示器如何进行同步" />
+<meta name="parent" content="WorkingWithMedia/nDisplay" />
+<meta name="type" content="Overview" />
+<meta name="version" content="4.25" />
+<meta name="order" content="1" />
+<meta name="keywords" content="synchronization" />
+<meta name="keywords" content="Rendering" />
+<meta name="keywords" content="Graphics" />
+<meta name="keywords" content="nDisplay" />
+<meta name="hero-image" content="SynchHeroImage.png" />
+<meta name="topic-image" content="" />
+<meta name="crumbs" content="%ROOT%,WorkingWithMedia,WorkingWithMedia/nDisplay" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="nDisplay中的同步机制" />
+	<meta property="og:description" content="介绍多台显示器如何进行同步" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">使用媒体</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">使用nDisplay在多显示屏上进行渲染</a>
+
+<span class="separator">></span> <span id="page">nDisplay中的同步机制</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  background">
+						<div class="imgContainer"><img src="../../../../Images/WorkingWithMedia/nDisplay/Synchronization/SynchHeroImage.png" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">nDisplay中的同步机制</h1>
+							</div>	
+							<h2 >介绍多台显示器如何进行同步</h2>
+							<div id="access">
+								<div class="accessContainer">
+																																			</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																																				<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#确定性">确定性</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#硬件同步和同步锁定（genlock）">硬件同步和同步锁定（Genlock）</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#显示同步详解">显示同步详解</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#菊花链和直接genlock">菊花链和直接Genlock</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#nvidiamosaic和amdeyefinity">NVIDIA Mosaic和AMD EyeFinity</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#显示同步的其他方面">显示同步的其他方面</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#同步策略">同步策略</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#gettingsynctowork">Getting Sync to Work</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#工作流程">工作流程</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#其他信息">其他信息</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#同步测试">同步测试</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#其他信息的链接">其他信息的链接</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>每当需要在大型显示器上同时显示实时内容的多个区域时，<em>同步</em> 就显得至关重要。渲染/显示生态系统中的所有系统都必须严格计算时间（以秒为单位），以便给人无缝显示的错觉。 
+</p><p>多显示设置通常要求在软件和硬件层面实现同步功能。使用相同的模拟时间信息，不仅生成内容要在所有PC上同时准备就绪，而且还需要在正确的时间进行显示内容的交换（将当前图像换成显卡缓冲区中的下一张图像），以免显示中出现类似撕裂的瑕疵效果。
+</p><p>对于VR和其他类型的双屏显示器，由于存在两幅画面（每只眼睛对应一副画面）并且二者必须完美协调，因此同步问题会成倍增加。
+</p><h2 id="确定性">确定性</h2>
+<p>有两种管理同步的方法：
+</p><ul ><li class="Default"><p><strong> 确定性：</strong> 设置每个服务器（PC、渲染节点）的方式为：在给定特定输入集的情况下，输出始终可预测，这意味着服务器与系统中其他机器同步仅需准确的时间和每台独立机器的输入/输出信息。 
+</p></li><li class="Default"><p><strong>非确定性：</strong> 为了确保同步，系统强制复制场景中所有actor或对象的变换矩阵和其他相关特征，并在整个系统中复制它们。
+</p></li></ul><p>两种方法各有优缺点。确定性系统的主要优势在于项目的简单性，并且不会对每个对象进行每帧的变换数据共享，从而节省数据带宽。缺点在于，如果一个系统出现偏离，随着时间的推移，这种偏离将产生未知问题。渲染均匀性可能会受到严重影响，从而导致视觉效果不连续和出现瑕疵。
+</p><h2 id="硬件同步和同步锁定（genlock）">硬件同步和同步锁定（Genlock）</h2>
+<p>尽管 <em>nDisplay主PC</em> 会确保从游戏进程的角度（例如，渲染哪个帧），将时间信息告知所有 <em>群集（节点）PC</em>，但仍需要专用的硬件同步卡和兼容的专业显卡，以便在物理显示设备上以完全相同的时间同步渲染帧的显示。
+</p><p>例如，在广播应用中，通常要同步许多设备，例如摄像机、监视器和其他显示器，以便它们都可以在同一时间精准地切换和采集下一帧。在这个行业中，<em>发生器锁定信号（genlock）</em> 被广泛采用。
+</p><p>通常，设置涉及硬件发生器（硬件发生器将时钟发送到需要同步的硬件）。至于用于实时渲染的PC，专业显卡（例如NVIDIA Quadro系列显卡）与NVIDIA Quadro Sync Ii卡都支持该技术，它们能锁定接收到的时间信号或脉冲。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/WorkingWithMedia/nDisplay/Synchronization/ViewSystemTopology.png" ><span><picture>
+		<source data-srcset="./../../../../Images/WorkingWithMedia/nDisplay/Synchronization/ViewSystemTopology.jpg">
+		<img class="  lazyload" alt="ViewSystemTopology.png" data-src="../../../../Images/WorkingWithMedia/nDisplay/Synchronization/ViewSystemTopology.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>系统拓扑</p>
+</div><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/WorkingWithMedia/nDisplay/Synchronization/PrimaryNode.png" ><span><picture>
+		<source data-srcset="./../../../../Images/WorkingWithMedia/nDisplay/Synchronization/PrimaryNode.jpg">
+		<img class="  lazyload" alt="PrimaryNode.png" data-src="../../../../Images/WorkingWithMedia/nDisplay/Synchronization/PrimaryNode.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>主节点（内部时钟发生器）</p>
+</div><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/WorkingWithMedia/nDisplay/Synchronization/ClusterNodes.png" ><span><picture>
+		<source data-srcset="./../../../../Images/WorkingWithMedia/nDisplay/Synchronization/ClusterNodes.jpg">
+		<img class="  lazyload" alt="ClusterNodes.png" data-src="../../../../Images/WorkingWithMedia/nDisplay/Synchronization/ClusterNodes.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>群集节点（从主节点GPU接收时钟）</p>
+</div><h2 id="显示同步详解">显示同步详解</h2>
+<ul ><li class="Default"><p><strong>仅帧锁（Framelock only）：</strong> 该方法在多个GPU之间使用菊花链技术，通常被NVIDIA称为 <em>帧锁定/交换同步（FrameLock/SwapSync）</em>。此处没有使用Genlock。主nDisplay PC上的GPU会从输出显示或与之连接的处理器获得主时钟，然后传递给作为渲染节点的PC的GPU。所有PC都在树形拓扑结构内相互连接，其中主PC是根节点。该方法允许借助NVIDIA API使用NVIDIA交换组/屏障。
+</p><p>这种方法不适合虚拟制片，因为它与空间内的其他使用设备相互独立工作，所有设备都与外部主时钟同步。
+</p></li><li class="Default"><p><strong>仅Genlock：</strong> 采用这种方案时，所有群集PC都从相同的来源获取它们自己的主时钟信号（genlock）。换句话说，所有PC都有自己的BNC连线，并且所有连线都连接到同一台主时钟生成器。
+</p><p>此方法允许VSync同步；不过，NVIDIA屏障将无法通过NVIDIA API获得。技术上说，所有集群PC都与接受的时钟保持帧锁定。然后这种方法还未被证明拥有100%的可靠性，因为还无法在应用层面上对帧的呈现实现精确控制。
+</p><div class="note">
+	<p>此方法是我们之前用的方法，也是为何我们必须实现一种"高级"同步策略，从而降低出现无法同步/卡顿的几率。</p>
+</div></li><li class="Default"><p><strong>Genlock + 帧锁定：此方法最适合虚拟制片。</strong> 所有舞台设备都连接到一台主时钟，包括主nDisplay PC的GPU。群集内的同步，是通过主PC和渲染节点PC之间的菊花链连接实现的。
+</p><p>此方法允许使用NVIDIA API，因此可以利用NVIDIA屏障，从而使UE能够在应用层面上控制帧的呈现。这种是最可靠的同步显示方法，同时还提供了外部时钟(Genlock)。
+</p></li></ul><h2 id="菊花链和直接genlock">菊花链和直接Genlock</h2>
+<p><em>菊花链</em> 是直接Genlock以外的另一种信号锁定技术，该技术将主时钟发送到单个PC或设备（此处为主PC）。然后使用单独的电缆将信号传播到所有其他硬件。尽管以前使用nDisplay的经验表明，直接Genlock（每台PC直接从主源接收时钟）比菊花链更简单、更有效，但是基于菊花链的新硬件方法为实现更可靠、更具成本效益的信号锁定解决方案带来了希望。此解决方案被称为 <em>NVIDIA交换同步/锁定</em>。
+</p><h2 id="nvidiamosaic和amdeyefinity">NVIDIA Mosaic和AMD EyeFinity</h2>
+<p>NVIDIA的 <em>Mosaic模式</em> 和AMD的 <em>EyeFinity</em> 是类似的GPU技术，它们在一个显卡中组合并同步多个输出，因此从操作系统或软件角度来看，是一种独特的显示手段。该虚拟显示本质上是多个物理显示器的聚合，这些物理显示器充当一个同步显示器，也可以使用基础的帧锁或Genlock技术与来自不同系统的其他显示器同步。 
+</p><p>使用内部时钟锁定多个显示器的过程称为 <em>帧锁定</em>。<em>Genlock</em> 是指使用外部时钟替而代之的情况。在Genlock的情况下，外部时钟用于所有设备，包括显示设备、摄像机和跟踪传感器。
+</p><p>假设GPU用的是Quadro Sync II或Firepro S400显卡的GPU，并且连接正确，Mosaic和EyeFinity技术都允许单个显卡的多个输出具有完全相同的时钟，并且从操作系统角度来看，它们被视为一个大型显示画布。你可以在每台PC上创建一个或多个Mosaic或Eyefinity组，但不能跨PC创建——每台PC必须有自己的Mosaic或Eyefinity组。 
+</p><p>如果要用菊花链技术同步由多PC或GPU驱动的显示器，必须要有一个GPU充当主时钟发生器，并使用Nvidia Quadro Sync II或AMD Firepro S400等同步卡将其时钟共享给同其他GPU（同一台PC上或不同PC上的GPU）。
+</p><p>有关更多信息，请参阅<a id="content_link" href="https://www.nvidia.com/fr-fr/design-visualization/solutions/nvidia-mosaic-technology/" ><span>适用于多个显示器的Mosaic技术|NVIDIA</span></a>和<a id="content_link" href="https://www.amd.com/en/technologies/eyefinity" ><span>多显示器Eyefinity技术</span></a>。 
+</p><div class="note">
+	<p>Although it is possible to have a MOSAIC virtual display spawn across multiple GPUs within one PC, currently, it would be slow to have an application window over that canvas. (Future work may possibly enable this.) Today, this approach would not be recommended for virtual production or in-camera VFX.</p>
+</div><h2 id="显示同步的其他方面">显示同步的其他方面</h2>
+<p>游戏线程和渲染线程始终通过所谓的"线程屏障"同步。"线程屏障"是以下两项内容的核心功能。屏障无法禁用。你可以将它们看作时间刻度上的许多点，有助于主节点同步处理从节点，从而在多台装有虚幻引擎的PC上提供统一的内容体验。
+</p><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>功能 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>描述 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>软件/模拟（你应看到的内容）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>同步所有软件相关事务的过程。其涉及使虚幻引擎及其内容正确同步：功能确定性、增量时间同步、输入复制、自定义变换、线程屏障、群集事件、游戏逻辑等。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>硬件/操作系统（查看内容的方式）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>使用一个共享时钟（内部同步或Genlock信号）同步硬件设备（例如GPU、显示设备和 <em>DWM</em> （桌面窗口管理器））的过程。其涉及如何让一个操作系统和硬件同步显示你想要的内容，而不出现撕裂。这需要NVIDIA Quadro显卡、Sync Ii卡以及Genlock发生器。如果未启用，则至少会出现一帧硬件延迟。</p>
+			</td>
+	
+</tr></tbody>
+</table><h2 id="同步策略">同步策略</h2>
+<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>功能 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>描述 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><code>swap&#95;sync&#95;policy=0:  </code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>这表示VSync=0。在RenderThreadBarrier不与VBlank同步之后，所有节点显示其帧。这样可以获得最大的FPS，但可能出现类似撕裂效果的瑕疵。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><code>swap&#95;sync&#95;policy=1:</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>这表示VSync=1。在RenderThreadBarrier与VBlank同步之后，所有节点均显示其帧。输出显示不会出现撕裂。请注意，显示器之间仍可能因为DWM和运行时或驱动程序设置的原因撕裂。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><code> swap&#95;sync&#95;policy=1 + 高级同步已启用：</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>与此前的策略相同，只是我们尝试在软件层面上执行。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><code> swap&#95;sync&#95;policy=2:  </code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>已在4.25版中添加，基于菊花链的NVIDIA硬件帧锁（<strong>Nvidia SwapLock API</strong>）。</p>
+			</td>
+	
+</tr></tbody>
+</table><p>配置中的新同步策略和 <code>&#91;cluster&#95;node&#93;</code> 的 <code>&#91;swapgroup&#93;</code> 参数：
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/WorkingWithMedia/nDisplay/Synchronization/SyncPolicyInConfig.png" ><span><picture>
+		<source data-srcset="./../../../../Images/WorkingWithMedia/nDisplay/Synchronization/SyncPolicyInConfig.jpg">
+		<img class="  lazyload" alt="SyncPolicyInConfig.png" data-src="../../../../Images/WorkingWithMedia/nDisplay/Synchronization/SyncPolicyInConfig.jpg" />
+</picture>
+</span></a></span></p>
+</div><p>在以前的版本中，我们针对特定情况开发了一种被称为 <em>高级同步</em> 的同步机制，其中给定nDisplay PC上的帧渲染会在VBlank之后进行，并在屏幕上造成撕裂效果。这种软件机制试图预测这些事件，强制所有PC跳过并在下一个VBlank上渲染。此机制并非100%完美，并在启用后可能产生不好的性能影响。
+</p><p>在此版本中，我们决定实现新可用的Nvidia同步API，这是一种硬件支持型问题解决方案。
+</p><p><picture>
+		<source data-srcset="./../../../../Images/WorkingWithMedia/nDisplay/Synchronization/FrameLockConnectionsTimingServer.jpg">
+		<img class="  lazyload" alt="FrameLockConnectionsTimingServer.png" data-src="../../../../Images/WorkingWithMedia/nDisplay/Synchronization/FrameLockConnectionsTimingServer.jpg" />
+</picture>
+
+</p><div class="caption">
+	<p>时间服务器上的帧锁连接：1) 时间服务器 2) 客户端。</p>
+</div><p><picture>
+		<source data-srcset="./../../../../Images/WorkingWithMedia/nDisplay/Synchronization/SyncSource.jpg">
+		<img class="  lazyload" alt="SyncSource.png" data-src="../../../../Images/WorkingWithMedia/nDisplay/Synchronization/SyncSource.jpg" />
+</picture>
+
+</p><div class="caption">
+	<p>1) 同步源 2) 服务器 3) 客户端</p>
+</div><h2 id="gettingsynctowork">Getting Sync to Work</h2>
+<p>For reliable sync in the context of virtual production, you have to use a technique that combines both genlock and framelock. To summarize, you feed the genlock signal to the master nDisplay PC, then use the daisy-chaining hardware method to dispatch the incoming sync signal to all remaining cluster PCs so that they are properly framelocked. This implies a sync #2 policy that needs to be properly defined within the configuration file.
+</p><h3 id="工作流程">工作流程</h3>
+<ol ><li class="Default"><p>使用带有常规RJ45连接器的常规以太网电缆在群集GPU同步板中设置菊花链连接。
+</p></li><li class="Default"><p>启用MOSAIC并通过NVIDIA控制面板配置同步（设置主节点，然后设置同步从节点）。
+</p></li><li class="Default"><p>在nDisplay配置文件中，将同步策略设置为 <code>2: &#91;general&#93; swap&#95;sync&#95;policy=2;</code>
+</p></li><li class="Default"><p><em>可选：</em> 对于复杂的系统，可以使用新的[nvidia]配置实体，自定义nDisplay配置文件中的NVIDIA交换组和同步屏障。例如： <code>&#91;nvidia&#93; sync&#95;group=2 sync&#95;barrier=2</code>
+</p></li></ol><p>默认情况下，使用同步组1和同步屏障1。
+</p><p><code>Swap&#95;sync&#95;policy=2</code> 配置设置可在群集节点上启用NVIDIA交换组。 
+</p><h3 id="其他信息">其他信息</h3>
+<p>不允许使用0。0值被内部用于分离/离开组/屏障。仅支持自然数。对于带有一个GPU和一个同步板的简单系统，你将获得单个同步组1号和单个同步屏障1号。此为默认使用值。
+</p><h2 id="同步测试">同步测试</h2>
+<p>测试缩放显示器的同步可能很麻烦，因为由许多问题都可能导致引起不同步，包括：
+</p><ul ><li class="Default"><p>时间戳错误导致模拟了错误的帧（软件问题）。
+</p></li><li class="Default"><p>显示设备时间关闭（显示或硬件问题）。
+</p></li></ul><p>为了测试同步效果，我们使用了一个简单的测试项目，在该项目中，会有一个对象在整个显示表面上快速移动。假如系统能够正确同步，对象在穿越边界时就能维持原有的形状。否则，显示器的衔接处会显示画面撕裂瑕疵。
+</p><p><picture>
+		<source data-srcset="./../../../../Images/WorkingWithMedia/nDisplay/Synchronization/ScreenOneScreenTwo.jpg">
+		<img class="  lazyload" alt="ScreenOneScreenTwo.png" data-src="../../../../Images/WorkingWithMedia/nDisplay/Synchronization/ScreenOneScreenTwo.jpg" />
+</picture>
+
+</p><div class="caption">
+	<p>假如系统正确同步，对象从屏幕1移动到屏幕2时会保留原有形状。 </p>
+</div><h2 id="其他信息的链接">其他信息的链接</h2>
+<ul ><li class="Default"><p><a id="content_link" href="https://www.nvidia.com/content/dam/en-zz/Solutions/design-visualization/quadro-product-literature/Quadro_GSync_install_guide_v4.pdf" ><span>NVIDIA QUADRO G-SYNC II </span></a>
+</p></li><li class="Default"><p><a id="content_link" href="https://download.nvidia.com/XFree86/Linux-x86_64/340.108/README/framelock.htm" ><span>第30章，配置帧锁和Genlock</span></a>
+</p></li><li class="Default"><p><a id="content_link" href="https://images.nvidia.com/content/quadro/product-literature/user-guides/Quadro-Sync-II-User-Guide.pdf" ><span>QUADRO SYNC II</span></a>
+</p></li><li class="Default"><p><a id="content_link" href="https://nvidia.custhelp.com/app/answers/detail/a_id/4449/~/nvidia-recommended-display-adapters" ><span>NVIDIA推荐显示适配器</span></a>
+</p></li></ul>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../SiteIndex/index.html?tags=synchronization">synchronization</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../SiteIndex/index.html?tags=Rendering">Rendering</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../SiteIndex/index.html?tags=Graphics">Graphics</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../SiteIndex/index.html?tags=nDisplay">nDisplay</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/WorkingWithMedia/nDisplay/Synchronization/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:40:14 GMT -->
+</html>

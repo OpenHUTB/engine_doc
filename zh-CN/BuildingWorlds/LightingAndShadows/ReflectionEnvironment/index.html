@@ -1,0 +1,925 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 10:20:12 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/" />');
+				var udnCSS = '../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>反射环境 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/" hreflang="ko" />
+
+	<meta name="redirect" content="RenderingAndGraphics/LightingAndShadows/ReflectionEnvironment" />
+<meta name="redirect" content="Engine/Rendering/LightingAndShadows/ReflectionEnvironment" />
+<meta name="intsourcechangelist" content="18413618" />
+<meta name="availability" content="Public" />
+<meta name="title" content="反射环境" />
+<meta name="description" content="捕捉并显示局部光泽反射的系统。" />
+<meta name="version" content="4.14" />
+<meta name="topic-image" content="reflection_topic.png" />
+<meta name="course" content="lighting-essential-concepts-and-effects?lang=zh-CN|光照基础概念和效果|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Flighting-essential-concepts-and-effects%2FLightingEssentials_Topic_1920x1080-1920x1080-3e04dcaf168d9a530720df1573b417807ae00784.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Flighting-essential-concepts-and-effects%2FLighting-Essential-Concepts-and-Effects-1000x1000-14831d7f280345717b0bdd66be9422b40ffb91bd.png?resize=1&amp;w=300" />
+<meta name="course" content="introducing-global-illumination?lang=zh-CN|全局光照入门|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fintroducing-global-illumination%2F105_GlobalIllum%281200x675%29-1200x675-97270dbdc7595455b4c9acf0e83bf01da8efbfd4.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fintroducing-global-illumination%2FIntroducing-Global-Illumination-1000x1000-af5267ea2a6721b1cc73af7825d226aedbbaf5ce.png?resize=1&amp;w=300" />
+<meta name="crumbs" content="%ROOT%,BuildingWorlds,BuildingWorlds/LightingAndShadows" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="反射环境" />
+	<meta property="og:description" content="捕捉并显示局部光泽反射的系统。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">构建虚拟世界</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">照亮环境</a>
+
+<span class="separator">></span> <span id="page">反射环境</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">反射环境</h1>
+							</div>	
+							<h2 >捕捉并显示局部光泽反射的系统。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																																			</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																								<div id="courses">
+	<div style="position:relative;">
+		<div id="title">相关课程</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<div name="lighting-essential-concepts-and-effects?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/lighting-essential-concepts-and-effects?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/lighting-essential-concepts-and-effects/LightingEssentials_Topic_1920x1080-1920x1080-3e04dcaf168d9a530720df1573b417807ae00784.4884f86.delaye?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/lighting-essential-concepts-and-effects/Lighting-Essential-Concepts-and-Effects-1000x1000-14831d7f280345717b0bdd66be9422b40ffb91bd.489fe4b.d?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="lighting-essential-concepts-and-effects?lang=zh-CN_title">
+				光照基础概念和效果
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="introducing-global-illumination?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/introducing-global-illumination?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/introducing-global-illumination/105_GlobalIllum(1200x675)-1200x675-97270dbdc7595455b4c9acf0e83bf01da8efbfd4.48b4f?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/introducing-global-illumination/Introducing-Global-Illumination-1000x1000-af5267ea2a6721b1cc73af7825d226aedbbaf5c?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="introducing-global-illumination?lang=zh-CN_title">
+				全局光照入门
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																								<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#快速反射环境设置">快速反射环境设置</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#设置关卡使用反射环境">设置关卡使用反射环境</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#光泽间接高光度">光泽间接高光度</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#反射采集光照贴图混合">反射采集光照贴图混合</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#光照贴图混合与现有内容">光照贴图混合与现有内容</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#高质量反射">高质量反射</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#高精确度静态网格体顶点法线和切线编码">高精确度静态网格体顶点法线和切线编码</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#高精确度gbuffer法线编码">高精确度GBuffer法线编码</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#反射采集形状">反射采集形状</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#球形">球形</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#盒形">盒形</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#编辑反射探头">编辑反射探头</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#更新反射探头">更新反射探头</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#在反射探头中使用一个自定义hdri立方体贴图">在反射探头中使用一个自定义HDRI立方体贴图</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#调整反射探头分辨率">调整反射探头分辨率</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#调整天空光照反射分辨率">调整天空光照反射分辨率</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#混合多个反射探头数据">混合多个反射探头数据</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#显示">显示</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#性能注意事项">性能注意事项</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#限制">限制</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p><strong>反射环境（Reflection Environment）</strong> 功能在关卡的每个区域提供有效光泽反射。
+金属之类的诸多重要材质均依赖于反射环境提供的各方向反射。
+其针对的目标是主机和中配PC，因此运行速度极快。
+支持动态对象或尖锐反射，但需要额外的内存开销。
+</p><div class="fullwidth">
+	<p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/reflection_environment.jpg">
+		<img class="  lazyload" alt="Reflection Environment" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/reflection_environment.jpg" />
+</picture>
+</p>
+</div><h2 id="快速反射环境设置">快速反射环境设置</h2>
+<p>执行以下操作即可快速在项目关卡中搭建反射环境：
+</p><ol ><li class="Default"><p>将数个光源添加到关卡并构建光照，因为显示反射环境需要一些间接漫反射光照。 
+</p></li><li class="Default"><p>在 <strong>视觉效果（Visual Effects）</strong> 选项卡的 <strong>放置Actor（Place Actors）</strong> 面板中选择并将一个 <strong>球体反射采集（Sphere Reflection Capture）</strong> Actor拖入关卡。
+</p></li></ol><p>如果关卡中未出现反射，或反射强度未达到期望效果，可尝试以下操作：
+</p><ul ><li class="Default"><p>使材质拥有明显的高光度和较低的粗糙度，这样便于显示反射。
+</p></li><li class="Default"><p>使用反射覆盖视图模式显示正在被采集的内容，以便更好地确认材质中的哪些值需要进行调整。
+</p></li></ul><h2 id="设置关卡使用反射环境">设置关卡使用反射环境</h2>
+<p>构建良好反射的第一步是使用光照贴图来设置包含间接光照的漫反射光照。
+如不熟悉用法，可参见<a id="content_link" href="../../../RenderingAndGraphics/Lightmass/index.html" ><span>Lightmass</span></a>文档中的详细介绍。如果构建光照后Lightmass间接光照无法正常工作，其中常见原因包括但不限于以下几种：
+</p><ul ><li class="Default"><p>投射阴影的天空盒。
+</p></li><li class="Default"><p><strong>Lightmass重要体积（LightmassImportanceVolume）</strong> 缺失。
+</p></li><li class="Default"><p>光照图UV缺失或未正确设置。
+</p></li><li class="Default"><p>在 <strong>场景属性</strong> 中将 <strong>强制无预计算光照（Force No Precomputed Lighting）</strong> 设为了 <strong>True</strong>。
+</p></li></ul><p>场景的漫反射颜色将通过反射环境来进行反射，因此需要执行以下操作来达到最佳效果。 
+</p><ul ><li class="Default"><p>确保直接光照和阴影区域之间拥有较高的对比度。 
+</p></li><li class="Default"><p>请注意：明亮的漫反射光照区域将清晰地显示在反射中。
+</p></li><li class="Default"><p>反射可见度最高的区域是暗阴影区域。 
+</p></li><li class="Default"><p>禁用高光度显示标签，再使用光照视图模式查看关卡即可了解反射采集的效果。
+</p></li></ul><p>同时需要牢记以下重要事项，以便设置关卡材质完美兼容反射环境。 
+</p><ul ><li class="Default"><p>扁平的镜像表面将揭示出将投射到简单形状上的立方体贴图组合起来的不准确性。 
+</p></li><li class="Default"><p>曲面几何体或粗糙表面均可弱化这些瑕疵，提供更准确的结果。 
+</p></li><li class="Default"><p>使用详细法线贴图非常重要，并在用于平坦区域的材质上增加一些粗糙度，这有助于其更好地显示反射。
+</p></li></ul><div class="imagetable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/1CurvyAndSharp.jpg">
+		<img class="  lazyload" alt="Curvy and Sharp" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/1CurvyAndSharp.jpg" />
+</picture>
+ </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/1FlatAndRough.jpg">
+		<img class="  lazyload" alt="Flat and Rough" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/1FlatAndRough.jpg" />
+</picture>
+ </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/1FlatAndSharp.jpg">
+		<img class="  lazyload" alt="Flat and Sharp" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/1FlatAndSharp.jpg" />
+</picture>
+</p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>表面平滑的曲面几何体：高质量反射</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>表面粗糙的平面几何体：高质量反射</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>表面平滑的平面几何体：反射明显不匹配</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div><p>将反射采集放置在需要拥有反射的区域中。尝试对球体采集进行放置，使得需要反射的关卡部分刚好包含在其半径之中，因为关卡将被重新投射到该球形之上。避免让采集过于靠近关卡几何体，附近的几何体将因此占据主导，阻挡其后的重要细节。
+</p><h2 id="光泽间接高光度">光泽间接高光度</h2>
+<p>用技术术语来讲，反射环境将提供间接高光度。我们可以从解析光源获得直接高光度，但这只会提供几个明亮的方向上的反射。也可以通过天空光照获取来自天空的光照度；但这并不会提供本地反射，因为天空光照立方体贴图所处位置必定很远。间接高光度使关卡的所有部分在所有其他部分上进行反射，对没有漫反射反应的材质（如金属）而言尤其重要。
+</p><!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/DiffuseOnly.jpg">
+		<img class="  lazyload" alt="Diffuse Only" width="700" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/DiffuseOnly.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/ReflectionOnly.jpg">
+		<img class="  lazyload" alt="Reflection Only" width="700" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/ReflectionOnly.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div><p><strong>完整光照</strong>
+</p><div class="fullwidth">
+	<p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/Complete.jpg">
+		<img class="  lazyload" alt="Full Scene" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/Complete.jpg" />
+</picture>
+</p>
+</div><p>反射环境的工作原理是采集多个点处的静态关卡，并将其重新投射到反射中的简单形状上（如球形）。美术师放置 <strong><em>ReflectionCapture</em></strong> Actor即可选择采集点。反射在编辑中实时更新，以协助放置，但在运行时为静态。
+将采集的关卡投射到简单形状上可构成反射的近似视差。每个像素在多个立方体贴图之间混合，以获得最终结果。较小的ReflectionCapture Actor将覆盖较大的Actor，因此可根据需要提升区域中的反射视差准确度。举例而言，可将一个采集放置在房间中央，然后在房间角落放置较小的采集来提升反射效果。
+</p><p>从采集立方体贴图生成模糊mipmap即可支持带不同光泽度的材质。
+</p><p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/VaryingGlossiness.jpg">
+		<img class="  lazyload" alt="Varying Glossiness" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/VaryingGlossiness.jpg" />
+</picture>
+
+</p><p>然而，只在非常粗糙的表面上使用立方体贴图反射会造成过于明亮的反射，由于缺少本地遮挡，其将出现重大泄露。重新使用由Lightmass生成的光照贴图数据即可解决此问题。立方体贴图反射基于材质的粗糙度与光照贴图间接高光度进行混合。非常粗糙的材质（全漫反射）将在光照贴图结果上收敛。
+从根本上而言，此混合是将一套光照数据（立方体贴图）的高细节部分与另一套光照数据（光照贴图）的低频率部分进行组合。
+</p><p>为使此混合正常进行，光照贴图中只能拥有间接光照。这意味着只有来自静止光源的间接光照才能改良粗糙表面上的反射质量。<strong>静态光源类型不应与反射环境同用，因其会将直接光照放入光照贴图中。</strong> 注意，和光照贴图的这个混合也意味着贴图必须含有有意义的间接漫反射光照，且该光照已构建，才能显示出结果。
+</p><!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/2RoughWithNoShadowing.jpg">
+		<img class="  lazyload" alt="Reflections on a rough surface with no shadowing" width="550" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/2RoughWithNoShadowing.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/2RoughWithShadowing.jpg">
+		<img class="  lazyload" alt="Rough with Shadowing" width="550" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/2RoughWithShadowing.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div><h2 id="反射采集光照贴图混合">反射采集光照贴图混合</h2>
+<p>使用反射采集Actor时，UE4将把来自反射采集的间接高光度与来自光照贴图的间接漫反射光照进行混合。这有助于减轻泄露，因为反射立方体贴图只在空间中的一个点处进行采集，但光照贴图却是在所有接收者表面上计算，且包含本地阴影投射信息。
+</p><!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/ReduceLightmapMixingOnSmoothSurfaces_Off.jpg">
+		<img class="  lazyload" alt="Reduce Lightmap Mixing On Smooth Surfaces Off" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/ReduceLightmapMixingOnSmoothSurfaces_Off.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/ReduceLightmapMixingOnSmoothSurfaces_On.jpg">
+		<img class="  lazyload" alt="Reduce Lightmap Mixing On Smooth Surfaces On.png" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/ReduceLightmapMixingOnSmoothSurfaces_On.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div><p>虽然光照贴图混合在粗糙表面上效果极佳，但此方法在平滑表面上却无用武之地，因为来自反射采集Actor的反射与其他方法（如屏幕空间反射或平面反射）形成的反射并不匹配。因此，光照贴图混合不再应用到非常平滑的表面上。粗糙度值为0.3的表面将获得完整的光照贴图混合，粗糙度0.1或以下则淡化至无光照贴图混合。这也使得反射采集和屏幕空间反射更好地匹配，两者之间的过渡也更加自然。
+</p><h3 id="光照贴图混合与现有内容">光照贴图混合与现有内容</h3>
+<p>光照贴图混合将被默认启用，意味着其将影响现有内容。在平滑表面上出现反射泄露时，泄露将更加明显。为解决此问题，可在关卡周围放置更多反射采集Actor来减轻泄露；或切换为旧有光照贴图混合行为，方法为：前往 <strong>编辑</strong> > <strong>项目设置</strong> > <strong>渲染</strong> > <strong>反射</strong>，然后取消勾选 <strong>减弱平滑表面上的光照贴图混合</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/Enable_LM_Mixing.jpg">
+		<img class="  lazyload" alt="Enable_LM_Mixing.png" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/Enable_LM_Mixing.jpg" />
+</picture>
+
+</p><p>通过UE4控制台调整以下命令即可微调将发生的光照贴图混合量。 
+</p><ul ><li class="Default"><p><strong>r.ReflectionEnvironmentBeginMixingRoughness (default = 0.1)</strong>
+</p></li><li class="Default"><p><strong>r.ReflectionEnvironmentEndMixingRoughness (default = 0.3)</strong>
+</p></li><li class="Default"><p><strong>r.ReflectionEnvironmentLightmapMixBasedOnRoughness (default = 1)</strong>
+</p></li><li class="Default"><p><strong>r.ReflectionEnvironmentLightmapMixLargestWeight (default = 1000)</strong>
+</p></li></ul><h2 id="高质量反射">高质量反射</h2>
+<p>使用默认的反射质量设置可以在性能和视觉质量上达到良好平衡，但有些情况下也需要达到更高质量的反射。以下部分描述了达到高质量反射的可用方法。
+</p><h3 id="高精确度静态网格体顶点法线和切线编码">高精确度静态网格体顶点法线和切线编码</h3>
+<p>达成高质量反射的重要因素是顶点法线和切线的呈现精确度。极高密度的网格体可能导致相邻顶点量化到相同的顶点法线和切线值。这可能会在法线朝向上形成块状跳跃。我们添加了将法线和切线编码为每通道矢量16位的选项，使开发者能够在更高质量和编码顶点缓冲内存使用率之间进行权衡。 
+</p><p><strong>启用高精确度静态网格体顶点法线和切线编码的方法：</strong>
+</p><ol ><li class="Default"><p>在 <strong>内容浏览器（Content Browser）</strong> 中双击静态网格体将其在 <strong>静态网格体编辑器（Static Mesh Editor）</strong> 中打开。
+</p></li><li class="Default"><p>在静态网格体编辑器中前往 <strong>细节</strong> 面板并展开 <strong>LOD0</strong> 选项。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/SM_HP_Vertex_Normals_00.png" ><span><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/SM_HP_Vertex_Normals_00.jpg">
+		<img class="  lazyload" alt="SM_HP_Vertex_Normals_00.png" width="400" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/SM_HP_Vertex_Normals_00.jpg" />
+</picture>
+</span></a></span></p>
+</div></li><li class="Default"><p><strong>LOD0</strong> 下方有一个名为 <strong>构建设置（Build Settings）</strong> 的分段。点击构建设置（Build Settings）旁的小三角形即可展开选项。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/SM_HP_Vertex_Normals_01.png" ><span><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/SM_HP_Vertex_Normals_01.jpg">
+		<img class="  lazyload" alt="SM_HP_Vertex_Normals_01.png" width="400" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/SM_HP_Vertex_Normals_01.jpg" />
+</picture>
+</span></a></span></p>
+</div></li><li class="Default"><p>点击 <strong>使用高精确度切线基础</strong> 选项旁边的勾选框将其启用，然后按下 <strong>应用修改（Apply Changes）</strong> 按钮来应用新设置。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/SM_HP_Vertex_Normals_02.png" ><span><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/SM_HP_Vertex_Normals_02.jpg">
+		<img class="  lazyload" alt="SM_HP_Vertex_Normals_02.png" width="400" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/SM_HP_Vertex_Normals_02.jpg" />
+</picture>
+</span></a></span></p>
+</div></li></ol><p>视口将自动更新来显示修改。 
+</p><div class="note">
+	<p>被查看的反射的质量与静态网格体的曲面细分密度直接相关。拥有更少曲面细分的静态网格体在反射中出现的拉伸瑕疵多于拥有更多曲面细分的静态网格体。</p>
+</div><!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/SM_HP_Vertex_Normals_Off.jpg">
+		<img class="  lazyload" alt="High Precision Vertex Normal Off" height="580" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/SM_HP_Vertex_Normals_Off.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/SM_HP_Vertex_Normals_On.jpg">
+		<img class="  lazyload" alt="High Precision Vertex Normal On" height="580" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/SM_HP_Vertex_Normals_On.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/SM_HP_Vertex_Normals_Wireframe.png" ><span><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/SM_HP_Vertex_Normals_Wireframe.jpg">
+		<img class="  lazyload" alt="SM_HP_Vertex_Normals_Wireframe.png" width="582" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/SM_HP_Vertex_Normals_Wireframe.jpg" />
+</picture>
+</span></a></span></p>
+</div><h3 id="高精确度gbuffer法线编码">高精确度GBuffer法线编码</h3>
+<p>启用高精确度GBuffer法线编码（High Precision GBuffer Normal Encoding）选项将允许GBuffer使用更高精确度的法线编码。这个高准确度GBuffer法线编码将把法线矢量编为3个通道，每个通道为16位。使用此高精确度编码后，屏幕空间反射（SSR）等技术将依赖于高精确度法线。 
+</p><p><strong>启用高精确度GBuffer法线编码的方法：</strong>
+</p><ol ><li class="Default"><p>在 <strong>主工具栏</strong> 中选择 <strong>编辑</strong> > <strong>项目设置</strong> 来打开 <strong>项目设置</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/ARCS_00.png" ><span><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/ARCS_00.jpg">
+		<img class="  lazyload" alt="ARCS_00.png" width="400" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/ARCS_00.jpg" />
+</picture>
+</span></a></span></p>
+</div></li><li class="Default"><p>在 <strong>引擎（Engine）</strong> 部分下的项目设置中，点击 <strong>渲染（Rendering）</strong> 选项，然后在 <strong>优化（Optimizations）</strong> 部分下将 <strong>Gbuffer格式（Gbuffer Format）</strong> 从 <strong>默认</strong> 改为 <strong>高精确度法线</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/HPGBuffer_01.png" ><span><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/HPGBuffer_01.jpg">
+		<img class="  lazyload" alt="HPGBuffer_01.png" width="400" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/HPGBuffer_01.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="warning">
+	<p>注意：此编码需要增加GPU内存，启用此项将对项目的性能产生直接影响。</p>
+</div></li></ol><p>修改GBuffer格式无需重启编辑器，因此可以在不同GBuffer格式之间快速切换，查看其对反射效果的影响。下图展示了将GBuffer格式从默认改为高精确度法线后反射效果和质量的变化。
+</p><!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/Default_GBuffer_Format.jpg">
+		<img class="  lazyload" alt="Default GBuffer Format" height="600" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/Default_GBuffer_Format.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/Hight_P_GBuffer_Format.jpg">
+		<img class="  lazyload" alt="High Precision GBuffer Format" height="600" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/Hight_P_GBuffer_Format.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div><h2 id="反射采集形状">反射采集形状</h2>
+<p>当前有两个反射采集形状：球体和盒体。形状十分重要，因为它
+控制着场景的哪个部分将被采集到立方体贴图中、反射中关卡被重新投射到什么形状上，
+以及关卡的哪个部分可以接收来自该立方体贴图的反射（影响区域）。
+</p><h3 id="球形">球形</h3>
+<p>当前球形最为实用。它永远不会匹配被反射几何体的外形，
+但不含间断或角落，因此错误一致。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/SphereShape.jpg">
+		<img class="  lazyload" alt="Sphere Shape" width="720" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/SphereShape.jpg" />
+</picture>
+
+</p><p>球形拥有橙色的影响半径，控制会受立方体贴图影响的像素、
+以及关卡将被重新投射到的球体。 
+</p><p>较小的采集将覆盖较大的采集，因此在关卡周围放置较小的采集能够进行提升。
+</p><h3 id="盒形">盒形</h3>
+<p>盒形的实用性十分有限，通常只用于走廊和矩形房间。
+其原因是只有盒体中的像素可看到反射，同时盒体中的所有几何体将投射到盒体上，
+在很多情况下会出现重大瑕疵。
+</p><p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/BoxShape.jpg">
+		<img class="  lazyload" alt="Box Shape" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/BoxShape.jpg" />
+</picture>
+
+</p><p>选中盒体后，投射形状将拥有一个橙色预览。
+其只采集此盒体外 <strong>盒体过渡距离</strong> 之内的关卡。
+此采集的影响也会在盒体中随过渡距离淡入。 
+</p><h2 id="编辑反射探头">编辑反射探头</h2>
+<p>对反射探头进行编辑时，需要牢记几点才能得到想要的结果。下文将讲述这些要点以及如何能在项目中得到质量最佳的反射。
+</p><h3 id="更新反射探头">更新反射探头</h3>
+<p>特别需要注意的是：反射探头不会自动保持更新。只有以下操作才会自动更新放置在关卡中的反射探头。
+</p><ul ><li class="Default"><p>加载地图。
+</p></li><li class="Default"><p>直接编辑一项反射采集Actor属性。
+</p></li><li class="Default"><p>构建关卡光照。
+</p></li></ul><p>如果要使对关卡的编辑达到类似于修改光源明亮度或移动关卡几何体的效果，则需要选择一个反射采集Actor并点击 <strong>更新采集</strong> 按钮来传播修改。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/Update_Captures_Button.png" ><span><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/Update_Captures_Button.jpg">
+		<img class="  lazyload" alt="Update_Captures_Button.png" width="400" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/Update_Captures_Button.jpg" />
+</picture>
+</span></a></span></p>
+</div><h3 id="在反射探头中使用一个自定义hdri立方体贴图">在反射探头中使用一个自定义HDRI立方体贴图</h3>
+<p>反射探头不仅可以指定其将哪个立方体贴图用于反射数据，还可指定立方体贴图的大小。在之前的版本中，UE4对已烘焙立方体贴图反射探头使用的分辨率进行了硬编码。现在开发者可基于性能、内存和质量权衡来选择最满足需要的分辨率。以下对比图像显示了使用 <strong>采集场景（Captured Scene）</strong> 选项和 <strong>指定立方体贴图（Specified Cubemap）</strong> 选项之间的差异。 
+</p><!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/CC_Capture_Scene.jpg">
+		<img class="  lazyload" alt="Captured Scene" height="500" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/CC_Capture_Scene.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/CC_Specified_Cubemap.jpg">
+		<img class="  lazyload" alt="Specified Cubemap" height="500" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/CC_Specified_Cubemap.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div><p>如要指定项目反射探头使用的自定义HDRI立方体贴图，需要执行以下选项：
+</p><ol ><li class="Default"><p>首先确保有可用的HDRI立方体贴图纹理。如果项目中没有HDRI立方体贴图纹理，可在初学者内容包中选择名为 <strong>HDRI_Epic_Courtyard_Daylight</strong> 的文件。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/Custom_Cubemap_00.png" ><span><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/Custom_Cubemap_00.jpg">
+		<img class="  lazyload" alt="Custom_Cubemap_00.png" width="400" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/Custom_Cubemap_00.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="note">
+	<p>使用<div class="errorhighlight" id="Error2">[迁移](Basics/AssetsAndPackages/Migrate/)</div>功能即可将资产从一个项目移至另一个项目。</p>
+</div></li></ol><ol ><li class="Default"><p>选择已放置在关卡中的 <strong>反射探头</strong> Actor，并在 <strong>反射采集（Reflection Capture）</strong> 部分下的 <strong>细节</strong> 面板中将 <strong>反射源类型（Reflection Source Type）</strong> 从 <strong>采集场景（Captured Scene）</strong> 改为 <strong>指定立方体贴图（Specified Cubemap）</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/Custom_Cubemap_01.png" ><span><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/Custom_Cubemap_01.jpg">
+		<img class="  lazyload" alt="Custom_Cubemap_01.png" width="400" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/Custom_Cubemap_01.jpg" />
+</picture>
+</span></a></span></p>
+</div></li><li class="Default"><p>在关卡中选中反射探头，前往内容浏览器并选择希望使用的HDRI纹理。然后在反射采集Actor中 <strong>反射采集</strong> 下，将HDRI纹理从内容浏览器拖拽至 <strong>立方体贴图</strong> 输入。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/Custom_Cubemap_02.png" ><span><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/Custom_Cubemap_02.jpg">
+		<img class="  lazyload" alt="Custom_Cubemap_02.png" width="400" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/Custom_Cubemap_02.jpg" />
+</picture>
+</span></a></span></p>
+</div></li><li class="Default"><p>按下 <strong>更新采集</strong> 按钮，刷新反射采集Actor，以便使用刚指定的新HDRI立方体贴图纹理。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/Custom_Cubemap_03.png" ><span><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/Custom_Cubemap_03.jpg">
+		<img class="  lazyload" alt="Custom_Cubemap_03.png" width="400" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/Custom_Cubemap_03.jpg" />
+</picture>
+</span></a></span></p>
+</div></li></ol><h3 id="调整反射探头分辨率">调整反射探头分辨率</h3>
+<p>执行以下操作即可整体调整用于反射采集Actor的HDRI立方体贴图分辨率： 
+</p><ol ><li class="Default"><p>前往 <strong>主工具栏</strong> 并选择 <strong>编辑</strong> > <strong>项目设置</strong> 来打开 <strong>项目设置</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/ARCS_00.png" ><span><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/ARCS_00.jpg">
+		<img class="  lazyload" alt="ARCS_00.png" width="400" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/ARCS_00.jpg" />
+</picture>
+</span></a></span></p>
+</div></li><li class="Default"><p>在项目设置菜单中，前往 <strong>引擎</strong> > <strong>渲染</strong> 部分，然后查找 <strong>纹理</strong> 选项。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/ARCS_01.png" ><span><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/ARCS_01.jpg">
+		<img class="  lazyload" alt="ARCS_01.png" width="400" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/ARCS_01.jpg" />
+</picture>
+</span></a></span></p>
+</div></li><li class="Default"><p>调整 <strong>反射采集分辨率（Reflection Capture Resolution）</strong> 选项即可增加或减少指定的HDRI立方体贴图纹理的大小。
+</p><p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/ARCS_02.jpg">
+		<img class="  lazyload" alt="ARCS_02.png" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/ARCS_02.jpg" />
+</picture>
+
+</p><div class="warning">
+	<p>请注意，立方体贴图分辨率数字只能是2的幂次方，如16、64、128、256、512和1024。在使用2的幂次方之外的数字时，它会被四舍五入至最接近的可接受分辨率值。同时，使用高分辨率值时应极其小心，由于GPU内存要求，可能对性能产生极大影响。</p>
+</div></li></ol><p>下图显示了反射采集分辨率被设为 <strong>1</strong>、<strong>4</strong>、<strong>8</strong>、<strong>16</strong>、<strong>32</strong>、<strong>64</strong>、<strong>128</strong>、<strong>256</strong>, <strong>512</strong> 和 <strong>1024</strong> 时反射的效果。
+</p><div class="fullwidth">
+	<div class="include_wrapper" data-path="BuildingWorlds/LightingAndShadows/ReflectionEnvironment">
+<!--
+id:paramliteral
+max:paramliteral
+ext:paramliteral
+caption:paramliteral
+image_list:param
+-->
+<div class="slider_container" id="RCR">
+    <div id="RCR_Image"></div>
+    <div class="slider"></div>
+	    <div class="caption">
+        <b><p><strong>拖动滑条即可查看不同分辨率对反射效果产生的影响。</strong></p></b>
+    </div>
+	    <div id="images" class="hidden">
+        <p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/RCR_1.jpg">
+		<img class="  lazyload" alt="RCR_1.png" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/RCR_1.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/RCR_2.jpg">
+		<img class="  lazyload" alt="RCR_2.png" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/RCR_2.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/RCR_3.jpg">
+		<img class="  lazyload" alt="RCR_3.png" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/RCR_3.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/RCR_4.jpg">
+		<img class="  lazyload" alt="RCR_4.png" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/RCR_4.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/RCR_5.jpg">
+		<img class="  lazyload" alt="RCR_5.png" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/RCR_5.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/RCR_6.jpg">
+		<img class="  lazyload" alt="RCR_6.png" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/RCR_6.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/RCR_7.jpg">
+		<img class="  lazyload" alt="RCR_7.png" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/RCR_7.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/RCR_8.jpg">
+		<img class="  lazyload" alt="RCR_8.png" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/RCR_8.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/RCR_9.jpg">
+		<img class="  lazyload" alt="RCR_9.png" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/RCR_9.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/RCR_10.jpg">
+		<img class="  lazyload" alt="RCR_10.png" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/RCR_10.jpg" />
+</picture>
+</p>
+    </div>
+</div>
+</div>
+
+</div><h3 id="调整天空光照反射分辨率">调整天空光照反射分辨率</h3>
+<p>和反射探头一样，天空光照也可以定义并调整其用于反射的HDRI立方体贴图的分辨率。执行以下操作即可在UE4项目中使用此功能： 
+</p><ol ><li class="Default"><p>在 <strong>光源</strong> 部分下的 <strong>放置Actor（Place Actors）</strong> 面板中，选择一个 <strong>天空光照</strong> 并将其拖入关卡。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/Skylight_Reflection_00.png" ><span><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/Skylight_Reflection_00.jpg">
+		<img class="  lazyload" alt="Skylight_Reflection_00.png" width="500" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/Skylight_Reflection_00.jpg" />
+</picture>
+</span></a></span></p>
+</div></li><li class="Default"><p>选择天空光照，在 <strong>光源（Light）</strong> 部分的 <strong>细节</strong> 面板下将 <strong>源类型（Source Type）</strong> 从 <strong>SLS采集场景（SLS Captured Scene）</strong> 改为 <strong>SLS指定立方体贴图（SLS Specified Cubemap）</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/Skylight_Reflection_01.png" ><span><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/Skylight_Reflection_01.jpg">
+		<img class="  lazyload" alt="Skylight_Reflection_01.png" width="500" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/Skylight_Reflection_01.jpg" />
+</picture>
+</span></a></span></p>
+</div></li><li class="Default"><p>点击 <strong>立方体贴图（Cubemap）</strong> 部分中的下拉框，并从列表中选择一个HDRI立方体贴图。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/Skylight_Reflection_02.png" ><span><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/Skylight_Reflection_02.jpg">
+		<img class="  lazyload" alt="Skylight_Reflection_02.png" width="300" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/Skylight_Reflection_02.jpg" />
+</picture>
+</span></a></span></p>
+</div></li><li class="Default"><p>选中立方体贴图后，修改 <strong>立方体贴图分辨率</strong> 中输入的值即可调整其分辨率。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/Skylight_Reflection_03.png" ><span><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/Skylight_Reflection_03.jpg">
+		<img class="  lazyload" alt="Skylight_Reflection_03.png" width="300" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/Skylight_Reflection_03.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="warning">
+	<p>请注意，立方体贴图分辨率数字只能是2的幂次方，如16、64、128、256、512和1024。在使用2的幂次方之外的数字时，它会被四舍五入至最接近的可接受分辨率值。同时，使用高分辨率值时应极其小心，由于GPU内存要求，可能对性能产生极大影响。</p>
+</div></li></ol><h3 id="混合多个反射探头数据">混合多个反射探头数据</h3>
+<p>为反射采集Actor提供不同的HDRI立方体贴图即可在多个不同立方体贴图反射之间进行混合。执行以下步骤即可在UE4项目中完成此操作：
+</p><ol ><li class="Default"><p>首先将至少一个 <strong>反射探头</strong> 添加至关卡，将 <strong>反射源类型</strong> 改为 <strong>特定立方体贴图</strong>，并将HDRI纹理输入到 <strong>立方体贴图</strong> 输入。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/Blend_RFD_00.png" ><span><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/Blend_RFD_00.jpg">
+		<img class="  lazyload" alt="Blend_RFD_00.png" width="600" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/Blend_RFD_00.jpg" />
+</picture>
+</span></a></span></p>
+</div></li><li class="Default"><p>将一个新反射探头复制或添加到关卡，并放置/调整其 <strong>影响半径</strong>，使其黄色影响半径的一部分与第一个反射探头相交。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/Blend_RFD_01.png" ><span><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/Blend_RFD_01.jpg">
+		<img class="  lazyload" alt="Blend_RFD_01.png" width="600" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/Blend_RFD_01.jpg" />
+</picture>
+</span></a></span></p>
+</div></li><li class="Default"><p>选择新复制/创建的反射探头Actor，在 <strong>立方体贴图</strong> 部分下的 <strong>细节</strong> 面板中将HDRI立方体贴图改为其他项。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/Blend_RFD_02.png" ><span><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/Blend_RFD_02.jpg">
+		<img class="  lazyload" alt="Blend_RFD_02.png" width="600" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/Blend_RFD_02.jpg" />
+</picture>
+</span></a></span></p>
+</div></li><li class="Default"><p>保持选中添加/复制的反射探头，前往 <strong>反射采集（Reflection Capture）</strong> 部分中的 <strong>细节</strong> 面板，然后按下 <strong>更新采集（Update Captures）</strong> 按钮进行更新，使反射使用在立方体贴图输入中输入的内容。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/Blend_RFD_03.png" ><span><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/Blend_RFD_03.jpg">
+		<img class="  lazyload" alt="Blend_RFD_03.png" width="600" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/Blend_RFD_03.jpg" />
+</picture>
+</span></a></span></p>
+</div></li><li class="Default"><p>选择并围绕关卡移动反射探头，即可了解两个HDRI立方体贴图的混合方式。
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_QYbSsYP2Nkk_865
+{
+	margin: 0px;
+	width: 50%;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_QYbSsYP2Nkk_865:after
+{
+	content: "";
+	padding-top: 56.25%;
+	display: block;
+}
+</style> 
+<div>
+<div id="player_QYbSsYP2Nkk_865"><div style="position:absolute;display:block;width:100%;height:100%;"><iframe class="embedded_video" id="QYbSsYP2Nkk" width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/QYbSsYP2Nkk?rel=0&amp;modestbranding=1&amp;showinfo=0" frameborder="0" allowfullscreen></iframe></div></div>
+</div></li></ol><h3 id="显示">显示</h3>
+<p>已添加反射覆盖查看模式，便于查看反射的设置效果。
+此查看模式将把所有法线覆盖为平滑的顶点法线，并使所有表面均拥有
+完整高光度且为纯平（如同镜面）。反射环境的限制和瑕疵在此模式中同样清晰
+可见，因此必须定期切换至光照，确认反射在
+普通条件下的效果（凹凸法线、多种光泽度、模糊高光度）。
+</p><p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/ReflectionOverride.jpg">
+		<img class="  lazyload" alt="Reflection Override" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/ReflectionOverride.jpg" />
+</picture>
+
+</p><p>已新添加一些显示标签，适用于隔离光照的组件：
+</p><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>标签 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>描述 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>光照组件 > 漫反射</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>禁用漫反射后，所有光照法中的漫反射贡献均会隐藏。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>光照组件 > 高光度</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>禁用高光度后，所有发射法中的高光度贡献均会隐藏。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>光照特性 > 反射环境</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>这将禁用反射环境特性，但其他反射特性仍然开启（SSR、解析高光度）。</p>
+			</td>
+	
+</tr></tbody>
+</table><h2 id="性能注意事项">性能注意事项</h2>
+<p>反射环境开销只取决于影响屏幕上像素的采集数量。
+此原理与延迟光照十分相似。反射采集由其影响半径绑定，
+因此将被有效剔除。光泽度通过立方体mipmap实现，
+因此尖锐或粗糙发射之间的性能差异并不大。
+</p><h2 id="限制">限制</h2>
+<ul ><li class="Default"><p>此方法通过近似模拟实现反射。具体而言，由于投射到简单形状上，物体的反射很少能与场景中的实际物体相匹配。此方法通常会在反射中创建物体的多个版本（因为多个立方体贴图将被混合在一起）。导致镜面反射的平滑表面会将错误明确地显示出来。使用细节法线贴图和粗糙度有助于打破反射和这些瑕疵。
+</p></li><li class="Default"><p>将关卡采集到立方体贴图中是一个缓慢的进程，必须在游戏进程之外进行。这意味着动态物体无法被反射，但其可接收来自静态关卡的反射。
+</p></li><li class="Default"><p>只采集关卡的漫反射来减少错误。纯高光度表面（金属）将应用高光度，效果类似于采集中漫反射。
+</p></li><li class="Default"><p>一堵墙的两个面上拥有不同光照条件时可能出现重大泄露。一面可设置为拥有正确的反射，但其将必定会泄露到另一面。
+</p></li><li class="Default"><p>由于DX11硬件限制，拥有采集关卡的立方体贴图每面均为128，场景可一次性启用最多341个反射采集。
+</p></li></ul>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 10:20:36 GMT -->
+</html>

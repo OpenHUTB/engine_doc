@@ -1,0 +1,458 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/ProductionPipelines/ScriptingAndAutomation/HowTos/CreatingLODs/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:41:25 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var finishButton = finishButtonTemplate;
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/ProductionPipelines/ScriptingAndAutomation/HowTos/CreatingLODs/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>在蓝图和Python中创建LOD | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+		    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+		    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/ProductionPipelines/ScriptingAndAutomation/HowTos/CreatingLODs/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/ProductionPipelines/ScriptingAndAutomation/HowTos/CreatingLODs/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/ProductionPipelines/ScriptingAndAutomation/HowTos/CreatingLODs/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/ProductionPipelines/ScriptingAndAutomation/HowTos/CreatingLODs/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Editor/ScriptingAndAutomation/HowTos/CreatingLODs" />
+<meta name="intsourcechangelist" content="15582500" />
+<meta name="availability" content="Public" />
+<meta name="title" content="在蓝图和Python中创建LOD" />
+<meta name="description" content="演示如何使用蓝图和Python在虚幻编辑器中设置自动LOD。" />
+<meta name="type" content="how-to" />
+<meta name="skilllevel" content="Intermediate" />
+<meta name="version" content="4.26" />
+<meta name="parent" content="ProductionPipelines/ScriptingAndAutomation/HowTos" />
+<meta name="order" content="0" />
+<meta name="keywords" content="Blueprints" />
+<meta name="keywords" content="how-to" />
+<meta name="keywords" content="Python" />
+<meta name="keywords" content="scripting" />
+<meta name="keywords" content="editor" />
+<meta name="keywords" content="lods" />
+<meta name="keywords" content="levels of detail" />
+<meta name="crumbs" content="%ROOT%,ProductionPipelines,ProductionPipelines/ScriptingAndAutomation,ProductionPipelines/ScriptingAndAutomation/HowTos" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="在蓝图和Python中创建LOD" />
+	<meta property="og:description" content="演示如何使用蓝图和Python在虚幻编辑器中设置自动LOD。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">建立你的开发流程</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">编辑器的脚本与自动化</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">编辑器脚本使用指南</a>
+
+<span class="separator">></span> <span id="page">在蓝图和Python中创建LOD</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">在蓝图和Python中创建LOD</h1>
+							</div>	
+							<h2 >演示如何使用蓝图和Python在虚幻编辑器中设置自动LOD。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Intermediate"><a id="skill_link" href="../../../../SiteIndex/index.html?skills=Intermediate">Intermediate</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																																																<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#新建lod">新建LOD</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#重用来自另一个静态网格体的lod">重用来自另一个静态网格体的LOD</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>为你的网格体创建细节层级（LOD）可以在不牺牲视觉质量的前提下提高游戏的性能和帧率。
+</p><p>一般来说，网格体中三角形越多，屏幕上三角形越小，GPU渲染它们就越困难。同时渲染太多的细节网格体会降低你的帧率。然而，通常不必将场景中的每一个网格体都以同样的保真度进行渲染：网格体若离得很远，通常可以换成不太详细的网格体，减少所包含的三角形，而不会在视觉质量上造成明显的差异。
+</p><p>虚幻引擎4提供了一个内置的LOD管理系统，可以根据网格体当前在每个帧中占据的屏幕空间大小，自动选择要在运行时显示的网格体的最合适版本。此系统依赖于你提前在编辑器中设置这些网格体的不同替代版本。<br /></p><p>通过逐步将网格体简化为你指定的阈值，编辑器可以为静态网格体资源自动生成这些细节层级。有关此系统如何工作以及如何在静态网格体编辑器中设置的更多信息，请参阅<a id="content_link"filter-data="tag_static_mesh" href="../../../../WorkingWithContent/Types/StaticMeshes/HowTo/AutomaticLODGeneration/index.html" ><span>自动LOD生成</span></a>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProductionPipelines/ScriptingAndAutomation/HowTos/CreatingLODs/ALC_PM_00.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProductionPipelines/ScriptingAndAutomation/HowTos/CreatingLODs/ALC_PM_00.jpg">
+		<img class="  lazyload" alt="静态网格体中的LOD设置" title="Level of Detail settings in the Static Mesh Editor" width="1000" data-src="../../../../../Images/ProductionPipelines/ScriptingAndAutomation/HowTos/CreatingLODs/ALC_PM_00.jpg" />
+</picture>
+</span></a></span><br /><em>点击查看大图。</em></p>
+</div><p>然而，即使编辑器可以自动生成这些LOD，你也不可能逐个打开项目中的静态网格体资源来设置。你可以批量编辑资源，但是如果你想根据不同的静态网格体资源的特性对它们应用不同的设置，那么这就没有帮助了。例如，你可能希望根据网格体中现有三角形的数量或根据资源命名惯例应用不同的简化设置。如果你希望在你编写了脚本的较大自定义资源管道中将LOD创建为子步骤，那么它也没有帮助。对于这类情况，可以使用蓝图或Python编写自动LOD创建系统的脚本。
+</p><p> <strong>先决条件：</strong>如果你尚未进行此操作，则需要安装 <strong>编辑器脚本工具插件（Editor Scripting Utilities Plugin）</strong>。详情参阅<a id="content_link"filter-data="tag_blueprints tag_python tag_scripting" href="../../index.html" ><span>编写脚本和自动执行编辑器</span></a>。
+</p><h2 id="新建lod">新建LOD</h2>
+<div class="togglesection">
+	<div class="normaltitle">
+	<p>选择实现方法：</p>
+</div><div class="toggleButtons">
+	<!--
+category:paramliteral
+id:paramliteral
+label:paramliteral
+active:paramliteral
+-->
+<div class="btn btn-default btn-toggle BlueprintOrCPPSelect blueprintimplementation active_button" onclick="setSelector('BlueprintOrCPPSelect', 'blueprintimplementation');">
+    <p>Blueprints</p>
+</div><!--
+category:paramliteral
+id:paramliteral
+label:paramliteral
+active:paramliteral
+-->
+<div class="btn btn-default btn-toggle BlueprintOrCPPSelect pythonimplementation " onclick="setSelector('BlueprintOrCPPSelect', 'pythonimplementation');">
+    <p>Python</p>
+</div>
+</div>
+</div><!--
+category:paramliteral
+id:paramliteral
+content:param
+active:paramliteral
+-->
+<div class="button_content BlueprintOrCPPSelect blueprintimplementation active_button_content">
+    <div class="container">
+        <p>你将在 <strong>编辑器脚本（Editor Scripting）> 静态网格体（Static Mesh）</strong> 类别下找到管理LOD所需的节点。
+</p><div class="note">
+	<p>要使用这些节点，你的蓝图类必须派生自仅编辑器类，例如 <strong>PlacedEditorUtilityBase</strong> 类。详情请参阅<a id="content_link"filter-data="tag_blueprints tag_blueprint_utilities tag_scripting tag_editor" href="../../Blueprints/index.html" ><span>使用蓝图编写编辑器脚本</span></a>。</p>
+</div><ul ><li class="Default"><p>关键节点是 <strong>Set Lods</strong>，它自动为传入的静态网格体资源创建细节层级。要使用此节点，你需要为其提供一组简化设置，这些设置为你想要创建的每个细节层级定义屏幕大小阈值和相对三角形百分比。见下例。
+</p><div class="note">
+	<p>你传递给 <strong>EditorScriptingMeshReductionOptions</strong> 节点的 <strong>简化设置（Reduction Settings）</strong> 输入的第一个 <strong>EditorScriptingMeshReductionSettings</strong> 项目不起作用。LOD 0总是包含网格体中的所有三角形。</p>
+</div></li><li class="Default"><p>你可以使用 <strong>获取LOD数量（Get Lod Count）</strong> 和 <strong>获取LOD屏幕大小（Get Lod Screen Sizes）</strong> 获取关于当前为静态网格体设置的细节层级的信息。
+</p></li><li class="Default"><p>你也可以使用 <strong>移除LOD（Remove Lods）</strong> 移除所有现有LOD（除了LOD 0，它始终包含网格体中的所有三角形）。
+</p></li><li class="Default"><p>设置LOD将修改静态网格体资源。假设希望保留所做的更改，之后还需要使用 <strong>保存资源（Save Asset）</strong> 或 <strong>保存加载的资源（Save Loaded Asset）</strong> 之类的节点。
+</p></li></ul><p>下面的示例依次在输入路径中加载每个静态网格体资源。每当它发现顶点数大于最小阈值的资源时，它就为静态网格体设置三个额外的LOD，然后保存。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProductionPipelines/ScriptingAndAutomation/HowTos/CreatingLODs/set_lods_example.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProductionPipelines/ScriptingAndAutomation/HowTos/CreatingLODs/set_lods_example.jpg">
+		<img class="  lazyload" alt="Set LODs in Blueprints Example" title="Set LODs in Blueprints Example" width="1000" data-src="../../../../../Images/ProductionPipelines/ScriptingAndAutomation/HowTos/CreatingLODs/set_lods_example.jpg" />
+</picture>
+</span></a></span><br /><em>点击查看大图。</em></p>
+</div>
+
+    </div>
+</div><!--
+category:paramliteral
+id:paramliteral
+content:param
+active:paramliteral
+-->
+<div class="button_content BlueprintOrCPPSelect pythonimplementation ">
+    <div class="container">
+        <p>你将在"unreal.EditorStaticMeshLibrary"类中找到LOD管理函数。
+</p><ul ><li class="Default"><p>关键函数是"unreal.EditorStaticMeshLibrary.set_lods()"，它自动为传入的静态网格体资源创建细节层级。要使用此函数，你需要传入一个"EditorScriptingMeshReductionOptions"对象，该对象包含一组"EditorScriptingMeshReductionSettings"，为你想要创建的每个细节层级定义屏幕大小阈值和相对三角形百分比。见下例。
+</p><div class="note">
+	<p>你在"EditorScriptingMeshReductionOptions.reduction_settings"数组中设置的第一个"EditorScriptingMeshReductionSettings"项目不起作用。LOD 0总是包含网格体中的所有三角形。</p>
+</div></li><li class="Default"><p>你可以使用 <strong>unreal.EditorStaticMeshLibrary.get_lod_count()</strong> 和 <strong>unreal.EditorStaticMeshLibrary.get_lod_screen_sizes</strong> 获取关于当前为静态网格体设置的细节层级的信息。
+</p></li><li class="Default"><p>你也可以使用 <strong>unreal.EditorStaticMeshLibrary.remove_lods()</strong> 来移除所有现有LOD（除了LOD 0，它始终包含网格体中的所有三角形）。
+</p></li><li class="Default"><p>设置LOD将修改静态网格体资源。假设你希望保留所做的更改，之后还需要使用"unreal.EditorAssetLibrary.save_asset()"或"unreal.EditorAssetLibrary.save_loaded_asset()"之类的函数。
+</p></li></ul><p>下面的示例依次在输入路径中加载每个静态网格体资源。每当它发现顶点数大于最小阈值的资源时，它就为静态网格体设置三个额外的LOD，然后保存。
+</p><pre class="prettyprint"><code>import unreal
+asset&#95;path = "/Game/studio"
+# 我们定义一个函数，该函数为指定的静态网格体资源生成新的LOD。
+def apply&#95;lods(static&#95;mesh):
+    # 检查网格体是否足够复杂。
+    number&#95;of&#95;vertices = unreal.EditorStaticMeshLibrary.get&#95;number&#95;verts(static&#95;mesh, 0)
+    if number&#95;of&#95;vertices &lt; 10:
+        return
+    print("treating asset: " + static&#95;mesh.get&#95;name())
+    print("existing LOD count: " + str(unreal.EditorStaticMeshLibrary.get&#95;lod&#95;count(static&#95;mesh)))
+    # 设置用于自动生成细节层级的选项。
+    options = unreal.EditorScriptingMeshReductionOptions()
+    # 我们请求三个细节层级。各个细节层级拥有：
+    # - 在该LOD层级上，应该保留来自详尽网格体的三角形的百分比
+    # - 此细节层级会显示时的屏幕空间阈值。
+    options.reduction&#95;settings = &#91; unreal.EditorScriptingMeshReductionSettings(1.0, 1.0),
+        unreal.EditorScriptingMeshReductionSettings(0.8, 0.75),
+        unreal.EditorScriptingMeshReductionSettings(0.6, 0.5),
+        unreal.EditorScriptingMeshReductionSettings(0.4, 0.25)
+    &#93;
+    # 使用上述设置的屏幕空间阈值，而非自动计算。
+    options.auto&#95;compute&#95;lod&#95;screen&#95;size = False
+    # 在静态网格体资源上设置选项。
+    unreal.EditorStaticMeshLibrary.set&#95;lods(static&#95;mesh, options)
+    # 保存更改。
+    unreal.EditorAssetLibrary.save&#95;loaded&#95;asset(static&#95;mesh)
+    print("new LOD count: " + str(unreal.EditorStaticMeshLibrary.get&#95;lod&#95;count(static&#95;mesh)))
+# 获取路径中所有资源的列表。
+all&#95;assets = unreal.EditorAssetLibrary.list&#95;assets(asset&#95;path)
+# 将它们都加载到内存中。
+all&#95;assets&#95;loaded = &#91;unreal.EditorAssetLibrary.load&#95;asset(a) for a in all&#95;assets&#93;
+# 过滤列表以仅包括静态网格体。
+static&#95;mesh&#95;assets = unreal.EditorFilterLibrary.by&#95;class(all&#95;assets&#95;loaded, unreal.StaticMesh)
+# 列表中的每个静态网格体都运行此函数。
+list(map(apply&#95;lods, static&#95;mesh&#95;assets))</code></pre>
+<p>另一种方法是为每个静态网格体资源设置 <strong>LOD组（LOD Group）</strong> 选项。此选项使网格体使用项目的 <strong>BaseEngine.ini</strong> 文件的"[StaticMeshLODSettings]"部分中定义的预设置LOD简化设置之一，如"LevelArchitecture"、"SmallProp"、"LargeProp"或"HighDetail"。
+</p><p>例如：
+</p><pre class="prettyprint"><code>import unreal
+asset&#95;path = "/Game/studio/"
+def set&#95;high&#95;detail(static&#95;mesh):
+    # 设置LOD组。
+    static&#95;mesh.set&#95;editor&#95;property("lod&#95;group", "HighDetail")
+    # 保存资源。
+    unreal.EditorAssetLibrary.save&#95;loaded&#95;asset(static&#95;mesh)
+# 获取路径中所有资源的列表。
+all&#95;assets = unreal.EditorAssetLibrary.list&#95;assets(asset&#95;path)
+# 将它们都加载到内存中。
+all&#95;assets&#95;loaded = &#91;unreal.EditorAssetLibrary.load&#95;asset(a) for a in all&#95;assets&#93;
+# 过滤列表以仅包括静态网格体。
+static&#95;mesh&#95;assets = unreal.EditorFilterLibrary.by&#95;class(all&#95;assets&#95;loaded, unreal.StaticMesh)
+# 对列表中的各个静态网格体运行此函数。
+list(map(set&#95;high&#95;detail, static&#95;mesh&#95;assets))</code></pre>
+<div class="tip">
+	<p>有关此系统如何工作以及如何在编辑器中使用它的更多信息，请参阅<a id="content_link" href="../../../../WorkingWithContent/Types/StaticMeshes/HowTo/AutomaticLODGeneration/index.html" ><span>自动LOD生成</span></a>。</p>
+</div>
+
+    </div>
+</div><h2 id="重用来自另一个静态网格体的lod">重用来自另一个静态网格体的LOD</h2>
+<p>作为使用上述过程自动生成静态网格体LOD的替代方法，你可以使用静态网格体中已经存在的LOD（称为 <em>源</em> 静态网格体），并将其作为另一个静态网格体（称为 <em>目标</em> 静态网格体）的LOD重复使用。
+</p><div class="togglesection">
+	<div class="normaltitle">
+	<p>选择实现方法：</p>
+</div><div class="toggleButtons">
+	<!--
+category:paramliteral
+id:paramliteral
+label:paramliteral
+active:paramliteral
+-->
+<div class="btn btn-default btn-toggle BlueprintOrCPPSelect blueprintimplementation active_button" onclick="setSelector('BlueprintOrCPPSelect', 'blueprintimplementation');">
+    <p>Blueprints</p>
+</div><!--
+category:paramliteral
+id:paramliteral
+label:paramliteral
+active:paramliteral
+-->
+<div class="btn btn-default btn-toggle BlueprintOrCPPSelect pythonimplementation " onclick="setSelector('BlueprintOrCPPSelect', 'pythonimplementation');">
+    <p>Python</p>
+</div>
+</div>
+</div><!--
+category:paramliteral
+id:paramliteral
+content:param
+active:paramliteral
+-->
+<div class="button_content BlueprintOrCPPSelect blueprintimplementation active_button_content">
+    <div class="container">
+        <p>要在蓝图脚本中重复使用现有的LOD，请使用 <strong>编辑器脚本（Editor Scripting）> 静态网格体（Static Mesh）> 从静态网格体设置LOD（Set Lod From Static Mesh）</strong> 节点。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProductionPipelines/ScriptingAndAutomation/HowTos/CreatingLODs/set_lod_from_static_mesh.jpg">
+		<img class="  lazyload" alt="Set Lod From Static Mesh" title="Set Lod From Static Mesh" data-src="../../../../../Images/ProductionPipelines/ScriptingAndAutomation/HowTos/CreatingLODs/set_lod_from_static_mesh.jpg" />
+</picture>
+
+</p><p>该节点需要以下输入：
+</p><ul ><li class="Default"><p>指向目标静态网格体的引用。这是要为其创建新LOD的静态网格体。你需要首先加载该资源，使用 <strong>编辑器脚本（Editor Scripting）> 资源（Asset）> 加载资源（Load Asset）</strong> 节点。
+</p></li><li class="Default"><p>要为目标静态网格体创建的LOD索引。
+</p><div class="warning">
+	<p>如果目标静态网格体已经具有具有相同索引的LOD，则会覆盖它。</p>
+</div></li><li class="Default"><p>指向源静态网格体的引用。这是一个静态网格体，它有一个你希望从目标静态网格体指向的现有LOD。同上，你需要首先加载该资源，使用 <strong>编辑器脚本（Editor Scripting）> 资源（Asset）> 加载资源（Load Asset）</strong> 节点。
+</p></li><li class="Default"><p>要用于目标静态网格体的源静态网格体中LOD的索引。
+</p></li><li class="Default"><p>一个布尔参数，它决定是否要尝试将源LOD中的材质插槽与目标静态网格体中已经存在的插槽合并。如果启用此设置，则函数将查找源几何体中与目标网格体中的部分分配相同材质的任何部分。如果找到任何部分，它将尝试重新映射LOD中的部分，以匹配目标静态网格体中的现有部分。这可以在两个静态网格体使用相同材质的情况下节省一些内存。如果禁用此设置，则源LOD中的所有网格体部分都将附加到目标静态网格体。
+</p></li></ul><p>设置LOD将修改目标静态网格体资源。假设希望保留所做的更改，之后还需要使用 <strong>保存资源（Save Asset）</strong> 或 <strong>保存加载的资源（Save Loaded Asset）</strong> 之类的节点。
+</p><p>例如，下面的脚本从源静态网格体中取指定的LOD，并在目标静态网格体中以不同的指定LOD索引重复使用该几何体：
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProductionPipelines/ScriptingAndAutomation/HowTos/CreatingLODs/set_lod_from_mesh_example.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProductionPipelines/ScriptingAndAutomation/HowTos/CreatingLODs/set_lod_from_mesh_example.jpg">
+		<img class="  lazyload" alt="Set Lod From Static Mesh example" title="Set Lod From Static Mesh example" width="1000" data-src="../../../../../Images/ProductionPipelines/ScriptingAndAutomation/HowTos/CreatingLODs/set_lod_from_mesh_example.jpg" />
+</picture>
+</span></a></span><br /><em>点击查看大图。</em></p>
+</div><p>当运行来自静态网格体的 <strong>Set Lod from Static Mesh</strong> 节点时，将源静态网格体的LOD副本添加到目标静态网格体中。静态网格体资源之间没有正在进行的连接，因此从现在开始对源静态网格体所做的任何更改都不会自动影响目标静态网格体。</p>
+
+    </div>
+</div><!--
+category:paramliteral
+id:paramliteral
+content:param
+active:paramliteral
+-->
+<div class="button_content BlueprintOrCPPSelect pythonimplementation ">
+    <div class="container">
+        <p>要重复使用Python脚本中的某个LOD，调用"unreal.EditorStaticMeshLibrary.set_lod_from_static_mesh()"函数。你需要传递此函数：
+</p><ul ><li class="Default"><p>目标静态网格体：这是要为其创建新LOD的静态网格体。你需要先加载此资源，使用"unreal.EditorAssetLibrary.load_asset()"函数。
+</p></li><li class="Default"><p>要为目标静态网格体创建的LOD索引。此值必须大于0。不能在目标静态网格体中替换LOD 0。
+</p><div class="warning">
+	<p>如果目标静态网格体已经具有具有相同索引的LOD，则会覆盖它。</p>
+</div></li><li class="Default"><p>源静态网格体。这是一个静态网格体，它有一个你希望从目标静态网格体指向的现有LOD。同上，你需要先加载此资源，使用"unreal.EditorAssetLibrary.load_asset()"函数。
+</p></li><li class="Default"><p>要用于目标静态网格体的源静态网格体中LOD的索引。
+</p></li><li class="Default"><p>一个布尔参数，它决定是否要努力合并目标静态网格体中的材质插槽。如果将此参数设置为"True"，则函数将查找源几何体中与目标网格体中的部分分配相同材质的任何部分。如果找到任何部分，它将尝试重新映射LOD中的部分，以匹配目标静态网格体中的现有部分。如果将此参数设置为"False"，则源LOD中的所有网格体部分都将附加到目标静态网格体。
+</p></li></ul><p>设置此LOD将修改静态网格体资源。假设你希望保留所做的更改，之后还需要使用"unreal.EditorAssetLibrary.save_asset()"或"unreal.EditorAssetLibrary.save_loaded_asset()"之类的函数。
+</p><p>例如，以下脚本从简化的源静态网格体中获取LOD 0，并在更复杂的目标静态网格体中将该几何体重复使用为LOD 1：
+</p><pre class="prettyprint"><code>import unreal
+destination&#95;name = "/Game/MyGeometries/Accumulator&#95;case"
+source&#95;name = "/Game/MyGeometries/Simplified&#95;box"
+def set&#95;mesh&#95;as&#95;lod(destination&#95;name, source&#95;name):
+    destination&#95;mesh = unreal.EditorAssetLibrary.load&#95;asset(destination&#95;name)
+    source&#95;mesh = unreal.EditorAssetLibrary.load&#95;asset(source&#95;name)
+    lod&#95;count = unreal.EditorStaticMeshLibrary.get&#95;lod&#95;count(destination&#95;mesh)
+    print("Current LOD count: " + str(lod&#95;count))
+    slot&#95;replaced = unreal.EditorStaticMeshLibrary.set&#95;lod&#95;from&#95;static&#95;mesh(destination&#95;mesh, 1, source&#95;mesh, 0, True)
+    if slot&#95;replaced &gt; 0:
+        print("Added mesh as LOD for slot " + str(slot&#95;replaced))
+        lod&#95;count = unreal.EditorStaticMeshLibrary.get&#95;lod&#95;count(destination&#95;mesh)
+        print("New LOD count: " + str(lod&#95;count))
+        unreal.EditorAssetLibrary.save&#95;loaded&#95;asset(destination&#95;mesh)
+    else
+        unreal.log&#95;error("Unable to add mesh as LOD!")
+set&#95;mesh&#95;as&#95;lod(destination&#95;name, source&#95;name)</code></pre>
+<p>当"unreal.EditorStaticMeshLibrary.set_lod_from_static_mesh()"函数运行时，将源静态网格体的LOD副本添加到目标静态网格体中。静态网格体资源之间没有正在进行的连接，因此从现在开始对源静态网格体所做的任何更改都不会自动影响目标静态网格体。</p>
+
+    </div>
+</div>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Blueprints">Blueprints</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=how-to">how-to</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Python">Python</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=scripting">scripting</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=editor">editor</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=lods">lods</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=levels%20of%20detail">levels of detail</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/ProductionPipelines/ScriptingAndAutomation/HowTos/CreatingLODs/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:41:30 GMT -->
+</html>

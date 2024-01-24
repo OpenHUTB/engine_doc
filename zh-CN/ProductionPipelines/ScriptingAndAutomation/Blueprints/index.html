@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/ProductionPipelines/ScriptingAndAutomation/Blueprints/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:38:25 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/ProductionPipelines/ScriptingAndAutomation/Blueprints/" />');
+				var udnCSS = '../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>使用蓝图编写编辑器脚本 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/ProductionPipelines/ScriptingAndAutomation/Blueprints/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/ProductionPipelines/ScriptingAndAutomation/Blueprints/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/ProductionPipelines/ScriptingAndAutomation/Blueprints/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/ProductionPipelines/ScriptingAndAutomation/Blueprints/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Editor/ScriptingAndAutomation/Blueprints" />
+<meta name="intsourcechangelist" content="9382381" />
+<meta name="availability" content="Public" />
+<meta name="title" content="使用蓝图编写编辑器脚本" />
+<meta name="description" content="对在编辑器中使用蓝图自动化内容制作任务的方法进行讲解。" />
+<meta name="type" content="overview" />
+<meta name="version" content="4.23" />
+<meta name="parent" content="ProductionPipelines/ScriptingAndAutomation" />
+<meta name="keywords" content="Blueprints" />
+<meta name="keywords" content="Blueprint Utilities" />
+<meta name="keywords" content="scripting" />
+<meta name="keywords" content="editor" />
+<meta name="order" content="0" />
+<meta name="crumbs" content="%ROOT%,ProductionPipelines,ProductionPipelines/ScriptingAndAutomation" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="使用蓝图编写编辑器脚本" />
+	<meta property="og:description" content="对在编辑器中使用蓝图自动化内容制作任务的方法进行讲解。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">建立你的开发流程</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">编辑器的脚本与自动化</a>
+
+<span class="separator">></span> <span id="page">使用蓝图编写编辑器脚本</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">使用蓝图编写编辑器脚本</h1>
+							</div>	
+							<h2 >对在编辑器中使用蓝图自动化内容制作任务的方法进行讲解。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																																			</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																																				<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#在编辑器中运行蓝图的选项">在编辑器中运行蓝图的选项</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#编辑器工具控件">编辑器工具控件</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#编辑器工具蓝图">编辑器工具蓝图</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#在编辑器中调用">在编辑器中调用</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#启动对象">启动对象</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#访问纯编辑器蓝图节点">访问纯编辑器蓝图节点</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#编辑器工具子系统">编辑器工具子系统</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>蓝图不仅适用于在项目中创建运行时gameplay。同时还是一类极为有效的工具，可虚幻编辑器中与项目内容交互。可在编辑器中按需运行蓝图图表，来使用资源，在关卡中布局内容，在编辑器UI中触发操作，或使用自定义UI面板扩展编辑器。
+</p><p>本页将对使用蓝图进行虚幻编辑器脚本编写和自动化的相关基础知识进行介绍。
+</p><div class="tip">
+	<p>在以往的虚幻引擎版本中，用于在编辑器中运行的蓝图图表被称为 <strong>Blutility</strong>，即蓝图工具（Blueprint Utilities）的英文缩写。本次版本更新中仍有蓝图工具，但我们已对 <strong>编辑器工具控件</strong> 和 <strong>编辑器工具蓝图</strong> 进行了标准化。</p>
+</div><h2 id="在编辑器中运行蓝图的选项">在编辑器中运行蓝图的选项</h2>
+<p>如决定在虚幻编辑器中运行蓝图图表，可通过几种不同方法设置和触发蓝图代码。
+</p><h3 id="编辑器工具控件">编辑器工具控件</h3>
+<p>编辑器工具控件是UMG控件，可在编辑器UI内的其他所有工具所用的同种可停靠面板中渲染此类控件。此方法最适用于打造功能丰富的UI来控制蓝图。可将UMG所有显示风格选项，与蓝图丰富的脚本编写控制结合使用。这是最灵活和最强大的选项，同时入门简单，推荐用于多数编辑器脚本编写工作。
+</p><p>欲了解创建编辑器工具控件并在编辑器中打开的方法详情，参阅<a id="content_link"filter-data="tag_beta tag_umg tag_landing_page tag_blutilities tag_editor_utility" href="../../../InteractiveExperiences/UMG/UserGuide/EditorUtilityWidgets/index.html" ><span>编辑器工具控件</span></a>。
+</p><div class="topicContainer" filter-data="tag_beta tag_umg tag_landing_page tag_blutilities tag_editor_utility">
+<a class="skill_topic_link" id="fancy_content_link"filter-data="tag_beta tag_umg tag_landing_page tag_blutilities tag_editor_utility" href="../../../InteractiveExperiences/UMG/UserGuide/EditorUtilityWidgets/index.html" >
+    <span class="inner">
+        <span title="Skill Level: Intermediate" class="skill_icon"><img src="../../../../Include/Images/intermediate_icon.png" /></span>
+        <span class="text">编辑器工具控件</span>
+        <span title="Engine Version: Unreal Engine 4.22" class="version_tag">4.22</span>
+    </span>
+</a>
+</div>
+
+
+<h3 id="编辑器工具蓝图">编辑器工具蓝图</h3>
+<p>编辑器工具蓝图是一种特殊类，专门用于符合以下条件的逻辑：仅在虚幻编辑器中运行，不在运行时运行，且无需自定义UI。
+</p><p>这些类的一个内置用例是支持 <em>脚本化操作</em>：即在关卡中右键点击Actor或在内容浏览器中右键点击资源时，在快捷菜单中触发的图表。
+</p><p>欲了解详情，请参阅<a id="content_link"filter-data="tag_beta tag_scripting tag_editor tag_blueprint_utilities" href="ScriptedActions/index.html" ><span>脚本化操作</span></a>。
+</p>
+<h3 id="在编辑器中调用">在编辑器中调用</h3>
+<p>在蓝图类中创建自定义事件或函数时，可在编辑器中将该事件或函数标记为可调用。若将该蓝图类的实例放置在关卡中并选中，可在 <strong>细节（Details）</strong> 面板中触发自定义事件或函数。此方法最适用于需同时在运行时和蓝图中处理蓝图。
+</p><p>欲了解详情，请参阅<a id="content_link"filter-data="tag_scripting tag_editor tag_blueprint_utilities" href="CallInEditor/index.html" ><span>在编辑器中调用蓝图</span></a>。
+</p><div class="topicContainer" filter-data="tag_scripting tag_editor tag_blueprint_utilities">
+<a class="skill_topic_link" id="fancy_content_link"filter-data="tag_scripting tag_editor tag_blueprint_utilities" href="CallInEditor/index.html" >
+    <span class="inner">
+        <span title="Skill Level: beginner" class="skill_icon"><img src="../../../../Include/Images/beginner_icon.png" /></span>
+        <span class="text">在编辑器中调用蓝图</span>
+        <span title="Engine Version: Unreal Engine 4.23" class="version_tag">4.23</span>
+    </span>
+</a>
+</div>
+
+
+<h3 id="启动对象">启动对象</h3>
+<p>可将项目中的特定编辑器工具控件类和编辑器工具蓝图类辨识为启动对象。编辑器加载项目时将自动创建各启动对象的实例并调用预定义函数。此选项适用于加载项目后利用蓝图类固定执行某些操作，或将蓝图逻辑固定绑定到编辑器中处理项目内容时发生的事件。
+</p><p>欲了解详情，请参阅<a id="content_link"filter-data="tag_scripting tag_editor tag_blueprint_utilities" href="CallInEditor/index.html" ><span>在编辑器启动时运行蓝图</span></a>。
+</p><div class="topicContainer" filter-data="tag_scripting tag_editor tag_blueprint_utilities tag_beta">
+<a class="skill_topic_link" id="fancy_content_link"filter-data="tag_scripting tag_editor tag_blueprint_utilities tag_beta" href="StartupObjects/index.html" >
+    <span class="inner">
+        <span title="Skill Level: intermediate" class="skill_icon"><img src="../../../../Include/Images/intermediate_icon.png" /></span>
+        <span class="text">在编辑器启动时运行蓝图</span>
+        <span title="Engine Version: Unreal Engine 4.23" class="version_tag">4.23</span>
+    </span>
+</a>
+</div>
+
+
+<h2 id="访问纯编辑器蓝图节点">访问纯编辑器蓝图节点</h2>
+<p>在允许时，涉及修改资源文件或使用虚幻编辑器UI的多数操作无法在游戏中运行。因此，只能在同为纯编辑器的蓝图类中访问此类纯编辑器功能，即在模块中定义且类型设为 <code>Editor</code> 的函数。
+</p><p>例如，若利用派生自可在运行时使用的父类（如基础 <strong>Actor</strong> 类）的蓝图类，蓝图编辑器的 <strong>编辑器脚本编写（Editor Scripting）</strong> 类别下将列出有限的函数集。但若创建派生自纯编辑器父类的编辑器工具蓝图、编辑器工具控件或普通蓝图类，将显示更多、更全面的可用函数集：
+</p><div class="imagetable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><picture>
+		<source data-srcset="./../../../../Images/ProductionPipelines/ScriptingAndAutomation/Blueprints/bp-editor-scripting-nodes-nonutility.jpg">
+		<img class="  lazyload" alt="Actor类的编辑器脚本编写节点" title="Editor Scripting nodes for the Actor class" data-src="../../../../Images/ProductionPipelines/ScriptingAndAutomation/Blueprints/bp-editor-scripting-nodes-nonutility.jpg" />
+</picture>
+</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><picture>
+		<source data-srcset="./../../../../Images/ProductionPipelines/ScriptingAndAutomation/Blueprints/bp-editor-scripting-nodes-utility.jpg">
+		<img class="  lazyload" alt="EditorUtilityActor类的编辑器脚本编写节点" title="Editor Scripting nodes for the EditorUtilityActor class" data-src="../../../../Images/ProductionPipelines/ScriptingAndAutomation/Blueprints/bp-editor-scripting-nodes-utility.jpg" />
+</picture>
+</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>Actor类</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>EditorUtilityActor类</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div><div class="tip">
+	<p>若已安装编辑器脚本编写插件，可在此处找到该插件公开函数，用于使用静态网格和其他资源类型。参阅<a id="content_link"filter-data="tag_blueprints tag_python tag_scripting" href="../index.html" ><span>编辑器脚本编写和自动化</span></a>。</p>
+</div><h2 id="编辑器工具子系统">编辑器工具子系统</h2>
+<p>启动时，虚幻编辑器将初始化专门用于管理编辑器脚本编写功能行为的子系统。例如，此子系统处理生成和清理如<a id="content_link"filter-data="tag_scripting tag_editor tag_blueprint_utilities tag_beta" href="StartupObjects/index.html" ><span>启动对象</span></a>等操作，并处理<a id="content_link"filter-data="tag_beta tag_umg tag_landing_page tag_blutilities tag_editor_utility" href="../../../InteractiveExperiences/UMG/UserGuide/EditorUtilityWidgets/index.html" ><span>编辑器工具控件</span></a>的新编辑器面板的创建和销毁。
+</p><p>同时可在自己的C++或蓝图代码中使用编辑器工具子系统。例如，可获取编辑器工具子系统，并调用其 <code>SpawnAndRegisterTab()</code> 方法，以在编辑器UI中程序化打开新面板，此面板包含项目中编辑器工具控件类的实例。
+</p><p>欲了解子系统及在C++、蓝图和Python中访问和使用的方法详情，参阅<a id="content_link"filter-data="tag_subsystems" href="../../../ProgrammingAndScripting/Subsystems/index.html" ><span>编程子系统</span></a>。</p>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../SiteIndex/index.html?tags=Blueprints">Blueprints</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../SiteIndex/index.html?tags=Blueprint%20Utilities">Blueprint Utilities</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../SiteIndex/index.html?tags=scripting">scripting</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../SiteIndex/index.html?tags=editor">editor</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/ProductionPipelines/ScriptingAndAutomation/Blueprints/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:38:28 GMT -->
+</html>

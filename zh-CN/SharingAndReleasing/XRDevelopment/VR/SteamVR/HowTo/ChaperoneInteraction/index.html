@@ -1,0 +1,950 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/SharingAndReleasing/XRDevelopment/VR/SteamVR/HowTo/ChaperoneInteraction/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:50:27 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var finishButton = finishButtonTemplate;
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/SharingAndReleasing/XRDevelopment/VR/SteamVR/HowTo/ChaperoneInteraction/" />');
+				var udnCSS = '../../../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>与SteamVR Chaperone系统进行交互  | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+		    <script  src="../../../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+		    <script  src="../../../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/SharingAndReleasing/XRDevelopment/VR/SteamVR/HowTo/ChaperoneInteraction/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/SharingAndReleasing/XRDevelopment/VR/SteamVR/HowTo/ChaperoneInteraction/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/SharingAndReleasing/XRDevelopment/VR/SteamVR/HowTo/ChaperoneInteraction/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/SharingAndReleasing/XRDevelopment/VR/SteamVR/HowTo/ChaperoneInteraction/" hreflang="ko" />
+
+	<meta name="intsourcechangelist" content="14678864" />
+<meta name="redirect" content="SharingAndReleasing/VR/SteamVR/HowTo/ChaperoneInteraction" />
+<meta name="redirect" content="Platforms/VR/SteamVR/HowTo/ChaperoneInteraction" />
+<meta name="availability" content="Public" />
+<meta name="title" content="与SteamVR Chaperone系统进行交互" />
+<meta name="description" content="与SteamVR Chaperone系统的诸多组件进行交互。" />
+<meta name="type" content="how-to" />
+<meta name="skilllevel" content="Intermediate" />
+<meta name="version" content="4.17" />
+<meta name="parent" content="SharingAndReleasing/XRDevelopment/VR/SteamVR/HowTo" />
+<meta name="order" content="2" />
+<meta name="keywords" content="VR" />
+<meta name="topic-image" content="SharingAndReleasing/XRDevelopment/VR\SteamVR\SteamVRDevelopment_topic.png" />
+<meta name="prereq" content="SharingAndReleasing/XRDevelopment/VR\SteamVR\HowTo\StandingCamera" />
+<meta name="prereq" content="SharingAndReleasing/XRDevelopment/VR\DevelopVR\MotionController" />
+<meta name="prereq" content="SharingAndReleasing/XRDevelopment/VR\SteamVR\HowTo\Chaperone" />
+<meta name="crumbs" content="%ROOT%,SharingAndReleasing,SharingAndReleasing/XRDevelopment,SharingAndReleasing/XRDevelopment/VR,SharingAndReleasing/XRDevelopment/VR/SteamVR,SharingAndReleasing/XRDevelopment/VR/SteamVR/HowTo" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="与SteamVR Chaperone系统进行交互 " />
+	<meta property="og:description" content="与SteamVR Chaperone系统的诸多组件进行交互。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../../../index.html">项目分享及发布</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../../../index.html">XR开发</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">虚拟现实开发</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">SteamVR开发</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">Steam VR 指南</a>
+
+<span class="separator">></span> <span id="page">与SteamVR Chaperone系统进行交互 </span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">与SteamVR Chaperone系统进行交互 </h1>
+							</div>	
+							<h2 >与SteamVR Chaperone系统的诸多组件进行交互。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Intermediate"><a id="skill_link" href="../../../../../../SiteIndex/index.html?skills=Intermediate">Intermediate</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																																										<div class="prereq">
+    <div class="normaltitle">
+        前置主题
+    </div>
+    <p style="margin-bottom:8px;">
+        为了理解并使用本文中的内容，请确保您已掌握以下主题：
+    </p>
+    <ul style="margin-bottom:0.5em;">
+                <li>
+            <p>
+                <a href="../StandingCamera/index.html" title="设置UE4相机，打造站立式SteamVR体验。">设置SteamVR的站立式相机</a>
+            </p>
+        </li>
+                <li>
+            <p>
+                <a href="../../../DevelopVR/MotionController/index.html" title="有关如何为VR互动设置运动控制器的信息。">运动控制器组件设置</a>
+            </p>
+        </li>
+                <li>
+            <p>
+                <a href="../Chaperone/index.html" title="在 UE4 中设置 SteamVR Chaperone 系统。">设置 SteamVR Chaperone</a>
+            </p>
+        </li>
+            </ul>
+</div>
+																		<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#步骤">步骤</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#最终结果">最终结果</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#ue4项目下载">UE4项目下载</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p><picture>
+		<source data-srcset="./../../../../../../../Images/SharingAndReleasing/XRDevelopment/VR/SteamVR/HowTo/ChaperoneInteraction/SVRChapInteraction_Hero_Image.jpg">
+		<img class="  lazyload" alt="SVRChapInteraction_Hero_Image.png" data-src="../../../../../../../Images/SharingAndReleasing/XRDevelopment/VR/SteamVR/HowTo/ChaperoneInteraction/SVRChapInteraction_Hero_Image.jpg" />
+</picture>
+
+</p><p>SteamVR Chaperone系统用于显示虚拟现实交互区的边界。追踪设备靠近边界时，SteamVR Runtime将自动进行可视提示，告知用户。以下指南将说明如何以两种不同方式向用户展示VR互动区。 
+</p><div class="tip">
+	<p>需要设置 <strong>Room Scale</strong> VR使用SteamVR工具才能使Chaperone系统正常工作。如需了解详细操作方法，请参见<a id="content_link" href="https://www.vive.com/us/support/category_howto/setting-up-room-scale-play-area.html" ><span>HTC Vive</span></a>设置页面。</p>
+</div><div class="warning">
+	<p><strong>不可</strong> 在UE4中禁用Chaperone系统，此操作不可取。然而，您可以调整用户靠近边界时UE4作出的响应。  </p>
+</div><h2 id="步骤">步骤</h2>
+<p>以下将说明如何在VR交互区的4个角落生成静态网格体，并绘制一系列大小形状与VR交互完全相同的线条。
+</p><div class="note">
+	<p>可用以下链接下载此指南中使用的Lighthouse Basestation静态网格体和纹理。<a id="content_link" href="https://epicgames.box.com/s/3n6yilg2is2f7nq8ju27z0wbxhkvyms1" ><span>Lighthouse Basestation静态网格体和纹理</span></a></p>
+</div><ol ><li class="Default"><p>首先打开玩家Pawn蓝图并新添加一个名为 <strong>baseStationArray</strong> 的 <strong>Static Mesh Component</strong> 变量。创建baseStationArray变量时，此变量将用于保存在VR交互区四角处生成的静态网格体，因此需要将 <strong>Variable Type</strong> 设为 <strong>Array</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../../../Images/SharingAndReleasing/XRDevelopment/VR/SteamVR/HowTo/ChaperoneInteraction/SVRChapInteraction_00.jpg">
+		<img class="  lazyload" alt="SVRChapInteraction_00.png" data-src="../../../../../../../Images/SharingAndReleasing/XRDevelopment/VR/SteamVR/HowTo/ChaperoneInteraction/SVRChapInteraction_00.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>接下来将带以下值的节点添加到 <strong>事件图表</strong>：
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../../../Images/SharingAndReleasing/XRDevelopment/VR/SteamVR/HowTo/ChaperoneInteraction/SVRChapInteraction_01.png" ><span><picture>
+		<source data-srcset="./../../../../../../../Images/SharingAndReleasing/XRDevelopment/VR/SteamVR/HowTo/ChaperoneInteraction/SVRChapInteraction_01.jpg">
+		<img class="  lazyload" alt="SVRChapInteraction_01.png" width="748" data-src="../../../../../../../Images/SharingAndReleasing/XRDevelopment/VR/SteamVR/HowTo/ChaperoneInteraction/SVRChapInteraction_01.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看全图。</p>
+</div><div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>节点名称</p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>数值 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Motion Controller (R) Trigger</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>N/A</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>SteamVRChaperone</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>N/A</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>baseStationArray</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>N/A</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Get Bounds</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>N/A</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>ForEachLoop</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>N/A</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Add Static Mesh Component</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>Static Mesh: lh_basestation_vive</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Destroy Component</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>N/A</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Array Add </strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>N/A</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>IsValid</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>N/A</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div></li><li class="Default"><p>接下来需要设置一种方式来获取用户所设置的SteamVR交互区的信息。在Pawn蓝图中进行操作，将 <strong>SteamVRChaperone</strong> 变量输出连接到 <strong>Get Bounds</strong> 节点上的输入，这样便能与组成SteamVR Chaperone边界的点进行交互。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../../../Images/SharingAndReleasing/XRDevelopment/VR/SteamVR/HowTo/ChaperoneInteraction/SVRChapInteraction_02.png" ><span><picture>
+		<source data-srcset="./../../../../../../../Images/SharingAndReleasing/XRDevelopment/VR/SteamVR/HowTo/ChaperoneInteraction/SVRChapInteraction_02.jpg">
+		<img class="  lazyload" alt="SVRChapInteraction_02.png" width="500" data-src="../../../../../../../Images/SharingAndReleasing/XRDevelopment/VR/SteamVR/HowTo/ChaperoneInteraction/SVRChapInteraction_02.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看全图。</p>
+</div></li><li class="Default"><p>能够获取组成VR交互区的点后，接下来我们将设置一个ForEachLoop，它将遍历SteamVRChaperone的每个角，并在按下 <strong>右控制器扳机键</strong> 后添加一个静态网格体。要在Pawn蓝图中完成此操作，需要根据下图进行事件图表的设置。
+</p><div class="include_wrapper" data-path="SharingAndReleasing/XRDevelopment/VR\SteamVR\HowTo\ChaperoneInteraction\">
+<!--
+type:paramliteral
+id:paramliteral
+image:param
+snippet:param
+-->
+
+<div id="snippet_image">
+    <div id="snippet_copy" onclick="if ($('#SteamVRC1_snippet code').length != 0) { copyToClipboard($('#SteamVRC1_snippet code').html()); } else if ($('#SteamVRC1_snippet > p').length != 0) { copyToClipboard($('#SteamVRC1_snippet > p').html()); } else { copyToClipboard($('#SteamVRC1_snippet').html()); }">Copy Node Graph</div>
+    <div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../../../Images/SharingAndReleasing/XRDevelopment/VR/SteamVR/HowTo/ChaperoneInteraction/SVRChapInteraction_03.png" ><span><picture>
+		<source data-srcset="./../../../../../../../Images/SharingAndReleasing/XRDevelopment/VR/SteamVR/HowTo/ChaperoneInteraction/SVRChapInteraction_03.jpg">
+		<img class="  lazyload" alt="SVRChapInteraction_03.png" width="1000" data-src="../../../../../../../Images/SharingAndReleasing/XRDevelopment/VR/SteamVR/HowTo/ChaperoneInteraction/SVRChapInteraction_03.jpg" />
+</picture>
+</span></a></span></p>
+</div>
+    <div id="SteamVRC1_snippet" style="display:none;"><pre class="prettyprint"><code>BEGIN OBJECT
+                Begin Object Class=/Script/BlueprintGraph.K2Node&#95;CallFunction Name="K2Node&#95;CallFunction&#95;1084"
+   bIsPureFunc=True
+   bIsConstFunc=True
+   FunctionReference=(MemberParent=Class'/Script/SteamVR.SteamVRChaperoneComponent',MemberName="GetBounds")
+   NodePosX=1232
+   NodePosY=-2624
+   NodeGuid=9D8CE6074BBE8BCF7AA85D8BB3B15185
+   CustomProperties Pin (PinId=8B9136B54BDA0D37E448BDAC16DFFFF7,PinName="self",PinFriendlyName=NSLOCTEXT("K2Node", "Target", "Target"),PinToolTip="Target\nSteam VRChaperone Component Object Reference",PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject=Class'/Script/SteamVR.SteamVRChaperoneComponent',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node&#95;VariableGet&#95;197 4857BDE84AFE450BEB4D218869646F9B,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=B35FC4BA4D68C6738438C18702E70E4C,PinName="ReturnValue",PinToolTip="Return Value\nArray of Vector s",Direction="EGPD&#95;Output",PinType.PinCategory="struct",PinType.PinSubCategory="",PinType.PinSubCategoryObject=ScriptStruct'/Script/CoreUObject.Vector',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=Array,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node&#95;MacroInstance&#95;118 B6F62194447A3A47B7677494C9E6AF42,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+End Object
+Begin Object Class=/Script/BlueprintGraph.K2Node&#95;VariableGet Name="K2Node&#95;VariableGet&#95;197"
+   VariableReference=(MemberName="SteamVRChaperone",bSelfContext=True)
+   NodePosX=1248
+   NodePosY=-2544
+   NodeGuid=7E57A3734E176EA15785F397B1DC76FB
+   CustomProperties Pin (PinId=4857BDE84AFE450BEB4D218869646F9B,PinName="SteamVRChaperone",Direction="EGPD&#95;Output",PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject=Class'/Script/SteamVR.SteamVRChaperoneComponent',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node&#95;CallFunction&#95;1084 8B9136B54BDA0D37E448BDAC16DFFFF7,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=1E59DFAA490E313860D944A45C6A61A1,PinName="self",PinFriendlyName=NSLOCTEXT("K2Node", "Target", "Target"),PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject=BlueprintGeneratedClass'/Game/Blueprints/SteamVR&#95;Pawn&#95;Standing.SteamVR&#95;Pawn&#95;Standing&#95;C',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PersistentGuid=00000000000000000000000000000000,bHidden=True,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+End Object
+Begin Object Class=/Script/BlueprintGraph.K2Node&#95;MacroInstance Name="K2Node&#95;MacroInstance&#95;118"
+   MacroGraphReference=(MacroGraph=EdGraph'/Engine/EditorBlueprintResources/StandardMacros.StandardMacros:ForEachLoop',GraphBlueprint=Blueprint'/Engine/EditorBlueprintResources/StandardMacros.StandardMacros',GraphGuid=99DBFD5540A796041F72A5A9DA655026)
+   ResolvedWildcardType=(PinCategory="struct",PinSubCategoryObject=ScriptStruct'/Script/CoreUObject.Vector',ContainerType=Array)
+   NodePosX=1584
+   NodePosY=-2768
+   NodeGuid=37FA01EA488A9C7B9FFEA3AFCA4B5D7B
+   CustomProperties Pin (PinId=2BDC94F34208A8F557E05F94CE1CE4AE,PinName="Exec",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node&#95;InputKey&#95;74 451F705A45E7D71FD4CDD191C52193E1,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=B6F62194447A3A47B7677494C9E6AF42,PinName="Array",PinType.PinCategory="struct",PinType.PinSubCategory="",PinType.PinSubCategoryObject=ScriptStruct'/Script/CoreUObject.Vector',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=Array,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node&#95;CallFunction&#95;1084 B35FC4BA4D68C6738438C18702E70E4C,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=46A798794EB954364926C08AABB07BFF,PinName="LoopBody",Direction="EGPD&#95;Output",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node&#95;AddComponent&#95;71 34310B40490B2BAD8DED8ABB2127E66A,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=E0271977466AEE7454D6A0AD5AABB816,PinName="Array Element",Direction="EGPD&#95;Output",PinType.PinCategory="struct",PinType.PinSubCategory="",PinType.PinSubCategoryObject=ScriptStruct'/Script/CoreUObject.Vector',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node&#95;CallFunction&#95;3281 72212A6A4BCA13036E0B57BFD90B270E,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=48EF763F42B4DA5034F2F58F9BBEB00D,PinName="Array Index",Direction="EGPD&#95;Output",PinType.PinCategory="int",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultValue="0",AutogeneratedDefaultValue="0",PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=7DA82531415B398F5EB95691B0938909,PinName="Completed",Direction="EGPD&#95;Output",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+End Object
+Begin Object Class=/Script/BlueprintGraph.K2Node&#95;AddComponent Name="K2Node&#95;AddComponent&#95;71"
+   TemplateBlueprint="/Game/Blueprints/SteamVR&#95;Pawn&#95;Standing.SteamVR&#95;Pawn&#95;Standing"
+   TemplateType=Class'/Script/Engine.StaticMeshComponent'
+   FunctionReference=(MemberName="AddComponent",bSelfContext=True)
+   NodePosX=1920
+   NodePosY=-2784
+   NodeGuid=D899A1934C7F4236190FBB83E80E36E4
+   CustomProperties Pin (PinId=34310B40490B2BAD8DED8ABB2127E66A,PinName="execute",PinToolTip="\nExec",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node&#95;MacroInstance&#95;118 46A798794EB954364926C08AABB07BFF,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=497F5C1D48B8B3DB2C2BA3AFBDDDA07D,PinName="then",PinToolTip="\nExec",Direction="EGPD&#95;Output",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node&#95;CallArrayFunction&#95;227 AB7C29724A4370E374E219B3136B3B14,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=0942B0BA46BC8263AD4B8DB55CDECCEF,PinName="self",PinFriendlyName=NSLOCTEXT("K2Node", "Target", "Target"),PinToolTip="Target\nActor Object Reference",PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject=Class'/Script/Engine.Actor',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=21E468274D3DBA5F04E63E9919D1B6EB,PinName="TemplateName",PinToolTip="Template Name\nName\n\nThe name of the Component Template to use.",PinType.PinCategory="name",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultValue="NODE&#95;AddStaticMeshComponent-5",AutogeneratedDefaultValue="None",PersistentGuid=00000000000000000000000000000000,bHidden=True,bNotConnectable=True,bDefaultValueIsReadOnly=True,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=948A308C4E60D0B8C5EC1D92028E558A,PinName="bManualAttachment",PinToolTip="Manual Attachment\nBoolean\n\nWhether manual or automatic attachment is to be used",PinType.PinCategory="bool",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultValue="false",AutogeneratedDefaultValue="false",PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=5C74A8634DDD697D1234B38F487C2D6D,PinName="RelativeTransform",PinToolTip="Relative Transform\nTransform \n\nThe relative transform between the new component and its attach parent (automatic only)",PinType.PinCategory="struct",PinType.PinSubCategory="",PinType.PinSubCategoryObject=ScriptStruct'/Script/CoreUObject.Transform',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=True,PinType.bIsWeakPointer=False,LinkedTo=(K2Node&#95;CallFunction&#95;3281 301B61884B3507108C1051B08AF72EC0,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=True,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=A79F33AE4CF14547CB740F9D0B5ECB67,PinName="ComponentTemplateContext",PinToolTip="Component Template Context\nObject Object Reference\n\nOptional UBlueprintGeneratedClass reference to use to find the template in. If null (or not a BPGC), component is sought in this Actor\'s class",PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject=Class'/Script/CoreUObject.Object',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=True,PinType.bIsWeakPointer=False,PersistentGuid=00000000000000000000000000000000,bHidden=True,bNotConnectable=True,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=6F754DCB4AA8982E55C33D8BEA044333,PinName="ReturnValue",PinToolTip="Return Value\nStatic Mesh Component Object Reference",Direction="EGPD&#95;Output",PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject=Class'/Script/Engine.StaticMeshComponent',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node&#95;CallArrayFunction&#95;227 EE5E261346A9D948350D08A538206500,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+End Object
+Begin Object Class=/Script/BlueprintGraph.K2Node&#95;InputKey Name="K2Node&#95;InputKey&#95;74"
+   InputKey=MotionController&#95;Right&#95;Trigger
+   NodePosX=1232
+   NodePosY=-2768
+   NodeGuid=115D70DD4D72911C84CDD396206876CB
+   CustomProperties Pin (PinId=451F705A45E7D71FD4CDD191C52193E1,PinName="Pressed",Direction="EGPD&#95;Output",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node&#95;MacroInstance&#95;118 2BDC94F34208A8F557E05F94CE1CE4AE,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=6F1385DB4EF7010345F655BD3744E632,PinName="Released",Direction="EGPD&#95;Output",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=022C7579454B610F2F2ED0B282488461,PinName="Key",Direction="EGPD&#95;Output",PinType.PinCategory="struct",PinType.PinSubCategory="",PinType.PinSubCategoryObject=ScriptStruct'/Script/InputCore.Key',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+End Object
+Begin Object Class=/Script/BlueprintGraph.K2Node&#95;CallArrayFunction Name="K2Node&#95;CallArrayFunction&#95;227"
+   FunctionReference=(MemberParent=Class'/Script/Engine.KismetArrayLibrary',MemberName="Array&#95;Add")
+   NodePosX=2256
+   NodePosY=-2744
+   NodeGuid=43700AEC407CB6EBCFD0BBBDB6E7566D
+   CustomProperties Pin (PinId=AB7C29724A4370E374E219B3136B3B14,PinName="execute",PinToolTip="\nExec",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node&#95;AddComponent&#95;71 497F5C1D48B8B3DB2C2BA3AFBDDDA07D,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=9C49631A4DCB38432F500787BD709DCB,PinName="then",PinToolTip="\nExec",Direction="EGPD&#95;Output",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=00FB150349E4D66D6F7FE7983CE94DBA,PinName="self",PinFriendlyName=NSLOCTEXT("K2Node", "Target", "Target"),PinToolTip="Target\nKismet Array Library Object Reference",PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject=Class'/Script/Engine.KismetArrayLibrary',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultObject="/Script/Engine.Default&#95;&#95;KismetArrayLibrary",PersistentGuid=00000000000000000000000000000000,bHidden=True,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=22674C5B4C7D8F21FD49C8A2A4EFF177,PinName="TargetArray",PinToolTip="Target Array\nArray of Static Mesh Component Object References\n\nThe array to add item to",PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject=Class'/Script/Engine.StaticMeshComponent',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=Array,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=True,PinType.bIsConst=True,PinType.bIsWeakPointer=False,LinkedTo=(K2Node&#95;VariableGet&#95;199 92B8D86246B7B64BCB79D093554F79E8,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=True,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=EE5E261346A9D948350D08A538206500,PinName="NewItem",PinToolTip="New Item\nStatic Mesh Component Object Reference (by ref)\n\nThe item to add to the array",PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject=Class'/Script/Engine.StaticMeshComponent',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=True,PinType.bIsConst=True,PinType.bIsWeakPointer=False,LinkedTo=(K2Node&#95;AddComponent&#95;71 6F754DCB4AA8982E55C33D8BEA044333,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=BE1A5C404E2C69FB80B60D8497412508,PinName="ReturnValue",PinToolTip="Return Value\nInteger\n\nThe index of the newly added item",Direction="EGPD&#95;Output",PinType.PinCategory="int",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultValue="0",AutogeneratedDefaultValue="0",PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+End Object
+Begin Object Class=/Script/BlueprintGraph.K2Node&#95;VariableGet Name="K2Node&#95;VariableGet&#95;199"
+   VariableReference=(MemberName="baseStationArray",MemberGuid=BD0B12DA483B113DA20838A8B7EF86C6,bSelfContext=True)
+   NodePosX=2256
+   NodePosY=-2656
+   NodeGuid=8441735341894AC0424507AE38C594E1
+   CustomProperties Pin (PinId=92B8D86246B7B64BCB79D093554F79E8,PinName="baseStationArray",Direction="EGPD&#95;Output",PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject=Class'/Script/Engine.StaticMeshComponent',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=Array,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node&#95;CallArrayFunction&#95;227 22674C5B4C7D8F21FD49C8A2A4EFF177,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=4653AFB045E0B8B895E1C2B2CCC2283D,PinName="self",PinFriendlyName=NSLOCTEXT("K2Node", "Target", "Target"),PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject=BlueprintGeneratedClass'/Game/Blueprints/SteamVR&#95;Pawn&#95;Standing.SteamVR&#95;Pawn&#95;Standing&#95;C',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PersistentGuid=00000000000000000000000000000000,bHidden=True,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+End Object
+Begin Object Class=/Script/BlueprintGraph.K2Node&#95;CallFunction Name="K2Node&#95;CallFunction&#95;3281"
+   bIsPureFunc=True
+   FunctionReference=(MemberParent=Class'/Script/Engine.KismetMathLibrary',MemberName="Conv&#95;VectorToTransform")
+   NodePosX=1808
+   NodePosY=-2640
+   NodeGuid=1962718745EDAB1CF846C88774415A68
+   CustomProperties Pin (PinId=96B155934815308F019857896A1E44D4,PinName="self",PinFriendlyName=NSLOCTEXT("K2Node", "Target", "Target"),PinToolTip="Target\nKismet Math Library Object Reference",PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject=Class'/Script/Engine.KismetMathLibrary',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultObject="/Script/Engine.Default&#95;&#95;KismetMathLibrary",PersistentGuid=00000000000000000000000000000000,bHidden=True,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=72212A6A4BCA13036E0B57BFD90B270E,PinName="InLocation",PinToolTip="In Location\nVector ",PinType.PinCategory="struct",PinType.PinSubCategory="",PinType.PinSubCategoryObject=ScriptStruct'/Script/CoreUObject.Vector',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultValue="0, 0, 0",AutogeneratedDefaultValue="0, 0, 0",LinkedTo=(K2Node&#95;MacroInstance&#95;118 E0271977466AEE7454D6A0AD5AABB816,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=301B61884B3507108C1051B08AF72EC0,PinName="ReturnValue",PinToolTip="Return Value\nTransform ",Direction="EGPD&#95;Output",PinType.PinCategory="struct",PinType.PinSubCategory="",PinType.PinSubCategoryObject=ScriptStruct'/Script/CoreUObject.Transform',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node&#95;AddComponent&#95;71 5C74A8634DDD697D1234B38F487C2D6D,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+End Object
+
+END OBJECT</code></pre>
+</div>
+    <div id="snippet_overlay" onclick="if ($('#SteamVRC1_snippet code').length != 0) { copyToClipboard($('#SteamVRC1_snippet code').html()); } else if ($('#SteamVRC1_snippet > p').length != 0) { copyToClipboard($('#SteamVRC1_snippet > p').html()); } else { copyToClipboard($('#SteamVRC1_snippet').html()); }"></div>
+</div>
+</div></li><li class="Default"><p>能够在VR交互区的四个边角处显示静态网格体后，接下来将设置一些蓝图逻辑，检查是否有需要移除的有效静态网格体。如有，则将其移除。要在Pawn蓝图中完成此操作，需要根据下图进行事件图表的设置。 
+</p><div class="include_wrapper" data-path="SharingAndReleasing/XRDevelopment/VR\SteamVR\HowTo\ChaperoneInteraction\">
+<!--
+type:paramliteral
+id:paramliteral
+image:param
+snippet:param
+-->
+
+<div id="snippet_image">
+    <div id="snippet_copy" onclick="if ($('#SteamVRC2_snippet code').length != 0) { copyToClipboard($('#SteamVRC2_snippet code').html()); } else if ($('#SteamVRC2_snippet > p').length != 0) { copyToClipboard($('#SteamVRC2_snippet > p').html()); } else { copyToClipboard($('#SteamVRC2_snippet').html()); }">Copy Node Graph</div>
+    <div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../../../Images/SharingAndReleasing/XRDevelopment/VR/SteamVR/HowTo/ChaperoneInteraction/SVRChapInteraction_04.png" ><span><picture>
+		<source data-srcset="./../../../../../../../Images/SharingAndReleasing/XRDevelopment/VR/SteamVR/HowTo/ChaperoneInteraction/SVRChapInteraction_04.jpg">
+		<img class="  lazyload" alt="SVRChapInteraction_04.png" width="1000" data-src="../../../../../../../Images/SharingAndReleasing/XRDevelopment/VR/SteamVR/HowTo/ChaperoneInteraction/SVRChapInteraction_04.jpg" />
+</picture>
+</span></a></span></p>
+</div>
+    <div id="SteamVRC2_snippet" style="display:none;"><pre class="prettyprint"><code>BEGIN OBJECT
+                Begin Object Class=/Script/BlueprintGraph.K2Node&#95;CallFunction Name="K2Node&#95;CallFunction&#95;1084"
+   bIsPureFunc=True
+   bIsConstFunc=True
+   FunctionReference=(MemberParent=Class'/Script/SteamVR.SteamVRChaperoneComponent',MemberName="GetBounds")
+   NodePosX=1232
+   NodePosY=-2624
+   NodeGuid=9D8CE6074BBE8BCF7AA85D8BB3B15185
+   CustomProperties Pin (PinId=8B9136B54BDA0D37E448BDAC16DFFFF7,PinName="self",PinFriendlyName=NSLOCTEXT("K2Node", "Target", "Target"),PinToolTip="Target\nSteam VRChaperone Component Object Reference",PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject=Class'/Script/SteamVR.SteamVRChaperoneComponent',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node&#95;VariableGet&#95;197 4857BDE84AFE450BEB4D218869646F9B,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=B35FC4BA4D68C6738438C18702E70E4C,PinName="ReturnValue",PinToolTip="Return Value\nArray of Vector s",Direction="EGPD&#95;Output",PinType.PinCategory="struct",PinType.PinSubCategory="",PinType.PinSubCategoryObject=ScriptStruct'/Script/CoreUObject.Vector',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=Array,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node&#95;MacroInstance&#95;118 B6F62194447A3A47B7677494C9E6AF42,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+End Object
+Begin Object Class=/Script/BlueprintGraph.K2Node&#95;VariableGet Name="K2Node&#95;VariableGet&#95;197"
+   VariableReference=(MemberName="SteamVRChaperone",bSelfContext=True)
+   NodePosX=1248
+   NodePosY=-2544
+   NodeGuid=7E57A3734E176EA15785F397B1DC76FB
+   CustomProperties Pin (PinId=4857BDE84AFE450BEB4D218869646F9B,PinName="SteamVRChaperone",Direction="EGPD&#95;Output",PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject=Class'/Script/SteamVR.SteamVRChaperoneComponent',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node&#95;CallFunction&#95;1084 8B9136B54BDA0D37E448BDAC16DFFFF7,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=1E59DFAA490E313860D944A45C6A61A1,PinName="self",PinFriendlyName=NSLOCTEXT("K2Node", "Target", "Target"),PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject=BlueprintGeneratedClass'/Game/Blueprints/SteamVR&#95;Pawn&#95;Standing.SteamVR&#95;Pawn&#95;Standing&#95;C',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PersistentGuid=00000000000000000000000000000000,bHidden=True,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+End Object
+Begin Object Class=/Script/BlueprintGraph.K2Node&#95;MacroInstance Name="K2Node&#95;MacroInstance&#95;118"
+   MacroGraphReference=(MacroGraph=EdGraph'/Engine/EditorBlueprintResources/StandardMacros.StandardMacros:ForEachLoop',GraphBlueprint=Blueprint'/Engine/EditorBlueprintResources/StandardMacros.StandardMacros',GraphGuid=99DBFD5540A796041F72A5A9DA655026)
+   ResolvedWildcardType=(PinCategory="struct",PinSubCategoryObject=ScriptStruct'/Script/CoreUObject.Vector',ContainerType=Array)
+   NodePosX=1584
+   NodePosY=-2768
+   NodeGuid=37FA01EA488A9C7B9FFEA3AFCA4B5D7B
+   CustomProperties Pin (PinId=2BDC94F34208A8F557E05F94CE1CE4AE,PinName="Exec",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node&#95;InputKey&#95;74 451F705A45E7D71FD4CDD191C52193E1,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=B6F62194447A3A47B7677494C9E6AF42,PinName="Array",PinType.PinCategory="struct",PinType.PinSubCategory="",PinType.PinSubCategoryObject=ScriptStruct'/Script/CoreUObject.Vector',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=Array,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node&#95;CallFunction&#95;1084 B35FC4BA4D68C6738438C18702E70E4C,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=46A798794EB954364926C08AABB07BFF,PinName="LoopBody",Direction="EGPD&#95;Output",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node&#95;AddComponent&#95;71 34310B40490B2BAD8DED8ABB2127E66A,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=E0271977466AEE7454D6A0AD5AABB816,PinName="Array Element",Direction="EGPD&#95;Output",PinType.PinCategory="struct",PinType.PinSubCategory="",PinType.PinSubCategoryObject=ScriptStruct'/Script/CoreUObject.Vector',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node&#95;CallFunction&#95;3281 72212A6A4BCA13036E0B57BFD90B270E,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=48EF763F42B4DA5034F2F58F9BBEB00D,PinName="Array Index",Direction="EGPD&#95;Output",PinType.PinCategory="int",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultValue="0",AutogeneratedDefaultValue="0",PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=7DA82531415B398F5EB95691B0938909,PinName="Completed",Direction="EGPD&#95;Output",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+End Object
+Begin Object Class=/Script/BlueprintGraph.K2Node&#95;AddComponent Name="K2Node&#95;AddComponent&#95;71"
+   TemplateBlueprint="/Game/Blueprints/SteamVR&#95;Pawn&#95;Standing.SteamVR&#95;Pawn&#95;Standing"
+   TemplateType=Class'/Script/Engine.StaticMeshComponent'
+   FunctionReference=(MemberName="AddComponent",bSelfContext=True)
+   NodePosX=1920
+   NodePosY=-2784
+   NodeGuid=D899A1934C7F4236190FBB83E80E36E4
+   CustomProperties Pin (PinId=34310B40490B2BAD8DED8ABB2127E66A,PinName="execute",PinToolTip="\nExec",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node&#95;MacroInstance&#95;118 46A798794EB954364926C08AABB07BFF,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=497F5C1D48B8B3DB2C2BA3AFBDDDA07D,PinName="then",PinToolTip="\nExec",Direction="EGPD&#95;Output",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node&#95;CallArrayFunction&#95;227 AB7C29724A4370E374E219B3136B3B14,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=0942B0BA46BC8263AD4B8DB55CDECCEF,PinName="self",PinFriendlyName=NSLOCTEXT("K2Node", "Target", "Target"),PinToolTip="Target\nActor Object Reference",PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject=Class'/Script/Engine.Actor',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=21E468274D3DBA5F04E63E9919D1B6EB,PinName="TemplateName",PinToolTip="Template Name\nName\n\nThe name of the Component Template to use.",PinType.PinCategory="name",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultValue="NODE&#95;AddStaticMeshComponent-5",AutogeneratedDefaultValue="None",PersistentGuid=00000000000000000000000000000000,bHidden=True,bNotConnectable=True,bDefaultValueIsReadOnly=True,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=948A308C4E60D0B8C5EC1D92028E558A,PinName="bManualAttachment",PinToolTip="Manual Attachment\nBoolean\n\nWhether manual or automatic attachment is to be used",PinType.PinCategory="bool",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultValue="false",AutogeneratedDefaultValue="false",PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=5C74A8634DDD697D1234B38F487C2D6D,PinName="RelativeTransform",PinToolTip="Relative Transform\nTransform \n\nThe relative transform between the new component and its attach parent (automatic only)",PinType.PinCategory="struct",PinType.PinSubCategory="",PinType.PinSubCategoryObject=ScriptStruct'/Script/CoreUObject.Transform',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=True,PinType.bIsWeakPointer=False,LinkedTo=(K2Node&#95;CallFunction&#95;3281 301B61884B3507108C1051B08AF72EC0,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=True,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=A79F33AE4CF14547CB740F9D0B5ECB67,PinName="ComponentTemplateContext",PinToolTip="Component Template Context\nObject Object Reference\n\nOptional UBlueprintGeneratedClass reference to use to find the template in. If null (or not a BPGC), component is sought in this Actor\'s class",PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject=Class'/Script/CoreUObject.Object',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=True,PinType.bIsWeakPointer=False,PersistentGuid=00000000000000000000000000000000,bHidden=True,bNotConnectable=True,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=6F754DCB4AA8982E55C33D8BEA044333,PinName="ReturnValue",PinToolTip="Return Value\nStatic Mesh Component Object Reference",Direction="EGPD&#95;Output",PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject=Class'/Script/Engine.StaticMeshComponent',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node&#95;CallArrayFunction&#95;227 EE5E261346A9D948350D08A538206500,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+End Object
+Begin Object Class=/Script/BlueprintGraph.K2Node&#95;InputKey Name="K2Node&#95;InputKey&#95;74"
+   InputKey=MotionController&#95;Right&#95;Trigger
+   NodePosX=1232
+   NodePosY=-2768
+   NodeGuid=115D70DD4D72911C84CDD396206876CB
+   CustomProperties Pin (PinId=451F705A45E7D71FD4CDD191C52193E1,PinName="Pressed",Direction="EGPD&#95;Output",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node&#95;MacroInstance&#95;118 2BDC94F34208A8F557E05F94CE1CE4AE,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=6F1385DB4EF7010345F655BD3744E632,PinName="Released",Direction="EGPD&#95;Output",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node&#95;MacroInstance&#95;120 8E8DF6784C76305868B4A7A4E0029393,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=022C7579454B610F2F2ED0B282488461,PinName="Key",Direction="EGPD&#95;Output",PinType.PinCategory="struct",PinType.PinSubCategory="",PinType.PinSubCategoryObject=ScriptStruct'/Script/InputCore.Key',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+End Object
+Begin Object Class=/Script/BlueprintGraph.K2Node&#95;CallFunction Name="K2Node&#95;CallFunction&#95;1086"
+   FunctionReference=(MemberParent=Class'/Script/Engine.ActorComponent',MemberName="K2&#95;DestroyComponent")
+   NodePosX=2224
+   NodePosY=-2560
+   NodeGuid=559DB1C94E0AA982E874B1BD54B1DFF7
+   CustomProperties Pin (PinId=0E26C3A84D4201EE457C07B6CE08449B,PinName="execute",PinToolTip="\nExec",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node&#95;MacroInstance&#95;119 BF64E45C419D12B713043EB0FD02DA2B,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=291DBED847173AA169E912AF21CCF5A2,PinName="then",PinToolTip="\nExec",Direction="EGPD&#95;Output",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=2F4AF3F04BAAB30EEF09D4BFD3383176,PinName="self",PinFriendlyName=NSLOCTEXT("K2Node", "Target", "Target"),PinToolTip="Target\nActor Component Object Reference",PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject=Class'/Script/Engine.ActorComponent',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node&#95;Knot&#95;65 1967671D4EB26FCEFF4CF28C2C8A9C52,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=C36C9E034992CB14A304DCA4272AD301,PinName="Object",PinToolTip="Object\nObject Object Reference",PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject=Class'/Script/CoreUObject.Object',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PersistentGuid=00000000000000000000000000000000,bHidden=True,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+End Object
+Begin Object Class=/Script/BlueprintGraph.K2Node&#95;MacroInstance Name="K2Node&#95;MacroInstance&#95;119"
+   MacroGraphReference=(MacroGraph=EdGraph'/Engine/EditorBlueprintResources/StandardMacros.StandardMacros:IsValid',GraphBlueprint=Blueprint'/Engine/EditorBlueprintResources/StandardMacros.StandardMacros',GraphGuid=64422BCD430703FF5CAEA8B79A32AA65)
+   NodePosX=1936
+   NodePosY=-2545
+   NodeGuid=34F7AC554B511AFB7FBBAAA35D5CA3D9
+   CustomProperties Pin (PinId=0495F39B41460298D26F09BCFBA110DF,PinName="exec",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node&#95;MacroInstance&#95;120 90D1838E43154FBA184E92ADFE172302,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=F13BFF7648589DEDE21E2D9B116789FB,PinName="InputObject",PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject=Class'/Script/CoreUObject.Object',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node&#95;MacroInstance&#95;120 3F8EE55345992BAA1A7BD6A63E4BC83F,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=BF64E45C419D12B713043EB0FD02DA2B,PinName="Is Valid",Direction="EGPD&#95;Output",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node&#95;CallFunction&#95;1086 0E26C3A84D4201EE457C07B6CE08449B,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=E7BA1502454D65452732BB90C917AA3D,PinName="Is Not Valid",Direction="EGPD&#95;Output",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+End Object
+Begin Object Class=/Script/BlueprintGraph.K2Node&#95;MacroInstance Name="K2Node&#95;MacroInstance&#95;120"
+   MacroGraphReference=(MacroGraph=EdGraph'/Engine/EditorBlueprintResources/StandardMacros.StandardMacros:ForEachLoop',GraphBlueprint=Blueprint'/Engine/EditorBlueprintResources/StandardMacros.StandardMacros',GraphGuid=99DBFD5540A796041F72A5A9DA655026)
+   ResolvedWildcardType=(PinCategory="object",PinSubCategoryObject=Class'/Script/Engine.StaticMeshComponent',ContainerType=Array)
+   NodePosX=1712
+   NodePosY=-2545
+   NodeGuid=60B992404FFA35480EE3A4ABAC6E44CA
+   CustomProperties Pin (PinId=8E8DF6784C76305868B4A7A4E0029393,PinName="Exec",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node&#95;InputKey&#95;74 6F1385DB4EF7010345F655BD3744E632,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=EDCDE18041E5841D136E4091E04F8FF8,PinName="Array",PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject=Class'/Script/Engine.StaticMeshComponent',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=Array,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node&#95;VariableGet&#95;200 56C1DC54480A023F6C8149818BB067FA,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=90D1838E43154FBA184E92ADFE172302,PinName="LoopBody",Direction="EGPD&#95;Output",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node&#95;MacroInstance&#95;119 0495F39B41460298D26F09BCFBA110DF,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=3F8EE55345992BAA1A7BD6A63E4BC83F,PinName="Array Element",Direction="EGPD&#95;Output",PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject=Class'/Script/Engine.StaticMeshComponent',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node&#95;MacroInstance&#95;119 F13BFF7648589DEDE21E2D9B116789FB,K2Node&#95;Knot&#95;64 412537E646194EC45D73ADB0C31250B0,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=9B8A97E44E9E4118FDDC3798882DF993,PinName="Array Index",Direction="EGPD&#95;Output",PinType.PinCategory="int",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultValue="0",AutogeneratedDefaultValue="0",PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=3302906A4C6CD110E4D1DA837FC84505,PinName="Completed",Direction="EGPD&#95;Output",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+End Object
+Begin Object Class=/Script/BlueprintGraph.K2Node&#95;CallArrayFunction Name="K2Node&#95;CallArrayFunction&#95;227"
+   FunctionReference=(MemberParent=Class'/Script/Engine.KismetArrayLibrary',MemberName="Array&#95;Add")
+   NodePosX=2256
+   NodePosY=-2744
+   NodeGuid=43700AEC407CB6EBCFD0BBBDB6E7566D
+   CustomProperties Pin (PinId=AB7C29724A4370E374E219B3136B3B14,PinName="execute",PinToolTip="\nExec",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node&#95;AddComponent&#95;71 497F5C1D48B8B3DB2C2BA3AFBDDDA07D,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=9C49631A4DCB38432F500787BD709DCB,PinName="then",PinToolTip="\nExec",Direction="EGPD&#95;Output",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=00FB150349E4D66D6F7FE7983CE94DBA,PinName="self",PinFriendlyName=NSLOCTEXT("K2Node", "Target", "Target"),PinToolTip="Target\nKismet Array Library Object Reference",PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject=Class'/Script/Engine.KismetArrayLibrary',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultObject="/Script/Engine.Default&#95;&#95;KismetArrayLibrary",PersistentGuid=00000000000000000000000000000000,bHidden=True,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=22674C5B4C7D8F21FD49C8A2A4EFF177,PinName="TargetArray",PinToolTip="Target Array\nArray of Static Mesh Component Object References\n\nThe array to add item to",PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject=Class'/Script/Engine.StaticMeshComponent',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=Array,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=True,PinType.bIsConst=True,PinType.bIsWeakPointer=False,LinkedTo=(K2Node&#95;VariableGet&#95;199 92B8D86246B7B64BCB79D093554F79E8,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=True,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=EE5E261346A9D948350D08A538206500,PinName="NewItem",PinToolTip="New Item\nStatic Mesh Component Object Reference (by ref)\n\nThe item to add to the array",PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject=Class'/Script/Engine.StaticMeshComponent',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=True,PinType.bIsConst=True,PinType.bIsWeakPointer=False,LinkedTo=(K2Node&#95;AddComponent&#95;71 6F754DCB4AA8982E55C33D8BEA044333,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=BE1A5C404E2C69FB80B60D8497412508,PinName="ReturnValue",PinToolTip="Return Value\nInteger\n\nThe index of the newly added item",Direction="EGPD&#95;Output",PinType.PinCategory="int",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultValue="0",AutogeneratedDefaultValue="0",PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+End Object
+Begin Object Class=/Script/BlueprintGraph.K2Node&#95;VariableGet Name="K2Node&#95;VariableGet&#95;199"
+   VariableReference=(MemberName="baseStationArray",MemberGuid=BD0B12DA483B113DA20838A8B7EF86C6,bSelfContext=True)
+   NodePosX=2256
+   NodePosY=-2656
+   NodeGuid=8441735341894AC0424507AE38C594E1
+   CustomProperties Pin (PinId=92B8D86246B7B64BCB79D093554F79E8,PinName="baseStationArray",Direction="EGPD&#95;Output",PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject=Class'/Script/Engine.StaticMeshComponent',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=Array,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node&#95;CallArrayFunction&#95;227 22674C5B4C7D8F21FD49C8A2A4EFF177,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=4653AFB045E0B8B895E1C2B2CCC2283D,PinName="self",PinFriendlyName=NSLOCTEXT("K2Node", "Target", "Target"),PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject=BlueprintGeneratedClass'/Game/Blueprints/SteamVR&#95;Pawn&#95;Standing.SteamVR&#95;Pawn&#95;Standing&#95;C',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PersistentGuid=00000000000000000000000000000000,bHidden=True,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+End Object
+Begin Object Class=/Script/BlueprintGraph.K2Node&#95;VariableGet Name="K2Node&#95;VariableGet&#95;200"
+   VariableReference=(MemberName="baseStationArray",MemberGuid=BD0B12DA483B113DA20838A8B7EF86C6,bSelfContext=True)
+   NodePosX=1520
+   NodePosY=-2497
+   NodeGuid=6B9F6ADD4B1EC3299164D38C6798C654
+   CustomProperties Pin (PinId=56C1DC54480A023F6C8149818BB067FA,PinName="baseStationArray",Direction="EGPD&#95;Output",PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject=Class'/Script/Engine.StaticMeshComponent',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=Array,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node&#95;MacroInstance&#95;120 EDCDE18041E5841D136E4091E04F8FF8,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=C71A09704C9B5D5907C2C9BB475CE4CB,PinName="self",PinFriendlyName=NSLOCTEXT("K2Node", "Target", "Target"),PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject=BlueprintGeneratedClass'/Game/Blueprints/SteamVR&#95;Pawn&#95;Standing.SteamVR&#95;Pawn&#95;Standing&#95;C',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PersistentGuid=00000000000000000000000000000000,bHidden=True,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+End Object
+Begin Object Class=/Script/BlueprintGraph.K2Node&#95;Knot Name="K2Node&#95;Knot&#95;65"
+   NodePosX=2096
+   NodePosY=-2385
+   NodeGuid=57BFDD97498AE8033959D6B59D5D7066
+   CustomProperties Pin (PinId=412537E646194EC45D73ADB0C31250B0,PinName="InputPin",PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject=Class'/Script/Engine.StaticMeshComponent',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node&#95;Knot&#95;64 1967671D4EB26FCEFF4CF28C2C8A9C52,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=True,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=1967671D4EB26FCEFF4CF28C2C8A9C52,PinName="OutputPin",Direction="EGPD&#95;Output",PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject=Class'/Script/Engine.StaticMeshComponent',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node&#95;CallFunction&#95;1086 2F4AF3F04BAAB30EEF09D4BFD3383176,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+End Object
+Begin Object Class=/Script/BlueprintGraph.K2Node&#95;Knot Name="K2Node&#95;Knot&#95;64"
+   NodePosX=1984
+   NodePosY=-2385
+   NodeGuid=6379924049F4E5785F49B09C23EB1DF7
+   CustomProperties Pin (PinId=412537E646194EC45D73ADB0C31250B0,PinName="InputPin",PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject=Class'/Script/Engine.StaticMeshComponent',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node&#95;MacroInstance&#95;120 3F8EE55345992BAA1A7BD6A63E4BC83F,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=True,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=1967671D4EB26FCEFF4CF28C2C8A9C52,PinName="OutputPin",Direction="EGPD&#95;Output",PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject=Class'/Script/Engine.StaticMeshComponent',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node&#95;Knot&#95;65 412537E646194EC45D73ADB0C31250B0,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+End Object
+Begin Object Class=/Script/BlueprintGraph.K2Node&#95;CallFunction Name="K2Node&#95;CallFunction&#95;3281"
+   bIsPureFunc=True
+   FunctionReference=(MemberParent=Class'/Script/Engine.KismetMathLibrary',MemberName="Conv&#95;VectorToTransform")
+   NodePosX=1808
+   NodePosY=-2640
+   NodeGuid=1962718745EDAB1CF846C88774415A68
+   CustomProperties Pin (PinId=96B155934815308F019857896A1E44D4,PinName="self",PinFriendlyName=NSLOCTEXT("K2Node", "Target", "Target"),PinToolTip="Target\nKismet Math Library Object Reference",PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject=Class'/Script/Engine.KismetMathLibrary',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultObject="/Script/Engine.Default&#95;&#95;KismetMathLibrary",PersistentGuid=00000000000000000000000000000000,bHidden=True,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=72212A6A4BCA13036E0B57BFD90B270E,PinName="InLocation",PinToolTip="In Location\nVector ",PinType.PinCategory="struct",PinType.PinSubCategory="",PinType.PinSubCategoryObject=ScriptStruct'/Script/CoreUObject.Vector',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultValue="0, 0, 0",AutogeneratedDefaultValue="0, 0, 0",LinkedTo=(K2Node&#95;MacroInstance&#95;118 E0271977466AEE7454D6A0AD5AABB816,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=301B61884B3507108C1051B08AF72EC0,PinName="ReturnValue",PinToolTip="Return Value\nTransform ",Direction="EGPD&#95;Output",PinType.PinCategory="struct",PinType.PinSubCategory="",PinType.PinSubCategoryObject=ScriptStruct'/Script/CoreUObject.Transform',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node&#95;AddComponent&#95;71 5C74A8634DDD697D1234B38F487C2D6D,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+End Object
+END OBJECT</code></pre>
+</div>
+    <div id="snippet_overlay" onclick="if ($('#SteamVRC2_snippet code').length != 0) { copyToClipboard($('#SteamVRC2_snippet code').html()); } else if ($('#SteamVRC2_snippet > p').length != 0) { copyToClipboard($('#SteamVRC2_snippet > p').html()); } else { copyToClipboard($('#SteamVRC2_snippet').html()); }"></div>
+</div>
+</div></li><li class="Default"><p>首先在 <strong>变量（Variables）</strong> 部分中创建一个名为 <strong>SampleSurface</strong> 的新 <strong>矢量</strong> 变量，用于保存VR交互区的表面法线。 
+</p><p><picture>
+		<source data-srcset="./../../../../../../../Images/SharingAndReleasing/XRDevelopment/VR/SteamVR/HowTo/ChaperoneInteraction/SVRChapInteraction_05.jpg">
+		<img class="  lazyload" alt="SVRChapInteraction_05.png" data-src="../../../../../../../Images/SharingAndReleasing/XRDevelopment/VR/SteamVR/HowTo/ChaperoneInteraction/SVRChapInteraction_05.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>接下来将带以下值的节点添加到 <strong>事件图表</strong>：
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../../../Images/SharingAndReleasing/XRDevelopment/VR/SteamVR/HowTo/ChaperoneInteraction/SVRChapInteraction_06.png" ><span><picture>
+		<source data-srcset="./../../../../../../../Images/SharingAndReleasing/XRDevelopment/VR/SteamVR/HowTo/ChaperoneInteraction/SVRChapInteraction_06.jpg">
+		<img class="  lazyload" alt="SVRChapInteraction_06.png" width="748" data-src="../../../../../../../Images/SharingAndReleasing/XRDevelopment/VR/SteamVR/HowTo/ChaperoneInteraction/SVRChapInteraction_06.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看全图。</p>
+</div><div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>节点名称</p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>数值 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Motion Controller (R) Trigger</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>N/A</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>SteamVRChaperone</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>N/A</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>GetBounds</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>N/A</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Float / Float x 2</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>0,2</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>SampleSurface</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>N/A</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>MinimumAreaRectangle</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>N/A</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>DrawDebugBox</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>N/A</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div></li><li class="Default"><p>将需要的节点添加事件图表后，接下来要把它们连接起来，以便在按下右运动控制器扳机键时对组成VR交互区的顶点位置进行采样，然后围绕它们来绘制方框。照下图设置节点即可在蓝图中实现此功能。
+</p><div class="include_wrapper" data-path="SharingAndReleasing/XRDevelopment/VR\SteamVR\HowTo\ChaperoneInteraction\">
+<!--
+type:paramliteral
+id:paramliteral
+image:param
+snippet:param
+-->
+
+<div id="snippet_image">
+    <div id="snippet_copy" onclick="if ($('#SteamVRC3_snippet code').length != 0) { copyToClipboard($('#SteamVRC3_snippet code').html()); } else if ($('#SteamVRC3_snippet > p').length != 0) { copyToClipboard($('#SteamVRC3_snippet > p').html()); } else { copyToClipboard($('#SteamVRC3_snippet').html()); }">Copy Node Graph</div>
+    <div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../../../Images/SharingAndReleasing/XRDevelopment/VR/SteamVR/HowTo/ChaperoneInteraction/SVRChapInteraction_07.png" ><span><picture>
+		<source data-srcset="./../../../../../../../Images/SharingAndReleasing/XRDevelopment/VR/SteamVR/HowTo/ChaperoneInteraction/SVRChapInteraction_07.jpg">
+		<img class="  lazyload" alt="SVRChapInteraction_07.png" width="1000" data-src="../../../../../../../Images/SharingAndReleasing/XRDevelopment/VR/SteamVR/HowTo/ChaperoneInteraction/SVRChapInteraction_07.jpg" />
+</picture>
+</span></a></span></p>
+</div>
+    <div id="SteamVRC3_snippet" style="display:none;"><pre class="prettyprint"><code>BEGIN OBJECT
+            Begin Object Class=/Script/BlueprintGraph.K2Node&#95;CallFunction Name="K2Node&#95;CallFunction&#95;0"</code></pre>
+<p>   bIsPureFunc=True
+   bIsConstFunc=True
+   FunctionReference=(MemberParent=Class'/Script/SteamVR.SteamVRChaperoneComponent',MemberName="GetBounds")
+   NodePosX=3472
+   NodePosY=-1632
+   ErrorType=1
+   NodeGuid=F19BE7A840D794F8A26EC6BAE570335B
+   CustomProperties Pin (PinId=ECF897334074A304613E1DAE43E9C939,PinName="self",PinFriendlyName=NSLOCTEXT("K2Node", "Target", "Target"),PinToolTip="Target\nSteam VRChaperone Component Object Reference",PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject=Class'/Script/SteamVR.SteamVRChaperoneComponent',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node_VariableGet_0 7FF3CF2B4F054A3D1F35CB89F0C81BEA,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=D3E7C6854F51B77CCCD1D4A533C9EDB9,PinName="ReturnValue",PinToolTip="Return Value\nArray of Vector s",Direction="EGPD_Output",PinType.PinCategory="struct",PinType.PinSubCategory="",PinType.PinSubCategoryObject=ScriptStruct'/Script/CoreUObject.Vector',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=Array,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node_CallFunction_3 CEA4B4E744ADC1B1675B3FA64E8724DC,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+End Object
+Begin Object Class=/Script/BlueprintGraph.K2Node_VariableGet Name="K2Node_VariableGet_0"
+   VariableReference=(MemberName="SteamVRChaperone",bSelfContext=True)
+   NodePosX=3296
+   NodePosY=-1584
+   NodeGuid=4AE71D05407F17CE6E3D9F9CE446FA35
+   CustomProperties Pin (PinId=7FF3CF2B4F054A3D1F35CB89F0C81BEA,PinName="SteamVRChaperone",Direction="EGPD_Output",PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject=Class'/Script/SteamVR.SteamVRChaperoneComponent',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node_CallFunction_0 ECF897334074A304613E1DAE43E9C939,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=50284E2D4E2065FDEF5FF790F3A616FD,PinName="self",PinFriendlyName=NSLOCTEXT("K2Node", "Target", "Target"),PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject=BlueprintGeneratedClass'/Game/Blueprints/SteamVR_Pawn_Standing.SteamVR_Pawn_Standing_C',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PersistentGuid=00000000000000000000000000000000,bHidden=True,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+End Object
+Begin Object Class=/Script/BlueprintGraph.K2Node_CallFunction Name="K2Node_CallFunction_3"
+   FunctionReference=(MemberParent=Class'/Script/Engine.KismetMathLibrary',MemberName="MinimumAreaRectangle")
+   NodePosX=3840
+   NodePosY=-1776
+   ErrorType=1
+   NodeGuid=888F8C0949052A00B47FD0830573ED18
+   CustomProperties Pin (PinId=27A36946461CB0706E8812873937728A,PinName="execute",PinToolTip="\nExec",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node_InputKey_86 451F705A45E7D71FD4CDD191C52193E1,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=D8DDC8B0419E7157C72694920CD01FB1,PinName="then",PinToolTip="\nExec",Direction="EGPD_Output",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node_CallFunction_994 60CD775D47E28A58610F9DBBA97E8501,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=20481E5742DCD21D0AF0EB95CEFFA209,PinName="self",PinFriendlyName=NSLOCTEXT("K2Node", "Target", "Target"),PinToolTip="Target\nKismet Math Library Object Reference",PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject=Class'/Script/Engine.KismetMathLibrary',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultObject="/Script/Engine.Default__KismetMathLibrary",PersistentGuid=00000000000000000000000000000000,bHidden=True,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=069BB5F946DE90B19F86A0840CAE4DC1,PinName="WorldContextObject",PinToolTip="World Context Object\nObject Object Reference",PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject=Class'/Script/CoreUObject.Object',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PersistentGuid=00000000000000000000000000000000,bHidden=True,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=CEA4B4E744ADC1B1675B3FA64E8724DC,PinName="InVerts",PinToolTip="In Verts\nArray of Vector s\n\nPoints to enclose in the rectangle",PinType.PinCategory="struct",PinType.PinSubCategory="",PinType.PinSubCategoryObject=ScriptStruct'/Script/CoreUObject.Vector',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=Array,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=True,PinType.bIsConst=True,PinType.bIsWeakPointer=False,LinkedTo=(K2Node_CallFunction_0 D3E7C6854F51B77CCCD1D4A533C9EDB9,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=True,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=76C031DD4BCFAD63300ACEB272F06EA1,PinName="SampleSurfaceNormal",PinToolTip="Sample Surface Normal\nVector  (by ref)",PinType.PinCategory="struct",PinType.PinSubCategory="",PinType.PinSubCategoryObject=ScriptStruct'/Script/CoreUObject.Vector',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=True,PinType.bIsConst=True,PinType.bIsWeakPointer=False,DefaultValue="0, 0, 0",AutogeneratedDefaultValue="0, 0, 0",LinkedTo=(K2Node_VariableGet_43 764BD867405B9674CC281B84A04BD8D4,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=True,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=990FCC854987628A1F2188A6304C3F94,PinName="OutRectCenter",PinToolTip="Out Rect Center\nVector ",Direction="EGPD_Output",PinType.PinCategory="struct",PinType.PinSubCategory="",PinType.PinSubCategoryObject=ScriptStruct'/Script/CoreUObject.Vector',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultValue="0, 0, 0",AutogeneratedDefaultValue="0, 0, 0",PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=C4FA178B4D01CFF46CD2DBB72D723B71,PinName="OutRectRotation",PinToolTip="Out Rect Rotation\nRotator ",Direction="EGPD_Output",PinType.PinCategory="struct",PinType.PinSubCategory="",PinType.PinSubCategoryObject=ScriptStruct'/Script/CoreUObject.Rotator',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultValue="0, 0, 0",AutogeneratedDefaultValue="0, 0, 0",LinkedTo=(K2Node_Knot_85 365F26FF45B3A67424DF5F9578C950B3,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=29D905254A0CAA0A449EAD866D3F2AB5,PinName="OutSideLengthX",PinToolTip="Out Side Length X\nFloat",Direction="EGPD_Output",PinType.PinCategory="float",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultValue="0.0",AutogeneratedDefaultValue="0.0",LinkedTo=(K2Node_CallFunction_2060 06EEFCC0478897C80F6ED1BB6D90D60B,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=5990DFBD4CEA02FAF1680FA21EFD3BB1,PinName="OutSideLengthY",PinToolTip="Out Side Length Y\nFloat",Direction="EGPD_Output",PinType.PinCategory="float",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultValue="0.0",AutogeneratedDefaultValue="0.0",LinkedTo=(K2Node_CallFunction_2059 06EEFCC0478897C80F6ED1BB6D90D60B,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=A73AFD834CC2F11C46A9D4B8495EE266,PinName="bDebugDraw",PinToolTip="Debug Draw\nBoolean",PinType.PinCategory="bool",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultValue="true",AutogeneratedDefaultValue="false",PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+End Object
+Begin Object Class=/Script/BlueprintGraph.K2Node_VariableGet Name="K2Node_VariableGet_43"
+   VariableReference=(MemberName="SampleSurface",MemberGuid=461EECB84B8308CA469319B7DFF82820,bSelfContext=True)
+   NodePosX=3632
+   NodePosY=-1696
+   ErrorType=1
+   NodeGuid=303249A2451A0863E05024A94AD35B84
+   CustomProperties Pin (PinId=764BD867405B9674CC281B84A04BD8D4,PinName="SampleSurface",Direction="EGPD_Output",PinType.PinCategory="struct",PinType.PinSubCategory="",PinType.PinSubCategoryObject=ScriptStruct'/Script/CoreUObject.Vector',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultValue="0, 0, 0",AutogeneratedDefaultValue="0, 0, 0",LinkedTo=(K2Node_CallFunction_3 76C031DD4BCFAD63300ACEB272F06EA1,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=D5631E82413D5464F7442D93A40A828B,PinName="self",PinFriendlyName=NSLOCTEXT("K2Node", "Target", "Target"),PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject=BlueprintGeneratedClass'/Game/Blueprints/SteamVR_Pawn_Standing.SteamVR_Pawn_Standing_C',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PersistentGuid=00000000000000000000000000000000,bHidden=True,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+End Object
+Begin Object Class=/Script/BlueprintGraph.K2Node_CallFunction Name="K2Node_CallFunction_994"
+   FunctionReference=(MemberParent=Class'/Script/Engine.KismetSystemLibrary',MemberName="DrawDebugBox")
+   NodePosX=4512
+   NodePosY=-1776
+   EnabledState=DevelopmentOnly
+   NodeGuid=47EE35E04ECDA4AB6F9A8AB470A3AFD8
+   CustomProperties Pin (PinId=60CD775D47E28A58610F9DBBA97E8501,PinName="execute",PinToolTip="\nExec",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node_CallFunction_3 D8DDC8B0419E7157C72694920CD01FB1,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=6CEFB95348EF6DB9DCDD27B7C3154B72,PinName="then",PinToolTip="\nExec",Direction="EGPD_Output",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=E249F42B4DB1BFACC99E76A81D521B62,PinName="self",PinFriendlyName=NSLOCTEXT("K2Node", "Target", "Target"),PinToolTip="Target\nKismet System Library Object Reference",PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject=Class'/Script/Engine.KismetSystemLibrary',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultObject="/Script/Engine.Default__KismetSystemLibrary",PersistentGuid=00000000000000000000000000000000,bHidden=True,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=86E38E1C4191B312DC15EB9B5D6A6EC1,PinName="WorldContextObject",PinToolTip="World Context Object\nObject Object Reference",PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject=Class'/Script/CoreUObject.Object',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PersistentGuid=00000000000000000000000000000000,bHidden=True,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=A49D89BF47E998D9C831EBB713671243,PinName="Center",PinToolTip="Center\nVector ",PinType.PinCategory="struct",PinType.PinSubCategory="",PinType.PinSubCategoryObject=ScriptStruct'/Script/CoreUObject.Vector',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=True,PinType.bIsWeakPointer=False,DefaultValue="0, 0, 0",AutogeneratedDefaultValue="0, 0, 0",PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=E96F84744CC17AD3CFE69FBF786DDA86,PinName="Extent",PinToolTip="Extent\nVector ",PinType.PinCategory="struct",PinType.PinSubCategory="",PinType.PinSubCategoryObject=ScriptStruct'/Script/CoreUObject.Vector',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultValue="0, 0, 0",AutogeneratedDefaultValue="0, 0, 0",SubPins=(K2Node_CallFunction_994 951BB00F41FC65DB32B99B89BA30A88E,K2Node_CallFunction_994 00073CE140652C9D97B18B814C17CB1F,K2Node_CallFunction_994 F36A6CDC4421E7210B7C94BC997F0356,),PersistentGuid=00000000000000000000000000000000,bHidden=True,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=951BB00F41FC65DB32B99B89BA30A88E,PinName="Extent_X",PinFriendlyName="Extent X",PinToolTip="Extent X\nFloat",PinType.PinCategory="float",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultValue="0.0",AutogeneratedDefaultValue="0.0",LinkedTo=(K2Node_CallFunction_2060 542EB47B422A16148B175880EB1997D3,),ParentPin=K2Node_CallFunction_994 E96F84744CC17AD3CFE69FBF786DDA86,PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=00073CE140652C9D97B18B814C17CB1F,PinName="Extent_Y",PinFriendlyName="Extent Y",PinToolTip="Extent Y\nFloat",PinType.PinCategory="float",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultValue="0.0",AutogeneratedDefaultValue="0.0",LinkedTo=(K2Node_CallFunction_2059 542EB47B422A16148B175880EB1997D3,),ParentPin=K2Node_CallFunction_994 E96F84744CC17AD3CFE69FBF786DDA86,PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=F36A6CDC4421E7210B7C94BC997F0356,PinName="Extent_Z",PinFriendlyName="Extent Z",PinToolTip="Extent Z\nFloat",PinType.PinCategory="float",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultValue="0.0",AutogeneratedDefaultValue="0.0",ParentPin=K2Node_CallFunction_994 E96F84744CC17AD3CFE69FBF786DDA86,PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=871095F64585DBFFB0310486606948FE,PinName="LineColor",PinToolTip="Line Color\nLinear Color Structure",PinType.PinCategory="struct",PinType.PinSubCategory="",PinType.PinSubCategoryObject=ScriptStruct'/Script/CoreUObject.LinearColor',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultValue="(R=1.000000,G=0.000000,B=0.000000,A=1.000000)",PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=3749C2554A8C78750609DD96E362A91B,PinName="Rotation",PinToolTip="Rotation\nRotator ",PinType.PinCategory="struct",PinType.PinSubCategory="",PinType.PinSubCategoryObject=ScriptStruct'/Script/CoreUObject.Rotator',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=True,PinType.bIsWeakPointer=False,DefaultValue="0, 0, 0",AutogeneratedDefaultValue="0, 0, 0",LinkedTo=(K2Node_Knot_84 84165C3B4A40061E7725728F88817923,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=CB0E4BF34F77908C09ACE49EDEDFFC69,PinName="Duration",PinToolTip="Duration\nFloat",PinType.PinCategory="float",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultValue="5",AutogeneratedDefaultValue="0.000000",PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=296488AF475D5417324221A13967232C,PinName="Thickness",PinToolTip="Thickness\nFloat",PinType.PinCategory="float",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultValue="5",AutogeneratedDefaultValue="0.000000",PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+End Object
+Begin Object Class=/Script/BlueprintGraph.K2Node_CallFunction Name="K2Node_CallFunction_2060"
+   bIsPureFunc=True
+   FunctionReference=(MemberParent=Class'/Script/Engine.KismetMathLibrary',MemberName="Divide_FloatFloat")
+   NodePosX=4256
+   NodePosY=-1671
+   bCommentBubblePinned=True
+   NodeGuid=782AC20F44449B0E24BE4BB765D5E7B8
+   CustomProperties Pin (PinId=B1D35F4F45D4A34E6FEAA4AE77994363,PinName="self",PinFriendlyName=NSLOCTEXT("K2Node", "Target", "Target"),PinToolTip="Target\nKismet Math Library Object Reference",PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject=Class'/Script/Engine.KismetMathLibrary',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultObject="/Script/Engine.Default__KismetMathLibrary",PersistentGuid=00000000000000000000000000000000,bHidden=True,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=06EEFCC0478897C80F6ED1BB6D90D60B,PinName="A",PinToolTip="A\nFloat",PinType.PinCategory="float",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultValue="0.0",AutogeneratedDefaultValue="0.0",LinkedTo=(K2Node_CallFunction_3 29D905254A0CAA0A449EAD866D3F2AB5,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=6581321D4F0BC79197F13F87A41E6C39,PinName="B",PinToolTip="B\nFloat",PinType.PinCategory="float",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultValue="2",AutogeneratedDefaultValue="1.000000",PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=542EB47B422A16148B175880EB1997D3,PinName="ReturnValue",PinToolTip="Return Value\nFloat",Direction="EGPD_Output",PinType.PinCategory="float",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultValue="0.0",AutogeneratedDefaultValue="0.0",LinkedTo=(K2Node_CallFunction_994 951BB00F41FC65DB32B99B89BA30A88E,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+End Object
+Begin Object Class=/Script/BlueprintGraph.K2Node_CallFunction Name="K2Node_CallFunction_2059"
+   bIsPureFunc=True
+   FunctionReference=(MemberParent=Class'/Script/Engine.KismetMathLibrary',MemberName="Divide_FloatFloat")
+   NodePosX=4256
+   NodePosY=-1584
+   NodeGuid=E09571CB47DEC7D6C00A0E81C3B20348
+   CustomProperties Pin (PinId=B1D35F4F45D4A34E6FEAA4AE77994363,PinName="self",PinFriendlyName=NSLOCTEXT("K2Node", "Target", "Target"),PinToolTip="Target\nKismet Math Library Object Reference",PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject=Class'/Script/Engine.KismetMathLibrary',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultObject="/Script/Engine.Default__KismetMathLibrary",PersistentGuid=00000000000000000000000000000000,bHidden=True,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=06EEFCC0478897C80F6ED1BB6D90D60B,PinName="A",PinToolTip="A\nFloat",PinType.PinCategory="float",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultValue="0.0",AutogeneratedDefaultValue="0.0",LinkedTo=(K2Node_CallFunction_3 5990DFBD4CEA02FAF1680FA21EFD3BB1,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=6581321D4F0BC79197F13F87A41E6C39,PinName="B",PinToolTip="B\nFloat",PinType.PinCategory="float",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultValue="2",AutogeneratedDefaultValue="1.000000",PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=542EB47B422A16148B175880EB1997D3,PinName="ReturnValue",PinToolTip="Return Value\nFloat",Direction="EGPD_Output",PinType.PinCategory="float",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultValue="0.0",AutogeneratedDefaultValue="0.0",LinkedTo=(K2Node_CallFunction_994 00073CE140652C9D97B18B814C17CB1F,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+End Object
+Begin Object Class=/Script/BlueprintGraph.K2Node_Knot Name="K2Node_Knot_85"
+   NodePosX=4272
+   NodePosY=-1472
+   NodeGuid=4D7D28AC4E4210815AB4B7958DAB48A7
+   CustomProperties Pin (PinId=365F26FF45B3A67424DF5F9578C950B3,PinName="InputPin",PinType.PinCategory="struct",PinType.PinSubCategory="",PinType.PinSubCategoryObject=ScriptStruct'/Script/CoreUObject.Rotator',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node_CallFunction_3 C4FA178B4D01CFF46CD2DBB72D723B71,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=True,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=84165C3B4A40061E7725728F88817923,PinName="OutputPin",Direction="EGPD_Output",PinType.PinCategory="struct",PinType.PinSubCategory="",PinType.PinSubCategoryObject=ScriptStruct'/Script/CoreUObject.Rotator',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node_Knot_84 365F26FF45B3A67424DF5F9578C950B3,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+End Object
+Begin Object Class=/Script/BlueprintGraph.K2Node_Knot Name="K2Node_Knot_84"
+   NodePosX=4416
+   NodePosY=-1472
+   NodeGuid=4E71C3364746B8B13C3151948349929C
+   CustomProperties Pin (PinId=365F26FF45B3A67424DF5F9578C950B3,PinName="InputPin",PinType.PinCategory="struct",PinType.PinSubCategory="",PinType.PinSubCategoryObject=ScriptStruct'/Script/CoreUObject.Rotator',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node_Knot_85 84165C3B4A40061E7725728F88817923,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=True,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=84165C3B4A40061E7725728F88817923,PinName="OutputPin",Direction="EGPD_Output",PinType.PinCategory="struct",PinType.PinSubCategory="",PinType.PinSubCategoryObject=ScriptStruct'/Script/CoreUObject.Rotator',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node_CallFunction_994 3749C2554A8C78750609DD96E362A91B,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+End Object
+Begin Object Class=/Script/BlueprintGraph.K2Node_InputKey Name="K2Node_InputKey_86"
+   InputKey=MotionController_Right_Trigger
+   NodePosX=3344
+   NodePosY=-1776
+   NodeGuid=25C3050D4AE2B0434095278F92EB43CA
+   CustomProperties Pin (PinId=451F705A45E7D71FD4CDD191C52193E1,PinName="Pressed",Direction="EGPD_Output",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node_CallFunction_3 27A36946461CB0706E8812873937728A,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=6F1385DB4EF7010345F655BD3744E632,PinName="Released",Direction="EGPD_Output",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=022C7579454B610F2F2ED0B282488461,PinName="Key",Direction="EGPD_Output",PinType.PinCategory="struct",PinType.PinSubCategory="",PinType.PinSubCategoryObject=ScriptStruct'/Script/InputCore.Key',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsMap=False,PinType.bIsSet=False,PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+End Object
+</p><pre class="prettyprint"><code>END OBJECT</code></pre>
+</div>
+    <div id="snippet_overlay" onclick="if ($('#SteamVRC3_snippet code').length != 0) { copyToClipboard($('#SteamVRC3_snippet code').html()); } else if ($('#SteamVRC3_snippet > p').length != 0) { copyToClipboard($('#SteamVRC3_snippet > p').html()); } else { copyToClipboard($('#SteamVRC3_snippet').html()); }"></div>
+</div>
+</div></li></ol><h2 id="最终结果">最终结果</h2>
+<p>全部设置妥当后，按下VR Preview键启动关卡，戴上HTC Vive头戴显示器，然后拿起运动控制器。现在按下右运动控制器上的扳机键后将显示SteamVR交互区的边界，如下方视频所示。 
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_0_brrb6h0y_34
+{
+	margin: 0px;
+	width: 100%;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_0_brrb6h0y_34:after
+{
+	content: "";
+	padding-top: 56.25%;
+	display: block;
+}
+</style> 
+<div id="player_0_brrb6h0y_34"> 
+	<div id="playerContainer_0_brrb6h0y_34" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/0_brrb6h0y/embed.html"></iframe>
+	</div>
+</div>
+<h2 id="ue4项目下载">UE4项目下载</h2>
+<p>可使用以下链接下载用于创建此例的UE4项目。
+</p><ul ><li class="Default"><p><a id="content_link" href="https://epicgames.box.com/s/wgxl7yxhikl0gvl18n4rxs469b37gq4f" ><span><strong>SteamVR Chaperone交互示例项目</strong></span></a>
+</p></li></ul>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../../../SiteIndex/index.html?tags=VR">VR</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/SharingAndReleasing/XRDevelopment/VR/SteamVR/HowTo/ChaperoneInteraction/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:50:32 GMT -->
+</html>

@@ -1,0 +1,427 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/SharingAndReleasing/Mobile/Lighting/HowTo/CascadedShadow/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:09:08 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var finishButton = finishButtonTemplate;
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/SharingAndReleasing/Mobile/Lighting/HowTo/CascadedShadow/" />');
+				var udnCSS = '../../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>使用级联阴影 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+		    <script  src="../../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+		    <script  src="../../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/SharingAndReleasing/Mobile/Lighting/HowTo/CascadedShadow/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/SharingAndReleasing/Mobile/Lighting/HowTo/CascadedShadow/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/SharingAndReleasing/Mobile/Lighting/HowTo/CascadedShadow/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/SharingAndReleasing/Mobile/Lighting/HowTo/CascadedShadow/" hreflang="ko" />
+
+	<meta name="redirect" content="Platforms/Mobile/Lighting/HowTo/CascadedShadow" />
+<meta name="intsourcechangelist" content="14237003" />
+<meta name="availability" content="Public" />
+<meta name="title" content="使用级联阴影" />
+<meta name="description" content="为移动游戏设置级联阴影。" />
+<meta name="type" content="how-to" />
+<meta name="version" content="4.20" />
+<meta name="parent" content="SharingAndReleasing/Mobile/Rendering" />
+<meta name="platform" content="Mobile" />
+<meta name="skilllevel" content="Advanced" />
+<meta name="related" content="RenderingAndGraphics/Materials/ExpressionReference/Utility" />
+<meta name="related" content="RenderingAndGraphics/Materials/MaterialProperties/BlendModes" />
+<meta name="related" content="RenderingAndGraphics/Materials/CustomizedUVs" />
+<meta name="related" content="SharingAndReleasing/Mobile/Performance" />
+<meta name="related" content="SharingAndReleasing/Mobile/Textures" />
+<meta name="related" content="RenderingAndGraphics/Materials/ExpressionReference/Utility" />
+<meta name="related" content="RenderingAndGraphics/Materials/MaterialProperties/BlendModes" />
+<meta name="related" content="RenderingAndGraphics/Materials/CustomizedUVs" />
+<meta name="related" content="SharingAndReleasing/Mobile/Performance" />
+<meta name="related" content="SharingAndReleasing/Mobile/Textures" />
+<meta name="keywords" content="mobile" />
+<meta name="keywords" content="Rendering" />
+<meta name="keywords" content="Lighting" />
+<meta name="crumbs" content="%ROOT%,SharingAndReleasing,SharingAndReleasing/Mobile,SharingAndReleasing/Mobile/Rendering" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="使用级联阴影" />
+	<meta property="og:description" content="为移动游戏设置级联阴影。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../../index.html">项目分享及发布</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">移动平台游戏开发</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../../Rendering/index.html">移动渲染</a>
+
+<span class="separator">></span> <span id="page">使用级联阴影</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">使用级联阴影</h1>
+							</div>	
+							<h2 >为移动游戏设置级联阴影。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Advanced"><a id="skill_link" href="../../../../../SiteIndex/index.html?skills=Advanced">Advanced</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																														<div id="seeAlso">
+	<div style="position:relative;">
+		<div id="title">参见</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<p>
+						<a id="related_link" href="../../../../../RenderingAndGraphics/Materials/ExpressionReference/Utility/index.html" title="对一个或多个输入执行各种实用运算的表达式。">实用表达式</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../../../../RenderingAndGraphics/Materials/MaterialProperties/BlendModes/index.html" title="概述材质混合模式及其如何影响材质的渲染。">材质混合模式</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../../../../RenderingAndGraphics/Materials/CustomizedUVs/index.html" title="此功能允许在顶点着色器中运行计算，与逐个像素地运行计算相比，这可以提高性能。">定制 UV</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../../Performance/index.html" title="优化移动游戏的内容和功能。">移动设备性能指南</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../../Textures/index.html" title="移动游戏的纹理创建和属性。">移动平台的纹理</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../../../../RenderingAndGraphics/Materials/ExpressionReference/Utility/index.html" title="对一个或多个输入执行各种实用运算的表达式。">实用表达式</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../../../../RenderingAndGraphics/Materials/MaterialProperties/BlendModes/index.html" title="概述材质混合模式及其如何影响材质的渲染。">材质混合模式</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../../../../RenderingAndGraphics/Materials/CustomizedUVs/index.html" title="此功能允许在顶点着色器中运行计算，与逐个像素地运行计算相比，这可以提高性能。">定制 UV</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../../Performance/index.html" title="优化移动游戏的内容和功能。">移动设备性能指南</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../../Textures/index.html" title="移动游戏的纹理创建和属性。">移动平台的纹理</a>
+					</p>
+				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																														<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#步骤">步骤</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#最终结果">最终结果</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>静止定向光源可用于为场景中的动态对象投射动态级联阴影贴图（CSM）。使用CSM阴影时，动态对象上的阴影将与场景中静态对象投射的预计算的阴影正确混合。
+</p><p>在此操作指南中，我们将为关卡中的特定对象设置CSM。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/SharingAndReleasing/Mobile/Lighting/HowTo/CascadedShadow/CascadedShadows_HeroImage.jpg">
+		<img class="  lazyload" alt="CascadedShadows_HeroImage.png" data-src="../../../../../../Images/SharingAndReleasing/Mobile/Lighting/HowTo/CascadedShadow/CascadedShadows_HeroImage.jpg" />
+</picture>
+
+</p><h2 id="步骤">步骤</h2>
+<div class="note">
+	<p><strong>必要设置：</strong>CSM仅在场景中有定向光源的情况下有效。如果没有，请添加一个并确保选中它。要了解构建简单的房间以及向其中添加光照的步骤，请参阅<a id="content_link" href="../../../../../BuildingWorlds/LightingAndShadows/QuickStart/index.html" ><span>光照快速入门指南</span></a>。</p>
+</div><ol ><li class="Default"><p>选中场景中的定向光源。然后在 <strong>变换（Transform）</strong> 部分下，请确保 <strong>可移动性（Mobility）</strong> 设置已设置为 <strong>静止（Stationary）</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../../Images/SharingAndReleasing/Mobile/Lighting/HowTo/CascadedShadow/CSM_Setup_01.png" ><span><picture>
+		<source data-srcset="./../../../../../../Images/SharingAndReleasing/Mobile/Lighting/HowTo/CascadedShadow/CSM_Setup_01.jpg">
+		<img class="  lazyload" alt="CSM_Setup_01.png" width="300" data-src="../../../../../../Images/SharingAndReleasing/Mobile/Lighting/HowTo/CascadedShadow/CSM_Setup_01.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p><em>单击查看大图</em>。</p>
+</div></li><li class="Default"><p>在仍然选中定向光源的情况下，转至 <strong>细节（Details）</strong> 面板并找到 <strong>级联阴影贴图（Cascaded Shadows Maps）</strong> 部分。调整定向光源的以下属性。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../../Images/SharingAndReleasing/Mobile/Lighting/HowTo/CascadedShadow/CSM_Setup_02.png" ><span><picture>
+		<source data-srcset="./../../../../../../Images/SharingAndReleasing/Mobile/Lighting/HowTo/CascadedShadow/CSM_Setup_02.jpg">
+		<img class="  lazyload" alt="CSM_Setup_02.png" width="300" data-src="../../../../../../Images/SharingAndReleasing/Mobile/Lighting/HowTo/CascadedShadow/CSM_Setup_02.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>单击查看大图。</p>
+</div><div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p><strong>属性名称</strong> </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p><strong>值</strong> </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>动态阴影距离静止光源（Dynamic Shadow Distance Stationary Light）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>2,000</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>动态阴影级联数量（Num Dynamic Shadows Cascades）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>1</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>动态嵌入阴影（Dynamic Inset Shadow）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>False</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div><div class="note">
+	<p>以上设置为建议设置。可针对项目进行变更，对数值进行试验，实现最佳效果。</p>
+</div></li><li class="Default"><p>在当前发行版中，所有静态网格体的默认设置中都启用了CSM。但是，对于不需要CSM的网格体，可以将其关闭。要关闭CSM，选中无需启用CSM的网格体。在 <strong>细节（Details）</strong> 面板的 <strong>移动（Mobile）</strong> 部分下，单击以取消选中 <strong>接收CSM阴影（Receive CSM Shadows）</strong> 的复选框。<br /></p><p><picture>
+		<source data-srcset="./../../../../../../Images/SharingAndReleasing/Mobile/Lighting/HowTo/CascadedShadow/CascadedShadows_Steps_MobileSectionReceiveCSMShadows.jpg">
+		<img class="  lazyload" alt="CascadedShadows_Steps_MobileSectionReceiveCSMShadows.png" data-src="../../../../../../Images/SharingAndReleasing/Mobile/Lighting/HowTo/CascadedShadow/CascadedShadows_Steps_MobileSectionReceiveCSMShadows.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>主工具栏</strong> 中，将 <strong>运行模式（Play Mode）</strong> 更改为 <strong>移动预览（Mobile Preview）</strong> 并按 <strong>运行（Play）</strong> 按钮以启动关卡。
+</p><div class="tip">
+	<p>如"移动预览（Mobile Preview）"窗口未显示，需查看其是否已在"虚幻编辑器"窗口的后面启动。</p>
+</div><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../../Images/SharingAndReleasing/Mobile/Lighting/HowTo/CascadedShadow/CSM_Setup_04.png" ><span><picture>
+		<source data-srcset="./../../../../../../Images/SharingAndReleasing/Mobile/Lighting/HowTo/CascadedShadow/CSM_Setup_04.jpg">
+		<img class="  lazyload" alt="CSM_Setup_04.png" width="640" data-src="../../../../../../Images/SharingAndReleasing/Mobile/Lighting/HowTo/CascadedShadow/CSM_Setup_04.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>单击查看大图。</p>
+</div></li></ol><div class="note">
+	<p>以下视频展示了 <strong>接收CSM阴影（Receive CSM Shadows）</strong> 设置的作用。在此视频中，已为构成地面的静态网格体开启了 <strong>接收CSM阴影（Receive CSM Shadows）</strong> 设置，但为构成楼梯的静态网格体关闭了该设置。注意，玩家角色在地面上时拥有阴影，但在楼梯上时却没有阴影。这是因为地面的 <strong>接收CSM阴影（Receive CSM Shadows）</strong> 设置处于启用状态，而楼梯的该设置处于禁用状态。<br />如要使放置在环境中的静态网格体的阴影在角色上投射阴影，需要将静态网格体的 <strong>移动性（Mobility）</strong> 设置从 <strong>静态（Static）</strong> 更改为 <strong>可移动（Movable）</strong>。
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_0_mbb9fses_16
+{
+	margin: 0px;
+	width: 100%;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_0_mbb9fses_16:after
+{
+	content: "";
+	padding-top: 56.25%;
+	display: block;
+}
+</style> 
+<div id="player_0_mbb9fses_16"> 
+	<div id="playerContainer_0_mbb9fses_16" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/0_mbb9fses/embed.html"></iframe>
+	</div>
+</div>
+
+</div><h2 id="最终结果">最终结果</h2>
+<p>关卡成功启动后，将角色放置在拥有静态阴影的位置；进出阴影时，角色的动态阴影将和关卡中的烘焙阴影进行无缝混合，如下图所示。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../../Images/SharingAndReleasing/Mobile/Lighting/HowTo/CascadedShadow/CSM_Final_Result.png" ><span><picture>
+		<source data-srcset="./../../../../../../Images/SharingAndReleasing/Mobile/Lighting/HowTo/CascadedShadow/CSM_Final_Result.jpg">
+		<img class="  lazyload" alt="CSM_Final_Result.png" width="300" data-src="../../../../../../Images/SharingAndReleasing/Mobile/Lighting/HowTo/CascadedShadow/CSM_Final_Result.jpg" />
+</picture>
+</span></a></span></p>
+</div>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../../SiteIndex/index.html?tags=mobile">mobile</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../../SiteIndex/index.html?tags=Rendering">Rendering</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../../SiteIndex/index.html?tags=Lighting">Lighting</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/SharingAndReleasing/Mobile/Lighting/HowTo/CascadedShadow/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:09:13 GMT -->
+</html>

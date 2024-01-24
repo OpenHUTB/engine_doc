@@ -1,0 +1,632 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/InteractiveExperiences/Physics/ChaosPhysics/ChaosVehicles/HowToSetupChaosVehicles/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:57:34 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var finishButton = finishButtonTemplate;
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/InteractiveExperiences/Physics/ChaosPhysics/ChaosVehicles/HowToSetupChaosVehicles/" />');
+				var udnCSS = '../../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>如何设置Chaos载具 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+		    <script  src="../../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+		    <script  src="../../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/InteractiveExperiences/Physics/ChaosPhysics/ChaosVehicles/HowToSetupChaosVehicles/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/InteractiveExperiences/Physics/ChaosPhysics/ChaosVehicles/HowToSetupChaosVehicles/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/InteractiveExperiences/Physics/ChaosPhysics/ChaosVehicles/HowToSetupChaosVehicles/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/InteractiveExperiences/Physics/ChaosPhysics/ChaosVehicles/HowToSetupChaosVehicles/" hreflang="ko" />
+
+	<meta name="intsourcechangelist" content="15018255" />
+<meta name="availability" content="Public" />
+<meta name="title" content="如何设置Chaos载具" />
+<meta name="description" content="本指南旨在介绍如何设置载具，以便使用Chaos Physics解算器。" />
+<meta name="type" content="how-to" />
+<meta name="skilllevel" content="advanced" />
+<meta name="version" content="4.26" />
+<meta name="parent" content="InteractiveExperiences/Physics/ChaosPhysics/ChaosVehicles" />
+<meta name="order" content="1" />
+<meta name="keywords" content="Experimental" />
+<meta name="keywords" content="Chaos" />
+<meta name="keywords" content="Physics" />
+<meta name="keywords" content="Vehicles" />
+<meta name="prereq" content="InteractiveExperiences/Vehicles/VehicleContentCreation" />
+<meta name="related" content="InteractiveExperiences/Vehicles/VehicleUserGuide" />
+<meta name="related" content="InteractiveExperiences/Physics/ChaosPhysics/ChaosVehicles/HowToConvertPhysXVehiclesToChaos" />
+<meta name="related" content="InteractiveExperiences/Physics/ChaosPhysics/ChaosVehicles/ChaosVehicleDebugCommands" />
+<meta name="topic-image" content="chaosphysics-topicimg.png" />
+<meta name="crumbs" content="%ROOT%,InteractiveExperiences,InteractiveExperiences/Physics,InteractiveExperiences/Physics/ChaosPhysics,InteractiveExperiences/Physics/ChaosPhysics/ChaosVehicles" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="如何设置Chaos载具" />
+	<meta property="og:description" content="本指南旨在介绍如何设置载具，以便使用Chaos Physics解算器。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../../index.html">创建交互体验</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">物理</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">Chaos Physics</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">Chaos载具</a>
+
+<span class="separator">></span> <span id="page">如何设置Chaos载具</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+					<div id="banner" class="experimental">
+	<div id="message">
+		您可以尝试该<span>实验性</span>功能，但我们不推荐在发布产品中使用它。
+	</div>
+	<div id="bannerDescription">
+		有时，我们会提供一些实验阶段的功能供您试用，以便您给出反馈，并了解我们的开发计划。<strong>我们不推荐在发布项目中使用实验功能。</strong>请记住，我们不保证您在实验阶段创建的资源的向后兼容性，这些功能的API可能变更，我们也可能酌情移除整个实验功能或其中某个特定功能。
+	</div>
+</div>
+															<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">如何设置Chaos载具</h1>
+							</div>	
+							<h2 >本指南旨在介绍如何设置载具，以便使用Chaos Physics解算器。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Advanced"><a id="skill_link" href="../../../../../SiteIndex/index.html?skills=Advanced">Advanced</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																														<div id="seeAlso">
+	<div style="position:relative;">
+		<div id="title">参见</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<p>
+						<a id="related_link" href="../../../../Vehicles/VehicleUserGuide/index.html" title="虚幻引擎4蓝图载具用户指南。">载具用户指南</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../HowToConvertPhysXVehiclesToChaos/index.html" title="本指南旨在介绍如何转换现有PhysX载具，以便使用Chaos Physics解算器。">如何将PhysX载具转换为Chaos</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../ChaosVehicleDebugCommands/index.html" title="Chaos载具调试命令引用，可以帮助用户可视化载具物理模拟。">Chaos载具调试命令</a>
+					</p>
+				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																								<div class="prereq">
+    <div class="normaltitle">
+        前置主题
+    </div>
+    <p style="margin-bottom:8px;">
+        为了理解并使用本文中的内容，请确保您已掌握以下主题：
+    </p>
+    <ul style="margin-bottom:0.5em;">
+                <li>
+            <p>
+                <a href="../../../../Vehicles/VehicleContentCreation/index.html" title="如何在虚幻引擎 4 中为载具设置美术资源。">载具美术设置</a>
+            </p>
+        </li>
+            </ul>
+</div>
+																		<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#要求">要求</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#chaos载具插件">Chaos载具插件</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#chaos车轮蓝图">Chaos车轮蓝图</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#创建蓝图">创建蓝图</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#编辑蓝图">编辑蓝图</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#载具网格体">载具网格体</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#载具物理编辑器">载具物理编辑器</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#载具动画蓝图">载具动画蓝图</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#wheelcontroller节点">Wheel Controller节点</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#创建动画蓝图">创建动画蓝图</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#创建载具蓝图">创建载具蓝图</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#载具控制输入设置">载具控制输入设置</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#载具游戏模式设置">载具游戏模式设置</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>构成载具的个体资产如下所示。 
+</p><ul ><li class="Default"><p>一个骨骼网格体<br /></p></li><li class="Default"><p>一个物理资产<br /></p></li><li class="Default"><p>一个动画蓝图<br /></p></li><li class="Default"><p>一个载具蓝图<br /></p></li><li class="Default"><p>一个或多个车轮蓝图
+</p></li></ul><p>无论你是创建汽车还是摩托车，这些内容均相同。结合使用这些资产，本指南将指导你完成Chaos载具的以下设置过程。
+</p><ol ><li class="Default"><p>启用Chaos载具插件。 
+</p></li><li class="Default"><p>创建和编辑Chaos车轮蓝图。 
+</p></li><li class="Default"><p>导入载具网格体。 
+</p></li><li class="Default"><p>使用Vehicle Handler节点创建动画蓝图。 
+</p></li><li class="Default"><p>创建载具蓝图。 
+</p></li><li class="Default"><p>设置载具控制输入。 
+</p></li><li class="Default"><p>设置载具游戏模式。
+</p></li></ol><h2 id="要求">要求</h2>
+<p>在使用Chaos载具插件前，你将需要编译Chaos以便启用它。 
+</p><p><a id="content_link"filter-data="tag_chaos tag_physics tag_beta" href="../../Overview/index.html" ><span>Chaos Physics概述</span></a></p><h2 id="chaos载具插件">Chaos载具插件</h2>
+<p>在 <strong>编辑（Edit）</strong> > <strong>插件（Plugins）</strong> > <strong>载具（Vehicles）</strong> 中，确认已为你的项目启用 <strong>ChaosVehiclesPlugin</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/InteractiveExperiences/Physics/ChaosPhysics/ChaosVehicles/HowToSetupChaosVehicles/ChaosVehiclesPlugin.jpg">
+		<img class="  lazyload" alt="ChaosVehiclesPlugin.png" data-src="../../../../../../Images/InteractiveExperiences/Physics/ChaosPhysics/ChaosVehicles/HowToSetupChaosVehicles/ChaosVehiclesPlugin.jpg" />
+</picture>
+
+</p><div class="note">
+	<ul ><li class="Default"><p>启用插件后重启虚幻编辑器。 
+</p></li><li class="Default"><p>此插件无法在启用PhysX的情况下使用。
+</p></li></ul>
+</div><h3 id="chaos车轮蓝图">Chaos车轮蓝图</h3>
+<p>车轮蓝图中可以设置车轮/悬架/刹车组合配置。
+</p><p>在大多数情况下，每个载具至少需要两种车轮类型。一种车轮（或轮轴）受方向盘/引擎/手刹的影响，另一种不受影响。此外，你可能需要不同大小的前后轮，在这种情况下，您可以完全控制对不同的半径、质量、宽度、手刹效果、悬架和车轮许多其他属性的设置，以便获得你想要的载具操控效果。
+</p><p>载具的车轮数量没有限制。多个载具可以共享相同的车轮蓝图，但是该策略仅在车轮维度和悬架限值相同的情况下才有效。
+</p><h3 id="创建蓝图">创建蓝图</h3>
+<ol ><li class="Default"><p>在内容浏览器中，点击 <strong>新增（Add New）</strong> 按钮并选择 <strong>蓝图类（Blueprint Class）</strong>。 
+</p></li><li class="Default"><p>在 <strong>选取父类（Pick Parent Class）</strong> 窗口中，在 <strong>所有类（All Classes）</strong> 下搜索"车轮（wheel）"，然后选择 <strong>ChaosVehicleWheel</strong>。 
+</p></li><li class="Default"><p>新的资产将在内容浏览器（Content Browser）中创建。确保给它起一个可识别的名字，方便你以后查找（例如‘BP_ChaosFrontWheel'）。 
+</p></li><li class="Default"><p>（<strong>可选步骤</strong>）重复这些步骤，设置一个 <strong>前</strong> 轮和 <strong>后</strong> 轮类型。根据每个轴进行设置。
+</p></li></ol><h3 id="编辑蓝图">编辑蓝图</h3>
+<p>创建Chaos车轮蓝图后，请在蓝图编辑器（Blueprint Editor）中将其打开，其中提供了编辑车轮的选项。 
+</p><p>首先是每个车轮需要更改的五个属性，因为其余属性取决于载具在测试过程中的性能（并应在后续进行调整）。
+</p><div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>属性 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>说明 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>车轮半径（Wheel Radius）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>需要匹配渲染模型的尺寸（以厘米（cm）为单位）。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>受手刹影响（Affected by Handbrake）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>检查后轮受手刹影响的情况。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>受引擎影响（Affected by Engine）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>后轮驱动（RWD）的话检查后轮，前轮驱动（FWD）则检查前轮，全轮驱动（AWD）检查所有车轮。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>受方向盘影响（Affected by Steering）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>检查前轮，可能有两个以上，例如，卡车驾驶室可能有四轮方向盘，第二层有不同的转向角。另外，也可以通过选择转向角为负的后轮方向盘实现全轮转向。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>最大转向角（Max Steer Angle）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>通常这是一个正值（以度为单位），但是，对于带全轮转向的后轮反向转向，允许为负值。</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div><p><picture>
+		<source data-srcset="./../../../../../../Images/InteractiveExperiences/Physics/ChaosPhysics/ChaosVehicles/HowToSetupChaosVehicles/ChaosWheelBlueprint.jpg">
+		<img class="  lazyload" alt="ChaosWheelBlueprint.png" data-src="../../../../../../Images/InteractiveExperiences/Physics/ChaosPhysics/ChaosVehicles/HowToSetupChaosVehicles/ChaosWheelBlueprint.jpg" />
+</picture>
+
+<div class="caption">
+	<p>Chaos车轮蓝图的类默认值示例。</p>
+</div>
+</p><h2 id="载具网格体">载具网格体</h2>
+<p>如果你想继续以下操作，我们建议将载具网格体导入到你的项目中。如果你没有载具网格体，你可以下载并提取此<a id="content_link" href="https://epicgames.box.com/s/8ao1a488hyezi94mqlwhcd88gqhlgx0f" ><span>载具网格体示例</span></a>。
+</p><div class="note">
+	<p>出于说明目的，我们使用<a id="content_link"filter-data="tag_vehicles" href="../../../../Vehicles/VehicleUserGuide/index.html" ><span>载具用户指南</span></a>中的Buggy载具网格体。 </p>
+</div><h3 id="载具物理编辑器">载具物理编辑器</h3>
+<p>将载具网格体导入项目后，请按照以下步骤在 <strong>载具物理编辑器</strong> 中查看网格体。
+</p><ol ><li class="Default"><p>在内容浏览器中，找到你的载具骨骼网格体。
+</p></li><li class="Default"><p>双击载具骨骼网格体。
+</p></li><li class="Default"><p>要打开载具物理编辑器，选择 <strong>物理（Physics）</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/InteractiveExperiences/Physics/ChaosPhysics/ChaosVehicles/HowToSetupChaosVehicles/PhysicsTabEditor.jpg">
+		<img class="  lazyload" alt="PhysicsTabEditor.png" data-src="../../../../../../Images/InteractiveExperiences/Physics/ChaosPhysics/ChaosVehicles/HowToSetupChaosVehicles/PhysicsTabEditor.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>载具物理编辑器应如下所示。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/InteractiveExperiences/Physics/ChaosPhysics/ChaosVehicles/HowToSetupChaosVehicles/PhysicsTabEditor1.jpg">
+		<img class="  lazyload" alt="PhysicsTabEditor1.png" data-src="../../../../../../Images/InteractiveExperiences/Physics/ChaosPhysics/ChaosVehicles/HowToSetupChaosVehicles/PhysicsTabEditor1.jpg" />
+</picture>
+
+</p></li></ol><h2 id="载具动画蓝图">载具动画蓝图</h2>
+<p>动画蓝图用于控制载具的专用骨骼网格体动画，例如旋转轮胎、悬架、手刹和方向盘动画。为了减轻创建这些动画类型的工作量，你可以使用 <strong>Wheel Controller节点</strong> 来驱动动画。
+</p><h3 id="wheelcontroller节点">Wheel Controller节点</h3>
+<p>动画蓝图用于获取和控制载具的动画，<strong>Wheel Controller</strong> 节点使得控制载具的所有动画变得相当容易，几乎不需要额外的设置。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/InteractiveExperiences/Physics/ChaosPhysics/ChaosVehicles/HowToSetupChaosVehicles/WheelComponent.jpg">
+		<img class="  lazyload" alt="WheelComponent.png" data-src="../../../../../../Images/InteractiveExperiences/Physics/ChaosPhysics/ChaosVehicles/HowToSetupChaosVehicles/WheelComponent.jpg" />
+</picture>
+
+</p><p>节点可获取必要的车轮信息（例如"旋转速度有多快？"或"它是否受到手刹影响？"或"此车轮的悬架设置如何？"），并将查询结果转译为车轮关联的骨骼上的动画。
+</p><h3 id="创建动画蓝图">创建动画蓝图</h3>
+<ol ><li class="Default"><p>在内容浏览器中，点击 <strong>新增（Add New）</strong>，然后将鼠标悬停在 <strong>动画（Animation）</strong>上，然后选择 <strong>动画蓝图（Animation Blueprint）</strong>。
+</p></li><li class="Default"><p>在 <strong>创建动画蓝图（Create Animation Blueprint）</strong> 窗口中，从你的载具列表中找到并选择骨架（Skeleton），然后点击 <strong>确定（OK）</strong>。
+</p></li><li class="Default"><p>命名载具动画蓝图。
+</p></li><li class="Default"><p>现在有了一个动画蓝图，可以从内容浏览器中将其打开。
+</p></li><li class="Default"><p>从主工具栏中选择 <strong>类设置（Class Settings）</strong>，然后在 <strong>类选项（Class Options）</strong> 的 <strong>详情（Details）</strong> 面板中将 <strong>父类（Parent Class）</strong> 设置为 <strong>VehicleAnimationInstance</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/InteractiveExperiences/Physics/ChaosPhysics/ChaosVehicles/HowToSetupChaosVehicles/VehicleAnimInstance.jpg">
+		<img class="  lazyload" alt="VehicleAnimInstance.png" data-src="../../../../../../Images/InteractiveExperiences/Physics/ChaosPhysics/ChaosVehicles/HowToSetupChaosVehicles/VehicleAnimInstance.jpg" />
+</picture>
+
+<div class="caption">
+	<p>设置父类</p>
+</div>
+</p></li><li class="Default"><p>右键单击 <strong>动画图表（Anim Graph）</strong>，打开上下文菜单，搜索并选择 <strong>Mesh Space Ref Pose</strong> 节点。 
+</p></li><li class="Default"><p>接下来，右键点击 <strong>动画图表（Anim Graph）</strong>，搜索并创建 <strong>车轮控制器（Wheel Controller）</strong>。
+</p></li><li class="Default"><p>现在连接节点，使你的 <strong>动画图表（Anim Graph）</strong> 类似如下。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/InteractiveExperiences/Physics/ChaosPhysics/ChaosVehicles/HowToSetupChaosVehicles/WheelController.jpg">
+		<img class="  lazyload" alt="WheelController.png" data-src="../../../../../../Images/InteractiveExperiences/Physics/ChaosPhysics/ChaosVehicles/HowToSetupChaosVehicles/WheelController.jpg" />
+</picture>
+
+<div class="caption">
+	<p>动画图表示例</p>
+</div>
+</p></li><li class="Default"><p>（<strong>可选步骤</strong>）另外，如果你有额外的框架或其他悬架需求（如来自载具游戏的示例车辆），你将需要动画图表中额外的节点来处理影响这些多边形的关节。例如，载具游戏中的Buggy中，额外的关节用于控制轴与车轮的连接。这些是由 <strong>Look At</strong> 节点驱动的，当给定车轮关节时，该节点将由 <strong>Wheel Controller</strong> 节点驱动，而 <strong>Look At</strong> 节点将确保悬架保持附着在车轮上，如下例所示。
+</p></li></ol><p><picture>
+		<source data-srcset="./../../../../../../Images/InteractiveExperiences/Physics/ChaosPhysics/ChaosVehicles/HowToSetupChaosVehicles/WheelController1.jpg">
+		<img class="  lazyload" alt="WheelControllerLookAtNode" data-src="../../../../../../Images/InteractiveExperiences/Physics/ChaosPhysics/ChaosVehicles/HowToSetupChaosVehicles/WheelController1.jpg" />
+</picture>
+
+</p><p>以下是<a id="content_link"filter-data="tag_animation tag_skeletal_controls tag_animation_graph" href="../../../../../AnimatingObjects/SkeletalMeshAnimation/NodeReference/SkeletalControls/LookAt/index.html" ><span>Look At</span></a>节点的构成。
+</p><div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>骨骼 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>Look At </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>F_L_Suspension</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>F_L_wheelJNT</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>F_R_Suspension</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>F_R_wheelJNT</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>B_L_Suspension</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>B_L_wheelJNT</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>B_R_Suspension</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>B_R_wheelJNT</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>B_L_wheelJNT</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>B_L_Suspension</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>B_R_wheelJNT</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>B_R_Suspension</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div><p>示例车辆<a id="content_link" href="../../../../../AnimatingObjects/SkeletalMeshAnimation/Persona/SkeletonTree/index.html" ><span>骨架树</span></a> 
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/InteractiveExperiences/Physics/ChaosPhysics/ChaosVehicles/HowToSetupChaosVehicles/SkeletonTree1.jpg">
+		<img class="  lazyload" alt="NewBuggyBlueprintSkeletonTree" data-src="../../../../../../Images/InteractiveExperiences/Physics/ChaosPhysics/ChaosVehicles/HowToSetupChaosVehicles/SkeletonTree1.jpg" />
+</picture>
+
+</p><h3 id="创建载具蓝图">创建载具蓝图</h3>
+<p>在此步骤中，你将创建载具蓝图，将先前设置的所有资产汇总在一起。
+</p><ol ><li class="Default"><p>在内容浏览器中，点击 <strong>新增（Add New）</strong> 按钮并选择 <strong>蓝图类（Blueprint Class）</strong>。 
+</p></li><li class="Default"><p>在 <strong>选取父类（Pick Parent Class）</strong> 窗口中，在 <strong>所有类（All Classes）</strong> 下搜索"车轮（wheel）"，然后选择 <strong>WheeledVehiclePawn</strong>。 
+</p></li><li class="Default"><p>命名载具蓝图。 
+</p></li><li class="Default"><p>从内容浏览器中，选择并打开新创建的载具蓝图。 
+</p></li><li class="Default"><p>在组件（Components）窗口中，点击名为 <strong>网格体</strong> 的 <strong>骨骼网格体组件（Skeletal Mesh Component）</strong>。然后在其详情（Details）面板中，将骨骼网格体（Skeletal Mesh）设置为你载具的骨骼网格体资产。 
+</p></li><li class="Default"><p>将蓝图生成的 <strong>动画类（Anim Class）</strong> 设置为载具的动画蓝图。 
+</p></li><li class="Default"><p>在物理（Physics）下的细节（Details）中，启用 <strong>模拟物理（Simulate Physics）</strong>。 
+</p></li><li class="Default"><p>在 <strong>组件（Components）</strong> 窗口中，点击 <strong>添加组件（Add Component）</strong>，并选择 <strong>摄像机（Camera）</strong>。 
+</p></li><li class="Default"><p>在蓝图编辑器中使用视口定位 <strong>摄像机（Camera）</strong>。<br /></p><p><picture>
+		<source data-srcset="./../../../../../../Images/InteractiveExperiences/Physics/ChaosPhysics/ChaosVehicles/HowToSetupChaosVehicles/ViewportView.jpg">
+		<img class="  lazyload" alt="ViewportView.png" data-src="../../../../../../Images/InteractiveExperiences/Physics/ChaosPhysics/ChaosVehicles/HowToSetupChaosVehicles/ViewportView.jpg" />
+</picture>
+
+<div class="caption">
+	<p>在本例中，摄像机定位于载具后面，微微抬起，朝载具倾斜。</p>
+</div>
+</p></li><li class="Default"><p>在选中 <strong>摄像机（Camera）</strong> 组件的情况下（在 <strong>摄像机设置（Camera Settings）</strong> 下的 <strong>详情（Details）</strong> 面板中），确认禁用 <strong>使用Pawn控制旋转（Use Pawn Control Rotation）</strong>。 
+</p><p>这样可以确保摄像机锁定在摄像机的视图方向，而非玩家控制器的视图方向。
+</p></li><li class="Default"><p>下一步，在组件（Components）窗口中选择 <strong>载具移动组件（Vehicle Movement Component）</strong>。 
+</p></li><li class="Default"><p>在 <strong>载具设置（Vehicle Setup）</strong> 部分下的 <strong>详情（Details）</strong> 面板中，展开 <strong>车轮设置（Wheel Setups）</strong> 旁的箭头，并为各个车轮进行如下设置： 
+</p><ul ><li class="Default"><p>将 <strong>车轮类（Wheel Class）</strong> 设置为你创建的车轮蓝图。 
+</p></li><li class="Default"><p>将 <strong>骨骼名称（Bone Name）</strong> 设置为应由车轮控制的关节名称。
+</p></li></ul></li></ol><p>如果是前轮或后轮，车轮的分配顺序无关紧要，只有 <strong>骨骼名称（Bone Name）</strong> 和 <strong>车轮类（Wheel Class）</strong> 有影响。出于组织结构目的，我们建议每个新载具的车轮保持相同的顺序（例如FL、FR、BL、BR）。 
+</p><p>如果载具需要四个以上的车轮，请点击 <strong>车轮设置（Wheel Setups）</strong> 属性旁边的 <strong>+</strong> 图标添加更多车轮，或根据需要删除车轮。
+</p><h2 id="载具控制输入设置">载具控制输入设置</h2>
+<ol ><li class="Default"><p>转到主菜单并选择 <strong>编辑（Edit）</strong> > <strong>项目设置（Project Settings）</strong>，打开项目设置（Project Settings）窗口。 
+</p></li><li class="Default"><p>在侧面板的 <em>引擎（Engine）</em> 分段下，选择 <strong>输入（Input）</strong>。 
+</p></li><li class="Default"><p>如下图所示，设置方向盘、油门、刹车和手刹的控制输入，这将使用游戏控制器的模拟输入，但手刹除外。 
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/InteractiveExperiences/Physics/ChaosPhysics/ChaosVehicles/HowToSetupChaosVehicles/InputSetup.jpg">
+		<img class="  lazyload" alt="InputSetup.png" data-src="../../../../../../Images/InteractiveExperiences/Physics/ChaosPhysics/ChaosVehicles/HowToSetupChaosVehicles/InputSetup.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>设置了功能按钮后，就需要对它们进行实际操作。打开你创建的 <strong>载具蓝图（Vehicle Blueprint）</strong> 并找到 <strong>事件图表（Event Graph）</strong>，可在其中调用你在项目设置输入部分中创建的这些轴和动作事件。<br /></p></li><li class="Default"><p>建立从输入事件到载具组件集输入函数的连接。 
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/InteractiveExperiences/Physics/ChaosPhysics/ChaosVehicles/HowToSetupChaosVehicles/InputEventGraph.jpg">
+		<img class="  lazyload" alt="InputEventGraph.png" data-src="../../../../../../Images/InteractiveExperiences/Physics/ChaosPhysics/ChaosVehicles/HowToSetupChaosVehicles/InputEventGraph.jpg" />
+</picture>
+
+</p></li></ol><h2 id="载具游戏模式设置">载具游戏模式设置</h2>
+<ol ><li class="Default"><p>在内容浏览器中，点击 <strong>新增（Add New）</strong>，并从菜单列表中选择 <strong>蓝图类（Blueprint Class）</strong>。 
+</p></li><li class="Default"><p>在选取父类（Pick Parent Class）窗口中，选择 <strong>游戏模式基础（Game Mode Base）</strong>，然后点击 <strong>选择（Select）</strong> 创建游戏模式蓝图。 
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/InteractiveExperiences/Physics/ChaosPhysics/ChaosVehicles/HowToSetupChaosVehicles/BluePrintGameMode.jpg">
+		<img class="  lazyload" alt="BluePrintGameMode.png" data-src="../../../../../../Images/InteractiveExperiences/Physics/ChaosPhysics/ChaosVehicles/HowToSetupChaosVehicles/BluePrintGameMode.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在内容浏览器中，双击打开新的游戏模式蓝图，以进行编辑。<br /></p></li><li class="Default"><p>在 <strong>类（Classes）</strong> 下的 <strong>细节（Details）</strong> 中，在 <strong>默认Pawn类（Default Pawn Class）</strong> 旁，使用下拉菜单选择你的载具蓝图。 
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/InteractiveExperiences/Physics/ChaosPhysics/ChaosVehicles/HowToSetupChaosVehicles/defaultPawnClass1.jpg">
+		<img class="  lazyload" alt="defaultPawnClass1.png" data-src="../../../../../../Images/InteractiveExperiences/Physics/ChaosPhysics/ChaosVehicles/HowToSetupChaosVehicles/defaultPawnClass1.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>点击 <strong>保存（Save）</strong>，然后 <strong>关闭（Close）</strong> 窗口。 
+</p></li><li class="Default"><p>在主视口（Main Viewport）窗口中，在游戏模式（Game Mode）分段下的世界设置（World Settings）选项卡中，将 <strong>游戏模式覆盖（GameMode Override）</strong> 设置为你的游戏模式蓝图。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../../Images/InteractiveExperiences/Physics/ChaosPhysics/ChaosVehicles/HowToSetupChaosVehicles/WorldSettingsGameMode.png" ><span><picture>
+		<source data-srcset="./../../../../../../Images/InteractiveExperiences/Physics/ChaosPhysics/ChaosVehicles/HowToSetupChaosVehicles/WorldSettingsGameMode.jpg">
+		<img class="  lazyload" alt="WorldSettingsGameMode.png" width="640" data-src="../../../../../../Images/InteractiveExperiences/Physics/ChaosPhysics/ChaosVehicles/HowToSetupChaosVehicles/WorldSettingsGameMode.jpg" />
+</picture>
+</span></a></span></p>
+</div><p><div class="caption">
+	<p>单击显示全图。</p>
+</div>
+</p></li></ol><p>现在，你已经了解设置Chaos载具的过程，你可以在游戏中运行该载具。 
+</p><p>如果要将现有PhysX载具转换为Chaos，可以在此<a id="content_link"filter-data="tag_experimental tag_chaos tag_physics tag_vehicles" href="../HowToConvertPhysXVehiclesToChaos/index.html" ><span>PhysX到Chaos载具转换</span></a>指南中了解另一流程。</p>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../../SiteIndex/index.html?tags=Experimental">Experimental</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../../SiteIndex/index.html?tags=Chaos">Chaos</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../../SiteIndex/index.html?tags=Physics">Physics</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../../SiteIndex/index.html?tags=Vehicles">Vehicles</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/InteractiveExperiences/Physics/ChaosPhysics/ChaosVehicles/HowToSetupChaosVehicles/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:57:41 GMT -->
+</html>

@@ -1,0 +1,483 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/SharingAndReleasing/Linux/AdvancedLinuxDeveloper/LinuxCrossCompileLegacy/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:52:49 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/SharingAndReleasing/Linux/AdvancedLinuxDeveloper/LinuxCrossCompileLegacy/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>Linux的交叉编译（旧版） | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/SharingAndReleasing/Linux/AdvancedLinuxDeveloper/LinuxCrossCompileLegacy/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/SharingAndReleasing/Linux/AdvancedLinuxDeveloper/LinuxCrossCompileLegacy/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/SharingAndReleasing/Linux/AdvancedLinuxDeveloper/LinuxCrossCompileLegacy/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/SharingAndReleasing/Linux/AdvancedLinuxDeveloper/LinuxCrossCompileLegacy/" hreflang="ko" />
+
+	<meta name="intsourcechangelist" content="17135618" />
+<meta name="redirect" content="Platforms/Linux/AdvancedLinuxDeveloper/LinuxCrossCompileLegacy" />
+<meta name="availability" content="Public" />
+<meta name="title" content="Linux的交叉编译（旧版）" />
+<meta name="description" content="对于4.14以前的引擎版本，本页面将向用户展示如何为Linux平台设置交叉编译。" />
+<meta name="version" content="4.14" />
+<meta name="skilllevel" content="Advanced" />
+<meta name="type" content="reference" />
+<meta name="parent" content="SharingAndReleasing/Linux" />
+<meta name="keywords" content="Linux" />
+<meta name="keywords" content="Legacy" />
+<meta name="keywords" content="Deprecated" />
+<meta name="related" content="ProductionPipelines/DevelopmentSetup/CompilingProjects" />
+<meta name="related" content="ProductionPipelines/DevelopmentSetup/BuildConfigurations" />
+<meta name="related" content="Basics/Projects/Packaging" />
+<meta name="related" content="SharingAndReleasing/Linux/GettingStarted" />
+<meta name="topic-image" content="LegacyRef_Topic.png" />
+<meta name="crumbs" content="%ROOT%,SharingAndReleasing,SharingAndReleasing/Linux" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="Linux的交叉编译（旧版）" />
+	<meta property="og:description" content="对于4.14以前的引擎版本，本页面将向用户展示如何为Linux平台设置交叉编译。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">项目分享及发布</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">Linux 游戏开发</a>
+
+<span class="separator">></span> <span id="page">Linux的交叉编译（旧版）</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+					<div id="banner" class="deprecated">
+	<div id="message">
+		此功能已<span>废弃</span>，不应继续使用
+	</div>
+	<div id="bannerDescription">
+		已废弃的功能随时可能被移除。它们有时会被新功能或系统取代，但并非总是如此。请根据情况更新您的项目。
+	</div>
+</div>
+															<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">Linux的交叉编译（旧版）</h1>
+							</div>	
+							<h2 >对于4.14以前的引擎版本，本页面将向用户展示如何为Linux平台设置交叉编译。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Advanced"><a id="skill_link" href="../../../../SiteIndex/index.html?skills=Advanced">Advanced</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																		<div id="seeAlso">
+	<div style="position:relative;">
+		<div id="title">参见</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<p>
+						<a id="related_link" href="../../../../ProductionPipelines/DevelopmentSetup/CompilingProjects/index.html" title="使用Windows上的Visual Studio或Mac上的Xcode编译单个游戏项目。">编译游戏项目</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../../../ProductionPipelines/DevelopmentSetup/BuildConfigurations/index.html" title="解决方案和项目编译配置的参考指南。">编译配置参考</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../../../Basics/Projects/Packaging/index.html" title="打包虚幻游戏项目以便发布游戏。">打包项目</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../GettingStarted/index.html" title="介绍如何下载Linux交叉编译工具链。">Linux交叉编译</a>
+					</p>
+				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																														<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#为何需要交叉编译">为何需要交叉编译</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#获取工具链">获取工具链</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#设置工具链">设置工具链</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#为linux设置打包">为Linux设置打包</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#为linux打包">为Linux打包</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#linux-arm平台的更改">Linux-ARM平台的更改</a></p>
+	</li>					</ul>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>此参考是为需要在4.14之前的虚幻引擎4版本(UE4)中设置其交叉编译工具链的用户提供的存档。 
+</p><div class="note">
+	<p>如果你正在使用虚幻引擎4.14（或更新版本）开发项目，请参阅<a id="content_link"filter-data="tag_linux" href="../../GettingStarted/index.html" ><span>Linux交叉编译</span></a>文档。</p>
+</div><h2 id="为何需要交叉编译">为何需要交叉编译</h2>
+<p> <strong>交叉编译（Cross-compilation）</strong> 使得在以Windows为中心的工作流程中工作的游戏开发者能够以Linux为目标。目前，只有Windows支持交叉编译。Mac用户目前必须求助于<a id="content_link" href="https://wiki.unrealengine.com/Building_On_Linux" ><span>本机编译</span></a>。我们为Linux-x86_64平台支持、测试及提供库和工具链。 
+</p><h2 id="获取工具链">获取工具链</h2>
+<p>请使用下表以下载相应的工具链： 
+</p><div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>UE4版本 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>工具链 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>4.27</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>-v19</strong> <a id="content_link" href="https://cdn.unrealengine.com/CrossToolchain_Linux/v18_clang-11.0.1-centos7.exe" ><span>clang-11.0.1-based</span></a></p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>4.26</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>-v17</strong> <a id="content_link" href="https://cdn.unrealengine.com/CrossToolchain_Linux/v17_clang-10.0.1-centos7.exe" ><span>clang-10.0.1-based</span></a></p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>4.25</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>-v16</strong> <a id="content_link" href="https://cdn.unrealengine.com/CrossToolchain_Linux/v16_clang-9.0.1-centos7.exe" ><span>基于clang-9.0.1</span></a></p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>4.23和4.24</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>-v15</strong> <a id="content_link" href="https://cdn.unrealengine.com/CrossToolchain_Linux/v15_clang-8.0.1-centos7.exe" ><span>基于clang-8.0.1</span></a></p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>4.22</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>-v13</strong> <a id="content_link" href="https://cdn.unrealengine.com/CrossToolchain_Linux/v13_clang-7.0.1-centos7.exe" ><span>基于clang-7.0.1</span></a></p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>4.21</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>-v12</strong> <a id="content_link" href="https://cdn.unrealengine.com/CrossToolchain_Linux/v12_clang-6.0.1-centos7.exe" ><span>基于clang-6.0.1</span></a></p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>4.19和4.20</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>-v11</strong> <a id="content_link" href="https://cdn.unrealengine.com/CrossToolchain_Linux/v11_clang-5.0.0-centos7.exe" ><span>基于clang-5.0.0</span></a></p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>4.18</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>-v10</strong> <a id="content_link" href="https://cdn.unrealengine.com/CrossToolchain_Linux/v10_clang-5.0.0-centos7.exe" ><span>基于clang-5.0.0</span></a></p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>4.16和4.17</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>-v9</strong>  <a id="content_link" href="https://cdn.unrealengine.com/CrossToolchain_Linux/v9_clang-4.0.0-centos7.exe" ><span>基于clang-4.0.0</span></a></p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>4.14和4.15</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>-v8</strong>  <a id="content_link" href="https://cdn.unrealengine.com/CrossToolchain_Linux/v8_clang-3.9.0-centos7.exe" ><span>基于clang-3.9.0</span></a></p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>4.11到4.13</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>-v7</strong>  <a id="content_link" href="https://s3.amazonaws.com/unrealengine/CrossToolchain_Linux/v7_clang-3.7.0_ld-2.24_glibc-2.12.2.zip" ><span>基于clang-3.7.0</span></a></p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>4.9和4.10</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>-v6</strong>  <a id="content_link" href="https://s3.amazonaws.com/unrealengine/qfe/v6_clang-3.6.0_ld-2.24_glibc-2.12.2.zip" ><span>基于clang-3.6.0</span></a></p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>4.8及更早版本</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>-v4</strong>  <a id="content_link" href="https://cdn.unrealengine.com/qfe/v4_clang-3.5.0_ld-2.24_glibc-2.12.2.zip" ><span>基于clang-3.5.0</span></a></p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div><div class="note">
+	<ul ><li class="Default"><p>工具链 <strong>-v8</strong> 到 <strong>-v13</strong> 无需抽取文件或设置环境变量，只需安装程序包即可。
+</p></li><li class="Default"><p>对于工具链 <strong>-v4</strong> 到 <strong>-v7</strong>，我们还提供库和工具链，让你能够编译<a id="content_link" href="https://s3.amazonaws.com/unrealengine/qfe/arm-unknown-linux-gnueabihf_v5_clang-3.5.0-ld-2.23.1-glibc-2.13.zip" ><span>Linux ARM</span></a> （原始Raspberry Pi和更高版本）。
+</p><ul ><li class="Default"><p>请注意，这需要你在<a id="content_link" href="../../../../ProductionPipelines/BuildTools/index.html" ><span>虚幻构建工具</span></a> (UBT)中进行（微小的）代码更改。
+</p></li></ul></li><li class="Default"><p>我们目前还为在CentOS上运行虚幻引擎的用户提供对AMDGPU-PRO（非RADV）的驱动器支持。
+</p></li></ul>
+</div><p>从现在开始，我们假设你的目标是x86_64 Linux，但是下面的大多数信息也适用于ARM的编译（但不包括不同的工具链）。请注意，如果你想要不同版本的工具或以另一种架构为目标，你可以<a id="content_link" href="https://wiki.unrealengine.com/Building_Linux_cross-toolchain" ><span>构建你自己的工具链</span></a>。
+</p><h2 id="设置工具链">设置工具链</h2>
+<p>添加名为 <code>LINUX&#95;ROOT</code> 的环境变量，该变量的值是你工具链的绝对路径（没有后置反斜杠）：
+</p><pre class="prettyprint"><code>控制面板（Control Panel）-&gt;系统（System）-&gt;高级系统设置（Advanced system settings）-&gt;高级（Advanced）-&gt;环境变量（Environment variables）</code></pre>
+<p>确保设置环境变量后，重新生成UE4项目文件（使用 <code>GenerateProjectFiles.bat</code>）并重启Visual Studio。在此之后，你应该可以使用"Linux"进行Win32/Win64配置（此时你应该能够为其进行交叉编译）。
+</p><h2 id="为linux设置打包">为Linux设置打包</h2>
+<!--
+category:paramliteral
+id:paramliteral
+content:param
+active:paramliteral
+-->
+<div class="button_content BinarySourceSelect binaryinstall active_button_content">
+    <div class="container">
+        <p>注意，二进制版本只能打包纯内容性项目。如果你想为Linux打包一个基于代码的项目（或者一个带有非默认第三方插件的项目），你必须设置一个源代码构建。否则，如果你并不介意纯内容性项目，则无需构建任何东西，因为UE4Game和CrashReportClient的Linux二进制文件是绑定的。</p>
+    </div>
+</div><!--
+category:paramliteral
+id:paramliteral
+content:param
+active:paramliteral
+-->
+<div class="button_content BinarySourceSelect sourceinstall ">
+    <div class="container">
+        <p>若要为Linux平台打包，你需要构建以下目标：
+</p><p>对于Linux：
+</p><ul ><li class="Default"><p>CrashReportClient
+</p></li><li class="Default"><p>UE4Game（如果你的项目为纯内容性项目，否则只需构建你的项目即可）。
+</p></li></ul><p>对于Windows：
+</p><ul ><li class="Default"><p>编辑器本身（这是构建Linux目标模块所需要的，以便虚幻编辑器和虚幻前端知道如何为Linux烘焙/打包游戏）。
+</p></li><li class="Default"><p>UnrealPak和ShaderCompileWorker（你可能已经构建了它们，但是为了妥善起见，我们还是要提及一下）。
+</p></li></ul>
+    </div>
+</div><h2 id="为linux打包">为Linux打包</h2>
+<p>打包项目最简单的方法是在编辑器中打开它，然后选择 <strong>文件（File）-> 打包至（Package To）-> Linux</strong>。这是假设你在前面的步骤中安装了一个交叉工具链，并且为相关编辑器构建了Linux目标模块——如果你在列表中没有看到Linux，那么很可能之前的某个步骤存在错误——如果存在此情况，请见上文。一段时间之后（这段时间取决于相关项目，并且对于示例项目来说相当短暂），你将在选择打包到的目录中获得游戏资源和二进制文件。
+</p><p>单击 <strong>显示输出日志（Show Output Log）</strong> 链接可查看打包过程的详细信息。如果这个过程失败并显示错误消息，"无法找到UnrealPak或ShaderCompileWorker（unable to find UnrealPak or ShaderCompileWorker）"，请参阅上文关于为主机（Windows）平台构建它们的说明。
+</p><p>安全复制（<code>scp</code>）或以其他方式将其复制到目标机器（挂载Samba共享 - 如果你知道如何执行此操作 - 如果目标机器磁盘空间不足，这种方法效果可能会更好，而且也会减少迭代时间），更改模式（<code>chmod+x</code>）可执行文件（将位于 <code>LinuxNoEditor/&lt;ProjectName&gt;/Binaries/Linux/</code> 目录），并运行它。
+</p><h3 id="linux-arm平台的更改">Linux-ARM平台的更改</h3>
+<div class="note">
+	<p>随着虚幻引擎4.14版本的发布，ARM平台有了一种新的（且易于遵循的）项目打包方式。请查看我们最近更新的<a id="content_link"filter-data="tag_linux" href="../../GettingStarted/index.html" ><span>Linux交叉编译</span></a>文档以了解更多内容。</p>
+</div><p>如果你在运行下面的GenerateProjectFiles.bat之前使用Linux-ARM交叉编译工具链，请以UE4源代码编辑以下文件： 
+</p><pre class="prettyprint"><code>.../UnrealEngine/Engine/Source/Programs/UnrealBuildTool/Linux/UEBuildLinux.cs </code></pre>
+<p>注释掉下面的行： 
+</p><pre class="prettyprint"><code>static private string DefaultArchitecture = "x86&#95;64-unknown-linux-gnu"; </code></pre>
+<p>并取消注释该行下面的linux-arm架构行： 
+</p><pre class="prettyprint"><code>//static private string DefaultArchitecture = "arm-unknown-linux-gnueabihf";</code></pre>
+<p>若要使打包的项目能够在Linux-ARM平台上运行，你还需要另外一个步骤。假设打包项目位于 <code>\foo\bar\SunTemple&#95;Linux</code>，打开以下位置：
+</p><pre class="prettyprint"><code>\foo\bar\SunTemple&#95;Linux\LinuxNoEditor\Engine\Binaries\Linux</code></pre>
+<p>将 <code>libopenal.so.1</code> 替换为来自以下位置的版本： 
+</p><pre class="prettyprint"><code>...\UnrealEngine\Engine\Source\ThirdParty\OpenAL\1.15.1\lib\Linux\arm-unknown-linux-gnueabihf\libopenal.so</code></pre>
+<p>其中，<code>...\UnrealEngine</code> 是UE4源代码的位置。请务必将 <code>libopenal.so</code> 重命名为 <code>libopenal.so.1</code>。
+</p><p>此时即可将项目复制到目标机器上，<code>chmod+x</code> 目标可执行文件，并按照上述说明运行它。</p>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Linux">Linux</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Legacy">Legacy</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Deprecated">Deprecated</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/SharingAndReleasing/Linux/AdvancedLinuxDeveloper/LinuxCrossCompileLegacy/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:52:50 GMT -->
+</html>

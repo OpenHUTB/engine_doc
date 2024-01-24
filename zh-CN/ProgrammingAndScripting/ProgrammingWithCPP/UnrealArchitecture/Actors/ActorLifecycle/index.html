@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/Actors/ActorLifecycle/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:21:34 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/Actors/ActorLifecycle/" />');
+				var udnCSS = '../../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>Actor 生命周期 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/Actors/ActorLifecycle/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/Actors/ActorLifecycle/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/Actors/ActorLifecycle/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/Actors/ActorLifecycle/" hreflang="ko" />
+
+	<meta name="redirect" content="Programming/UnrealArchitecture/Actors/ActorLifecycle" />
+<meta name="intsourcechangelist" content="14092105" />
+<meta name="availability" content="Public" />
+<meta name="title" content="Actor 生命周期" />
+<meta name="type" content="Overview" />
+<meta name="description" content="Actor 被加载或生成后到逐渐消亡的过程。" />
+<meta name="version" content="4.11" />
+<meta name="skilllevel" content="Intermediate" />
+<meta name="parent" content="ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/Actors" />
+<meta name="order" content="0" />
+<meta name="keywords" content="Actors" />
+<meta name="keywords" content="Architecture" />
+<meta name="crumbs" content="%ROOT%,ProgrammingAndScripting,ProgrammingAndScripting/ProgrammingWithCPP,ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture,ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/Actors" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="Actor 生命周期" />
+	<meta property="og:description" content="Actor 被加载或生成后到逐渐消亡的过程。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../../index.html">编程和脚本编写</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">编程指南</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">游戏逻辑编程</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">Actors</a>
+
+<span class="separator">></span> <span id="page">Actor 生命周期</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">Actor 生命周期</h1>
+							</div>	
+							<h2 >Actor 被加载或生成后到逐渐消亡的过程。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Intermediate"><a id="skill_link" href="../../../../../SiteIndex/index.html?skills=Intermediate">Intermediate</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																																				<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#生命周期详解">生命周期详解</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#从磁盘加载">从磁盘加载</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#playineditor">Play in Editor</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#生成">生成</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#延迟生成">延迟生成</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#生命走向终点">生命走向终点</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#在游戏进程中">在游戏进程中</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#垃圾回收">垃圾回收</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#高级垃圾回收">高级垃圾回收</a></p>
+	</li>					</ul>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>此文档是 <strong>Actor</strong> 生命周期的高级概述：Actor 如何被实例化（<strong>生成</strong>）到关卡中，以及如何被移除（<strong>销毁</strong>）。
+</p><p>以下流程图展示了 Actor 被实例的三种主要路径。无论 Actor 的创建方式如何，销毁路径均相同。
+</p><h2 id="生命周期详解">生命周期详解</h2>
+<p><span class="non-localized"><a id="content_link" href="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/Actors/ActorLifecycle/ActorLifeCycle1.png" ><span><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/Actors/ActorLifecycle/ActorLifeCycle1.jpg">
+		<img class="  lazyload" alt="ActorLifeCycle1.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/Actors/ActorLifecycle/ActorLifeCycle1.jpg" />
+</picture>
+</span></a></span>
+</p><h2 id="从磁盘加载">从磁盘加载</h2>
+<p>已位于关卡中的 Actor 使用此路径，如 LoadMap 发生时、或 AddToWorld（从流关卡或子关卡）被调用时。
+</p><ol ><li class="Default"><p>包/关卡中的 Actor 从磁盘中进行加载。
+</p></li><li class="Default"><p><strong>PostLoad</strong> - 在序列化 Actor 从磁盘加载完成后被调用。在此处可执行自定义版本化和修复操作。PostLoad 与 <strong>PostActorCreated</strong> 互斥。
+</p></li><li class="Default"><p><strong>InitializeActorsForPlay</strong>
+</p></li><li class="Default"><p>为未初始化的 Actor 执行 <strong>RouteActorInitialize</strong>（包含无缝行程携带）
+</p><ol ><li class="Default"><p><strong>PreInitializeComponents</strong> - 在 Actor 的组件上调用 InitializeComponent 之前进行调用。
+</p></li><li class="Default"><p><strong>InitializeComponent</strong> - Actor 上定义的每个组件的创建辅助函数。
+</p></li><li class="Default"><p><strong>PostInitializeComponents</strong> - Actor 的组件初始化后调用。
+</p></li></ol></li><li class="Default"><p><strong>BeginPlay</strong> - 关卡开始后调用。
+</p></li></ol><h2 id="playineditor">Play in Editor</h2>
+<p>Play in Editor 路径与 Load from Disk 十分相似，然而 Actor 却并非从磁盘中加载，而是从编辑器中复制而来。
+</p><ol ><li class="Default"><p>编辑器中的 Actor 被复制到新场景中。
+</p></li><li class="Default"><p><strong>PostDuplicate</strong> 被调用。
+</p></li><li class="Default"><p><strong>InitializeActorsForPlay</strong>
+</p></li><li class="Default"><p>为未初始化的 Actor 执行 <strong>RouteActorInitialize</strong>（包含无缝行程携带）。
+</p><ol ><li class="Default"><p><strong>PreInitializeComponents</strong> - 在 Actor 的组件上调用 InitializeComponent 之前进行调用。
+</p></li><li class="Default"><p><strong>InitializeComponent</strong> - Actor 上定义的每个组件的创建辅助函数。
+</p></li><li class="Default"><p><strong>PostInitializeComponents</strong> - Actor 的组件初始化后调用。
+</p></li></ol></li><li class="Default"><p><strong>BeginPlay</strong> - 关卡开始后调用。
+</p></li></ol><h2 id="生成">生成</h2>
+<p>这是生成（实例）Actor 时的路径。
+</p><ol ><li class="Default"><p><strong>SpawnActor</strong> 被调用。
+</p></li><li class="Default"><p><strong>PostSpawnInitialize</strong> 
+</p></li><li class="Default"><p><strong>PostActorCreated</strong> - 创建后即被生成的 Actor 调用，构建函数类行为在此发生。PostActorCreated 与 PostLoad 互斥。
+</p></li><li class="Default"><p><strong>ExecuteConstruction</strong>：
+</p><ul ><li class="Default"><p><strong>OnConstruction</strong> - Actor 的构建。蓝图 Actor 的组件在此处创建，蓝图变量在此处初始化
+</p></li></ul></li><li class="Default"><p><strong>PostActorConstruction</strong>：
+</p><ol ><li class="Default"><p><strong>PreInitializeComponents</strong> - 在 Actor 的组件上调用 InitializeComponent 之前进行调用。
+</p></li><li class="Default"><p><strong>InitializeComponent</strong> - Actor 上定义的每个组件的创建辅助函数。
+</p></li><li class="Default"><p><strong>PostInitializeComponents</strong> - Actor 的组件初始化后调用。
+</p></li></ol></li><li class="Default"><p><strong>OnActorSpawned</strong> 在 UWorld 上播放。
+</p></li><li class="Default"><p><strong>BeginPlay</strong> 被调用。
+</p></li></ol><h2 id="延迟生成">延迟生成</h2>
+<p>将任意属性设为"Expose on Spawn"即可延迟 Actor 的生成。
+</p><ol ><li class="Default"><p><strong>SpawnActorDeferred</strong> - 生成程序化 Actor，在蓝图构建脚本之前进行额外设置。
+</p></li><li class="Default"><p>SpawnActor 中的所有操作发生；PostActorCreated 之后发生以下操作：
+</p><ol ><li class="Default"><p>通过一个有效但不完整的 Actor 实例设置/调用多个"初始化函数"。
+</p></li><li class="Default"><p><strong>FinishSpawningActor</strong> -调用后对 Actor 进行最终化，在 Spawn Actor 行中选取 ExecuteConstruction。
+</p></li></ol></li></ol><h2 id="生命走向终点">生命走向终点</h2>
+<p>销毁 Actor 的方式有许多种，但终结其存在的方式始终如一。
+</p><h3 id="在游戏进程中">在游戏进程中</h3>
+<p>它们完全为任选，因为许多 Actor 在游戏进程中不会实际消亡。
+</p><p><strong>Destroy</strong> - 游戏在 Actor 需要被移除时手动调用，但游戏进程仍在继续。Actor 被标记为等待销毁并从关卡的 Actor 阵列中移除。
+</p><p><strong>EndPlay</strong> - 在数个地方调用，保证 Actor 的生命走向终点。在游戏过程中，如包含流关卡的 Actor 被卸载，Destroy 将发射此项和关卡过渡。调用 EndPlay 的全部情形：
+</p><ul ><li class="Default"><p>对 Destroy 显式调用。
+</p></li><li class="Default"><p>Play in Editor 终结。
+</p></li><li class="Default"><p>关卡过渡（无缝行程或加载地图）。
+包含 Actor 的流关卡被卸载。
+</p></li><li class="Default"><p>Actor 的生命期已过。
+</p></li><li class="Default"><p>应用程序关闭（全部 Actor 被销毁）。
+</p></li></ul><p>无论这些情形出现的方式如何，Actor 都将被标记为 RF_PendingKill，因此在下个垃圾回收周期中它将被解除分配。此外，可以考虑使用更整洁的 <code>FWeakObjectPtr&lt;AActor&gt;</code> 代替手动检查"等待销毁"。
+</p><p><strong>OnDestroy</strong> - 这是对 Destroy 的旧有反应。也许应该将这里的所有内容移到 EndPlay，因为它被关卡过渡和其他游戏清理函数调用。
+</p><h2 id="垃圾回收">垃圾回收</h2>
+<p>一个对象被标记待销毁的一段时间后，垃圾回收会将其从内存中实际移除，释放其使用的资源。
+</p><p>在对象的销毁过程中，以下函数将被调用：
+</p><ol ><li class="Default"><p><strong>BeginDestroy</strong> - 对象可利用此机会释放内存并处理其他多线程资源（即为图像线程代理对象）。与销毁相关的大多数游戏性功能理应在 <code>EndPlay</code> 中更早地被处理。
+</p></li><li class="Default"><p><strong>IsReadyForFinishDestroy</strong> - 垃圾回收过程将调用此函数，以确定对象是否可被永久解除分配。返回 <code>false</code>，此函数即可延迟对象的实际销毁，直到下一个垃圾回收过程。
+</p></li><li class="Default"><p><strong>FinishDestroy</strong> - 最后对象将被销毁，这是释放内部数据结构的另一个机会。这是内存释放前的最后一次调用。
+</p></li></ol><h3 id="高级垃圾回收">高级垃圾回收</h3>
+<p><strong>虚幻引擎 4</strong> 中的垃圾回收过程将构建共同被销毁对象的集群。较之于单个删除对象，集群可减少垃圾回收相关的总体时间和整体内存流失。可能随对象的加载创建子对象。将对象与其子对象组合到垃圾回收器的单个集群后，引擎可延迟释放集群使用的资源，直到整个对象可被释放时一次性释放全部资源。
+</p><p>多数项目中无需对垃圾回收进行配置或修改，但存在一些特定情况 - 可以如下方式对垃圾回收器的"集群"行为进行调整，以提高效率：
+</p><ol ><li class="Default"><p><strong>Clustering</strong> - 关闭集群。在 <strong>Project Settings</strong> 中的 <strong>Garbage Collection</strong> 部分下，可将 <strong>Create Garbage Collector UObject Clusters</strong> 选项设为 false。对多数项目而言，此操作将导致垃圾回收效率降低，因此只建议在性能测试证明其绝对有益的情况下使用。
+</p></li><li class="Default"><p><strong>Cluster Merging</strong> - 如集群设为 true，<strong>Merge GC Clusters</strong> 选项（在 <strong>Project Settings</strong> 中的 <strong>Garbage Collection</strong> 部分下）可被设为 true，以便启动集群合并。此行为默认关闭，并不适合所有项目。在一个对象集群的构建过程中，对象将被检查，在其中可能找到对其他对象的引用。
+</p><p>关闭集群合并的情况下（默认行为），那些引用将被记录；但被加载的对象和其子对象仍位于其原始集群中。
+</p><p>开启集群合并的情况下，被加载对象和被引用对象的集群将被组合。例如，一个粒子系统资源可能引用一个材质资源；但如果集群合并被关闭，材质和粒子系统将因垃圾回收的原因而处在各自的集群中。开启集群合并后，因粒子系统引用材质，粒子资源集群将和材质集群进行合并。
+</p><p>此行为通常不用于流动内容的游戏（如开放世界游戏），因为可能合并许多集群，形成更大、更多样化的对象群组。集群中的对象不会被单独销毁，将等待群组中的所有对象均被设为待销毁。而其中一小部分对象可能一直处于使用状态，因此内存中可能出现较大的对象集群。在特殊情况下（如大量引用对象未被其他对象共享的资源）可启用集群合并，并在代码中手动添加集群，可统一子对象的清理、减少垃圾回收器在游戏中必须进行的输入和依赖关系维持检查次数，进而提高性能。
+</p></li></ol><p><span class="non-localized"><a id="content_link" href="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/Actors/ActorLifecycle/AdvancedGC.png" ><span><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/Actors/ActorLifecycle/AdvancedGC.jpg">
+		<img class="  lazyload" alt="AdvancedGC.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/Actors/ActorLifecycle/AdvancedGC.jpg" />
+</picture>
+</span></a></span>
+<div class="caption">
+	<p>垃圾回收的集群合并选项位于项目设置菜单中。</p>
+</div></p>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../../SiteIndex/index.html?tags=Actors">Actors</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../../SiteIndex/index.html?tags=Architecture">Architecture</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/Actors/ActorLifecycle/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:21:37 GMT -->
+</html>

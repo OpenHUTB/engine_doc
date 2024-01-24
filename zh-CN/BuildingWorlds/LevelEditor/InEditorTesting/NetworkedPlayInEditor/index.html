@@ -1,0 +1,408 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/BuildingWorlds/LevelEditor/InEditorTesting/NetworkedPlayInEditor/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:07:04 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/BuildingWorlds/LevelEditor/InEditorTesting/NetworkedPlayInEditor/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>在编辑器中进行联网游戏 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/BuildingWorlds/LevelEditor/InEditorTesting/NetworkedPlayInEditor/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/BuildingWorlds/LevelEditor/InEditorTesting/NetworkedPlayInEditor/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/BuildingWorlds/LevelEditor/InEditorTesting/NetworkedPlayInEditor/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/BuildingWorlds/LevelEditor/InEditorTesting/NetworkedPlayInEditor/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/UI/LevelEditor/InEditorTesting/NetworkedPlayInEditor" />
+<meta name="intsourcechangelist" content="18413618" />
+<meta name="availability" content="Public" />
+<meta name="title" content="在编辑器中进行联网游戏" />
+<meta name="description" content="通过客户端和服务器测试游戏" />
+<meta name="version" content="4.9" />
+<meta name="course" content="your-first-hour-with-unreal-engine?lang=zh-CN|虚幻引擎入门：第一个小时|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fyour-first-hour-with-unreal-engine%2F117-Your-First-Hour-In-Unreal-Engine-%281200x675%29-1200x675-3ba0c73d60c867b2040a2e3fcbb057c40313d515.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fyour-first-hour-with-unreal-engine%2F000-Spending-Your-First-Hour-in-Unreal-Engine%402x-1000x1000-257a32336fe426ebef81c31d8cba78473ac56645.png?resize=1&amp;w=300" />
+<meta name="course" content="introducing-unreal-engine?lang=zh-CN|虚幻引擎入门|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fintroducing-unreal-engine%2F103_EditorBasics%281200x675%29-1200x675-d1f9bfdcf224e37c9fe8c8f26b1ede1d22366103.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fintroducing-unreal-engine%2FIntroducing-Unreal-Engine-1000x1000-510d02d0754bb60deb7807c0fa45b23b1cf7ba02.png?resize=1&amp;w=300" />
+<meta name="course" content="unreal-engine-editor-fundamentals---editor-introduction?lang=zh-CN|UE编辑器基础-编辑器入门|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fue-editor-fundamentals---editor-introduction%2F118_1_Thumbnail_1920x1080-1920x1080-3a70b05e12f65bc5c12fa8391d697da90b41653b.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fue-editor-fundamentals---editor-introduction%2F118.1-UE-Editor-Fundamentals_-Editor-Introduction%402x-1000x1000-10141e3ca4902e37c2031a4509686aa5998a97b4.png?resize=1&amp;w=300" />
+<meta name="crumbs" content="%ROOT%,BuildingWorlds,BuildingWorlds/LevelEditor,BuildingWorlds/LevelEditor/InEditorTesting" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="在编辑器中进行联网游戏" />
+	<meta property="og:description" content="通过客户端和服务器测试游戏" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">构建虚拟世界</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">关卡编辑器</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">在编辑器中进行测试(运行&模拟)</a>
+
+<span class="separator">></span> <span id="page">在编辑器中进行联网游戏</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">在编辑器中进行联网游戏</h1>
+							</div>	
+							<h2 >通过客户端和服务器测试游戏</h2>
+							<div id="access">
+								<div class="accessContainer">
+																																			</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																								<div id="courses">
+	<div style="position:relative;">
+		<div id="title">相关课程</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<div name="your-first-hour-with-unreal-engine?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/your-first-hour-with-unreal-engine?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/your-first-hour-with-unreal-engine/117-Your-First-Hour-In-Unreal-Engine-(1200x675)-1200x675-3ba0c73d60c867b2040a2e3fcbb057c40313d515.224f86?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/your-first-hour-with-unreal-engine/000-Spending-Your-First-Hour-in-Unreal-Engine%402x-1000x1000-257a32336fe426ebef81c31d8cba78473ac56645.23fe4?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="your-first-hour-with-unreal-engine?lang=zh-CN_title">
+				虚幻引擎入门：第一个小时
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="introducing-unreal-engine?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/introducing-unreal-engine?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/introducing-unreal-engine/103_EditorBasics(1200x675)-1200x675-d1f9bfdcf224e37c9fe8c8f26b1ede1d22366103.254f86.del?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/introducing-unreal-engine/Introducing-Unreal-Engine-1000x1000-510d02d0754bb60deb7807c0fa45b23b1cf7ba02.27fe4b.del?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="introducing-unreal-engine?lang=zh-CN_title">
+				虚幻引擎入门
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="unreal-engine-editor-fundamentals---editor-introduction?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/unreal-engine-editor-fundamentals---editor-introduction?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/ue-editor-fundamentals---editor-introduction/118_1_Thumbnail_1920x1080-1920x1080-3a70b05e12f65bc5c12fa8391d697da9?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/ue-editor-fundamentals---editor-introduction/118.1-UE-Editor-Fundamentals_-Editor-Introduction%402x-1000x1000-10141e3ca4902e37c2031a4509686aa5?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="unreal-engine-editor-fundamentals---editor-introduction?lang=zh-CN_title">
+				UE编辑器基础-编辑器入门
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																								<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#设置联网测试">设置联网测试</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#高级设置">高级设置</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#调试蓝图">调试蓝图</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p><em>在编辑器中运行（Play In Editor）</em> 支持多个环境，因此，你可以测试联网游戏。编辑器会在已装入的UE4实例中生成多个环境，这可以缩短迭代时间，并
+允许你调试每个环境的 <em>蓝图</em>。
+</p><h2 id="设置联网测试">设置联网测试</h2>
+<p>在 <strong>关卡编辑器工具栏</strong> 或 <strong>蓝图编辑器工具栏</strong> 中的 <strong>游戏位置（Play In）</strong> 下拉菜单中，你可以设置在开始 <em>在编辑器中运行</em> 会话时要创建多少个客户端环境。
+另外，你还可以指定是否运行专用的服务器。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/BuildingWorlds/LevelEditor/InEditorTesting/NetworkedPlayInEditor/networking_settings.jpg">
+		<img class="  lazyload" alt="networking_settings.png" data-src="../../../../../Images/BuildingWorlds/LevelEditor/InEditorTesting/NetworkedPlayInEditor/networking_settings.jpg" />
+</picture>
+
+</p><p><strong>客户端数目（Number of Clients）</strong> 字段允许你指定要测试的玩家总数。如果设置为1，并且未选中 <strong>运行专用服务器（Run Dedicated Server）</strong>复选框，
+那么 <em>在编辑器中游戏</em> 会话将允许你测试非联网的单机游戏。 
+</p><p>此下拉菜单中提供的另一个基本联网选项是 <strong>运行专用服务器（Run Dedicated Server）</strong>复选框。如果选中此项，那么将启动"专用服务器"环境，但是没有专用服务器的显示或本地玩家。
+使用专用服务器意味着客户端都不会作为侦听服务器来运行。专用服务器让你能够查找仅限于专用服务器的错误，例如依赖于本地玩家的代码。对于功能依赖于服务器和客户端的 <em>蓝图</em>， 
+简单的测试配置是将 <strong>玩家数（Number of Players）</strong>设置为 1，并将 <strong>运行专用服务器（Run Dedicated Server）</strong> 设置为 <em>true</em>。只有一个窗口用于测试游戏，但其具备连接到专用服务器的客户端的完整功能。
+</p><p>设置这些选项后，请选择你喜欢的 <em>在编辑器中游戏</em> 模式开始测试游戏。如果你有多个客户端环境，并且为
+ <em>在编辑器中游戏</em> 会话选择 <strong>视口（Viewport）</strong> 显示类型，那么将在视口中显示一个客户端环境，而所有其他客户端环境都将显示在新窗口中。以下示例图展示了使用4个玩家和专用服务器进行测试。
+</p><p><strong>点击查看大图：</strong>
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/BuildingWorlds/LevelEditor/InEditorTesting/NetworkedPlayInEditor/4ClientPIE.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/BuildingWorlds/LevelEditor/InEditorTesting/NetworkedPlayInEditor/4ClientPIE.jpg">
+		<img class="  lazyload" alt="4ClientPIE.png" width="300" data-src="../../../../../Images/BuildingWorlds/LevelEditor/InEditorTesting/NetworkedPlayInEditor/4ClientPIE.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="tip">
+	<p>你可以使用 <strong>Shift+Tab</strong> 和 <strong>Control+Tab</strong> 在客户端窗口之间循环切换焦点。 </p>
+</div><h2 id="高级设置">高级设置</h2>
+<p>客户端环境数目以及是否使用专用服务器也可以在<a id="content_link" href="../Settings/index.html" ><span>关卡编辑器——游戏位置设置窗口</span></a> 中设置。在此处，
+你还可以指定要发送给预览会话的任何命令行选项，并且还能通过取消选中 <strong>使用单个进程（Use Single Process）</strong> 复选框来恢复先前的联网 <em>在编辑器中游戏</em> 行为。
+</p><div class="include_wrapper" data-path="BuildingWorlds/LevelEditor\InEditorTesting\Settings">
+<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p><strong>设置</strong> </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p><strong>描述</strong> </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>启动独立服务器（Launch Separate Server）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>启动一个单独的服务器，即便网络模式不需要它。这允许你通过让离线游戏连接服务器，来测试离线服务器的工作流程。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>游戏网络模式（Play Net Mode）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>设置PIE会话使用的网络模式。
+</p><ul ><li class="Default"><p>作为独立进程游戏播放（Play Standalone）**: 启动一个独立进程游戏。这样不会创建一个专用服务器，也不会自动连接到一个服务器。
+</p></li><li class="Default"><p><strong>作为监听服务器播放（Play As Listen Server）</strong>: 让编辑器同时充当服务器和客户端。根据客户端的数量，可以打开额外的客户端。
+</p></li><li class="Default"><p><strong>作为客户端播放（Play As Client）</strong>: 让编辑器充当客户端。在后端生成一个专用服务器以便连接用。
+</p></li></ul>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>在单个进程下运行（Run Under One Process）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>在一个单一的UE4实例下生成多人游戏窗口。这样加载速度会快很多，但有可能出现更多问题。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>启用网络模拟（Enable Network Emulation）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>在启动游戏时应用所选的网络模拟设置，用于测试你的游戏如何处理网络问题。
+</p><ul ><li class="Default"><p><strong>模拟目标（Emulation Target）</strong>：将模拟设置仅用于服务器（Server Only）、仅用于客户端（Clients Only）、或用于所有人（Everyone）。
+</p></li><li class="Default"><p><strong>网络模拟配置（Network Emulation Profile）</strong>。对输入流量和外发流量应用预设。选项包括 "平均（Average）"、"糟糕（Bad）" 或 "自定义（Custom）"。
+</p></li><li class="Default"><p><strong>输入流量（Incoming traffic）</strong>。可以为所有输入的数据包添加延迟和数据包丢失的设置。可以添加最小和最大延迟，以及数据包丢失的百分比。
+</p></li><li class="Default"><p><strong>外发流量（Outgoing traffic）</strong>: 可以为所有外发数据包添加延迟和数据包丢失的设置。可以添加最小和最大延迟，以及数据包丢失的百分比。
+</p></li></ul>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>客户端（Client）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>启动游戏时应用所选的客户端设置。
+</p><ul ><li class="Default"><p><strong>游戏客户端数量（Play Number of Clients）</strong>：打开多个客户端窗口。第一个窗口将遵循在"编辑器模式中播放"（Play In Editor）的选项，其余的将遵循"在一个进程下运行"（Run Under One Process）的设置。
+</p></li><li class="Default"><p><strong>将游戏手柄路由给第二个窗口（Route Gampad to Second Window）</strong>: 在多人游戏会话中，路由游戏手柄的输入。如未勾选，则第一个游戏手柄绑定第一个多人游戏窗口，第二个绑定第二个窗口，依此类推。如勾选，游戏手柄绑定第二个多人游戏窗口，第一个窗口则由键盘和鼠标控制。
+</p></li><li class="Default"><p><strong>为每个玩家创建音频设备（Create Audio Device for Every Player）</strong>。控制创建多少个音频设备。如果勾选，将为每个玩家创建一个单独的音频设备。这能为每个玩家的视角提供准确匹配的音频效果，但代价是CPU开销变大。如果不勾选，则只为前两个玩家创建单独的音频设备。
+</p></li><li class="Default"><p><strong>客户端固定FPS（Client Fixed FPS）</strong>。将各个客户端的帧率设置为列表中的元素。包括监听服务器。
+</p></li></ul>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>服务器（Server）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>启动游戏时，应用选定的服务器设置：
+</p><ul ><li class="Default"><p><strong>服务器端口（Server Port）</strong>。打开所选端口，进行简单服务器联网。
+</p></li><li class="Default"><p><strong>服务器地图名称重载（Server Map Name Override）</strong>。重载服务器启动的地图。目前只有PIE_StandaloneWithServer网络模式使用。
+</p></li><li class="Default"><p><strong>其他服务器游戏选项（Additonal Server Game Options）</strong>: 添加其他参数，作为URL参数传递给服务器。
+</p></li><li class="Default"><p><strong>其他服务器启动参数（Additonal Server Launch Parameters）</strong>: 添加其他参数，以便作为参数传递给服务器。
+</p></li><li class="Default"><p><strong>服务器固定FPS（Server Fixed FPS）</strong>: 让服务器以指定帧率运行。不影响监听服务器。
+</p></li><li class="Default"><p><strong>多人游戏视口大小（按像素计）（Multiplayer Viewport Size (in pixels)）</strong>: 以指定的宽度和高度生成额外的客户端。当你需要多个客户端但只想与一个窗口交互时，这会很有用。
+</p></li></ul>
+			</td>
+	
+</tr></tbody>
+</table>
+</div>
+<h2 id="调试蓝图">调试蓝图</h2>
+<p>现在，在多环境场景中运行时，<strong>蓝图编辑器</strong> 将提供一个额外的下拉菜单，用于选择要调试的环境：
+</p><p> <picture>
+		<source data-srcset="./../../../../../Images/BuildingWorlds/LevelEditor/InEditorTesting/NetworkedPlayInEditor/bp_debugger_multiplayer_pie.jpg">
+		<img class="  lazyload" alt="bp_debugger_multiplayer_pie.png" data-src="../../../../../Images/BuildingWorlds/LevelEditor/InEditorTesting/NetworkedPlayInEditor/bp_debugger_multiplayer_pie.jpg" />
+</picture>
+
+</p><p>环境列表将对Actor列表中的Actor进行过滤。例如，如果选择"全部环境"，那么你将在另一个下拉列表中看到每个环境中的Actor。如果选择其他环境中的某个环境，那么你将只看到该环境实例中的Actor。
+</p><p>这也会影响断点。例如，如果将调试环境设置为客户端1，那么断点只会在客户端1环境中的Actor上触发。
+</p><div class="tip">
+	<p>通过查看窗口标题，你可以看到预览窗口的客户端数目。例如，在以上联网游戏图像中，有一个标题为 <strong>ShooterGame Game Preview Client 1(64bit/PCD3D_SM5)</strong> 的窗口。</p>
+</div><p>如果选择所有环境（All Worlds），那么任何环境都可以触发断点。断点触发时，蓝图编辑器将显示所调试的环境： 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/BuildingWorlds/LevelEditor/InEditorTesting/NetworkedPlayInEditor/bp_graph_multiplayer_pie.jpg">
+		<img class="  lazyload" alt="bp_graph_multiplayer_pie.png" data-src="../../../../../Images/BuildingWorlds/LevelEditor/InEditorTesting/NetworkedPlayInEditor/bp_graph_multiplayer_pie.jpg" />
+</picture>
+
+</p>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/BuildingWorlds/LevelEditor/InEditorTesting/NetworkedPlayInEditor/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:07:05 GMT -->
+</html>

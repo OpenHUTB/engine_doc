@@ -1,0 +1,536 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/BuildingWorlds/LightingAndShadows/LightPropagationVolumes/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 10:54:27 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "../../../../Images/RenderingAndGraphics/RAndG_HeroBanner.png";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/BuildingWorlds/LightingAndShadows/LightPropagationVolumes/" />');
+				var udnCSS = '../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>光线传播体积 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/BuildingWorlds/LightingAndShadows/LightPropagationVolumes/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/BuildingWorlds/LightingAndShadows/LightPropagationVolumes/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/BuildingWorlds/LightingAndShadows/LightPropagationVolumes/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/BuildingWorlds/LightingAndShadows/LightPropagationVolumes/" hreflang="ko" />
+
+	<meta name="redirect" content="RenderingAndGraphics/LightingAndShadows/LightPropagationVolumes" />
+<meta name="redirect" content="Engine/Rendering/LightingAndShadows/LightPropagationVolumes" />
+<meta name="intsourcechangelist" content="15403201" />
+<meta name="availability" content="Public" />
+<meta name="title" content="光线传播体积" />
+<meta name="description" content="System for dynamically generating global illumination." />
+<meta name="version" content="4.26" />
+<meta name="parent" content="RenderingAndGraphics/GlobalIllumination" />
+<meta name="keywords" content="deprecated" />
+<meta name="keywords" content="Lighting" />
+<meta name="topic-image" content="lpv_topic.png" />
+<meta name="hero-image" content="RenderingAndGraphics/RAndG_HeroBanner.png" />
+<meta name="course" content="lighting-essential-concepts-and-effects?lang=zh-CN|光照基础概念和效果|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Flighting-essential-concepts-and-effects%2FLightingEssentials_Topic_1920x1080-1920x1080-3e04dcaf168d9a530720df1573b417807ae00784.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Flighting-essential-concepts-and-effects%2FLighting-Essential-Concepts-and-Effects-1000x1000-14831d7f280345717b0bdd66be9422b40ffb91bd.png?resize=1&amp;w=300" />
+<meta name="course" content="introducing-global-illumination?lang=zh-CN|全局光照入门|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fintroducing-global-illumination%2F105_GlobalIllum%281200x675%29-1200x675-97270dbdc7595455b4c9acf0e83bf01da8efbfd4.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fintroducing-global-illumination%2FIntroducing-Global-Illumination-1000x1000-af5267ea2a6721b1cc73af7825d226aedbbaf5ce.png?resize=1&amp;w=300" />
+<meta name="crumbs" content="%ROOT%,RenderingAndGraphics,RenderingAndGraphics/GlobalIllumination" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="光线传播体积" />
+	<meta property="og:description" content="System for dynamically generating global illumination." />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../RenderingAndGraphics/index.html">设计视觉、渲染和图形效果</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../../RenderingAndGraphics/GlobalIllumination/index.html">全局光照</a>
+
+<span class="separator">></span> <span id="page">光线传播体积</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+					<div id="banner" class="deprecated">
+	<div id="message">
+		此功能已<span>废弃</span>，不应继续使用
+	</div>
+	<div id="bannerDescription">
+		已废弃的功能随时可能被移除。它们有时会被新功能或系统取代，但并非总是如此。请根据情况更新您的项目。
+	</div>
+</div>
+															<div class="hero  background">
+						<div class="imgContainer"><img src="../../../../Images/RenderingAndGraphics/RAndG_HeroBanner.png" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">光线传播体积</h1>
+							</div>	
+							<h2 >System for dynamically generating global illumination.</h2>
+							<div id="access">
+								<div class="accessContainer">
+																																			</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																								<div id="courses">
+	<div style="position:relative;">
+		<div id="title">相关课程</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<div name="lighting-essential-concepts-and-effects?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/lighting-essential-concepts-and-effects?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/lighting-essential-concepts-and-effects/LightingEssentials_Topic_1920x1080-1920x1080-3e04dcaf168d9a530720df1573b417807ae00784.4884f86.delaye?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/lighting-essential-concepts-and-effects/Lighting-Essential-Concepts-and-Effects-1000x1000-14831d7f280345717b0bdd66be9422b40ffb91bd.489fe4b.d?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="lighting-essential-concepts-and-effects?lang=zh-CN_title">
+				光照基础概念和效果
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="introducing-global-illumination?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/introducing-global-illumination?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/introducing-global-illumination/105_GlobalIllum(1200x675)-1200x675-97270dbdc7595455b4c9acf0e83bf01da8efbfd4.48b4f?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/introducing-global-illumination/Introducing-Global-Illumination-1000x1000-af5267ea2a6721b1cc73af7825d226aedbbaf5c?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="introducing-global-illumination?lang=zh-CN_title">
+				全局光照入门
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																								<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#启用光线传播体积">启用光线传播体积</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#基础场景设置">基础场景设置</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#光线传播体积设置">光线传播体积设置</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#调整外观和性能">调整外观和性能</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#定向光源设置">定向光源设置</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#查看全局照明">查看全局照明</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#显示光线传播体积">显示光线传播体积</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#gi替换材质切换">GI 替换材质切换</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#其他注意事项">其他注意事项</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<div class="fullwidth">
+	<p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/LightPropagationVolumes/lpv_scene.jpg">
+		<img class="  lazyload" alt="lpv_scene.png" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/LightPropagationVolumes/lpv_scene.jpg" />
+</picture>
+</p>
+</div><h2 id="启用光线传播体积">启用光线传播体积</h2>
+<p>将此放入 <code>ConsoleVariables.ini</code> 并启动/重启引擎即可启用此功能。
+</p><pre class="prettyprint"><code>r.LightPropagationVolume = 1</code></pre>
+<p>此时，该控制台变量在运行时无法进行更改。
+</p><h2 id="基础场景设置">基础场景设置</h2>
+<ul ><li class="Default"><p>添加一个 <strong>Mobility</strong> 设为 <strong>Movable</strong> 的定向光源。
+</p></li><li class="Default"><p>添加/调整几何体和光线方向，使一些部分被阴影遮蔽，一些部分接受光照（明亮色彩的材质为佳）。
+</p></li><li class="Default"><p>不要将启用的全局光照 GI 与动态 GI 混淆（两种技术的组合将形成过于明亮的间接光照）。
+</p></li><li class="Default"><p>在定向光源上启用 <strong>Affect Dynamic Indirect Lighting</strong>。
+</p></li><li class="Default"><p>在显示标识中启用 Light Propagation Mode 查看模式，将光线传播体积覆盖的区域进行可视化 <a id="content_link" href="#查看全局照明" ><span>（见下文）</span></a>。
+</p></li><li class="Default"><p>添加/改变后期处理体积（应为未束缚），在 LightPropagationVolume 设置中调整"尺寸"，以所需的细节和距离覆盖区域（权衡）。
+</p></li><li class="Default"><p>使用全局照明显示标识启用/禁用 GI。
+</p></li></ul><h2 id="光线传播体积设置">光线传播体积设置</h2>
+<p>部分全局设置在后期处理设置中（添加后期处理体积、设为未束缚并设置适当的优先级）：
+</p><p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/LightPropagationVolumes/LPV_settings.jpg">
+		<img class="  lazyload" alt="LPV_settings.png" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/LightPropagationVolumes/LPV_settings.jpg" />
+</picture>
+
+</p><p>可在提示文本（鼠标悬停显示）获取设置的更多详情。
+</p><p>将这些设置放置在一个体积中后，可根据摄像机位置使其进行柔和混合（如在室内环境或树下形成更小的 GI 反射）。
+</p><p>应启用次要遮挡，同样应启用次要反射，因其消耗极低。 
+</p><h3 id="调整外观和性能">调整外观和性能</h3>
+<p>此技术在低分辨率的体积网格中保存数据。为避免从比体积小的几何体发生泄漏，需要对注入设置偏差。可在后期处理设置中进行调整：
+</p><div class="imagetable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p><span class="non-localized"><a id="content_link" href="../../../../Images/BuildingWorlds/LightingAndShadows/LightPropagationVolumes/LPV_injection_bias_1.png" ><span><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/LightPropagationVolumes/LPV_injection_bias_1.jpg">
+		<img class="  lazyload" alt="LPV_injection_bias_1.png" width="290" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/LightPropagationVolumes/LPV_injection_bias_1.jpg" />
+</picture>
+</span></a></span></p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p><span class="non-localized"><a id="content_link" href="../../../../Images/BuildingWorlds/LightingAndShadows/LightPropagationVolumes/LPV_injection_bias_2.png" ><span><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/LightPropagationVolumes/LPV_injection_bias_2.jpg">
+		<img class="  lazyload" alt="LPV_injection_bias_2.png" width="290" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/LightPropagationVolumes/LPV_injection_bias_2.jpg" />
+</picture>
+</span></a></span></p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p><span class="non-localized"><a id="content_link" href="../../../../Images/BuildingWorlds/LightingAndShadows/LightPropagationVolumes/LPV_injection_bias_3.png" ><span><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/LightPropagationVolumes/LPV_injection_bias_3.jpg">
+		<img class="  lazyload" alt="LPV_injection_bias_3.png" width="290" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/LightPropagationVolumes/LPV_injection_bias_3.jpg" />
+</picture>
+</span></a></span></p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>1.0</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>1.3</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>2.0</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div><p>可通过"LPV Bias Multiplier"调整每个网格体的偏差。
+</p><p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/LightPropagationVolumes/LPV_bias_multiplier.jpg">
+		<img class="  lazyload" alt="LPV_bias_multiplier.png" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/LightPropagationVolumes/LPV_bias_multiplier.jpg" />
+</picture>
+
+</p><p>为获得更佳的性能，（更少的绘制调用不产生 CPU 消耗， GPU 消耗较低）可在材质中禁用此功能：
+</p><p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/LightPropagationVolumes/LPV_disable_material.jpg">
+		<img class="  lazyload" alt="LPV_disable_material.png" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/LightPropagationVolumes/LPV_disable_material.jpg" />
+</picture>
+
+</p><h2 id="定向光源设置">定向光源设置</h2>
+<p>出于性能原因，光线传播体积只使用定向光源作为射入光线。此法在摄像机附近计算出一个所谓的 <em>反射阴影贴图</em>。
+它和普通的阴影贴图相似（不透明深度来自灯光透视的 2D 纹理），但拥有额外的材质属性（材质颜色、法线）。
+对每个点光源执行此操作的消耗极高。必须在定向光源上拥有正确的设置：
+</p><p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/LightPropagationVolumes/LPV_light_settings.jpg">
+		<img class="  lazyload" alt="LPV_light_settings.png" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/LightPropagationVolumes/LPV_light_settings.jpg" />
+</picture>
+
+</p><p>启用"Affect Dynamic Indirect Lighting"和"Cast Shadows"，并将间接光照强度设为 1.0 左右。
+</p><h2 id="查看全局照明">查看全局照明</h2>
+<p>可在显示标识中禁用 LPV（需注意：此操作将同时禁用 Lightmass 计算的烘焙全局照明）：
+</p><!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/LightPropagationVolumes/LPV_show_flag.jpg">
+		<img class="  lazyload" alt="Global Illumination Disabled" width="460" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/LightPropagationVolumes/LPV_show_flag.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/LightPropagationVolumes/LPV_show_flag_enabled.jpg">
+		<img class="  lazyload" alt="Global Illumination Enabled" width="460" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/LightPropagationVolumes/LPV_show_flag_enabled.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div><h2 id="显示光线传播体积">显示光线传播体积</h2>
+<p>可通过显示标识在视口中显示实际光线传播体积：
+</p><!--
+id:paramliteral
+max:paramliteral
+ext:paramliteral
+caption:paramliteral
+image_list:param
+-->
+<div class="slider_container" id="LPV_visualize">
+    <div id="LPV_visualize_Image"></div>
+    <div class="slider"></div>
+	    <div class="caption">
+        <b><p><strong>拖动滑条查看光线传播体积的展示。</strong></p></b>
+    </div>
+	    <div id="images" class="hidden">
+        <p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/LightPropagationVolumes/LPV_visualize_1.jpg">
+		<img class="  lazyload" alt="LPV_visualize_1.png" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/LightPropagationVolumes/LPV_visualize_1.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/LightPropagationVolumes/LPV_visualize_2.jpg">
+		<img class="  lazyload" alt="LPV_visualize_2.png" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/LightPropagationVolumes/LPV_visualize_2.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/LightPropagationVolumes/LPV_visualize_3.jpg">
+		<img class="  lazyload" alt="LPV_visualize_3.png" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/LightPropagationVolumes/LPV_visualize_3.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/LightPropagationVolumes/LPV_visualize_4.jpg">
+		<img class="  lazyload" alt="LPV_visualize_4.png" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/LightPropagationVolumes/LPV_visualize_4.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/LightPropagationVolumes/LPV_visualize_5.jpg">
+		<img class="  lazyload" alt="LPV_visualize_5.png" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/LightPropagationVolumes/LPV_visualize_5.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/LightPropagationVolumes/LPV_visualize_6.jpg">
+		<img class="  lazyload" alt="LPV_visualize_6.png" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/LightPropagationVolumes/LPV_visualize_6.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/LightPropagationVolumes/LPV_visualize_7.jpg">
+		<img class="  lazyload" alt="LPV_visualize_7.png" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/LightPropagationVolumes/LPV_visualize_7.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/LightPropagationVolumes/LPV_visualize_8.jpg">
+		<img class="  lazyload" alt="LPV_visualize_8.png" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/LightPropagationVolumes/LPV_visualize_8.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/LightPropagationVolumes/LPV_visualize_9.jpg">
+		<img class="  lazyload" alt="LPV_visualize_9.png" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/LightPropagationVolumes/LPV_visualize_9.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/LightPropagationVolumes/LPV_visualize_10.jpg">
+		<img class="  lazyload" alt="LPV_visualize_10.png" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/LightPropagationVolumes/LPV_visualize_10.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/LightPropagationVolumes/LPV_visualize_11.jpg">
+		<img class="  lazyload" alt="LPV_visualize_11.png" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/LightPropagationVolumes/LPV_visualize_11.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/LightPropagationVolumes/LPV_visualize_12.jpg">
+		<img class="  lazyload" alt="LPV_visualize_12.png" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/LightPropagationVolumes/LPV_visualize_12.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/LightPropagationVolumes/LPV_visualize_13.jpg">
+		<img class="  lazyload" alt="LPV_visualize_13.png" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/LightPropagationVolumes/LPV_visualize_13.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/LightPropagationVolumes/LPV_visualize_14.jpg">
+		<img class="  lazyload" alt="LPV_visualize_14.png" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/LightPropagationVolumes/LPV_visualize_14.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/LightPropagationVolumes/LPV_visualize_15.jpg">
+		<img class="  lazyload" alt="LPV_visualize_15.png" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/LightPropagationVolumes/LPV_visualize_15.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/LightPropagationVolumes/LPV_visualize_16.jpg">
+		<img class="  lazyload" alt="LPV_visualize_16.png" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/LightPropagationVolumes/LPV_visualize_16.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/LightPropagationVolumes/LPV_visualize_17.jpg">
+		<img class="  lazyload" alt="LPV_visualize_17.png" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/LightPropagationVolumes/LPV_visualize_17.jpg" />
+</picture>
+</p>
+    </div>
+</div>
+<h2 id="gi替换材质切换">GI 替换材质切换</h2>
+<p>观察下图中的两个红色方块 - 其中一个反射为绿色（而非红色）。
+</p><p><img class="  lazyload" alt="LPV_bounce_color_override.png" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/LightPropagationVolumes/LPV_bounce_color_override.png" />
+
+</p><p>使用新材质表现可获得此效果。
+</p><p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/LightPropagationVolumes/LPV_gi_replace.jpg">
+		<img class="  lazyload" alt="LPV_gi_replace.png" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/LightPropagationVolumes/LPV_gi_replace.jpg" />
+</picture>
+
+</p><p>通常而言不需要设置完全不同的颜色，使用较深、较亮、或 
+细微的颜色调节即可。
+</p><h2 id="其他注意事项">其他注意事项</h2>
+<p>当前应用 LPV 的属性：
+</p><ul ><li class="Default"><p>每帧计算可生成动态材质/灯光/几何体。
+</p></li><li class="Default"><p>弥散和近似镜面材质交互。
+</p></li><li class="Default"><p>有限的距离（更大的体积（如 2 倍）容易实现，但内存要求和计算可能增加 8 倍）。
+</p></li><li class="Default"><p>世界空间中的固定细节（近景细节较多，远景细节较少为佳）。
+</p></li><li class="Default"><p>不影响半透明度。
+</p></li><li class="Default"><p>光线反射不受贴图影响。
+</p></li><li class="Default"><p>贴图着色功能正常（与应用贴图前在底部应用灯光的烘焙灯光不同）。
+</p></li><li class="Default"><p>需计算着色器（DirectX 11）支持。
+</p></li><li class="Default"><p>为灯光反射支持一个或多个定向光源。
+</p></li><li class="Default"><p>在运行时改变尺寸会出现轻微的穿帮，可随时间消失。
+</p></li><li class="Default"><p>为次要区域设置自发光灯光（当前未加入）。
+</p></li><li class="Default"><p>遮挡（当前未加入）。
+</p></li><li class="Default"><p>遮挡估算的点光源阴影（当前未加入）。
+</p></li><li class="Default"><p>通过几何体体素化形成的次要遮挡，将消耗一定性能换取极佳的精度（当前未加入）。
+</p></li></ul>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../SiteIndex/index.html?tags=deprecated">deprecated</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../SiteIndex/index.html?tags=Lighting">Lighting</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/BuildingWorlds/LightingAndShadows/LightPropagationVolumes/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 10:54:40 GMT -->
+</html>

@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/Actors/Ticking/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:21:37 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/Actors/Ticking/" />');
+				var udnCSS = '../../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>Actor Ticking | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/Actors/Ticking/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/Actors/Ticking/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/Actors/Ticking/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/Actors/Ticking/" hreflang="ko" />
+
+	<meta name="redirect" content="Programming/UnrealArchitecture/Actors/Ticking" />
+<meta name="intsourcechangelist" content="3108692" />
+<meta name="availability" content="Public" />
+<meta name="title" content="Actor Ticking" />
+<meta name="description" content="介绍用于每帧更新 Actor 的 tick 系统。" />
+<meta name="version" content="4.11" />
+<meta name="crumbs" content="%ROOT%,ProgrammingAndScripting,ProgrammingAndScripting/ProgrammingWithCPP,ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture,ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/Actors" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="Actor Ticking" />
+	<meta property="og:description" content="介绍用于每帧更新 Actor 的 tick 系统。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../../index.html">编程和脚本编写</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">编程指南</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">游戏逻辑编程</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">Actors</a>
+
+<span class="separator">></span> <span id="page">Actor Ticking</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">Actor Ticking</h1>
+							</div>	
+							<h2 >介绍用于每帧更新 Actor 的 tick 系统。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																																			</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																																				<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#ticking">Ticking</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#tick组">Tick 组</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#tick组排序">Tick 组排序</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#tg_prephysics">TG_PrePhysics</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#tg_duringphysics">TG_DuringPhysics</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#tg_postphysics">TG_PostPhysics</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#tg_postupdatework">TG_PostUpdateWork</a></p>
+	</li>					</ul>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#tick依赖性">Tick 依赖性</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#范例">范例</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#tick组/tick依赖性使用范例">Tick 组/Tick 依赖性使用范例</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#actor生成">Actor 生成</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#组件tick">组件 Tick</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#高级tick功能">高级 Tick 功能</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<h2 id="ticking">Ticking</h2>
+<p>"Tick"指的是以规则间隔（常为每帧一次）在一个 actor 或组件上运行一段代码或蓝图脚本。正确理解游戏 actor 和组件之间相对的 tick 顺序和 
+引擎执行的其他每帧任务十分重要，可避免帧差一问题，并确保游戏运行的一致性。Actors 和组件可设为每帧 tick，也可设为以最低时间间隔 tick，或完全不 tick。此外，它们可在引擎每帧更新循环中的不同阶段被合并为组；也可接受单独指令，等待特定 tick 完成后再开始。
+</p><a name="tickgroups" ></a><h2 id="tick组">Tick 组</h2>
+<p>除非已指定最低 tick 间隔，Actors 和组件每帧 tick 一次。Ticking 根据 tick 组发生。Tick 组可在代码或蓝图中指定。Actor 或组件的 tick 组用于确定在帧中何时进行 tick，相对于其他引擎中的帧处理（主要是物理模拟）。每个 tick 组将完成对指定的每个 actor 和组件的 tick，然后再开始下一个 tick 组。除 tick 组外，actors 或组件还可设置 tick 依赖性，意味着其他特定 actor 或组件的 tick 函数完成后它们才会进行 tick。Tick 组和 tick 依赖性的使用十分重要，可确保游戏在涉及到多个 actors 或组件的物理相依行为或循序游戏性行为方面工作正常。
+</p><p>下表是可用于游戏性的 tick 组，按它们在帧中运行的顺序排序，并包含每个组的特定含义和环境。
+</p><a name="tickgrouporder" ></a><h3 id="tick组排序">Tick 组排序</h3>
+<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p><strong>Tick 组</strong> </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p><strong>引擎活动</strong> </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>TG_PrePhysics</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>帧的开始。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>TG_DuringPhysics</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>到达此步骤时，物理模拟已开始。Tick 此组时的任意时候，或所有组成员已 tick 后，模拟完成并更新引擎的物理数据。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>TG_PostPhysics</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>此步骤开始时物理模拟已完成，引擎正在使用当前帧的数据。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>n/a</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>处理隐藏操作、tick 世界时间管理器、更新摄像机、更新关卡流送体积域和流送操作。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>TG_PostUpdateWork</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>n/a</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>n/a</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>处理之前在帧中创建的 actor 的延迟生成。完成帧并渲染。</p>
+			</td>
+	
+</tr></tbody>
+</table><h4 id="tg_prephysics">TG_PrePhysics</h4>
+<ul ><li class="Default"><p>Actor 将与物理对象（包括基于物理的附着物）进行交互时使用的 tick 组。如此，actor 的运动便完成，并可被纳入物理模拟因素。
+</p></li><li class="Default"><p>此 tick 中的物理模拟数据属于上一帧 — 也就是上一帧渲染到屏幕上的数据。
+</p></li></ul><h4 id="tg_duringphysics">TG_DuringPhysics</h4>
+<ul ><li class="Default"><p>因它在物理模拟的同时运行，无法确定此 tick 中的物理数据来自上一帧或当前帧。物理模拟可在此 tick 组中的任意时候完成，且不会显示信息来表达此结果。
+</p></li><li class="Default"><p>因为物理模拟数据可能来自当前帧或上一帧，此 tick 组只推荐用于无视物理数据或允许一帧偏差的逻辑。常见用途为更新物品栏画面或小地图显示。此处物理数据完全无关，或显示要求不精确，一帧延迟不会造成问题。
+</p></li></ul><h4 id="tg_postphysics">TG_PostPhysics</h4>
+<ul ><li class="Default"><p>此 tick 组运行时，此帧的物理模拟结果已完成。
+</p></li><li class="Default"><p>此组可用于武器或运动追踪。渲染此帧时所有物理对象将位于它们的最终位置。这尤其适用于射击游戏中的激光瞄准器。在此情况中激光束必须从枪的最终位置发出，即便出现一帧延迟也会十分明显。
+</p></li></ul><h4 id="tg_postupdatework">TG_PostUpdateWork</h4>
+<ul ><li class="Default"><p>这在 TG_PostPhysics 之后运行。从以往来看，它的基函数是将最靠后的信息送入粒子系统。
+</p></li><li class="Default"><p>TG_PostUpdateWork 在摄像机更新后发生。如特效必须知晓摄像机朝向的准确位置，可将控制这些特效的 actor 放置于此。
+</p></li><li class="Default"><p>这也可用于在帧中绝对最靠后运行的游戏逻辑，如解决格斗游戏中两个角色在同一帧中尝试抓住对方的情况。
+</p></li></ul><a name="tickdependency" ></a><h2 id="tick依赖性">Tick 依赖性</h2>
+<p>存在于 actor 和组件上的 <code>AddTickPrerequisiteActor</code> 和 <code>AddTickPrerequisiteComponent</code> 函数将设置存在函数调用的 actor 或组件等待 tick，直到特定的其他 actor 或组件完成 tick。这尤其适用于这样的情况：在帧中几乎相同时间发生，但一个 actor/组件将设置另一个 actor/组件所需的数据。在 tick 组上使用它的原因是：如存在于相同组中，许多 actor 可被并行更新。如 actors 只是个体依赖于一个或两个其他 actors，而无需等待整个组完成后再进行 tick，则没有必要将一组 actors 移动到一个全新的组。
+</p><a name="examples" ></a><h2 id="范例">范例</h2>
+<a name="tickgroup/tickdependencyusageexample" ></a><h3 id="tick组/tick依赖性使用范例">Tick 组/Tick 依赖性使用范例</h3>
+<p>以一个游戏来举例说明如何使用以上列出的每种 tick 组：在这个游戏中玩家控制一个动画 actor 进行激光瞄准，在影响的点上放置一个特殊的瞄准标线 actor。只要激光对准特定类型的目标物体，一个特殊的条便会开始填充。一个 HUD actor 将把此条显示在屏幕上。
+</p><p>玩家的动画 actor 将在 TG_PrePhysics 中移动和执行动画。需要在物理之前完成它的动画设置，使物理模拟对象正常跟随并与之交互。
+</p><p>HUD 可在任意 tick 组中更新，但出于两大原因，TG_DuringPhysics 为优选。第一，TG_DuringPhysics 可接受，因为它不直接与游戏的物理模拟产生交互或使用来自物理模拟的数据。第二，没有原因强制物理模拟等待 HUD 完成更新，也没有原因强制 HUD 等待物理模拟完成。注意，HUD 为游戏后的一帧。对准目标物体时，此帧不会反映到条中，下一帧才会。
+</p><p>标线 actor 在 TG_PostPhysics 中更新。如此标线便可了解其对场景的追踪。因为它将在帧的最后渲染，所以它将正常出现在物体表面。它还将基于目标物体的正确位置调整条的数值。
+</p><p>最后，在 TG_PostUpdateWork 中，激光粒子效果将更新到瞄准 actor 和标线的最后位置。
+</p><p>Tick 依赖性可消除对 TG_PostUpdateWork 的需求。激光粒子可随标线 actor 放置在 TG_PostPhysics 中，使用 tick 依赖性确保标线完成 tick 后激光才会更新到标线的位置。将激光的 tick 依赖性设为标线，可确保激光不会被过早更新，但无需等待其他不相关、位于物理之后的其他 tick。此操作比将激光移入不同的 tick 组更为高效。
+</p><p>作为不从 tick 依赖性获益的一个范例，标线自身无需依赖于瞄准 actor 进行 tick，但是它需要瞄准 actor 完成 tick 后才能执行其自身的 tick。不需要 tick 依赖性的原因是标线处于物理之后，而瞄准 actor 处于物理之前。它们处于不同的 tick 组中，即可确定它们将按组自身的排序运行。因为每个 tick 组完成所有 actor 和组件的 tick 后下一个 tick 组才会开始。
+</p><a name="actorspawning" ></a><h2 id="actor生成">Actor 生成</h2>
+<p>在 <code>BeginPlay</code> 中，actor 将向引擎注册其主 tick 函数和其组件的 tick 函数。Actor 的 tick 函数可通过 <code>PrimaryActorTick</code> 成员设为在特定 tick 组中运行，或完全禁用。这通常在构造函数中完成，以确保 <code>BeginPlay</code> 调用前数据设置正确。一些常用代码如下：
+</p><pre class="prettyprint"><code>PrimaryActorTick.bCanEverTick = true;
+PrimaryActorTick.bTickEvenWhenPaused = true;
+PrimaryActorTick.TickGroup = TG&#95;PrePhysics;</code></pre>
+<a name="componentticking" ></a><h2 id="组件tick">组件 Tick</h2>
+<p>组件可以和 Actor 一样被分隔为不同的 tick 组。之前，Actor 在 Actor 的 tick 中 tick 其所有组件。这仍在发生，但需要处于不同群组中的组件将被添加到一个列表中，在这些组件被 tick 时进行管理。将组件指定到 tick 组时应使用指定 actor 到 tick 组的相同标准。组件的 tick 结构的命名方式与 Actor 有所不同，但工作方式相同：
+</p><pre class="prettyprint"><code>PrimaryComponentTick.bCanEverTick = true;
+PrimaryComponentTick.bTickEvenWhenPaused = true;
+PrimaryComponentTick.TickGroup = TG&#95;PrePhysics;</code></pre>
+<p><code>PrimaryActorTick</code> 使用 Actor 的 <code>Tick()</code> 函数，而 PrimaryComponentTick 使用 ActorComponent 的 <code>TickComponent()</code></p><a name="advancedtickingfunctionality" ></a><h2 id="高级tick功能">高级 Tick 功能</h2>
+<p>Actor 或组件的默认 tick 函数可在游戏中分别通过 <code>AActor::SetActorTickEnabled</code> 和 <code>UActorComponent::SetComponentTickEnabled</code> 函数启用或禁用。此外，一个 actor 或组件可拥有多个 tick 函数。达成方法为：创建一个继承自 <code>FTickFunction</code> 的结构体，并覆写 <code>ExecuteTick</code> 和 <code>DiagnosticMessage</code> 函数。默认 actor 和组件 tick 函数结构是自行构建的好参考，可在 <code>FActorTickFunction</code> 和 <code>FComponentTickFunction</code> 下的 EngineBaseTypes.h 中找到它们。
+</p><p>将自建的 tick 函数结构添加到 actor 或组件后即可将其初始化（通常在拥有类的构造函数中进行）。启用和注册 tick 函数的最常用路径是覆写 <code>AActor::RegisterActorTickFunctions</code> 并添加调用到 tick 函数结构的 <code>SetTickFunctionEnable</code>，之后是作为参数的 <code>RegisterTickFunction</code> 
+（含拥有 actor 的等级）。此过程的最终结果是：创建的 actor 或组件可进行多次 tick，包括不同组中的 tick，以及每个 tick 函数单独的依赖性。手动设置 tick 依赖性的方法为：在需要依赖于其他函数结构的 tick 函数结构上调用 <code>AddPrerequisite</code>，然后传入用作依赖性的 tick 函数结构。
+</p>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/Actors/Ticking/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:21:37 GMT -->
+</html>

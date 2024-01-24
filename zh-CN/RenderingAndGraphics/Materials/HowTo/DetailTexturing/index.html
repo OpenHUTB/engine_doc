@@ -1,0 +1,663 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/RenderingAndGraphics/Materials/HowTo/DetailTexturing/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:14:51 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/RenderingAndGraphics/Materials/HowTo/DetailTexturing/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>添加细节纹理 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/RenderingAndGraphics/Materials/HowTo/DetailTexturing/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/RenderingAndGraphics/Materials/HowTo/DetailTexturing/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/RenderingAndGraphics/Materials/HowTo/DetailTexturing/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/RenderingAndGraphics/Materials/HowTo/DetailTexturing/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Rendering/Materials/HowTo/DetailTexturing" />
+<meta name="intsourcechangelist" content="15852323" />
+<meta name="availability" content="Public" />
+<meta name="title" content="添加细节纹理" />
+<meta name="description" content="有关向材质添加细节纹理的指南" />
+<meta name="related" content="RenderingAndGraphics/Materials/ExpressionReference/Coordinates" />
+<meta name="related" content="RenderingAndGraphics/Materials/CustomizedUVs" />
+<meta name="related" content="RenderingAndGraphics/Materials/Functions/Reference/Texturing" />
+<meta name="related" content="SharingAndReleasing/XRDevelopment/VR/OculusVR" />
+<meta name="related" content="RenderingAndGraphics/Materials/ExpressionReference/Textures" />
+<meta name="version" content="4.9" />
+<meta name="skilllevel" content="Intermediate" />
+<meta name="keywords" content="Materials" />
+<meta name="course" content="creating-pbr-materials?lang=zh-CN|创建PBR材质|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fcreating-pbr-materials%2FHighresScreenshot00006-1920x1050-2c0180460478cd00327494c6e5717e227be4926d.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fcreating-pbr-materials%2FCreating-PBR-Materials-1000x1000-0d34ec4bfc3eeb466ce5a981a867921f72464e77.png?resize=1&amp;w=300" />
+<meta name="course" content="getting-to-know-materials-for-design-visualization?lang=zh-CN|了解可视化设计中的材质|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fgetting-to-know-materials-for-design-visualization%2FIntro_to_Materials_003-1919x1079-f32638266c469a6fa2b9b2f3515e5766e8177b22.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fgetting-to-know-materials-for-design-visualization%2FGetting-to-Know-Materials-for-Design-Visualization-1000x1000-8cd1670f84e0111e39d4a3faa1e7a6ba29a30bfe.png?resize=1&amp;w=300" />
+<meta name="course" content="materials---exploring-essential-concepts?lang=zh-CN|材质：基础概念|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials---exploring-essential-concepts%2FMaterialEssentialConcepts-1920x1080-1920x1080-2414bb5cf0b0c3bd7ac4b993e725d2acedd45334.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials---exploring-essential-concepts%2FMaterials--Exploring-Essential-Concepts-1000x1000-9546cdc254e6659ce73211b5955ab9d886921256.png?resize=1&amp;w=300" />
+<meta name="course" content="materials---understanding-the-production-workflow?lang=zh-CN|材质：制作工作流|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials---understanding-the-production-workflow%2FMaterialWorkflow_ThumbnailFull-1920x1080-1920x1080-638fea6d7e3b7b299a4f433096336ce1caf662d0.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials---understanding-the-production-workflow%2F104-Materials-Production-Workflow%402x-1000x1000-ae1ba588a367d239fbe513da38bb793360c9eecf.png?resize=1&amp;w=300" />
+<meta name="course" content="materials-master-learning?lang=zh-CN|材质大师课程|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials-master-learning%2FMaterialMaster_1920x1080-1920x1080-212f85045980310d6985557f84d0217e6423b709.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials-master-learning%2FMaterials-Master-Learning-1000x1000-56fd0b66f6e798313f79737126d9215cbd4a3ff9.png?resize=1&amp;w=300" />
+<meta name="crumbs" content="%ROOT%,RenderingAndGraphics,RenderingAndGraphics/Materials,RenderingAndGraphics/Materials/HowTo" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="添加细节纹理" />
+	<meta property="og:description" content="有关向材质添加细节纹理的指南" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">设计视觉、渲染和图形效果</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">材质 </a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">材质 - 操作指南</a>
+
+<span class="separator">></span> <span id="page">添加细节纹理</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">添加细节纹理</h1>
+							</div>	
+							<h2 >有关向材质添加细节纹理的指南</h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Intermediate"><a id="skill_link" href="../../../../SiteIndex/index.html?skills=Intermediate">Intermediate</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																		<div id="seeAlso">
+	<div style="position:relative;">
+		<div id="title">参见</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<p>
+						<a id="related_link" href="../../ExpressionReference/Coordinates/index.html" title="对纹理坐标、可用作纹理坐标的输出值或者用来修改纹理坐标的输出值执行操作的表达式。">坐标表达式</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../CustomizedUVs/index.html" title="此功能允许在顶点着色器中运行计算，与逐个像素地运行计算相比，这可以提高性能。">定制 UV</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../Functions/Reference/Texturing/index.html" title="各种用于帮助处理纹理的函数，例如重新投射 UV 以及裁切等等。">纹理处理</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../../../SharingAndReleasing/XRDevelopment/VR/OculusVR/index.html" title="关于使用UE4为Oculus VR进行开发的信息。">Oculus VR开发</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../ExpressionReference/Textures/index.html" title="对纹理进行取样和输出的表达式。">纹理表达式</a>
+					</p>
+				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																		<div id="courses">
+	<div style="position:relative;">
+		<div id="title">相关课程</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<div name="creating-pbr-materials?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/creating-pbr-materials?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_443/Unreal%20Engine/onlinelearning-courses/creating-pbr-materials/HighresScreenshot00006-1920x1050-2c0180460478cd00327494c6e5717e227be4926d4f86.png?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_443/Unreal%20Engine/onlinelearning-courses/creating-pbr-materials/Creating-PBR-Materials-1000x1000-0d34ec4bfc3eeb466ce5a981a867921f72464e77fe4b.png?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="creating-pbr-materials?lang=zh-CN_title">
+				创建PBR材质
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="getting-to-know-materials-for-design-visualization?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/getting-to-know-materials-for-design-visualization?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/getting-to-know-materials-for-design-visualizat/Intro_to_Materials_003-1919x1079-f32638266c469a6fa2b9b2f3515e5766?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/getting-to-know-materials-for-design-visualizat/Getting-to-Know-Materials-for-Design-Visualization-1000x1000-8cd1670f84e0111e39d4a3faa1e7a6b?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="getting-to-know-materials-for-design-visualization?lang=zh-CN_title">
+				了解可视化设计中的材质
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="materials---exploring-essential-concepts?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/materials---exploring-essential-concepts?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/materials---exploring-essential-concepts/MaterialEssentialConcepts-1920x1080-1920x1080-2414bb5cf0b0c3bd7ac4b993e725d2acedd45334.42c4f86.dela?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/materials---exploring-essential-concepts/Materials--Exploring-Essential-Concepts-1000x1000-9546cdc254e6659ce73211b5955ab9d886921256.42dfe4b?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="materials---exploring-essential-concepts?lang=zh-CN_title">
+				材质：基础概念
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="materials---understanding-the-production-workflow?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/materials---understanding-the-production-workflow?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/materials---understanding-the-production-workfl/MaterialWorkflow_ThumbnailFull-1920x1080-1920x1080-638fea6d7e3b7b299a4f433096336ce1caf662d0?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/materials---understanding-the-production-workfl/104-Materials-Production-Workflow%402x-1000x1000-ae1ba588a367d239fbe513da38bb793360c9eecf.42ff?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="materials---understanding-the-production-workflow?lang=zh-CN_title">
+				材质：制作工作流
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="materials-master-learning?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/materials-master-learning?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/materials-master-learning/MaterialMaster_1920x1080-1920x1080-212f85045980310d6985557f84d0217e6423b709.4314f86.del?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/materials-master-learning/Materials-Master-Learning-1000x1000-56fd0b66f6e798313f79737126d9215cbd4a3ff9.433fe4b.de?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="materials-master-learning?lang=zh-CN_title">
+				材质大师课程
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																								<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#细节纹理化">细节纹理化</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#_细节纹理化_节点明细">"细节纹理化"节点明细</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#将纹理样本转换为纹理对象">将纹理样本转换为纹理对象</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#如何在材质中使用细节纹理化功能">如何在材质中使用细节纹理化功能</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#使用_细节纹理化_材质函数">使用"细节纹理化"材质函数</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#不使用细节材质函数">不使用细节材质函数</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#细节纹理化提示与技巧">细节纹理化提示与技巧</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#基于距离的细节纹理化">基于距离的细节纹理化</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#结论">结论</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>以非常近的距离查看材质时，您会注意到，材质中使用的纹理会细化为像素点，导致视觉效果欠佳。 
+为了解决此问题，您可以使用"细节纹理"，来帮助隐藏以非常近的距离查看材质时产生的纹理像素化。 
+</p><h2 id="细节纹理化">细节纹理化</h2>
+<p><strong>细节纹理化</strong> 通过引入叠加在对象原始漫射及法线贴图上的高度重复漫射及法线贴图组合，使纹理产生更加细腻的错觉。 
+这可以在近距离查看时产生优于正常的细节效果错觉。 
+以下是作用中的细节纹理化示例。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/DetailTexturing/DT_With_Without.jpg">
+		<img class="  lazyload" alt="DT_With_Without.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/DetailTexturing/DT_With_Without.jpg" />
+</picture>
+
+</p><p>在左图（标有数字 1）中，材质使用了细节纹理化功能。 
+在右图（标有数字 2）中，材质未使用细节纹理化功能。 
+您可以注意到，左图 (1) 中的法线贴图看起来细节较多，并且这些细节比右图清晰得多。 
+</p><h2 id="_细节纹理化_节点明细">"细节纹理化"节点明细</h2>
+<p>如果在 <strong>选用板</strong> 中搜索"Detail Texturing"，您将找到可以使用的 <strong>DetailTexturing</strong> 材质函数。 
+虽然这不是将细节纹理应用于材质的唯一方法，但却是最快的方法，因为您只需输入所要使用的纹理和设置。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/DetailTexturing/DT_Node_Break_Down.jpg">
+		<img class="  lazyload" alt="DT_Node_Break_Down.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/DetailTexturing/DT_Node_Break_Down.jpg" />
+</picture>
+
+</p><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>属性 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>说明</p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>刻度（Scale(S)）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>设置细节纹理的刻度。数值越大，产生的平铺就越多；数值越小，产生的平铺就越少。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>漫射（Diffuse(V3)）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>这是漫射纹理的输入。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>细节漫射（DetailDiffuse(T2d)）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>这是漫射细节纹理的输入。此输入只能接受纹理对象。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>漫射强度（DiffuseIntensity(S)）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>控制细节漫射纹理的强度。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>法线（Normal(V3)）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>这是法线贴图纹理的输入。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>细节法线（DetailNormal(T2D)）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>这是法线贴图细节纹理的输入。此输入只能接受纹理对象。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>法线强度（NormalIntensity(S)）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>控制细节法线贴图纹理的强度。</p>
+			</td>
+	
+</tr></tbody>
+</table><h3 id="将纹理样本转换为纹理对象">将纹理样本转换为纹理对象</h3>
+<p>为了让"细节纹理化"材质函数正确工作，必须将您要用作细节纹理的纹理从常规纹理转换为纹理对象。 
+要将纹理转换为纹理对象，只需完成下列步骤。
+</p><ol ><li class="Default"><p>首先，找到要用作细节纹理的纹理。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/DetailTexturing/DT_Regular_Texture.jpg">
+		<img class="  lazyload" alt="DT_Regular_Texture.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/DetailTexturing/DT_Regular_Texture.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>找到该纹理后，请使用鼠标 <strong>右键单击</strong> 该纹理。这将显示快捷菜单，请从中选择 <strong>转换为纹理对象（Convert To Texture Object）</strong>选项。<br /></p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/DetailTexturing/DT_Convert_Texture_To_Object.jpg">
+		<img class="  lazyload" alt="DT_Convert_Texture_To_Object.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/DetailTexturing/DT_Convert_Texture_To_Object.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>完成上述操作后，纹理样本现在显示如下。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/DetailTexturing/DT_Texture_Object_Texture.jpg">
+		<img class="  lazyload" alt="DT_Texture_Object_Texture.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/DetailTexturing/DT_Texture_Object_Texture.jpg" />
+</picture>
+
+</p></li></ol><h2 id="如何在材质中使用细节纹理化功能">如何在材质中使用细节纹理化功能</h2>
+<p>以下是设置材质以使其使用细节纹理化功能的两种不同方法。 
+您可以根据材质和项目的需要，来选择使用其中一种方法。 
+这两种方法的结果完全相同，并无优劣之分。 
+</p><div class="note">
+	<p>如果您的项目包含 <strong>起步内容</strong>，那么您可找到下列各节中使用的所有内容。虽然此处展示的技巧适用于任何纹理，但如果您想采用这些技巧，请确保项目包含 <strong>起步内容</strong>。</p>
+</div><p>但是，在开始之前，需要先设置一个非常简单的材质以用于测试。 
+为此，请在 <strong>内容浏览器</strong> 中 <strong>右键单击</strong>，然后从弹出菜单的 <strong>创建基本资产（Create Basic Asset）</strong>部分中选择 <strong>材质（Material）</strong>。 
+选择此选项将创建新的 <strong>材质</strong>。请将该材质命名为 <strong>Detail_Material</strong>。完成后，<strong>内容浏览器</strong> 应该如下所示。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/DetailTexturing/DT_Creat_New_Material.jpg">
+		<img class="  lazyload" alt="DT_Creat_New_Material.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/DetailTexturing/DT_Creat_New_Material.jpg" />
+</picture>
+
+</p><h3 id="使用_细节纹理化_材质函数">使用"细节纹理化"材质函数</h3>
+<ol ><li class="Default"><p>首先，在 <strong>内容浏览器</strong> 中，使用 <strong>鼠标左键双击</strong> 刚才创建的材质以将其打开。
+</p></li><li class="Default"><p>打开该材质后，通过将下列纹理从 <strong>内容浏览器</strong> 拖入材质图，添加这些纹理。 
+</p><ul ><li class="Default"><p><strong>T_Brick_Clay_Old_D</strong>
+</p></li><li class="Default"><p><strong>T_Brick_Clay_Old_N</strong>
+</p></li><li class="Default"><p><strong>T_Ground_Gravel_D</strong>
+</p></li><li class="Default"><p><strong>T_Ground_Moss_N</strong>
+</p></li></ul><p>完成之后，您的材质图应该类似于下图：
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/DetailTexturing/DT_Adding_Textures.jpg">
+		<img class="  lazyload" alt="DT_Adding_Textures.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/DetailTexturing/DT_Adding_Textures.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>现在，所有需要的纹理都已添加到材质图中，您可以开始添加 <strong>细节纹理化（Detail Texturing）</strong>材质函数。为此，请先在 <strong>选用板</strong> 中搜索 <strong>Detail Texturing</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/DetailTexturing/DT_Search_DT_MF.jpg">
+		<img class="  lazyload" alt="DT_Search_DT_MF.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/DetailTexturing/DT_Search_DT_MF.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>找到 <strong>细节纹理化（Detail Texturing）</strong>材质函数之后，使用 <strong>鼠标左键</strong> 单击将其选中，然后按住 <strong>鼠标左键</strong> 将 <strong>细节纹理化（Detail Texturing）</strong>材质函数从 <strong>选用板</strong> 拖入材质图。当鼠标指针位于材质图上方时，释放 <strong>鼠标左键</strong> 即可将 <strong>细节纹理化（Detail Texturing）</strong>材质函数放入材质图。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/DetailTexturing/DT_Adding_DT_MF.jpg">
+		<img class="  lazyload" alt="DT_Adding_DT_MF.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/DetailTexturing/DT_Adding_DT_MF.jpg" />
+</picture>
+
+</p></li><li class="Default"><p><strong>细节纹理化（Detail Texturing）</strong>材质函数现已添加完成，您可以开始连接所需的输入和输出，以使此材质可工作。在本示例中，我们将使用 <strong>T_Brick_Clay_Old</strong> 纹理作为基本纹理，并使用 <strong>T_Ground_Gravel</strong> 作为细节纹理。这意味着，<strong>T_Brick_Clay_Old</strong> 的漫射及法线贴图将连接到"漫射"（Diffuse）和"法线"（Normal）输入，而 <strong>T_Ground_Gravel</strong> 漫射贴图和 <strong>T_Ground_Moss</strong> 法线贴图将连接到"细节漫射"（Detail Diffuse）和"细节法线"（Detail Normal）输入。完成之后，您的材质图应该类似于下图。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/DetailTexturing/DT_Hooked_Up_Textures.jpg">
+		<img class="  lazyload" alt="DT_Hooked_Up_Textures.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/DetailTexturing/DT_Hooked_Up_Textures.jpg" />
+</picture>
+
+</p><div class="note">
+	<p>请记住，<strong>T_Ground_Gravel</strong> 漫射贴图和 <strong>T_Ground_Moss</strong> 法线贴图纹理样本需要转换为 <strong>纹理对象</strong>，否则此材质无法工作。有关此操作的详细信息，请参阅上面的 <strong>将纹理样本转换为纹理对象</strong> 一节。 </p>
+</div></li><li class="Default"><p>纹理现已完成连接，您可以开始添加一些常量材质表达式，以便微调细节纹理的刻度和强度等设置。要查找常量材质表达式，请在材质选用板中搜索 Constant，然后将"常量"（Constant）从 <strong>选用板</strong> 拖到材质图中。您已添加一个常量材质表达式，现在，通过先将其选中再按键盘上的 <strong>CTRL + W</strong> 两次，复制这个表达式。最后，我们一共有 3 个常量材质表达式。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/DetailTexturing/DT_Adding_Constant_Nodes.jpg">
+		<img class="  lazyload" alt="DT_Adding_Constant_Nodes.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/DetailTexturing/DT_Adding_Constant_Nodes.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>将适量的常量材质表达式节点添加到材质图之后，可以对其进行连接并填充数据。为此，我们只需将 <strong>常量（Constant）</strong>材质表达式节点的输出连接到 <strong>细节纹理化（Detail Texturing）</strong>材质函数的输入。然后，在每个 <strong>常量（Constant）</strong>材质表达式节点中输入值 1。完成之后，您的材质图应该类似于下图。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/DetailTexturing/DT_All_Connections_Made.jpg">
+		<img class="  lazyload" alt="DT_All_Connections_Made.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/DetailTexturing/DT_All_Connections_Made.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>通过调整常量材质表达式节点的值，可以影响细节纹理的外观效果。以下示例是将"刻度"（Scale）依次设置为 1、5 和 10 所产生的效果。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/DetailTexturing/DT_Different_Scale_Settings.jpg">
+		<img class="  lazyload" alt="DT_Different_Scale_Settings.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/DetailTexturing/DT_Different_Scale_Settings.jpg" />
+</picture>
+
+</p></li></ol><h3 id="不使用细节材质函数">不使用细节材质函数</h3>
+<p>如果因为任何原因而无法使用 <strong>细节纹理化（Detail Texturing）</strong>材质函数，您始终可以在材质图中使用"材质表达式"（Material Expression）节点构建此功能，以下是相关说明。
+</p><ol ><li class="Default"><p>在 <strong>内容浏览器</strong> 中，通过 <strong>右键单击</strong> 材质并从菜单中选择 <strong>复制（Duplicate）</strong>，建立 Detail_Material 的副本。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/DetailTexturing/DT_Duplicate_Material.jpg">
+		<img class="  lazyload" alt="DT_Duplicate_Material.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/DetailTexturing/DT_Duplicate_Material.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>创建之后，将材质标注为 Detail_Material_2。完成后，您的 <strong>内容浏览器</strong> 应该如下所示。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/DetailTexturing/DT_Duplicate_Materia_Namedl.jpg">
+		<img class="  lazyload" alt="DT_Duplicate_Materia_Namedl.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/DetailTexturing/DT_Duplicate_Materia_Namedl.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>使用鼠标左键 <strong>双击</strong> 新创建的材质将其打开。打开该材质后，删除除纹理以外的所有内容，并确保将纹理对象重新转换为纹理样本，方法如下：先选中所有纹理对象，然后 <strong>右键单击</strong> 并从菜单中选择 <strong>转换为纹理样本（Convert To Texture Sampler）</strong>。完成之后，材质图应该如下所示。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/DetailTexturing/DT_New_Material_Setup.jpg">
+		<img class="  lazyload" alt="DT_New_Material_Setup.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/DetailTexturing/DT_New_Material_Setup.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>所有内容现已清除并转换完毕，您可以开始布置所需的材质表达式节点。在此部分中，我们需要下列类型及数量的节点。您可以通过在 <strong>选用板</strong> 中搜索来找到下列每一个材质表达式节点。 
+</p><ul ><li class="Default"><p>纹理坐标（Texture Coordinate）x 1
+</p></li><li class="Default"><p>限制（Clamp）x 1
+</p></li><li class="Default"><p>常量（Constant）x 2
+</p></li><li class="Default"><p>加法（Add）x 2
+</p></li><li class="Default"><p>乘法（Multiply）x 3
+</p></li></ul><p>完成上述操作后，材质图应该如下所示。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/DetailTexturing/DT_RequiredNodes.jpg">
+		<img class="  lazyload" alt="DT_RequiredNodes.jpg" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/DetailTexturing/DT_RequiredNodes.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>需要的所有材质表达式节点现已添加完毕，您可以开始将这些节点连接到一起。首先，需要对"底色"（Base Color）部分进行连接。完成上述操作后，材质图应该如下所示。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/DetailTexturing/DT_BaseColor_Connections.jpg">
+		<img class="  lazyload" alt="DT_BaseColor_Connections.jpg" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/DetailTexturing/DT_BaseColor_Connections.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>接着，采用与设置"底色"（Base Color）相同的方法，对"法线贴图"（Normal Map）进行连接。完成上述操作后，材质图应该如下所示。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/DetailTexturing/DT_NormalMap_Connections.jpg">
+		<img class="  lazyload" alt="DT_NormalMap_Connections.jpg" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/DetailTexturing/DT_NormalMap_Connections.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>现在，"底色"（Base Color）和法线贴图（Normal map）都已彼此连接，您可以编译、保存和使用此材质了。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/DetailTexturing/DT_Complete_Material.jpg">
+		<img class="  lazyload" alt="DT_Complete_Material.jpg" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/DetailTexturing/DT_Complete_Material.jpg" />
+</picture>
+
+</p></li></ol><h2 id="细节纹理化提示与技巧">细节纹理化提示与技巧</h2>
+<p>下一节阐述有关在材质中使用细节纹理化功能的不同方法的一些提示与技巧。
+</p><h3 id="基于距离的细节纹理化">基于距离的细节纹理化</h3>
+<p>处理大型表面（例如地形）时，您将注意到，即使您所使用的纹理可以平铺，也会存在许多观看效果不佳的明显重复，从远距离查看时尤其如此。
+为了解决此问题，我们可以在先前创建的细节材质的基础上进行构建，使其在距离摄像机较近时显示一个纹理，而在距离摄像机较远时显示另一个纹理。 
+这通常称为"基于距离的纹理混合"，其设置步骤如下。 
+</p><ol ><li class="Default"><p>首先，建立 Detail_Material_2 的副本，并将它命名为 Distance_Fade。命名之后，打开该材质，在 <strong>选用板</strong> 中搜索以下材质表达式节点，并将它们添加到材质图中。
+</p><ul ><li class="Default"><p>全局位置（World_Position）x 1
+</p></li><li class="Default"><p>摄像机位置 WS（Camera_Position_WS）x 1
+</p></li><li class="Default"><p>距离（Distance）x 1
+</p></li><li class="Default"><p>除法（Divide）x 1
+</p></li><li class="Default"><p>幂（Power）x 1
+</p></li><li class="Default"><p>限制（Clamp）x 1
+</p></li><li class="Default"><p>常量（Constant）x 2
+</p></li></ul></li><li class="Default"><p>需要的所有材质表达式节点现已添加到材质图中，我们可以开始将它们连接到一起。引起纹理变化的距离由第一个 <strong>常量（Constant）</strong>控制，该常量连接到 <strong>除法（Divide）</strong>材质表达式，在示例图中当前设置为 512。完成后，您应该看到类似下图的内容。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/DetailTexturing/DT_Distance_Based_Blending_Nodes.jpg">
+		<img class="  lazyload" alt="DT_Distance_Based_Blending_Nodes.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/DetailTexturing/DT_Distance_Based_Blending_Nodes.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>完成基于距离的混合之后，现在可以将它添加到材质的剩余部分。为此，我们首先需要向材质图添加两个 <strong>插值（LERP）</strong>材质表达式。这是因为，"插值"（LERP）材质表达式的阿尔法输入将控制切换纹理的距离。现在，剩余的工作只是将材质的余下部分连接到一起。此材质与原始材质的唯一差别是，此材质使用"插值"（LERP），而不是在结束时将纹理加到一起。完成之后，您的材质图应该类似于下图。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/DetailTexturing/DT_Distance_Based_Completed_Material.jpg">
+		<img class="  lazyload" alt="DT_Distance_Based_Completed_Material.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/DetailTexturing/DT_Distance_Based_Completed_Material.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>要查看效果，您只需在"材质预览"（Material Preview）窗口中 <strong>按住鼠标右键</strong>，然后前后移动鼠标。当您离开预览网格足够远时，您应该会看到材质从一种纹理过渡到另一种纹理。如果看不到此效果，请将连接到 <strong>除法（Divide）</strong>材质表达式的第一个 <strong>常量（Constant）</strong>（当前设置为 512）调整为较小的数字，以便在距对象较近的位置看到此效果。
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_0_248lvskp_483
+{
+	margin: 0px;
+	width: 75%;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_0_248lvskp_483:after
+{
+	content: "";
+	padding-top: 56.25%;
+	display: block;
+}
+</style> 
+<div id="player_0_248lvskp_483"> 
+	<div id="playerContainer_0_248lvskp_483" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/0_248lvskp/embed.html"></iframe>
+	</div>
+</div></li></ol><h2 id="结论">结论</h2>
+<p>细节纹理化是功能非常强大的工具，可以真正帮助您实现 3D 项目。 
+但是，就像所有其他功能强大的工具一样，您必须十分谨慎，确保这种强大的功能在您的掌控之下。 
+请记住，细节纹理化只能在一定程度上消除像素化。 
+允许玩家摄像机放大对象等行为可能会导致细节纹理化所实现的好处失效。 
+另外，请记住，添加细节纹理化可能会在材质中添加两个或两个以上额外的纹理查找操作，这可能会产生一些性能/内存问题，在移动平台上更是如此。 
+</p>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Materials">Materials</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/RenderingAndGraphics/Materials/HowTo/DetailTexturing/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:15:00 GMT -->
+</html>

@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/ProgrammingAndScripting/Blueprints/BP_HowTo/MakingMacros/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:26:05 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/ProgrammingAndScripting/Blueprints/BP_HowTo/MakingMacros/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>创建宏 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/ProgrammingAndScripting/Blueprints/BP_HowTo/MakingMacros/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/ProgrammingAndScripting/Blueprints/BP_HowTo/MakingMacros/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/ProgrammingAndScripting/Blueprints/BP_HowTo/MakingMacros/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/ProgrammingAndScripting/Blueprints/BP_HowTo/MakingMacros/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Blueprints/BP_HowTo/MakingMacros" />
+<meta name="intsourcechangelist" content="11969652" />
+<meta name="availability" content="Public" />
+<meta name="title" content="创建宏" />
+<meta name="description" content="宏用于检查确定玩家是否拥有足够的能量执行跳跃。" />
+<meta name="related" content="ProgrammingAndScripting/Blueprints/UserGuide/Macros" />
+<meta name="related" content="ProgrammingAndScripting/Blueprints/UserGuide/Types/MacroLibrary" />
+<meta name="related" content="ProgrammingAndScripting/Blueprints" />
+<meta name="version" content="4.9" />
+<meta name="skilllevel" content="Advanced" />
+<meta name="keywords" content="Blueprints" />
+<meta name="course" content="blueprints---essential-concepts?lang=zh-CN|蓝图：基础概念|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fblueprints---essential-concepts%2FBPEssentialsThumbnail_1920x1080-1920x1080-2fcdde875f1d79ade1c295fe4fef53c4b8c5ecde.PNG?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fblueprints---essential-concepts%2FBlueprint--Essential-Concepts-1000x1000-9f372ce55de42ce9596dffd6c931839e44fcc873.png?resize=1&amp;w=300" />
+<meta name="course" content="interactive-material-swaps-using-blueprints?lang=zh-CN|蓝图：可交互材质切换|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Finteractive-material-swaps-using-blueprints%2F406---Hero2-1920x1080-ce26b6199cf620364149d2d934c73ae30e983110.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Finteractive-material-swaps-using-blueprints%2FInteractive-Material-Swaps-Using-Blueprints-1000x1000-21158a5fe67365e3bf5db49712b52482382f15ac.png?resize=1&amp;w=300" />
+<meta name="course" content="making-a-blueprint-product-configurator?lang=zh-CN|企业级蓝图开发|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fblueprint-for-enterprise%2F301-Blueprints-%281200X675%29-1200x675-d140b8a0b13b05c0619e35e1076b4c82e4a4b855.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fblueprint-for-enterprise%2FBlueprint-for-Enterprise-1000x1000-13caa11b8e5c5e91506a8dd63b39d247318c3208.png?resize=1&amp;w=300" />
+<meta name="crumbs" content="%ROOT%,ProgrammingAndScripting,ProgrammingAndScripting/Blueprints,ProgrammingAndScripting/Blueprints/BP_HowTo" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="创建宏" />
+	<meta property="og:description" content="宏用于检查确定玩家是否拥有足够的能量执行跳跃。 " />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">编程和脚本编写</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">蓝图可视化脚本</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">蓝图指南</a>
+
+<span class="separator">></span> <span id="page">创建宏</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">创建宏</h1>
+							</div>	
+							<h2 >宏用于检查确定玩家是否拥有足够的能量执行跳跃。 </h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Advanced"><a id="skill_link" href="../../../../SiteIndex/index.html?skills=Advanced">Advanced</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																		<div id="seeAlso">
+	<div style="position:relative;">
+		<div id="title">参见</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<p>
+						<a id="related_link" href="../../UserGuide/Macros/index.html" title="可以从另一个图表中执行或调用的折叠节点网络。">宏</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../UserGuide/Types/MacroLibrary/index.html" title="声明和定义宏以便在其他蓝图中重复利用的蓝图。">蓝图宏库</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../index.html" title="关于使用蓝图可视化脚本系统制作游戏的介绍。">蓝图可视化脚本</a>
+					</p>
+				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																		<div id="courses">
+	<div style="position:relative;">
+		<div id="title">相关课程</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<div name="blueprints---essential-concepts?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/blueprints---essential-concepts?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/blueprints---essential-concepts/BPEssentialsThumbnail_1920x1080-1920x1080-2fcdde875f1d79ade1c295fe4fef53c4b8c5ecd?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/blueprints---essential-concepts/Blueprint--Essential-Concepts-1000x1000-9f372ce55de42ce9596dffd6c931839e44fcc873?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="blueprints---essential-concepts?lang=zh-CN_title">
+				蓝图：基础概念
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="interactive-material-swaps-using-blueprints?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/interactive-material-swaps-using-blueprints?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/interactive-material-swaps-using-blueprints/406---Hero2-1920x1080-ce26b6199cf620364149d2d934c73ae30e983110.8314f8?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/interactive-material-swaps-using-blueprints/Interactive-Material-Swaps-Using-Blueprints-1000x1000-21158a5fe67365e3bf5db49712b52482382f15ac.8?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="interactive-material-swaps-using-blueprints?lang=zh-CN_title">
+				蓝图：可交互材质切换
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="making-a-blueprint-product-configurator?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/making-a-blueprint-product-configurator?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/blueprint-for-enterprise/301-Blueprints-(1200X675)-1200x675-d140b8a0b13b05c0619e35e1076b4c82e4a4b855.8344f86.dela?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/blueprint-for-enterprise/Blueprint-for-Enterprise-1000x1000-13caa11b8e5c5e91506a8dd63b39d247318c3208.836fe4b.dela?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="making-a-blueprint-product-configurator?lang=zh-CN_title">
+				企业级蓝图开发
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																								<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#创建宏">创建宏</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>本质上来说，<strong>宏</strong> 和节点的重叠图表原理相同。他们都有通道节点设计的进入点和离开点。每个通道可拥有任意数量的执行或数据引脚。在其他蓝图和图表上使用时，这些引脚在宏节点上均为可见。
+</p><h2 id="创建宏">创建宏</h2>
+<p>在本例中，我们将创建一个 <strong>宏</strong>，用于检查确定玩家角色是否拥有足够能量执行跳跃。如能量足够，将扣除相应能量值，显示当前数值到屏幕上，然后允许玩家执行跳跃。如能量不足，屏幕上将显示玩家能量不足，无法跳跃。 
+</p><div class="note">
+	<p>在此实例中，我们使用的是启用了 <strong>新手内容</strong> 的 <strong>Blueprint Third Person 项目</strong>。</p>
+</div><ol ><li class="Default"><p>在 <strong>Content/ThirdPersonBP/Blueprints</strong> 文件夹中，打开 <strong>ThirdPersonCharacter</strong> 蓝图。 
+</p></li><li class="Default"><p>在 <strong>我的蓝图</strong> 窗口中点击 <strong>Add Macro</strong> 按钮。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/MakingMacros/MacroHT1.jpg">
+		<img class="  lazyload" alt="MacroHT1.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/MakingMacros/MacroHT1.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>将创建一个新的宏，选中后按 <strong>F2</strong> 键将其重命名为 <strong>EnergyCheck</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/MakingMacros/MacroHT2.jpg">
+		<img class="  lazyload" alt="MacroHT2.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/MakingMacros/MacroHT2.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>选中宏后，在 <strong>Details</strong> 面板中点击 <strong>New</strong> 按钮创建 1 输入和 2 输出。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/MakingMacros/MacroHT3.jpg">
+		<img class="  lazyload" alt="MacroHT3.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/MakingMacros/MacroHT3.jpg" />
+</picture>
+
+</p><p>此操作将在宏节点上创建输入/输出节点，可用于向宏传输数据（或从宏传输数据）。 
+</p></li><li class="Default"><p>在文本框中为 <strong>输入</strong> 节点设置名称 <strong>BeginCheck</strong>，然后将类型改为 <strong>Exec</strong>（可执行引脚）。 
+</p></li><li class="Default"><p>将两个 <strong>输出</strong> 节点类型设为 <strong>Exec</strong>，并将一个命名为 <strong>HasEnergy</strong>，另一个命名为 <strong>NoEnergy</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/MakingMacros/MacroHT4.jpg">
+		<img class="  lazyload" alt="MacroHT4.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/MakingMacros/MacroHT4.jpg" />
+</picture>
+
+</p><p>在输入节点上，使用一个名为 <strong>BeginCheck</strong> 的执行引脚开始宏。将创建脚本，用以检查玩家是否拥有足够能量执行跳跃（如是，则将其与 <strong>HasEnergy</strong> 引脚连接起来）。如玩家无足够能量，则将其与 <strong>NoEnergy</strong> 引脚连接起来。执行宏时，<strong>HasEnergy</strong> 引脚将填充 <strong>Jump</strong> 指令，而 <strong>NoEnergy</strong> 引脚则不会。 
+</p></li><li class="Default"><p>在 <strong>My Blueprint</strong> 窗口中点击 <strong>Add Variable</strong> 按钮。
+</p><p> <picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/MakingMacros/AddVariableButton.jpg">
+		<img class="  lazyload" alt="AddVariableButton.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/MakingMacros/AddVariableButton.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>将变量命名为 <strong>Energy</strong> 并将其类型改为 <strong>Float</strong>，点击工具栏上的 <strong>Compile</strong>，将值设为 <strong>100</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/MakingMacros/MacroHT5.jpg">
+		<img class="  lazyload" alt="MacroHT5.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/MakingMacros/MacroHT5.jpg" />
+</picture>
+
+</p><p>现在便为玩家的能量（初始值为 100）设置了一个变量。 
+</p></li><li class="Default"><p>在 <strong>Inputs</strong> 旁的图表中，按住 <strong>B</strong> 键并 <strong>单击左键</strong> 创建一个 <strong>Branch</strong> 节点。 
+</p></li><li class="Default"><p>按住 <strong>Ctrl</strong> 键从 <strong>My Blueprint</strong> 窗口将 <strong>Energy</strong> 拖入图表并连接到一个 <strong>></strong> 节点，然后再连接到 <strong>Branch</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/MakingMacros/MacroHT6.jpg">
+		<img class="  lazyload" alt="MacroHT6.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/MakingMacros/MacroHT6.jpg" />
+</picture>
+
+</p><p>在此我们使用 Branch 确定是否能量大于零。如是，执行 <strong>True</strong>；如否，执行 <strong>False</strong>。 
+</p></li><li class="Default"><p>按住 <strong>Alt</strong> 键拖入 <strong>Energy</strong> 变量添加一个 <strong>Set</strong> 节点。 
+</p></li><li class="Default"><p>在此按住 <strong>Ctrl</strong> 键拖入 <strong>Energy</strong> 并连接到一个 <strong>-</strong> 节点，将值设为 <strong>10</strong>，然后插入 <strong>Set</strong> 节点。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/MakingMacros/MacroHT7.jpg">
+		<img class="  lazyload" alt="MacroHT7.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/MakingMacros/MacroHT7.jpg" />
+</picture>
+
+</p><p>该脚本意味着能量大于零时，将从当前能量值中减去 10。 
+</p></li><li class="Default"><p>在图表中 <strong>单击右键</strong> 添加一个 <strong>Print String</strong> 节点，然后将 <strong>Energy</strong> 和 <strong>In String</strong> 引脚连接起来。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/MakingMacros/MacroHT8.jpg">
+		<img class="  lazyload" alt="MacroHT8.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/MakingMacros/MacroHT8.jpg" />
+</picture>
+
+</p><p>将添加一个 <strong>转换</strong> 节点，它将把能量值转换为数值显示在屏幕上。 
+</p></li><li class="Default"><p>关闭 <strong>Branch</strong> 节点的 <strong>False</strong> 引脚，添加一个 <strong>Print String</strong> 并在框中输入文本 <strong>Out of Energy!</strong>。
+</p></li><li class="Default"><p>将两个 <strong>Print String</strong> 节点与 <strong>HasEnergy</strong> 和 <strong>NoEnergy</strong> 引脚连接起来。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/MakingMacros/MacroHT9.jpg">
+		<img class="  lazyload" alt="MacroHT9.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/MakingMacros/MacroHT9.jpg" />
+</picture>
+
+</p><p>现在宏的设置为检查 <strong>Energy</strong> 变量（如适用，则从该变量减去数值），确定玩家是否拥有足够能量，进而决定玩家是否可以执行跳跃。现在，我们需要在按下"跳跃"键后，跳跃动作被执行之前应用宏。 
+</p></li><li class="Default"><p>在 <strong>事件图表</strong> 上，拖动 <strong>InputAction Jump</strong> 节点的 <strong>Pressed</strong> 引脚并搜索 <strong>EnergyCheck</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/MakingMacros/MacroHT10.jpg">
+		<img class="  lazyload" alt="MacroHT10.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/MakingMacros/MacroHT10.jpg" />
+</picture>
+
+</p><p>可以看到创建的宏列于 <strong>Utilities</strong> 下，宏图标旁是它的名称。 
+</p></li><li class="Default"><p>宏被添加后，Jump 脚本的外观与下图相似。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/MakingMacros/MacroHT11.jpg">
+		<img class="  lazyload" alt="MacroHT11.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/MakingMacros/MacroHT11.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>点击 <strong>Compile</strong> 和 <strong>Save</strong> 按钮，然后关闭蓝图。 
+</p></li><li class="Default"><p>在主工具栏中点击 <strong>Play</strong> 按钮即可在编辑器中进行游戏。 
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_nnKHWiQba0s_446
+{
+	margin: 0px;
+	width: 640px;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_nnKHWiQba0s_446:after
+{
+	content: "";
+	padding-top: 360px;
+	display: block;
+}
+</style> 
+<div>
+<div id="player_nnKHWiQba0s_446"><div style="position:absolute;display:block;width:100%;height:100%;"><iframe class="embedded_video" id="nnKHWiQba0s" width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/nnKHWiQba0s?rel=0&amp;modestbranding=1&amp;showinfo=0" frameborder="0" allowfullscreen></iframe></div></div>
+</div>
+<p>按下 <strong>空格键</strong> 执行跳跃时，在屏幕左上角可看到 <strong>Energy</strong> 的值。当 <strong>Energy</strong> 为零时，无法执行跳跃。 
+</p><p>这是使用宏将脚本执行并合并为一个单独节点、改善事件图表和主要角色脚本易读性的基本范例。除此之外还可在其他情况下调用这个宏：存在其他消耗玩家能量的动作，需要确定玩家是否有能量执行此操作（如攻击）。按下攻击键，然后在 <strong>HasEnergy</strong> 执行引脚后执行攻击操作，再运行这个宏确认玩家是否有足够的能量执行攻击。
+</p></li></ol>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Blueprints">Blueprints</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/ProgrammingAndScripting/Blueprints/BP_HowTo/MakingMacros/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:26:10 GMT -->
+</html>

@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/ProgrammingAndScripting/Blueprints/UserGuide/Debugging/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 10:50:10 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/ProgrammingAndScripting/Blueprints/UserGuide/Debugging/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>蓝图调试 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/ProgrammingAndScripting/Blueprints/UserGuide/Debugging/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/ProgrammingAndScripting/Blueprints/UserGuide/Debugging/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/ProgrammingAndScripting/Blueprints/UserGuide/Debugging/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/ProgrammingAndScripting/Blueprints/UserGuide/Debugging/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Blueprints/UserGuide/Debugging" />
+<meta name="intsourcechangelist" content="11969652" />
+<meta name="availability" content="Public" />
+<meta name="title" content="蓝图调试" />
+<meta name="description" content="使用断点暂停执行，以检查图表和变量值。" />
+<meta name="version" content="4.20" />
+<meta name="parent" content="ProgrammingAndScripting/Blueprints/Workflow" />
+<meta name="order" content="5" />
+<meta name="keywords" content="Blueprints" />
+<meta name="course" content="blueprints---essential-concepts?lang=zh-CN|蓝图：基础概念|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fblueprints---essential-concepts%2FBPEssentialsThumbnail_1920x1080-1920x1080-2fcdde875f1d79ade1c295fe4fef53c4b8c5ecde.PNG?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fblueprints---essential-concepts%2FBlueprint--Essential-Concepts-1000x1000-9f372ce55de42ce9596dffd6c931839e44fcc873.png?resize=1&amp;w=300" />
+<meta name="course" content="interactive-material-swaps-using-blueprints?lang=zh-CN|蓝图：可交互材质切换|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Finteractive-material-swaps-using-blueprints%2F406---Hero2-1920x1080-ce26b6199cf620364149d2d934c73ae30e983110.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Finteractive-material-swaps-using-blueprints%2FInteractive-Material-Swaps-Using-Blueprints-1000x1000-21158a5fe67365e3bf5db49712b52482382f15ac.png?resize=1&amp;w=300" />
+<meta name="course" content="making-a-blueprint-product-configurator?lang=zh-CN|企业级蓝图开发|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fblueprint-for-enterprise%2F301-Blueprints-%281200X675%29-1200x675-d140b8a0b13b05c0619e35e1076b4c82e4a4b855.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fblueprint-for-enterprise%2FBlueprint-for-Enterprise-1000x1000-13caa11b8e5c5e91506a8dd63b39d247318c3208.png?resize=1&amp;w=300" />
+<meta name="crumbs" content="%ROOT%,ProgrammingAndScripting,ProgrammingAndScripting/Blueprints,ProgrammingAndScripting/Blueprints/Workflow" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="蓝图调试" />
+	<meta property="og:description" content="使用断点暂停执行，以检查图表和变量值。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">编程和脚本编写</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">蓝图可视化脚本</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../Workflow/index.html">蓝图工作流程工具</a>
+
+<span class="separator">></span> <span id="page">蓝图调试</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">蓝图调试</h1>
+							</div>	
+							<h2 >使用断点暂停执行，以检查图表和变量值。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																																			</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																								<div id="courses">
+	<div style="position:relative;">
+		<div id="title">相关课程</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<div name="blueprints---essential-concepts?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/blueprints---essential-concepts?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/blueprints---essential-concepts/BPEssentialsThumbnail_1920x1080-1920x1080-2fcdde875f1d79ade1c295fe4fef53c4b8c5ecd?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/blueprints---essential-concepts/Blueprint--Essential-Concepts-1000x1000-9f372ce55de42ce9596dffd6c931839e44fcc873?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="blueprints---essential-concepts?lang=zh-CN_title">
+				蓝图：基础概念
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="interactive-material-swaps-using-blueprints?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/interactive-material-swaps-using-blueprints?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/interactive-material-swaps-using-blueprints/406---Hero2-1920x1080-ce26b6199cf620364149d2d934c73ae30e983110.8314f8?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/interactive-material-swaps-using-blueprints/Interactive-Material-Swaps-Using-Blueprints-1000x1000-21158a5fe67365e3bf5db49712b52482382f15ac.8?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="interactive-material-swaps-using-blueprints?lang=zh-CN_title">
+				蓝图：可交互材质切换
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="making-a-blueprint-product-configurator?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/making-a-blueprint-product-configurator?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/blueprint-for-enterprise/301-Blueprints-(1200X675)-1200x675-d140b8a0b13b05c0619e35e1076b4c82e4a4b855.8344f86.dela?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/blueprint-for-enterprise/Blueprint-for-Enterprise-1000x1000-13caa11b8e5c5e91506a8dd63b39d247318c3208.836fe4b.dela?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="making-a-blueprint-product-configurator?lang=zh-CN_title">
+				企业级蓝图开发
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																								<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#调试功能按钮">调试功能按钮</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#断点">断点</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#调试选项卡和蓝图调试器">调试选项卡和蓝图调试器</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#查看窗口">查看窗口</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#调用堆栈">调用堆栈</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#执行轨迹">执行轨迹</a></p>
+	</li>					</ul>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>蓝图调试是一项非常强大的功能，它允许您在"在编辑器中运行（Play In Editor）""或"在编辑器中模拟（Simulate In Editor）"模式中暂停游戏执行，并通过使用断点单步调试蓝图或关卡蓝图的任何图表。
+</p><h2 id="调试功能按钮">调试功能按钮</h2>
+<p>蓝图调试器在PIE和SIE会话期间提供对游戏执行的控制。当游戏运行时，这些功能按钮在<a id="content_link"filter-data="tag_blueprints" href="../../Editor/UIComponents/Toolbar/index.html" ><span>工具栏</span></a>中处于启用状态。根据正在调试的蓝图的类型和调试会话的当前状态，会出现不同的调试功能按钮。有些功能按钮只有在相关的时候才启用，例如，当 <strong>断点（Breakpoint）</strong> 被命中时。
+</p><div class="fullwidth">
+	<p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Debugging/debugging_editor.jpg">
+		<img class="  lazyload" alt="debugging_editor.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Debugging/debugging_editor.jpg" />
+</picture>
+</p>
+</div><div class="caption">
+	<p>当PIE模式或SIE模式处于活动状态时，<strong>调试（Debug）</strong> 选项卡（可从 <strong>蓝图编辑器（Blueprint Editor）</strong> 的窗口菜单中打开）以及 <strong>蓝图调试器（Blueprint Debugger）</strong> 将显示上下文相关的调试按钮。</p>
+</div><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Debugging/blueprint_debugger.jpg">
+		<img class="  lazyload" alt="blueprint_debugger.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Debugging/blueprint_debugger.jpg" />
+</picture>
+
+</p><h2 id="断点">断点</h2>
+<p> <strong>断点</strong> 是指可以放置在蓝图图表节点上的标记。PIE或SIE模式期间即将执行带断点的节点时，游戏将暂停，开发人员将被带往蓝图编辑器的图表视图中的该节点。这提供了观察变量值并检查或单步调试蓝图内的执行流程的机会。给定蓝图的所有断点都显示在 <strong>调试选项卡（Debug tab）</strong> 中，可以在蓝图的图表中查看已选中的断点。要在节点上放置一个断点，右键单击节点并从上下文菜单中选择 <strong>添加断点（Add Breakpoint）</strong>，此时节点的左上角将出现一个实心的红色八边形。通过再次右键单击节点，或者右键单击调试（Debug）选项卡中断点的条目，选择 <strong>移除断点（Remove Breakpoint）</strong> 命令，可以移除断点。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Debugging/ActiveBreakpoint.jpg">
+		<img class="  lazyload" alt="ActiveBreakpoint.png" title="ActiveBreakpoint.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Debugging/ActiveBreakpoint.jpg" />
+</picture>
+
+</p><div class="caption">
+	<p>该断点将在蓝图节点即将执行时中断游戏。</p>
+</div><p>要在未完全移除断点的情况下暂时禁用断点，可以右键单击蓝图节点本身或者调试（Debug）选项卡中断点的条目，然后从上下文菜单中选择 <strong>禁用断点（Disable Breakpoint）</strong>。禁用的断点将显示为红色八边形轮廓。禁用的断点将不会执行，但可以轻松地再次启用。与反复销毁并重新生成断点相比，该过程更加便捷，更不易发生人为错误。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Debugging/InactiveBreakpoint.jpg">
+		<img class="  lazyload" alt="InactiveBreakpoint.png" title="InactiveBreakpoint.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Debugging/InactiveBreakpoint.jpg" />
+</picture>
+
+</p><div class="caption">
+	<p>该断点已被禁用，目前不执行任何操作，但可以在需要时轻松地再次启用。</p>
+</div><p>若要启用已禁用的断点，请在节点上 <strong>右键单击（Right-clicking）</strong> 并选择 <strong>启用断点（Enable Breakpoint）</strong> 或单击 <strong>调试（Debug）</strong> 中断点旁边的图标来启用断点。这也可以通过 <strong>右键单击（Right-clicking）</strong> <strong>调试（Debug）</strong> 选项卡中的断点并选择 <strong>启用断点（Enable Breakpoint）</strong> 来完成。可以在任何时候创建、禁用、启用或销毁断点，包括在调试会话期间。断点保存在项目.ini文件中，因此断点将在编辑器会话之间持久存在。
+</p><div class="note">
+	<p>如果断点所处的位置无效，可能会显示为黄色，并带有感叹号。在某些情况下，编译蓝图可以解决该问题。如果不是这种情况，将鼠标光标置于断点图标上将显示解释说明。</p>
+</div><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Debugging/WarningBreakpoint.jpg">
+		<img class="  lazyload" alt="WarningBreakpoint.png" title="WarningBreakpoint.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Debugging/WarningBreakpoint.jpg" />
+</picture>
+
+</p><div class="caption">
+	<p>该断点无效，永远不会被命中。在某些情况下，重新编译蓝图可以解决该问题。</p>
+</div><p>当使用断点暂停执行时，编辑器将高亮显示并聚焦该节点，并且将在其上放置一个红色大箭头。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Debugging/BreakingOnBreakpoint.jpg">
+		<img class="  lazyload" alt="BreakingOnBreakpoint.png" title="BreakingOnBreakpoint.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Debugging/BreakingOnBreakpoint.jpg" />
+</picture>
+
+</p><div class="caption">
+	<p>该断点刚刚被命中，暂停了执行。</p>
+</div><h2 id="调试选项卡和蓝图调试器">调试选项卡和蓝图调试器</h2>
+<p> <strong>调试（Debug）</strong> 选项卡以断点和监视值的形式显示了由设计师指定为重要的信息，以及已执行且属于蓝图的所有节点的跟踪堆栈。此窗口还显示了在使用断点时用于控制游戏执行的功能按钮。
+</p><h3 id="查看窗口">查看窗口</h3>
+<p> <strong>蓝图查看窗口（Blueprint Watch Window）</strong> 设计用于通过允许您访问想要查看的变量和节点来加速调试。从您在编辑器中打开的每个蓝图查看数据，这些数据是当前调用堆栈的一部分，它们将被合并到单个列表中，每当蓝图执行暂停时，该列表将使用当前数据填充。您可以使用该列表检查变量和函数输出，同时可以在蓝图之间轻松跳转。可以展开数组、集、映射和其他数据结构，从而快速、方便地对其中包含的任何数据进行向下钻取检查。您还可以单击"节点名称（Node Name）"列中的条目转到任何蓝图中的指定节点，还可以选择"对象名称（Object Name）"列中的条目选择特定的对象实例。
+</p><h3 id="调用堆栈">调用堆栈</h3>
+<p>调试会话期间可用的 <strong>调用堆栈</strong> 在概念上类似于大多数C++开发环境中的调用堆栈。调用堆栈显示了蓝图与本地(C++)代码之间的执行流程，且蓝图函数当前在堆栈的顶部执行。
+</p><div class="note">
+	<p>蓝图宏不会出现在调用堆栈中。相反，蓝图宏将作为调用它的蓝图函数的一部分出现。</p>
+</div><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Debugging/ActiveBreakpoint.jpg">
+		<img class="  lazyload" alt="ActiveBreakpoint.png" title="ActiveBreakpoint.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Debugging/ActiveBreakpoint.jpg" />
+</picture>
+
+</p><div class="caption">
+	<p>上面的蓝图函数递归执行阶乘计算。已在函数的末尾设置了断点。</p>
+</div><p>当断点被命中时，调用堆栈将列出当前正在运行的函数，从顶部的当前函数开始，然后向下到调用函数。这意味着，每个行条目都包含一个函数的名称，该函数是由紧接其下一行上的函数调用的。在递归（自调用）函数的情况下，同一函数名可能在一行中出现多次。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Debugging/CallStack_FiveFactorial.jpg">
+		<img class="  lazyload" alt="CallStack_FiveFactorial.png" title="CallStack372029427FiveFactorial.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Debugging/CallStack_FiveFactorial.jpg" />
+</picture>
+
+</p><div class="caption">
+	<p>该调用堆栈显示了对上面显示的阶乘函数的一个五层递归调用，该函数最初是从Actor的主蓝图图表中调用的，而它反过来又响应从本地(C++)代码中调用的"BeginPlay"事件。</p>
+</div><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Debugging/CallStack.jpg">
+		<img class="  lazyload" alt="CallStack.png" title="CallStack.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Debugging/CallStack.jpg" />
+</picture>
+
+</p><div class="caption">
+	<p>要查看（或隐藏）调用堆栈，在 <strong>开发者工具（Developer Tools）</strong> 子菜单下的 <strong>窗口（Window）</strong> 下拉框中选择。</p>
+</div><h3 id="执行轨迹">执行轨迹</h3>
+<p> <strong>执行轨迹（Execution Trace）</strong> 堆栈显示执行了的节点列表，其中最新的节点位于顶部。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Debugging/k2_debug_exectrace.jpg">
+		<img class="  lazyload" alt="蓝图调试 - 执行轨迹堆栈" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Debugging/k2_debug_exectrace.jpg" />
+</picture>
+
+</p><p>在调试时，此列表会随着您对图表的单步调试而更新。
+</p>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Blueprints">Blueprints</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/ProgrammingAndScripting/Blueprints/UserGuide/Debugging/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 10:50:13 GMT -->
+</html>

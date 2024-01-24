@@ -1,0 +1,1069 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/RenderingAndGraphics/RayTracing/MovieRenderQueue/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:19:59 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "../../../../Images/RenderingAndGraphics/RayTracing/MovieRenderQueue/MRQ_HeroImage.png";
+				var finishButton = finishButtonTemplate;
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/RenderingAndGraphics/RayTracing/MovieRenderQueue/" />');
+				var udnCSS = '../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>如何将影片渲染队列用于高质量渲染 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+		    <script  src="../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+		    <script  src="../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/RenderingAndGraphics/RayTracing/MovieRenderQueue/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/RenderingAndGraphics/RayTracing/MovieRenderQueue/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/RenderingAndGraphics/RayTracing/MovieRenderQueue/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/RenderingAndGraphics/RayTracing/MovieRenderQueue/" hreflang="ko" />
+
+	<meta name="intsourcechangelist" content="14837181" />
+<meta name="redirect" content="Engine/Rendering/RayTracing/MovieRenderQueue" />
+<meta name="availability" content="public" />
+<meta name="title" content="如何将影片渲染队列用于高质量渲染" />
+<meta name="description" content="关于虚幻引擎影片渲染队列功能的配置指南，旨在帮助你便获取高质量过场动画（特别适用于启用光线追踪的情况下）" />
+<meta name="parent" content="RenderingAndGraphics/RayTracing" />
+<meta name="type" content="how-to" />
+<meta name="skilllevel" content="intermediate" />
+<meta name="prereq" content="AnimatingObjects/Sequencer/Overview" />
+<meta name="prereq" content="AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport" />
+<meta name="version" content="4.25" />
+<meta name="keywords" content="beta" />
+<meta name="keywords" content="rendering" />
+<meta name="keywords" content="ray tracing" />
+<meta name="keywords" content="cinematics" />
+<meta name="keywords" content="Sequencer" />
+<meta name="order" content="0" />
+<meta name="hero-image" content="MRQ_HeroImage.png" />
+<meta name="crumbs" content="%ROOT%,RenderingAndGraphics,RenderingAndGraphics/RayTracing" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="如何将影片渲染队列用于高质量渲染" />
+	<meta property="og:description" content="关于虚幻引擎影片渲染队列功能的配置指南，旨在帮助你便获取高质量过场动画（特别适用于启用光线追踪的情况下）" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">设计视觉、渲染和图形效果</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">实时光线追踪</a>
+
+<span class="separator">></span> <span id="page">如何将影片渲染队列用于高质量渲染</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+					<div id="banner" class="beta">
+	<div id="message">
+		学习使用此<span>测试</span>功能，但在用它发布产品时请谨慎行事。
+	</div>
+	<div id="bannerDescription">
+		测试功能主要供您学习如何使用、规划工作流程和创建测试内容之用。<strong>在实际生产中使用这些功能必须谨慎</strong>，因为我们仍在努力完善以使它们的性能、稳定性和平台支持达到发布水准。我们支持资源的向后兼容，这些功能的API也是稳定的。
+	</div>
+</div>
+															<div class="hero  background">
+						<div class="imgContainer"><img src="../../../../Images/RenderingAndGraphics/RayTracing/MovieRenderQueue/MRQ_HeroImage.png" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">如何将影片渲染队列用于高质量渲染</h1>
+							</div>	
+							<h2 >关于虚幻引擎影片渲染队列功能的配置指南，旨在帮助你便获取高质量过场动画（特别适用于启用光线追踪的情况下）</h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Intermediate"><a id="skill_link" href="../../../SiteIndex/index.html?skills=Intermediate">Intermediate</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																																										<div class="prereq">
+    <div class="normaltitle">
+        前置主题
+    </div>
+    <p style="margin-bottom:8px;">
+        为了理解并使用本文中的内容，请确保您已掌握以下主题：
+    </p>
+    <ul style="margin-bottom:0.5em;">
+                <li>
+            <p>
+                <a href="../../../AnimatingObjects/Sequencer/Overview/index.html" title="Sequencer是虚幻引擎4的多轨迹编辑器，用于实时创建和预览过场动画序列。">Sequencer概述</a>
+            </p>
+        </li>
+                <li>
+            <p>
+                <a href="../../../AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/index.html" title="提供一般性说明并简要介绍如何使用影片渲染队列">影片渲染队列概述</a>
+            </p>
+        </li>
+            </ul>
+</div>
+																		<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#目标">目标</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#步骤1.项目设置">步骤1.项目设置</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#系统配置（可选步骤，推荐完成）">系统配置（可选步骤，推荐完成）</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#下载示例项目">下载示例项目</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#启用影片渲染管线插件">启用影片渲染管线插件</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#步骤2：将项目序列加载到sequencer编辑器中">步骤 2：将项目序列加载到Sequencer编辑器中</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#sequencer编辑器">Sequencer编辑器</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#步骤3：添加序列到影片渲染队列">步骤3：添加序列到影片渲染队列</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#步骤4：如何选择配置选项">步骤4：如何选择配置选项</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#输出设置说明">输出设置说明</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#渲染设置说明">渲染设置说明</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#其他设置说明">其他设置说明</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#步骤5：选择你的选项">步骤5：选择你的选项</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#步骤6：配置抗锯齿设置">步骤6：配置抗锯齿设置</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#步骤7：配置控制台变量">步骤7：配置控制台变量</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#步骤8：配置输出">步骤8：配置输出</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#步骤9：保存你的配置设置">步骤9：保存你的配置设置</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#步骤10：最终输出和结果">步骤10：最终输出和结果</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#渲染故障处理">渲染故障处理</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#禁用gpu超时">禁用GPU超时</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#自主操作！">自主操作！</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#本地渲染和远程渲染">本地渲染和远程渲染</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#临时采样和降噪">临时采样和降噪</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#其他光线追踪控制台命令">其他光线追踪控制台命令</a></p>
+	</li>					</ul>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<div class="note">
+	<p>本指南面向使用64位Windows 10操作系统的用户。 </p>
+</div><p>假如你的目标是实现高质量的离线（非实时）渲染，你就无需在意实时渲染以及它的开销。你可以利用这个机会，通过设置选项和命令，极大提升某些画面效果的品质、精度和效果，例如 <em>光线追踪全局光照</em> 和 <em>光线追踪反射</em>。 你还可以提升 <em>动态模糊</em> 的效果，并且去除不想看到的抗锯齿异常。
+</p><p>本指南将引导你完成一些设置，你可以使用这些设置生成非实时高质量渲染。你将了解如何使用影片渲染队列（Movie Render Queue）、自定义设置、以及控制台变量来配置一段序列示例。
+</p><p>观看下方视频，了解高品质渲染的完整效果：
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_1_hxzs6ifs_7
+{
+	margin: 0px;
+	width: 100%;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_1_hxzs6ifs_7:after
+{
+	content: "";
+	padding-top: 56.25%;
+	display: block;
+}
+</style> 
+<div id="player_1_hxzs6ifs_7"> 
+	<div id="playerContainer_1_hxzs6ifs_7" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/1_hxzs6ifs/embed.html"></iframe>
+	</div>
+</div>
+<p>本指南所遵循的步骤与生成上方视频所需的步骤类似。主要区别在于你将使用影片渲染队列而非蓝图导演（Blueprint Director）。
+</p><h2 id="目标">目标</h2>
+<p>读完本指南后，你将对以下内容更加了解：
+</p><ul ><li class="Default"><p>使Sequencer准备就绪，以便与影片渲染序列结合使用
+</p></li><li class="Default"><p>输出高质量图像序列
+</p></li><li class="Default"><p>使用光线跟踪渲染图像时，调整输出设置以便改进图像
+</p></li><li class="Default"><p>使用控制台变量以便应用你的自定义设置
+</p></li></ul><p>为了获得最佳效果，请按顺序执行以下步骤。 
+</p><h2 id="步骤1.项目设置">步骤1.项目设置</h2>
+<p>开始之前，你需要更改系统设置，下载本指南随附的示例项目，并启用 <strong>影片渲染管线</strong> 插件。
+</p><h3 id="系统配置（可选步骤，推荐完成）">系统配置（可选步骤，推荐完成）</h3>
+<p>假如GPU在执行指令时花的时间过长，Windows就会认为显卡出现了崩溃，然后会重置驱动器，从而导致引擎关闭。
+</p><p>可以通过更改Windows注册表中的超时检测和恢复（TDR）时间，来增加Windows检测到GPU超时之前所需的时间。
+</p><div class="note">
+	<p>你需要获取管理员权限才能在电脑上进行此类编辑。</p>
+</div><p>要编辑TDR（加载示例项目之前），你需要：
+</p><ol ><li class="Default"><p>使用 <strong>Windows启动菜单搜索栏</strong>，输入 <strong>regedit</strong> 启动 <strong>注册表编辑器</strong>。
+</p></li><li class="Default"><p>导航至类别 <strong>Computer\HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\GraphicsDrivers</strong>。 
+</p></li><li class="Default"><p>从列表中选择 <strong>TdrDelay</strong>，然后右键点击并选择 <strong>修改（Modify）</strong>。 
+</p><p><span class="non-localized"><a id="content_link" href="../../../../Images/RenderingAndGraphics/RayTracing/MovieRenderQueue/RegistryEditor.png" ><span><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/RayTracing/MovieRenderQueue/RegistryEditor.jpg">
+		<img class="  lazyload" alt="RegistryEditor.PNG" data-src="../../../../Images/RenderingAndGraphics/RayTracing/MovieRenderQueue/RegistryEditor.jpg" />
+</picture>
+</span></a></span>
+</p></li><li class="Default"><p>该值以秒为单位。选择 <strong>十进制（Decimal）</strong>，将 <strong>数值数据（Value data）</strong> 设置为 <strong>60</strong>，然后点击 <strong>确定（OK）</strong>。
+</p></li></ol><div class="tip">
+	<p>有关TDR的其他信息，可在<a id="content_link" href="https://docs.microsoft.com/en-us/windows-hardware/drivers/display/tdr-registry-keys" ><span>Microsoft超时检测和恢复（TDR）注册表项</span></a>
+文档中找到。</p>
+</div><h3 id="下载示例项目">下载示例项目</h3>
+<p>本指南使用 <strong>ArchViz Interior</strong> 作为示例项目，以便生成最后渲染的最终图像序列。该示例项目提供了一个拥有光线跟踪效果（例如阴影、环境光遮蔽）和全局光照效果的逼真场景。 
+</p><ol ><li class="Default"><p>打开 <strong>Epic Games启动器（Epic Games Launcher）</strong>。点击左侧选项中的 <strong>虚幻引擎（Unreal Engine）</strong>，然后选择顶部的 <strong>学习（Learn）</strong> 标签。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/RayTracing/MovieRenderQueue/ArchVizDownload.jpg">
+		<img class="  lazyload" alt="虚幻引擎网站上的学习选项卡" data-src="../../../../Images/RenderingAndGraphics/RayTracing/MovieRenderQueue/ArchVizDownload.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>向下滚动到 <strong>引擎功能示例（Engine Feature Samples）</strong> 分段，然后选择 <strong>ArchViz Interior</strong>。当 <strong>内容细节（CONTENT DETAIL）</strong> 窗口打开时，点击 <strong>免费（Free）</strong> 下载项目，然后点击 <strong>创建项目（Create Project）</strong>。本指南中，我们将项目名称保留为 <strong>ArchVizInterior</strong>。
+</p></li><li class="Default"><p>选择下载路径或接受默认路径。
+</p></li></ol><div class="note">
+	<p>此项目要求显卡兼容光线追踪功能，并提供DirectX 12光线追踪支持。有关光线追踪系统要求的更多信息，请查阅<a id="content_link" href="https://docs.unrealengine.com/en-US/RenderingAndGraphics/RayTracing" ><span>实时光线追踪</span></a>。</p>
+</div><p>要了解有关建筑可视化室内项目及其开发方式的更多信息，请参阅<a id="content_link"filter-data="tag_showcases" href="../../../Resources/Showcases/ArchVisInterior/index.html" ><span>建筑可视化室内渲染</span></a>。
+</p><h3 id="启用影片渲染管线插件">启用影片渲染管线插件</h3>
+<p>你必须先启用 <strong>影片渲染管线（Movie Render Pipeline）</strong> 插件，然后才能使用 <strong>影片渲染队列</strong>。
+</p><ol ><li class="Default"><p>下载ArchViz项目并在引擎中打开后，前往 <strong>编辑（Edit）> 插件（Plugins）</strong>。
+</p></li><li class="Default"><p>如果尚未选择，请选择 <strong>内置（Built-In）</strong>，然后搜索 <strong>影片</strong>。然后你就能看到 <strong>影片渲染管线</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/RayTracing/MovieRenderQueue/MovieRenderPipeline.jpg">
+		<img class="  lazyload" alt="启用影片渲染管线" data-src="../../../../Images/RenderingAndGraphics/RayTracing/MovieRenderQueue/MovieRenderPipeline.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>如果尚未启用，请勾选 <strong>启用（Enabled）</strong> 复选框以便激活插件，然后关闭窗口。
+</p></li></ol><h2 id="步骤2：将项目序列加载到sequencer编辑器中">步骤 2：将项目序列加载到Sequencer编辑器中</h2>
+<p>在这一步中，你将用到在建筑可视化室内项目中设置的 <strong>过场动画序列</strong>，简称 <strong>过场动画</strong> 。 
+</p><div class="note">
+	<p>如果你还不熟悉Sequencer和影片渲染队列功能，请参阅本页面顶部列出的参考文档，这会帮助你加深理解。</p>
+</div><ol ><li class="Default"><p>打开Archviz Interior项目，在 <strong>内容浏览器</strong> 中找到关卡序列。在此项目中，所有关卡序列都位于 <strong>内容（Content）> 过场动画（Cinematic）</strong> 文件夹中。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/RenderingAndGraphics/RayTracing/MovieRenderQueue/ContentCinematic.png" ><span><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/RayTracing/MovieRenderQueue/ContentCinematic.jpg">
+		<img class="  lazyload" alt="ContentCinematic.png" data-src="../../../../Images/RenderingAndGraphics/RayTracing/MovieRenderQueue/ContentCinematic.jpg" />
+</picture>
+</span></a></span></p>
+</div></li><li class="Default"><p>双击 <strong>archviz_cine_MASTER</strong> 序列，在 <strong>Sequencer编辑器</strong> 中打开它。界面应类似于下图。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/RenderingAndGraphics/RayTracing/MovieRenderQueue/SequencerShotsPanel.png" ><span><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/RayTracing/MovieRenderQueue/SequencerShotsPanel.jpg">
+		<img class="  lazyload" alt="SequencerShotsPanel.png" data-src="../../../../Images/RenderingAndGraphics/RayTracing/MovieRenderQueue/SequencerShotsPanel.jpg" />
+</picture>
+</span></a></span></p>
+</div><p>此主序列包含此示例项目中使用的所有单个镜头。
+</p></li></ol><div class="tip">
+	<p>你还可以通过关卡编辑器访问主序列。点击过场动画（Cinematics）下拉菜单，选择和访问已打开项目中的任何现有主序列。 
+<picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/RayTracing/MovieRenderQueue/CinematicsDropdown.jpg">
+		<img class="  lazyload" alt="CinematicsDropdown.png" data-src="../../../../Images/RenderingAndGraphics/RayTracing/MovieRenderQueue/CinematicsDropdown.jpg" />
+</picture>
+</p>
+</div><h3 id="sequencer编辑器">Sequencer编辑器</h3>
+<p><strong>序列编辑器（Sequence Editor）</strong> 提供了一种以可视化方式检查现有镜头的有效方法，可以帮助你决定在使用影片渲染队列时要渲染的帧范围。 
+</p><p>在本练习中，我们已近指定了帧范围，但之后你可能会想自己选择帧范围。如果你刚接触Sequencer编辑器，请先熟悉以下功能。否则，直接前往<a id="content_link" href="#" ><span>步骤3：添加序列到影片渲染序列</span></a>。
+</p><p><strong>镜头轨迹（Shots Track）</strong> 包含过场动画中所有摄像机的信息。在此过场动画中，每个镜头都包含渲染时会用到的摄象机。点击左侧的下拉列表，查看所有折叠轨迹。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/RenderingAndGraphics/RayTracing/MovieRenderQueue/SequencerShotsPanel.png" ><span><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/RayTracing/MovieRenderQueue/SequencerShotsPanel.jpg">
+		<img class="  lazyload" alt="SequencerShotsPanel.png" data-src="../../../../Images/RenderingAndGraphics/RayTracing/MovieRenderQueue/SequencerShotsPanel.jpg" />
+</picture>
+</span></a></span></p>
+</div><p>点击面板中任何摄像机的 <strong>摄像机按钮</strong>，将关卡视口转到到该摄像机的视角。
+</p><p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/RayTracing/MovieRenderQueue/SequencerCameraButton.jpg">
+		<img class="  lazyload" alt="SequencerCameraButton.png" data-src="../../../../Images/RenderingAndGraphics/RayTracing/MovieRenderQueue/SequencerCameraButton.jpg" />
+</picture>
+
+</p><p>使用 <strong>播放控制面板</strong> 或 <strong>滑块</strong> 推移时间轴并查看镜头和帧范围。请注意，滑块会显示当前帧的编号。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/RayTracing/MovieRenderQueue/SequencerScrub.jpg">
+		<img class="  lazyload" alt="SequencerScrub.png" data-src="../../../../Images/RenderingAndGraphics/RayTracing/MovieRenderQueue/SequencerScrub.jpg" />
+</picture>
+
+</p><div class="tip">
+	<p>打开Sequencer后，从关卡编辑器中选择 <strong>视角（Perspective）> 过场动画视口（Cinematic Viewport）</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/RayTracing/MovieRenderQueue/PerspectiveSelectCinematic.jpg">
+		<img class="  lazyload" alt="PerspectiveSelectCinematic.png" data-src="../../../../Images/RenderingAndGraphics/RayTracing/MovieRenderQueue/PerspectiveSelectCinematic.jpg" />
+</picture>
+
+</p><p>这会在视口中打开一个播放控制面板，其中包含有关过场动画的其他信息。
+</p><p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/RayTracing/MovieRenderQueue/PerspectiveCinematic.jpg">
+		<img class="  lazyload" alt="PerspectiveCinematic.png" data-src="../../../../Images/RenderingAndGraphics/RayTracing/MovieRenderQueue/PerspectiveCinematic.jpg" />
+</picture>
+</p>
+</div><h2 id="步骤3：添加序列到影片渲染队列">步骤3：添加序列到影片渲染队列</h2>
+<p>接下来，你需要在影片渲染队列中添加一个序列。你将借助这个序列渲染一组高品质图像。 
+</p><div class="note">
+	<p>假如你习惯了<a id="content_link"filter-data="tag_sequencer" href="../../../AnimatingObjects/Sequencer/Workflow/ToolUsage/index.html" ><span>Sequencer中的影片渲染流程</span></a>，请注意，影片渲染序列的访问方法和使用界面会很不一样。 </p>
+</div><ol ><li class="Default"><p>在编辑器菜单栏中选择 <strong>窗口（Window）> 过场动画（Cinematics）> 影片渲染队列（Movie Render Queue）</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/RayTracing/MovieRenderQueue/Cinematics_MovieRenderQueue.jpg">
+		<img class="  lazyload" alt="Cinematics_MovieRenderQueue.png" data-src="../../../../Images/RenderingAndGraphics/RayTracing/MovieRenderQueue/Cinematics_MovieRenderQueue.jpg" />
+</picture>
+
+</p><p>首次打开时，窗口应为空，如下图所示。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/RayTracing/MovieRenderQueue/MovieRenderQueue_empty.jpg">
+		<img class="  lazyload" alt="MovieRenderQueue_empty.png" data-src="../../../../Images/RenderingAndGraphics/RayTracing/MovieRenderQueue/MovieRenderQueue_empty.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>点击 <strong>+Render（+渲染）</strong> 按钮，然后从下拉列表中点击 <strong>archviz_cine_MASTER关卡序列</strong> 文件，将其添加到队列中。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/RayTracing/MovieRenderQueue/MRQ_SelectSequence.jpg">
+		<img class="  lazyload" alt="MRQ_SelectSequence.png" data-src="../../../../Images/RenderingAndGraphics/RayTracing/MovieRenderQueue/MRQ_SelectSequence.jpg" />
+</picture>
+<br /></p><div class="tip">
+	<p>你还可以通过从内容浏览器将序列拖到队列窗口中，将序列添加到队列。</p>
+</div><p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/RayTracing/MovieRenderQueue/MovieRenderQueue_content.jpg">
+		<img class="  lazyload" alt="MovieRenderQueue_content.png" data-src="../../../../Images/RenderingAndGraphics/RayTracing/MovieRenderQueue/MovieRenderQueue_content.jpg" />
+</picture>
+
+</p></li></ol><p><strong>如需删除序列</strong>，请使用以下任意一种方法： 
+</p><ul ><li class="Default"><p>选择序列，然后点击 <strong>–</strong> 按钮。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/RayTracing/MovieRenderQueue/MovieRenderQueue_del.jpg">
+		<img class="  lazyload" alt="MovieRenderQueue_del.png" data-src="../../../../Images/RenderingAndGraphics/RayTracing/MovieRenderQueue/MovieRenderQueue_del.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>高亮显示并按键盘上的 <strong>删除（Del）</strong> 键。 
+</p></li><li class="Default"><p>右键点击序列，然后点击 <strong>删除（Delete）</strong>。
+</p></li></ul><p><strong>要高亮显示多个序列</strong>，请按住 <strong>Shift</strong> 键并点击进行选择。然后，你可以同时删除多个序列。
+</p><h2 id="步骤4：如何选择配置选项">步骤4：如何选择配置选项</h2>
+<p>在渲染任何加载进队列的序列前，你都需要先配置设置。有许多设置可供调整，例如输出格式、文件名，以及抗锯齿设置。
+</p><p>第一步是选择你要配置的设置。
+</p><ol ><li class="Default"><p>在窗口打开且列表中显示主序列的情况下，点击 <strong>未保存配置（Unsaved Config）</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/RayTracing/MovieRenderQueue/MRQ_access_settings.jpg">
+		<img class="  lazyload" alt="MRQ_access_settings.png" data-src="../../../../Images/RenderingAndGraphics/RayTracing/MovieRenderQueue/MRQ_access_settings.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>这会打开 <strong>设置/预设（Setting/Presets）</strong> 窗口。
+</p><p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/RayTracing/MovieRenderQueue/SettingPresetWindow.jpg">
+		<img class="  lazyload" alt="SettingPresetWindow.png" data-src="../../../../Images/RenderingAndGraphics/RayTracing/MovieRenderQueue/SettingPresetWindow.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>你可以在此窗口中更改配置，但首先你需要选择你要配置的设置。要添加设置，请点击 <strong>+设置（+ Setting）</strong> 按钮，将打开选项列表。
+</p><p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/RayTracing/MovieRenderQueue/MRQ_OutputList.jpg">
+		<img class="  lazyload" alt="MRQ_OutputList.png" data-src="../../../../Images/RenderingAndGraphics/RayTracing/MovieRenderQueue/MRQ_OutputList.jpg" />
+</picture>
+
+</p><p>选项分为三组：<strong>设置</strong>、<strong>渲染</strong> 和 <strong>输出</strong>（下面将详细介绍）。
+</p></li><li class="Default"><p>要将其中任一选项从此列表移至设置/预设（Setting/Presets）窗口，请点击下拉菜单中的条目。当你将项目添加到该窗口时，该项目将从此列表中删除。 
+</p></li><li class="Default"><p>重复步骤3和4，将更多选项添加到列表中。
+</p></li></ol><div class="note">
+	<p>你在设置/预设（Setting/Presets）窗口中添加的每项内容都有一个 <strong>切换开关</strong>。使用这些切换开关可以 <strong>启用</strong> 或 <strong>禁用</strong> 渲染过程选项。这将关闭该渲染的设置（仅限该渲染），但不会从这些预设中完全删除该选项。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/RayTracing/MovieRenderQueue/MRQ_toggles.jpg">
+		<img class="  lazyload" alt="MRQ_toggles.png" data-src="../../../../Images/RenderingAndGraphics/RayTracing/MovieRenderQueue/MRQ_toggles.jpg" />
+</picture>
+
+</p><p>要从设置/预设（Setting/Presets）窗口中 <strong>删除项目</strong>，请高亮显示该项目，然后按 <strong>删除（Del）</strong> 键。将从设置/预设（Setting/Presets）窗口中删除它，然后添加回选项列表中。</p>
+</div><h3 id="输出设置说明">输出设置说明</h3>
+<p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/RayTracing/MovieRenderQueue/MRQ_SettingOptions_Output.jpg">
+		<img class="  lazyload" alt="MRQ_SettingOptions_Output.png" data-src="../../../../Images/RenderingAndGraphics/RayTracing/MovieRenderQueue/MRQ_SettingOptions_Output.jpg" />
+</picture>
+
+</p><p>有几种 <strong>图像类型</strong> 可以用于 <strong>输出</strong>。每种类型都各有利弊，因此你需要找到最适合自己项目工作流程的类型。 
+</p><p>一个考虑因素是文件类型是否提供 <em>alpha通道</em>。如果你需要带有透明背景的图像，则这一点很重要。
+</p><p>另一个考虑因素是图像使用无损格式还是有损格式。<em>无损压缩</em> 表示文件解压时，可以恢复所有原始图像数据，而 <em>有损压缩</em> 则表示不能恢复所有原始数据。
+</p><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>输出类型 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>Alpha通道 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>有损或无损 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>说明 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>.bmp序列[8位]</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>否</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>无损</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>能快速写入磁盘，但由于其无压缩格式，文件尺寸较大。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>.jpg序列[8位]</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>否</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>有损</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>较小的文件大小使此格式适合预览。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>.png序列[8位]</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>是</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>无损</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>文件较大，但图像质量更高。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>.exr序列[16位] </strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>是</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>无损</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>由工业光魔公司开发的一种高动态范围格式，用于视频合成。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>.wav音频</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>不适用</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>不适用</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>用于音频输出。</p>
+			</td>
+	
+</tr></tbody>
+</table><p>有关图像类型的更多信息，请查阅<a id="content_link"filter-data="tag_sequencer tag_movie_render_queue tag_motion_blur tag_anti-aliasing tag_antialiasing tag_render tag_raytracing_ tag_beta tag_settingsreference" href="../../../AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/Reference/index.html" ><span>影片渲染队列参考指南</span></a>。
+</p><div class="note">
+	<p>.png和..exr图像格式都允许在输出图像时带有alpha通道，但是首先你需要启用此支持。在编辑器菜单栏中，选择 <strong>编辑（Edit）> 引擎（Engine）> 渲染（Rendering）> 后期处理（Postprocessing）> 在后期处理（实验性）中启用alpha通道支持（实验性功能）（Enable alpha channel support in post processing（experimental））> 仅限线性色彩空间（Linear color space only）</strong>。
+</p><p>应用此更改后，系统将提示你重新启动引擎。如需创建透明背景，你需要隐藏场景中的不透明对象，例如天空和大气雾。</p>
+</div><p>你可以选择多种输出格式，但在本练习中，我们只使用一种。
+</p><h3 id="渲染设置说明">渲染设置说明</h3>
+<p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/RayTracing/MovieRenderQueue/MRQ_SettingOptions_Rendering.jpg">
+		<img class="  lazyload" alt="MRQ_SettingOptions_Rendering.png" data-src="../../../../Images/RenderingAndGraphics/RayTracing/MovieRenderQueue/MRQ_SettingOptions_Rendering.jpg" />
+</picture>
+
+</p><p>为你提供两种 <strong>渲染</strong> 设置。其用于指定最终图像如何输出。
+</p><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>渲染类型 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>说明 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>延迟渲染（Deferred Rendering）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>默认选项。关闭 <strong>延迟渲染</strong> 会禁用最终帧渲染，但不会使队列停止处理配置设置中的其他步骤。请按照本指南中的步骤启用它。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>UI渲染器（非合成）（UI Renderer（Non-Composited））</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>将UMG小部件渲染到单独的.png或.exr文件中可提供灵活性，该文件可以与单独的合成应用程序（如Adobe Premiere或Final Cut Pro）中的帧渲染合成，在合成与界面相关的图形时很有用。</p>
+			</td>
+	
+</tr></tbody>
+</table><h3 id="其他设置说明">其他设置说明</h3>
+<p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/RayTracing/MovieRenderQueue/MRQ_SettingOptions_Settings.jpg">
+		<img class="  lazyload" alt="MRQ_SettingOptions_Settings.png" data-src="../../../../Images/RenderingAndGraphics/RayTracing/MovieRenderQueue/MRQ_SettingOptions_Settings.jpg" />
+</picture>
+
+</p><p>借助 <strong>设置选项（Settings options）</strong>，你可以指定在渲染最终输出图像时要使用的其他可配置项。
+</p><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>设置类型 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>说明 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>抗锯齿（Anti-aliasing）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>控制渲染最终图像时使用的采样数量和采样类型。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>烧入（Burn In）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>用于添加带有信息的覆层，信息包括场景或镜头的名称、日期、时间或帧信息等。这些覆层也称烧入（Burn Ins），因为它们在渲染时被烧录进影片。如有需要，可以替换为自定义控件。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>摄像机（Camera）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>可用于控制快门设置，进而影响运动模糊和曝光等效果。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>控制台变量（Console Variables）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>通过影片渲染队列进行渲染时，特地调用并执行某些控制台变量。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>游戏覆盖（Game Overrides）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>覆盖一些与游戏相关的常见设置，例如游戏模式（Game Mode）和过场动画质量（Cinematic Quality）设置。如果游戏在正常模式下会显示你不想采集的UI元素或加载屏幕，则此功能很有用。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>高分辨率（High Resolution）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>允许你使用平铺渲染生成更大的图像，生成通常情况下因最大纹理尺寸或GPU内存限制而无法生成的超大图像。</p>
+			</td>
+	
+</tr></tbody>
+</table><p>在本练习中，你只会使用其中几个选项，但之后你可以（并且应该）自己探索所有这些选项。
+</p><p>有关这些设置的更多信息，请参阅<a id="content_link"filter-data="tag_sequencer tag_movie_render_queue tag_motion_blur tag_anti-aliasing tag_antialiasing tag_render tag_raytracing tag_ray_tracing tag_beta" href="../../../AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/index.html" ><span>影片渲染队列参考指南</span></a>。
+</p><h2 id="步骤5：选择你的选项">步骤5：选择你的选项</h2>
+<p>添加以下选项到设置/预设（Setting/Presets）窗口：
+</p><ul ><li class="Default"><p><strong>.png序列[8位]（.png Sequence [8bit]）</strong>
+</p></li><li class="Default"><p><strong>延迟渲染（Deferred Rendering）</strong>
+</p></li><li class="Default"><p><strong>抗锯齿（Anti-Aliasing）</strong>
+</p></li><li class="Default"><p><strong>控制台变量（Console Variables）</strong>
+</p></li></ul><p>另一选项 <strong>输出（Output）</strong> 也将位于 <strong>设置（Settings）</strong> 中的列表上。这是唯一无法删除的选项。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/RayTracing/MovieRenderQueue/SettingPreset_withOptionsSelected.jpg">
+		<img class="  lazyload" alt="SettingPreset_withOptionsSelected.png" data-src="../../../../Images/RenderingAndGraphics/RayTracing/MovieRenderQueue/SettingPreset_withOptionsSelected.jpg" />
+</picture>
+
+</p><div class="caption">
+	<p>这是你的 <strong>设置/预设（Setting/Presets）</strong> 窗口此时应呈现的外观。</p>
+</div><h3 id="步骤6：配置抗锯齿设置">步骤6：配置抗锯齿设置</h3>
+<p><strong>抗锯齿</strong> 是一种使线条平滑并消除视觉失真的方法。<strong>空间采样</strong> 和 <strong>临时采样</strong> 各自使用不同的方法解决抗锯齿和噪点相关的问题。 
+</p><ul ><li class="Default"><p><strong>空间采样</strong> 的工作原理是在相同的时间点渲染，但是摄象机位置的偏移略有不同，并且在两个不同的空间样本之间没有时间流逝，同时会累加来自不同偏移位置的样本。 
+</p></li><li class="Default"><p><strong>临时采样</strong> 的工作方式是将摄像机快门的打开时间切割成若干个指定的子帧，然后使用引擎运动模糊在较小的片段之间插值。它特别适合提高运动模糊质量。
+</p></li></ul><p>有关临时采样和空间采样之间的区别，以及何时以一种方法代替另一种方法的更多指引信息，请参阅<a id="content_link"filter-data="tag_sequencer tag_movie_render_queue tag_motion_blur tag_anti-aliasing tag_antialiasing tag_render tag_raytracing tag_ray_tracing tag_beta" href="../../../AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/index.html" ><span>影片渲染队列概述</span></a>。
+</p><p>本指南中使用的值是两种方法的组合。 
+</p><div class="note">
+	<p>本指南基于RTX-2080 Ti显卡开发。根据你的设置，你可能需要在此处降低某些数值才能生成最终的帧画面，或者，如果你使用的是高端显卡（如Quadro RTX），则你可以增加采样数量。</p>
+</div><ol ><li class="Default"><p>在 <strong>影片渲染队列（Movie Render Queue）</strong> 窗口中，点击 <strong>未保存配置（Unsaved Config）</strong> 链接，打开设置。（<strong> * </strong> 表示尚未保存这些设置。输入所有设置后，你将保存预设。）
+</p></li><li class="Default"><p>在 <strong>设置/预设（Setting/Presets）</strong> 窗口中，点击 <strong>抗锯齿（Anti-aliasing）</strong>，打开设置对话框。 
+</p></li><li class="Default"><p>添加以下数值：
+</p><ul ><li class="Default"><p>空间采样数量（Spatial Sample Count）：<strong>1</strong> 
+</p></li><li class="Default"><p>临时采样数量（Temporal Sample Count）：<strong>64</strong>
+</p></li><li class="Default"><p>覆盖抗锯齿模式（Override Anti Aliasing Mode）：<strong>已启用（Enabled）</strong>
+</p></li><li class="Default"><p>抗锯齿方法（Anti Aliasing Method）：<strong>无（None）</strong>
+</p></li><li class="Default"><p>渲染预热计数（Render Warm Up Count）：<strong>120</strong>
+</p></li><li class="Default"><p>引擎预热计数（Engine Warm Up Count）：<strong>120</strong>
+</p></li></ul><p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/RayTracing/MovieRenderQueue/MRQ_Configure_AntiAliasing.jpg">
+		<img class="  lazyload" alt="MRQ_Configure_AntiAliasing.png" data-src="../../../../Images/RenderingAndGraphics/RayTracing/MovieRenderQueue/MRQ_Configure_AntiAliasing.jpg" />
+</picture>
+
+</p></li></ol><p> 在构建临时历史记录和模拟时，<strong>渲染预热计数（Render Warm Up Count）</strong> 和 <strong>引擎预热计数（Engine Warm Up Count）</strong> 这两个参数能提供足够的缓冲时间，使其在采集帧之前稳定下来。例如，这将允许自动曝光或其他屏幕效果在渲染第一帧之前有一个良好的起点。
+</p><p>这些设置将渲染高质量图像。此处旨在展示，与实时渲染相比，你能从中获得更高质量的画面。因此，你不必担心实时性能或渲染所花费的时间。
+</p><p>质量与性能之间的权衡意味着，采样数量越高，每帧渲染所耗费的时间就越长。
+</p><div class="warning">
+	<p>你 <em>可以这样</em>，并不代表你就 <em>应该如此！</em>
+</p><p>建议你先使用几帧进行测试，而不要在开始之前将所有项都设置为最高值。你的目标应该是根据你的GPU和设置找到最适合你的项目的设置。</p>
+</div><h2 id="步骤7：配置控制台变量">步骤7：配置控制台变量</h2>
+<p>借助影片渲染队列进行渲染时，你可以调用并执行大多数 <strong>控制台变量（CVAR）</strong>。当你在渲染那些实时开销过大的高质量效果时，这些参数会很有用。 
+</p><div class="note">
+	<p>队列中所列的CVAR仅在图像通过队列渲染时执行。这些设置不会永久更改关卡中已设置的任何内容，它可以兼容现有设置，并且只会覆盖那些在队列中指示的、用于最终图像输出的设置。<br /></p><p>这种方法对于光线跟踪特别有价值，因为在启用这类功能后，增加采样数量和反射次数会直接影响性能，但会大大提高光照效果的质量和精度。 </p>
+</div><ol ><li class="Default"><p>点击 <strong>控制台变量（Console Variables）</strong>，打开设置对话框。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/RayTracing/MovieRenderQueue/MRQ_Configure_ConsoleEmpty.jpg">
+		<img class="  lazyload" alt="MRQ_Configure_ConsoleEmpty.png" data-src="../../../../Images/RenderingAndGraphics/RayTracing/MovieRenderQueue/MRQ_Configure_ConsoleEmpty.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>点击 <strong>+</strong> 按钮，按下述列表输入变量及其数值： 
+</p><ul ><li class="Default"><p>r.MotionBlurQuality: <strong>4</strong>
+</p></li><li class="Default"><p>r.MotionBlurSeparable: <strong>1</strong>
+</p></li><li class="Default"><p>r.DepthOfFieldQuality: <strong>4</strong>
+</p></li><li class="Default"><p>r.BloomQuality: <strong>5</strong>
+</p></li><li class="Default"><p>r.Tonemapper.Quality: <strong>5</strong>
+</p></li><li class="Default"><p>r.RayTracing.GlobalIllumination: <strong>1</strong>
+</p></li><li class="Default"><p>r.RayTracing.GlobalIllumination.MaxBounces: <strong>2</strong>
+</p></li><li class="Default"><p>r.RayTracing.Reflections.MaxRoughness: <strong>1</strong>
+</p></li><li class="Default"><p>r.RayTracing.Reflections.MaxBounces: <strong>2</strong>
+</p></li><li class="Default"><p>r.RayTracing.Reflections.Shadows: <strong>2</strong>
+</p></li></ul><div class="tip">
+	<p>输入这些CVAR的最快、最准确的方法是从此文档剪切并粘贴，然后按 <strong>Tab</strong> 键将光标移至值字段。</p>
+</div></li><li class="Default"><p>重复步骤2直至添加全部。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/RayTracing/MovieRenderQueue/MRQ_Configure_ConsoleFull.jpg">
+		<img class="  lazyload" alt="MRQ_Configure_ConsoleFull.png" data-src="../../../../Images/RenderingAndGraphics/RayTracing/MovieRenderQueue/MRQ_Configure_ConsoleFull.jpg" />
+</picture>
+
+</p></li></ol><p>与抗锯齿值一样，此处使用的控制台变量注重质量而不是性能。
+</p><p>对于光线追踪全局光照（<code>r.RayTracing.GlobalIllumination</code>），设置数值 <strong>1</strong> 可调用暴力方法。这样可确保准确，并支持多次间接光照反射，但是计算开销大。如果你将此值更改为 <strong>2</strong>，它将使用临时历史记录方法，该方法速度更快，但是仅支持单次间接光照反射，并生成一些 <em>重影瑕疵</em> （运动图像后的尾迹像素）。<br /></p><p>本练习中的其他CVAR使用可缩放数值控制质量级别。 
+</p><p>如果你要了解控制台变量的细节，你可以使用反引号（<strong>`</strong>）键打开控制台并搜索该控制台命令。使用以下格式显示提示文本：
+</p><p>   <code>&#91;consolevariablename&#93; ?</code>
+</p><p>例如，如果你输入 r.RayTracing.GlobalIllumination ?`，提示文本的输出如下所示： 
+</p><pre class="prettyprint"><code>    HELP for 'r.RayTracing.GlobalIllumination':
+-1：后期处理体积驱动的值（默认） 
+0：光线追踪全局光照关闭 
+1：启用光线追踪全局光照暴力方法
+2：启用光线追踪全局光照最终收集方法</code></pre>
+<p>该查询结果将在 <strong>输出日志</strong> 中显示。要访问，请前往 <strong>窗口（Window）> 开发人员工具（Developer Tools）> 输出日志（Output Log）</strong>。
+</p><div class="note">
+	<p>本指南中选择的所有变量和值为项目渲染提供了高质量的起始点。
+</p><p>在你处理自己的项目时，你可能想要尝试不同的变量和值。对于光线追踪的特定CVAR，请参阅<a id="content_link"filter-data="tag_sequencer tag_movie_render_queue tag_motion_blur tag_anti-aliasing tag_antialiasing tag_render tag_raytracing tag_ray_tracing tag_beta" href="../../../AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/index.html" ><span>影片渲染队列概述</span></a>和本指南最后的 <a id="content_link" href="#自主操作！" ><span>自主操作！</span></a> 环节。</p>
+</div><h2 id="步骤8：配置输出">步骤8：配置输出</h2>
+<p><strong>设置/预设（Setting/Presets）</strong> 窗口的最终配置步骤为 <strong>输出（Output）</strong>。
+</p><p>你可以渲染整个序列、一系列帧或单个帧。由于高质量输出很耗时，因此在本练习中，你将把输出限制为序列中的一小段。
+</p><ol ><li class="Default"><p>在 <strong>影片渲染队列（Movie Render Queue）</strong> 窗口中点击 <strong>未保存配置（Unsaved Config）</strong> 链接，打开设置。
+</p><p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/RayTracing/MovieRenderQueue/MRQ_OutputSettings.jpg">
+		<img class="  lazyload" alt="MRQ_OutputSettings.png" data-src="../../../../Images/RenderingAndGraphics/RayTracing/MovieRenderQueue/MRQ_OutputSettings.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>文件输出（File Output）</strong> 中，输入： 
+</p><ul ><li class="Default"><p><strong>输出目录（Output Directory）：</strong> 你要渲染图像的目标目录。默认情况下，它将保存到你的项目文件夹。要浏览其他目录，请点击右侧的...。 
+</p></li><li class="Default"><p><strong>文件名格式（File Name Format）：</strong> 如果未更改，默认名称是序列名称和渲染的帧数。 
+</p></li><li class="Default"><p><strong>输出分辨率（Output Resolution）：</strong> 目标图像尺寸。默认为1920（宽度）乘以1080（高度）。保留默认值。
+</p></li><li class="Default"><p><strong>使用自定义帧率（Use Custom Frame Rate）：</strong> 更改输出帧率。保留禁用状态。 
+</p></li><li class="Default"><p><strong>覆盖现有输出（Override Existing Output）：</strong> 点击此复选框以启用。
+</p></li></ul></li><li class="Default"><p>在 <strong>帧（Frames）</strong> 中，输入：
+</p><ul ><li class="Default"><p><strong>处理帧数（Handle Frame Count）：</strong>此练习中未使用。保留默认值0。要了解关于此选项的更多信息，请参阅<a id="content_link" href="https://docs.unrealengine.com/en-US/Engine/Sequencer/Overview/index.html" ><span>Sequencer概述</span></a>。 
+</p></li><li class="Default"><p><strong>输出帧步（Output Frame Step）：</strong>  此练习中未使用。保留默认值1。 
+</p></li><li class="Default"><p><strong>使用自定义播放范围（Use Custom Playback Range）：</strong>点击可启用。 
+</p></li><li class="Default"><p><strong>自定义起始帧（Custom Start Frame）：</strong>设置渲染范围的首帧。输入 <strong>450</strong>。
+</p></li><li class="Default"><p><strong>自定义终止帧（Custom End Frame）：</strong> 设置范围的最终帧。输入 <strong>550</strong>。100帧的范围足以呈现反射、动态模糊和全局光照的质量，而无需花费大量时间等待渲染完成。
+</p></li></ul></li><li class="Default"><p>点击 <strong>接受（Accept）</strong>，保存所有输入的设置。
+</p></li></ol><h2 id="步骤9：保存你的配置设置">步骤9：保存你的配置设置</h2>
+<p>保存你的设置以便于将其再次用于此项目和其他项目。保存了预设后，你可以随时回到这里，根据项目工作流程编辑这些设置，或者将预设复制到其他项目中。
+</p><p>当你找到方法调整特定项目工作流的设置时，你还可以编辑设置，然后保存或者将它们另存为。
+</p><ol ><li class="Default"><p>从 <strong>影片渲染序列（Movie Render Queue）</strong> 窗口，点击 <strong>未保存配置（Unsaved Config）</strong>，打开 <strong>设置/预设（Setting/Preset）</strong> 窗口。
+</p></li><li class="Default"><p>点击 <strong>预设（Presets）</strong>，然后点击 <strong>另存为预设（Save As Preset）</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/RayTracing/MovieRenderQueue/SavePreset.jpg">
+		<img class="  lazyload" alt="SavePreset.png" data-src="../../../../Images/RenderingAndGraphics/RayTracing/MovieRenderQueue/SavePreset.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>保存配置预设（Save Config Preset）</strong> 窗口中，为你的预设资产命名。
+</p><div class="note">
+	<p>新的目录路径将在项目内容浏览器中自动生成：<strong>过场动画（Cinematics）> 影片管线（MoviePipeline）> 预设（Presets）</strong>。接受默认位置，或使用左侧的内容导航面板选择其他目录。 </p>
+</div><p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/RayTracing/MovieRenderQueue/SavePresetDefaultDirectory.jpg">
+		<img class="  lazyload" alt="SavePresetDefaultDirectory.png" data-src="../../../../Images/RenderingAndGraphics/RayTracing/MovieRenderQueue/SavePresetDefaultDirectory.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>点击 <strong>保存（Save）</strong>。
+</p></li></ol><p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/RayTracing/MovieRenderQueue/SavedPresetsLoad.jpg">
+		<img class="  lazyload" alt="SavedPresetsLoad.png" data-src="../../../../Images/RenderingAndGraphics/RayTracing/MovieRenderQueue/SavedPresetsLoad.jpg" />
+</picture>
+
+</p><div class="note">
+	<p>因为该预设现在是一项资产，它现在可以在内容浏览器中打开，然后独立于序列文件复制到其他项目中。</p>
+</div><p>如果已保存预设未显示，点击下来菜单，查看此项目的所有已保存预设。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/RayTracing/MovieRenderQueue/MRQ_SettingsSaved.jpg">
+		<img class="  lazyload" alt="MRQ_SettingsSaved.png" data-src="../../../../Images/RenderingAndGraphics/RayTracing/MovieRenderQueue/MRQ_SettingsSaved.jpg" />
+</picture>
+
+</p><h2 id="步骤10：最终输出和结果">步骤10：最终输出和结果</h2>
+<p>在最后的练习步骤中，你将使用你设置和保存的值从采样序列中渲染出选定的图像范围。
+</p><p>为你提供两种渲染选项：
+</p><ul ><li class="Default"><p><strong>渲染（本地）（Render（Local））：</strong> 渲染当前编辑器实例中的序列，类似于在编辑器中运行（PIE）。由于迭代时间较短，此工作流最常用，也推荐你使用。
+</p></li><li class="Default"><p><strong>渲染（远程）（Render（Remote））：</strong> 默认行为是启动一个单独进程来渲染队列，类似于老版渲染影片系统中的"使用单独进程（Use Separate Process）"。对文件的更改需要在单独启动进程时保存。此按钮的行为可以被内部解决方案替代，例如使用渲染农场。
+</p></li></ul><p>对于本练习，你将进行 <strong>本地渲染</strong>，方便预览。 
+</p><ol ><li class="Default"><p>在 <strong>影片渲染队列（Movie Render Queue）</strong> 窗口中，确保你的序列与你保存的预设一起加载，然后点击 <strong>渲染（本地）（Render（Local））</strong> 按钮。<br /></p><p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/RayTracing/MovieRenderQueue/RenderLocal.jpg">
+		<img class="  lazyload" alt="RenderLocal.png" data-src="../../../../Images/RenderingAndGraphics/RayTracing/MovieRenderQueue/RenderLocal.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>预览窗口将启动，然后它会根据预设中的参数和值采集并输出每一帧画面。
+</p><p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/RayTracing/MovieRenderQueue/RenderPreview.jpg">
+		<img class="  lazyload" alt="RenderPreview.png" data-src="../../../../Images/RenderingAndGraphics/RayTracing/MovieRenderQueue/RenderPreview.jpg" />
+</picture>
+
+</p><div class="caption">
+	<p>状态信息显示在左侧底部，序列信息显示在右侧。 </p>
+</div><div class="note">
+	<p>设置渲染输出是出于质量而非速度的考虑。如果你的计算机速度很慢，请耐心等待，这可能是一个缓慢的过程。</p>
+</div></li><li class="Default"><p>渲染完成后，预览窗口将关闭。可以在 <strong>已保存输出</strong> 目录中找到已采集的帧。要快速导航至该文件夹，请在 <strong>输出（Output）</strong> 一列中点击影片渲染队列（Movie Render Queue）窗口中的链接。
+</p></li></ol><p>这是一段视频剪辑，显示了100帧镜头渲染的最终效果。 
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_1_i17ougsv_202
+{
+	margin: 0px;
+	width: 75%;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_1_i17ougsv_202:after
+{
+	content: "";
+	padding-top: 56.25%;
+	display: block;
+}
+</style> 
+<div id="player_1_i17ougsv_202"> 
+	<div id="playerContainer_1_i17ougsv_202" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/1_i17ougsv/embed.html"></iframe>
+	</div>
+</div>
+<p>你可能发现仍有一些瑕疵需要处理，例如金杯上闪烁的反射。这类问题可以使用材质中的其他技术优化或解决。（有关这些技术的更多信息，请参阅
+<a id="content_link"filter-data="tag_showcases" href="../../../Resources/Showcases/ArchVisInterior/index.html" ><span>建筑可视化室内渲染</span></a>）。
+</p><p>而你会发现抗锯齿、阴影、动态模糊以及多重反射全局光照和反射已改善。利用下面的对比资料，了解采用默认设置的帧540（左）和采用为此练习中输出的指定设置（右）的帧540之间的差异。
+</p><!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/RayTracing/MovieRenderQueue/ComparisonLeft.jpg">
+		<img class="  lazyload" alt="采用默认设置的帧540。" width="400" data-src="../../../../Images/RenderingAndGraphics/RayTracing/MovieRenderQueue/ComparisonLeft.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/RayTracing/MovieRenderQueue/ComparisonRight.jpg">
+		<img class="  lazyload" alt="采用增强品质数值的帧540。" width="400" data-src="../../../../Images/RenderingAndGraphics/RayTracing/MovieRenderQueue/ComparisonRight.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div><p>在本指南中，你已经了解如何设置和配置影片渲染队列，以便以多种格式渲染高质量图像序列。你可以将这些图像序列置于第三方编辑和合成软件中，如Adobe Premiere、After Effects、Final Cut Pro、Nuke或Resolve，以便生成视频剪辑或执行进一步的镜头编辑和颜色分级。此过程与用于为Archviz Interior示例项目生成视频的过程相同： 
+</p><h2 id="渲染故障处理">渲染故障处理</h2>
+<p>如果渲染失败，或者如果引擎停止工作或崩溃，你可以检查以下项。 
+</p><ul ><li class="Default"><p><strong>你是否有安装适用你显卡的最新GPU驱动程序？</strong>
+</p><p>如果你没有，请下载它。 
+</p></li><li class="Default"><p><strong>你的GPU是否支持光线追踪？</strong> 
+</p><p>如需进一步了解光线追踪的要求，请参阅<a id="content_link"filter-data="tag_ray_tracing" href="../index.html" ><span>实时光线追踪</span></a>。
+</p></li></ul><p>如果这些方法没有解决问题，请尝试下一步骤。
+</p><h2 id="禁用gpu超时">禁用GPU超时</h2>
+<p>以下信息也有助于避免或减少GPU超时，但仅应当你在渲染过程中遇到超时问题或引擎崩溃时才应用。
+</p><p>控制台命令 <code>r.D3D12.GPUTimeout</code> 设置是否启用GPU超时，该设置可能导致引擎关闭。 
+</p><ul ><li class="Default"><p><strong>0</strong> 表示禁用GPU超时。使用时应格外小心，因为此操作可能导致PC死机。 
+</p></li><li class="Default"><p><strong>1</strong> 表示启用GPU超时。此为默认设置，当操作花费太长时间而无法在GPU上完成时，会导致编辑器关闭。
+</p></li></ul><p>因为你仅将其应用于你的项目，而不是整个系统，所以请在你已下载ArchViz Interior示例项目，并在虚幻引擎关闭后执行这些步骤。
+</p><ol ><li class="Default"><p>在关闭虚幻引擎的情况下，前往 *项目配置文件夹**。 
+示例： `D:\ue_local_project_Epic_official_demo\ArchVizInterior\Config`
+</p></li><li class="Default"><p>在文本编辑器中打开 <code>ConsoleVariable.ini</code> 文件，并滚动至文件底部，然后在末尾添加以下两行：
+</p><p><code>; disable GPU Timeout</code>
+</p><p><code>r.D3D12.GPUTimeout=0</code>
+</p><p>第一行是注释，提醒你CVAR的用途。第二行是具有预期值的实际CVAR。
+</p></li><li class="Default"><p><strong>保存</strong> 文件。如果提示要覆盖，点击 <strong>确定（OK）</strong>。关闭你的文本编辑器。
+</p></li><li class="Default"><p>启动引擎并加载Archviz项目。GPU超时CVAR现已生效。
+</p></li></ol><h2 id="自主操作！">自主操作！</h2>
+<p>你已经了解影片渲染队列的基本工作流程，但是你此处使用的设置只是起始点。以下是一些供你自主尝试的建议。 
+</p><h3 id="本地渲染和远程渲染">本地渲染和远程渲染</h3>
+<p>在<a id="content_link" href="#步骤10：最终输出和结果" ><span>步骤10：最终输出和结果</span></a>中，你在本地输出渲染。此方法适用于预览，同时仍然提供高质量结果。然而，使用远程渲染不会在过程中运行虚幻编辑器代码。 
+</p><p>如果你可以访问渲染农场，那么你还可以自己实现 <strong>渲染（远程）</strong> 命令，然后将任务发送给渲染农场。目前虚幻引擎尚不支持任何现有的第三方渲染农场软件。虚幻引擎4.25目前要求使用C++编写新的实现内容。我们希望不久的将来能支持使用Python编写实现内容。
+</p><h3 id="临时采样和降噪">临时采样和降噪</h3>
+<p>有两种临时取样方法可解决图像处理中的抗锯齿问题。
+</p><p>在编辑器中实时工作时，你将使用 <strong>临时抗锯齿（TAA）</strong>，这是一种特定的实时、抗锯齿技术。它存在一些缺陷，例如当摄像机快速移动或物体在精细的材质上移动时，会出现重影或噪点瑕疵，这使其没那么适合用于高质量图像输出。 
+</p><p>或者，你可以使用 <strong>临时采样（Temporal Sampling）</strong>。此方法使用与TAA类似的技术，使用真实的渲染数据减少图像的锯齿。它借助实时TAA解决问题，但处理速度较慢，因为它使用的样本更多，以便生成更好的效果。例如，如果它使用8倍的样本，则处理时间将是实时TAA的八倍。
+</p><p>另一方面，光线追踪的许多功能都使用不同的降噪器。它使用的样本更少，但是通过模糊和平滑处理 <em>柔化</em> 样本后，产生的效果与使用更多样本的效果相同。使用影片渲染队列时，由于你不关心实时性能，因此你可以禁用降噪器，并使用更多样本生成物理上更精确的结果。 
+</p><p>考虑到这一点，在将影片渲染队列与光线追踪功能结合使用时，你可以禁用以下降噪器，方法是将其添加至你的控制台变量列表： 
+</p><ul ><li class="Default"><p><strong>r.AmbientOcclusion.Denoiser: 0</strong>
+</p></li><li class="Default"><p><strong>r.DiffuseIndirect.Denoiser: 0</strong>
+</p></li><li class="Default"><p><strong>r.RayTracing.SkyLight.Denoiser: 0</strong>
+</p></li><li class="Default"><p><strong>r.Reflections.Denoiser: 0</strong>
+</p></li><li class="Default"><p><strong>r.Shadow.Denoiser: 0</strong>
+</p></li><li class="Default"><p><strong>r.RayTracing.GlobalIllumination.Denoiser: 0</strong>
+</p></li></ul><p>当在配置设置（Configuration Settings）对话框中通过将 <strong>抗锯齿方法（Anti Aliasing Method）</strong> 设置为 <strong>无（None）</strong> 禁用TAA时，如果在CVAR中禁用了降噪器，也可以关闭临时采样累加。在你自己的影片渲染队列测试中，浏览以下内容：
+</p><ul ><li class="Default"><p><strong>r.AmbientOcclusion.Denoiser.TemporalAccumulation: 0</strong>
+</p></li><li class="Default"><p><strong>r.GlobalIllumination.Denoiser.TemporalAccumulation: 0</strong>
+</p></li><li class="Default"><p><strong>r.Reflections.Denoiser.TemporalAccumulation: 0</strong>
+</p></li><li class="Default"><p><strong>r.Shadow.Denoiser.TemporalAccumulation: 0</strong>
+</p></li></ul><h3 id="其他光线追踪控制台命令">其他光线追踪控制台命令</h3>
+<p>许多光线追踪特征值已针对实时使用进行了优化。这意味着它们通过减少样本数量，限制最大反射数量或其他措施，从而牺牲质量以换取性能。 
+</p><p>下面是你可以在影片渲染队列中使用的更多控制台变量，以质量换取性能。这一点特别有用，因为仅当从队列运行渲染时，此功能才执行这些命令，并且对于你可能已在编辑器中的后期处理体积中设置的任何实时设置，该设置不会永久覆盖。 
+</p><p><strong>逐像素采样：</strong> 每个光线追踪功能都可以使用很少或很多样本生成最终结果。去噪器使用像素较少，通常用于计算量繁重的任务。借助影片渲染队列，你可以选择禁用降噪器，并增加逐像素样本，以便提高质量。 
+</p><p>部分示例为：
+</p><ul ><li class="Default"><p><strong>r.RayTracing.Reflections.SamplesPerPixel</strong>
+</p></li><li class="Default"><p><strong>r.RayTracing.Shadow.SamplesPerPixel</strong>
+</p></li><li class="Default"><p><strong>r.RayTracing.GlobalIllumination.SamplesPerPixel</strong>
+</p></li></ul><p><strong>最大反射数（Maximum Number of Bounces）：</strong>在场景中进行多次反射或光线反射，生成更自然、更高质量的效果，从而让光线跟踪功能（例如反射、全局光照和透明涂层）从中受益。这些设置对于实时渲染来说开销很大。<br /></p><ul ><li class="Default"><p><strong>r.RayTracing.GlobalIllumination.MaxBounces</strong>
+</p></li><li class="Default"><p><strong>r.RayTracing.Reflections.MaxBounces</strong>
+</p></li><li class="Default"><p><strong>r.RayTracing.Reflections.MaxUnderCoatBounces</strong>
+</p></li></ul><p><strong>天空光照（Sky Light）：</strong> 在实时光线追踪中，为反射和全局光照等功能计算每帧时，由于距离无限，天空光照可能造成额外的开销。 
+</p><p>使用影片渲染队列工作时，以下CVAR可以在光线跟踪中启用其他天空光照选项：
+</p><ul ><li class="Default"><p><strong>r.RayTracing.GlobalIllumination.EvalSkyLight</strong>
+</p></li><li class="Default"><p><strong>r.RayTracing.SkyLight.EnableTwoSidedGeometry</strong>
+</p></li><li class="Default"><p><strong>r.RayTracing.Reflections.RayTraceSkyLightContribution</strong>
+</p></li><li class="Default"><p><strong>r.RayTracing.SkyLight.EnableMaterials</strong>
+</p></li></ul><div class="tip">
+	<p>这些是部分可用CVAR。你可以通过打开控制台窗口并输入 <code>r.RayTracing</code> 查看可用变量列表，从而浏览其他CVAR。 </p>
+</div>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../SiteIndex/index.html?tags=beta">beta</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../SiteIndex/index.html?tags=rendering">rendering</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../SiteIndex/index.html?tags=ray%20tracing">ray tracing</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../SiteIndex/index.html?tags=cinematics">cinematics</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../SiteIndex/index.html?tags=Sequencer">Sequencer</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/RenderingAndGraphics/RayTracing/MovieRenderQueue/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:20:14 GMT -->
+</html>

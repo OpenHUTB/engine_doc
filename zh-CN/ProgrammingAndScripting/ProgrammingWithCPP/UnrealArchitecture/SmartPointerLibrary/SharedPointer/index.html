@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/SmartPointerLibrary/SharedPointer/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:21:41 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/SmartPointerLibrary/SharedPointer/" />');
+				var udnCSS = '../../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>共享指针 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/SmartPointerLibrary/SharedPointer/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/SmartPointerLibrary/SharedPointer/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/SmartPointerLibrary/SharedPointer/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/SmartPointerLibrary/SharedPointer/" hreflang="ko" />
+
+	<meta name="redirect" content="Programming/UnrealArchitecture/SmartPointerLibrary/SharedPointer" />
+<meta name="intsourcechangelist" content="9382381" />
+<meta name="availability" content="Public" />
+<meta name="title" content="共享指针" />
+<meta name="description" content="一种支持共享拥有、自动失效、弱引用等特性的智能指针。" />
+<meta name="type" content="overview" />
+<meta name="version" content="4.21" />
+<meta name="parent" content="ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/SmartPointerLibrary" />
+<meta name="keywords" content="Programming" />
+<meta name="order" content="0" />
+<meta name="crumbs" content="%ROOT%,ProgrammingAndScripting,ProgrammingAndScripting/ProgrammingWithCPP,ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture,ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/SmartPointerLibrary" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="共享指针" />
+	<meta property="og:description" content="一种支持共享拥有、自动失效、弱引用等特性的智能指针。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../../index.html">编程和脚本编写</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">编程指南</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">游戏逻辑编程</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">虚幻智能指针库</a>
+
+<span class="separator">></span> <span id="page">共享指针</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">共享指针</h1>
+							</div>	
+							<h2 >一种支持共享拥有、自动失效、弱引用等特性的智能指针。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																																			</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																																				<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#声明和初始化">声明和初始化</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#在共享指针与共享引用之间进行转换">在共享指针与共享引用之间进行转换</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#对比">对比</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#解引用和访问">解引用和访问</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#自定义删除器">自定义删除器</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p><strong>共享指针（Shared Pointers）</strong> 是指既健壮、又能为空指针的智能指针。共享指针沿袭了普通智能指针的所有优点，它能避免出现内存泄漏、悬挂指针，还能避免指针指向未初始化的内存。但它们还有一些其他特点，例如：
+</p><ul ><li class="Default"><p><strong>共享所有权（Shared Ownership）：</strong> 引用计数支持多个共享指针，以确保它们引用的数据对象永远不被删除，前提是它们中的任意一个仍指向数据对象。
+</p></li><li class="Default"><p><strong>自动失效（Automatic Invalidation）：</strong> 你可安全引用易变对象，无需担心出现悬挂指针。
+</p></li><li class="Default"><p><strong>弱引用：</strong> <a id="content_link"filter-data="tag_programming" href="../WeakPointer/index.html" ><span>弱指针</span></a>可中断引用循环。
+</p></li><li class="Default"><p><strong>意向指示（Indication of Intent）：</strong> 区分拥有者（参见<a id="content_link"filter-data="tag_programming" href="../SharedReference/index.html" ><span>共享引用</span></a>）和观察者，并提供不可为空的引用。
+</p></li></ul><p>共享指针有一些值得注意的基本特性，包括：
+</p><ul ><li class="Default"><p>语法非常健壮
+</p></li><li class="Default"><p>非侵入式（但能反射）
+</p></li><li class="Default"><p>线程安全（视情况而定）
+</p></li><li class="Default"><p>性能佳，占用内存少
+</p></li></ul><div class="note">
+	<p>共享指针类似于<a id="content_link"filter-data="tag_programming" href="../SharedReference/index.html" ><span>共享引用</span></a>，主要区别在于共享引用不可为空，因此会始终引用有效对象。在共享引用和共享指针之间进行选择时，除非需要空对象或可为空的对象，否则建议你优先选择共享引用。</p>
+</div><h2 id="声明和初始化">声明和初始化</h2>
+<p>因为共享指针可为空，所以无论有无数据对象，都可以对它们进行初始化。以下是创建共享指针的一些示例：
+</p><pre class="prettyprint"><code>// 创建一个空白的共享指针</code></pre>
+<p>   TSharedPtr<FMyObjectType> EmptyPointer;</p><pre class="prettyprint"><code>// 为新对象创建一个共享指针
+TSharedPtr&lt;FMyObjectType&gt; NewPointer(new FMyObjectType());
+// 从共享引用创建一个共享指针
+TSharedRef&lt;FMyObjectType&gt; NewReference(new FMyObjectType());
+TSharedPtr&lt;FMyObjectType&gt; PointerFromReference = NewReference;
+// 创建一个线程安全的共享指针
+TSharedPtr&lt;FMyObjectType, ESPMode::ThreadSafe&gt; NewThreadsafePointer = MakeShared&lt;FMyObjectType, ESPMode::ThreadSafe&gt;(MyArgs);</code></pre>
+<p>在第二个示例中，<code>NodePtr</code> 实际上拥有新的 <code>FMyObjectType</code> 对象，因为没有其他共享指针引用该对象。如果 <code>NodePtr</code> 超出范围，并且没有其他共享指针或共享引用指向该对象，那么该对象将被销毁。
+</p><p>复制共享指针时，系统将向它引用的对象添加一个引用。
+</p><pre class="prettyprint"><code>// 增加任意对象ExistingSharedPointer引用的引用数。
+TSharedPtr&lt;FMyObjectType&gt; AnotherPointer = ExistingSharedPointer;</code></pre>
+<p>对象将持续存在，直到不再有共享指针（或共享引用）引用它为止。
+</p><p>你可以使用 <code>Reset</code> 函数、或分配一个空指针来重设共享指针，如下所示：
+</p><pre class="prettyprint"><code>PointerOne.Reset();
+PointerTwo = nullptr;
+// PointerOne和PointerTwo现在都引用nullptr。</code></pre>
+<p>你可以使用 <code>MoveTemp</code>（或 <code>MoveTempIfPossible</code>）函数将一个共享指针的内容转移到另一个共享指针，将原始的共享指针保留为空：
+</p><pre class="prettyprint"><code>// 将PointerOne的内容移至PointerTwo。在此之后，PointerOne将引用nullptr。
+PointerTwo = MoveTemp(PointerOne);
+// 将PointerTwo的内容移至PointerOne。在此之后，PointerTwo将引用nullptr。
+PointerOne = MoveTempIfPossible(PointerTwo);</code></pre>
+<div class="note">
+	<p><code>MoveTemp</code> 和 <code>MoveTempIfPossible</code> 的唯一不同之处在于 <code>MoveTemp</code> 包含静态断言，强制其只能在非常量左值（lvalue）上执行。</p>
+</div><h3 id="在共享指针与共享引用之间进行转换">在共享指针与共享引用之间进行转换</h3>
+<p>在共享指针与共享引用之间进行转换是一种常见的做法。共享引用隐式地转换为共享指针，并提供新的共享指针将引用有效对象的额外保证。转换由普通语法处理：
+</p><pre class="prettyprint"><code>TSharedPtr&lt;FMyObjectType&gt; MySharedPointer = MySharedReference;</code></pre>
+<p>只要共享指针引用了一个非空对象，你就可以使用 <code>Shared Pointer</code> 函数 <code>ToSharedRef</code> 从此共享指针创建一个共享引用。试图从空共享指针创建共享引用将导致程序断言。
+</p><pre class="prettyprint"><code>// 在解引用之前，请确保共享指针有效，以避免可能出现的断言。
+if (MySharedPointer.IsValid())
+{
+    MySharedReference = MySharedPointer.ToSharedRef();
+}</code></pre>
+<h2 id="对比">对比</h2>
+<p>你可以测试共享指针彼此间的相等性。在此情境中，相等被定义为两个共享指针引用同一对象。
+</p><pre class="prettyprint"><code>TSharedPtr&lt;FTreeNode&gt; NodeA, NodeB;
+if (NodeA == NodeB)
+{
+    // ...
+}</code></pre>
+<p><code>IsValid</code> 函数和 <code>bool</code> 运算符有助于判断共享指针是否引用了有效对象。你还可以调用 <code>Get</code>，查看它是否返回有效的（非空）对象指针。
+</p><pre class="prettyprint"><code>if (Node.IsValid())
+{
+    // ...
+}
+if (Node)
+{
+    // ...
+}
+if (Node.Get() != nullptr)
+{
+    // ...
+}</code></pre>
+<h2 id="解引用和访问">解引用和访问</h2>
+<p>你可以像使用普通C++指针那样解引用，调用方法和访问成员。你也可以像使用其他C++指针那样，通过调用 <code>IsValid</code> 函数或使用重载的 <code>bool</code> 运算符，在取消引用之前执行空检查。
+</p><pre class="prettyprint"><code>// 在解引用前，检查节点是否引用了一个有效对象。
+if (Node)
+{
+    // 以下三行代码中的任意一行都能解引用节点，并且对它的对象调用ListChildren：
+    Node-&gt;ListChildren();
+    Node.Get()-&gt;ListChildren();
+    (&#42;Node).ListChildren();
+}</code></pre>
+<h2 id="自定义删除器">自定义删除器</h2>
+<p>共享指针和共享引用支持对它们引用的对象使用自定义删除器。如需运行自定义删除代码，请提供lambda函数，作为创建智能指针时使用的参数，就像这样：
+</p><pre class="prettyprint"><code>void DestroyMyObjectType(FMyObjectType&#42; ObjectAboutToBeDeleted)
+{
+    // 此处添加删除代码。
+}
+// 这些函数使用自定义删除器创建指南指针。
+TSharedRef&lt;FMyObjectType&gt; NewReference(new FMyObjectType(), &#91;&#93;(FMyObjectType&#42; Obj){ DestroyMyObjectType(Obj); });
+TSharedPtr&lt;FMyObjectType&gt; NewPointer(new FMyObjectType(), &#91;&#93;(FMyObjectType&#42; Obj){ DestroyMyObjectType(Obj); });</code></pre>
+
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../../SiteIndex/index.html?tags=Programming">Programming</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/SmartPointerLibrary/SharedPointer/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:21:41 GMT -->
+</html>

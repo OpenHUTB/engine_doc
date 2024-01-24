@@ -1,0 +1,435 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/Resources/SampleGames/ARPG/BuildingGameplayInCPPforActionRPG/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:47:09 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/Resources/SampleGames/ARPG/BuildingGameplayInCPPforActionRPG/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>使用C++构建ARPG的玩法 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/Resources/SampleGames/ARPG/BuildingGameplayInCPPforActionRPG/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/Resources/SampleGames/ARPG/BuildingGameplayInCPPforActionRPG/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/Resources/SampleGames/ARPG/BuildingGameplayInCPPforActionRPG/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/Resources/SampleGames/ARPG/BuildingGameplayInCPPforActionRPG/" hreflang="ko" />
+
+	<meta name="intsourcechangelist" content="16146891" />
+<meta name="availability" content="Public" />
+<meta name="title" content="使用C++构建ARPG的玩法" />
+<meta name="description" content="本文档介绍了如何构建ARPG游戏的玩法系统。" />
+<meta name="version" content="4.20" />
+<meta name="parent" content="Resources/SampleGames/ARPG" />
+<meta name="order" content="1" />
+<meta name="keywords" content="" />
+<meta name="related" content="Programming" />
+<meta name="topic-image" content="BuildingGameplayInCForARPG.png" />
+<meta name="crumbs" content="%ROOT%,Resources,Resources/SampleGames,Resources/SampleGames/ARPG" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="使用C++构建ARPG的玩法" />
+	<meta property="og:description" content="本文档介绍了如何构建ARPG游戏的玩法系统。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">示例与教学</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">游戏示例项目</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">ARPG游戏</a>
+
+<span class="separator">></span> <span id="page">使用C++构建ARPG的玩法</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">使用C++构建ARPG的玩法</h1>
+							</div>	
+							<h2 >本文档介绍了如何构建ARPG游戏的玩法系统。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																																			</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																		<div id="seeAlso">
+	<div style="position:relative;">
+		<div id="title">参见</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<p>
+						<a id="related_link" href="#" title=""></a>
+					</p>
+				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																														<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#代码概述">代码概述</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#物品栏和资源管理器">物品栏和资源管理器</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#保存游戏">保存游戏</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#打包发布">打包发布</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>本文档旨在描述如何构建动作角色扮演游戏（ARPG）中的玩法（Gameplay）系统，同时还可以为设计类似系统提供示例。它适用于那些已经阅读过<a id="content_link"filter-data="tag_getting_started tag_programming" href="../../../../ProgrammingAndScripting/ProgrammingWithCPP/IntroductionToCPP/index.html" ><span>UE4中的C++编程简介</span></a>，并使用<a id="content_link" href="../../../../ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/index.html" ><span>第一人称射击游戏教程</span></a>中提供的模板构建过一些基本原型的开发者。有关特定于技能系统的功能，请参阅<a id="content_link"filter-data="tag_gameplay_ability_system" href="../../../../InteractiveExperiences/GameplayAbilitySystem/index.html" ><span>Gameplay技能系统</span></a>文档。
+</p><h2 id="代码概述">代码概述</h2>
+<p>大部分虚幻引擎4（UE4）项目都以现有模板或现有示例项目的副本为起点。以ARPG为例，它最初是作为类似于自上而下（Top Down）模板的纯蓝图游戏，然后我们将其转换为混合了C++和蓝图的项目。在此背景下，大多数基本的Gameplay逻辑都是用蓝图而不是C++实现的。<a id="content_link"filter-data="tag_" href="../BalancingBlueprintAndCPP/index.html" ><span>平衡蓝图与C++</span></a>这份文档讨论了我们在决定使用蓝图还是C++时应该考虑到的部分因素。在初步创建和转换项目后，我们创建了用于Gameplay的原生类层级。另外，我们还为C++代码和内容定义了命名和目录组织方案。
+</p><p>下面概述了ARPG中使用的源文件：<br /></p><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p><strong>文件名</strong> </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p><strong>说明</strong> </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>ActionRPG.h</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>这是项目中每个C++文件都包含的模块头文件。这里包含大多数类所需的共享引擎头文件以及全局定义。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>RPGTypes.h</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>用于定义其他类中使用的游戏特定结构体和枚举的共享头文件。通常，最好创建一个或多个此类头文件，避免出现循环使用头文件的问题。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>RPGPlayerControllerBase.h</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>它是大多数游戏所需的 <strong>PlayerController</strong> 的游戏特定子类。对于ARPG，它主要用于处理物品栏。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>RPGCharacterBase.h</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>角色的游戏特定子类。对于ARPG，所有 <strong>蓝图角色（Blueprint Characters）</strong> 都继承此类，但是许多游戏需要具有多种角色类型的层级。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>RPGGameInstanceBase.h</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>它是 <strong>GameInstance</strong> 的游戏特定子类，是大多数游戏所必需的。由于在整个游戏中只声明一个游戏实例，它很适合存储全局Gameplay数据。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>RPGGameModeBase.h</strong> 和 <strong>RPGGameStateBase.h</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>游戏模式（Game Mode）和状态子类。对于ARPG来说这些只是存根代码，因为大多数贴图特定的Gameplay逻辑是使用蓝图实现的，但许多游戏会选择使用C++代码制作各种模式和状态。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>RPGBlueprintLibrary.h</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>公开不与特定Actor挂钩的游戏特定蓝图函数，几乎每个游戏都需要一个或多个这类文件。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>RPGSaveGame.h</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>此类用于在磁盘上存储物品栏/经验值信息，下文将详细介绍。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>RPGAssetManager.h</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>这是下文中描述的物品栏系统使用的资源管理器（AssetManager）的子类。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>RPGInventoryInterface.h</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>原生接口，允许 <strong>RPGCharacterBase</strong> 在无需手动转换的情况下查询 <strong>RPGPlayerControllerBase</strong> 以了解物品栏的信息。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Items/RPGItem.h和子类</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>不同种类的物品栏项目类型。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Abilities/RPGAbilitySystemComponent及其他</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>用于技能系统，具体请参阅<a id="content_link"filter-data="tag_" href="../GameplayAbilitiesinActionRPG/index.html" ><span>ARPG中的游戏性技能</span></a>中描述的技能系统。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>ActionRPGLoadingScreen Module</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>一个简单的C++加载屏幕，用于在首次加载游戏或转换地图时显示纹理。这是一个单独的模块，因为它需要在加载主要的ARPG游戏模块之前先进行加载。</p>
+			</td>
+	
+</tr></tbody>
+</table><p>虽然ARPG中没有编辑器模块，但许多其他虚幻引擎4（UE4）游戏都有一个 <strong>编辑器模块（Editor Module）</strong>，可以添加需要在UE4编辑器中使用的其他UI或工具。
+</p><p>创建原生类后，你需要更改<div class="errorhighlight" id="Error9">[项目设置](Basics/Projects/ProjectSettings)</div>以生成正确的<a id="content_link"filter-data="tag_gameplay_framework" href="../../../../InteractiveExperiences/Framework/GameMode/index.html" ><span>游戏模式</span></a>、<a id="content_link"filter-data="tag_gameplay_framework" href="../../../../InteractiveExperiences/Framework/GameMode/index.html" ><span>游戏实例</span></a>和<a id="content_link"filter-data="tag_assets tag_asset_management" href="../../../../ProductionPipelines/AssetManagement/index.html" ><span>资源管理器</span></a>类。你可能还需要更改贴图设置，以便反映项目中的新改动。
+</p><h2 id="物品栏和资源管理器">物品栏和资源管理器</h2>
+<p>ARPG使用<a id="content_link"filter-data="tag_assets tag_asset_management" href="../../../../ProductionPipelines/AssetManagement/index.html" ><span>资源管理器</span></a>系统加载和访问物品栏项目。资源管理器最初用于管理在各种不同情况下以及整个游戏中可用的资源，通常应用于所有物品栏项目。对于ARPG来说，有四种物品类型：
+</p><ul ><li class="Default"><p><strong>武器（Weapons）</strong>：是一种可供玩家装备的蓝图，可造成近战伤害。
+</p></li><li class="Default"><p><strong>技能（Skills）</strong>：指的是玩家可以装备和使用的特殊攻击（例如火球），可以造成直接和区域作用伤害。<br /></p></li><li class="Default"><p><strong>药剂（Potions）</strong>：是一种一次性消耗品，用于治疗和回复法力值。<br /></p></li><li class="Default"><p><strong>代币（Tokens）</strong>：是一种简单的计数器，记录获得的灵魂值和经验值等。
+</p></li></ul><p>其中每一项都有单独的原生C++类，它继承自 <strong>URPGItem</strong>，并使用 <strong>DefaultGame.ini</strong> 的 <strong>AssetManagerSettings</strong> 部分中的代码行定义。我们决定不为ARPG创建项目蓝图，因为它们没有专属的逻辑或继承结构，在每个游戏中都会有所不同。每个项目基类会提供UI信息（例如要使用的图标）以及Gameplay信息（例如装备特定物品时会获得的技能）。
+</p><p>玩家拥有的项目存储在 <strong>URPGPlayerControllerBase</strong> 实例中，使用以下两个贴图属性：
+</p><ul ><li class="Default"><p>第一个贴图是从 <strong>URPGItem</strong>* 到 <strong>FRPGItemData</strong>，存储数量和关卡。 
+</p></li><li class="Default"><p>第二个贴图是从 <strong>FRPGItemSlot</strong> 到 <strong>URPGItem</strong>*，描述某个项目存储在"武器插槽1"中。
+</p></li></ul><p>有效项目插槽和默认物品栏存储在 <strong>BP_GameInstance</strong> 中。Player Controller原生类提供用于添加、删除和查询物品栏项目以及与技能系统交互的API。由于ARPG中的每个项目类型都是主要资产类型，我们将 <strong>FPrimaryAssetType</strong> 结构的用途更改为"项目类型"并将其传送至过滤器函数。ARPG提供游戏内存储，因此需要在启动时预加载游戏中的所有项目。它使用 <strong>BP_GameInstance</strong> 的逻辑来实现这一目的：
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/Resources/SampleGames/ARPG/BuildingGameplayInCPPforActionRPG/InventoryAssetManager_01.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/Resources/SampleGames/ARPG/BuildingGameplayInCPPforActionRPG/InventoryAssetManager_01.jpg">
+		<img class="  lazyload" alt="InventoryAssetManager_01.png" data-src="../../../../../Images/Resources/SampleGames/ARPG/BuildingGameplayInCPPforActionRPG/InventoryAssetManager_01.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><p><strong>AsyncLoadPrimaryAssetList</strong> 节点最终在 <strong>URPGAssetManager</strong> 上调用 <strong>LoadPrimaryAssets </strong> 函数，后者开始异步加载指定类型的所有项目。完成加载后，它会将其添加到存储在游戏实例中的贴图中，并在存储UI中使用。需要注意的是，调用 <strong>LoadPrimaryAssets </strong> 时，会将这些资产保存在内存中，直到调用 <strong>Unload</strong> 为止，即使这些资产未被进行任何引用也是如此。<strong>RPGAssetManager</strong> 子类相对比较简单，因为它仅为每个项目类型声明某些静态类型，以及从磁盘加载物品栏时使用的 <strong>ForceLoadItem</strong> 函数。
+</p><p>对于ARPG来说，使用物品栏项目的逻辑主要存储在玩家和敌人蓝图共享的 <strong>BP_Character</strong> 蓝图中，但有许多游戏在原生C++中实现该项目的用途。此外，物品栏还与技能系统进行大量交互，具体请参阅<a id="content_link"filter-data="tag_gameplay_ability_system" href="../../../../InteractiveExperiences/GameplayAbilitySystem/index.html" ><span>Gameplay技能系统</span></a>文档。
+</p><h2 id="保存游戏">保存游戏</h2>
+<p>ARPG通过原生结构使用 <strong>URPGSaveGame</strong> ARPG类将玩家的物品栏（包括灵魂/经验值）存储在磁盘上。通常来说，任何关键信息都应使用原生结构存储，以便可以使用原生版本控制和修正代码。对于 <strong>URPGSaveGame</strong>，使用 <strong>ERPGSaveGameVersion</strong> 枚举和Serialize函数中的修正代码来实现。这是因为在任何时候，用户定义的结构体都可能被意外修改。如果开发者试图重命名或删除字段，那么玩家保存的游戏就会丢失数据，可能导致玩家保存的数据被完全破坏。因此通常来说，应该使用具有版本控制功能的原生结构来实现关键数据。
+</p><p>ARPG保存游戏使用存储为字符串的 <strong>PrimaryAssetIds</strong>（版块类型 <strong>ItemType:ItemName</strong>）来存储物品栏。这种存储项目引用的方式比资产路径（如 <strong>/Game/Items/ItemName.ItemName</strong>）更安全，因为即使资产移动了，引用也不会被破坏。如果更改资产名称，可以使用 <strong>PrimaryAssetIdRedirects</strong> 或原生代码进行修复。<strong>ForceLoadItem</strong> 可以同步加载尚未在内存中的项目，以便从 <strong>PrimaryAssetId</strong> 转换为 <strong>URPGItem</strong>（由于上面提到的存储预载，在ARPG中通常需要这样操作）。
+</p><p><strong>URPGGameInstanceBase</strong> 使用 <strong>BP_GameInstance</strong> 中设置的变量来处理物品栏的实际保存和加载。重要的一点是能够从原生代码访问保存函数，因为每次只要从物品栏添加或删除项目，<strong>玩家控制器（Player Controller）</strong> 就可以强制物品栏保存。如有必要，你也可以从蓝图手动调用它。对于ARPG，使用 <strong>SaveGameToSlot</strong> 蓝图函数将保存写入磁盘，但如果原生实现，之后可以将其更改为服务器端解决方案。选项菜单不使用原生保存游戏实现，因为数据丢失无关紧要。你还应始终将该信息存储在本地设备上。 
+</p><div class="note">
+	<p>无论哪个游戏，在开发之初，都应仔细考虑如何进行游戏存档管理。</p>
+</div><h2 id="打包发布">打包发布</h2>
+<p>在构建了Gameplay基础架构并且团队已经开始制作内容后，最后也是最重要的编程任务是准备打包和发布游戏。默认情况下，UE4打包的内容多于发布版本所需的内容，这可能会在移动平台中出现问题。对于ARPG来说，第一步是确认只包含ARPG需要的内容，因此我们使用<a id="content_link"filter-data="tag_assets tag_asset_management" href="../../../../ProductionPipelines/AssetManagement/index.html" ><span>资产管理器</span></a>来帮助解决这个问题。 
+</p><p><strong>主资产类型（Primary Asset Type）</strong> 配置文件的 <strong>"CookRule=AlwaysCook"</strong> 分段允许将项目的 <strong>内容（Content）</strong> 文件夹中的所有项目烘焙为最终成品。为了确保ARPG中包含 <strong>主菜单（Main Menu）</strong> 和 <strong>Gameplay</strong> 贴图，我们将两者都添加到 <strong>打包设置（Packaging Settings）</strong> 中的 <strong>+MapsToCook</strong> 行。在确定ARPG包含所需的所有内容后，我们使用UE4编辑器面向移动平台打包项目，以便验证打包游戏是否按预期运行。验证完打包游戏是否正确运行且其中包含所有项目内容之后，我们再考虑如何降低下载与内存大小。由于ARPG面向的是移动平台，因此我们希望尽量减少下载和内存大小。为了实现这一点，我们通过以下步骤来减少安装大小与内存占用：
+</p><ol ><li class="Default"><p>禁用所有未使用的 <strong>插件（Plugins）</strong>。针对ARPG执行这一操作可将整体项目大小减少30 MB。<br /><picture>
+		<source data-srcset="./../../../../../Images/Resources/SampleGames/ARPG/BuildingGameplayInCPPforActionRPG/ARPG_DisableUnusedPlugins_01.jpg">
+		<img class="  lazyload" alt="ARPG_DisableUnusedPlugins_01.png" title="ARPG372029427DisableUnusedPlugins37202942701.png" data-src="../../../../../Images/Resources/SampleGames/ARPG/BuildingGameplayInCPPforActionRPG/ARPG_DisableUnusedPlugins_01.jpg" />
+</picture>
+
+</p><div class="note">
+	<p>上图仅显示了禁用的 <strong>增强现实（Augmented Reality）</strong> 插件，你可以禁用项目中的每个插件分段，最大程度地节省空间。</p>
+</div></li><li class="Default"><p>启用 <strong>烘焙时排除编辑器内容（Exclude editor content when cooking）</strong>，该标记可在 <strong>打包（Packaging）</strong> 设置中找到。这样可以防止项目将 <strong>/Engine/EditorMaterials</strong> 等UE4编辑器文件夹中的内容一起打包。<br /><picture>
+		<source data-srcset="./../../../../../Images/Resources/SampleGames/ARPG/BuildingGameplayInCPPforActionRPG/ARPG_SkipCookingEditorContent_01-1.jpg">
+		<img class="  lazyload" alt="ARPG_SkipCookingEditorContent_01-1.png" title="ARPG372029427SkipCookingEditorContent37202942701-1.png" data-src="../../../../../Images/Resources/SampleGames/ARPG/BuildingGameplayInCPPforActionRPG/ARPG_SkipCookingEditorContent_01-1.jpg" />
+</picture>
+<br /></p><div class="warning">
+	<p>请注意，该操作会破坏使用这些材质的所有游戏内容。不过，你不应该在项目中使用UE4编辑器文件夹中的任何资产。</p>
+</div></li><li class="Default"><p>默认情况下，由于 <strong>DefaultEditor.ini</strong> 文件夹中的 <strong>+ContentDirectories</strong> 行，UE4将烘焙 <strong>/Game/UI</strong> 和其他一些文件夹中的所有内容。ARPG在此文件夹中有一些原型UI项目，我们在 ARPG <strong>DefaultEditor.ini </strong> 文件夹中添加了includes以将其禁用。如果结合此步骤与上一步骤，就可以将ARPG的安装大小减小50MB。<picture>
+		<source data-srcset="./../../../../../Images/Resources/SampleGames/ARPG/BuildingGameplayInCPPforActionRPG/ARPG_DefaultEditorINI_01.jpg">
+		<img class="  lazyload" alt="ARPG_DefaultEditorINI_01.png" title="ARPG372029427DefaultEditorINI37202942701.png" data-src="../../../../../Images/Resources/SampleGames/ARPG/BuildingGameplayInCPPforActionRPG/ARPG_DefaultEditorINI_01.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>使用资产审核（Asset Audit）窗口中提供的 <strong>尺寸贴图（Size Map）</strong> 工具（在<a id="content_link"filter-data="tag_assets tag_asset_management tag_cooking tag_chunking tag_patching tag_dlc tag_downloadable_content" href="../../../../SharingAndReleasing/Patching/GeneralPatching/CookingAndChunking/index.html" ><span>烘焙和分块</span></a>文档中描述），我们能够找出一组性能成本较大的纹理和静态网格体。然后，我们将此信息转发给内容团队进行整理。通过优化这些资源，ARPG的安装大小又减少了100 MB。<picture>
+		<source data-srcset="./../../../../../Images/Resources/SampleGames/ARPG/BuildingGameplayInCPPforActionRPG/ARPG_SizeMapTool_01.jpg">
+		<img class="  lazyload" alt="ARPG_SizeMapTool_01.png" title="ARPG372029427SizeMapTool37202942701.png" data-src="../../../../../Images/Resources/SampleGames/ARPG/BuildingGameplayInCPPforActionRPG/ARPG_SizeMapTool_01.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>我们暂时启用了 <strong>项目设置>打包（Project Settings > Packaging）</strong> 中的 <strong>用于分发（For Distribution）</strong> 复选框，并将 <strong>编译配置（Build Configuration）</strong> 从 <strong>开发（Development）</strong> 更改为 <strong>发行（Shipping）</strong>，以便更清楚地了解ARPG的最终大小。一般来说，在烘焙最终版本（通常使用传递给UAT脚本的命令行选项）时都会将其启用，但 <strong>不应</strong> 在项目开发期间启用。从开发（Development）版本变为发行（Shipping）版本，可以将ARPG的安装大小节省大约50 MB。<br /><picture>
+		<source data-srcset="./../../../../../Images/Resources/SampleGames/ARPG/BuildingGameplayInCPPforActionRPG/ARPG_ForDistributionSettings_01.jpg">
+		<img class="  lazyload" alt="ARPG_ForDistributionSettings_01.png" title="ARPG372029427ForDistributionSettings37202942701.png" data-src="../../../../../Images/Resources/SampleGames/ARPG/BuildingGameplayInCPPforActionRPG/ARPG_ForDistributionSettings_01.jpg" />
+</picture>
+
+</p></li></ol><p>完成上述所有步骤后，ARPG的安装大小减少了大约 <strong>230 MB</strong>，有助于在各大应用程序商店进行发布。</p>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/Resources/SampleGames/ARPG/BuildingGameplayInCPPforActionRPG/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:47:12 GMT -->
+</html>

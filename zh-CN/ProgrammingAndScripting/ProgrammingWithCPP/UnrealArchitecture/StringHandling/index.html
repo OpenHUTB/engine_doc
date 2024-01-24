@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/StringHandling/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:21:37 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/StringHandling/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>字符串处理 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/StringHandling/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/StringHandling/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/StringHandling/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/StringHandling/" hreflang="ko" />
+
+	<meta name="redirect" content="Programming/UnrealArchitecture/StringHandling" />
+<meta name="intsourcechangelist" content="14014658" />
+<meta name="availability" content="Public" />
+<meta name="title" content="字符串处理" />
+<meta name="description" content="对UE4中可用的字符串类进行介绍，并为FName、FText和FString提供了参考指南。" />
+<meta name="skilllevel" content="Beginner" />
+<meta name="version" content="4.25" />
+<meta name="crumbs" content="%ROOT%,ProgrammingAndScripting,ProgrammingAndScripting/ProgrammingWithCPP,ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="字符串处理" />
+	<meta property="og:description" content="对UE4中可用的字符串类进行介绍，并为FName、FText和FString提供了参考指南。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">编程和脚本编写</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">编程指南</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">游戏逻辑编程</a>
+
+<span class="separator">></span> <span id="page">字符串处理</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">字符串处理</h1>
+							</div>	
+							<h2 >对UE4中可用的字符串类进行介绍，并为FName、FText和FString提供了参考指南。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Beginner"><a id="skill_link" href="../../../../SiteIndex/index.html?skills=Beginner">Beginner</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																																				<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#fname">FName</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#ftext">FText</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#fstring">FString</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#printf">Printf</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<h3 id="fname">FName</h3>
+<div class="include_wrapper" data-path="ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/StringHandling/FName">
+<p>在 <strong>内容浏览器</strong> 中为新资源命名时，变更动态材质实例中的参数或访问骨骼网格体中的一块骨骼时需要使用 <strong>FNames</strong>。
+FName 通过一个轻型系统使用字符串。在此系统中，特定字符串即使会被重复使用，在数据表中也只存储一次。
+</p><p>FNames 不区分大小写。它们为不可变，无法被操作。FNames 的存储系统和静态特性决定了通过键进行 FNames 的查找和访问速度较快。
+FName 子系统的另一个功能是使用散列表为 FName 转换提供快速字符串。</p>
+</div>
+<ul ><li class="Default"><p><a id="content_link" href="FName/index.html" ><span>FName 参考指南</span></a>
+</p></li></ul><h3 id="ftext">FText</h3>
+<div class="include_wrapper" data-path="ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/StringHandling/FText">
+<p>在虚幻引擎4（UE4）中，<a id="content_link"filter-data="tag_localization tag_text_formatting" href="../../../../ProductionPipelines/Localization/Formatting/index.html" ><span>文本本地化</span></a>的主要组件是 <code>FText</code> 类。此类通过提供下列功能支持文本本地化，因此面向用户的所有文本都应使用此类：
+</p><ul ><li class="Default"><p><a id="content_link" href="../../../../ProductionPipelines/Localization/Formatting/index.html#文本文字值" ><span>创建本地化的文本文字。</span></a>
+</p></li><li class="Default"><p><a id="content_link" href="../../../../ProductionPipelines/Localization/Formatting/index.html#文本格式化" ><span>设置文本格式</span></a>（根据占位符模式生成文本）。
+</p></li><li class="Default"><p><a id="content_link" href="../../../../ProductionPipelines/Localization/Formatting/index.html#数值型文本生成" ><span>根据数字生成文本。</span></a>
+</p></li><li class="Default"><p><a id="content_link" href="../../../../ProductionPipelines/Localization/Formatting/index.html#时间型" ><span>根据日期时间生成文本。</span></a>
+</p></li><li class="Default"><p><a id="content_link" href="../../../../ProductionPipelines/Localization/Formatting/index.html#变换型" ><span>生成衍生文本</span></a>，如将文本设为大写或小写。
+</p></li></ul><p><code>Ftext</code> 同时具有 <code>AsCultureInvariant</code> 函数（或 <code>INVTEXT</code> 宏），可创建非本地化的（即"语言不变"）文本。这在进行如将玩家名从外部API转换为可在用户界面显示的文本等操作时，十分有用。
+</p><p>可使用 <code>FText::GetEmpty()</code> 或仅使用 <code>FText()</code>,创建空白 <code>FText</code>。</p>
+</div>
+<ul ><li class="Default"><p><a id="content_link"filter-data="tag_localization tag_ftext" href="FText/index.html" ><span>FText 参考指南</span></a>
+</p></li></ul><h3 id="fstring">FString</h3>
+<div class="include_wrapper" data-path="ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/StringHandling/FString">
+<p>与 <code>FName</code> 和 <code>FText</code> 不同，<code>FString</code> 可以与搜索、修改并且与其他字符串比较。不过，这些操作会导致 <code>FString</code> 的开销比不可变字符串类更大。这是因为 <code>FString</code> 对象保存自己的字符数组，而 <code>FName</code> 和 <code>FText</code> 对象保存共享字符数组的指针，并且可以完全根据索引值建立相等性。</p>
+</div>
+<ul ><li class="Default"><p><a id="content_link" href="FString/index.html" ><span>FString 参考指南</span></a>
+</p></li></ul><h3 id="printf">Printf</h3>
+<p><code>FString</code> 函数 <code>Printf</code> 可以像C++中的 <code>printf</code> 函数那样，使用格式化参数创建 <code>FString</code> 对象。类似的，<code>UE&#95;LOG</code> 宏会打印一个 <code>printf</code> 格式化字符串到屏幕上，或者打印到日志输入和日志文件中，具体取决于当前正在运行的UE4构建类型。
+</p><div class="note">
+	<p>注意，在使用这些字符串和转换前，你需要包含必要的头文件。你可以在各个字符串的API参考文档中，找到需要包含的头文件名单。</p>
+</div><h2 id="转换">转换</h2>
+<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>从 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>到 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>范例 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>FName</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>FString</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><code>TestHUDString = TestHUDName.ToString();</code></p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>FName</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>FText</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><code>TestHUDText = FText::FromName(TestHUDName);</code> <div class="warning">
+	<p> FName -> FText 在一些情况下有效，但需注意 — FNames 内容不会从 FText 的"自动本地化"中受益。</p>
+</div></p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>FString</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>FName</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><code>TestHUDName = FName(&#42;TestHUDString);</code> <div class="warning">
+	<p> FString -> FName 不可靠。因为 FName 不区分大小写，所以转换存在损耗。</p>
+</div></p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>FString</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>FText</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><code>TestHUDText = FText::FromString(TestHUDString);</code>  <div class="warning">
+	<p> FString -> FText 在一些情况下有效，但需注意 — FString 内容不会从 FText 的"自动本地化"中受益。</p>
+</div></p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>FText</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>FString</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><code>TestHUDString = TestHUDText.ToString();</code> <div class="warning">
+	<p> FText -> FString 不可靠。它在一些语言的转换中存在潜在损耗。</p>
+</div></p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>FText</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>FName</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>FText 到 FName 的转换不存在。但可先转换到 FString，再转换到 FName。<div class="warning">
+	<p> FText -> FString -> FName 不可靠。因为 FName 不区分大小写，所以转换存在损耗。</p>
+</div></p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>FString</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>int32</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><code>int32 TestInt = FCString::Atoi(&#42;MyFString);</code></p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>FString</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>float</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><code>float TestFloat = FCString::Atof(&#42;MyFString);</code></p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>int32</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>FString</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><code>FString TestString = FString::FromInt(MyInt);</code></p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>float</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>FString</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><code>FString TestString = FString::SanitizeFloat(MyFloat);</code></p>
+			</td>
+	
+</tr></tbody>
+</table><h2 id="编码">编码</h2>
+<p>总体而言，设置字符串变量文字时应使用 <strong>TEXT()</strong> 宏。如未指定 TEXT() 宏，将使用 ANSI 对文字进行编码，会导致支持字符高度受限。
+传入 FString 的 ANSI 文字需要完成到 TCHAR 的转换（本地万国码编码），以便更高效地使用 TEXT()。
+</p><p>如需编码的更多信息，请查阅 <a id="content_link" href="CharacterEncoding/index.html" ><span>字符编码</span></a> 文档。</p>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/StringHandling/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:21:37 GMT -->
+</html>

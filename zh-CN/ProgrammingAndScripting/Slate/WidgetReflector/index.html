@@ -1,0 +1,918 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/ProgrammingAndScripting/Slate/WidgetReflector/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:13:30 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/ProgrammingAndScripting/Slate/WidgetReflector/" />');
+				var udnCSS = '../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>控件反射器 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/ProgrammingAndScripting/Slate/WidgetReflector/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/ProgrammingAndScripting/Slate/WidgetReflector/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/ProgrammingAndScripting/Slate/WidgetReflector/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/ProgrammingAndScripting/Slate/WidgetReflector/" hreflang="ko" />
+
+	<meta name="intsourcechangelist" content="15018255" />
+<meta name="availability" content="Public" />
+<meta name="title" content="控件反射器" />
+<meta name="description" content="概述了控件反射器工具概览，该工具让开发人员可以标识和调试Slate控件。" />
+<meta name="type" content="overview" />
+<meta name="skilllevel" content="advanced" />
+<meta name="version" content="4.26" />
+<meta name="prereq" content="InteractiveExperiences/UMG/UserGuide/BestPractices" />
+<meta name="prereq" content="TestingAndOptimization/DevTools" />
+<meta name="prereq" content="ProgrammingAndScripting/Slate" />
+<meta name="related" content="ProgrammingAndScripting/Slate/ConsoleSlateDebugger" />
+<meta name="related" content="InteractiveExperiences/UMG/UserGuide/WidgetTypeReference" />
+<meta name="keywords" content="Slate" />
+<meta name="keywords" content="控件反射器" />
+<meta name="crumbs" content="%ROOT%,ProgrammingAndScripting,ProgrammingAndScripting/Slate" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="控件反射器" />
+	<meta property="og:description" content="概述了控件反射器工具概览，该工具让开发人员可以标识和调试Slate控件。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">编程和脚本编写</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">Slate UI框架</a>
+
+<span class="separator">></span> <span id="page">控件反射器</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">控件反射器</h1>
+							</div>	
+							<h2 >概述了控件反射器工具概览，该工具让开发人员可以标识和调试Slate控件。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Advanced"><a id="skill_link" href="../../../SiteIndex/index.html?skills=Advanced">Advanced</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																		<div id="seeAlso">
+	<div style="position:relative;">
+		<div id="title">参见</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<p>
+						<a id="related_link" href="../ConsoleSlateDebugger/index.html" title="控制台Slate调试器工具参考手册，可以帮助用户使用Slate UI框架调试应用程序。">控制台Slate调试器</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../../InteractiveExperiences/UMG/UserGuide/WidgetTypeReference/index.html" title="虚幻示意图形（UMG）中可用的控件类型的参考。">控件类型参考</a>
+					</p>
+				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																								<div class="prereq">
+    <div class="normaltitle">
+        前置主题
+    </div>
+    <p style="margin-bottom:8px;">
+        为了理解并使用本文中的内容，请确保您已掌握以下主题：
+    </p>
+    <ul style="margin-bottom:0.5em;">
+                <li>
+            <p>
+                <a href="../../../InteractiveExperiences/UMG/UserGuide/BestPractices/index.html" title="使用虚幻示意图形的提示和技巧。">UMG 最佳实践</a>
+            </p>
+        </li>
+                <li>
+            <p>
+                <a href="../../../TestingAndOptimization/DevTools/index.html" title="开发者工具文件菜单中选项的描述。">开发者工具</a>
+            </p>
+        </li>
+                <li>
+            <p>
+                <a href="../index.html" title="用于创建工具以及游戏UI的跨平台UI框架。">Slate UI框架</a>
+            </p>
+        </li>
+            </ul>
+</div>
+																		<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#入门">入门</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#用户界面">用户界面</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#演示模式">演示模式</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#图集">图集</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#纹理图集">纹理图集</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#字体图集">字体图集</a></p>
+	</li>					</ul>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#窗口">窗口</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#应用程序缩放">应用程序缩放</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#标记">标记</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#显示裁剪">显示裁剪</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#调试剔除">调试剔除</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#控件缓存">控件缓存</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#控件层级">控件层级</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#选择绘制的控件">选择绘制的控件</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#点击测试网格">点击测试网格</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#显示焦点">显示焦点</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#快照控件选取器">快照控件选取器</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#控件事件">控件事件</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>虚幻编辑器的UI是使用<a id="content_link" href="../index.html" ><span>Slate UI框架</span></a>编译的，<strong>Widget Reflector</strong> 工具让开发人员可以标识要用于为工具集渲染不同控件的<a id="content_link" href="https://docs.unrealengine.com/en-US/API/Runtime/Slate/index.html" ><span>Slate API</span></a>。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Slate/WidgetReflector/widgetreflector-topicimg.jpg">
+		<img class="  lazyload" alt="widgetreflector-topicimg.PNG" data-src="../../../../Images/ProgrammingAndScripting/Slate/WidgetReflector/widgetreflector-topicimg.jpg" />
+</picture>
+
+<div class="caption">
+	<p>虚幻编辑器中运行的控件反射器。</p>
+</div>
+</p><p>控件反射器默认内置在编辑器中，并且如果你是想要优化和调试项目UI的开发人员，请继续阅读入门指南： 
+</p><h2 id="入门">入门</h2>
+<p>要在编辑器正在运行时打开控件反射器，请选择 <strong>窗口（Window）</strong> > <strong>开发人员工具（Developer Tools）</strong> > <strong>控件反射器（Widget Reflector）</strong>。或者键入Ctrl+Shift+W或在控制台中输入WidgetReflector以打开工具。 
+</p><p><div class="note">
+	<p>控件反射器在编辑器中可用，并可作为独立的应用程序。</p>
+</div>
+</p><h2 id="用户界面">用户界面</h2>
+<p>首次使用此工具时，显示以下界面。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/ProgrammingAndScripting/Slate/WidgetReflector/UserInterface.png" ><span><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Slate/WidgetReflector/UserInterface.jpg">
+		<img class="  lazyload" alt="UserInterface.png" width="640" data-src="../../../../Images/ProgrammingAndScripting/Slate/WidgetReflector/UserInterface.jpg" />
+</picture>
+</span></a></span></p>
+</div><p><div class="caption">
+	<p>点击显示全图。</p>
+</div>
+</p><div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>区域 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>说明 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>1</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>主要菜单区域，具有演示模式、图集和窗口。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>2</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>应用程序缩放和Slate调试选项区域。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>3</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>控件层级区域让用户能够可视化控件层级、前景可视性以及焦点、裁剪、源和地址信息。此外，用户可以在此处获取和加载其虚幻应用程序的快照。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>4</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>选项卡菜单区域，让用户能够可视化和调试快照控件、控件事件和点击测试网格。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>5</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>控件细节区域。</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div><h3 id="演示模式">演示模式</h3>
+<div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>演示模式选项 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>用途 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>鼠标点击（Mouse Click）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>启用此选项之后，用户能够演示鼠标点击事件，非常适合用于可视化光标事件的演示或用于录制演示。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>键（Key）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>启用此选项之后，用户能够演示按键事件，非常适合用于可视化按键的演示或用于录制演示。</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div><h3 id="图集">图集</h3>
+<div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>图集选项 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>用途 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>显示纹理图集（Display Texture Atlases）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>选择此选项将打开纹理的NxN图集。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>显示字体图集（Display Font Atlases）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>选择此选项将打开字体的NxN图集。</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div><h4 id="纹理图集">纹理图集</h4>
+<p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Slate/WidgetReflector/TextureAtlas.jpg">
+		<img class="  lazyload" alt="TextureAtlas.png" data-src="../../../../Images/ProgrammingAndScripting/Slate/WidgetReflector/TextureAtlas.jpg" />
+</picture>
+
+</p><h4 id="字体图集">字体图集</h4>
+<p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Slate/WidgetReflector/FontAtlasVisualizer.jpg">
+		<img class="  lazyload" alt="FontAtlasVisualizer.png" data-src="../../../../Images/ProgrammingAndScripting/Slate/WidgetReflector/FontAtlasVisualizer.jpg" />
+</picture>
+
+</p><h3 id="窗口">窗口</h3>
+<div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>窗口选项 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>用途 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Slate调试选项（Slate Debug Options）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><a id="content_link"filter-data="tag_slate tag_控制台slate调试器" href="../ConsoleSlateDebugger/index.html" ><span>控制台Slate调试器</span></a></p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>控件层级（Widget Hierarchy）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>控件层级显示控件的父项和子项，包括这些控件是否可见以及是否在焦点中。用户还可以选择可进行点击测试的控件，将UMG根启用为层级过滤器，获取或加载应用程序UI的快照，以及（如果可用）指向控件的Slate源代码。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>快照控件选择器（Sanpshot Widget Picker）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>在从控件层级区域中获取快照后，应用程序的UI快照显示在快照控件选择器（Snapshot Widget Picker）选项卡中。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>控件细节（Widget Details）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>如有其他可用的控件细节，会显示在此区域中。用户可以选择将其他菜单挂接在此区域中。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>控件事件（Widget Events）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>已过滤的事件，例如焦点、输入、导航、bab或鼠标捕获事件将显示在控件事件区域中。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>点击测试网格（Hit Test Grid）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>在调试点击测试时，导航和事件信息将显示在点击测试网格（Hit Test Grid）选项卡中。</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div><h2 id="应用程序缩放">应用程序缩放</h2>
+<p>若要因演示、截屏或调试目的而更改应用程序的缩放，请输入新值或使用控件反射器的 <strong>应用程序缩放（Application Scale）</strong> 中的滑块。 
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_1_8nzvsx97_300
+{
+	margin: 0px;
+	width: 75%;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_1_8nzvsx97_300:after
+{
+	content: "";
+	padding-top: 56.25%;
+	display: block;
+}
+</style> 
+<div id="player_1_8nzvsx97_300"> 
+	<div id="playerContainer_1_8nzvsx97_300" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/1_8nzvsx97/embed.html"></iframe>
+	</div>
+</div>
+<p><div class="caption">
+	<p>调整应用程序的缩放。</p>
+</div>
+</p><h2 id="标记">标记</h2>
+<!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_1_8a4s7kw7_323
+{
+	margin: 0px;
+	width: 75%;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_1_8a4s7kw7_323:after
+{
+	content: "";
+	padding-top: 56.25%;
+	display: block;
+}
+</style> 
+<div id="player_1_8a4s7kw7_323"> 
+	<div id="playerContainer_1_8a4s7kw7_323" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/1_8a4s7kw7/embed.html"></iframe>
+	</div>
+</div>
+<p>要开始调试应用程序的UI，请设置以下任何 <strong>标记（Flags）</strong> 
+</p><ul ><li class="Default"><p>无效调试 
+</p></li><li class="Default"><p>无效根调试 
+</p></li><li class="Default"><p>更新调试 
+</p></li><li class="Default"><p>绘制调试
+</p></li></ul><p><a id="content_link"filter-data="tag_slate tag_控制台slate调试器" href="../ConsoleSlateDebugger/index.html" ><span>Slate调试器控制台参考</span></a></p><h3 id="显示裁剪">显示裁剪</h3>
+<p><strong>显示裁剪（Show Clipping）</strong> 标记显示如何裁剪控件。例如，此标记可以用于标识何时使用更小的面板裁剪较大的控件。<br /></p><h3 id="调试剔除">调试剔除</h3>
+<p><strong>调试剔除（Debug Culling）</strong> 可供开发人员调试何时由一个控件（例如面板）剔除另一个控件。 
+</p><h3 id="控件缓存">控件缓存</h3>
+<p>InvalidationBox缓存系统支持 <strong>控件缓存（Widget Caching）</strong>，此功能在GlobalInvalidation模式下始终禁用。 
+</p><h2 id="控件层级">控件层级</h2>
+<p>要查看与控件相关的层级信息，你可以 <strong>选取绘制的组件（Pick Painted Widgets）</strong>、<strong>选取可进行点击测试的控件（Pick Hit-Testable Widgets）</strong> 或 <strong>显示焦点（Show Focus）</strong> 控件。 
+</p><h3 id="选择绘制的控件">选择绘制的控件</h3>
+<p>要选取绘制的控件，请执行以下步骤： 
+</p><ol ><li class="Default"><p>在控件层级区域中，选择 <strong>选取绘制的控件（Pick Painted Widgets）</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Slate/WidgetReflector/WidgetHierarchy_1.jpg">
+		<img class="  lazyload" alt="WidgetHierarchy_1.png" data-src="../../../../Images/ProgrammingAndScripting/Slate/WidgetReflector/WidgetHierarchy_1.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在应用程序UI上移动鼠标光标，直到找到你要查看的控件。 
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_1_827rs3cm_583
+{
+	margin: 0px;
+	width: 75%;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_1_827rs3cm_583:after
+{
+	content: "";
+	padding-top: 56.25%;
+	display: block;
+}
+</style> 
+<div id="player_1_827rs3cm_583"> 
+	<div id="playerContainer_1_827rs3cm_583" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/1_827rs3cm/embed.html"></iframe>
+	</div>
+</div></li><li class="Default"><p>按退出键（Escape），将焦点保持在你要查看的控件上。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Slate/WidgetReflector/WidgetReflectorInspect.jpg">
+		<img class="  lazyload" alt="WidgetReflectorInspect.png" data-src="../../../../Images/ProgrammingAndScripting/Slate/WidgetReflector/WidgetReflectorInspect.jpg" />
+</picture>
+
+</p></li></ol><p>在控件层级区域中，你可以查看以下属性。 
+</p><p><strong>属性（Property）</strong></p><div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>属性 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>说明 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>控件名称（Widget Name）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>这是控件的名称，它会显示你或你的某个UI开发人员是否错误地命名了某个控件。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>FG可视性（FG Visibility）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>前景(FG)可视性用于帮助确定控件是否应在前景中可见。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>焦点？（Focus?）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>此属性有助于确定控件是否应在焦点中。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>裁剪（Clipping）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>此属性可帮助标识是否裁剪控件。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>源（Source）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>这是源代码的链接，也是控件的创建位置。当你的应用程序连接到IDE（例如C++调试器），你可以点击此超链接，在正确的位置打开文件。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>地址（Address）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>在C++调试器中设置条件断点时，知道控件的地址将很有帮助。</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div><h3 id="点击测试网格">点击测试网格</h3>
+<p>点击测试网格对于希望可视化和查看控件点击框的开发人员很有帮助。要使用此功能，请执行以下步骤。 
+</p><ol ><li class="Default"><p>选择 <strong>选取可进行点击测试的控件（Pick Hit-Testable Widgets）</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Slate/WidgetReflector/TestHitGrid.jpg">
+		<img class="  lazyload" alt="TestHitGrid.png" data-src="../../../../Images/ProgrammingAndScripting/Slate/WidgetReflector/TestHitGrid.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>将鼠标光标悬停在你要点击的控件上，或按ESC键，将焦点保留在控件上。
+</p></li></ol><p>除了点击测试网格功能中可用的选项，可以设置以下标记。 
+</p><div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>标记 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>说明 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>在导航时可视化（Visualize on Navigation）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>此设置仅在执行快照时可用，它让点击测试网格功能可以选取控件反射器内的控件。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>拒绝控件反射器导航事件（Reject Widget Reflector navigation events）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>此设置指示点击测试网格功能拒绝来自控件反射器的导航事件。</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div><h3 id="显示焦点">显示焦点</h3>
+<p>如果要显示具有焦点的控件，请执行以下步骤： 
+</p><ol ><li class="Default"><p>选择 <strong>显示焦点（Show Focus）</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Slate/WidgetReflector/WidgetPickerFocus.jpg">
+		<img class="  lazyload" alt="WidgetPickerFocus.png" data-src="../../../../Images/ProgrammingAndScripting/Slate/WidgetReflector/WidgetPickerFocus.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>使用鼠标光标选择控件，然后按ESC键以将焦点保留在控件上。
+</p></li></ol><h2 id="快照控件选取器">快照控件选取器</h2>
+<p><strong>快照控件选取器（Snapshot Widget Picker）</strong> 保存应用程序中所有控件的图像和当前状态。要获取应用程序UI的快照，请执行以下步骤。 
+</p><ol ><li class="Default"><p>在控件层级区域中，点击 <strong>选项（Options）</strong>。 
+</p></li><li class="Default"><p>启用 <strong>导航事件模拟（Navigation Event Simulation）</strong>。<br /></p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Slate/WidgetReflector/NavigationEventSimulation.jpg">
+		<img class="  lazyload" alt="NavigationEventSimulation.png" data-src="../../../../Images/ProgrammingAndScripting/Slate/WidgetReflector/NavigationEventSimulation.jpg" />
+</picture>
+
+</p><p><div class="note">
+	<p>此选项让开发人员可以模拟快照捕获的控件的导航事件。此外，此设置是可选的，应该仅在需要时启用。</p>
+</div>
+</p></li><li class="Default"><p>选择要获取快照的应用程序。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/ProgrammingAndScripting/Slate/WidgetReflector/DesktopNavEvent.jpg">
+		<img class="  lazyload" alt="DesktopNavEvent.png" data-src="../../../../Images/ProgrammingAndScripting/Slate/WidgetReflector/DesktopNavEvent.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>点击 <strong>获取快照（Take Snapshot）</strong>。
+</p></li></ol><p>用户可在此处使用快照中的点击测试网格，结果将显示在控件层级（Widget Hierarchy）面板中。快照将会保存应用程序UI的状态，以帮助开发人员标识需要修复的漏洞。此外，开发人员可以在快照区域中调试你的UI并模拟你应用程序的导航事件。 
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_1_kzjbisdm_498
+{
+	margin: 0px;
+	width: 75%;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_1_kzjbisdm_498:after
+{
+	content: "";
+	padding-top: 56.25%;
+	display: block;
+}
+</style> 
+<div id="player_1_kzjbisdm_498"> 
+	<div id="playerContainer_1_kzjbisdm_498" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/1_kzjbisdm/embed.html"></iframe>
+	</div>
+</div>
+<p><div class="note">
+	<p>仅可从编辑器的PIE模式和独立应用程序获取快照。</p>
+</div>
+</p><h2 id="控件事件">控件事件</h2>
+<p>当用户在UI上导航时，控件事件系统将消息清空到控件反射器中的输出日志中。<br /></p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_1_junrsvgq_521
+{
+	margin: 0px;
+	width: 75%;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_1_junrsvgq_521:after
+{
+	content: "";
+	padding-top: 56.25%;
+	display: block;
+}
+</style> 
+<div id="player_1_junrsvgq_521"> 
+	<div id="playerContainer_1_junrsvgq_521" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/1_junrsvgq/embed.html"></iframe>
+	</div>
+</div>
+
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../SiteIndex/index.html?tags=Slate">Slate</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../SiteIndex/index.html?tags=%e6%8e%a7%e4%bb%b6%e5%8f%8d%e5%b0%84%e5%99%a8">控件反射器</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/ProgrammingAndScripting/Slate/WidgetReflector/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:13:35 GMT -->
+</html>

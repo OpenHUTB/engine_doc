@@ -1,0 +1,905 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/Objects/Creation/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:21:37 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/Objects/Creation/" />');
+				var udnCSS = '../../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>UObject实例创建 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/Objects/Creation/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/Objects/Creation/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/Objects/Creation/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/Objects/Creation/" hreflang="ko" />
+
+	<meta name="redirect" content="Programming/UnrealArchitecture/Objects/Creation" />
+<meta name="redirect" content="Programming/UnrealArchitecture/Objects" />
+<meta name="intsourcechangelist" content="8169605" />
+<meta name="availability" content="Public" />
+<meta name="title" content="UObject实例创建" />
+<meta name="description" content="在游戏进程代码中创建对象新实例的方法。" />
+<meta name="version" content="4.9" />
+<meta name="crumbs" content="%ROOT%,ProgrammingAndScripting,ProgrammingAndScripting/ProgrammingWithCPP,ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture,ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/Objects" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="UObject实例创建" />
+	<meta property="og:description" content="在游戏进程代码中创建对象新实例的方法。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../../index.html">编程和脚本编写</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">编程指南</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">游戏逻辑编程</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">对象</a>
+
+<span class="separator">></span> <span id="page">UObject实例创建</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">UObject实例创建</h1>
+							</div>	
+							<h2 >在游戏进程代码中创建对象新实例的方法。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																																			</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																																				<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#newobject">NewObject</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#newnamedobject">NewNamedObject</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#constructobject">ConstructObject</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#对象标记">对象标记</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<h2 id="newobject">NewObject</h2>
+<p>"NewObject()"是最简单的UObject工厂方法。它接受一个可选的外部对象和类，并用自动生成的名称创建一个新实例。
+</p><pre class="prettyprint"><code>template&lt; class T &gt;
+T&#42; NewObject
+(
+    UObject&#42; Outer=(UObject&#42;)GetTransientPackage(),
+    UClass&#42; Class=T::StaticClass() 
+)</code></pre>
+<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>参数 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>说明 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>"Outer"</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>可选。一个要设置为待创建对象的外部"UObject"。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>"Class"</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>可选。一个用于指定待创建对象类的"UClass"。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="2" align="">
+			<p><div class="tablesection">
+	<p>Return Value</p>
+</div></p>
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="2" align="">
+			<p>指向指定类的生成实例指针。</p>
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+</tr></tbody>
+</table><h2 id="newnamedobject">NewNamedObject</h2>
+<p>通过允许为新实例指定一个名称以及<a id="content_link" href="#对象标记" ><span>对象标记</span></a>和一个要指定为参数的模板对象，"NewNamedObject()"在"NewObject()"上展开。
+</p><pre class="prettyprint"><code>template&lt; class TClass &gt;
+TClass&#42; NewNamedObject
+(
+    UObject&#42; Outer, 
+    FName Name, 
+    EObjectFlags Flags = RF&#95;NoFlags, 
+    UObject const&#42; Template=NULL
+)</code></pre>
+<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>参数 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>说明 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>"Outer"</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>一个要设置为待创建对象的外部的"UObject"。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>"Name"</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>一个要设置为新对象的"名称（Name）"的"FName"。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>"Flags"</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>可选。描述新对象的"FObjectFlags"枚举值。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>"Template"</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>可选。创建新对象时用作模板的"UObject"。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="2" align="">
+			<p><div class="tablesection">
+	<p>Return Value</p>
+</div></p>
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="2" align="">
+			<p>指向指定类的生成实例指针。</p>
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+</tr></tbody>
+</table><h2 id="constructobject">ConstructObject</h2>
+<p>为了获得完全的灵活性，可以使用"ConstructObject()"函数创建"UObjects"的新实例。此函数调用"StaticConstructObject()"，它分配对象，执行"ClassConstructor"，并执行任何初始化，如加载配置属性，加载本地化属性和实例化组件。
+</p><pre class="prettyprint"><code>template&lt; class T &gt;
+T&#42; ConstructObject
+(
+    UClass&#42; Class, 
+    UObject&#42; Outer = (UObject&#42;)GetTransientPackage(), 
+    FName Name=NAME&#95;None, 
+    EObjectFlags SetFlags=RF&#95;NoFlags, 
+    UObject const&#42; Template=NULL, 
+    bool bCopyTransientsFromClassDefaults=false, 
+    struct FObjectInstancingGraph&#42; InstanceGraph=NULL 
+)</code></pre>
+<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>参数 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>说明 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>"Class"</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>一个用于指定待创建对象的类的"UClass"。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>"Outer"</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>可选。一个要设置为待创建对象的外部"UObject"。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>"Name"</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>可选。一个要设置为新对象的"名称（Name）"的"FName"。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>"SetFlags"</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>可选。描述新对象的"EObjectFlags"枚举值。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>"Template"</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>可选。创建新对象时用作模板的"UObject"。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>"bCopyTransientsFromClassDefaults"</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>可选。一个"布尔值"，它决定是否从类默认对象（而不是传入的原型指针）复制瞬态属性。如果"true"，使用类默认对象的瞬态。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>"FObjectInstancingGraph"</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>可选。"FObjectInstancingGraph"结构体，包含实例化对象和组件到其模板的映射。用于实例化新对象所拥有的组件。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="2" align="">
+			<p><div class="tablesection">
+	<p>Return Value</p>
+</div></p>
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="2" align="">
+			<p>指向指定类的生成实例指针。</p>
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+</tr></tbody>
+</table><h2 id="对象标记">对象标记</h2>
+<p>"EObjectFlags"枚举用于快速而简洁地描述对象。有各种各样的标志来描述对象的类型、垃圾收集如何处理它、对象在其生命周期中所处的阶段等等。还有特殊的全掩码或无掩码和预定义的标记组。
+</p><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>标记 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>值 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>说明 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="3" align="">
+			<p><div class="tablesection">
+	<p>Object Type</p>
+</div></p>
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><em>RF_Public</em></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><code>0x00000001</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>对象在包含它的包外部是可见的。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><em>RF_Standalone</em></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><code>0x00000002</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>即使没有被任何东西引用，对象也会被保留以供编辑。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><em>RF_Native</em></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><code>0x00000004</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>对象是本地对象。这仅用于"UClass"对象。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><em>RF_Transactional</em></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><code>0x00000008</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>对象是事务对象。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><em>RF_ClassDefaultObject</em></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><code>0x00000010</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>对象是其类的默认对象，即该类的新实例在创建时使用的默认模板。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><em>RF_ArchetypeObject</em></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><code>0x00000020</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>对象是另一个对象的模板。它被视为一个类默认对象。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><em>RF_Transient</em></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><code>0x00000040</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>对象不保存到磁盘。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="3" align="">
+			<p><div class="tablesection">
+	<p>垃圾回收</p>
+</div></p>
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><em>RF_RootSet</em></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><code>0x00000080</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>即使对象没有被任何东西引用，它也不是被回收的垃圾。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><em>RF_IsLazyReferenced</em></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><code>0x00000100</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>对象由一个延迟指针引用，删除时需要额外的清理。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><em>RF_Unreachable</em></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><code>0x00000200</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>对象图表上不能访问该对象。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><em>RF_TagGarbageTemp</em></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><code>0x00000400</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>对象被标记为供使用垃圾回收的各种实用程序所使用。此标记不由垃圾回收器本身解释。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="3" align="">
+			<p><div class="tablesection">
+	<p>对象生命周期</p>
+</div></p>
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><em>RF_NeedLoad</em></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><code>0x00000800</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>对象需要加载。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><em>RF_AsyncLoading</em></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><code>0x00001000</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>对象是异步加载的。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><em>RF_NeedPostLoad</em></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><code>0x00002000</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>对象需要后加载。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><em>RF_NeedPostLoadSubobjects</em></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><code>0x00004000</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>对象仍然需要实例化子对象并修复序列化的组件引用</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><em>RF_PendingKill</em></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><code>0x00008000</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>对象正在等待销毁。基于游戏进程目的将对象标记为无效，但仍然是有效的对象。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><em>RF_BeginDestroyed</em></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><code>0x00010000</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>对象已经调用了"BeginDestroy()"。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><em>RF_FinishDestroyed</em></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><code>0x00020000</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>对象已经调用了"FinishDestroy()"。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="3" align="">
+			<p><div class="tablesection">
+	<p>特殊遮罩</p>
+</div></p>
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><em>RF_AllFlags</em></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><code>0x0003ffff</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>对象具有所有标记。主要用于错误检查。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><em>RF_NoFlags</em></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><code>0x00000000</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>对象不具有标记。用于避免类型转换。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="3" align="">
+			<p><div class="tablesection">
+	<p>预定义的组</p>
+</div></p>
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><em>RF_Load</em></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><code>RF&#95;Public &#124; RF&#95;Standalone &#124; RF&#95;Native &#124; RF&#95;Transactional &#124; RF&#95;ClassDefaultObject &#124; RF&#95;ArchetypeObject</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>从虚幻文件加载的标记。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><em>RF_PropagateToSubobjects</em></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><code>RF&#95;Public &#124; RF&#95;ArchetypeObject &#124; RF&#95;Transactional</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>子对象从其超对象继承的标记。</p>
+			</td>
+	
+</tr></tbody>
+</table>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/Objects/Creation/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:21:37 GMT -->
+</html>

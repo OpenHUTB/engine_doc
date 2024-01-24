@@ -1,0 +1,693 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AnimDynamics/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:30:11 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var finishButton = finishButtonTemplate;
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AnimDynamics/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>创建动态动画 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+		    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+		    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AnimDynamics/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AnimDynamics/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AnimDynamics/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AnimDynamics/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Animation/AnimHowTo/AnimDynamics" />
+<meta name="intsourcechangelist" content="15018255" />
+<meta name="availability" content="Public" />
+<meta name="title" content="创建动态动画" />
+<meta name="description" content="使用AnimDynamics为角色提供基于实体的附属动画。" />
+<meta name="type" content="how-to" />
+<meta name="version" content="4.12" />
+<meta name="parent" content="AnimatingObjects/SkeletalMeshAnimation/AnimHowTo" />
+<meta name="skilllevel" content="Advanced" />
+<meta name="order" content="3" />
+<meta name="crumbs" content="%ROOT%,AnimatingObjects,AnimatingObjects/SkeletalMeshAnimation,AnimatingObjects/SkeletalMeshAnimation/AnimHowTo" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="创建动态动画" />
+	<meta property="og:description" content="使用AnimDynamics为角色提供基于实体的附属动画。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">为角色和对象添加动画</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">骨架网格体动画系统</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">动画操作指南</a>
+
+<span class="separator">></span> <span id="page">创建动态动画</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">创建动态动画</h1>
+							</div>	
+							<h2 >使用AnimDynamics为角色提供基于实体的附属动画。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Advanced"><a id="skill_link" href="../../../../SiteIndex/index.html?skills=Advanced">Advanced</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																																																<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#1-必要的设置">1 - 必要的设置</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#2-应用animdynamics">2 - 应用AnimDynamics</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>提高角色运动真实感的一种方法是为他们携带或穿戴的物品应用动态动画。 
+有了<a id="content_link"filter-data="tag_animation tag_animation_blending tag_skeletal_controls" href="../../NodeReference/SkeletalControls/index.html" ><span><strong>AnimDynamics</strong></span></a>，在现实中会随着你运动而摆动的物件（毛发、项链、手镯、刀剑、荷包等）也将会在游戏里随着角色的运动而弹跳和移动。 
+</p><p>在本教程中，我们将把AnimDynamics应用到一个角色来实现下面看到的效果： 
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_0_iuhuh27n_2
+{
+	margin: 0px;
+	width: 640px;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_0_iuhuh27n_2:after
+{
+	content: "";
+	padding-top: 360px;
+	display: block;
+}
+</style> 
+<div id="player_0_iuhuh27n_2"> 
+	<div id="playerContainer_0_iuhuh27n_2" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/0_iuhuh27n/embed.html"></iframe>
+	</div>
+</div>
+<p>在上面的示例中，角色身上的背带和挂在他脖子上的炉子都应用了AnimDynamics。当角色移动时，背带会轻微摆动，而炉子的前后摆动幅度还要更大一点。 
+可以通过AnimDynamics节点的细节（Details）面板来调整运动量，以获得你需要的效果。还可以添加更多约束来操纵骨骼移动方式。 
+</p><div class="note">
+	<p>如果角色已经设置了动画蓝图并有了已准备好用AnimDynamics驱动的骨骼，可以直接跳到第2步。 </p>
+</div><h2 id="1-必要的设置">1 - 必要的设置</h2>
+<p>在开始将动态动画应用于角色之前，我们需要设置要使用的角色。模板角色没有任何可以使用的动态骨骼，所以我们将动画从模板角色重定向为Infinity Blade角色，这个角色有我们可以利用AnimDynamics影响的骨骼。
+</p><div class="note">
+	<p>在本指南中，我们使用 <strong>蓝图第三人称（Blueprint Third Person）</strong> 模板创建了一个新项目。
+</p><p>然后，我们将 <strong>Infinity Blade:Adversaries</strong> 包添加到了项目中，此包可从市场（Marketplace）免费获取。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AnimDynamics/AdversariesPack.jpg">
+		<img class="  lazyload" alt="AdversariesPack.png" title="AdversariesPack.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AnimDynamics/AdversariesPack.jpg" />
+</picture>
+</p>
+</div><p>在打开了基于 <strong>蓝图第三人称（Blueprint Third Person Template）</strong> 的模板项目，并添加了 <strong>Infinity Blade</strong> 资源后：
+</p><ol ><li class="Default"><p>在 <strong>内容浏览器</strong> 中的 <strong>Content/Mannequin/Character/Mesh</strong> 下，打开 <strong>UE4_Mannequin_Skeleton</strong> 资源。<br /><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AnimDynamics/1_OpenMesh-2.jpg">
+		<img class="  lazyload" alt="1_OpenMesh-2.png" title="1372029427OpenMesh-2.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AnimDynamics/1_OpenMesh-2.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>单击 <strong>重定向管理器（Retarget Manager）</strong> 按钮，然后在 <strong>选择绑定（Select Rig）</strong> 下，分配 <strong>Humanoid</strong> 绑定。<br /><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AnimDynamics/2_SetRig-2.jpg">
+		<img class="  lazyload" alt="2_SetRig-2.png" title="2372029427SetRig-2.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AnimDynamics/2_SetRig-2.jpg" />
+</picture>
+
+</p><p>我们将此角色的动画蓝图和动画<a id="content_link"filter-data="tag_animation tag_animation_retargeting" href="../Retargeting/index.html" ><span>重定向</span></a>为一个Infinity Blade角色。
+</p></li><li class="Default"><p>在 <strong>内容浏览器（Content Browser）</strong> 中，导航至Infinity Blade Adversaries文件夹中的 <strong>SK_Master_Grunt_Skeleton</strong> 并打开它。<br /><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AnimDynamics/3_OpenGrunt-1.jpg">
+		<img class="  lazyload" alt="3_OpenGrunt-1.png" title="3372029427OpenGrunt-1.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AnimDynamics/3_OpenGrunt-1.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>单击 <strong>重定向管理器（Retarget Manager）</strong> 按钮，然后在 <strong>选择绑定（Select Rig）</strong> 下选择 <strong>Humanoid</strong>。
+</p></li><li class="Default"><p>对于绑定上的每个节点，从骨架分配一个骨骼。<br /><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AnimDynamics/4_AssignBones-1.jpg">
+		<img class="  lazyload" alt="4_AssignBones-1.png" title="4372029427AssignBones-1.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AnimDynamics/4_AssignBones-1.jpg" />
+</picture>
+
+</p><p>完整的分配如下表所示。<br /></p><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>节点（绑定）</p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>骨骼（骨架） </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Root</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>b_MF_Root</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Pelvis</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>b_MF_Pelvis</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>spine_01</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>b_MF_Spine_01</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>spine_02</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>b_MF_Spine_02</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>spine_03</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>b_MF_Spine_03</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>clavicle_l</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>b_MF_Clavicle_L</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>upperarm_l</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>b_MF_UpperArm_L</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>lowerarm_l</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>b_MF_Forearm_L</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>hand_l</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>b_MF_Hand_L</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>clavicle_r</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>b_MF_Clavicle_R</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>upperarm_r</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>b_MF_UpperArm_R</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>lowerarm_r</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>b_MF_Forearm_R</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>hand_r</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>b_MF_Hand_R</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>neck_01</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>b_MF_Neck</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>head</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>b_MF_Head</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>thigh_l</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>b_MF_Thigh_L</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>calf_l</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>b_MF_Calf_L</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>foot_l</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>b_MF_Foot_L</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>thigh_r</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>b_MF_Thigh_R</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>calf_r</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>b_MF_Calf_R</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>foot_r</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>b_MF_Foot_R</p>
+			</td>
+	
+</tr></tbody>
+</table><p>在我们继续重定向之前，我们将调整平移重定向，以确保动画正确播放。
+</p></li><li class="Default"><p>在 <strong>骨架树（Skeleton Tree）</strong> 中，单击 <strong>显示高级选项（Show Advanced Options）</strong> 按钮。
+</p></li><li class="Default"><p><strong>右键单击</strong> <strong>b_MF_Root</strong> 骨骼，并选择 <strong>递归地设置平移重定向骨架（Recursively Set Translation Retargeting Skeleton）</strong>。<br /><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AnimDynamics/5_TranslationRetargetingA-1.jpg">
+		<img class="  lazyload" alt="5_TranslationRetargetingA-1.png" title="5372029427TranslationRetargetingA-1.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AnimDynamics/5_TranslationRetargetingA-1.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>平移重定向（Translation Retargeting）</strong> 下，将 <strong>b_MF_Root</strong> 设置为动画（Animation），并将 <strong>b_MF_Pelvis</strong> 设置为 <strong>缩放后动画（Animation Scaled）</strong>。<br /><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AnimDynamics/5_TranslationRetargetingB-1.jpg">
+		<img class="  lazyload" alt="5_TranslationRetargetingB-1.png" title="5372029427TranslationRetargetingB-1.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AnimDynamics/5_TranslationRetargetingB-1.jpg" />
+</picture>
+
+</p><p>已经设置了骨架，我们现在可以从模板角色重定向AnimBluperint和动画。
+</p></li><li class="Default"><p>导航到 <strong>ThirdPersonAnimBP</strong>，<strong>右键单击</strong> 它并选择 <strong>复制动画蓝图并重定向（Duplicate Anim Blueprints and Retarget）</strong>。<br /><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AnimDynamics/6_RetargetAnimBP-1.jpg">
+		<img class="  lazyload" alt="6_RetargetAnimBP-1.png" title="6372029427RetargetAnimBP-1.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AnimDynamics/6_RetargetAnimBP-1.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>选择骨架（Select Skeleton）</strong> 窗口中，选择 <strong>SK_Master_Grunt_Skeleton</strong> 资源，然后选择 <strong>重定向（Retarget）</strong>。<br /><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AnimDynamics/7_SetTarget-1.jpg">
+		<img class="  lazyload" alt="7_SetTarget-1.png" title="7372029427SetTarget-1.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AnimDynamics/7_SetTarget-1.jpg" />
+</picture>
+
+</p><div class="tip">
+	<p>你可以单击 <strong>修改...（Change…）</strong> 按钮来分配重定向资源复制到的位置（如果你愿意）。</p>
+</div></li><li class="Default"><p>导航到复制的资源，并将新的动画蓝图重命名为 <strong>GruntAnimBP</strong>。<br /><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AnimDynamics/8_RenameAnimBP-1.jpg">
+		<img class="  lazyload" alt="8_RenameAnimBP-1.png" title="8372029427RenameAnimBP-1.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AnimDynamics/8_RenameAnimBP-1.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>导航到 <strong>ThirdPersonCharacter</strong> 蓝图，并打开它。<br /><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AnimDynamics/9_OpenThirdBP-1.jpg">
+		<img class="  lazyload" alt="9_OpenThirdBP-1.png" title="9372029427OpenThirdBP-1.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AnimDynamics/9_OpenThirdBP-1.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>单击 <strong>组件（Components）</strong> 窗口中的 <strong>网格体（Mesh）</strong>，然后在 <strong>详细信息（Details）</strong> 面板中分配 <strong>SK_Master_Grunt</strong> 和 <strong>GruntAnimBP_C</strong>。<br /><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AnimDynamics/10_AssignNewCharacter-1.jpg">
+		<img class="  lazyload" alt="10_AssignNewCharacter-1.png" title="10372029427AssignNewCharacter-1.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AnimDynamics/10_AssignNewCharacter-1.jpg" />
+</picture>
+
+</p></li><li class="Default"><p><strong>编译（Compile）</strong> 并 <strong>保存（Save）</strong>，然后关闭蓝图。
+</p></li></ol><p>此时，如果你在编辑器中运行，你应该可以控制可用 <strong>WASD</strong> 和 <strong>空格键</strong> 运行和跳转的Grunt角色。
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_1_xuq2jca2_47
+{
+	margin: 0px;
+	width: 75%;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_1_xuq2jca2_47:after
+{
+	content: "";
+	padding-top: 56.25%;
+	display: block;
+}
+</style> 
+<div id="player_1_xuq2jca2_47"> 
+	<div id="playerContainer_1_xuq2jca2_47" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/1_xuq2jca2/embed.html"></iframe>
+	</div>
+</div>
+<p>注意，角色身上的背带和挂在他脖子上的炉子的运动有限。此运动看起来相对静态，如果这些物件随着角色的运动而摆动，我们的角色看起来会更自然。
+</p><p>在下一步中，我们将利用AnimDynamics节点设置背带和炉子动画，使其对角色运动作出反应。
+</p><h2 id="2-应用animdynamics">2 - 应用AnimDynamics</h2>
+<p>现在我们已经为角色设置了一个 <strong>动画蓝图</strong>，而且拥有我们想要动态设置动画的骨骼，那么我们可以通过 <strong>AnimDynamics</strong> 节点从 <strong>动画蓝图</strong> 的 <strong>AnimGraph</strong> 中实现这一点。
+</p><p>在我们的示例中，角色的脖子上挂着一个大炉子，我们想基于角色的运动来设置炉子动画。如果你正在用你自己的角色，你可以按照下面的步骤，分配你想要用AnimDynamics驱动的骨骼，并根据需要调整设置。
+</p><h3 id="步骤">步骤</h3>
+<ol ><li class="Default"><p>在 <strong>内容浏览器</strong> 中，打开角色的 <strong>动画蓝图</strong> (<strong>GruntAnimBP</strong>)。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AnimDynamics/1_OpenAnimBP.jpg">
+		<img class="  lazyload" alt="1_OpenAnimBP.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AnimDynamics/1_OpenAnimBP.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>单击 <strong>MyBlueprint</strong>，然后单击 <strong>AnimGraph</strong> 打开动画图表。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AnimDynamics/2_AnimGraph.jpg">
+		<img class="  lazyload" alt="2_AnimGraph.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AnimDynamics/2_AnimGraph.jpg" />
+</picture>
+
+</p></li><li class="Default"><p><strong>右键单击</strong> 图表，然后搜索并添加 <strong>AnimDynamics</strong> 节点。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AnimDynamics/3_AddNode.jpg">
+		<img class="  lazyload" alt="3_AddNode.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AnimDynamics/3_AddNode.jpg" />
+</picture>
+
+</p><p>AnimDynamics节点采用了一个 <strong>外部力（External Force）</strong> 值，此力是施加在模拟中所有物体的附加力（此力为可选项，但值得考虑）。它还采用了 <strong>组件姿势（Component Pose）</strong>（即参考姿势数字）以及 <strong>Alpha</strong> 值（即应用骨骼控制的强度，其中0表示无强度，1表示全强度）。
+</p></li><li class="Default"><p><strong>复制（Copy）</strong> 并 <strong>粘贴（Paste）</strong> 此节点，然后如下所示连接节点。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AnimDynamics/4_ConnectNodes.jpg">
+		<img class="  lazyload" alt="4_ConnectNodes.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AnimDynamics/4_ConnectNodes.jpg" />
+</picture>
+
+</p><div class="caption">
+	<p>连接姿势引脚时，将自动创建 <strong>本地姿势到组件空间姿势（Local to Component）</strong> 和 <strong>组件空间姿势到本地姿势（Component to Local）</strong>。</p>
+</div><p>在我们的示例中，我们使用了两个AnimDynamics节点（一个影响背带，另一个影响炉子）。
+</p></li><li class="Default"><p>选择序列中的第一个 <strong>AnimDynamics</strong> 节点，然后在 <strong>详细信息（Details）</strong> 面板中，分配如下所示的设置。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AnimDynamics/5_Furnance1.jpg">
+		<img class="  lazyload" alt="5_Furnance1.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AnimDynamics/5_Furnance1.jpg" />
+</picture>
+
+</p><p><strong>预览（Preview）</strong> 部分全部关于可视化，指示视口中应用于移动的当前限制。如果正在使用 <strong>平面限制（Planar Limits）</strong> 且未启用 <strong>CoM</strong>（质心），还可以看到碰撞球体。这超出了本例范围，但你可以体验一下这种设置。
+</p><p>最后要设置的是 <strong>边界骨骼（Bound Bone）</strong> 或我们正在影响的骨骼。我们将其设置为角色的 <strong>炉子</strong> 骨骼（此骨骼影响背带）。
+</p></li><li class="Default"><p>当仍选中节点时，按如下所示设置 <strong>设置（Setup）</strong> 和 <strong>约束（Constraint）</strong> 部分。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AnimDynamics/6_Furnance1.jpg">
+		<img class="  lazyload" alt="6_Furnance1.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AnimDynamics/6_Furnance1.jpg" />
+</picture>
+
+</p><p>在 <strong>设置（Setup）</strong> 和 <strong>约束（Constraint）</strong> 部分中，定义由AnimDynamics驱动的骨骼的移动和移动范围。<strong>盒体范围（Box Extent）</strong> 设置惯性，<strong>局部关节偏移（Local Joint Offset）</strong> 定义枢轴点，<strong>角限制（Angular Limits）</strong> 设置运动的旋转范围（启用时用预览可视化选项指示）。
+</p><div class="note">
+	<p>请参阅骨架功能按钮的<a id="content_link"filter-data="tag_animation tag_animation_blending tag_skeletal_controls" href="../../NodeReference/SkeletalControls/index.html" ><span><strong>AnimDynamics</strong></span></a>部分，了解设置（Setup）和约束（Constraint）设置的详情。</p>
+</div></li><li class="Default"><p>单击 <strong>编译（Compile）</strong>，注意背带物件如何侧倾。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AnimDynamics/6_Furnance1b.jpg">
+		<img class="  lazyload" alt="6_Furnance1b.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AnimDynamics/6_Furnance1b.jpg" />
+</picture>
+
+</p><p>现在，<strong>Y</strong> 轴的角限制（Angular Limits）非常大，在上图中用绿色锥体表示。我们来缩小此范围。
+</p></li><li class="Default"><p>当仍选中节点时，在 <strong>约束（Constraints）</strong> 部分中，调整 <strong>角限制（Angular Limits）</strong> 的 <strong>最小/最大值（Min/Max）</strong>，如下所示。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AnimDynamics/6_Furnance1c.jpg">
+		<img class="  lazyload" alt="6_Furnance1c.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AnimDynamics/6_Furnance1c.jpg" />
+</picture>
+
+</p><p>此时 <strong>编译（Compile）</strong> 时，背带不会向两边偏移移动太多（即便调整了 <strong>速度（Speed）</strong> 或 <strong>IsInAir?</strong> 设置）。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AnimDynamics/6_Furnanced.jpg">
+		<img class="  lazyload" alt="6_Furnanced.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AnimDynamics/6_Furnanced.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>选择序列中的第二个 <strong>AnimDynamics</strong> 节点，然后使用以下设置。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AnimDynamics/7_PotSettings.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AnimDynamics/7_PotSettings.jpg">
+		<img class="  lazyload" alt="7_PotSettings.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AnimDynamics/7_PotSettings.jpg" />
+</picture>
+</span></a></span></p>
+</div><p><em>点击查看大图。</em>
+</p><p>通过上面的设置，我们更改了 <strong>边界骨骼（Bound Bone）</strong> 以定向为角色中的 <strong>Furnace_Pivot</strong> 骨骼，此骨骼影响炉子物件。我们还调整了 <strong>扭曲轴（Twist Axis）</strong>，使其在 <strong>Y</strong> 轴上扭转，提供前后运动，而不是左右运动。角限制（Angular Limits）设置为 <strong>-50</strong> 和 <strong>50</strong>，作为要移动的范围。
+</p></li><li class="Default"><p><strong>编译（Compile）</strong> 并 <strong>保存（Save）</strong>，然后在编辑器中运行。
+</p></li></ol><h3 id="最终结果">最终结果</h3>
+<p>现在，你应该看到示例角色的炉子会基于约束设置随着角色的运动而弹跳。
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_0_iuhuh27n_70
+{
+	margin: 0px;
+	width: 640px;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_0_iuhuh27n_70:after
+{
+	content: "";
+	padding-top: 360px;
+	display: block;
+}
+</style> 
+<div id="player_0_iuhuh27n_70"> 
+	<div id="playerContainer_0_iuhuh27n_70" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/0_iuhuh27n/embed.html"></iframe>
+	</div>
+</div>
+<p>利用 <strong>设置（Setup）</strong> 部分的 <strong>盒体范围（Box Extent）</strong> 和 <strong>局部关节偏移（Local Joint Offset）</strong> 值以及 <strong>约束（Constraints）</strong> 部分的 <strong>线性（Linear）</strong> 和 <strong>角限制（Angular Limits）</strong>，大胆进行尝试，看看AnimDynamics如何影响骨骼的运动。
+</p>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AnimDynamics/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:30:19 GMT -->
+</html>

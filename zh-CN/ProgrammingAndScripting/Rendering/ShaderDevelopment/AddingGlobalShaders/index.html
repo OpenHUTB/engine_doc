@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/ProgrammingAndScripting/Rendering/ShaderDevelopment/AddingGlobalShaders/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 10:22:36 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/ProgrammingAndScripting/Rendering/ShaderDevelopment/AddingGlobalShaders/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>在虚幻引擎中添加全局着色器 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/ProgrammingAndScripting/Rendering/ShaderDevelopment/AddingGlobalShaders/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/ProgrammingAndScripting/Rendering/ShaderDevelopment/AddingGlobalShaders/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/ProgrammingAndScripting/Rendering/ShaderDevelopment/AddingGlobalShaders/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/ProgrammingAndScripting/Rendering/ShaderDevelopment/AddingGlobalShaders/" hreflang="ko" />
+
+	<meta name="redirect" content="Programming/Rendering/ShaderDevelopment/AddingGlobalShaders" />
+<meta name="intsourcechangelist" content="15340755" />
+<meta name="availability" content="Public" />
+<meta name="title" content="在虚幻引擎中添加全局着色器" />
+<meta name="description" content="关于添加和使用自己的全局着色器的概述" />
+<meta name="type" content="Overview" />
+<meta name="version" content="4.25" />
+<meta name="parent" content="ProgrammingAndScripting/Rendering/ShaderDevelopment" />
+<meta name="order" content="" />
+<meta name="keywords" content="Rendering" />
+<meta name="keywords" content="Graphics" />
+<meta name="keywords" content="Global Shaders" />
+<meta name="crumbs" content="%ROOT%,ProgrammingAndScripting,ProgrammingAndScripting/Rendering,ProgrammingAndScripting/Rendering/ShaderDevelopment" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="在虚幻引擎中添加全局着色器" />
+	<meta property="og:description" content="关于添加和使用自己的全局着色器的概述 " />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">编程和脚本编写</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">图形编程</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">着色器开发</a>
+
+<span class="separator">></span> <span id="page">在虚幻引擎中添加全局着色器</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">在虚幻引擎中添加全局着色器</h1>
+							</div>	
+							<h2 >关于添加和使用自己的全局着色器的概述 </h2>
+							<div id="access">
+								<div class="accessContainer">
+																																			</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																																				<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#虚幻着色器文件">虚幻着色器文件</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#全局着色器示例">全局着色器示例</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#创建和添加新着色器">创建和添加新着色器</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#类声明">类声明</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#注册着色器类型">注册着色器类型</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#声明像素着色器">声明像素着色器</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#编写简单函数">编写简单函数</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#其他说明">其他说明</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p><strong>全局着色器（Global Shaders）</strong> 是不通过材质编辑器创建的着色器。相反，全局着色器使用C++创建，它们在固定的几何体上运行，并且无需与材质或网格体结合。有时候，必须使用更高级的功能才能实现某些外观，为此，有必要自定义着色器通道。
+</p><p>全局着色器的部分示例包括渲染后期处理效果、分配计算着色器和清空屏幕。 
+</p><h2 id="虚幻着色器文件">虚幻着色器文件</h2>
+<p>虚幻引擎使用 <strong>虚幻着色器文件（Unreal Shader）</strong> （.usf）文件存储和读取有关所使用着色器的信息。所有新建的着色器的源文件都需要存储在 <code>Engine/Shaders</code> 文件夹中。若着色器是插件的一部分，则应将其存储在 <code>Plugin/Shaders</code> 文件夹中。
+</p><div class="tip">
+	<p>在 <strong>ConsoleVariables.ini</strong> 文件中使用命令 <strong>r.ShaderDevelopmentMode=1</strong>，以获取有关着色器编译的详细日志。
+</p><p>有关更多信息，请参见<a id="content_link"filter-data="tag_rendering" href="../index.html" ><span>着色器开发</span></a>。</p>
+</div><h2 id="全局着色器示例">全局着色器示例</h2>
+<p>作为示例，我们将创建一个简单的直通（pass-through） <strong>顶点着色器（Vertex Shader）</strong> 以及一个会返回自定义颜色的 <strong>像素着色器（Pixel Shader）</strong>。
+</p><h3 id="创建和添加新着色器">创建和添加新着色器</h3>
+<p>在 <code>Engine/Shaders</code> 文件夹中创建新的文本文件，创建自己的着色器。将其文件扩展名重命名为 <strong>.usf</strong>，然后指定着色器名称。以下示例使用 <strong>MyTest.usf</strong>。
+</p><p>然后，将以下代码添加到 <strong>MyTest.usf</strong> 文件：
+</p><p><div class="codetitlebar">
+	<p>MyTest.usf</p>
+</div>
+</p><pre class="prettyprint"><code>// 简单的直通顶点着色器
+
+void MainVS(
+    in float4 InPosition : ATTRIBUTE0,
+    out float4 Output : SV&#95;POSITION
+)
+{
+    Output = InPosition;
+}
+
+// 简单的纯色像素着色器
+float4 MyColor;
+float4 MainPS() : SV&#95;Target0
+{
+    return MyColor;
+}</code></pre>
+<h3 id="类声明">类声明</h3>
+<p>注意，如果要让虚幻引擎能够识别并开始编译着色器，你需要声明C++类。本示例使用顶点着色器作为该类：
+</p><p><div class="codetitlebar">
+	<p>MyTestVS.h</p>
+</div>
+</p><pre class="prettyprint"><code>#include "GlobalShader.h"
+
+// 这段代码可以在头文件或cpp文件中声明
+class FMyTestVS : public FGlobalShader
+{
+    DECLARE&#95;EXPORTED&#95;SHADER&#95;TYPE(FMyTestVS, Global, /&#42;MYMODULE&#95;API&#42;/);
+
+    FMyTestVS() { }
+    FMyTestVS(const ShaderMetaType::CompiledShaderInitializerType&amp; Initializer)
+        : FGlobalShader(Initializer)
+    {
+    }
+
+    static bool ShouldCache(EShaderPlatform Platform)
+    {
+        return true;
+    }
+};</code></pre>
+<p>进行此操作时，有一些要求：
+</p><ul ><li class="Default"><p>这是 <code>FGlobalShader</code> 的子类。这样一来，着色器最终会出现在全局着色器贴图中，这意味着无需材质即可找到着色器。
+</p></li><li class="Default"><p>需要使用 <code>DECLARE&#95;EXPORTED&#95;SHADER&#95;TYPE()</code> 宏，它会生成着色器类型在序列化时所需的导出内容。第三个参数是着色器模块所在代码模块的外部链接类型（如需要）。例如，任何不存在于渲染器模块中的C++代码。
+</p></li><li class="Default"><p>有两个构造函数：默认构造函数和序列化构造函数。
+</p></li><li class="Default"><p>需要使用 <code>ShouldCache()</code> 函数，以便确定在某些情况下是否应编译此着色器。例如，你可能不想在支持RHI的非计算着色器上编译计算着色器。
+</p></li></ul><h3 id="注册着色器类型">注册着色器类型</h3>
+<p><strong>着色器类型（Shader Type）</strong> 是由着色器代码指定的模板或类，映射到物理C++类。你可使用以下代码将着色器类型注册到虚幻引擎的类型列表中：
+</p><pre class="prettyprint"><code>// 此操作需在cpp文件上进行
+IMPLEMENT&#95;SHADER&#95;TYPE(, FMyTestVS, TEXT("MyTest"), TEXT("MainVS"), SF&#95;Vertex);</code></pre>
+<p>该宏将类型（<code>FMyTestVS</code>）映射到.usf文件（<code>MyTest.usf</code>）、着色器入口（<code>MainVS</code>）和频率/着色阶段（<code>SF&#95;Vertex</code>）。只要 <code>ShouldCache()</code> 方法返回 <em>true</em>，它也会导致着色器添加到编译列表中。
+</p><div class="note">
+	<p><code>FGlobalShader</code> 的目标添加模块 <em>必须</em> 在引擎启动之前加载，否则将获得断言，例如：
+</p><pre class="prettyprint"><code>&gt; `着色器类型在引擎启动后加载。请对模块使用 `ELoadingPhase::PostConfigInit` 使其提前加载。` </code></pre>
+<p>启动游戏或编辑器后，不允许动态模块添加自己的着色器类型。</p>
+</div><h3 id="声明像素着色器">声明像素着色器</h3>
+<p>接下来，使用以下代码声明像素着色器：
+</p><pre class="prettyprint"><code>class FMyTestPS : public FGlobalShader
+{
+    DECLARE&#95;EXPORTED&#95;SHADER&#95;TYPE(FMyTestPS, Global, /&#42;MYMODULE&#95;API&#42;/);
+
+    FShaderParameter MyColorParameter;
+
+    FMyTestPS() { }
+    FMyTestPS(const ShaderMetaType::CompiledShaderInitializerType&amp; Initializer)
+        : FGlobalShader(Initializer)
+    {
+        MyColorParameter.Bind(Initializer.ParameterMap, TEXT("MyColor"), SPF&#95;Mandatory);
+    }
+
+    static void ModifyCompilationEnvironment(EShaderPlatform Platform, FShaderCompilerEnvironment&amp; OutEnvironment)
+    {
+        FGlobalShader::ModifyCompilationEnvironment(Platform, OutEnvironment);
+        // 添加自己的着色器代码定义
+        OutEnvironment.SetDefine(TEXT("MY&#95;DEFINE"), 1);
+    }
+
+    static bool ShouldCache(EShaderPlatform Platform)
+    {
+        // 例如，可跳过 "Platform == SP&#95;METAL" 的编译
+        return true;
+    }
+
+    // Fshader 接口。
+    virtual bool Serialize(FArchive&amp; Ar) override
+    {
+        bool bShaderHasOutdatedParameters = FGlobalShader::Serialize(Ar);
+        Ar &lt;&lt; MyColorParameter;
+        return bShaderHasOutdatedParameters;
+    }
+
+    void SetColor(FRHICommandList&amp; RHICmdList, const FLinearColor&amp; Color)
+    {
+        SetShaderValue(RHICmdList, GetPixelShader(), MyColorParameter, Color);
+    }
+};
+
+// 源文件与此前相同，但入口不同
+IMPLEMENT&#95;SHADER&#95;TYPE(, FMyTestPS, TEXT("MyTest"), TEXT("MainPS"), SF&#95;Pixel);</code></pre>
+<p>在此类中，公开.usf文件中的着色器参数 <strong>MyColor</strong>：
+</p><ul ><li class="Default"><p><code>FShaderParameter MyColorParameter</code> 成员添加到该类中，该类保存用于运行时能够找到绑定的信息。这反过来又允许在运行时设置参数值。
+</p></li><li class="Default"><p>在序列化构造函数中，<code>Bind()</code> 函数按名称将参数绑定到 <code>ParameterMap</code>。这 <em>必须</em> 匹配.usf文件的名称。
+</p></li><li class="Default"><p>当同一C++类为不同的行为定义并能够在着色器中设置#define值时，使用 <code>ModifyCompilationEnvironment()</code> 函数。
+</p></li><li class="Default"><p><code>Serialize()</code> 方法为 <em>必选项</em>。这是运行时加载和存储着色器绑定（在序列化构造函数期间匹配）的编译和烘焙时间信息的位置。
+</p></li><li class="Default"><p>最后，自定义 <code>SetColor()</code> 方法展示了如何在运行时使用指定值设置 <code>MyColor</code> 参数。
+</p></li></ul><h3 id="编写简单函数">编写简单函数</h3>
+<p>以下代码编写了一个简单函数，该函数可使用指定的着色器类型绘制全屏四边形：
+</p><pre class="prettyprint"><code>void RenderMyTest(FRHICommandList&amp; RHICmdList, ERHIFeatureLevel::Type FeatureLevel, const FLinearColor&amp; Color)
+{
+    // 获取全局着色器集合
+    auto ShaderMap = GetGlobalShaderMap(FeatureLevel);
+
+    // 从ShaderMap获取实际的着色器实例
+    TShaderMapRef MyVS(ShaderMap);
+    TShaderMapRef MyPS(ShaderMap);
+
+    // 使用这些着色器声明绑定着色器状态，并将其应用到命令列表
+    static FGlobalBoundShaderState MyTestBoundShaderState;
+    SetGlobalBoundShaderState(RHICmdList, FeatureLevel, MyTestBoundShaderState, GetVertexDeclarationFVector4(), &#42;MyVS, &#42;MyPS);
+
+    // 调用函数以设置参数
+    MyPS-&gt;SetColor(RHICmdList, Color);
+
+    // 预先设置GPU，以绘制实体四边形
+    RHICmdList.SetRasterizerState(TStaticRasterizerState::GetRHI());
+    RHICmdList.SetBlendState(TStaticBlendState&lt;&gt;::GetRHI());
+    RHICmdList.SetDepthStencilState(TStaticDepthStencilState::GetRHI(), 0);
+
+    // 设置顶点
+    FVector4 Vertices&#91;4&#93;;
+    Vertices&#91;0&#93;.Set(-1.0f, 1.0f, 0, 1.0f);
+    Vertices&#91;1&#93;.Set(1.0f, 1.0f, 0, 1.0f);
+    Vertices&#91;2&#93;.Set(-1.0f, -1.0f, 0, 1.0f);
+    Vertices&#91;3&#93;.Set(1.0f, -1.0f, 0, 1.0f);
+
+    // 绘制四边形
+    DrawPrimitiveUP(RHICmdList, PT&#95;TriangleStrip, 2, Vertices, sizeof(Vertices&#91;0&#93;));
+}</code></pre>
+<p>清除可在运行时切换的控制台变量，从而在代码库中对此进行测试。使用以下代码执行此操作：
+</p><pre class="prettyprint"><code>static TAutoConsoleVariable CVarMyTest(
+    TEXT("r.MyTest"),
+    0,
+    TEXT("Test My Global Shader, set it to 0 to disable, or to 1, 2 or 3 for fun!"),
+    ECVF&#95;RenderThreadSafe
+);
+
+void FDeferredShadingSceneRenderer::RenderFinish(FRHICommandListImmediate&amp; RHICmdList)
+{
+    &#91;...&#93;
+    // &#42;&#42;&#42;
+    // 在即将完成渲染之前插入代码，因此我们可覆盖屏幕内容！
+    int32 MyTestValue = CVarMyTest.GetValueOnAnyThread();
+    if (MyTestValue != 0)
+    {
+        FLinearColor Color(MyTestValue == 1, MyTestValue == 2, MyTestValue == 3, 1);
+        RenderMyTest(RHICmdList, FeatureLevel, Color);
+    }
+    // 终止插入代码
+    // &#42;&#42;&#42;
+    FSceneRenderer::RenderFinish(RHICmdList);
+    &#91;...&#93;
+}</code></pre>
+<p>运行项目并使用波浪号（~）键打开控制台窗口，测试刚刚添加的控制台变量的功能。然后输入以下任一命令以设置变量：
+</p><ul ><li class="Default"><p>输入 <strong>r.MyTest</strong> 并且把数值设置为1、2、3，更改颜色。 
+</p></li><li class="Default"><p>输入 <strong>r.MyTest 0</strong> 禁用着色器通道。
+</p></li></ul><h2 id="其他说明">其他说明</h2>
+<ul ><li class="Default"><p>如需调试.usf文件的编译信息和/或查看已处理的文件，请参见<a id="content_link"filter-data="tag_rendering tag_graphics tag_debug" href="../ShaderCompileProcess/index.html" ><span>调试着色器编译过程</span></a>。 
+</p></li><li class="Default"><p>你可以在运行未烘焙的游戏或编辑器时修改.usf文件，以便快速迭代。请使用键盘快捷键 <strong>Ctrl + Shift + .</strong>（句号），或打开控制台窗口并输入命令 <strong>recompileshaders changed</strong>，以便选择并重新编译着色器。
+</p></li></ul>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Rendering">Rendering</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Graphics">Graphics</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Global%20Shaders">Global Shaders</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/ProgrammingAndScripting/Rendering/ShaderDevelopment/AddingGlobalShaders/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 10:22:38 GMT -->
+</html>

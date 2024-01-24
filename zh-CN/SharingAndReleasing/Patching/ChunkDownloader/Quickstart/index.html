@@ -1,0 +1,586 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/SharingAndReleasing/Patching/ChunkDownloader/Quickstart/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:42:24 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/SharingAndReleasing/Patching/ChunkDownloader/Quickstart/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>在游戏中实现ChunkDownloader | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/SharingAndReleasing/Patching/ChunkDownloader/Quickstart/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/SharingAndReleasing/Patching/ChunkDownloader/Quickstart/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/SharingAndReleasing/Patching/ChunkDownloader/Quickstart/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/SharingAndReleasing/Patching/ChunkDownloader/Quickstart/" hreflang="ko" />
+
+	<meta name="intsourcechangelist" content="15427031" />
+<meta name="availability" content="Public" />
+<meta name="title" content="在游戏中实现ChunkDownloader" />
+<meta name="description" content="设置本地主机网站" />
+<meta name="order" content="1" />
+<meta name="type" content="quickstart" />
+<meta name="type" content="multi-step" />
+<meta name="keywords" content="patching" />
+<meta name="keywords" content="ChunkDownloader" />
+<meta name="parent" content="SharingAndReleasing/Patching/ChunkDownloader" />
+<meta name="prereq" content="SharingAndReleasing/Patching/GeneralPatching/ChunkingExample" />
+<meta name="prereq" content="SharingAndReleasing/Patching/ChunkDownloader/PluginSetup" />
+<meta name="prereq" content="SharingAndReleasing/Patching/ChunkDownloader/LocalHost" />
+<meta name="crumbs" content="%ROOT%,SharingAndReleasing,SharingAndReleasing/Patching,SharingAndReleasing/Patching/ChunkDownloader" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="在游戏中实现ChunkDownloader" />
+	<meta property="og:description" content="设置本地主机网站" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">项目分享及发布</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">补丁和DLC</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">Chunk下载器补丁解决方案</a>
+
+<span class="separator">></span> <span id="page">在游戏中实现ChunkDownloader</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">在游戏中实现ChunkDownloader</h1>
+							</div>	
+							<h2 >设置本地主机网站</h2>
+							<div id="access">
+								<div class="accessContainer">
+																																			</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																														<div class="prereq">
+    <div class="normaltitle">
+        前置主题
+    </div>
+    <p style="margin-bottom:8px;">
+        为了理解并使用本文中的内容，请确保您已掌握以下主题：
+    </p>
+    <ul style="margin-bottom:0.5em;">
+                <li>
+            <p>
+                <a href="../../GeneralPatching/ChunkingExample/index.html" title="如何将资产分成块并将其烘焙成.pak文件">准备资产进行分块</a>
+            </p>
+        </li>
+                <li>
+            <p>
+                <a href="../PluginSetup/index.html" title="设置本地托管网站">设置ChunkDownloader插件</a>
+            </p>
+        </li>
+                <li>
+            <p>
+                <a href="../LocalHost/index.html" title="设置本地主机网站">托管ChunkDownloader的清单和资产</a>
+            </p>
+        </li>
+            </ul>
+</div>
+																		<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#1.所需设置和建议资产">1.所需设置和建议资产</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#2.初始化和关闭chunkdownloader">2.初始化和关闭ChunkDownloader</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#3.下载pak文件">3.下载Pak文件</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#4.设置修补游戏模式">4.设置修补游戏模式</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#5.显示已下载内容">5.显示已下载内容</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#6.测试游戏">6.测试游戏</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#最终结果">最终结果</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#自行尝试">自行尝试</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p><strong>ChunkDownloader</strong> 是面向 <strong>虚幻引擎</strong> 的修补解决方案。它从远程服务下载资产，并将其在内存中挂载供游戏使用，以便你可以轻松提供更新和资产。本指南将向你展示如何在自己的项目中实现ChunkDownloader。完成本指南，你便能够：
+</p><p>+启用ChunkDownloader插件并将其添加到项目的依赖项中。
++将你的内容整理成块，将它们打包到.pak文件，并准备清单以供下载。
++在游戏代码中实现ChunkDownloader，以便下载远程.pak文件。
++安全访问已挂载.pak文件中的内容。
+</p><h2 id="1.所需设置和建议资产">1.所需设置和建议资产</h2>
+<p>在继续进行任何操作之前，你应该阅读以下指南并遵循每个步骤：
+</p><p>+<a id="content_link"filter-data="tag_patching tag_chunkdownloader" href="../PluginSetup/index.html" ><span>设置ChunkDownloader插件</span></a>
++<a id="content_link"filter-data="tag_patching tag_cooking tag_chunking tag_pak_file" href="../../GeneralPatching/ChunkingExample/index.html" ><span>准备资产进行分块</span></a>
++<a id="content_link"filter-data="tag_patching tag_chunkdownloader" href="../LocalHost/index.html" ><span>为ChunkDownloader托管清单和资产</span></a>
+</p><p>这些指南将向你展示如何将ChunkDownloader插件添加到项目中，如何为资产设置分块方案以及如何将它们分发到本地测试服务器。回顾一下，你的示例项目应名为 <strong>PatchingDemo</strong>，并且其构造应如下所示：
+</p><ol ><li class="Default"><p>这是一个基于 <strong>空白模板</strong> 的 <strong>C++项目</strong>。
+</p></li><li class="Default"><p><strong>插件（Plugins）</strong> 菜单中启用了 <strong>ChunkDownloader</strong> 插件。
+</p></li><li class="Default"><p>在 <strong>项目设置（Project Settings）</strong> > <strong>项目（Project）</strong> > <strong>打包（Packaging）</strong> 中，同时启用 <strong>使用Pak文件（Use Pak File）</strong> 和 <strong>生成块（Generate Chunks）</strong>。
+</p></li><li class="Default"><p>来自Paragon的 <strong>Boris</strong>、<strong>Crunch</strong> 和 <strong>Khaimera</strong> 资产已添加到项目中。 
++你可以从 <strong>虚幻商城</strong> 免费下载这些内容。 
++你可以使用你所需的任何资产，只要它们被分隔到离散文件夹。
+</p></li><li class="Default"><p>这三个角色文件夹中的每个文件夹都有一个 <strong>主要资产标签</strong> 和以下 <strong>文件块ID</strong>：
+</p><div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>文件夹 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>文件块ID </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>ParagonBoris</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>1001</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>ParagonCrunch</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>1002</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>ParagonKhaimera</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>1003</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div></li><li class="Default"><p>你已经烘焙内容，并且上述每个文件块ID都具有.pak文件。
+</p></li><li class="Default"></li><li class="Default"><p>.pak文件和清单文件已分发到本地托管的网站。有关如何进行设置的说明，请参考<a id="content_link"filter-data="tag_patching tag_chunkdownloader" href="../LocalHost/index.html" ><span>托管ChunkDownloader清单和资产</span></a>。
+</p></li><li class="Default"></li></ol><h2 id="2.初始化和关闭chunkdownloader">2.初始化和关闭ChunkDownloader</h2>
+<p>ChunkDownloader是对 <code>FPlatformChunkInstall</code> 接口的实现，该接口是许多接口之一，可以根据你的游戏运行平台交替加载不同的模块。需要先加载和初始化所有模块才能使用它们，还需要关闭并清理它们。 
+</p><p>通过ChunkDownloader进行此操作的最简单方法是使用自定义 <strong>GameInstance</strong> 类。GameInstance不仅具有可以绑定的相应初始化和关闭函数，而且还可以在游戏运行时持续访问ChunkDownloader。以下步骤将引导你完成此实现过程。
+</p><ol ><li class="Default"><p>使用 <strong>GameInstance</strong> 作为基类创建 <strong>新C++类</strong>。将其命名为 <strong>PatchingDemoGameInstance</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/SharingAndReleasing/Patching/ChunkDownloader/Quickstart/CreatePatchingGameInstance.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/SharingAndReleasing/Patching/ChunkDownloader/Quickstart/CreatePatchingGameInstance.jpg">
+		<img class="  lazyload" alt="CreatePatchingGameInstance.png" width="300" data-src="../../../../../Images/SharingAndReleasing/Patching/ChunkDownloader/Quickstart/CreatePatchingGameInstance.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"></li><li class="Default"></li><li class="Default"></li><li class="Default"></li><li class="Default"></li><li class="Default"></li><li class="Default"></li></ol><h2 id="3.下载pak文件">3.下载Pak文件</h2>
+<p>现在，你已经有ChunkDownloader的相应初始化和关闭函数，你可以公开其.pak下载功能。
+</p><ol ><li class="Default"></li></ol><ol ><li class="Default"></li><li class="Default"></li><li class="Default"></li><li class="Default"></li><li class="Default"></li><li class="Default"></li><li class="Default"></li><li class="Default"></li><li class="Default"></li></ol><h2 id="4.设置修补游戏模式">4.设置修补游戏模式</h2>
+<p>要启动修补过程，你可以设置一个特定的关卡和游戏模式来调用PatchGame，并将修补统计信息输出到界面。
+</p><ol ><li class="Default"><p>在虚幻编辑器中，在 <strong>内容浏览器</strong> 中创建新的 <strong>蓝图（Blueprints）</strong> 文件夹。然后，使用 <strong>PatchingDemoGameInstance</strong> 作为基类创建 <strong>新蓝图</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/SharingAndReleasing/Patching/ChunkDownloader/Quickstart/PatchingGameInstanceBlueprint.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/SharingAndReleasing/Patching/ChunkDownloader/Quickstart/PatchingGameInstanceBlueprint.jpg">
+		<img class="  lazyload" alt="PatchingGameInstanceBlueprint.png" height="300" data-src="../../../../../Images/SharingAndReleasing/Patching/ChunkDownloader/Quickstart/PatchingGameInstanceBlueprint.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><p>将新蓝图类命名为 <strong>CDGameInstance</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/SharingAndReleasing/Patching/ChunkDownloader/Quickstart/CDGameInstance.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/SharingAndReleasing/Patching/ChunkDownloader/Quickstart/CDGameInstance.jpg">
+		<img class="  lazyload" alt="CDGameInstance.png" width="300" data-src="../../../../../Images/SharingAndReleasing/Patching/ChunkDownloader/Quickstart/CDGameInstance.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><p>你将使用此蓝图以更轻松的方式编辑设置和追踪文件块下载过程。
+</p></li><li class="Default"><p>创建名为 <strong>PatchingGameMode</strong> 的新 <strong>游戏模式</strong> 蓝图。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/SharingAndReleasing/Patching/ChunkDownloader/Quickstart/PatchingGameMode.jpg">
+		<img class="  lazyload" alt="PatchingGameMode.png" data-src="../../../../../Images/SharingAndReleasing/Patching/ChunkDownloader/Quickstart/PatchingGameMode.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>创建 <strong>地图（Maps）</strong> 文件夹，然后创建两个新关卡，分别称为 <strong>PatchingDemoEntry</strong> 和 <strong>PatchingDemoTest</strong>。入门级关卡应基于空白地图，而测试级关卡应基于默认地图。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/SharingAndReleasing/Patching/ChunkDownloader/Quickstart/PatchingMaps.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/SharingAndReleasing/Patching/ChunkDownloader/Quickstart/PatchingMaps.jpg">
+		<img class="  lazyload" alt="PatchingMaps.png" width="300" data-src="../../../../../Images/SharingAndReleasing/Patching/ChunkDownloader/Quickstart/PatchingMaps.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>在 <strong>PatchingDemoEntry</strong> 的 <strong>世界设置（World Settings）</strong> 中，将 <strong>GameMode重载（GameMode Override）</strong> 设置为 <strong>PatchingGameMode</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/SharingAndReleasing/Patching/ChunkDownloader/Quickstart/GameModeOverride.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/SharingAndReleasing/Patching/ChunkDownloader/Quickstart/GameModeOverride.jpg">
+		<img class="  lazyload" alt="GameModeOverride.png" width="300" data-src="../../../../../Images/SharingAndReleasing/Patching/ChunkDownloader/Quickstart/GameModeOverride.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>打开你的 <strong>项目设置（Project Settings）</strong>，然后导航至 <strong>项目（项目）</strong> > <strong>地图和模式（Maps &amp; Modes）</strong>。设置下列参数：
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/SharingAndReleasing/Patching/ChunkDownloader/Quickstart/MapsAndModesParams.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/SharingAndReleasing/Patching/ChunkDownloader/Quickstart/MapsAndModesParams.jpg">
+		<img class="  lazyload" alt="MapsAndModesParams.png" height="350" data-src="../../../../../Images/SharingAndReleasing/Patching/ChunkDownloader/Quickstart/MapsAndModesParams.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>ID </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>参数 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>值 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>1</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>游戏实例类</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>CDGameInstance</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>2</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>编辑器启动地图</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>PatchingDemoTest</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>3</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>游戏默认地图</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>PatchingDemoEntry</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div></li><li class="Default"><p>在 <strong>蓝图编辑器</strong> 中打开 <strong>CDGameInstance</strong>。在 <strong>默认（Defaults）</strong> 面板中，将三个条目添加到 <strong>文件块下载列表</strong> 中。条目值分别为1001、1002和1003。这是三个.pak文件的文件块ID。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/SharingAndReleasing/Patching/ChunkDownloader/Quickstart/ChunkDownloadList.jpg">
+		<img class="  lazyload" alt="ChunkDownloadList.png" data-src="../../../../../Images/SharingAndReleasing/Patching/ChunkDownloader/Quickstart/ChunkDownloadList.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>蓝图编辑器</strong> 中打开 <strong>PatchingGameMode</strong>，并导航至 <strong>EventGraph</strong>。
+</p></li><li class="Default"><p>创建 <strong>Get Game Instance</strong> 节点，然后将其投射到 <strong>CDGameInstance</strong>。
+</p></li><li class="Default"><p>点击 <strong>As CDGameInstance</strong> 并从中拖出一根引线，然后点击 <strong>升级为变量（Promote to Variable）</strong>，创建我们游戏实例的引用。调用新变量 <strong>Current Game Instance</strong>。
+</p></li><li class="Default"><p>点击 <strong>设置当前游戏实例</strong> 的输出引脚并从中拖出一根引线，然后创建对 <strong>Patch Game</strong> 的调用。
+</p></li><li class="Default"><p>点击 <strong>Patch Game</strong> 的 <strong>返回值</strong> 并从中拖出一根引线，然后点击 <strong>升级为变量（Promote to Variable）</strong>，创建用于存储其值的布尔值。调用新变量 <strong>Is Patching In Progress</strong>
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/SharingAndReleasing/Patching/ChunkDownloader/Quickstart/PatchGame.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/SharingAndReleasing/Patching/ChunkDownloader/Quickstart/PatchGame.jpg">
+		<img class="  lazyload" alt="PatchGame.png" width="300" data-src="../../../../../Images/SharingAndReleasing/Patching/ChunkDownloader/Quickstart/PatchGame.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>创建 <strong>Get Current Game Instance</strong> 节点，然后点击其输出引脚并从中拖出一根引线，创建对 <strong>Get Patch Status</strong> 的调用。
+</p></li><li class="Default"><p>点击 <strong>Get Patch Status</strong> 的 <strong>返回值（Return Value）</strong> 引脚并从中拖出一根引线，然后创建 <strong>Break PatchStats</strong> 节点。
+</p></li><li class="Default"><p>点击 <strong>更新函数</strong> 事件并从中拖出一根引线，然后创建新的 <strong>Branch</strong> 节点。将 <strong>Is Patching In Progress</strong> 连接到其 <strong>条件（Condition）</strong> 输入。
+</p></li><li class="Default"><p>点击 <strong>Branch</strong> 节点的 <strong>True</strong> 引脚并从中拖出一根引线，然后创建 <strong>Print String</strong> 节点。使用 <strong>BuildString (float)</strong> 从 <strong>Break PatchStats</strong> 节点输出 <strong>下载百分比（Download Percent）</strong>。对 <strong>挂载百分比（Mount Percent）</strong> 重复此步骤。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/SharingAndReleasing/Patching/ChunkDownloader/Quickstart/DisplayPatchStatus.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/SharingAndReleasing/Patching/ChunkDownloader/Quickstart/DisplayPatchStatus.jpg">
+		<img class="  lazyload" alt="DisplayPatchStatus.png" width="300" data-src="../../../../../Images/SharingAndReleasing/Patching/ChunkDownloader/Quickstart/DisplayPatchStatus.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>从 <strong>Print String</strong> 节点上，创建 <strong>Branch</strong> 节点，然后创建 <strong>AND</strong> 节点并将其连接到 <strong>条件（Condition）</strong> 引脚。 
+</p></li><li class="Default"><p>创建 <strong>Greater Than or Equal To</strong> 节点，检查 <strong>下载百分比（Download Percent）</strong> 是否为1.0或更高，然后对 <strong>挂载百分比（Mount Percent）</strong> 执行相同的操作。将两者都连接到 <strong>AND</strong> 节点。如果这两个条件都为true，则使用 <strong>打开关卡（Open Level）</strong> 打开你的 <strong>PatchingGameTest</strong> 关卡。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/SharingAndReleasing/Patching/ChunkDownloader/Quickstart/OpenLevelWhenDone.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/SharingAndReleasing/Patching/ChunkDownloader/Quickstart/OpenLevelWhenDone.jpg">
+		<img class="  lazyload" alt="OpenLevelWhenDone.png" width="300" data-src="../../../../../Images/SharingAndReleasing/Patching/ChunkDownloader/Quickstart/OpenLevelWhenDone.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li></ol><p>现在，当你的游戏运行时，它将打开入门级地图，运行ChunkDownloader，并输出文件块下载（Chunk Download）列表中文件块的下载进度和挂载进度。下载完成后，将过渡到测试地图。
+</p><div class="note">
+	<p>如果你尝试使用 <strong>在编辑器中运行</strong> 运行它，则下载将不会开始。你需要使用打包的版本测试ChunkDownloader。</p>
+</div><h2 id="5.显示已下载内容">5.显示已下载内容</h2>
+<p>要显示我们的角色网格体，你需要获取它们的引用。这将需要 <strong>软件对象引用</strong>，因为在使用资产之前你需要先验证它们是否已加载。本节将引导你完成简单的示例，该示例旨在说明如何生成Actor，并根据软引用填充它们的骨骼网格体。
+</p><ol ><li class="Default"><p>打开 <strong>PatchingDemoTest</strong> 关卡，然后打开 <strong>关卡蓝图</strong>。
+</p></li><li class="Default"><p>创建名为 <strong>网格体（Meshes）</strong> 的新变量。 
+</p><ul ><li class="Default"><p>对于其 <strong>变量类型（Variable Type）</strong>，选择 <strong>骨骼网格体（Skeletal Mesh）</strong>。 
+</p></li><li class="Default"><p>将鼠标悬停在类型列表中的条目上，然后选择 <strong>软对象引用（Soft Object Reference）</strong>。这会将变量的颜色从蓝色更改为柔和的绿色。
+</p></li></ul><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/SharingAndReleasing/Patching/ChunkDownloader/Quickstart/SkeletalMeshSoftObjectRef.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/SharingAndReleasing/Patching/ChunkDownloader/Quickstart/SkeletalMeshSoftObjectRef.jpg">
+		<img class="  lazyload" alt="SkeletalMeshSoftObjectRef.png" width="300" data-src="../../../../../Images/SharingAndReleasing/Patching/ChunkDownloader/Quickstart/SkeletalMeshSoftObjectRef.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><p>软对象引用是一种智能指针，可以安全引用不明确的资产。我们可以在使用资产前用它检查你的网格体资产是否已加载并且可用。
+</p></li><li class="Default"><p>点击 <strong>网格体（Meshes）</strong> 的 <strong>变量类型（variable type）</strong> 旁边的图标，将其更改为 <strong>数组（Array）</strong>。编译你的蓝图以便应用更改。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/SharingAndReleasing/Patching/ChunkDownloader/Quickstart/SoftObjectArray.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/SharingAndReleasing/Patching/ChunkDownloader/Quickstart/SoftObjectArray.jpg">
+		<img class="  lazyload" alt="SoftObjectArray.png" width="300" data-src="../../../../../Images/SharingAndReleasing/Patching/ChunkDownloader/Quickstart/SoftObjectArray.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>在 <strong>网格体（Meshes）</strong> 的 <strong>默认（Default）</strong> 值中，添加三个条目，然后为 <strong>Boris</strong>、<strong>Crunch</strong> 和 <strong>Khaimera</strong> 选择骨骼网格体。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/SharingAndReleasing/Patching/ChunkDownloader/Quickstart/SoftObjectDefaultValues.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/SharingAndReleasing/Patching/ChunkDownloader/Quickstart/SoftObjectDefaultValues.jpg">
+		<img class="  lazyload" alt="SoftObjectDefaultValues.png" height="300" data-src="../../../../../Images/SharingAndReleasing/Patching/ChunkDownloader/Quickstart/SoftObjectDefaultValues.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>在关卡的 <strong>EventGraph</strong> 中，点击 <strong>BeginPlay</strong> 事件并从中拖出一根引线，然后创建 <strong>面向每个循环（For Each Loop）</strong>，并将其连接到 <strong>网格体</strong> 数组。
+</p></li><li class="Default"><p>点击 <strong>面向每个循环（For Each Loop）</strong> 的 <strong>数组元素</strong> 引脚并从中拖出一根引线，然后创建 <strong>Is Valid Soft Object Reference</strong> 节点。从 <strong>循环主体</strong> 创建 <strong>分支</strong>，并将其连接到 <strong>返回值</strong>。
+</p></li><li class="Default"><p>创建 <strong>Spawn Actor From Class</strong> 节点，并将其连接到 <strong>Branch</strong> 节点的 <strong>True</strong> 引脚。选择 <strong>类</strong> 的 <strong>骨骼网格体Actor</strong>。
+</p></li><li class="Default"><p>点击 <strong>面向每个循环（For Each Loop）</strong> 的 <strong>数组索引</strong> 并从中拖出一根引线，然后创建 <strong>Integer x Float</strong> 节点。将浮点值设置为 <strong>192.0</strong>。
+</p></li><li class="Default"><p>点击 <strong>Integer x Float</strong> 节点的 <strong>返回值</strong> 并从中拖出一根引线，以创建 <strong>Vector x Float</strong> 节点，并将向量的值设为 <strong>(1.0, 0.0, 0.0)</strong>。 
+</p><ul ><li class="Default"><p>每次我们遍历面向每个循环（For Each Loop）时，这将使坐标远离原点192个单位。这将在我们生成网格体时给每个网格体一些空间。
+</p></li></ul></li><li class="Default"><p>将上一步中的矢量用作 <strong>Make Transform</strong> 节点中的 <strong>位置</strong>，然后将 <strong>返回值</strong> 连接到 <strong>Spawn Actor</strong> 节点的 <strong>生成变换</strong> 输入。
+</p></li><li class="Default"><p>点击 <strong>Spawn Actor</strong> 节点的 <strong>返回值</strong> 并从中拖出一根引线，然后获取其 <strong>骨骼网格体组件</strong> 的引用。用其调用 <strong>设置骨骼网格体</strong>。
+</p></li><li class="Default"><p>点击 <strong>Array Element</strong> 节点并从中拖出一根引线，然后创建 <strong>Resolve Soft Object Reference</strong> 节点。将此节点的输出连接到 <strong>设置骨骼网格体</strong> 的 <strong>新网格体</strong> 输入引脚。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/SharingAndReleasing/Patching/ChunkDownloader/Quickstart/SpawnSoftObjectGraph.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/SharingAndReleasing/Patching/ChunkDownloader/Quickstart/SpawnSoftObjectGraph.jpg">
+		<img class="  lazyload" alt="SpawnSoftObjectGraph.png" width="300" data-src="../../../../../Images/SharingAndReleasing/Patching/ChunkDownloader/Quickstart/SpawnSoftObjectGraph.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>将关卡内的 <strong>玩家出生点</strong> 移动到 <strong>(-450, 0.0, 112.0)</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/SharingAndReleasing/Patching/ChunkDownloader/Quickstart/MovePlayerSpawn.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/SharingAndReleasing/Patching/ChunkDownloader/Quickstart/MovePlayerSpawn.jpg">
+		<img class="  lazyload" alt="MovePlayerSpawn.png" width="300" data-src="../../../../../Images/SharingAndReleasing/Patching/ChunkDownloader/Quickstart/MovePlayerSpawn.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>保存进度并编译蓝图。
+</p></li></ol><p>关卡加载时，将生成每个角色的骨骼网格体。如果软对象引用不起作用，则每个角色的文件块尚未挂载，它们的资产将不可用，并且它们将不会生成。
+</p><div class="fullwidth">
+	<p><picture>
+		<source data-srcset="./../../../../../Images/SharingAndReleasing/Patching/ChunkDownloader/Quickstart/CharactersSpawned.jpg">
+		<img class="  lazyload" alt="CharactersSpawned.png" data-src="../../../../../Images/SharingAndReleasing/Patching/ChunkDownloader/Quickstart/CharactersSpawned.jpg" />
+</picture>
+</p>
+</div><div class="warning">
+	<p>当引用.pak文件中包含的资产时，你应该始终使用软对象引用而不是标准的硬引用。如果使用硬引用，它会破坏你的分块方案。</p>
+</div><h2 id="6.测试游戏">6.测试游戏</h2>
+<p>最后，你需要在独立版本中测试你的项目。Pak挂载不能在PIE模式下运行，因此这是测试修补功能的必要步骤。
+</p><ol ><li class="Default"><p>打包项目。
+</p></li><li class="Default"><p>将.pak文件和清单复制到 <strong>IIS测试网站</strong> 上相应的文件夹中。
+</p></li><li class="Default"><p>确保IIS进程和网站都正在运行。
+</p></li><li class="Default"><p>运行打包的可执行文件。
+</p></li></ol><h2 id="最终结果">最终结果</h2>
+<p>你应该看到一个黑色界面，界面左上方显示修补输出，然后，当修补和挂载状态都达到100%时，你的游戏应加载到默认地图中，并显示Boris、Crunch和Khaimera。如果修补或挂载过程出现问题，则不会显示这些内容。
+</p><h2 id="自行尝试">自行尝试</h2>
+<p>可以执行几个步骤来细化你的文件块下载方案：
+</p><ul ><li class="Default"><p>编译在加载模式下显示的UI，并显示进度条和播放器提示。
+</p></li><li class="Default"><p>编译UI错误提示，例如超时和安装失败。
+</p></li><li class="Default"><p>创建PrimaryAssetLabel的自定义子类，以包含资产相关的其他元数据。例如，《战争破坏者》（Battle Breakers）的自定义PrimaryAssetLabel类包括一个父文件块，必须加载该父文件块，这是使用当前文件块的先决条件。
+</p></li></ul>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=patching">patching</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=ChunkDownloader">ChunkDownloader</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/SharingAndReleasing/Patching/ChunkDownloader/Quickstart/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:42:35 GMT -->
+</html>

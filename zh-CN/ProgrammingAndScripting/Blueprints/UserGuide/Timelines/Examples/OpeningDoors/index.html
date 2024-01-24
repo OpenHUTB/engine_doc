@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/ProgrammingAndScripting/Blueprints/UserGuide/Timelines/Examples/OpeningDoors/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:27:06 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var finishButton = finishButtonTemplate;
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/ProgrammingAndScripting/Blueprints/UserGuide/Timelines/Examples/OpeningDoors/" />');
+				var udnCSS = '../../../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>开门 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+		    <script  src="../../../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+		    <script  src="../../../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/ProgrammingAndScripting/Blueprints/UserGuide/Timelines/Examples/OpeningDoors/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/ProgrammingAndScripting/Blueprints/UserGuide/Timelines/Examples/OpeningDoors/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/ProgrammingAndScripting/Blueprints/UserGuide/Timelines/Examples/OpeningDoors/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/ProgrammingAndScripting/Blueprints/UserGuide/Timelines/Examples/OpeningDoors/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Blueprints/UserGuide/Timelines/Examples/OpeningDoors" />
+<meta name="intsourcechangelist" content="15880744" />
+<meta name="availability" content="Public" />
+<meta name="title" content="开门" />
+<meta name="parent" content="ProgrammingAndScripting/Blueprints/UserGuide/Timelines" />
+<meta name="type" content="How-To" />
+<meta name="skilllevel" content="Beginner" />
+<meta name="description" content="一个关于时间轴（Timeline）的案例。介绍了如何用时间轴以及蓝图和C++来实现玩家靠近门后，门会自动打开的效果。" />
+<meta name="version" content="4.26" />
+<meta name="crumbs" content="%ROOT%,ProgrammingAndScripting,ProgrammingAndScripting/Blueprints,ProgrammingAndScripting/Blueprints/UserGuide,ProgrammingAndScripting/Blueprints/UserGuide/Timelines" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="开门" />
+	<meta property="og:description" content="一个关于时间轴（Timeline）的案例。介绍了如何用时间轴以及蓝图和C++来实现玩家靠近门后，门会自动打开的效果。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../../../index.html">编程和脚本编写</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../../../index.html">蓝图可视化脚本</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">专用节点群组</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">时间轴</a>
+
+<span class="separator">></span> <span id="page">开门</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">开门</h1>
+							</div>	
+							<h2 >一个关于时间轴（Timeline）的案例。介绍了如何用时间轴以及蓝图和C++来实现玩家靠近门后，门会自动打开的效果。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Beginner"><a id="skill_link" href="../../../../../../SiteIndex/index.html?skills=Beginner">Beginner</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																																																<div class="togglesection">
+	<div class="normaltitle">
+	<p>选择实现方法：</p>
+</div><div class="toggleButtons">
+	<!--
+category:paramliteral
+id:paramliteral
+label:paramliteral
+active:paramliteral
+-->
+<div class="btn btn-default btn-toggle BlueprintOrCPPSelect blueprintimplementation active_button" onclick="setSelector('BlueprintOrCPPSelect', 'blueprintimplementation');">
+    <p>Blueprints</p>
+</div><!--
+category:paramliteral
+id:paramliteral
+label:paramliteral
+active:paramliteral
+-->
+<div class="btn btn-default btn-toggle BlueprintOrCPPSelect cppimplementation " onclick="setSelector('BlueprintOrCPPSelect', 'cppimplementation');">
+    <p>C++</p>
+</div>
+</div>
+</div><!--
+category:paramliteral
+id:paramliteral
+content:param
+active:paramliteral
+-->
+<div class="button_content BlueprintOrCPPSelect blueprintimplementation active_button_content">
+    <div class="container">
+        <a name="509973060" ></a><div class="include_wrapper" data-path="ProgrammingAndScripting/Blueprints/UserGuide/Timelines/Examples/OpeningDoors/Blueprint">
+<p>课程：蓝图基本概念|蓝图 - 基本概念|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fblueprints---essential-concepts%2FBPEssentialsThumbnail_1920x1080-1920x1080-2fcdde875f1d79ade1c295fe4fef53c4b8c5ecde.PNG?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fblueprints---essential-concepts%2FBlueprint--Essential-Concepts-1000x1000-9f372ce55de42ce9596dffd6c931839e44fcc873.png?resize=1&amp;w=300
+课程：使用蓝图进行交互式材质交换|使用蓝图进行交互式材质交换|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Finteractive-material-swaps-using-blueprints%2F406---Hero2-1920x1080-ce26b6199cf620364149d2d934c73ae30e983110.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Finteractive-material-swaps-using-blueprints%2FInteractive-Material-Swaps-Using-Blueprints-1000x1000-21158a5fe67365e3bf5db49712b52482382f15ac.png?resize=1&amp;w=300
+课程：制作蓝图产品配置器|企业级蓝图|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fblueprint-for-enterprise%2F301-Blueprints-%281200X675%29-1200x675-d140b8a0b13b05c0619e35e1076b4c82e4a4b855.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fblueprint-for-enterprise%2FBlueprint-for-Enterprise-1000x1000-13caa11b8e5c5e91506a8dd63b39d247318c3208.png?resize=1&amp;w=300
+</p><p>本教程演示如何凭借 <strong><div class="errorhighlight" id="Error5">[引擎初学者内容包](Basics/Projects/Browser/Packs)</div></strong> 中的可用资源，使用 <strong><a id="content_link" href="../../index.html" ><span>时间轴</span></a></strong> 蓝图创建基于距离的开门。
+</p><p><div class="errorhighlight" id="Error8">![image alt text](openingdoors.gif)(convert:false)</div>
+</p><h2 id="创建门actor">创建门Actor</h2>
+<ol ><li class="Default"><p>首先，点击 <strong>新建（New）</strong> > <strong>游戏（Games）</strong> > <strong>空白（Blank）</strong> > <strong>蓝图（Blueprint）</strong> 创建名为 <strong>TimelineDoorActor</strong> 的项目，并启用 <strong>初学者内容包（Starter Content）</strong>。
+</p></li><li class="Default"><p>点击 <strong>添加/导入（Add/Import）</strong> 按钮新建蓝图 <strong>Actor </strong> 类，将其命名为 <strong>BP_DoorActor</strong>。
+</p></li><li class="Default"><p>从内容浏览器中双击该BP_Door Actor在蓝图编辑器中打开，然后打开 <strong>类默认值（Class Defaults）</strong>。 
+</p><p><img class="  lazyload" alt="图像替换文本" width="624" height="413" data-src="../../../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Timelines/Examples/OpeningDoors/Blueprint/image_0.png" />
+ 
+</p></li><li class="Default"><p>下一步，在 <strong>组件（Components）</strong> 选项卡中点击 <strong>添加组件（Add Component）</strong> 按钮，选择 <strong>静态网格体（Static Mesh）</strong> 添加新的 <strong>静态网格体组件（Static Mesh Component）</strong>。<br /></p><p><img class="  lazyload" alt="图像替换文本" width="368" height="681" data-src="../../../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Timelines/Examples/OpeningDoors/Blueprint/image_1.png" />
+
+</p></li><li class="Default"><p>右键点击你的静态网格体组件，选择 <strong>重命名（Rename）</strong>，将其重命名为 <strong>DoorFrame</strong>。
+</p><p><img class="  lazyload" alt="图像替换文本" width="410" height="313" data-src="../../../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Timelines/Examples/OpeningDoors/Blueprint/image_2.png" />
+
+</p></li><li class="Default"><p>下一步，在 <strong>组件（Components）</strong> 选项卡中点击 <strong>添加组件（Add Component）</strong> 按钮，选择 <strong>静态网格体（Static Mesh）</strong> 添加新的 <strong>静态网格体组件（Static Mesh Component）</strong>。（重复步骤3）
+</p></li><li class="Default"><p>右键点击你的静态网格体组件，选择重命名（Rename），将其重命名为 <strong>Door</strong>。
+</p><p><img class="  lazyload" alt="图像替换文本" width="412" height="282" data-src="../../../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Timelines/Examples/OpeningDoors/Blueprint/image_3.png" />
+
+</p></li><li class="Default"><p>点击添加组件（Add Component），从下拉菜单中选择 <strong>盒体碰撞（Box Collision）</strong>，将其重命名为 <strong>Box</strong>。
+</p><p><img class="  lazyload" alt="图像替换文本" width="254" height="465" data-src="../../../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Timelines/Examples/OpeningDoors/Blueprint/image_4.png" />
+
+</p></li><li class="Default"><p>下一步，打开事件图表，右键点击 <strong></strong> 图表，从 <strong>蓝图上下文菜单（Blueprint Context Menu）</strong> 中选择 <strong>添加时间轴（Add Timeline）</strong>。将你的时间轴命名为 <strong>DoorTimelineComponent</strong>。
+</p><p><img class="  lazyload" alt="图像替换文本" width="489" height="322" data-src="../../../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Timelines/Examples/OpeningDoors/Blueprint/image_5.png" />
+
+</p></li></ol><p>此时，BP_DoorActor的类默认值应如下例中所示：
+</p><p><img class="  lazyload" alt="图像替换文本" width="624" height="392" data-src="../../../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Timelines/Examples/OpeningDoors/Blueprint/image_6.png" />
+
+</p><h2 id="设置门静态网格体">设置门静态网格体</h2>
+<p>接下来，你需要设置 <strong>组件（Components）</strong> 选项卡的附件层级。
+</p><p>你还需要设置静态网格体资产，直观地表示你的 <strong>DoorFrame</strong> 和 <strong>Door</strong> 静态网格体组件。
+</p><ol ><li class="Default"><p>从 <strong>BP_DoorActor</strong> 的组件（Components）选项卡中，选择 <strong>DoorFrame</strong> 静态网格体并将其拖动到 <strong>DefaultSceneRoot组件</strong> 上，使其成为新的 <strong>根组件</strong>。
+</p><p><img class="  lazyload" alt="图像替换文本" width="412" height="402" data-src="../../../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Timelines/Examples/OpeningDoors/Blueprint/image_7.png" />
+
+</p></li><li class="Default"><p>接下来，在组件（Components）选项卡中选择 <strong>DoorFrame</strong> 静态网格体，从 <strong>细节面板（Details panel）</strong> 中将静态网格体更改为 <strong>SM_DoorFrame</strong>。
+</p><p><img class="  lazyload" alt="图像替换文本" width="624" height="361" data-src="../../../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Timelines/Examples/OpeningDoors/Blueprint/image_8.png" />
+
+</p></li><li class="Default"><p>接下来，从组件（Components）面板中选择DoorMesh组件。导航至细节面板，将静态网格体更改为 <strong>SM_Door</strong>。 
+</p><p><img class="  lazyload" alt="图像替换文本" width="624" height="409" data-src="../../../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Timelines/Examples/OpeningDoors/Blueprint/image_9.png" />
+
+</p></li><li class="Default"><p>然后导航至 <strong>变换（Transform）</strong> 类别，将 <strong>Y位置（Y Location）</strong> 值更改为 <strong>45.0</strong>。
+</p><p><img class="  lazyload" alt="图像替换文本" width="624" height="462" data-src="../../../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Timelines/Examples/OpeningDoors/Blueprint/image_10.png" />
+
+</p></li><li class="Default"><p>点击 <strong>保存（Save）</strong> 和 <strong>编译（Compile）</strong>，将这些更改保存到Bp_DoorActor。
+</p></li></ol><h2 id="创建时间轴浮点轨道">创建时间轴浮点轨道</h2>
+<p>时间轴组件需要<a id="content_link"filter-data="tag_blueprints" href="../../KeysAndCurves/index.html" ><span>时间轴曲线</span></a>来描述其移动动画。每个轨道都可以包含多个键，用于定义时间和值。曲线内插这些键，以计算时间轴中任何点的值。
+</p><ol ><li class="Default"><p>首先，在事件图表中双击DoorTimelineComponent，打开时间轴编辑器。
+</p></li><li class="Default"><p>点击 <strong>添加浮点曲线（Add Float Curve）</strong> 向该轨道添加新曲线，将该曲线命名为 <strong>DoorRotationZ</strong>。
+</p><p><img class="  lazyload" alt="图像替换文本" width="481" height="214" data-src="../../../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Timelines/Examples/OpeningDoors/Blueprint/image_11.png" />
+
+</p></li><li class="Default"><p>右键点击，向浮点曲线轨道添加两个键。两个键的值分别为(0,0)和(5,90)。
+</p><p><img class="  lazyload" alt="图像替换文本" width="624" height="309" data-src="../../../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Timelines/Examples/OpeningDoors/Blueprint/image_12.png" />
+
+</p></li><li class="Default"><p>按住Shift键并选中这两个键，点击右键，从 <strong>键插值（Key Interpolation）</strong> 下拉菜单中选择 <strong>自动（Auto）</strong> 插值。
+</p></li><li class="Default"><p>保存你的浮点轨道。
+</p></li></ol><h2 id="更新事件轨道逻辑">更新事件轨道逻辑</h2>
+<p>现在你需要创建更新逻辑，以旋转你的门静态网格体。
+</p><ol ><li class="Default"><p>导航至BP_DoorActor的组件（Components）选项卡，将门静态网格体拖动到事件图表上
+</p><p><img class="  lazyload" alt="图像替换文本" width="624" height="498" data-src="../../../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Timelines/Examples/OpeningDoors/Blueprint/image_13.png" />
+
+</p></li><li class="Default"><p>拖移门引脚，从操作上下文菜单中选择 <strong>SetRelativeRotation</strong>。 
+</p><p><img class="  lazyload" alt="图像替换文本" width="510" height="448" data-src="../../../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Timelines/Examples/OpeningDoors/Blueprint/image_14.png" />
+
+</p></li><li class="Default"><p>右键点击事件图表，从上下文菜单中选择 <strong>制作旋转体（Make Rotator）</strong>。
+</p><p><img class="  lazyload" alt="图像替换文本" width="624" height="534" data-src="../../../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Timelines/Examples/OpeningDoors/Blueprint/image_15.png" />
+
+</p></li><li class="Default"><p>在 <strong>DoorTimelineComponent</strong> 节点上，拖动 <strong>Door Rotation Z</strong> 浮点引脚，将其连接至 <strong>Make Rotator</strong> 节点的 <strong>Z</strong>(<strong>Yaw</strong>) 引脚。
+</p><p><img class="  lazyload" alt="图像替换文本" width="624" height="408" data-src="../../../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Timelines/Examples/OpeningDoors/Blueprint/image_16.png" />
+
+</p></li><li class="Default"><p>在 <strong>DoorTimelineComponent</strong> 节点上，拖移 <strong>更新（Update）</strong> <strong>引脚</strong>，将其连接至 <strong>SetRelativeRotation</strong> 节点的输入执行引脚。 
+</p></li><li class="Default"><p>在 <strong>Make Rotator</strong> 节点上，将 <strong>返回值（Return Value）</strong> 引脚连接至SetRelativeRotation节点的 <strong>新旋转（New Rotation）</strong> 引脚。
+</p><p><img class="  lazyload" alt="图像替换文本" width="624" height="409" data-src="../../../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Timelines/Examples/OpeningDoors/Blueprint/image_17.png" />
+
+</p></li><li class="Default"><p><strong>编译</strong> 并 <strong>保存</strong>。
+</p></li></ol><h2 id="创建绑定盒体碰撞重叠事件">创建绑定盒体碰撞重叠事件</h2>
+<p>盒体组件需要拥有在Actor进入或离开碰撞边界时做出反应的能力。
+</p><ol ><li class="Default"><p>导航至BP_DoorActor的组件（Components）选项卡，选择盒体组件。
+</p></li><li class="Default"><p>从细节面板中，向下滚动到事件类别，点击 <strong>在组件开始重叠时（On Component Begin Overlap）</strong> 事件旁的 <strong>+</strong> 图标。
+</p><p><img class="  lazyload" alt="图像替换文本" width="624" height="406" data-src="../../../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Timelines/Examples/OpeningDoors/Blueprint/image_18.png" />
+
+</p></li><li class="Default"><p>在 <strong>On Component Begin Overlap(Box)</strong> 节点上，拖移执行引脚，将其连接至DoorTimelineComponent节点的播放（Play）引脚。 
+</p><p><img class="  lazyload" alt="图像替换文本" width="624" height="312" data-src="../../../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Timelines/Examples/OpeningDoors/Blueprint/image_19.png" />
+
+</p></li><li class="Default"><p>导航至BP_DoorActor的组件（Components）选项卡，选择盒体组件。然后，在细节面板向下滚动到事件类别，点击 <strong>在组件结束重叠时（On Component End Overlap）</strong> 事件旁的 <strong>+</strong> 图标。
+</p><p><img class="  lazyload" alt="图像替换文本" width="624" height="446" data-src="../../../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Timelines/Examples/OpeningDoors/Blueprint/image_20.png" />
+<br /></p></li><li class="Default"><p>在 <strong>On Component End Overlap(Box)</strong> 节点上，拖移执行引脚，将其连接至TimelineComponent节点的 <strong>反向（Reverse）</strong> 引脚。 
+</p><p><img class="  lazyload" alt="图像替换文本" width="624" height="346" data-src="../../../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Timelines/Examples/OpeningDoors/Blueprint/image_21.png" />
+
+</p></li><li class="Default"><p><strong>编译</strong> 并 <strong>保存</strong>。
+</p></li></ol><h2 id="将actor放到关卡中">将Actor放到关卡中</h2>
+<ol ><li class="Default"><p>从内容浏览器中，选择你的BP_DoorActor并将其拖动到视口中。
+</p><p><img class="  lazyload" alt="图像替换文本" width="624" height="518" data-src="../../../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Timelines/Examples/OpeningDoors/Blueprint/image_22.png" />
+
+</p></li><li class="Default"><p>按PIE
+</p><p><img class="  lazyload" alt="图像替换文本" width="624" height="350" data-src="../../../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Timelines/Examples/OpeningDoors/Blueprint/image_23.gif" />
+
+<div class="caption">
+	<p>可以使用WASD键控制我们的旁观者Pawn。导航至DoorActor的碰撞边界时，可以在门打开时观察时间轴播放。退出边界时，可以观察到时间轴反向播放。</p>
+</div>
+</p></li></ol><h2 id="完成后的蓝图">完成后的蓝图</h2>
+<p><strong>BP_DoorActor</strong>
+</p><p><img class="  lazyload" alt="图像替换文本" width="624" height="384" data-src="../../../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/Timelines/Examples/OpeningDoors/Blueprint/image_24.png" />
+
+</p>
+</div>
+
+    </div>
+</div><!--
+category:paramliteral
+id:paramliteral
+content:param
+active:paramliteral
+-->
+<div class="button_content BlueprintOrCPPSelect cppimplementation ">
+    <div class="container">
+        <div class="errorhighlight" id="Error3">[INCLUDE:ProgrammingAndScripting/Blueprints/UserGuide/Timelines/Examples/OpeningDoors/CPP]</div>
+    </div>
+</div>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/ProgrammingAndScripting/Blueprints/UserGuide/Timelines/Examples/OpeningDoors/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:27:15 GMT -->
+</html>

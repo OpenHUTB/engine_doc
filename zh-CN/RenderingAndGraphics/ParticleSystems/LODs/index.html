@@ -1,0 +1,791 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/RenderingAndGraphics/ParticleSystems/LODs/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:06:40 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/RenderingAndGraphics/ParticleSystems/LODs/" />');
+				var udnCSS = '../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>粒子系统细节级别（LOD） | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/RenderingAndGraphics/ParticleSystems/LODs/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/RenderingAndGraphics/ParticleSystems/LODs/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/RenderingAndGraphics/ParticleSystems/LODs/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/RenderingAndGraphics/ParticleSystems/LODs/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Rendering/ParticleSystems/LODs" />
+<meta name="intsourcechangelist" content="15852397" />
+<meta name="availability" content="Public" />
+<meta name="title" content="粒子系统细节级别（LOD）" />
+<meta name="description" content="粒子的 GPU 模拟，可允许成百上千的粒子同时存在。" />
+<meta name="version" content="4.9" />
+<meta name="keywords" content="Particles" />
+<meta name="topic-image" content="ParticleSystemLOD_topic.png" />
+<meta name="crumbs" content="%ROOT%,RenderingAndGraphics,RenderingAndGraphics/ParticleSystems" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="粒子系统细节级别（LOD）" />
+	<meta property="og:description" content="粒子的 GPU 模拟，可允许成百上千的粒子同时存在。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">设计视觉、渲染和图形效果</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">级联粒子系统</a>
+
+<span class="separator">></span> <span id="page">粒子系统细节级别（LOD）</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">粒子系统细节级别（LOD）</h1>
+							</div>	
+							<h2 >粒子的 GPU 模拟，可允许成百上千的粒子同时存在。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																																			</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																																				<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#级联lod功能键">级联 LOD 功能键</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#在粒子系统中创建lod层">在粒子系统中创建 LOD 层</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#lod方法和距离设置">LOD 方法和距离设置</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>细节级别（LOD）是特效师的福音，利用它可以创建出根据玩家距离高效利用屏幕空间的粒子特效。例如篝火粒子系统，可能包含以下几种发射器：
+</p><ul ><li class="Default"><p>火焰内焰
+</p></li><li class="Default"><p>火焰外焰
+</p></li><li class="Default"><p>内焰辉光
+</p></li><li class="Default"><p>火星和灰烬
+</p></li><li class="Default"><p>一层或多层烟雾
+</p></li></ul><p>近距离观察时，系统的外观如下图所示：
+</p><p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/ParticleSystems/LODs/FireEffect_Close.jpg">
+		<img class="  lazyload" alt="FireEffect_Close.png" data-src="../../../../Images/RenderingAndGraphics/ParticleSystems/LODs/FireEffect_Close.jpg" />
+</picture>
+
+</p><p>而当玩家走远时，系统占用屏幕的空间变少，如下图所示：
+</p><p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/ParticleSystems/LODs/FireEffect_Distant.jpg">
+		<img class="  lazyload" alt="FireEffect_Distant.png" data-src="../../../../Images/RenderingAndGraphics/ParticleSystems/LODs/FireEffect_Distant.jpg" />
+</picture>
+
+</p><p>在这种情况下，粒子系统的一些方面将会变得十分小（小于一个像素）而无需进行渲染，如灰烬。然而，这些粒子仍然被计算和处理。LOD 就可以大显身手了。它可使粒子系统基于距离进行简化，（在玩家距离过远而欣赏不到特效时）将系统中的发射器和模块将设置关闭，或完全关闭。
+</p><p>该文档讲述粒子系统中细节层级（LODs）的创建以及在游戏中的实际用法。
+</p><h2 id="级联lod功能键">级联 LOD 功能键</h2>
+<p>以下部分讲述级联工具栏中的 LOD 功能键。
+</p><p><strong>级联 LOD 功能键</strong>
+</p><p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/ParticleSystems/LODs/Cascade_Toolbar.jpg">
+		<img class="  lazyload" alt="Cascade_Toolbar.png" data-src="../../../../Images/RenderingAndGraphics/ParticleSystems/LODs/Cascade_Toolbar.jpg" />
+</picture>
+
+</p><p>每个功能键详解如下：
+</p><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p><strong>按钮</strong> </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p><strong>名称</strong> </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p><strong>描述</strong> </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/ParticleSystems/LODs/Cascade_Toolbar_RegenLOD_Duplicating.jpg">
+		<img class="  lazyload" alt="Cascade_Toolbar_RegenLOD_Duplicating.png" data-src="../../../../Images/RenderingAndGraphics/ParticleSystems/LODs/Cascade_Toolbar_RegenLOD_Duplicating.jpg" />
+</picture>
+</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Regenerate Lowest LOD Duplicating Highest Button</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>按下 <em>Regenerate Lowest LOD Duplicating Highest</em> 按钮后，粒子系统将移除所有现有的较低 LOD 层并重新生成一个最低的 LOD。此 LOD 为最高层的副本。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/ParticleSystems/LODs/Cascade_Toolbar_RegenLOD.jpg">
+		<img class="  lazyload" alt="Cascade_Toolbar_RegenLOD.png" data-src="../../../../Images/RenderingAndGraphics/ParticleSystems/LODs/Cascade_Toolbar_RegenLOD.jpg" />
+</picture>
+</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Regen Lowest LOD Button</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>按下 <em>Regen Lowest LOD</em> 按钮后，粒子系统将移除所有现有 LOD 层并重新生成一个最低的 LOD。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/ParticleSystems/LODs/Cascade_Toolbar_LowestLOD.jpg">
+		<img class="  lazyload" alt="Cascade_Toolbar_LowestLOD.png" data-src="../../../../Images/RenderingAndGraphics/ParticleSystems/LODs/Cascade_Toolbar_LowestLOD.jpg" />
+</picture>
+</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Jump to Lowest LOD Button</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>按下 <em>Jump to Lowest LOD</em> 按钮后，系统将被设为最低的可用静态 LOD。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/ParticleSystems/LODs/Cascade_Toolbar_LowerLOD.jpg">
+		<img class="  lazyload" alt="Cascade_Toolbar_LowerLOD.png" data-src="../../../../Images/RenderingAndGraphics/ParticleSystems/LODs/Cascade_Toolbar_LowerLOD.jpg" />
+</picture>
+</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Jump to Lower LOD Button</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>按下 <em>Jump Lower to LOD</em> 按钮后，系统将设为比当前 LOD 设置低一层的可用静态 LOD。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/ParticleSystems/LODs/Cascade_Toolbar_AddLOD_Before.jpg">
+		<img class="  lazyload" alt="Cascade_Toolbar_AddLOD_Before.png" data-src="../../../../Images/RenderingAndGraphics/ParticleSystems/LODs/Cascade_Toolbar_AddLOD_Before.jpg" />
+</picture>
+</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Add LOD before current Button</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>按下 <em>Add LOD before current</em> 按钮后，系统将在当前加载的 LOD 前插入一个新的静态 LOD。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/ParticleSystems/LODs/Cascade_Toolbar_CurrentLOD.jpg">
+		<img class="  lazyload" alt="Cascade_Toolbar_CurrentLOD.png" data-src="../../../../Images/RenderingAndGraphics/ParticleSystems/LODs/Cascade_Toolbar_CurrentLOD.jpg" />
+</picture>
+</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Current LOD</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>Current LOD 信息框显示当前载入的 LOD，以及粒子系统中存在的 LOD 数量。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/ParticleSystems/LODs/Cascade_Toolbar_AddLOD_After.jpg">
+		<img class="  lazyload" alt="Cascade_Toolbar_AddLOD_After.png" data-src="../../../../Images/RenderingAndGraphics/ParticleSystems/LODs/Cascade_Toolbar_AddLOD_After.jpg" />
+</picture>
+</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Add LOD after current Button</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>按下 <em>Add LOD after current</em> 按钮后，系统将在当前加载的 LOD 后插入一个新的静态 LOD。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/ParticleSystems/LODs/Cascade_Toolbar_HigherLOD.jpg">
+		<img class="  lazyload" alt="Cascade_Toolbar_HigherLOD.png" data-src="../../../../Images/RenderingAndGraphics/ParticleSystems/LODs/Cascade_Toolbar_HigherLOD.jpg" />
+</picture>
+</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Jump to Higher LOD 按钮</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>按下 <em>Jump to Higher LOD</em> 按钮后，系统将设为比当前 LOD 设置高一层的可用静态 LOD。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/ParticleSystems/LODs/Cascade_Toolbar_HighestLOD.jpg">
+		<img class="  lazyload" alt="Cascade_Toolbar_HighestLOD.png" data-src="../../../../Images/RenderingAndGraphics/ParticleSystems/LODs/Cascade_Toolbar_HighestLOD.jpg" />
+</picture>
+</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Jump to Highest LOD 按钮</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>按下 <em>Jump to Highest LOD</em> 按钮后，系统将被设为最高的可用静态 LOD。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/ParticleSystems/LODs/Cascade_Toolbar_DeleteLOD.jpg">
+		<img class="  lazyload" alt="Cascade_Toolbar_DeleteLOD.png" data-src="../../../../Images/RenderingAndGraphics/ParticleSystems/LODs/Cascade_Toolbar_DeleteLOD.jpg" />
+</picture>
+</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Delete LOD 按钮</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>按下 <em>Delete LOD</em> 按钮将从粒子系统中删除当前选中的静态 LOD 层。</p>
+			</td>
+	
+</tr></tbody>
+</table><h2 id="在粒子系统中创建lod层">在粒子系统中创建 LOD 层</h2>
+<p>以下部分将讲述 LOD 全支持粒子系统创建的常规设计流程。流程的步骤详解如下：
+</p><ul ><li class="Default"><p>创建期望的整体效果。此为最高的 LOD 层。
+</p></li><li class="Default"><p>接下来创建最低的 LOD 层。
+</p></li><li class="Default"><p>添加两者之间的 LOD 层，创建从最高质量到最低质量的平顺过渡。
+</p></li></ul><div class="note">
+	<p>只能在编辑最高 LOD 层时添加/删除模块。 </p>
+</div><p>在此例中我们使用单个 SubUV 发射器。它设置的方式是 SubUV 坐标 0 显示数字 1，坐标 1 显示数字 2，以此类推。应用的纹理外观如下：
+</p><p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/ParticleSystems/LODs/ImageTest_Tile.jpg">
+		<img class="  lazyload" alt="ImageTest_Tile.png" width="256" data-src="../../../../Images/RenderingAndGraphics/ParticleSystems/LODs/ImageTest_Tile.jpg" />
+</picture>
+
+</p><p>我们来设置最高的 LOD 层。 
+</p><p><strong>最高 LOD 层</strong>
+</p><p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/ParticleSystems/LODs/HighestLOD.jpg">
+		<img class="  lazyload" alt="HighestLOD.png" data-src="../../../../Images/RenderingAndGraphics/ParticleSystems/LODs/HighestLOD.jpg" />
+</picture>
+
+</p><p>当特效师打算对粒子系统进行 LOD 开发时，他们应该选择工具栏中的 <strong>Regenerate Lowest LOD</strong>。这将使系统重新生成最低的 LOD 层。（它将同时删除临时创建的静态 LOD 层。）在当前，它将以较低的生成率复制最高 LOD 层。
+</p><p>选择最低的 LOD 层后，进行数值调整获得需要的外观。需要注意的是所有模块在静态 LOD 层中均默认标为 <em>un-editable</em>。模块中显示的大理石花纹背景为此特征。
+</p><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>在最高 LOD 中查看的模块 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>在最低 LOD 中查看的模块 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/ParticleSystems/LODs/HighestLevelModules.jpg">
+		<img class="  lazyload" alt="HighestLevelModules.png" data-src="../../../../Images/RenderingAndGraphics/ParticleSystems/LODs/HighestLevelModules.jpg" />
+</picture>
+</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/ParticleSystems/LODs/LowestLevelModules.jpg">
+		<img class="  lazyload" alt="LowestLevelModules.png" data-src="../../../../Images/RenderingAndGraphics/ParticleSystems/LODs/LowestLevelModules.jpg" />
+</picture>
+</p>
+			</td>
+	
+</tr></tbody>
+</table><p>必须将其启用方可在静态 LOD 层中对模块进行编辑。在模块中 <strong>单击右键</strong> 并从快捷菜单中选择 <strong>Duplicate from Higher</strong>，完成此操作。 
+</p><p>可用选项如下：
+</p><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p><strong>选项</strong> </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p><strong>描述</strong> </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Duplicate from Higher</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>复制更高一层 LOD 设置，启用模块编辑。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Share from Higher</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>分享更高一层 LOD 设置，启用模块编辑。这意味着编辑一个 LOD 将以相同方式自动编辑另一个 LOD。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Duplicate from Highest</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>复制最高 LOD 设置，启用模块编辑。</p>
+			</td>
+	
+</tr></tbody>
+</table><p>在此例中，我们已启用 SubImage Index 模块的编辑并将索引设为 3.发射器中的结果显示为黄色的 <em>4</em>，如下图所示：
+</p><p><strong>最低 LOD 层</strong>
+</p><p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/ParticleSystems/LODs/LowestLOD.jpg">
+		<img class="  lazyload" alt="LowestLOD.png" data-src="../../../../Images/RenderingAndGraphics/ParticleSystems/LODs/LowestLOD.jpg" />
+</picture>
+
+</p><p>注意：生成率被自动设为最高 LOD 层的 10%。
+</p><p>下一步，按下 <strong>Add LOD before current</strong> 按钮（假定此时你仍在查看最低 LOD 层），在最高和最低之间添加一个静态 LOD。已启用 SubImage Index 模块并将索引设为 1。发射器中的结果显示为蓝色的 <em>2</em>，如下图所示：
+</p><p><strong>LOD 第一层</strong>
+</p><p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/ParticleSystems/LODs/LOD_33.jpg">
+		<img class="  lazyload" alt="LOD_33.png" data-src="../../../../Images/RenderingAndGraphics/ParticleSystems/LODs/LOD_33.jpg" />
+</picture>
+
+</p><p>按下 <strong>Add LOD after current</strong> 按钮启用 SubImage index 模块，在第一个静态 LOD 和最低 LOD 之间添加一个静态 LOD。SubImage Index 被设为 2，导致发射器显示一个绿色的 <em>3</em>，如下图所示：
+</p><p><strong>LOD 第二层</strong>
+</p><p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/ParticleSystems/LODs/LOD_66.jpg">
+		<img class="  lazyload" alt="LOD_66.png" data-src="../../../../Images/RenderingAndGraphics/ParticleSystems/LODs/LOD_66.jpg" />
+</picture>
+
+</p><h2 id="lod方法和距离设置">LOD 方法和距离设置</h2>
+<p>有多种方法可以让你在游戏内控制粒子系统的LOD。每个粒子系统都有一个名为 LODMethod 的枚举，能用于确定采用何种模式，进而控制LOD距离的处理方法。
+</p><p>下图显示范例粒子系统的属性窗口：
+</p><p><strong>LODDistances 属性窗口</strong>
+</p><p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/ParticleSystems/LODs/LODsettings.jpg">
+		<img class="  lazyload" alt="LODsettings.png" data-src="../../../../Images/RenderingAndGraphics/ParticleSystems/LODs/LODsettings.jpg" />
+</picture>
+
+</p><p>在此例中，发射器来自摄像机的 [0..1249] 单位时，使用 LOD 0（最高）。LOD 1 来自 [1250..1874]，LOD 2 来自 [1875..2499]，距离大于 2500 个单位时为 LOD 3。
+</p><p>设为自动模式的每个 ParticleSystemComponent 在运行时将执行 LOD 距离确认，LODDistanceCheckTime 用于设置此操作的执行频率（以秒为单位）。在此例中，关卡中的每个粒子系统每四分之一秒执行一次距离确认。
+</p><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>属性 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>描述 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="2" align="">
+			<p><div class="tablesection">
+	<p>LOD</p>
+</div></p>
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>LOD Distance Check Time</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>确定系统执行一次距离检测的时间频率（以秒为单位），以明确使用的 LOD 级别。（仅在 LODMethod 设为 Automatic 时使用）。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>LOD Method</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>此枚举说明系统选择适当 LOD 级别时所使用的方法。有多种方法可用：<div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>方法 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>描述 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>Automatic</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>基于 LOD 距离和检测时间自动设置 LOD 级别。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>DirectSet</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>游戏将直接为系统设置使用的 LOD 级别。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>ActivateAutomatic</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>特效生成时 LOD 即被定义，基于 LOD 中定义的距离参数。</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div>
+</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>LODDistances</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>确定使用 LOD 级别的距离阵列。（仅在 LODMethod 设为 Automatic 时使用）。这些数值将提供选择 LOD 级别的推荐最小距离。例如，3 种 LOD 级别的粒子系统：<div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>LODDistanceIndex </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>值</p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>范围 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>所选 LOD 级别 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>0</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>0.0</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>0.0 - 2499.9</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>0 (最大值)</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>1</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>2500.0</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>2500.0 - 4999.9</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>1</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>2</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>5000.0</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>5000.0 - 无限</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>2</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div>
+</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>LODSettings</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>一种结构阵列，决定每个 LOD 使用的特定设置。当前使用指定 LOD 时，唯一的设置 <em>Lit</em> 用于控制 ParticleSystem 是否接受光照。</p>
+			</td>
+	
+</tr></tbody>
+</table>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../SiteIndex/index.html?tags=Particles">Particles</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/RenderingAndGraphics/ParticleSystems/LODs/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:06:48 GMT -->
+</html>

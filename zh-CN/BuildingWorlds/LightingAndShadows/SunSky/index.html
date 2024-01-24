@@ -1,0 +1,591 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/BuildingWorlds/LightingAndShadows/SunSky/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:57:48 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/BuildingWorlds/LightingAndShadows/SunSky/" />');
+				var udnCSS = '../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>太阳和天空Actor | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/BuildingWorlds/LightingAndShadows/SunSky/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/BuildingWorlds/LightingAndShadows/SunSky/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/BuildingWorlds/LightingAndShadows/SunSky/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/BuildingWorlds/LightingAndShadows/SunSky/" hreflang="ko" />
+
+	<meta name="intsourcechangelist" content="16146891" />
+<meta name="redirect" content="RenderingAndGraphics/LightingAndShadows/SunSky" />
+<meta name="redirect" content="Engine/Rendering/LightingAndShadows/SunSky" />
+<meta name="availability" content="Public" />
+<meta name="title" content="太阳和天空Actor" />
+<meta name="description" content="概述天空大气组件的太阳天空Actor的设置和使用。" />
+<meta name="type" content="Overview" />
+<meta name="parent" content="BuildingWorlds/LightingAndShadows" />
+<meta name="keywords" content="Rendering" />
+<meta name="keywords" content="Atmosphere" />
+<meta name="keywords" content="Lighting" />
+<meta name="version" content="4.26" />
+<meta name="related" content="BuildingWorlds/FogEffects/SkyAtmosphere" />
+<meta name="course" content="lighting-essential-concepts-and-effects?lang=zh-CN|光照基础概念和效果|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Flighting-essential-concepts-and-effects%2FLightingEssentials_Topic_1920x1080-1920x1080-3e04dcaf168d9a530720df1573b417807ae00784.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Flighting-essential-concepts-and-effects%2FLighting-Essential-Concepts-and-Effects-1000x1000-14831d7f280345717b0bdd66be9422b40ffb91bd.png?resize=1&amp;w=300" />
+<meta name="course" content="introducing-global-illumination?lang=zh-CN|全局光照入门|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fintroducing-global-illumination%2F105_GlobalIllum%281200x675%29-1200x675-97270dbdc7595455b4c9acf0e83bf01da8efbfd4.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fintroducing-global-illumination%2FIntroducing-Global-Illumination-1000x1000-af5267ea2a6721b1cc73af7825d226aedbbaf5ce.png?resize=1&amp;w=300" />
+<meta name="crumbs" content="%ROOT%,BuildingWorlds,BuildingWorlds/LightingAndShadows" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="太阳和天空Actor" />
+	<meta property="og:description" content="概述天空大气组件的太阳天空Actor的设置和使用。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">构建虚拟世界</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">照亮环境</a>
+
+<span class="separator">></span> <span id="page">太阳和天空Actor</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">太阳和天空Actor</h1>
+							</div>	
+							<h2 >概述天空大气组件的太阳天空Actor的设置和使用。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																																			</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																		<div id="seeAlso">
+	<div style="position:relative;">
+		<div id="title">参见</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<p>
+						<a id="related_link" href="../../FogEffects/SkyAtmosphere/index.html" title="天空大气系统用于创建基于物理的天空和大气渲染，提供一天时间功能以及具有空气透视的地面到太空视图过渡。">天空大气</a>
+					</p>
+				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																		<div id="courses">
+	<div style="position:relative;">
+		<div id="title">相关课程</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<div name="lighting-essential-concepts-and-effects?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/lighting-essential-concepts-and-effects?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/lighting-essential-concepts-and-effects/LightingEssentials_Topic_1920x1080-1920x1080-3e04dcaf168d9a530720df1573b417807ae00784.4884f86.delaye?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/lighting-essential-concepts-and-effects/Lighting-Essential-Concepts-and-Effects-1000x1000-14831d7f280345717b0bdd66be9422b40ffb91bd.489fe4b.d?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="lighting-essential-concepts-and-effects?lang=zh-CN_title">
+				光照基础概念和效果
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="introducing-global-illumination?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/introducing-global-illumination?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/introducing-global-illumination/105_GlobalIllum(1200x675)-1200x675-97270dbdc7595455b4c9acf0e83bf01da8efbfd4.48b4f?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/introducing-global-illumination/Introducing-Global-Illumination-1000x1000-af5267ea2a6721b1cc73af7825d226aedbbaf5c?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="introducing-global-illumination?lang=zh-CN_title">
+				全局光照入门
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																								<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#项目模板和设置">项目模板和设置</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#启用太阳位置计算器插件">启用太阳位置计算器插件</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#使用太阳和天空actor">使用太阳和天空Actor</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#属性和设置">属性和设置</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#建筑可视化模板关卡示例">建筑可视化模板关卡示例</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#外部">外部</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#内部">内部</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#其他说明">其他说明</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#其他资源">其他资源</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p><strong>太阳位置计算器（Sun Position Calculator）</strong> 插件包括<a id="content_link"filter-data="tag_lighting tag_beta tag_sun_positioning" href="../SunPositioner/index.html" ><span>地理位置准确的太阳定位器</span></a>，可根据地理位置和日期时间精确控制太阳的位置。<strong>太阳天空（SunSky）</strong> Actor是此插件的一部分。它利用相同的数学方程控制太阳在天空中的位置，还包括定向光源、天空光照、天空大气多个组件，用于生成逼真的渲染，呈现真实形态的阳光和阴影。 
+</p><p>借助太阳天空Actor（SunSky Actor），无论你根据审美做出怎样的选择，都可以使用夏令时（DST）、日期、时间的设置简单快捷地设置场景。此设计可以用于游戏和其他行业，例如建筑、工程和施工（AEC）或汽车、产品设计和制造。 
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_1_pb275rkq_2
+{
+	margin: 0px;
+	width: 100%;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_1_pb275rkq_2:after
+{
+	content: "";
+	padding-top: 56.25%;
+	display: block;
+}
+</style> 
+<div id="player_1_pb275rkq_2"> 
+	<div id="playerContainer_1_pb275rkq_2" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/1_pb275rkq/embed.html"></iframe>
+	</div>
+</div>
+<h2 id="项目模板和设置">项目模板和设置</h2>
+<p><a id="content_link"filter-data="tag_project tag_projects tag_create_new" href="../../../Basics/Projects/Browser/index.html" ><span>创建新项目</span></a>时，你可以根据需要选择各种行业类型和模板。
+</p><div class="warning">
+	<p>根据所选模板，会默认禁用/启用某些属性。这些属性会影响太阳天空Actor的外观和功能。 </p>
+</div><p>选择 <strong>模板类别（Template Category）</strong> 和 <strong>模板（Template）</strong> 时，记住以下两点：
+</p><ul ><li class="Default"><p>需对 <strong>在自动曝光设置中延伸默认亮度范围（Extend default luminance range in Auto Exposure settings）</strong> 进行项目设置，以便正确显示此太阳天空Actor，无需编辑属性。 
+</p></li><li class="Default"><p>每个模板类别的某些模板默认启用太阳位置计算器。你可以在主菜单中选择编辑（Edit）> 插件（Plugins）并搜索此插件，或在打开新项目时搜索此插件来验证这一点。
+</p></li></ul><div class="note">
+	<p>本文演示了如何在虚幻引擎（UE）的建筑可视化（ArchVis）模板中使用太阳和天空Actor。如需使用该模板，只需新建一个项目，选择 <strong>建筑、工程和施工（Architecture, Engineering, and Construction）</strong> 新项目类别，然后选择建筑可视化模板（ArchVis template）。</p>
+</div><h2 id="启用太阳位置计算器插件">启用太阳位置计算器插件</h2>
+<ol ><li class="Default"><p>从主菜单选择 <strong>编辑（Edit）> 插件（Plugins）</strong>。
+</p></li><li class="Default"><p>在 <strong>杂项（Misc）</strong> 类目下找到 <strong>太阳位置计算器（Sun Position Calculator）</strong> 插件，并勾选 <strong>启用（Enabled）</strong> 复选框。
+</p><p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/SunSky/SunSky_SunPositionerPlugin.jpg">
+		<img class="  lazyload" alt="SunSky_SunPositionerPlugin.png" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/SunSky/SunSky_SunPositionerPlugin.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>单击 <strong>立即重启（Restart Now）</strong> 按钮以应用更改并重新打开虚幻编辑器。
+</p><p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/SunSky/SunSky_Restart.jpg">
+		<img class="  lazyload" alt="SunSky_Restart.png" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/SunSky/SunSky_Restart.jpg" />
+</picture>
+
+</p></li></ol><h2 id="使用太阳和天空actor">使用太阳和天空Actor</h2>
+<p>启用太阳位置计算器插件后，将在编辑器 <strong>放置Actor（Place Actors）</strong> 面板中的 <strong>光源（Lights）</strong> 选项卡中找到名为 <strong>太阳和天空（Sun and Sky）</strong> 的新Actor。
+</p><p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/SunSky/SunSky_Modes.jpg">
+		<img class="  lazyload" alt="SunSky_Modes.png" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/SunSky/SunSky_Modes.jpg" />
+</picture>
+
+</p><p>拖放到关卡视口中。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/SunSky/SunSky_PlaceSunSkyInLevel.jpg">
+		<img class="  lazyload" alt="SunSky_PlaceSunSkyInLevel.png" width="900" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/SunSky/SunSky_PlaceSunSkyInLevel.jpg" />
+</picture>
+
+</p><div class="tip">
+	<p>将太阳天空Actor添加到场景时，最好删除任何已有的定向光源、天空光照和天空大气组件。否则，若从头开始，最好从全新的空白关卡开始。 </p>
+</div><div class="note">
+	<p>将太阳天空Actor拖至关卡时，将显示为亮白色，可执行以下操作之一： 
+</p><ul ><li class="Default"><p>在项目设置（Project Settings）中的渲染（Rendering）类别下（位于默认分段下）启用 <strong>在自动曝光设置中延伸默认亮度范围（Extend default luminance range in Auto Exposure settings）</strong>。
+</p></li><li class="Default"><p>或者，若不希望此项目设置影响项目外观，可选择太阳天空Actor的定向光源并使用较低光照强度（打开太阳天空Actor，选择组件中的定向光源，找到细节面板中的"光照"类目，按需降低光照强度）。
+</p></li></ul>
+</div><p>太阳天空Actor包含定向光源、天空光照和天空大气组件的可移动Actor，将它们作为蓝图的一部分。选择场景组件 <strong>太阳天空（自身）（SunSky(Self)）</strong> 后，将显示公开的蓝图属性，例如日期、时间、纬度、经度的属性，这些属性可进行设置。选择单个组件，例如定向光源或天空大气组件，将显示自身属性。这些属性（如移动性和强度）也可以进行设置。
+</p><p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/SunSky/SunSky_ComponentsDetailsPanel.jpg">
+		<img class="  lazyload" alt="SunSky_ComponentsDetailsPanel.png" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/SunSky/SunSky_ComponentsDetailsPanel.jpg" />
+</picture>
+
+</p><h2 id="属性和设置">属性和设置</h2>
+<p>可以在太阳天空Actor的 <strong>细节（Details）</strong> 面板中找到以下可调节属性。
+</p><p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/SunSky/SunSky_Properties.jpg">
+		<img class="  lazyload" alt="SunSky_Properties.png" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/SunSky/SunSky_Properties.jpg" />
+</picture>
+
+</p><div class="note">
+	<p>由于 <strong>变换（Transformation）</strong> 属性是Actor的标准属性，所以我们在下表中省略了它们。</p>
+</div><div class="fullwidth">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>属性 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>说明 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="2" align="">
+			<p><div class="tablesection">
+	<p> 位置（Location） </p>
+</div></p>
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>纬度（Latitude）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>赤道以北或以南的度数。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>经度（Longitude）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>本初子午线以东或以西的度数。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>时区（Time Zone）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>世界上特定地区的特定时间。时区使用GMT作为基准。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>北偏移（North Offset）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>为太阳天空Actor及其组件设置北方方向位置。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="2" align="">
+			<p><div class="tablesection">
+	<p> 日期（Date） </p>
+</div></p>
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>月（Month）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>设置当前月份。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>日（Day）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>设置当前日期。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>使用夏令时（Use Daylight Saving Time）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>启用夏令时（DST）。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>DST起始月份（DST Start Month）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>设置当前年度DST起始的月份。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>DST起始日期（DST Start Day）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>设置当前年度DST起始的日期。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>DST终止月份（DST End Month）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>设置当前年度DST终止的月份。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>DST终止日期（DST End Month）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>设置当前年度DST终止的日期。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>DST Switch Hour</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>设置DST的起始时间和终止时间。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="2" align="">
+			<p><div class="tablesection">
+	<p> 时间（Time） </p>
+</div></p>
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>太阳时（Solar Time）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>设置一天当中的时间。<div class="note">
+	<p> 输入此值，作为军用时间的浮点值。例如，上午12:30为00.5，下午12:30为12.5。</p>
+</div></p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div><h2 id="建筑可视化模板关卡示例">建筑可视化模板关卡示例</h2>
+<p>创建项目时，<strong>建筑、工程和施工（Architecture, Engineering, and Construction）</strong> 的模板类别包括名为 <strong>建筑可视化（ArchVis）</strong> 的模板。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/SunSky/SunSky_ArchVisTemplate.jpg">
+		<img class="  lazyload" alt="SunSky_ArchVisTemplate.png" width="700" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/SunSky/SunSky_ArchVisTemplate.jpg" />
+</picture>
+
+</p><p>此模板项目专门用于架构可视化工作流，包括日照分析、室内渲染和非真实感风格渲染的示例。其中包括以下已设置使用的资产： 
+</p><ul ><li class="Default"><p>多个包含场景设置的关卡，此类设置用于利用太阳天空Actor演示物理准确光照的可视化。
+</p></li><li class="Default"><p>光照配置和后期处理体积，已为启用光线追踪的项目设置光线追踪功能。
+</p></li><li class="Default"><p>用于渲染场景的示例摄像机和Sequencer。这些还包括动态时间转换。
+</p></li></ul><p>此模板还支持<a id="content_link"filter-data="tag_getting_started tag_how_to tag_datasmith tag_overview tag_beginner" href="../../../WorkingWithContent/Importing/Datasmith/HowTo/ImportingContent/index.html" ><span>Datasmith插件</span></a>，它是一组用于将3ds Max、CAD软件等离线渲染应用程序中创建的场景和资产导入实时引擎的工具和插件。
+</p><h3 id="外部">外部</h3>
+<p><strong>外部（Exterior）</strong> 关卡演示太阳天空Actor的使用，其中使用多个摄像机和Sequencer来演示在场景各个位置之间移动时的时间序列。可在 <code>Content/ArchVisProject</code> 文件夹中找到。
+</p><p>此关卡还使用太阳天空Actor组件，此类组件正用于<a id="content_link" href="../LightMobility/DynamicLights/index.html" ><span>动态照亮场景</span></a>。为项目启用各种实时<a id="content_link"filter-data="tag_ray_tracing" href="../../../RenderingAndGraphics/RayTracing/index.html" ><span>光线追踪</span></a>功能后，它还将演示此类功能。 
+</p><h3 id="内部">内部</h3>
+<p><strong>内部（Interior）</strong> 关卡演示SunSky Actor组件的使用，此类组件正用于使用<a id="content_link" href="../LightMobility/StaticLights/index.html" ><span>预计算静态照明</span></a>照亮场景。可在 <code>Content/ArchVisProject</code> 文件夹中找到。
+</p><p>其中包括：
+</p><ul ><li class="Default"><p>使用<a id="content_link" href="../../../RenderingAndGraphics/Lightmass/index.html" ><span>Lightmass</span></a>生成场景的烘焙全局照明和光照。
+</p></li><li class="Default"><p>使用<a id="content_link" href="../../../RenderingAndGraphics/Lightmass/Basics/index.html" ><span>Lightmass重要体积</span></a>和<a id="content_link"filter-data="tag_lighting" href="../LightmassPortals/index.html" ><span>Lightmass门户</span></a>来控制和聚焦Lightmass发出光子的区域。
+</p></li></ul><h2 id="其他说明">其他说明</h2>
+<ul ><li class="Default"><p>在太阳天空Actor上，默认为定向光源和天空光照默认启用<a id="content_link"filter-data="tag_ray_tracing" href="../../../RenderingAndGraphics/RayTracing/index.html" ><span>光线追踪</span></a>功能，以便两者都支持光线追踪阴影的投射。 
+</p></li><li class="Default"><p>可手动更改太阳天空Actor中的定向光源旋转值。但当你更改会影响太阳天空Actor其他部分的其他设置时，手动调整的旋转值将重置为默认位置。这可防止值与地理位置计算思路相冲突。 
+</p></li><li class="Default"><p>天光Actor（SkyLight Actor）现在会默认启用实时采集（Real Time Capture）模式。这应该有助于你更好地捕获天空大气（SkyAtmosphere）组件、体积云、高度雾等。请注意，该模式只有在使用动态或固定模式才可用。如果你希望禁用实时采集模式，只需选中天光Actor，找到细节面板，然后取消勾选"光照"分段顶部的"实时采集"复选框。
+</p></li></ul><h2 id="其他资源">其他资源</h2>
+<ul ><li class="Default"><p>在网站<a id="content_link" href="http://www.latlong.net/" ><span>LatLong.net</span></a>中输入位置名称，它将返回地图视图及其纬经度坐标。 
+</p></li><li class="Default"><p>网站<a id="content_link" href="http://www.timeanddate.com/" ><span>TimeAndDate.com</span></a>中有专门用于<a id="content_link" href="https://www.timeanddate.com/time/map/" ><span>时区地图</span></a>的区域，这对于确定设置太阳天空Actor使用的时区非常有用。默认使用GMT-5时区。
+</p></li></ul>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../SiteIndex/index.html?tags=Rendering">Rendering</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../SiteIndex/index.html?tags=Atmosphere">Atmosphere</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../SiteIndex/index.html?tags=Lighting">Lighting</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/BuildingWorlds/LightingAndShadows/SunSky/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:57:51 GMT -->
+</html>

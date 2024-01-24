@@ -1,0 +1,591 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/RenderingAndGraphics/Niagara/CascadeToNiagaraConverterPlugin/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:00:14 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/RenderingAndGraphics/Niagara/CascadeToNiagaraConverterPlugin/" />');
+				var udnCSS = '../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>将Cascade转换为Niagara的转换插件 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/RenderingAndGraphics/Niagara/CascadeToNiagaraConverterPlugin/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/RenderingAndGraphics/Niagara/CascadeToNiagaraConverterPlugin/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/RenderingAndGraphics/Niagara/CascadeToNiagaraConverterPlugin/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/RenderingAndGraphics/Niagara/CascadeToNiagaraConverterPlugin/" hreflang="ko" />
+
+	<meta name="intsourcechangelist" content="16147124" />
+<meta name="availability" content="Public" />
+<meta name="title" content="将Cascade转换为Niagara的转换插件" />
+<meta name="description" content="本页介绍并演示了将Cascade粒子系统转换为Niagara粒子系统的插件。" />
+<meta name="parent" content="RenderingAndGraphics/Niagara" />
+<meta name="type" content="overview" />
+<meta name="version" content="4.26" />
+<meta name="topic-image" content="HeroBanner.png" />
+<meta name="keywords" content="Experimental" />
+<meta name="keywords" content="Niagara" />
+<meta name="keywords" content="Cascade" />
+<meta name="keywords" content="Plugin" />
+<meta name="keywords" content="Vfx" />
+<meta name="keywords" content="Effects" />
+<meta name="keywords" content="Visual Effects" />
+<meta name="keywords" content="Particle Effects" />
+<meta name="keywords" content="Getting Started" />
+<meta name="crumbs" content="%ROOT%,RenderingAndGraphics,RenderingAndGraphics/Niagara" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="将Cascade转换为Niagara的转换插件" />
+	<meta property="og:description" content="本页介绍并演示了将Cascade粒子系统转换为Niagara粒子系统的插件。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">设计视觉、渲染和图形效果</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">Niagara视觉效果</a>
+
+<span class="separator">></span> <span id="page">将Cascade转换为Niagara的转换插件</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+					<div id="banner" class="experimental">
+	<div id="message">
+		您可以尝试该<span>实验性</span>功能，但我们不推荐在发布产品中使用它。
+	</div>
+	<div id="bannerDescription">
+		有时，我们会提供一些实验阶段的功能供您试用，以便您给出反馈，并了解我们的开发计划。<strong>我们不推荐在发布项目中使用实验功能。</strong>请记住，我们不保证您在实验阶段创建的资源的向后兼容性，这些功能的API可能变更，我们也可能酌情移除整个实验功能或其中某个特定功能。
+	</div>
+</div>
+															<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">将Cascade转换为Niagara的转换插件</h1>
+							</div>	
+							<h2 >本页介绍并演示了将Cascade粒子系统转换为Niagara粒子系统的插件。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																																			</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																																				<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#cascade到niagara转换器插件">Cascade到Niagara转换器插件</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#启用cascade到niagara转换器插件">启用Cascade到Niagara转换器插件</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#使用cascade到niagara转换器插件">使用Cascade到Niagara转换器插件</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#错误和警告类型">错误和警告类型</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#cascade到niagara支持的转换操作">Cascade到Niagara支持的转换操作</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#扩展cascade到niagara转换器插件的功能">扩展Cascade到Niagara转换器插件的功能</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<h2 id="cascade到niagara转换器插件">Cascade到Niagara转换器插件</h2>
+<p><strong>Cascade到Niagara转换器</strong> 插件是一个实用程序，旨在将你现有的任何<a id="content_link"filter-data="tag_particles" href="../../ParticleSystems/Cascade/index.html" ><span><strong>Cascade粒子系统</strong></span></a>资产转换为等效的<a id="content_link"filter-data="tag_niagara tag_effects tag_visual_effects tag_particle_effects" href="../index.html" ><span><strong>Niagara系统</strong></span></a>资产。 
+该插件包括一个蓝图函数库，用于以编程方式生成Niagara发射器和Niagara系统资产，以及Python脚本层，用于将Cascade系统转换为新的Niagara系统。 
+</p><div class="note">
+	<p>对于希望将现有内容从Cascade转换为Niagara的用户而言，此插件是理想之选。此插件作为一个起始点，升级到虚幻引擎使用的最新工具，并将继续更新，直到未来引擎版本弃用和删除Cascade。</p>
+</div><h2 id="启用cascade到niagara转换器插件">启用Cascade到Niagara转换器插件</h2>
+<p>如果要为你的项目启用Cascade到Niagara转换器插件，请执行以下步骤。
+</p><ol ><li class="Default"><p>导航至主菜单中的 <strong>编辑（Edit） > 插件（Plugins）</strong>，打开 <strong>插件浏览器（Plugins Browser）</strong> 选项卡。 
+</p></li><li class="Default"><p>从 <strong>内置（Built-In）</strong> 类别侧菜单中，导航至 <strong>FX > Cascade到Niagara转换器（Cascade To Niagara Converter）</strong> 插件，然后启用该插件。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/Niagara/CascadeToNiagaraConverterPlugin/NiagaraConverter.jpg">
+		<img class="  lazyload" alt="NiagaraConverter.png" width="700" data-src="../../../../Images/RenderingAndGraphics/Niagara/CascadeToNiagaraConverterPlugin/NiagaraConverter.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>出现提示时，点击 <strong>立即重启（Restart Now）</strong>，使更改生效。
+</p><p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/Niagara/CascadeToNiagaraConverterPlugin/RestartEditor.jpg">
+		<img class="  lazyload" alt="RestartEditor.png" width="700" data-src="../../../../Images/RenderingAndGraphics/Niagara/CascadeToNiagaraConverterPlugin/RestartEditor.jpg" />
+</picture>
+
+</p></li></ol><h2 id="使用cascade到niagara转换器插件">使用Cascade到Niagara转换器插件</h2>
+<p>在 <strong>内容浏览器</strong> 中右键点击级联粒子，然后从上下文菜单中选择 <strong>转换到Niagara系统（Convert to Niagara System）</strong>， 
+将所需的 <strong>级联粒子系统</strong> 转换为 <strong>Niagara系统</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/Niagara/CascadeToNiagaraConverterPlugin/ConvertAsset.jpg">
+		<img class="  lazyload" alt="ConvertAsset.png" width="700" data-src="../../../../Images/RenderingAndGraphics/Niagara/CascadeToNiagaraConverterPlugin/ConvertAsset.jpg" />
+</picture>
+
+</p><div class="caption">
+	<p>*在上面的示例中，我们使用了初学者内容包文件夹中的级联粒子系统 **P_Steam_Lit**。 </p>
+</div><p>在源Cascade系统所在目录下创建新的Niagara系统，后缀为 <code>&#95;Converted</code>。
+</p><p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/Niagara/CascadeToNiagaraConverterPlugin/ConvertSuffix.jpg">
+		<img class="  lazyload" alt="ConvertSuffix.png" width="700" data-src="../../../../Images/RenderingAndGraphics/Niagara/CascadeToNiagaraConverterPlugin/ConvertSuffix.jpg" />
+</picture>
+
+</p><p>新生成的Niagara系统会创建转换报告，你可以通过打开新的Niagara系统并查看 <strong>Niagara日志（Niagara Log）</strong> 窗口来查看该报告。 
+要检查转换后的Niagara系统，建议在编辑器中打开资产，并解决转换报告中可能包含的任何警告或错误。
+</p><p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/Niagara/CascadeToNiagaraConverterPlugin/NiagaraLog.jpg">
+		<img class="  lazyload" alt="NiagaraLog.png" width="800" data-src="../../../../Images/RenderingAndGraphics/Niagara/CascadeToNiagaraConverterPlugin/NiagaraLog.jpg" />
+</picture>
+
+</p><div class="caption">
+	<p><em>Niagara日志提供警告：它已跳过转换布尔值 <code>bApplyGlobalSpawnRateScale</code></em>。</p>
+</div><h2 id="错误和警告类型">错误和警告类型</h2>
+<p>在转换Cascade系统assimplegalleryagara系统资产后，你可能会看到 <strong>Niagara系统概述窗口</strong> 中显示一些错误和警告。 
+将鼠标光标悬停在任一符号上都会显示任何可能产生冲突的问题的简短描述。
+</p><ul ><li class="Default"><p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/Niagara/CascadeToNiagaraConverterPlugin/error.jpg">
+		<img class="  lazyload" alt="error.png" width="25" data-src="../../../../Images/RenderingAndGraphics/Niagara/CascadeToNiagaraConverterPlugin/error.jpg" />
+</picture>
+  – 指示 <strong>错误</strong> 的图标。
+</p></li><li class="Default"><p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/Niagara/CascadeToNiagaraConverterPlugin/warning.jpg">
+		<img class="  lazyload" alt="warning.png" width="25" data-src="../../../../Images/RenderingAndGraphics/Niagara/CascadeToNiagaraConverterPlugin/warning.jpg" />
+</picture>
+ – 表示 <strong>警告</strong> 的图标。
+</p></li></ul><p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/Niagara/CascadeToNiagaraConverterPlugin/ConvertedErrors.jpg">
+		<img class="  lazyload" alt="ConvertedErrors.png" width="600" data-src="../../../../Images/RenderingAndGraphics/Niagara/CascadeToNiagaraConverterPlugin/ConvertedErrors.jpg" />
+</picture>
+
+</p><div class="caption">
+	<p><em>上图展示了两个错误的简要说明，表示粒子更新（Particle Update）字段中的依赖性未得到满足</em>。</p>
+</div><p>选择任一属性都会在界面右侧打开选择（Selection） <strong>细节窗口</strong>，使你能够观察到有关问题的更详细说明。根据问题的类型，可能会提供 <strong>修复问题</strong> 提示，帮助你自动解决问题。
+</p><div class="imagetable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/Niagara/CascadeToNiagaraConverterPlugin/ErrorDetail.jpg">
+		<img class="  lazyload" alt="ErrorDetail.png" width="450" data-src="../../../../Images/RenderingAndGraphics/Niagara/CascadeToNiagaraConverterPlugin/ErrorDetail.jpg" />
+</picture>
+   </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/Niagara/CascadeToNiagaraConverterPlugin/WarningDetail.jpg">
+		<img class="  lazyload" alt="WarningDetail.png" width="400" data-src="../../../../Images/RenderingAndGraphics/Niagara/CascadeToNiagaraConverterPlugin/WarningDetail.jpg" />
+</picture>
+  </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>错误</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>警告</p>
+			</td>
+	
+</tr><tr class="errorhighlight" id="Error1" >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>选择（Selection）细节窗口显示了有关 <code>加速力</code> 和 <code>阻力</code> 模块的未满足依赖性错误的附加详细说明，以及有关如何纠正它们的建议。选择修复问题将导致插件调整模块堆栈组的顺序。选择（Selection）细节窗口显示警告"未指定错误"，指示变量 <code>bApplyGlobalRateScale</code> 已在转换过程中跳过。</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" >
+			
+			</td>
+	
+</tr></tbody>
+</table>
+</div><h2 id="cascade到niagara支持的转换操作">Cascade到Niagara支持的转换操作</h2>
+<p>Cascade到Niagara转换器支持转换级联粒子系统的通用表示形式，但是，有些模块和属性并不完全受支持。下表列出了尚未得到支持或部分支持的项目。
+</p><div class="fullwidth">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align="center"/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>功能 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>支持（是/否/部分） </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>其他注意事项 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><div class="tablesection">
+	<p>事件模块：</p>
+</div></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="center">
+			
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>事件生成器</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="center">
+			<p>否</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>EventReceiver杀死全部</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="center">
+			<p>否</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>EventReceiver生成</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="center">
+			<p>否</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><div class="tablesection">
+	<p>发射器到发射器模块</p>
+</div></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="center">
+			
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>粒子吸引器</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="center">
+			<p>否</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>源运动</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="center">
+			<p>否</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>发射器初始位置</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="center">
+			<p>否</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>发射器直接位置</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="center">
+			<p>否</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>种子模块</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="center">
+			<p>否</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>光束和AnimTrail渲染器</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="center">
+			<p>否</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>条带渲染器</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="center">
+			<p>部分</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>条带UV不能保证等同于转换后的Niagara系统。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>级联发射器LOD</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="center">
+			<p>部分</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>转换仅在LOD为0的所有模块上运行。</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div><p>如果转换了具有不受支持模块或渲染器的级联粒子系统， 
+则生成的Niagara系统会将跳过的模块和/或渲染器转换记录在其消息日志中。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/Niagara/CascadeToNiagaraConverterPlugin/LogConversion.jpg">
+		<img class="  lazyload" alt="LogConversion.png" width="700" data-src="../../../../Images/RenderingAndGraphics/Niagara/CascadeToNiagaraConverterPlugin/LogConversion.jpg" />
+</picture>
+
+</p><div class="caption">
+	<p><em>Niagara日志显示一条消息，指示在转换过程中跳过了哪些级联模块</em>。  </p>
+</div><h2 id="扩展cascade到niagara转换器插件的功能">扩展Cascade到Niagara转换器插件的功能</h2>
+<p>该插件支持通过修改位于转换插件的Python目录中的python脚本来扩展转换功能，该目录位于： 
+<code>Engine/Plugins/FX/CascadeToNiagaraConverter/Content/Python</code>。 
+</p><p>适用于已在Cascade中创建自己的自定义模块、渲染器和属性的用户。通过从相对接口扩展并将新脚本添加到 <code>CascadeToNiagaraConverter/Content/Python</code> 下的相关目录中，可以为每个脚本创建新的转换器脚本。 
+例如，假如想要转换一个自定义模块，你可以在 <code>ModuleConversionScripts</code> 目录下新建一个脚本，然后从 <code>ModuleConverterInterface</code> 类派生出一个类。有关更多详细信息或示例，请参阅相关接口脚本的源代码。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/Niagara/CascadeToNiagaraConverterPlugin/PythonPath.jpg">
+		<img class="  lazyload" alt="PythonPath.png" width="300" data-src="../../../../Images/RenderingAndGraphics/Niagara/CascadeToNiagaraConverterPlugin/PythonPath.jpg" />
+</picture>
+ 
+</p><div class="caption">
+	<p><em>扩展新转换器脚本的接口：<code>ModuleConverterInterface.py</code>、<code>RendererConverterInterface.py</code> 和 <code>EmitterPropertiesConverterInterface.py</code></em>。 </p>
+</div>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../SiteIndex/index.html?tags=Experimental">Experimental</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../SiteIndex/index.html?tags=Niagara">Niagara</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../SiteIndex/index.html?tags=Cascade">Cascade</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../SiteIndex/index.html?tags=Plugin">Plugin</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../SiteIndex/index.html?tags=Vfx">Vfx</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../SiteIndex/index.html?tags=Effects">Effects</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../SiteIndex/index.html?tags=Visual%20Effects">Visual Effects</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../SiteIndex/index.html?tags=Particle%20Effects">Particle Effects</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../SiteIndex/index.html?tags=Getting%20Started">Getting Started</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/RenderingAndGraphics/Niagara/CascadeToNiagaraConverterPlugin/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:00:24 GMT -->
+</html>

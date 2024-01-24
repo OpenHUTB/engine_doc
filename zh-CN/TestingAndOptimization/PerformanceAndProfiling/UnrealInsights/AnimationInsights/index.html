@@ -1,0 +1,641 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:40:26 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>Animation Insights概述 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Performance/UnrealInsights/AnimationInsights" />
+<meta name="intsourcechangelist" content="15018255" />
+<meta name="availability" content="Public" />
+<meta name="title" content="Animation Insights概述" />
+<meta name="description" content="Gameplay和动画性能分析工具——编辑器插件Animation Insights的概述。" />
+<meta name="type" content="overview" />
+<meta name="skilllevel" content="advanced" />
+<meta name="version" content="4.25" />
+<meta name="parent" content="TestingAndOptimization/PerformanceAndProfiling/UnrealInsights" />
+<meta name="related" content="TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/Overview" />
+<meta name="related" content="TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/Reference" />
+<meta name="order" content="3" />
+<meta name="reference-image" content="datafilterstatus.gif" />
+<meta name="reference-image" content="sourcefilterstatus.gif" />
+<meta name="reference-image" content="schematicviewscrubbingselection.gif" />
+<meta name="keywords" content="Performance" />
+<meta name="keywords" content="Profiling" />
+<meta name="keywords" content="Animation Insights" />
+<meta name="crumbs" content="%ROOT%,TestingAndOptimization,TestingAndOptimization/PerformanceAndProfiling,TestingAndOptimization/PerformanceAndProfiling/UnrealInsights" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="Animation Insights概述" />
+	<meta property="og:description" content="Gameplay和动画性能分析工具——编辑器插件Animation Insights的概述。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">测试并优化你的内容</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">性能及分析</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">Unreal Insights</a>
+
+<span class="separator">></span> <span id="page">Animation Insights概述</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">Animation Insights概述</h1>
+							</div>	
+							<h2 >Gameplay和动画性能分析工具——编辑器插件Animation Insights的概述。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Advanced"><a id="skill_link" href="../../../../SiteIndex/index.html?skills=Advanced">Advanced</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																		<div id="seeAlso">
+	<div style="position:relative;">
+		<div id="title">参见</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<p>
+						<a id="related_link" href="../Overview/index.html" title="简要介绍应用分析工具Unreal Insights">Unreal Insights介绍</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../Reference/index.html" title="涵盖输入快捷方式、宏和命令行选项的Unreal Insights参考。">Unreal Insights参考</a>
+					</p>
+				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																														<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#设置">设置</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#追踪数据过滤（tracedatafiltering）">追踪数据过滤（Trace Data Filtering）</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#追踪源过滤（tracesourcefiltering）">追踪源过滤（Trace Source Filtering）</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#用户界面">用户界面</a></p>
+	</li>					</ul>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#animationinsights">Animation Insights</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#功能按钮参考">功能按钮参考</a></p>
+	</li>					</ul>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>编辑器拥有 <strong>Animation Insights</strong> 插件，可显示gameplay状态和实时动画行为。用户可以使用Animation Insights记录追踪信息，使用以下功能显示动画行为：
+</p><ul ><li class="Default"><p>通道过滤，选择写至记录数据集的追踪数据
+</p></li><li class="Default"><p>源过滤，选择输出追踪数据的gameplay对象
+</p></li><li class="Default"><p>姿势、曲线、混合权重、动画图表、蒙太奇和动画通知轨迹
+</p></li><li class="Default"><p>包含实时更新的动画图表原理视图，用于替换 <code>showdebug animation</code> 系统。
+</p></li></ul><p><picture>
+		<source data-srcset="./../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/AnimationInsightsHero.jpg">
+		<img class="  lazyload" alt="AnimationInsightsHero.png" data-src="../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/AnimationInsightsHero.jpg" />
+</picture>
+
+</p><h2 id="设置">设置</h2>
+<p>启用以下插件才能在编辑器中使用Animation Insights： 
+</p><ul ><li class="Default"><p>Animation Insights 
+</p></li><li class="Default"><p>Insights Data Source Filters 
+</p></li><li class="Default"><p>Trace Data Filtering
+</p></li></ul><p>若编辑器中启用了此类插件，可在 <strong>编辑器（Editor）</strong> > <strong>插件（Plugins）</strong> > <strong>内置（Built-In）</strong> 中找到。否则在项目的 <code>&#42;.uproject</code> 文件中启用： 
+</p><pre class="prettyprint"><code>{
+    "FileVersion":3,
+    "EngineAssociation":"4.25",
+    "Category":"",
+    "Description":"",
+    "Plugins":&#91;
+        {
+            "Name":"TraceSourceFilters",
+            "Enabled": true
+        },
+        {
+            "Name":"GameplayInsights",
+            "Enabled": true
+        },
+        {
+            "Name":"TraceDataFilters",
+            "Enabled": true
+        }
+    &#93;
+} </code></pre>
+<p>启用必要插件后，重启编辑器。 
+</p><p><div class="note">
+	<p>若从源构建编辑器，启用必要插件后需为项目编译并运行编辑器。</p>
+</div>
+</p><p>编辑器重启时，导航至 <strong>窗口（Window）> 开发人员工具（Developer Tools）> 分析（Profiling）</strong>，打开 <strong>Animation Insights</strong> 和 <strong>追踪数据过滤（Trace Data Filtering）</strong>。
+</p><p>将过滤器设为追踪数据（Trace Data）或追踪源（Trace Source）过滤后，即可在Animation Insights中记录和显示实时追踪数据。追踪将自动写入以下项目目录：<code>&lt;YourProject&gt;/Saved/TraceSessions</code>。追踪会话会随时间推移而增大，因此必须积极监控和管理 <code>&#42;.utrace</code> 文件。
+</p><h3 id="追踪数据过滤（tracedatafiltering）">追踪数据过滤（Trace Data Filtering）</h3>
+<p>追踪数据过滤（Trace Data Filtering）次选项卡起初会在内容浏览器旁边打开。可在追踪数据过滤（Trace Data Filtering）中设置追踪通道状态，在引擎运行时启用 <strong>追踪数据依据（trace data by）</strong>。选择过滤器后，可选择 <strong>过滤器预设（Filter Presets）> 保存用户预设（Save User Preset）</strong>。目前编辑器提供默认动画预设，目前可使用帧通道、对象通道和动画通道。
+</p><p><a id="content_link"filter-data="tag_performance tag_profiling tag_unreal_insights" href="../Overview/index.html" ><span>Unreal Insights介绍</span></a></p><div class="asyncgif">
+	<p><picture>
+		<source data-srcset="./../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/datafilterstatus.jpg">
+		<img class="  lazyload" alt="数据过滤状态" width="333" data-src="../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/datafilterstatus.jpg" />
+</picture>
+</p>
+</div><p><div class="caption">
+	<p>通道过滤</p>
+</div>
+</p><p>启用通道后，数据将追踪至Animation Insights次选项卡中的时间轴。
+</p><p><div class="tip">
+	<p>选择性通道过滤可限制性能开销和磁盘空间。</p>
+</div>
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/AnimationInsightsHero.jpg">
+		<img class="  lazyload" alt="AnimationInsightsHero.png" data-src="../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/AnimationInsightsHero.jpg" />
+</picture>
+
+<div class="caption">
+	<p>在编辑器中运行（PIE）可查看场景中骨架网格体组件的动画数据追踪</p>
+</div>
+</p><h3 id="追踪源过滤（tracesourcefiltering）">追踪源过滤（Trace Source Filtering）</h3>
+<p>用户可使用追踪源过滤决定可输出追踪数据的gameplay对象。若开发大型游戏，给定场景中会有大量Actor和组件。使用追踪源（Trace Source）过滤可减少追踪数据记录量、限制开销并减少磁盘空间用量（举例而言：用户可能只对玩家范围内的PlayerPawn或某些Actor感兴趣）。 
+</p><p>打开追踪源过滤器（Trace Source Filter）选项卡的方法是：在Animation Insights中选择 <strong>菜单（Menu）>（过滤）追踪源过滤（(Filtering) Trace Source Filtering）</strong>。
+</p><h4 id="用户界面">用户界面</h4>
+<p><picture>
+		<source data-srcset="./../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/TraceSourceFilteringUI.jpg">
+		<img class="  lazyload" alt="TraceSourceFilteringUI.png" data-src="../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/TraceSourceFilteringUI.jpg" />
+</picture>
+
+</p><div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>序号 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>说明 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>1</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>添加过滤器（Add Filter）</strong> 下拉框可添加用户创建的过滤器并结合AND、OR和NOT逻辑运算符。<strong>选项（Options）</strong> 可显示每个Actor各自的过滤器状态、重置当前过滤器，并保存或加载过滤器预设。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>2</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>设置过滤器变量值的情境相关区域。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>3</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>选项（Options）</strong> 下拉框可按 <strong>场景类型（World Type）</strong>（编辑器、PIE或游戏）或 <strong>场景网络模式（World Net Mode）</strong>（客户端、服务器或Standalone）启用场景过滤。</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div><p>以下动画将显示正在运行的追踪源过滤：
+</p><div class="asyncgif">
+	<p><picture>
+		<source data-srcset="./../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/sourcefilterstatus.jpg">
+		<img class="  lazyload" alt="源过滤状态" width="621" data-src="../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/sourcefilterstatus.jpg" />
+</picture>
+</p>
+</div><p><a id="content_link"filter-data="tag_unreal_insights tag_animation_insights_ tag_trace_source_filtering tag_how-to tag_experimental" href="HowTo/TraceSourceFiltering/index.html" ><span>如何实现追踪源过滤</span></a></p><h2 id="animationinsights">Animation Insights</h2>
+<p>Animation Insights扩展了现有 <code>showdebug animation</code> 功能（其显示动画运行时内部数据）。信息的显示和分析让用户能够识别动画故障或bug原因。 
+</p><p><code>showdebug animation</code> 系统仅会在屏幕上输出文本，因此 <code>showdebug animation</code> 会随时间限制用户追踪动画问题的能力。Animation Insights可记录包含动画bug的帧范围，同时在查看数据分解时拖动（或播放）这些帧。 
+</p><div class="asyncgif">
+	<p><picture>
+		<source data-srcset="./../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/schematicviewscrubbingselection.jpg">
+		<img class="  lazyload" alt="拖动选项" width="991" data-src="../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/schematicviewscrubbingselection.jpg" />
+</picture>
+</p>
+</div><p><code>showdebug animation</code></p><h4 id="功能按钮参考">功能按钮参考</h4>
+<div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>输入快捷方式</p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>功能</p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>Ctrl + 鼠标左键在时间标尺上拖动</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>拖动时间标尺（轨迹视图上方）控制当前时间，从而进行在原理视图中拖动值、在视口中设置姿势动画等操作</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>G</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>切换图表可视性</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>V</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>自动隐藏当前视口中无时间事件的轨迹</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>I</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>切换I/O（文件输入）概览和活动轨迹可视性</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>L</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>切换资源加载轨迹可视性</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>Y</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>切换GPU轨迹可视性</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>U</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>切换CPU线程（和所有CPU线程组）轨迹可视性</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>R</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>切换帧轨迹可视性</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div><h3 id="用户界面_1">用户界面</h3>
+<div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>序号 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>说明 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>1</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>可显示Timing Insights轨迹（如计数器或帧）的Animation Insights菜单。另外，用户可从此菜单打开追踪源过滤面板（Trace Source Filtering Panel）。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>2</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>帧面板</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>3</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>包含轨迹分组和过滤选项的时间面板。阅读下文查看可用轨迹类型。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>4</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>便于用户查看特定属性、显示风格（如多边形或点）、序列数据、轨迹布局和轨迹大小的快捷菜单。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>5</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>可播放录制会话和步进帧的传输控制。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>6</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>显示各轨迹属性的原理视图。拖动标尺时它们会随时间变化。</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div><p><a id="content_link"filter-data="tag_performance tag_profiling tag_unreal_insights" href="../Overview/index.html" ><span>Unreal Insights介绍</span></a></p><h3 id="轨迹检查">轨迹检查</h3>
+<p>若要检查轨迹以便调试或分析性能，右键点击轨迹并浏览快捷菜单了解轨迹详情。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/GraphContextMenu.jpg">
+		<img class="  lazyload" alt="GraphContextMenu.png" data-src="../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/GraphContextMenu.jpg" />
+</picture>
+
+<div class="caption">
+	<p>右键点击图表 - AnimSingleNodeInstance_1，打开图表轨迹（Graph Track）快捷菜单。</p>
+</div>
+</p><p>动画师通常需识别动画问题点，使用Animation Insights显示 <strong>通知</strong>、<strong>曲线</strong>、<strong>姿势</strong>、<strong>图表</strong>、<strong>蒙太奇</strong> 和 <strong>混合权重</strong>，以便进行调试。
+</p><h4 id="轨迹类型">轨迹类型</h4>
+<p>每种轨迹均有各自的快捷菜单，即逐轨迹操作的主要入口点（例如可在姿势轨迹（Pose Track）菜单中启用或禁用姿势在视口中的渲染）。部分轨迹拥有通用快捷菜单选项。例如，显示图表的轨迹可执行缩放图表、切换系列、堆叠/覆盖视图等操作。 
+</p><h5 id="通知">通知</h5>
+<p>通知轨迹显示关于通知和同步标记的动画。轨迹最上层通道显示逐帧事件，如标记、通知事件（如音频和效果）和同步标记。其他通道显示活跃通知状态。右键点击轨迹并选择视图属性（View Properties）可显示当前帧的活跃通知。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/AnimNotifyTrack.jpg">
+		<img class="  lazyload" alt="AnimNotifyTrack.png" data-src="../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/AnimNotifyTrack.jpg" />
+</picture>
+
+</p><h5 id="曲线">曲线</h5>
+<p>曲线轨迹显示帧中所有活跃曲线。右键点击并选择视图属性（View Properties）可查看给定帧的活跃曲线值。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/CurveTrack.jpg">
+		<img class="  lazyload" alt="CurveTrack.png" data-src="../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/CurveTrack.jpg" />
+</picture>
+
+</p><h5 id="姿势">姿势</h5>
+<p>使用姿势轨迹可在拖动时间轴时显示或隐藏Actor。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/PoseTrack.jpg">
+		<img class="  lazyload" alt="PoseTrack.png" data-src="../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/PoseTrack.jpg" />
+</picture>
+
+</p><h5 id="图表">图表</h5>
+<p>右键点击并选择 <strong>调试此图表（Debug this graph）</strong> 可打开动画蓝图调试器并连接到轨迹。打开动画蓝图调试器后，拖动时间轴可查看正执行的图表，包括姿势链接权重、状态机状态、资源播放器位置和混合空间范例。选择 <strong>查看此图表（View this graph）</strong> 可查看动画图表的"树"原理视图。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/GraphTrack.jpg">
+		<img class="  lazyload" alt="GraphTrack.png" data-src="../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/GraphTrack.jpg" />
+</picture>
+
+</p><h5 id="蒙太奇">蒙太奇</h5>
+<p>可使用蒙太奇轨迹检查随时间变化的蒙太奇信息，包括混合权重和当前/下一分段。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/MontageTrack.jpg">
+		<img class="  lazyload" alt="MontageTrack.png" data-src="../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/MontageTrack.jpg" />
+</picture>
+
+</p><h5 id="混合权重">混合权重</h5>
+<p>混合权重轨迹显示帧中所有活跃资源及其有效混合权重。右键点击图表可转到动画蓝图中该图表对应的节点。同时可查看其他图表，如播放时间或混合空间坐标。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/BlendWeights2.jpg">
+		<img class="  lazyload" alt="BlendWeights2.png" data-src="../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/BlendWeights2.jpg" />
+</picture>
+
+</p><h4 id="轨迹可视性">轨迹可视性</h4>
+<p><strong>轨迹（Tracks）</strong> 下拉框过滤器可切换时间轨迹可视性。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/TracksFilter.jpg">
+		<img class="  lazyload" alt="TracksFilter.png" data-src="../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/TracksFilter.jpg" />
+</picture>
+</p>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Performance">Performance</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Profiling">Profiling</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Animation%20Insights">Animation Insights</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:40:31 GMT -->
+</html>

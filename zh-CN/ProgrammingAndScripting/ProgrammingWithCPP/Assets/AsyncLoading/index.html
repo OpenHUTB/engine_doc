@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/ProgrammingAndScripting/ProgrammingWithCPP/Assets/AsyncLoading/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:11:32 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/ProgrammingAndScripting/ProgrammingWithCPP/Assets/AsyncLoading/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>异步资源加载 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/ProgrammingAndScripting/ProgrammingWithCPP/Assets/AsyncLoading/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/ProgrammingAndScripting/ProgrammingWithCPP/Assets/AsyncLoading/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/ProgrammingAndScripting/ProgrammingWithCPP/Assets/AsyncLoading/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/ProgrammingAndScripting/ProgrammingWithCPP/Assets/AsyncLoading/" hreflang="ko" />
+
+	<meta name="redirect" content="Programming/Assets/AsyncLoading" />
+<meta name="intsourcechangelist" content="3606403" />
+<meta name="availability" content="Public" />
+<meta name="title" content="异步资源加载" />
+<meta name="description" content="运行时期间加载和卸载资源的方法。" />
+<meta name="version" content="4.9" />
+<meta name="crumbs" content="%ROOT%,ProgrammingAndScripting,ProgrammingAndScripting/ProgrammingWithCPP" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="异步资源加载" />
+	<meta property="og:description" content="运行时期间加载和卸载资源的方法。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">编程和脚本编写</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">编程指南</a>
+
+<span class="separator">></span> <span id="page">异步资源加载</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">异步资源加载</h1>
+							</div>	
+							<h2 >运行时期间加载和卸载资源的方法。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																																			</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																																				<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#fsoftobjectpaths和tsoftobjectptr">FSoftObjectPaths和TSoftObjectPtr</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#资源注册表和对象库">资源注册表和对象库</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#streamablemanager和异步加载">StreamableManager和异步加载</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>UE4中有一些新系统有助于异步加载资源数据，它们取代了UE3中面向免寻道内容包而存在的大量功能。这些新方法在开发中以及对设备上的烘焙数据的作用相同，因此无需维护两条按需加载数据的代码路径。按需引用和加载数据通常有两种方法：
+</p><h2 id="fsoftobjectpaths和tsoftobjectptr">FSoftObjectPaths和TSoftObjectPtr</h2>
+<p>让美术或设计师引用资源的最简单方法是创建硬指针的UProperty并为它指定一个类别。在UE4中，如果有一个硬UObject指针属性引用了一个资源，则加载包含这个属性的对象（放在贴图中，或者从gameinfo等引用）时，就会加载这个资源。如果处理不当，就会在游戏开始时加载全部资源。如果您希望美术/设计师能够使用同一个UI作为硬指针来引用特定资源，而不必总是加载被引用资源，可以使用`FSoftObjectPath`或`TSoftObjectPtr`。
+</p><p><code>FSoftObjectPath`是一个简单的结构体，其中有一个字符串包含资源的完整名称。如果您在类中添加这个类型的属性，它就会像`UObject &#42;</code>属性一样显示在编辑器中。它还会正确处理烘焙和重定向，因此如果您使用SoftObjectPath，就一定能在设备上正确工作。<code>TSoftObjectPtr`基本上是包含了`FSoftObjectPath`的`TWeakObjectPtr</code>，将用于设置特定类的模板，这样就可以限制编辑器UI仅允许选择特定类。如果被引用资源存在于内存中，则`TSoftObjectPtr.Get()<code>将返回这个资源。如果不存在，可以调用`ToSoftObjectPath()</code>来找出它引用的资源，使用下述方法加载这个资源，然后再次调用`TSoftObjectPtr.Get()`来取消引用。 
+</p><p>如果美术或设计师要手动设置引用，则`TSoftObjectPtrs`和Soft Object Paths十分有用，但如果想要通过查询等功能来查找符合特定要求的资源，而不加载所有资源，则可以使用资源注册表和对象库。
+</p><h2 id="资源注册表和对象库">资源注册表和对象库</h2>
+<p>资源注册表是用于存储资源元数据的系统，允许搜索和查询这些资源。编辑器利用资源注册表在 <strong>内容浏览器</strong> 中显示信息，但您也可以从游戏代码中使用资源注册表，以查询当前没有加载的游戏资源的元数据。要让资源数据可供搜索，需要向属性添加"AssetRegistrySearchable"标记。对资源注册表的查询返回FAssetData类型的对象，其中包含关于对象的信息以及"键->值"对映射，后者包含标记为可搜索的属性。
+</p><p>处理已卸载资源组的最简单方法是使用`ObjectLibrary<code>。</code>ObjectLibrary`是一个对象，它包含已加载对象列表或已卸载对象的FAssetData，这些对象都是从共享基类继承而来。通过为对象库指定搜索路径来加载对象库，它会将所有资源添加到该路径。这样十分有用，因为您可以针对不同类型指定内容文件夹的各个部分，美术/设计师不必人工编辑主列表即可添加新资源。下面是如何使用对象库从磁盘加载AssetData的示例：
+</p><pre class="prettyprint"><code>if (!ObjectLibrary)
+{
+       ObjectLibrary = UObjectLibrary::CreateLibrary(BaseClass, false, GIsEditor);
+       ObjectLibrary-&gt;AddToRoot();
+}
+ObjectLibrary-&gt;LoadAssetDataFromPath(TEXT("/Game/PathWithAllObjectsOfSameType");
+if (bFullyLoad)
+{
+       ObjectLibrary-&gt;LoadAssetsFromAssetData();
+}</code></pre>
+<p>在这个示例中，创建了一个新对象库，关联基类，然后在指定路径中加载所有资源数据。之后可以选择性加载实际资源。如果资源很小，或者您在进行烘焙并需要确保资源均得到烘焙，才需要完全加载资源。只要在烘焙期间执行资源注册表查询，并加载返回的资源，那么对象库对设备上的烘焙数据和开发期间的作用就是相同的。`ObjectLibrary`中包含了资源数据后，就可以执行查询并选择性加载特定资源。以下是如何执行查询的示例：
+</p><pre class="prettyprint"><code>TArray&lt;FAssetData&gt; AssetDatas;
+ObjectLibrary-&gt;GetAssetDataList(AssetDatas);
+
+for (int32 i = 0; i &lt; AssetDatas.Num(); ++i)
+{
+       FAssetData&amp; AssetData = AssetDatas&#91;i&#93;;
+
+       const FString&#42; FoundTypeNameString = AssetData.TagsAndValues.Find(GET&#95;MEMBER&#95;NAME&#95;CHECKED(UAssetObject,TypeName));
+
+       if (FoundTypeNameString &amp;&amp; FoundTypeNameString-&gt;Contains(TEXT("FooType")))
+       {
+              return AssetData;
+       }
+}</code></pre>
+<p>该示例在对象库中搜索是否有哪个对象的`TypeName`字段包含"FooType"，然后返回所找到的第一个结果。得到`AssetData`后，调用`ToStringReference()<code>将它转换为`FSoftObjectPath</code>，然后使用下一个系统异步加载转换后的对象：
+</p><h2 id="streamablemanager和异步加载">StreamableManager和异步加载</h2>
+<p>现在您已经了解了用于引用磁盘资源的`FSoftObjectPath<code>，那么如何对它进行异步加载呢？</code>FStreamableManager`就是最简单的方法。首先，需要创建`FStreamableManager<code>，我建议将它放在某类全局游戏单件对象中，如使用`GameSingletonClassName`在`DefaultEngine.ini`中指定的对象。然后，可以将`FSoftObjectPath`传递给它并开始加载。</code>SynchronousLoad`将进行一次简单的块加载并返回对象。该方法或许适用于较小对象，但可能会导致主线程长时间停滞。在这种情况下，您将需要使用`RequestAsyncLoad`，它将异步加载一组资源并在完成后调用委托。请参见以下示例：
+</p><pre class="prettyprint"><code>void UGameCheatManager::GrantItems()
+{
+       TArray&lt;FSoftObjectPath&gt; ItemsToStream;
+       FStreamableManager&amp; Streamable = UGameGlobals::Get().StreamableManager;
+       for(int32 i = 0; i &lt; ItemList.Num(); ++i)
+       {
+              ItemsToStream.AddUnique(ItemList&#91;i&#93;.ToStringReference());
+       }
+       Streamable.RequestAsyncLoad(ItemsToStream, FStreamableDelegate::CreateUObject(this, &amp;UGameCheatManager::GrantItemsDeferred));
+}
+
+void UGameCheatManager::GrantItemsDeferred()
+{
+       for(int32 i = 0; i &lt; ItemList.Num(); ++i)
+       {
+              UGameItemData&#42; ItemData = ItemList&#91;i&#93;.Get();
+              if(ItemData)
+              {
+                     MyPC-&gt;GrantItem(ItemData);
+              }
+       }
+}</code></pre>
+<p>在这个示例中，ItemList是设计师在编辑器中修改过的`TArray&lt; TSoftObjectPtr<UGameItem> ><code>。代码迭代了这个列表，将其转换为`StringReferences</code>，并令其排队等候加载。所有这些项目加载完成（或由于缺少而加载失败）后，它调用传入的委托。然后，这个委托迭代同一个项目列表，取消引用，并将它们指定给一个玩家。`StreamableManager`在调用委托之前保持对其加载的任何资源的硬引用，因此在调用委托之前，您就不必担心想要异步加载的对象会被垃圾回收。它在调用委托后释放这些引用，因此如果您仍希望保留引用，就需要在其他位置执行硬引用。
+</p><p>您可以使用相同方法来异步加载`FAssetData<code>，对它们调用`ToStringReference</code>，然后添加到数组，再通过委托调用`RequestAsyncLoad`。委托可以是任何对象，因此如果需要，可以传递有效负载信息。结合使用上述方法，您应能够建立一个系统来有效地加载游戏资源。对于直接存取内存的游戏代码，将它转换为处理异步加载需要花费一些时间，但完成后，游戏卡顿情况将明显改善，内存占用也会大幅降低。
+</p>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/ProgrammingAndScripting/ProgrammingWithCPP/Assets/AsyncLoading/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:11:32 GMT -->
+</html>

@@ -1,0 +1,520 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/ProductionPipelines/DevelopmentSetup/Tools/LowLevelMemoryTracker/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:10:01 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/ProductionPipelines/DevelopmentSetup/Tools/LowLevelMemoryTracker/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>低级内存跟踪器 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/ProductionPipelines/DevelopmentSetup/Tools/LowLevelMemoryTracker/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/ProductionPipelines/DevelopmentSetup/Tools/LowLevelMemoryTracker/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/ProductionPipelines/DevelopmentSetup/Tools/LowLevelMemoryTracker/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/ProductionPipelines/DevelopmentSetup/Tools/LowLevelMemoryTracker/" hreflang="ko" />
+
+	<meta name="redirect" content="Programming/Development/Tools/LowLevelMemoryTracker" />
+<meta name="intsourcechangelist" content="7221777" />
+<meta name="availability" content="Public" />
+<meta name="title" content="低级内存跟踪器" />
+<meta name="description" content="概述了如何在您的虚幻引擎项目中使用低级内存跟踪器。" />
+<meta name="type" content="Overview" />
+<meta name="skilllevel" content="Advanced" />
+<meta name="version" content="4.18" />
+<meta name="parent" content="ProductionPipelines/DevelopmentSetup/Tools" />
+<meta name="keywords" content="Mobile" />
+<meta name="keywords" content="Optimization" />
+<meta name="crumbs" content="%ROOT%,ProductionPipelines,ProductionPipelines/DevelopmentSetup,ProductionPipelines/DevelopmentSetup/Tools" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="低级内存跟踪器" />
+	<meta property="og:description" content="概述了如何在您的虚幻引擎项目中使用低级内存跟踪器。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">建立你的开发流程</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">开发的相关设置</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">编程工具</a>
+
+<span class="separator">></span> <span id="page">低级内存跟踪器</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">低级内存跟踪器</h1>
+							</div>	
+							<h2 >概述了如何在您的虚幻引擎项目中使用低级内存跟踪器。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Advanced"><a id="skill_link" href="../../../../SiteIndex/index.html?skills=Advanced">Advanced</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																																				<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#llm跟踪器">LLM跟踪器</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#llm设置">LLM设置</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#llm标记">LLM标记</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#标记集（实验性）">标记集（实验性）</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#技术实现细节">技术实现细节</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#其他技术细节">其他技术细节</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<div class="banner">
+	<p><picture>
+		<source data-srcset="./../../../../../Images/ProductionPipelines/DevelopmentSetup/Tools/LowLevelMemoryTracker/LLM_00.jpg">
+		<img class="  lazyload" alt="LLM_00.png" data-src="../../../../../Images/ProductionPipelines/DevelopmentSetup/Tools/LowLevelMemoryTracker/LLM_00.jpg" />
+</picture>
+</p>
+</div><div class="caption">
+	<p>LLM支持PlayStation 4和XboxOne。Windows作为实验性功能受到支持。</p>
+</div><p><strong>低级内存跟踪器（Low-Level Memory Tracker）</strong>（简称 <strong>LLM</strong>）是一种跟踪虚幻引擎项目中内存使用情况的工具。LLM使用范围标记系统来记录虚幻引擎和操作系统分配的所有内存。
+</p><h2 id="llm跟踪器">LLM跟踪器</h2>
+<p>LLM目前有两个跟踪器。每个跟踪器都有自己的分配映射和标记堆栈。默认跟踪器适用于引擎的所有分配。在这两个跟踪器中，它的级别较高并记录通过 <code>FMemory</code> 类函数 <code>Malloc</code> 进行的分配。该跟踪器可为 <code>stat LLM</code> 和 <code>stat LLMFULL</code> 控制台命令提供统计信息。平台跟踪器是较低级别的版本，它记录从OS进行的所有分配。例如，它会跟踪 <code>Binned2</code> 等函数进行的内部分配。因此，默认跟踪器统计信息是平台跟踪器统计信息的子集。
+</p><h2 id="llm设置">LLM设置</h2>
+<p>要在项目中启用LLM，请使用以下命令行参数和控制台命令。
+</p><div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>命令行参数 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>说明 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><code>-LLM</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>启用LLM</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><code>-LLMCSV</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>连续将所有值写入CSV文件。自动启用-LLM。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><code>-llmtagsets=Assets</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>实验性功能。显示每个资源分配的内存总计。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><code>-llmtagsets=AssetClasses</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>实验性功能。显示每个UObject类类型的总计。</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div><div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>控制台命令</p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>说明</p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><code>stat LLM</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>显示LLM摘要。所有较低级别的引擎统计信息都归入单个引擎统计信息。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><code>stat LLMFULL</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>显示所有LLM统计信息。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><code>stat LLMPlatform</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>显示从OS分配的所有内存的统计信息。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><code>stat LLMOverhead</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>显示LLM内部使用的内存。</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div><p>使用 <code>-LLMCSV</code> 命令行参数时，<code>.CSV</code> 文件将写入 <code>saved/profiling/llm/</code>。该文件将包含每个标记的列，以MB为单位显示当前值。每隔5秒写一个新行（默认情况下）。此频率可以使用 <code>LLM.LLMWriteInterval</code> 控制台变量更改。
+</p><h2 id="llm标记">LLM标记</h2>
+<p>引擎（包括游戏代码）的每次内存分配都会被指定一个标记值，用于标识其所属的类别。也就是说，所有内存仅被跟踪一次，没有任何内存错过或被计算两次。所有类别的总计会累计到游戏所用的总内存。
+</p><p>这些标记使用标记范围宏进行应用。在该范围内应用的任何分配都会被分配指定标记。LLM维护有一个标记范围堆栈，并将顶部标记应用于分配。LLM统计信息可以在游戏中使用 <code>stat LLM</code> 或 <code>stat LLMFULL</code> 控制台命令进行查看。每个标记的当前总计将以MB为单位显示。LLM还会将统计信息值写入 <code>.CSV</code> 文件，以便分析这些值。引擎中当前存在以下标记类别：
+</p><div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>标记名称</p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>说明</p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>UObject</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>该标记包括从 <code>UObject</code> 继承的任何类以及由该类序列化的任何内容，包括属性。<strong>UObject</strong> 囊括了所有未在任何其他类别中跟踪的引擎和游戏内存。请注意，此统计信息不包括单独跟踪的网格体或动画数据。它对应于放置在关卡中的对象数。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>EngineMisc</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>任何其他类别中未跟踪的所有低级内存。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>TaskGraphTasksMisc</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>从任务图中启动的任何没有自己类别的任务。该任务通常级别应较低。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>StaticMesh</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>该标记是 <code>UStaticMesh</code> 类和相关属性，并不包括实际的网格体数据。</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div><p>要添加新的标记，需要执行以下步骤：
+</p><ol ><li class="Default"><p>将值添加到 <code>LowLevelMemTracker.h</code> 中的 <code>ELLMTag</code> 列举类型。
+</p></li><li class="Default"><p>将相应的元素添加到 <code>LowLevelMemTracker.cpp</code> 中的 <code>ELLMTagNames</code> 数组中。
+</p></li><li class="Default"><p>使用 <code>LLM&#95;SCOPE</code> 宏将标记范围添加到代码中。
+</p></li></ol><p>如果范围是特定于平台的，则以相同的方式添加到特定于平台的LLM文件中的列举类型，例如，PlayStation 4的 <code>PS4LLM.cpp</code> 和 <code>PS4LLM.h</code>。
+</p><h2 id="标记集（实验性）">标记集（实验性）</h2>
+<p>要使用标记集，请在 <code>LowLevelMemory.h</code> 中定义 <code>LLM&#95;ALLOW&#95;ASSETS&#95;TAGS</code>。使用标记集时，每个分配还将存储资源名称或Object类名称。
+<div class="note">
+	<p>使用标记集将增加内存占用和运行时性能耗用。</p>
+</div>
+</p><h2 id="技术实现细节">技术实现细节</h2>
+<p>LLM的作用原理是维护由指针索引的所有分配的映射。该映射当前包含每个分配的大小及其指定的标记。游戏一次可有多达400万个实时分配，因此内存开销必须尽可能少。当前实现中每个分配使用21个字节：
+</p><div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>分配</p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>大小</p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>指针</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>8个字节</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>指针散列键</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>4个字节</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>大小</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>4个字节</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>标记</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>1个字节</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>散列图索引</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>4个字节</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div><p>使用 <code>OnLowLevelAlloc</code> 函数跟踪分配时，标记堆栈顶部的标记将成为当前标记，并存储在分配映射中，以该指针作为其关键帧。为了避免争用，在单独的 <code>FLLMThreadState</code> 类实例中跟踪每个标记的帧增量。在帧结束时，这些增量将相加并发布到统计信息系统和 <code>.CSV</code> 文件。
+</p><p>LLM早已被初始化，也就是说它必须默认启用。如果未在命令行上启用LLM，它将自行关闭并清理所有内存，以确保没有占用内存。LLM完全在"测试"和"发行"构建中编译。
+</p><p>LLM可在没有统计信息系统的情况下运行（例如在"测试"配置中）。如果这样，屏幕上将无法显示统计信息，但统计信息仍将写入 <code>.CSV</code> 文件。LLM将需要通过修改 <code>LowLevelMemTracker.h</code> 中的 <code>ENABLE&#95;LOW&#95;LEVEL&#95;MEM&#95;TRACKER</code> 来启用。
+</p><p>标记使用范围宏进行应用。以下是两个主要的宏：
+</p><ul ><li class="Default"><p><code>LLM&#95;SCOPE(Tag)</code>
+</p></li><li class="Default"><p><code>LLM&#95;PLATFORM&#95;SCOPE(Tag)</code>
+</p></li></ul><p>这两个宏分别设置了默认跟踪器和平台跟踪器的当前范围。这些范围有平台相关版本，例如 <code>LLM&#95;SCOPE&#95;PS4(Tag)</code>，它使用特定于平台的标记列举类型。使用统计信息的范围宏（例如 <code>LLM&#95;SCOPED&#95;TAG&#95;WITH&#95;STAT</code>）目前被视为已弃用，不应被使用。
+</p><p>LLM内部使用的所有内存均由平台提供的 <code>LLMAlloc</code> 和 <code>LLMFree</code> 函数管理。LLM不以任何其他方式进行分配，因此它不会跟踪自己的内存使用情况（并导致无穷递归），这一点非常重要。
+</p><h2 id="其他技术细节">其他技术细节</h2>
+<p>以下部分介绍了使用LLM时应注意的各种注释和其他信息。
+</p><ul ><li class="Default"><p>因为LLM占用的内存可能高达100MB甚至更多，所以强烈建议在控制台上以大内存模式运行：
+</p><ul ><li class="Default"><p>如果使用PlayStation 4，请转至控制台的"目标设置（Target Settings）"，然后将"内存预算模式（Memory Budget Mode）"更改为"LARGE"。
+</p></li><li class="Default"><p>如果使用XBox One，请转至XBox One Manager的"设置（Settings）"选项卡，将"调试内存模式（Debug Memory Mode）"设置为"Pix and Title"。
+</p></li></ul></li><li class="Default"><p>测试配置中的LLM不会显示屏幕统计信息页面，但会写出 <code>.CSV</code> 文件。在发售时LLM完全禁用。
+</p></li><li class="Default"><p>在PlayStation 4上，LLM需要预留供内部使用的内存（目前为600MB）。如果PlayStation 4移动到新的内存系统（<code>PS4Memory2.cpp</code>），将无需再满足这一要求。
+</p></li><li class="Default"><p>资源标记跟踪仍处于早期实验状态。
+</p></li></ul>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Mobile">Mobile</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Optimization">Optimization</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/ProductionPipelines/DevelopmentSetup/Tools/LowLevelMemoryTracker/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:10:03 GMT -->
+</html>

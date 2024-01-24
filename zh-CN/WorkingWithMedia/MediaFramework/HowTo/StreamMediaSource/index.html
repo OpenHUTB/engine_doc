@@ -1,0 +1,445 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/WorkingWithMedia/MediaFramework/HowTo/StreamMediaSource/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:37:16 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var finishButton = finishButtonTemplate;
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/WorkingWithMedia/MediaFramework/HowTo/StreamMediaSource/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>播放视频流 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+		    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+		    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/WorkingWithMedia/MediaFramework/HowTo/StreamMediaSource/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/WorkingWithMedia/MediaFramework/HowTo/StreamMediaSource/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/WorkingWithMedia/MediaFramework/HowTo/StreamMediaSource/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/WorkingWithMedia/MediaFramework/HowTo/StreamMediaSource/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/MediaFramework/HowTo/StreamMediaSource" />
+<meta name="intsourcechangelist" content="15476102" />
+<meta name="availability" content="Public" />
+<meta name="title" content="播放视频流" />
+<meta name="description" content="展示如何流送互联网上的视频并在UI元素中播放。" />
+<meta name="type" content="how-to" />
+<meta name="skilllevel" content="Beginner" />
+<meta name="version" content="4.25" />
+<meta name="parent" content="WorkingWithMedia/MediaFramework/HowTo" />
+<meta name="order" content="3" />
+<meta name="keywords" content="Media Framework" />
+<meta name="keywords" content="Video Playback" />
+<meta name="related" content="WorkingWithMedia/MediaFramework" />
+<meta name="related" content="InteractiveExperiences/UMG" />
+<meta name="crumbs" content="%ROOT%,WorkingWithMedia,WorkingWithMedia/MediaFramework,WorkingWithMedia/MediaFramework/HowTo" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="播放视频流" />
+	<meta property="og:description" content="展示如何流送互联网上的视频并在UI元素中播放。 " />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">使用媒体</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">媒体框架</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">媒体框架指南</a>
+
+<span class="separator">></span> <span id="page">播放视频流</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">播放视频流</h1>
+							</div>	
+							<h2 >展示如何流送互联网上的视频并在UI元素中播放。 </h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Beginner"><a id="skill_link" href="../../../../SiteIndex/index.html?skills=Beginner">Beginner</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																														<div id="seeAlso">
+	<div style="position:relative;">
+		<div id="title">参见</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<p>
+						<a id="related_link" href="../../index.html" title="在虚幻引擎4中使用媒体播放功能。">媒体框架</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../../../InteractiveExperiences/UMG/index.html" title="本文是使用虚幻示意图形来创建UI元素的指南。">UMG UI设计器</a>
+					</p>
+				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																														<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#推荐步骤">推荐步骤</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#1.创建流送媒体源和纹理">1. 创建流送媒体源和纹理</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#2.将媒体源与材质关联">2. 将媒体源与材质关联</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#3.将媒体源添加给用户界面控件">3. 将媒体源添加给用户界面控件</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#4.播放媒体源">4. 播放媒体源</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#最终结果">最终结果</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p><strong>流媒体源（Stream Media Source）</strong> 是一种资源，允许你在虚幻引擎4（UE4）中流送<a id="content_link"filter-data="tag_media_framework tag_specifications" href="../../TechReference/index.html" ><span>支持的 URL</span></a>格式视频。 
+定义流后，你可以将其加载并使用 <strong>媒体播放器</strong> 资源在UE4中播放，并可（通过关联的 <strong>媒体纹理</strong>）将其分配给关卡的各个方面。 
+</p><p>流可以作为UI元素的一部分加载和播放，并且可以全屏播放，甚至在静态网格体（例如电视）中播放，在关卡中播放。 
+</p><p>在本操作指南中，我们将使用<a id="content_link"filter-data="tag_umg_ui_designer" href="../../../../InteractiveExperiences/UMG/index.html" ><span>虚幻示意图形</span></a>（UMG）创建一个全屏播放流式视频的UI元素。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/StreamMediaSource/StreamSourceHero.jpg">
+		<img class="  lazyload" alt="StreamSourceHero.png" data-src="../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/StreamMediaSource/StreamSourceHero.jpg" />
+</picture>
+
+</p><h2 id="推荐步骤">推荐步骤</h2>
+<p>在本操作指南中，我们使用启用了 <strong>初学者内容包</strong> 的 <strong>蓝图第三人称模板（Blueprint Third Person Template）</strong> 项目。
+</p><h2 id="1.创建流送媒体源和纹理">1. 创建流送媒体源和纹理</h2>
+<ol ><li class="Default"><p>在 <strong>内容浏览器</strong> 中展开 <strong>源面板（Sources Panel）</strong>，然后在 <strong>内容（Content）</strong> 文件夹下创建名为 <strong>媒体（Media）</strong> 的新文件夹。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/StreamMediaSource/StreamMedia_01.jpg">
+		<img class="  lazyload" alt="StreamMedia_01.png" data-src="../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/StreamMediaSource/StreamMedia_01.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在空的"媒体"文件夹中右键单击，然后在 <strong>媒体（Media）</strong> 下选择 <strong>流媒体源（Stream Media Source）</strong> 并将资源命名为 <strong>MediaStream</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/StreamMediaSource/StreamMedia_02.jpg">
+		<img class="  lazyload" alt="StreamMedia_02.png" data-src="../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/StreamMediaSource/StreamMedia_02.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>打开 <strong>MediaStream</strong>，然后输入想用的 <strong>流URL（Stream URL）</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/StreamMediaSource/StreamMedia_03.jpg">
+		<img class="  lazyload" alt="StreamMedia_03.png" data-src="../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/StreamMediaSource/StreamMedia_03.jpg" />
+</picture>
+ 
+</p><p>如果你没有要链接的URL文件，右键单击此<span class="non-localized"><a id="content_link" href="https://docs.unrealengine.com/4.26/Attachments/WorkingWithMedia/MediaFramework/HowTo/StreamMediaSource/Infiltrator Demo.mp4" ><span>样本视频</span></a></span>，复制链接地址，然后将其粘贴到"流URL"字段中。
+</p><div class="note">
+	<p>流URL必须直接链接到支持的格式才能播放视频。
+例如，PS4Media（PS4）在最新版引擎中仅支持基于HLS的MP4，而WmfMedia（Windows）可支持许多不同的流源。 
+有关平台/播放器插件所支持格式的更多信息，请参阅<a id="content_link"filter-data="tag_media_framework tag_specifications" href="../../TechReference/index.html" ><span>媒体框架技术参考</span></a>页面。 </p>
+</div></li><li class="Default"><p>在"媒体（Media）"文件夹中右键单击，然后选择 <strong>媒体（Media）</strong> 下的 <strong>媒体播放器（Media Player）</strong> 资源。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/StreamMediaSource/StreamMedia_04.jpg">
+		<img class="  lazyload" alt="StreamMedia_04.png" data-src="../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/StreamMediaSource/StreamMedia_04.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>创建媒体播放器（Create Media Player）</strong> 窗口中，启用 <strong>视频输出媒体纹理资源（Video output Media Texture asset）</strong>，然后单击 <strong>确定（Ok）</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/StreamMediaSource/StreamMedia_05.jpg">
+		<img class="  lazyload" alt="StreamMedia_05.png" data-src="../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/StreamMediaSource/StreamMedia_05.jpg" />
+</picture>
+
+</p><p>这将自动创建并关联链接到此 <strong>媒体播放器</strong> 资源的媒体纹理资源以进行播放。
+</p></li><li class="Default"><p>将新的媒体播放器资源命名为 <strong>MyPlayer</strong>，它将自动应用于创建的 <strong>媒体纹理</strong> 资源。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/StreamMediaSource/StreamMedia_06.jpg">
+		<img class="  lazyload" alt="StreamMedia_06.png" data-src="../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/StreamMediaSource/StreamMedia_06.jpg" />
+</picture>
+ 
+</p><div class="note">
+	<p>假如你在使用 <strong>Electra媒体播放器</strong>，请在编辑器中打开你新建的媒体纹理资产。在细节面板中：
+</p><ul ><li class="Default"><p>启用 <strong>启用新样式输出（Enable new style output）</strong>。
+</p></li><li class="Default"><p>将 <strong>输出格式（新样式）（Output format (new style)）</strong> 设置成 <strong>默认（sRGB）（Default (sRGB)）</strong>.
+</p></li></ul><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/StreamMediaSource/media_texture_details.jpg">
+		<img class="  lazyload" alt="media_texture_details.png" data-src="../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/StreamMediaSource/media_texture_details.jpg" />
+</picture>
+</p>
+</div></li></ol><h2 id="2.将媒体源与材质关联">2. 将媒体源与材质关联</h2>
+<ol ><li class="Default"><p>在媒体文件夹中，新建一个 <strong>材质（Material）</strong>，然后命名为 <strong>MyPlayer_Material</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/StreamMediaSource/StreamMedia_NewMaterial.jpg">
+		<img class="  lazyload" alt="用于流送媒体源的新材质" data-src="../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/StreamMediaSource/StreamMedia_NewMaterial.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>打开 <strong>MyPlayer_Material</strong> 并将其 <strong>材质域（Material Domain）</strong> 改为 <strong>用户界面（User Interface）</strong>。这会更改结果节点，使其能够使用用户界面输出。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/StreamMediaSource/StreamMedia_MaterialDomain.jpg">
+		<img class="  lazyload" alt="将材质域设置为用户界面" data-src="../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/StreamMediaSource/StreamMedia_MaterialDomain.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>点击并将内容浏览器中的 <strong>MyPlayer_Video</strong> 拖进 <strong>MyPlayer_Material</strong> 的图表。这样会创建一个 <strong>纹理取样（Texture Sample）</strong> 节点，并将MyPlayer_Video设置为源。
+</p></li><li class="Default"><p>将 <strong>RGB</strong> 引脚连到材质的 <strong>最终颜色（Final Color）</strong> 输入。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/StreamMediaSource/StreamMedia_MaterialResult.jpg">
+		<img class="  lazyload" alt="使用流送媒体源的最终材质" data-src="../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/StreamMediaSource/StreamMedia_MaterialResult.jpg" />
+</picture>
+
+</p><div class="note">
+	<p>如果你在使用Electra媒体播放器使用纹理取样或纹理对象，你需要将 <strong>取样器类型（Sampler Type）</strong> 设置为 <strong>颜色（Color）</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/StreamMediaSource/electra_sampler_type_color.jpg">
+		<img class="  lazyload" alt="electra_sampler_type_color.png" data-src="../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/StreamMediaSource/electra_sampler_type_color.jpg" />
+</picture>
+</p>
+</div></li></ol><h2 id="3.将媒体源添加给用户界面控件">3. 将媒体源添加给用户界面控件</h2>
+<ol ><li class="Default"><p>在"媒体"文件夹中右键单击，然后在 <strong>用户界面（User Interface）</strong> 下选择 <strong>小部件蓝图（Widget Blueprint）</strong> 并将其命名为 <strong>HUD</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/StreamMediaSource/StreamMedia_07.jpg">
+		<img class="  lazyload" alt="StreamMedia_07.png" data-src="../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/StreamMediaSource/StreamMedia_07.jpg" />
+</picture>
+ 
+</p><p><strong>小部件蓝图</strong> 是与<a id="content_link"filter-data="tag_umg_ui_designer" href="../../../../InteractiveExperiences/UMG/index.html" ><span>UMG UI设计器</span></a>一起使用的资源，用于在虚幻引擎4中创建将应用流式视频的UI元素。<br /></p></li><li class="Default"><p>在 <strong>HUD</strong> 小部件蓝图中，从 <strong>选用板（Palette）</strong> 窗口将 <strong>图像</strong> 拖到图中，并将其拉伸以适合网格的宽高比。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/StreamMediaSource/StreamMedia_08.jpg">
+		<img class="  lazyload" alt="StreamMedia_08.png" data-src="../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/StreamMediaSource/StreamMedia_08.jpg" />
+</picture>
+ 
+</p><p>将媒体纹理应用于此图像。在玩游戏时，图像将在玩家的视口上最大化（创建全屏播放视频）。 
+</p></li><li class="Default"><p>在 <strong>图像</strong> 的 <strong>细节（Details）</strong> 面板中，展开 <strong>外观（Appearance）</strong> 下的 <strong>笔刷（Brush）</strong>，并将 <strong>图像</strong> 设置为 <strong>MyPlayer_Material</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/StreamMediaSource/StreamMedia_09.jpg">
+		<img class="  lazyload" alt="StreamMedia_09.png" data-src="../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/StreamMediaSource/StreamMedia_09.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>图像</strong> 的 <strong>细节（Details）</strong> 面板中，单击 <strong>插槽（Slot）</strong> 下的 <strong>锚点（Anchors）</strong> 下拉列表，然后选择"固定在中心（anchor middle）"选项。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/StreamMediaSource/StreamMedia_08b.jpg">
+		<img class="  lazyload" alt="StreamMedia_08b.png" data-src="../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/StreamMediaSource/StreamMedia_08b.jpg" />
+</picture>
+
+</p><p>这将保证无论视口大小如何，图像都固定在视口的中心。
+</p></li></ol><h2 id="4.播放媒体源">4. 播放媒体源</h2>
+<ol ><li class="Default"><p>关闭 <strong>HUD</strong> 小部件蓝图，然后在关卡编辑器工具栏中选择 <strong>蓝图（Blueprints）</strong> 和 <strong>打开关卡蓝图（Open Level Blueprint）</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/StreamMediaSource/StreamMedia_10.jpg">
+		<img class="  lazyload" alt="StreamMedia_10.png" data-src="../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/StreamMediaSource/StreamMedia_10.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>创建一个名为 <strong>MediaPlayer</strong> 的变量，类型为 <strong>媒体播放器参考（Media Player Reference）</strong>，并将 <strong>默认值（Default Value）</strong> 设置为 <strong>MyPlayer</strong> 媒体播放器资源。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/StreamMediaSource/StreamMedia_11.jpg">
+		<img class="  lazyload" alt="StreamMedia_11.png" data-src="../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/StreamMediaSource/StreamMedia_11.jpg" />
+</picture>
+
+</p><p>你可能需要单击 <strong>编译（Compile）</strong> 才能查看 <strong>MediaPlayer</strong> 变量的默认值。 
+</p></li><li class="Default"><p>按住 <strong>Ctrl</strong> 键并将 <strong>MediaPlayer</strong> 变量拖到图上，创建此变量的 <strong>获取（Get）</strong> 节点，然后右键单击并添加 <strong>事件开始播放（Event Begin Play）</strong> 节点。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/StreamMediaSource/StreamMedia_12.jpg">
+		<img class="  lazyload" alt="StreamMedia_12.png" data-src="../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/StreamMediaSource/StreamMedia_12.jpg" />
+</picture>
+
+</p><p>当游戏开始时，我们将创建和显示 <strong>HUD</strong>，为流设置声音，然后打开流并播放。 
+</p></li><li class="Default"><p>右键单击并添加 <strong>创建小部件（Create Widget）</strong> 节点，将 <strong>类（Class）</strong> 设置为 <strong>HUD</strong>，然后在 <strong>返回值（Return Value）</strong> 中，使用 <strong>添加到视口（Add to Viewport）</strong> 并按图所示进行连接。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/StreamMediaSource/StreamMedia_13.jpg">
+		<img class="  lazyload" alt="StreamMedia_13.png" data-src="../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/StreamMediaSource/StreamMedia_13.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>添加到视口（Add to Viewport）</strong> 节点后，右键单击并使用 <strong>添加媒体声音组件（Add Media Sound Component）</strong>，然后在 <strong>细节（Details）</strong> 面板中将 <strong>媒体播放器（Media Player）</strong> 设置为 <strong>MyPlayer</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/StreamMediaSource/StreamMedia_14.jpg">
+		<img class="  lazyload" alt="StreamMedia_14.png" data-src="../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/StreamMediaSource/StreamMedia_14.jpg" />
+</picture>
+
+</p><p>要随同视频一起收听音频，你需要使用指向媒体播放器资源的媒体声音组件。 
+在这里，我们是在运行时动态创建和添加的。但是，你也可以在 <strong>组件（Components）</strong> 面板中将此组件添加到关卡中存在的Actor或添加为蓝图的一部分。
+</p></li><li class="Default"><p>在 <strong>添加媒体声音组件（Add Media Sound Component）</strong> 节点后，使用 <strong>媒体播放器（Media Player）</strong> 参考节点中的 <strong>开源（Open Source）</strong>，将 <strong>媒体源（Media Source）</strong> 设置为 <strong>MediaStream</strong> 资源。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/StreamMediaSource/StreamMedia_15.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/StreamMediaSource/StreamMedia_15.jpg">
+		<img class="  lazyload" alt="StreamMedia_15.png" data-src="../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/StreamMediaSource/StreamMedia_15.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。 </p>
+</div><p>节点网络完成后，将在游戏开始时创建并显示 <strong>HUD</strong>，并在打开和播放媒体流时播放声音。
+</p></li><li class="Default"><p>关闭关卡蓝图，然后单击 <strong>播放（Play）</strong> 以在关卡中播放。
+</p></li></ol><h2 id="最终结果">最终结果</h2>
+<p>在编辑器中播放后，视频将作为 <strong>HUD</strong> 小部件蓝图的一部分再次全屏播放。 
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_0_b82kzm81_2
+{
+	margin: 0px;
+	width: 100%;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_0_b82kzm81_2:after
+{
+	content: "";
+	padding-top: 58%;
+	display: block;
+}
+</style> 
+<div id="player_0_b82kzm81_2"> 
+	<div id="playerContainer_0_b82kzm81_2" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/0_b82kzm81/embed.html"></iframe>
+	</div>
+</div>
+<p>与使用<a id="content_link"filter-data="tag_media_framework tag_video_playback" href="../FileMediaSource/index.html" ><span>文件媒体源</span></a>从磁盘播放视频文件相同，如果默认情况下启用的关联 <strong>媒体播放器</strong> 资源设置为 <strong>打开时播放（Play on Open）</strong>，在调用 <strong>开源</strong> 时将自动播放媒体源。
+视频播放开始后，你可以向媒体播放器资源发出其他命令，例如暂停、快退、停止等。在拖出媒体播放器参考（Media Player Reference）时，这些命令将显示在 <strong>媒体播放器（Media Player）</strong> 部分中。
+</p>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Media%20Framework">Media Framework</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Video%20Playback">Video Playback</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/WorkingWithMedia/MediaFramework/HowTo/StreamMediaSource/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:37:24 GMT -->
+</html>

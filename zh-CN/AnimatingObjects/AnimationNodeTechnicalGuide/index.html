@@ -1,0 +1,563 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/AnimatingObjects/AnimationNodeTechnicalGuide/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 10:28:57 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "../../../Images/AnimatingObjects/AnimationNodeTechnicalGuide/animnodes_banner.png";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/AnimatingObjects/AnimationNodeTechnicalGuide/" />');
+				var udnCSS = '../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>动画节点技术指南 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/AnimatingObjects/AnimationNodeTechnicalGuide/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/AnimatingObjects/AnimationNodeTechnicalGuide/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/AnimatingObjects/AnimationNodeTechnicalGuide/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/AnimatingObjects/AnimationNodeTechnicalGuide/" hreflang="ko" />
+
+	<meta name="redirect" content="ProgrammingAndScripting/ProgrammingWithCPP/Animation/AnimNodes" />
+<meta name="redirect" content="Programming/Animation/AnimNodes" />
+<meta name="intsourcechangelist" content="15018255" />
+<meta name="topic-image" content="animnodes_banner.png" />
+<meta name="hero-image" content="animnodes_banner.png" />
+<meta name="availability" content="Public" />
+<meta name="title" content="动画节点技术指南" />
+<meta name="description" content="指南，说明如何创建在动画蓝图图表中使用的新节点。" />
+<meta name="type" content="reference" />
+<meta name="version" content="4.22" />
+<meta name="parent" content="AnimatingObjects" />
+<meta name="keywords" content="Animation" />
+<meta name="keywords" content="Programming" />
+<meta name="crumbs" content="%ROOT%,AnimatingObjects" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="动画节点技术指南" />
+	<meta property="og:description" content="指南，说明如何创建在动画蓝图图表中使用的新节点。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../index.html">为角色和对象添加动画</a>
+
+<span class="separator">></span> <span id="page">动画节点技术指南</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  background">
+						<div class="imgContainer"><img src="../../../Images/AnimatingObjects/AnimationNodeTechnicalGuide/animnodes_banner.png" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">动画节点技术指南</h1>
+							</div>	
+							<h2 >指南，说明如何创建在动画蓝图图表中使用的新节点。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																																			</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																																				<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#动画节点解析">动画节点解析</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#节点层级">节点层级</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#运行时节点">运行时节点</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#姿势输入">姿势输入</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#属性和数据输入">属性和数据输入</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#编辑器节点">编辑器节点</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#标题">标题</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#提示文本">提示文本</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#情境菜单">情境菜单</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#派生的本机getter">派生的本机Getter</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>在<a id="content_link"filter-data="tag_animation tag_animation_blueprint tag_blueprints tag_state_machine tag_animation_assets" href="../SkeletalMeshAnimation/AnimBlueprints/index.html" ><span>动画蓝图</span></a>中需要用到动画节点 
+来执行姿势混合或骨骼直接操纵等运算。引擎提供多个动画 
+节点，但你也可以创建自定义节点，以满足任意游戏的需求。
+</p><h2 id="动画节点解析">动画节点解析</h2>
+<p>动画节点由两部分构成：
+</p><ul ><li class="Default"><p>执行实际运算以生成输出姿势的运行时结构体。
+</p></li><li class="Default"><p>处理节点在图表中的视觉特征和功能（例如，节点标题和情境菜单） 
+的编辑器时容器类。
+</p></li></ul><p>要添加新动画节点，必须创建这两个部分。
+</p><h3 id="节点层级">节点层级</h3>
+<p>你可以创建节点层级，但任何非抽象编辑器时类都应仅包含 
+一个运行时节点（派生时请勿添加额外节点，除非父项为抽象类，未包含运行时节点）。<br />请参阅 <code>UAnimGraphNode&#95;BlendListBase</code> 系列，以查看示例。
+</p><h2 id="运行时节点">运行时节点</h2>
+<p>该运行时结构体派生自 <code>FAnimNode&#95;Base</code>，负责初值设定、更新和 
+针对一个或多个输入姿势执行运算以生成所需输出姿势。它也会声明 
+节点执行所需运算所需的所有输入姿势链接和所有属性。
+</p><h3 id="姿势输入">姿势输入</h3>
+<p>节点可具有单个姿势输入：
+</p><p><strong>本地空间</strong>
+</p><pre class="prettyprint"><code>UPROPERTY(Category=Links)
+FPoseLink BasePose;</code></pre>
+<p><picture>
+		<source data-srcset="./../../../Images/AnimatingObjects/AnimationNodeTechnicalGuide/node_Rotate_Root_Bone-Base_Pose_callout.jpg">
+		<img class="  lazyload" alt="Pose Input Pin" data-src="../../../Images/AnimatingObjects/AnimationNodeTechnicalGuide/node_Rotate_Root_Bone-Base_Pose_callout.jpg" />
+</picture>
+
+</p><p><strong>组件空间</strong>
+</p><pre class="prettyprint"><code>UPROPERTY(Category=Links)
+FComponentSpacePoseLink ComponentPose;</code></pre>
+<p><picture>
+		<source data-srcset="./../../../Images/AnimatingObjects/AnimationNodeTechnicalGuide/node_Spring_Controller-Component_Pose_callout.jpg">
+		<img class="  lazyload" alt="Pose Input Pins" data-src="../../../Images/AnimatingObjects/AnimationNodeTechnicalGuide/node_Spring_Controller-Component_Pose_callout.jpg" />
+</picture>
+
+</p><div class="caption">
+	<p>组件空间姿势引脚为蓝色。</p>
+</div><p>在多个动画间混合的节点可具有多个输入：
+</p><pre class="prettyprint"><code>UPROPERTY(Category=Links)
+FPoseLink Base;
+
+UPROPERTY(Category=Links)
+FPoseLink Additive;</code></pre>
+<p><picture>
+		<source data-srcset="./../../../Images/AnimatingObjects/AnimationNodeTechnicalGuide/node_Apply_Additive_default-Base_Additive_Callout.jpg">
+		<img class="  lazyload" alt="Pose Input Pins" data-src="../../../Images/AnimatingObjects/AnimationNodeTechnicalGuide/node_Apply_Additive_default-Base_Additive_Callout.jpg" />
+</picture>
+
+</p><p>这些属性中的每个属性都会使一个姿势链接显示。此类型的属性始终作为输入引脚 
+公开。无法选择将它们隐藏或仅作为 
+<strong>细节（Details）</strong> 面板中的可编辑属性使用。
+</p><h3 id="属性和数据输入">属性和数据输入</h3>
+<p>动画节点可具有任意数量的可用于执行节点运算的属性， 
+例如，阿尔法（Alpha）或变换数据。声明这些属性的方法与声明任何其他属性的方法相同，都是使用 
+<code>UPROPERTY</code> 宏。
+</p><pre class="prettyprint"><code>UPROPERTY(Category=Settings, meta(PinShownByDefault))
+mutable float Alpha;</code></pre>
+<p><picture>
+		<source data-srcset="./../../../Images/AnimatingObjects/AnimationNodeTechnicalGuide/node_Apply_Additive_default-Alpha_callout.jpg">
+		<img class="  lazyload" alt="Property Pin" data-src="../../../Images/AnimatingObjects/AnimationNodeTechnicalGuide/node_Apply_Additive_default-Alpha_callout.jpg" />
+</picture>
+
+</p><p>可使用特殊元数据键将动画节点的属性作为数据输入公开，以允许值 
+传入节点。这使节点使用的属性能够使用在节点之外计算的数值。 
+提供下列元数据键：
+</p><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>元数据 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>说明 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><code>NeverAsPin</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>该属性未作为数据引脚公开，仅可在Persona中的 <strong>细节（Details）</strong> 面板中编辑。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><code>PinHiddenByDefault</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>该属性可作为数据引脚公开，但默认被隐藏（请参阅下面的 <a id="content_link" href="#optionalpins" ><span>可选引脚</span></a>）。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><code>PinShownByDefault</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>该属性可作为数据引脚公开，默认可见（请参阅下面的 <a id="content_link" href="#optionalpins" ><span>可选引脚</span></a>）。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><code>AlwaysAsPin</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>该属性始终作为数据引脚公开。</p>
+			</td>
+	
+</tr></tbody>
+</table><a name="optionalpins" ></a><p><strong>可选引脚</strong>
+</p><div class="none">
+	<p>对于具有 <code>PinHiddenByDefault</code> 或 <code>PinShownByDefault</code> 元数据键的属性， 
+在 <strong>细节（Details）</strong> 面板中，其Alpha属性旁边显示有眼睛图标，允许你选择显示或隐藏它。</p>
+</div><div class="none">
+	<p><picture>
+		<source data-srcset="./../../../Images/AnimatingObjects/AnimationNodeTechnicalGuide/node_Options-Alpha_pin_callout.jpg">
+		<img class="  lazyload" alt="Property Details" data-src="../../../Images/AnimatingObjects/AnimationNodeTechnicalGuide/node_Options-Alpha_pin_callout.jpg" />
+</picture>
+</p>
+</div><h2 id="编辑器节点">编辑器节点</h2>
+<p>该编辑器类派生自 <code>UAnimGraphNode&#95;Base</code>，负责可见节点 
+标题或情境菜单操作添加等。
+</p><p>该编辑器时类应包含作为"可编辑"公开的运行时节点的一个实例。
+</p><pre class="prettyprint"><code>UPROPERTY(Category=Settings)
+FAnimNode&#95;ApplyAdditive Node;</code></pre>
+<h3 id="标题">标题</h3>
+<p><picture>
+		<source data-srcset="./../../../Images/AnimatingObjects/AnimationNodeTechnicalGuide/node_Apply_Additive_default-title_callout.jpg">
+		<img class="  lazyload" alt="Node Title" data-src="../../../Images/AnimatingObjects/AnimationNodeTechnicalGuide/node_Apply_Additive_default-title_callout.jpg" />
+</picture>
+
+</p><p>定义在Persona中的动画蓝图图表中显示的动画节点的标题的背景颜色和文本的方法是 
+覆盖 <code>GetNodeTitle</code> 和 <code>GetNodeTitleColor</code> 函数。
+</p><p>例如，<code>UAnimGraphNode&#95;ApplyAdditive</code> 节点使用灰色背景并且显示为"应用Additive（Apply Additive）"：
+</p><pre class="prettyprint"><code>FLinearColor UAnimGraphNode&#95;ApplyAdditive::GetNodeTitleColor() const
+{
+    return FLinearColor(0.75f, 0.75f, 0.75f);
+}
+
+FString UAnimGraphNode&#95;ApplyAdditive::GetNodeTitle(ENodeTitleType::Type TitleType) const
+{
+    return TEXT("Apply Additive");
+}</code></pre>
+<h3 id="提示文本">提示文本</h3>
+<p><picture>
+		<source data-srcset="./../../../Images/AnimatingObjects/AnimationNodeTechnicalGuide/node_Apply_Additive_hover_callout.jpg">
+		<img class="  lazyload" alt="Node Tooltip" data-src="../../../Images/AnimatingObjects/AnimationNodeTechnicalGuide/node_Apply_Additive_hover_callout.jpg" />
+</picture>
+
+</p><p>定义在Persona中将鼠标悬停在节点上时显示的提示文本的方法是覆盖 <code>GetTooltip</code> 函数：
+</p><pre class="prettyprint"><code>FString UAnimGraphNode&#95;ApplyAdditive::GetTooltip const
+{
+    return TEXT("Apply additive animation to normal pose");
+}</code></pre>
+<h3 id="情境菜单">情境菜单</h3>
+<p>每个动画节点都可向情境菜单（在Persona中 <strong>右键单击</strong> 图表中的节点时显示） 
+中添加节点特定的选项。这些选项是使用 <code>GetContextMenuActions</code> 函数添加的，它是 
+所有蓝图节点的成员。
+</p><p><picture>
+		<source data-srcset="./../../../Images/AnimatingObjects/AnimationNodeTechnicalGuide/node_node_actions-context_callout.jpg">
+		<img class="  lazyload" alt="Node Context Menu Entry" data-src="../../../Images/AnimatingObjects/AnimationNodeTechnicalGuide/node_node_actions-context_callout.jpg" />
+</picture>
+
+</p><p>例如，<code>UAnimGraphNode&#95;LayeredBoneBlend</code> 节点会添加适用于添加新输入或删除现有输入的菜单项：
+</p><pre class="prettyprint"><code>void UAnimGraphNode&#95;LayeredBoneBlend::GetContextMenuActions(const FGraphNodeContextMenuBuilder&amp; Context) const
+{
+    if (!Context.bIsDebugging)
+    {
+        if (Context.Pin != NULL)
+        {
+            // 我们仅为常规混合列表（BlendList）/按枚举混合列表（BlendList）实现此函数，按布尔混合列表（BlendList）不支持添加/删除引脚
+            if (Context.Pin-&gt;Direction == EGPD&#95;Input)
+            {
+                //@TODO：仅在具有数组的引脚上提供此选项
+                Context.MenuBuilder-&gt;BeginSection("AnimNodesLayeredBoneBlend", NSLOCTEXT("A3Nodes", "LayeredBoneBlend", "Layered Bone Blend"));
+                {
+                    Context.MenuBuilder-&gt;AddMenuEntry(FGraphEditorCommands::Get().RemoveBlendListPin);
+                }
+                Context.MenuBuilder-&gt;EndSection();
+            }
+        }
+        else
+        {
+            Context.MenuBuilder-&gt;BeginSection("AnimNodesLayeredBoneBlend", NSLOCTEXT("A3Nodes", "LayeredBoneBlend", "Layered Bone Blend"));
+            {
+                Context.MenuBuilder-&gt;AddMenuEntry(FGraphEditorCommands::Get().AddBlendListPin);
+            }
+            Context.MenuBuilder-&gt;EndSection();
+        }
+    }
+}</code></pre>
+<h2 id="派生的本机getter">派生的本机Getter</h2>
+<p>许多项目中都创建了其自己的 <code>UAnimInstance</code> 派生类，以获得更好的性能。为提供支持，你可在需要时添加新Getter。为此，需要进行一些设置，以使它们正常发挥作用。 
+</p><ul ><li class="Default"><p>Getter函数必须标记为 <strong>UFUNCTIONS</strong>。 
+</p></li><li class="Default"><p>它们必须是 <strong>BlueprintPure</strong>。 
+</p></li><li class="Default"><p>它们必须包含 <strong>AnimGetter="True"</strong> 元数据。
+</p></li></ul><p>它们还必须定义一些专门指定的参数（也在 <code>AnimInstance.h</code> 中的基本动画Getter函数上面对它进行了介绍）。这些参数包括： 
+</p><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p><strong>参数</strong> </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p><strong>说明</strong> </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>int32 AssetPlayerIndex</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>该Getter处理资源播放器，将按可用资源播放器将条目添加到编辑器。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>int32 MachineIndex</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>该Getter处理状态机，将按状态机添加条目。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>int32 StateIndex</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>它还需要MachineIndex。该Getter处理状态，将按状态添加条目。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>int32 TransitionIndex</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>它还需要MachineIndex。该Getter处理过渡，将按过渡添加条目。</p>
+			</td>
+	
+</tr></tbody>
+</table><p>也存在帮助程序函数，可获取Getter中的实际节点。它们存在于 <code>UAnimInstance</code> 上： 
+</p><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p><strong>函数</strong> </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p><strong>说明</strong> </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>GetStateMachineInstance(int32 MachineIndex)</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>获取烘焙后的状态机实例。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>GetCheckedNodeFromIndex(int32 NodeIdx)</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>从索引获取节点，如无效则断言。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>GetNodeFromIndex(int32 NodeIdx)</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>同上，可返回nullptr。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>GetRelevantAssetPlayerFromState(int32 MachineIndex, int32 StateIndex)</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>获取状态中具有最高权重的资源播放器。</p>
+			</td>
+	
+</tr></tbody>
+</table>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../SiteIndex/index.html?tags=Animation">Animation</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../SiteIndex/index.html?tags=Programming">Programming</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/AnimatingObjects/AnimationNodeTechnicalGuide/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 10:29:03 GMT -->
+</html>

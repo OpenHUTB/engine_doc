@@ -1,0 +1,543 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/WorkingWithContent/Types/StaticMeshes/HowTo/SettingCollision/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:01:37 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/WorkingWithContent/Types/StaticMeshes/HowTo/SettingCollision/" />');
+				var udnCSS = '../../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>为静态网格体设置碰撞 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/WorkingWithContent/Types/StaticMeshes/HowTo/SettingCollision/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/WorkingWithContent/Types/StaticMeshes/HowTo/SettingCollision/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/WorkingWithContent/Types/StaticMeshes/HowTo/SettingCollision/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/WorkingWithContent/Types/StaticMeshes/HowTo/SettingCollision/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Content/Types/StaticMeshes/HowTo/SettingCollision" />
+<meta name="intsourcechangelist" content="13640390" />
+<meta name="availability" content="Public" />
+<meta name="title" content="为静态网格体设置碰撞" />
+<meta name="description" content="如何设置碰撞" />
+<meta name="skilllevel" content="Beginner" />
+<meta name="version" content="4.25" />
+<meta name="crumbs" content="%ROOT%,WorkingWithContent,WorkingWithContent/Types,WorkingWithContent/Types/StaticMeshes,WorkingWithContent/Types/StaticMeshes/HowTo" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="为静态网格体设置碰撞" />
+	<meta property="og:description" content="如何设置碰撞" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../../index.html">管理内容</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">内容资产类型</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">静态网格体</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">静态网格模型操作说明</a>
+
+<span class="separator">></span> <span id="page">为静态网格体设置碰撞</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">为静态网格体设置碰撞</h1>
+							</div>	
+							<h2 >如何设置碰撞</h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Beginner"><a id="skill_link" href="../../../../../SiteIndex/index.html?skills=Beginner">Beginner</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																																				<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#设置">设置</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#简单形状网格体上的碰撞">简单形状网格体上的碰撞</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#较复杂的网格体上的碰撞">较复杂的网格体上的碰撞</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#模拟物理和碰撞预设值">模拟物理和碰撞预设值</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>在UE4中，你可让静态网格体做很多事情，比如在游戏进程中改变其纹理或材质，或者使用Matinee在整个关卡中移动。无论静态网格体在关卡中的行为方式为何，你可能都不希望玩家可以穿过网格体或射穿网格体。这种情况下就需要在静态网格体上设置碰撞。
+</p><h2 id="设置">设置</h2>
+<p>你自己可能已具有关卡和静态网格体，可配合本指南使用。这样的话，你可以跳过此步骤。如若不然，请启动UE4并创建新项目。然后命名项目并选择项目存储位置。在本示例中，我们将使用蓝图第一人称模板。虽然不一定要使用此模板，但是我们稍后会用到已在此模板中实现的射出发射物能力来说明一个要点，使用此模板将有助于你跟随所述步骤进行操作。
+</p><p> 另外，请确保你启用了 <strong>含初学者内容包（With Starter Content）</strong>。如果未启用，你将缺少稍后需要在本"指南"中用到的资产，进而导致你可能无法遵循本指南中的步骤进行操作。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/SettingCollision/NewProjectWithStarterContent.jpg">
+		<img class="  lazyload" alt="NewProjectWithStarterContent.png" data-src="../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/SettingCollision/NewProjectWithStarterContent.jpg" />
+</picture>
+
+</p><h2 id="简单形状网格体上的碰撞">简单形状网格体上的碰撞</h2>
+<p>打开项目之后，如果已启用 <strong>含初学者内容包（With Starter Content）</strong>，你应该可以在 <strong>内容浏览器</strong> 中找到名称为 <strong>Starter Content</strong> 的文件夹。在该文件夹中，应有一个名称为 <strong>Props</strong> 的文件夹。浏览至该文件夹并找到名称为 <strong>SM_Door</strong> 的静态网格体。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/SettingCollision/ContentBrowserWithStarterContent.jpg">
+		<img class="  lazyload" alt="ContentBrowserWithStarterContent.png" width="460" data-src="../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/SettingCollision/ContentBrowserWithStarterContent.jpg" />
+</picture>
+ <picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/SettingCollision/DoorInContentBrowser.jpg">
+		<img class="  lazyload" alt="DoorInContentBrowser.png" width="460" data-src="../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/SettingCollision/DoorInContentBrowser.jpg" />
+</picture>
+
+</p><p>找到 <strong>SM_Door</strong> 之后，通过 <strong>双击</strong> 该资产或 <strong>右键单击</strong> 该资产并从情境菜单中选择 <strong>编辑（Edit）</strong> 的方法打开静态网格体编辑器。编辑器打开之后，你将看到与下图所示相似的界面：
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/SettingCollision/DefaultDoor.jpg">
+		<img class="  lazyload" alt="DefaultDoor.png" data-src="../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/SettingCollision/DefaultDoor.jpg" />
+</picture>
+
+</p><p>默认情况下，此网格体上尚未设置任何碰撞。如果没有碰撞，玩家将能够穿越网格体，另外，如果网格体模拟了物理，只要一开始运行，网格体将穿过场景地板掉落。你可以对此进行测试，方法是在为此网格体设置碰撞前就将其放置到关卡中并运行。你将看到玩家可以径直穿过该实心网格体。另外，如果希望门在遭到射击时弹开或者先飞到空中然后掉到地上，你需要在 <strong>细节（Details）</strong> 面板中将 <strong>模拟物理（Simulate Physics）</strong> 设置为 <em>true</em>，而如果静态网格体没有碰撞，你无法在默认情况下进行此设置。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/SettingCollision/PhysicsDetailsPanel.jpg">
+		<img class="  lazyload" alt="PhysicsDetailsPanel.png" data-src="../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/SettingCollision/PhysicsDetailsPanel.jpg" />
+</picture>
+
+</p><p>在大多数情况下，我们并不需要这些效果，因此我们需要为此网格体设置碰撞。在编辑器顶部，具有 <strong>碰撞（Collision）</strong> 下拉菜单。如果单击它，你将看到为网格体添加碰撞所需的选项。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/SettingCollision/CollisionMenu.jpg">
+		<img class="  lazyload" alt="CollisionMenu.png" data-src="../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/SettingCollision/CollisionMenu.jpg" />
+</picture>
+
+</p><p>在本示例中，我们所使用的网格体形状非常简单。我们可以很轻松地为这个网格体设置好碰撞。<strong>碰撞（Collision）</strong> 菜单中的前三个选项将以简单形状的形式包围网格体，可将其用作划分可阻挡及不可阻挡哪些对象以及哪些对象可与该网格体重叠的边界。以下是具有这些简单形状碰撞网格体的该网格体的示例。
+</p><div class="imagetable">
+	<table >
+	<caption></caption>
+	<col align="center"/>
+	<col align="center"/>
+	<col align="center"/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/SettingCollision/Sphere1.jpg">
+		<img class="  lazyload" alt="Sphere1.png" width="300" data-src="../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/SettingCollision/Sphere1.jpg" />
+</picture>
+ </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/SettingCollision/Capsule1.jpg">
+		<img class="  lazyload" alt="Capsule1.png" width="300" data-src="../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/SettingCollision/Capsule1.jpg" />
+</picture>
+ </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/SettingCollision/Box1.jpg">
+		<img class="  lazyload" alt="Box1.png" width="300" data-src="../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/SettingCollision/Box1.jpg" />
+</picture>
+ </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="center">
+			<p><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/SettingCollision/Sphere2.jpg">
+		<img class="  lazyload" alt="Sphere2.png" width="300" data-src="../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/SettingCollision/Sphere2.jpg" />
+</picture>
+</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="center">
+			<p><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/SettingCollision/Capsule2.jpg">
+		<img class="  lazyload" alt="Capsule2.png" width="300" data-src="../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/SettingCollision/Capsule2.jpg" />
+</picture>
+</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="center">
+			<p><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/SettingCollision/Box2.jpg">
+		<img class="  lazyload" alt="Box2.png" width="300" data-src="../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/SettingCollision/Box2.jpg" />
+</picture>
+</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="center">
+			<p>球体简单碰撞</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="center">
+			<p>胶囊体简单碰撞</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="center">
+			<p>盒体简单碰撞</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div><p>设置碰撞之后，如果仍看不到围绕网格体的轮廓，请确保工具栏中的碰撞按钮（<picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/SettingCollision/CollisionButton.jpg">
+		<img class="  lazyload" alt="CollisionButton.png" data-src="../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/SettingCollision/CollisionButton.jpg" />
+</picture>
+）处于突出显示状态。另请注意，如果已为网格体设置了简单碰撞，然后又为该网格体添加了另一个简单碰撞，新碰撞不会替换前面已设置的碰撞，而是叠加在第一个碰撞上面。如果不先删除任何碰撞就直接添加了上面所示的全部三个简单碰撞，则可能会得到如下图所示的效果。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/SettingCollision/AllCollision.jpg">
+		<img class="  lazyload" alt="AllCollision.png" data-src="../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/SettingCollision/AllCollision.jpg" />
+</picture>
+
+</p><p>要解决此问题，你可以选中其中一个碰撞并按 <strong>delete</strong> 键，或从 <strong>碰撞（Collision）</strong> 下拉菜单中选择 <strong>删除所选碰撞（Delete Selected Collision）</strong> 来逐个删除这些碰撞，或者从 <strong>碰撞（Collision）</strong> 菜单中选择 <strong>删除碰撞（Remove Collision）</strong> 来一次性删除网格体上的所有碰撞。此时将显示弹出消息，询问你是否确定要删除所有碰撞网格体。单击 <strong>是（Yes）</strong> 之后，碰撞将从静态网格体上删除。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/SettingCollision/RemoveCollision.jpg">
+		<img class="  lazyload" alt="RemoveCollision.png" data-src="../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/SettingCollision/RemoveCollision.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/SettingCollision/RemoveCollisionPopUp.jpg">
+		<img class="right  lazyload" alt="RemoveCollisionPopUp.png" width="540" data-src="../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/SettingCollision/RemoveCollisionPopUp.jpg" />
+</picture>
+
+</p><p>在为网格体应用碰撞之后，你会看到碰撞上面具有平移小部件。设置碰撞之后，你可以平移、旋转和缩放碰撞网格体，与对UE4中的任意其他对象执行这些操作时的方法一样。
+</p><h2 id="较复杂的网格体上的碰撞">较复杂的网格体上的碰撞</h2>
+<p>如果某个网格体可轻松容纳在胶囊体或盒体里面，或者网格体是否拥有精确的碰撞并不重要，使用我们在前一部分中设置的简单碰撞就可以了。但是，你可能具有形状更加复杂但仍然需要具有精确碰撞的网格体。在此部分中，我们将详细介绍如何进行此设置。
+</p><p>返回到 <strong>Starter Content</strong> 中的 <strong>Props</strong> 文件夹，浏览至静态网格体 <strong>SM_Chair</strong>。<strong>双击</strong> 缩略图，在静态网格体编辑器中将其打开。正如你所见，此网格体上已具有碰撞，其外观类似于下图中所示：
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/SettingCollision/ChairDefaultCollision.jpg">
+		<img class="  lazyload" alt="ChairDefaultCollision.png" data-src="../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/SettingCollision/ChairDefaultCollision.jpg" />
+</picture>
+
+</p><p>我们假设在此示例中，我们希望玩家能够直接坐到椅垫上。受到在默认情况下按原样设置的碰撞网格体的影响，存在阻碍玩家这样做的无形障碍。（请注意，在游戏过程中，玩家仅会看到静态网格体本身，他们看不到碰撞网格体，因此玩家将尝试坐到椅子上，但是不明白为何会存在阻碍他们这样做的东西。）
+</p><p>可以通过从编辑器顶部的 <strong>碰撞（Collision）</strong> 下拉菜单中选择 <strong>删除碰撞（Remove Collision）</strong> 来删除此网格体上的碰撞。我们可以尝试使用我们在本指南的前一部分中使用的基本形状碰撞网格体，但是如你在下列各图中所见，它们之中没有一个可以满足我们的需求。
+</p><div class="imagetable">
+	<table >
+	<caption></caption>
+	<col align="center"/>
+	<col align="center"/>
+	<col align="center"/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/SettingCollision/ChairSphere.jpg">
+		<img class="  lazyload" alt="ChairSphere.png" width="300" data-src="../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/SettingCollision/ChairSphere.jpg" />
+</picture>
+ </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/SettingCollision/ChairCapsule.jpg">
+		<img class="  lazyload" alt="ChairCapsule.png" width="300" data-src="../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/SettingCollision/ChairCapsule.jpg" />
+</picture>
+ </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/SettingCollision/ChairBox.jpg">
+		<img class="  lazyload" alt="ChairBox.png" width="300" data-src="../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/SettingCollision/ChairBox.jpg" />
+</picture>
+ </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="center">
+			<p>球体简单碰撞</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="center">
+			<p>胶囊体简单碰撞</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="center">
+			<p>盒体简单碰撞</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div><p>似乎没有基本形状可以实现我们期望的效果。但是，借助 <strong>碰撞（Collision）</strong> 下拉菜单中的其他选项，我们距离实现预期效果更近一步。这些选项被称为 <strong>K-DOP</strong> 简单碰撞生成器。
+K-DOP是一种包围体，K-DOP指的是 <em>K离散定向多面体</em>（其中，K是轴对齐平面的数量）。从根本上说，它将K个轴对齐平面尽量推向网格体。产生的形状被用作碰撞外壳。在 <strong>静态网格体编辑器</strong> 中，K可以为：
+</p><ul ><li class="Default"><p><strong>10</strong> - 有4个边经过倒角处理的盒体 - 你可以选择与X、Y或Z轴对齐的边。
+</p></li><li class="Default"><p><strong>18</strong> - 所有边都经过倒角处理的盒体。
+</p></li><li class="Default"><p><strong>26</strong> - 所有边和角都经过倒角处理的盒体。
+</p></li></ul><p>以下是分别具有10-DOP、18-DOP和26-DOP碰撞设置时的椅子网格体的效果。
+</p><div class="imagetable">
+	<table >
+	<caption></caption>
+	<col align="center"/>
+	<col align="center"/>
+	<col align="center"/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/SettingCollision/10DOP.jpg">
+		<img class="  lazyload" alt="10DOP.png" width="300" data-src="../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/SettingCollision/10DOP.jpg" />
+</picture>
+ </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/SettingCollision/18DOP.jpg">
+		<img class="  lazyload" alt="18DOP.png" width="300" data-src="../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/SettingCollision/18DOP.jpg" />
+</picture>
+ </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/SettingCollision/26DOP.jpg">
+		<img class="  lazyload" alt="26DOP.png" width="300" data-src="../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/SettingCollision/26DOP.jpg" />
+</picture>
+ </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="center">
+			<p>10DOP</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="center">
+			<p>18DOP</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="center">
+			<p>26DOP</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div><p>这些碰撞网格体已经越来越接近我们想要的效果，但是这些碰撞网格体距离椅垫仍有一段距离，该距离仍可能会阻止玩家坐到椅子上。再一次选择 <strong>删除碰撞（Remove Collision）</strong>，完成后，从 <strong>碰撞（Collision）</strong> 下拉菜单中选择 <strong>自动凸包碰撞（Auto Convex Collision）</strong>。选择该选项之后，你将看到 <strong>凸包分解（Convex Decomposition）</strong> 面板，其外观类似于下图中所示。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/SettingCollision/ConvexDecomposition.jpg">
+		<img class="  lazyload" alt="ConvexDecomposition.png" width="700" data-src="../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/SettingCollision/ConvexDecomposition.jpg" />
+</picture>
+
+</p><p>此窗口中的顶部选项是 <strong>精确性（Accuracy）</strong>，它将生成数量尽可能少的Primitive来代表碰撞网格体。底部选项 <strong>最大外壳顶点数（Max Hull Verts）</strong> 将增加或减少碰撞网格体具有的顶点的数量。这些值越大，碰撞越精确，但是碰撞网格体也越复杂。单击 <strong>应用（Apply）</strong> 之后，这些设置将应用到网格体。
+</p><div class="imagetable">
+	<table >
+	<caption></caption>
+	<col align="center"/>
+	<col align="center"/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/SettingCollision/AutoConvexCollision1.jpg">
+		<img class="  lazyload" alt="AutoConvexCollision1.png" width="400" data-src="../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/SettingCollision/AutoConvexCollision1.jpg" />
+</picture>
+ </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/SettingCollision/AutoConvexCollision2.jpg">
+		<img class="  lazyload" alt="AutoConvexCollision2.png" width="400" data-src="../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/SettingCollision/AutoConvexCollision2.jpg" />
+</picture>
+ </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="center">
+			<p>默认设置</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="center">
+			<p>最高精确性和最大外壳顶点数</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div><p>设置复杂碰撞的另一个简单方法是使用多个简单形状碰撞网格体来为网格体创建碰撞。正如我们在本指南前面提到过的，创建另一个简单碰撞网格体并不会将原始的简单碰撞网格体替换掉，而是叠加在原始简单碰撞网格体上。我们还重申了每个碰撞网格体都有其专属的变形小部件，因此你可以单独对每个碰撞网格体进行平移、旋转和缩放。我们可以利用此机制来为静态网格体创建碰撞。
+</p><p>首先从 <strong>碰撞（Collision）</strong> 下拉菜单中选择 <strong>添加盒体简单碰撞（Add Box Simplified Collision）</strong>。<strong>左键单击</strong> 该碰撞网格体以调出其变形小部件。对该碰撞网格体进行平移、旋转和缩放，以使它沿着椅子扶手贴合椅子，直至地面。在仍然选中该碰撞网格体的情况下，通过从 <strong>碰撞（Collision）</strong> 下拉菜单中选择 <strong>复制所选碰撞（Duplicate Selected Collision）</strong> 或通过按下 <strong>Ctrl + W</strong> 组合键来复制该碰撞网格体。移动此碰撞网格体，以便它贴合椅子另一边的扶手。再次复制网格体。在选中新网格体的情况下，移动，缩放并旋转此网格体，以便它贴合椅子底部。复制该碰撞网格体并将它向上移动以让它贴合椅子的坐部。再次复制该网格体并旋转它，以让它贴合椅子的靠背。完成后，你应该看到类似下图的效果。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/SettingCollision/CompositeBoxCollision.jpg">
+		<img class="  lazyload" alt="CompositeBoxCollision.png" width="900" data-src="../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/SettingCollision/CompositeBoxCollision.jpg" />
+</picture>
+
+</p><p>你可以回过头来再对这些碰撞网格体进行调整，使其更贴合椅子的形状，但就本示例而言，我们仅仅使用这五个盒体就为整个椅子设置了碰撞，而且这样设置碰撞之后，玩家可以坐到椅垫上。
+</p><h2 id="模拟物理和碰撞预设值">模拟物理和碰撞预设值</h2>
+<p>静态网格体具有碰撞之后，现在就可以模拟物理了。单击静态网格体编辑器工具栏最左侧的 <strong>保存（Save）</strong> 按钮保存椅子网格体，然后在 <strong>内容浏览器</strong> 中找到 <strong>SM_Chair</strong>。将该网格体的一个副本拖到关卡中并选中它，然后转到 <strong>细节（Details）</strong> 面板。在 <strong>细节（Details）</strong> 面板的 <strong>物理（Physics）</strong> 部分中，第一个选项是 <strong>模拟物理（Simulate Physics）</strong>，在默认情况下，它应为 <em>false</em>。如果在"模拟物理（Simulate Physics）"设置为 <em>false</em> 的情况下运行关卡，角色将无法穿越网格体，而且射出发射物也完全不会影响网格体。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/SettingCollision/PhysicsDetailsPanel.jpg">
+		<img class="  lazyload" alt="PhysicsDetailsPanel.png" data-src="../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/SettingCollision/PhysicsDetailsPanel.jpg" />
+</picture>
+
+</p><p>停止运行关卡并将 <strong>模拟物理（Simulate Physics）</strong> 设置为 <em>true</em>。现在运行关卡时，你会看到当角色碰到椅子时，椅子网格体会移动。对着椅子射击时，该网格体也可以被射中，而且会在关卡中飞到空中。这不仅是因为网格体在模拟物理，还因为网格体被设置为阻挡其所有的默认 <strong>碰撞预设值（Collision Preset）</strong>。
+</p><p>返回到椅子的 <strong>细节（Details）</strong> 面板，在 <strong>碰撞（Collision）</strong> 部分中，具有名称为 <strong>碰撞预设值（Collision Preset）</strong> 的下拉菜单。该网格体的此实例对场景中的其他对象做出反应的方式取决于其 <strong>碰撞预设值（Collision Preset）</strong> 设置。该下拉菜单中包括的选项如下图中所示。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/SettingCollision/CollisionPresets.jpg">
+		<img class="  lazyload" alt="CollisionPresets.png" data-src="../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/SettingCollision/CollisionPresets.jpg" />
+</picture>
+
+</p><p>在默认情况下，它设置为"阻挡全部（Block All）"。如果将它切换为"重叠全部（Overlap All）"，只要一开始运行关卡，你就会看到该网格体掉落到关卡之外。其中还包括自定义预设值，借助它你可以手动设置网格体对关卡中的其他对象做出反应的方式。你可以将它设置为阻挡Pawn，但是可以与发射物重叠，并且忽略除这些以外的其他所有对象。在自定义预设值中，你可以指示网格体要执行哪些行为。你已经在网格体上设置了碰撞，现在可以将网格体放到关卡中并使用它的碰撞来设置它影响关卡中其他对象的方式以及关卡中其他对象影响它的方式。
+</p><div class="tip">
+	<p>在关卡编辑器中选中 <strong>静态网格体Actor</strong> 或任意 <strong>静态网格体组件</strong>（例如，蓝图编辑器中的静态网格体组件）时，<strong>"细节（Details）"面板</strong> -> <strong>"碰撞（Collision）"类别</strong> -> <strong>碰撞预设值（Collision Preset）</strong> 将显示 <strong>默认（Default）</strong>。这是为了表明，在初始设置之后，未对"碰撞预设值（Collision Preset）"进行过任何更改。如果此处列出了 <strong>BlockAll</strong> 等其他选项，则说明所选静态网格体Actor/组件的"碰撞预设值（Collision Preset）"已被覆盖。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/SettingCollision/defaultCollision.jpg">
+		<img class="  lazyload" alt="defaultCollision.png" data-src="../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/SettingCollision/defaultCollision.jpg" />
+</picture>
+</p>
+</div>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/WorkingWithContent/Types/StaticMeshes/HowTo/SettingCollision/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:01:47 GMT -->
+</html>

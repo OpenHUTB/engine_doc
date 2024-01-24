@@ -1,0 +1,1849 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:03:58 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Hero.png";
+				var finishButton = finishButtonTemplate;
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>在Niagara中重新创建Cascade火花效果 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+		    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+		    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Niagara/HowTo/RecreateSparks" />
+<meta name="intsourcechangelist" content="15800527" />
+<meta name="availability" content="Public" />
+<meta name="title" content="在Niagara中重新创建Cascade火花效果" />
+<meta name="description" content="本教程将介绍使用Niagara重新创建Cascade火花效果的方法。" />
+<meta name="skilllevel" content="intermediate" />
+<meta name="version" content="4.25" />
+<meta name="parent" content="RenderingAndGraphics/Niagara/HowTo" />
+<meta name="order" content="9" />
+<meta name="type" content="how-to" />
+<meta name="keywords" content="Niagara" />
+<meta name="keywords" content="Vfx" />
+<meta name="keywords" content="Effects" />
+<meta name="keywords" content="Visual Effects" />
+<meta name="keywords" content="Particle Effects" />
+<meta name="pre-req" content="Basics/InstallingUnrealEngine" />
+<meta name="pre-req" content="Basics/Projects/Browser" />
+<meta name="pre-req" content="Engine/Niagara/HowTo/EnableNiagara" />
+<meta name="pre-req" content="Engine/Niagara/HowTo/SpriteEffect" />
+<meta name="topic-image" content="Sparks_Topic.png" />
+<meta name="hero-image" content="Sparks_Hero.png" />
+<meta name="crumbs" content="%ROOT%,RenderingAndGraphics,RenderingAndGraphics/Niagara,RenderingAndGraphics/Niagara/HowTo" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="在Niagara中重新创建Cascade火花效果" />
+	<meta property="og:description" content="本教程将介绍使用Niagara重新创建Cascade火花效果的方法。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">设计视觉、渲染和图形效果</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">Niagara视觉效果</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">Niagara - 使用指南</a>
+
+<span class="separator">></span> <span id="page">在Niagara中重新创建Cascade火花效果</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  background">
+						<div class="imgContainer"><img src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Hero.png" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">在Niagara中重新创建Cascade火花效果</h1>
+							</div>	
+							<h2 >本教程将介绍使用Niagara重新创建Cascade火花效果的方法。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Intermediate"><a id="skill_link" href="../../../../SiteIndex/index.html?skills=Intermediate">Intermediate</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																																																<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#创建烟雾发射器和火花系统">创建烟雾发射器和火花系统</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#烟雾发射器-编辑发射器更新设置">烟雾发射器 - 编辑发射器更新设置</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#烟雾发射器-编辑粒子生成设置">烟雾发射器 - 编辑粒子生成设置</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#烟雾发射器-编辑粒子更新设置">烟雾发射器 - 编辑粒子更新设置</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#位系统添加火花迸发发射器">位系统添加火花迸发发射器</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#火花迸发发射器-编辑渲染器设置">火花迸发发射器 - 编辑渲染器设置</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#火花迸发发射器-编辑发射器更新设置">火花迸发发射器 - 编辑发射器更新设置</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#火花迸发发射器-编辑粒子更新设置">火花迸发发射器 - 编辑粒子更新设置</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#添加弧度火花发射器到系统">添加弧度火花发射器到系统</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#弧度火花发射器-编辑渲染器设置">弧度火花发射器 - 编辑渲染器设置</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#弧度火花发射器-编辑发射器更新设置">弧度火花发射器 - 编辑发射器更新设置</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#弧度火花发射器-编辑粒子生成设置">弧度火花发射器 - 编辑粒子生成设置</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#弧度火花发射器-编辑粒子更新设置">弧度火花发射器 - 编辑粒子更新设置</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#最终结果">最终结果</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<div class="note">
+	<p><strong>先决条件步骤：</strong>
+</p><p>本教程将使用**M_smoke_subUV<strong>、</strong>M_Spark<strong> 和 </strong>M_Radial_Gradient**材质，它们包含在初学者内容包中。如你尚未将初学者内容添加到项目，请务必进行添加。本教程同时使用<a id="content_link"filter-data="tag_niagara tag_vfx tag_effects tag_visual_effects tag_particle_effects" href="../SpriteEffect/index.html" ><span>在Niagara中创建Sprite粒子效果</span></a>教程中创建FX_Smoke发射器。</p>
+</div><p>初学者内容包中提供了数种粒子效果。在本教程中，你将学习如何在Niagara中创建火花效果。
+</p><p>若要重新创建初学者内容包中包含的火花效果，你需要制作三个Niagara发射器：一个用于火花喷泉，一个用于中心火花，一个用于火花喷泉中冒出的一小股烟雾。因为你可以使用现有发射器的副本创建烟雾发射器，所以你将从该烟雾发射器开始操作。
+</p><h2 id="创建烟雾发射器和火花系统">创建烟雾发射器和火花系统</h2>
+<p>Niagara发射器和系统是独立的。当前推荐工作流将从现有发射器或发射器模板创建系统。
+</p><ol ><li class="Default"><p>在项目的内容文件夹中，为本教程创建新文件夹。
+</p></li><li class="Default"><p>复制<a id="content_link"filter-data="tag_niagara tag_vfx tag_effects tag_visual_effects tag_particle_effects" href="../SpriteEffect/index.html" ><span>在Niagara中创建Sprite粒子效果</span></a>教程中创建的 <strong>FX_Smoke</strong> 发射器。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Smoke_DuplicateEmitter.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Smoke_DuplicateEmitter.jpg">
+		<img class="  lazyload" alt="复制发射器" width="300" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Smoke_DuplicateEmitter.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>将此复制发射器拖放到你在步骤1中创建的文件夹中。在弹出的上下文菜单中，选择 <strong>移动（Move）</strong>。
+</p></li><li class="Default"><p>将复制的发射器重命名为 <strong>FX_SparksSmoke</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Smoke_RenameEmitter.jpg">
+		<img class="  lazyload" alt="重命名发射器" width="100" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Smoke_RenameEmitter.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>现在，创建火花效果系统。右键点击新蒸汽发射器，然后选择 <strong>创建Niagara系统（Create Niagara System）</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Smoke_CreateSystemFromEmitter.png" title="Create the Niagara System"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Smoke_CreateSystemFromEmitter.jpg">
+		<img class="  lazyload" alt="创建Niagara系统" title="Create the Niagara System" width="300" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Smoke_CreateSystemFromEmitter.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><div class="note">
+	<p>有多种方法可以创建新Niagara系统。由于你是从已创建发射器着手，所以此处使用的方法会快速创建包含该发射器的系统。但是，正如你在创建Sprite粒子效果教程中所见，发射器和系统向导提供了许多创建和设置Niagara系统的其他选项。</p>
+</div></li><li class="Default"><p>将系统命名为 <strong>SparkFountain</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_NameSystem.jpg">
+		<img class="  lazyload" alt="命名系统" title="Name System" width="100" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_NameSystem.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>若尚未打开关卡，请在关卡编辑器中打开。将 <strong>SparkFountain</strong> 系统拖到关卡中。
+<div class="note">
+	<p>制作粒子效果时，最好将系统拖到关卡中。这样便可查看每一项更改并在上下文中进行编辑。你对系统所做的任何更改都将自动传播到关卡中的系统实例。</p>
+</div>
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_DragSystemIntoLevel.jpg">
+		<img class="  lazyload" alt="将系统拖到关卡中" title="Drag the System into the Level" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_DragSystemIntoLevel.jpg" />
+</picture>
+
+</p></li></ol><h3 id="烟雾发射器-编辑发射器更新设置">烟雾发射器 - 编辑发射器更新设置</h3>
+<ol ><li class="Default"><p>在系统概览（System Overview）中，点击 <strong>粒子更新（Particle Update）</strong> 组以在 <strong>选择（Selection）</strong> 面板中打开。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Smoke_OpenEmitterUpdate.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Smoke_OpenEmitterUpdate.jpg">
+		<img class="  lazyload" alt="打开发射器更新" width="700" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Smoke_OpenEmitterUpdate.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>打开 <strong>发射器状态（Emitter State）</strong> 模块。此模块控制此发射器的时间和可延展性。点击下拉列表，并将 <strong>生命周期模式（Life Cycle Mode）</strong> 设置为 <strong>系统（System）</strong>。此操作将使系统能够计算生命周期设置，而这通常可以优化性能。在默认情况下，系统以5秒的间隔无限循环。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Smoke_SetLifeCycleMode.png" title="Set Life Cycle Mode"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Smoke_SetLifeCycleMode.jpg">
+		<img class="  lazyload" alt="设置生命循环模式" title="Set Life Cycle Mode" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Smoke_SetLifeCycleMode.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>打开 <strong>生成率（Spawn Rate）</strong> 模块。将 <strong>生成率（Spawn Rate）</strong> 改为 <strong>20</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Smoke_SpawnRateModule.png" title="Set Spawn Rate"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Smoke_SpawnRateModule.jpg">
+		<img class="  lazyload" alt="设置生成率" title="Set Spawn Rate" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Smoke_SpawnRateModule.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li></ol><h3 id="烟雾发射器-编辑粒子生成设置">烟雾发射器 - 编辑粒子生成设置</h3>
+<p>下一步，你将编辑粒子生成组中的模块。这些是粒子首次生成时将应用于粒子的行为。
+</p><ol ><li class="Default"><p>在 <strong>系统概览（System Overview）</strong> 中，点击 <strong>粒子生成（Particle Spawn）</strong> 组以在 <strong>选择（Selection）</strong> 面板中打开。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Smoke_OpenParticleSpawn.png" title="Open Particle Spawn"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Smoke_OpenParticleSpawn.jpg">
+		<img class="  lazyload" alt="打开粒子生成" title="Open Particle Spawn" width="700" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Smoke_OpenParticleSpawn.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>打开 <strong>初始化粒子（Initialize Particle）</strong> 模块。在 <strong>点属性（Point Attributes）</strong> 下，展开 <strong>生命周期（Lifetime）</strong>。将 <strong>最小值（Minimum）</strong> 和 <strong>最大值（Maximum）</strong> 改为下列值。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Smoke_InitParticleLifetime.png" title="Set Particle Lifetime"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Smoke_InitParticleLifetime.jpg">
+		<img class="  lazyload" alt="设置粒子生命周期" title="Set Particle Lifetime" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Smoke_InitParticleLifetime.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>参数 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>值 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>最小值（Minimum）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>2.0</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>最大值（Maximum）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>3.0</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr></tbody>
+</table>
+</div></li><li class="Default"><p>找到 <strong>颜色（Color）</strong> 参数。将RGB值改为下列值：
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Smoke_InitParticleColor.png" title="Set Particle Color"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Smoke_InitParticleColor.jpg">
+		<img class="  lazyload" alt="设置粒子颜色" title="Set Particle Color" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Smoke_InitParticleColor.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>参数 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>值 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>红色（Red）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>.3</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>绿色（Green）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>.3</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>蓝色（Blue）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>.3</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr></tbody>
+</table>
+</div></li><li class="Default"><p>在 <strong>Sprite属性（Sprite Attributes）</strong> 下，展开 <strong>Sprite大小（Sprite Size）</strong>。将"Sprite大小模式（Sprite Size Mode）"设置为 <strong>非统一（Non-Uniform）</strong>。将 <strong>最小值（Minimum）</strong> 和 <strong>最大值（Maximum）</strong> 改为下列值。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Smoke_InitParticleSpriteSize.png" title="Set Sprite Size"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Smoke_InitParticleSpriteSize.jpg">
+		<img class="  lazyload" alt="设置Sprite大小" title="Set Sprite Size" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Smoke_InitParticleSpriteSize.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>参数 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>值 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>最小值（Minimum）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>20</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>最大值（Maximum）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>40</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr></tbody>
+</table>
+</div></li><li class="Default"><p>打开 <strong>添加速度（Add Velocity）</strong> 模块。将速度（Velocity）的 <strong>最小值（Minimum）</strong> 和 <strong>最大值（Maximum）</strong> 改为下列值。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Smoke_AddVelocityModule.png" title="Set Velocity Minimum and Maximum"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Smoke_AddVelocityModule.jpg">
+		<img class="  lazyload" alt="设置速度最大值和最小值" title="Set Velocity Minimum and Maximum" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Smoke_AddVelocityModule.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>参数 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>值 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>最小值（Minimum）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>X：0，Y：0，Z：25</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>最大值（Maximum）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>X：1，Y：1，Z：35</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr></tbody>
+</table>
+</div></li><li class="Default"><p>打开 <strong>球体位置（Sphere Location）</strong> 模块。将 <strong>球体半径（Sphere Radius）</strong> 值改为 <strong>5</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Smoke_SphereLocationModule.png" title="Set Sphere Radius"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Smoke_SphereLocationModule.jpg">
+		<img class="  lazyload" alt="设置球体球体" title="Set Sphere Radius" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Smoke_SphereLocationModule.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li></ol><h3 id="烟雾发射器-编辑粒子更新设置">烟雾发射器 - 编辑粒子更新设置</h3>
+<p>现在，你将在粒子更新组中更新模块。这些行为将应用于发射器的粒子并更新每一帧。
+</p><ol ><li class="Default"><p>在 <strong>系统概览（System Overview）</strong> 中，点击 <strong>粒子更新（Particle Update）</strong> 组以在 <strong>选择（Selection）</strong>面板中打开。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Smoke_OpenParticleUpdate.png" title="Open Particle Update"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Smoke_OpenParticleUpdate.jpg">
+		<img class="  lazyload" alt="打开粒子更新" title="Open Particle Update" width="700" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Smoke_OpenParticleUpdate.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>打开 <strong>加速力（Acceleration Force）</strong> 模块。将 <strong>加速（Acceleration ）</strong> 值设为 <strong>X：0，Y：0，Z：20</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Smoke_AccelerationForceModule.png" title="Set Acceleration"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Smoke_AccelerationForceModule.jpg">
+		<img class="  lazyload" alt="设置加速" title="Set Acceleration" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Smoke_AccelerationForceModule.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>打开 <strong>缩放颜色（Scale Color）</strong> 模块。点击取消选中 <strong>缩放RGB（Scale RGB）</strong> 旁的框。将 <strong>透明透明度（Scale Alpha）</strong> 曲线上的键设为下列值：
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Smoke_ScaleColorModule.png" title="Set Scale Color"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Smoke_ScaleColorModule.jpg">
+		<img class="  lazyload" alt="设置缩放颜色" title="Set Scale Color" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Smoke_ScaleColorModule.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>键编号 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>时间 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>值 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>1</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>0.0</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>1.0</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>2</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>0.7</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>0.0</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr></tbody>
+</table>
+</div></li></ol><h2 id="位系统添加火花迸发发射器">位系统添加火花迸发发射器</h2>
+<p>接着，你需要在效果中心创建火花迸发效果。
+</p><ol ><li class="Default"><p>右键点击SparkFountain系统的 <strong>系统概览（System Overview）</strong>。点击 <strong>添加发射器（Add Emitter）</strong>，现有发射器的列表随即显示。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_AddEmitterSystemOverview.png" title="Add Emitter from System Overview"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_AddEmitterSystemOverview.jpg">
+		<img class="  lazyload" alt="从系统概览添加发射器" title="Add Emitter from System Overview" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_AddEmitterSystemOverview.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>在可用发射器列表中，点击 <strong>查看选项（View Options）</strong> 以打开选项列表。勾选 <strong>显示引擎内容（Show Engine Content）</strong> 和 <strong>显示插件内容（Show Plugin Content）</strong> 的复选框。现在，可用发射器列表将显示Niagara中包含的所有发射器模板。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_SetViewOptions.png" title="Set View Options"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_SetViewOptions.jpg">
+		<img class="  lazyload" alt="设置视图选项" title="Set View Options" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_SetViewOptions.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>从发射器列表中，选择 <strong>简易Sprite迸发（Simple Sprite Burst）</strong> 模板。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_SelectSimpleSpriteBurst.png" title="Select Template"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_SelectSimpleSpriteBurst.jpg">
+		<img class="  lazyload" alt="选择模板" title="Select Template" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_SelectSimpleSpriteBurst.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>模板发射器的默认名称为 <strong>SimpleSpriteBurst</strong>，但你可以对其重命名。点击发射器名称，该字段将转变为可编辑状态。将新系统命名为 <strong>FX_SparkBurst</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_RenameEmitter.png" title="Rename Emitter"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_RenameEmitter.jpg">
+		<img class="  lazyload" alt="重命名发射器" title="Rename Emitter" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_RenameEmitter.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li></ol><h3 id="火花迸发发射器-编辑渲染器设置">火花迸发发射器 - 编辑渲染器设置</h3>
+<p>虽然 <strong>渲染（Render）</strong> 组是堆栈中的最后一项，但你需要更改材质，以便效果按照预期方式显示。
+</p><ol ><li class="Default"><p>在 <strong>系统概览（System Overview）</strong> 中，点击 <strong>渲染器（Renderer）</strong> 组以在 <strong>选择（Selection）</strong> 面板中打开。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_OpenRender.png" title="Open Renderer"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_OpenRender.jpg">
+		<img class="  lazyload" alt="打开渲染器" title="Open Renderer" width="700" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_OpenRender.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>在 <strong>Sprite渲染（Sprite Rendering）</strong> 下，点击 <strong>材质（Material）</strong> 下拉框并选择 <strong>M_Spark</strong> 材质。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_SelectSparkMaterial.png" title="Select Material"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_SelectSparkMaterial.jpg">
+		<img class="  lazyload" alt="选择材质" title="Select Material" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_SelectSparkMaterial.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li></ol><h3 id="火花迸发发射器-编辑发射器更新设置">火花迸发发射器 - 编辑发射器更新设置</h3>
+<p>首先，你将在 <strong>发射器更新（Emitter Update）</strong> 组中编辑模块。这些是将应用于发射器并更新每一帧的行为。
+</p><ol ><li class="Default"><p>在 <strong>系统概览（System Overview）</strong> 中，点击 <strong>发射器更新（Emitter Update）</strong> 组以在 <strong>选择（Selection）</strong> 面板中打开。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_OpenEmitterUpdate.png" title="Open Emitter Update"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_OpenEmitterUpdate.jpg">
+		<img class="  lazyload" alt="打开发射器更新" title="Open Emitter Update" width="700" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_OpenEmitterUpdate.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>点击 <strong>垃圾桶（Trashcan）</strong> 图标移除 <strong>瞬间Sprite迸发（Sprite Burst Instantaneous）</strong> 模块。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_RemoveSpawnBurstInstant.png" title="Remove Sprite Burst Instantaneous"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_RemoveSpawnBurstInstant.jpg">
+		<img class="  lazyload" alt="移除Sprite瞬时喷发" title="Remove Sprite Burst Instantaneous" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_RemoveSpawnBurstInstant.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>打开 <strong>发射器状态（Emitter State）</strong> 模块。此模块控制此发射器的时间和可延展性。由于你使用了简单Sprite迸发模板，因此 <strong>生命周期模式（Life Cycle Mode）</strong> 设置为自身。通常，该模式用于为此特定发射器完全定制发射器生命周期逻辑，但此效果并不需要它。点击下拉列表，并将 <strong>生命周期模式（Life Cycle Mode）</strong> 设置为 <strong>系统（System）</strong>。此操作将使系统能够计算生命周期设置，而这通常可以优化性能。在默认情况下，系统以5秒的间隔无限循环。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Smoke_SetLifeCycleMode.png" title="Set Life Cycle Mode"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Smoke_SetLifeCycleMode.jpg">
+		<img class="  lazyload" alt="设置生命循环模式" title="Set Life Cycle Mode" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Smoke_SetLifeCycleMode.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>点击粒子更新（Emitter Update）的 <strong>加号</strong> (<strong>+</strong>)，然后选择 <strong>生成（Spawning）> 生成率（Spawn Rate）</strong>。还可在搜索栏中键入"spawn"，如下所示。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_AddSpawnRate.png" title="Add Spawn Rate Module"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_AddSpawnRate.jpg">
+		<img class="  lazyload" alt="添加生成率模块" title="Add Spawn Rate Module" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_AddSpawnRate.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>打开 <strong>生成率（Spawn Rate）</strong> 模块。将 <strong>生成率（Spawn Rate）</strong> 设为 <strong>8</strong>，并将 <strong>生成组（Spawn Group）</strong> 设为 <strong>1</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_SetSpawnRate.png" title="Set Spawn Rate"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_SetSpawnRate.jpg">
+		<img class="  lazyload" alt="设置生成率" title="Set Spawn Rate" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_SetSpawnRate.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li></ol><p> ### 火花迸发发射器 - 编辑粒子生成设置
+下一步，你将在 <strong>粒子生成（Particle Spawn）</strong> 组中编辑模块。这些是粒子首次生成时将应用的效果。
+</p><ol ><li class="Default"><p>在 <strong>系统概览（System Overview）</strong> 中，点击 <strong>粒子生成（Particle Spawn）</strong> 组以在 <strong>选择（Selection）</strong> 面板中打开。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_OpenParticleSpawn.png" title="Open Particle Spawn"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_OpenParticleSpawn.jpg">
+		<img class="  lazyload" alt="打开粒子生成" title="Open Particle Spawn" width="700" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_OpenParticleSpawn.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>在 <strong>点属性（Point Attributes）</strong> 下，将粒子 <strong>生命周期（Lifetime）</strong> 设为 <strong>.2</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_InitParticleLifetime.png" title="Set Particle Lifetime"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_InitParticleLifetime.jpg">
+		<img class="  lazyload" alt="设置粒子生命周期" title="Set Particle Lifetime" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_InitParticleLifetime.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>将 <strong>质量模式（Mass Mode）</strong> 设置为 <strong>随机（Random）</strong>，将质量的 <strong>最小值（Minimum）</strong> 和 <strong>最大值（Maximum）</strong> 设为下列值：
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_InitParticleMass.png" title="Set Mass Min and Max"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_InitParticleMass.jpg">
+		<img class="  lazyload" alt="设置质量最小值和最大值" title="Set Mass Min and Max" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_InitParticleMass.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>参数 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>值 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>最小值（Minimum）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>.6</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>最大值（Maximum）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>1.0</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr></tbody>
+</table></li><li class="Default"><p>在 <strong>Sprite属性（Sprite Attributes）</strong> 下，展开 <strong>Sprite大小（Sprite Size）</strong>。将 <strong>Sprite大小模式（Sprite Size Mode）</strong> 设置成 <strong>随机非同一（Random Non-Uniform）</strong>。将"Sprite大小（Sprite Size）"的 <strong>最小值（Minimum）</strong> 和 <strong>最大值（Maximum）</strong> 设为下列值：
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_InitParticleSpriteSize.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_InitParticleSpriteSize.jpg">
+		<img class="  lazyload" alt="设置Sprite大小" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_InitParticleSpriteSize.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>参数 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>值 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>最小值（Minimum）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>X: 10, Y: 10</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>最大值（Maximum）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>X: 30, Y: 25</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr></tbody>
+</table></li><li class="Default"><p>点击 <strong>Sprite旋转（Sprite Rotation）</strong> 旁的复选框，启用该选项。将 <strong>Sprite旋转模式（Sprite Rotation Mode）</strong> 设置成 <strong>直角（度）（Direct Angle (Degrees)）</strong>。点击值字段旁边的下拉框，并选择 <strong>动态输入（Dynamic Inputs）> 随机范围浮点（Random Ranged Float）</strong>。还可在搜索栏中键入"uniform"，如下所示。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_SpriteRotationUniformRangedFloat.png" title="Add Uniform Ranged Float"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_SpriteRotationUniformRangedFloat.jpg">
+		<img class="  lazyload" alt="添加统一范围浮点" title="Add Uniform Ranged Float" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_SpriteRotationUniformRangedFloat.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>将 <strong>最小值</strong>（Minimum）和 <strong>最大值</strong>（Maximum）设为下列值：
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_InitParticleSpriteRotation.png" title="Set Sprite Size Min and Max"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_InitParticleSpriteRotation.jpg">
+		<img class="  lazyload" alt="设置Sprite最小尺寸和最大尺寸" title="Set Sprite Size Min and Max" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_InitParticleSpriteRotation.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>参数 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>值 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>最小值（Minimum）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>-10</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>最大值（Maximum）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>30</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr></tbody>
+</table>
+</div></li><li class="Default"><p>点击粒子生成（Particle Spawn）的 <strong>加号</strong> (<strong>+</strong>)，然后选择 <strong>生成（Spawning）> 添加速度（Add Velocity）</strong>。还可在搜索栏中键入"velocity"，如下所示。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_AddVelocity.png" title="Add the Add Velocity Module"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_AddVelocity.jpg">
+		<img class="  lazyload" alt="添加&quot;添加速度模块&quot;" title="Add the Add Velocity Module" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_AddVelocity.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>打开 <strong>添加速度（Add Velocity）</strong> 模块。点击值旁边的下拉框，并选择 <strong>动态输入（Dynamic Inputs）> 统一范围向量（Uniform Ranged Vector）</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_AddVelocityUniformRangedVector.png" title="Add Uniform Ranged Vector 2D"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_AddVelocityUniformRangedVector.jpg">
+		<img class="  lazyload" alt="添加统一范围向量2D" title="Add Uniform Ranged Vector 2D" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_AddVelocityUniformRangedVector.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>将速度的 <strong>最小值（Minimum）</strong> 和 <strong>最大值（Maximum）</strong> 设为下列值：
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_SetVelocityMinMax.png" title="Set Velocity Min and Max"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_SetVelocityMinMax.jpg">
+		<img class="  lazyload" alt="设置速度最小值和最大值" title="Set Velocity Min and Max" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_SetVelocityMinMax.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>参数 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>值 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>最小值（Minimum）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>X：0，Y：0，Z：0</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>最大值（Maximum）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>X：5，Y：5，Z：5</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr></tbody>
+</table>
+</div></li><li class="Default"><p>点击粒子生成（Particle Spawn）的 <strong>加号</strong> (<strong>+</strong>)，然后选择 <strong>位置（Location）> 球体位置（Sphere Location）</strong>。还可在搜索栏中键入"sphere"，如下所示。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_AddSphereLocation.png" title="Add Sphere Location Module"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_AddSphereLocation.jpg">
+		<img class="  lazyload" alt="添加球体位置模块" title="Add Sphere Location Module" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_AddSphereLocation.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>打开 <strong>球体位置（Sphere Location）</strong> 模块。将 <strong>球体半径（Sphere Radius）</strong> 设为 <strong>5</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_SetSphereRadius.png" title="Set Sphere Radius"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_SetSphereRadius.jpg">
+		<img class="  lazyload" alt="设置球体半径" title="Set Sphere Radius" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_SetSphereRadius.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li></ol><h3 id="火花迸发发射器-编辑粒子更新设置">火花迸发发射器 - 编辑粒子更新设置</h3>
+<p>现在，你将在 <strong>粒子更新（Particle Update）</strong> 组中编辑模块。这些行为将应用于发射器的粒子并更新每一帧。
+</p><ol ><li class="Default"><p>在系统概览（System Overview）中，点击 <strong>粒子更新（Particle Update）</strong> 组以在 <strong>选择（Selection）</strong> 面板中打开。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_OpenParticleUpdate.png" title="Open Particle Update"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_OpenParticleUpdate.jpg">
+		<img class="  lazyload" alt="打开粒子更新" title="Open Particle Update" width="700" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_OpenParticleUpdate.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>打开 <strong>缩放色阶（Scale Color）</strong> 模块。对于 <strong>缩放RGB（Scale RGB）</strong>，将 <strong>RGB</strong> 值设置如下。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_ScaleColorSettings.png" title="Set Scale Color RGB"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_ScaleColorSettings.jpg">
+		<img class="  lazyload" alt="设置缩放颜色RGB" title="Set Scale Color RGB" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_ScaleColorSettings.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><div class="simpletable">
+	
+</div></li><li class="Default"><p>对于 <strong>缩放Alpha（Scale Alpha）</strong>，将alpha停止点设置如下。
+</p><div class="simpletable">
+	
+</div></li><li class="Default"><p>点击粒子更新（Particle Update）的 <strong>加号</strong> (<strong>+</strong>)，然后选择 <strong>大小（Size）> Sprite尺寸缩放（Sprite Size Scale）</strong>。还可在搜索栏中键入"size"，如下所示。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_AddScaleSpriteSize.png" title="Add Scale Sprite Size Module"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_AddScaleSpriteSize.jpg">
+		<img class="  lazyload" alt="添加Sprite大小模块" title="Add Scale Sprite Size Module" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_AddScaleSpriteSize.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>打开 <strong>Sprite大小缩放（Sprite Size Scale）</strong> 模块。点击 <strong>缩放因子（Scale Factor）</strong> 值字段旁边的下拉框，并选择 <strong>动态输入（Dynamic Inputs）> 随机范围向量2D（Random Ranged Vector 2D）</strong>。还可在搜索栏中键入 <code>random</code>，如下所示。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_ScaleSpriteSizeUniformRangedVector.png" title="Add Uniform Ranged Vector 2D"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_ScaleSpriteSizeUniformRangedVector.jpg">
+		<img class="  lazyload" alt="添加统一范围向量2D" title="Add Uniform Ranged Vector 2D" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_ScaleSpriteSizeUniformRangedVector.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>将缩放因子的 <strong>最小值（Minimum）</strong> 和 <strong>最大值（Maximum）</strong> 设为下列值：
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_SetScaleFactorMinMax.png" title="Set Scale Factor Min and Max"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_SetScaleFactorMinMax.jpg">
+		<img class="  lazyload" alt="设置缩放因子最大值和最小值" title="Set Scale Factor Min and Max" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_SetScaleFactorMinMax.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>参数 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>值 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>最小值（Minimum）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>X：1.0，Y：2.5</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>最大值（Maximum）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>X：3.5，Y：2.5</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="2" align="">
+			
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+</tr></tbody>
+</table>
+</div></li></ol><h2 id="添加弧度火花发射器到系统">添加弧度火花发射器到系统</h2>
+<ol ><li class="Default"><p>右键点击SparkFountain系统的 <strong>系统概览（System Overview）</strong>。点击 <strong>添加发射器（Add Emitter）</strong>，现有发射器的列表随即显示。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_AddEmitterSystemOverview.png" title="Add Emitter from System Overview"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_AddEmitterSystemOverview.jpg">
+		<img class="  lazyload" alt="从系统概览添加发射器" title="Add Emitter from System Overview" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_AddEmitterSystemOverview.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>从发射器列表中，选择 <strong>简易Sprite迸发（Simple Sprite Burst）</strong> 模板。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_SelectSimpleSpriteBurst.png" title="Select Template"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_SelectSimpleSpriteBurst.jpg">
+		<img class="  lazyload" alt="选择模板" title="Select Template" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_SelectSimpleSpriteBurst.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>模板发射器的默认名称为 <strong>SimpleSpriteBurst</strong>，但你可以对其重命名。点击发射器名称，该字段将转变为可编辑状态。将新系统命名为 <strong>FX_SparksRadial</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_RenameEmitterSystemOverview.png" title="Rename Emitter"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_RenameEmitterSystemOverview.jpg">
+		<img class="  lazyload" alt="重命名发射器" title="Rename Emitter" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_RenameEmitterSystemOverview.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li></ol><h3 id="弧度火花发射器-编辑渲染器设置">弧度火花发射器 - 编辑渲染器设置</h3>
+<p>虽然 <strong>渲染（Render）</strong> 组是堆栈中的最后一项，但你需要更改材质，以便效果按照预期方式显示。
+</p><ol ><li class="Default"><p>在 <strong>系统概览（System Overview）</strong> 中，点击 <strong>渲染器（Renderer）</strong> 组以在 <strong>选择（Selection）</strong> 面板中打开。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_OpenRender.png" title="Open Render Group"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_OpenRender.jpg">
+		<img class="  lazyload" alt="打开渲染组" title="Open Render Group" width="700" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_OpenRender.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>点击 <strong>材质（Material）</strong> 下拉框并选择 <strong>M_Radial_Gradient</strong> 材质。此材质来自初学者内容包。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_SelectRenderMaterial.png" title="Select Render Material"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_SelectRenderMaterial.jpg">
+		<img class="  lazyload" alt="设置渲染材质" title="Select Render Material" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_SelectRenderMaterial.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>点击 <strong>对齐（Alignment）</strong> 下拉列表，然后选择 <strong>速度对齐（Velocity Aligned）</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_SetAlignmentinRenderer.png" title="Set Alignment"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_SetAlignmentinRenderer.jpg">
+		<img class="  lazyload" alt="设置对齐" title="Set Alignment" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_SetAlignmentinRenderer.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><h3 id="弧度火花发射器-编辑发射器更新设置">弧度火花发射器 - 编辑发射器更新设置</h3>
+<p>首先，你将在 <strong>发射器更新（Emitter Update）</strong> 组中编辑模块。这些是将应用于发射器并更新每一帧的行为。
+</p></li><li class="Default"><p>在 <strong>系统概览（System Overview）</strong> 中，点击 <strong>粒子更新（Particle Update）</strong> 组以在 <strong>选择（Selection）</strong> 面板中打开。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_OpenEmitterUpdate.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_OpenEmitterUpdate.jpg">
+		<img class="  lazyload" alt="打开发射器更新" width="700" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_OpenEmitterUpdate.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>点击 <strong>垃圾桶</strong> 图标，以移除 <strong>Sprite即时迸发（Sprite Burst Instantaneous）</strong> 模块。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_RemoveSpawnBurstInstant.png" title="Remove Sprite Burst Instantaneous"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_RemoveSpawnBurstInstant.jpg">
+		<img class="  lazyload" alt="移除即时迸发" title="Remove Sprite Burst Instantaneous" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_RemoveSpawnBurstInstant.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>打开 <strong>发射器状态（Emitter State）</strong> 模块。此模块控制此发射器的时间和可延展性。由于你使用了 <strong>简单Sprite迸发（Simple Sprite Burst）</strong> 模板，因此 <strong>生命周期模式（Life Cycle Mode）</strong> 设置为 <strong>自身（Self）</strong>。通常，该模式用于为此特定发射器完全定制发射器生命周期逻辑，但此效果并不需要它。点击下拉列表，并将 <strong>生命周期模式（Life Cycle Mode）</strong> 设置为 <strong>系统（System）</strong>。此操作将使系统能够计算生命周期设置，而这通常可以优化性能。在默认情况下，系统以5秒的间隔无限循环。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Smoke_SetLifeCycleMode.png" title="Set Life Cycle Mode"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Smoke_SetLifeCycleMode.jpg">
+		<img class="  lazyload" alt="设置生命周期模式" title="Set Life Cycle Mode" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Smoke_SetLifeCycleMode.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>点击 <strong>粒子更新（Particle Update）</strong> 的 <strong>加号（Plus sign）</strong> 图标（<strong>+</strong>），然后选择 <strong>生成 > 生成率（Spawning > Spawn Rate）</strong>。你也可以在搜索栏中输入 <code>spawn</code>，如下所示。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_AddSpawnRate.png" title="Add Spawn Rate Module"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_AddSpawnRate.jpg">
+		<img class="  lazyload" alt="添加生成速率模块" title="Add Spawn Rate Module" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Burst_AddSpawnRate.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>打开 <strong>生成速率（Spawn Rate）</strong> 模块。将 <strong>生成速率（Spawn Rate）</strong> 设置为 <strong>500</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_SetSpawnRate.png" title="Set Spawn Rate"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_SetSpawnRate.jpg">
+		<img class="  lazyload" alt="设置生成速率" title="Set Spawn Rate" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_SetSpawnRate.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li></ol><h3 id="弧度火花发射器-编辑粒子生成设置">弧度火花发射器 - 编辑粒子生成设置</h3>
+<p>下一步，你将在 <strong>粒子生成（Particle Spawn）</strong> 组中编辑模块。这些是粒子首次生成时将应用于粒子的行为。
+</p><ol ><li class="Default"><p>在系统概览（System Overview）中，点击 <strong>粒子生成（Particle Spawn）</strong> 组以在 <strong>选择（Selection）</strong> 面板中打开。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_OpenParticleSpawn.png" title="Open Particle Spawn"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_OpenParticleSpawn.jpg">
+		<img class="  lazyload" alt="打开粒子生成" title="Open Particle Spawn" width="700" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_OpenParticleSpawn.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>打开 <strong>初始化粒子（Initialize Particle）</strong> 模块。在 <strong>点属性（Point Attributes）</strong> 下，展开 <strong>生命周期（Lifetime）</strong>。将生命周期（Lifetime）的模式设置为 <strong>随机（Random）</strong>，将 <strong>最小值</strong>（ Minimum）和 <strong>最大值</strong>（Maximum）设为下列值：
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_InitParticleLifetime.png" title="Set Lifetime Min and Max"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_InitParticleLifetime.jpg">
+		<img class="  lazyload" alt="设置生命周期最小值和最大值" title="Set Lifetime Min and Max" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_InitParticleLifetime.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>参数 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>值 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>最小值（Minimum）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>2</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>最大值（Maximum）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>7</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr></tbody>
+</table>
+</div></li><li class="Default"><p>展开 <strong>质量（Mass）</strong>。将 <strong>质量模式（Mass Mode）</strong> 设置为 <strong>随机（Random）</strong>，将 <strong>最小值</strong>（Minimum）和 <strong>最大值</strong>（Maximum）设为下列值：
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_InitParticleMass.png" title="Set Mass Min and Max"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_InitParticleMass.jpg">
+		<img class="  lazyload" alt="设置质量最小值和最大值" title="Set Mass Min and Max" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_InitParticleMass.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>参数 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>值 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>最小值（Minimum）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>.3</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>最大值（Maximum）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>.6</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr></tbody>
+</table>
+</div></li><li class="Default"><p>展开 <strong>颜色（Color）</strong>。将 <strong>颜色模式（Color Mode）</strong> 设置为 <strong>直接设置（Direct Set）</strong>，将RGB值设为下列值：
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_InitParticleColor.png" title="Set Color"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_InitParticleColor.jpg">
+		<img class="  lazyload" alt="设置颜色" title="Set Color" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_InitParticleColor.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>参数 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>值 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>红色（Red）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>2</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>绿色（Green）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>8</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>蓝色（Blue）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>20</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Alpha</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>1</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr></tbody>
+</table>
+</div></li><li class="Default"><p>在 <strong>Sprite属性（Sprite Attributes）</strong> 下，将 <strong>Sprite大小模式（Sprite Size Mode）</strong> 设置为 <strong>非统一（Non-Uniform）</strong>。设置以下值：<strong>X：.25，Y：.5</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_InitParticleSpriteSize.png" title="Set Sprite Size"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_InitParticleSpriteSize.jpg">
+		<img class="  lazyload" alt="设置Sprite大小" title="Set Sprite Size" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_InitParticleSpriteSize.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>将 <strong>Sprite旋转模式（Sprite Rotation Mode）</strong> 保留位 <strong>未设置（Unset）</strong>。
+</p></li><li class="Default"><p>点击 <strong>粒子生成（Particle Spawn）</strong> 的 <strong>加号（Plus sign）</strong> 图标（<strong>+</strong>），然后选择 <strong>质量 > 按质量计算尺寸和旋转惯性（Mass > Calculate Size and Rotational Inertia by Mass）</strong>。你也可以在搜索栏中输入 <code>calculate</code>，如下所示。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_AddCalculateSizebyMass.png" title="Add Calculate Size and Rotational Inertia by Mass"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_AddCalculateSizebyMass.jpg">
+		<img class="  lazyload" alt="添加按质量计算尺寸和旋转惯性" title="Add Calculate Size and Rotational Inertia by Mass" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_AddCalculateSizebyMass.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>打开 <strong>按质量计算尺寸和旋转惯性（Calculate Size and Rotational Inertia by Mass）</strong> 模块。在 <strong>密度（Density）</strong> 下，将 <strong>按材质类型划分的密度（Density by Material Type）</strong> 设置为 <strong>水（Water）</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_SetDensity.png" title="Set Density"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_SetDensity.jpg">
+		<img class="  lazyload" alt="设置密度" title="Set Density" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_SetDensity.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>在 <strong>比例（Proportions）</strong> 下，将 <strong>高度（Height）</strong> 更改为 <strong>.5</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_SetProportions.png" title="Set Proportions"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_SetProportions.jpg">
+		<img class="  lazyload" alt="设置比例" title="Set Proportions" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_SetProportions.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>点击 <strong>粒子生成（Particle Spawn）</strong> 的 <strong>加号（Plus sign）</strong> 图标（<strong>+</strong>），然后选择 <strong>速度 > 添加速度（Velocity > Add Velocity）</strong>。你也可以在搜索栏中输入速度，如下所示。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_AddVelocityModule.png" title="Add the Add Velocity Module"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_AddVelocityModule.jpg">
+		<img class="  lazyload" alt="添加添加速度模块" title="Add the Add Velocity Module" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_AddVelocityModule.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>打开 <strong>添加速度（Add Velocity）</strong> 模块。点击下拉菜单，选择 <strong>动态输入（Dynamic Inputs）</strong> > <strong>随机范围向量（Random Range Vector）</strong>。将速度 <strong>最小值</strong>（Minimum）和 <strong>最大值</strong>（Maximum）设为下列值：
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_SetVelocityMinMax.png" title="Set Velocity Min and Max"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_SetVelocityMinMax.jpg">
+		<img class="  lazyload" alt="设置速度最小值和最大值" title="Set Velocity Min and Max" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_SetVelocityMinMax.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>参数 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>值 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>最小值（Minimum）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>X：-100，Y：-100，Z：300</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>最大值（Maximum）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>X：90，Y：90，Z：500</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr></tbody>
+</table></li><li class="Default"><p>点击按钮 <strong>展示高级（Show Advanced）</strong>。将 <strong>缩放添加速度（Scaled Added Velocity）</strong> 设为 <strong>X：3，Y：4，Z：1</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_SetScaleAddedVelocity.png" title="Set Scale Added Velocity"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_SetScaleAddedVelocity.jpg">
+		<img class="  lazyload" alt="设置缩放添加的速度" title="Set Scale Added Velocity" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_SetScaleAddedVelocity.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>点击 <strong>粒子生成（Particle Spawn）</strong> 的 <strong>加号（Plus sign）</strong> 图标（<strong>+</strong>），然后选择 <strong>位置（Location）> 球体位置（Sphere Location）</strong>。你也可以在搜索栏中输入球体，如下所示。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_AddSphereLocation.png" title="Add Sphere Location"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_AddSphereLocation.jpg">
+		<img class="  lazyload" alt="添加球体半径" title="Add Sphere Location" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_AddSphereLocation.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>打开 <strong>球体位置（Sphere Location）</strong> 模块。将 <strong>球体半径（Sphere Radius）</strong> 设置为 <strong>2.0</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_SetSphereRadius.png" title="Set Sphere Radius"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_SetSphereRadius.jpg">
+		<img class="  lazyload" alt="设置球体半径" title="Set Sphere Radius" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_SetSphereRadius.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li></ol><h3 id="弧度火花发射器-编辑粒子更新设置">弧度火花发射器 - 编辑粒子更新设置</h3>
+<p>现在，你将在 <strong>粒子更新（Particle Update）</strong> 组中编辑模块。这些行为将应用于发射器的粒子并更新每一帧。
+</p><ol ><li class="Default"><p>在 <strong>系统概览（System Overview）</strong> 中，点击 <strong>粒子更新（Particle Update）</strong> 组，以在 <strong>选择（Selection）</strong> 面板中将其打开。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_OpenParticleUpdate.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_OpenParticleUpdate.jpg">
+		<img class="  lazyload" alt="Open Particle Update" width="700" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_OpenParticleUpdate.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>点击 <strong>粒子更新（Particle Update）</strong> 的 <strong>加号（Plus sign）</strong> 图标（<strong>+</strong>），然后选择 <strong>力 > 重力（Forces > Gravity Force）</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_AddGravityForce.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_AddGravityForce.jpg">
+		<img class="  lazyload" alt="Open Particle Update" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_AddGravityForce.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>由于Niagara将新模块添加到组堆栈底部，因此你会收到一条显示"模块有未满足的依赖关系（The module has unmet dependencies）"的错误消息。这是因为 <strong>重力（Gravity Force）</strong> 模块放置在 <strong>解算力和速度（Solve Forces and Velocity）</strong> 模块之后。点击 <strong>修复问题（Fix Issue）</strong> 按钮，以移动模块并解决错误。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_GravityForceFixIssue.png" title="Unmet Dependencies Error"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_GravityForceFixIssue.jpg">
+		<img class="  lazyload" alt="未满足依赖性错误" title="Unmet Dependencies Error" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_GravityForceFixIssue.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>打开 <strong>重力（Gravity Force）</strong> 模块。将 <strong>Z</strong> 值更改为 <strong>-4500</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_SetGravityValues.png" title="Set Gravity Values"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_SetGravityValues.jpg">
+		<img class="  lazyload" alt="设置重力" title="Set Gravity Values" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_SetGravityValues.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>点击 <strong>粒子更新（Particle Update）</strong> 的 <strong>加号（Plus sign）</strong> 图标（<strong>+</strong>），然后选择 <strong>力 > 阻力（Forces > Drag）</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_AddDrag.png" title="Add Drag Module"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_AddDrag.jpg">
+		<img class="  lazyload" alt="Add Drag Module" title="Add Drag Module" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_AddDrag.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>打开 <strong>阻力（Drag）</strong> 模块，将 <strong>阻力（Drag）</strong> 值设置为 <strong>1.7</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_SetDrag.png" title="Set Drag"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_SetDrag.jpg">
+		<img class="  lazyload" alt="Set Drag" title="Set Drag" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_SetDrag.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>点击 <strong>粒子更新（Particle Update）</strong> 的 <strong>加号</strong> (<strong>+</strong>) 并选择 <strong>碰撞（Collision）> 碰撞（Collision）</strong>。还可在搜索栏中键入"collision"，如下所示。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_AddCollisionModule.png" title="Add Collision Module"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_AddCollisionModule.jpg">
+		<img class="  lazyload" alt="添加碰撞模块" title="Add Collision Module" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_AddCollisionModule.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>你将收到一条显示"模块具有未满足依赖性"的错误消息。点击 <strong>修复问题（Fix Issue）</strong> 按钮，以将 <strong>碰撞（Collision）</strong> 模块移至 <strong>解算力和速度（Solve Forces and Velocity）</strong> 模块上方，从而解决该错误。
+</p></li><li class="Default"><p>打开 <strong>碰撞（Collision）</strong> 模块。在 <strong>反射（Bounce）</strong> 中，将 <strong>恢复力（Restitution）</strong> 值设置为 <strong>.4</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_SetCollisionBounce.png" title="Set Collision Bounce"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_SetCollisionBounce.jpg">
+		<img class="  lazyload" alt="Set Collision Bounce" title="Set Collision Bounce" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_SetCollisionBounce.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>在 <strong>摩擦力</strong> 中，将 <strong>摩擦力</strong> 值设置为 <strong>.2</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_SetCollisionFriction.png" title="Set Collision Friction"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_SetCollisionFriction.jpg">
+		<img class="  lazyload" alt="Set Collision Friction" title="Set Collision Friction" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_SetCollisionFriction.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>点击 <strong>垃圾桶（Trashcan）</strong> 图标，以移除 <strong>缩放色阶（Scale Color）</strong> 模块。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_RemoveScaleColor.png" title="Remove Scale Color Module"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_RemoveScaleColor.jpg">
+		<img class="  lazyload" alt="Remove Scale Color Module" title="Remove Scale Color Module" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_RemoveScaleColor.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>点击 <strong>加号（Plus sign）</strong> （<strong>+</strong>），然后选择 <strong>大小 > 按速度缩放Sprite大小（Size > Scale Sprite Size by Speed）</strong>。你也可以在搜索栏中输入 <code>size</code>，如下所示。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_AddScaleSpriteSizebySpeed.png" title="Add Scale Sprite Size by Speed"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_AddScaleSpriteSizebySpeed.jpg">
+		<img class="  lazyload" alt="Add Scale Sprite Size by Speed" title="Add Scale Sprite Size by Speed" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_AddScaleSpriteSizebySpeed.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>打开 <strong>按速度Sprite大小缩放（Sprite Size Scale by Speed）</strong> 模块。将 <strong>比例因子（Scale Factor）</strong> 的最小值（Minimum）和最大值（Maximum）设置如下：
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_SetScaleFactor.png" title="Set Scale Factor Min and Max"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_SetScaleFactor.jpg">
+		<img class="  lazyload" alt="设置比例因子的最小值和最大值" title="Set Scale Factor Min and Max" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_SetScaleFactor.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>参数 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>数值 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>最小值（Minimum）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>X: 0, Y: 3</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>最大值（Maximum）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>X: .5, Y: 6</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr></tbody>
+</table>
+</div></li><li class="Default"><p>将 <strong>速度阈值（Velocity Threshold）</strong> 值设为 <strong>3000</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_SetVelocityThreshold.png" title="Set Velocity Threshold"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_SetVelocityThreshold.jpg">
+		<img class="  lazyload" alt="设置速度阈值" title="Set Velocity Threshold" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/Sparks_Radial_SetVelocityThreshold.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li></ol><h2 id="最终结果">最终结果</h2>
+<p>祝贺你！在完成上述步骤后，SparkFountain系统将在关卡中产生类似下图的火花喷泉。左侧你可以看到基于Niagara的火花喷泉效果，而在右侧你可以看到基于Cascade的火花喷泉效果。
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_1_qytcyjbt_25
+{
+	margin: 0px;
+	width: 75%;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_1_qytcyjbt_25:after
+{
+	content: "";
+	padding-top: 56.25%;
+	display: block;
+}
+</style> 
+<div id="player_1_qytcyjbt_25"> 
+	<div id="playerContainer_1_qytcyjbt_25" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/1_qytcyjbt/embed.html"></iframe>
+	</div>
+</div>
+
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Niagara">Niagara</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Vfx">Vfx</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Effects">Effects</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Visual%20Effects">Visual Effects</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Particle%20Effects">Particle Effects</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/RenderingAndGraphics/Niagara/HowTo/RecreateSparks/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:04:56 GMT -->
+</html>

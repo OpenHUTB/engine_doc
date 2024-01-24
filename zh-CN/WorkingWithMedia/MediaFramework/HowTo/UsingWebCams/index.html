@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/WorkingWithMedia/MediaFramework/HowTo/UsingWebCams/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:37:24 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var finishButton = finishButtonTemplate;
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/WorkingWithMedia/MediaFramework/HowTo/UsingWebCams/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>播放实时视频采集画面 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+		    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+		    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/WorkingWithMedia/MediaFramework/HowTo/UsingWebCams/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/WorkingWithMedia/MediaFramework/HowTo/UsingWebCams/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/WorkingWithMedia/MediaFramework/HowTo/UsingWebCams/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/WorkingWithMedia/MediaFramework/HowTo/UsingWebCams/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/MediaFramework/HowTo/UsingWebCams" />
+<meta name="intsourcechangelist" content="15476102" />
+<meta name="availability" content="Public" />
+<meta name="title" content="播放实时视频采集画面" />
+<meta name="description" content="展示如何拉入实时视频采集画面并在UE4中使用媒体框架工具播放。" />
+<meta name="type" content="how-to" />
+<meta name="skilllevel" content="Advanced" />
+<meta name="version" content="4.18" />
+<meta name="parent" content="WorkingWithMedia/MediaFramework/HowTo" />
+<meta name="order" content="3" />
+<meta name="keywords" content="Media Framework" />
+<meta name="keywords" content="Video Playback" />
+<meta name="related" content="WorkingWithMedia/MediaFramework" />
+<meta name="crumbs" content="%ROOT%,WorkingWithMedia,WorkingWithMedia/MediaFramework,WorkingWithMedia/MediaFramework/HowTo" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="播放实时视频采集画面" />
+	<meta property="og:description" content="展示如何拉入实时视频采集画面并在UE4中使用媒体框架工具播放。     " />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">使用媒体</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">媒体框架</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">媒体框架指南</a>
+
+<span class="separator">></span> <span id="page">播放实时视频采集画面</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">播放实时视频采集画面</h1>
+							</div>	
+							<h2 >展示如何拉入实时视频采集画面并在UE4中使用媒体框架工具播放。     </h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Advanced"><a id="skill_link" href="../../../../SiteIndex/index.html?skills=Advanced">Advanced</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																														<div id="seeAlso">
+	<div style="position:relative;">
+		<div id="title">参见</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<p>
+						<a id="related_link" href="../../index.html" title="在虚幻引擎4中使用媒体播放功能。">媒体框架</a>
+					</p>
+				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																														<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#步骤">步骤</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#最终结果">最终结果</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>虚幻引擎4（UE4）中的媒体框架以能够在引擎中播放的媒体格式支持视频和音频采集设备。
+例如，你可以从网络摄像头获取实时视频，然后在UE4中的静态网格体上或作为HUD的一部分直接播放。
+或者，你可以将项目部署到移动设备，并检索前置或后置摄像头视频，并在应用程序中播放。 
+</p><p>在本示例中，我们将以网络摄像头的视频采集为例，在游戏期间作为HUD的一部分播放这个视频。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/UsingWebCams/WebCamHero.jpg">
+		<img class="  lazyload" alt="WebCamHero.png" data-src="../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/UsingWebCams/WebCamHero.jpg" />
+</picture>
+
+</p><div class="note">
+	<p>Electra媒体播放器目前不支持实时视频捕获（Live Video Capture）的播放。</p>
+</div><h2 id="步骤">步骤</h2>
+<div class="note">
+	<p>在本操作指南中，我们使用启用了 <strong>初学者内容包</strong> 的 <strong>蓝图第三人称模板（Blueprint Third Person Template）</strong> 项目。
+你还必须在电脑上连接网络摄像头。</p>
+</div><ol ><li class="Default"><p>展开 <strong>源（Sources）</strong> 面板，创建名为 <strong>电影（Movies）</strong> 的文件夹，然后在该文件夹中，创建 <strong>媒体播放器（Media Player）</strong> 并链接名为 <strong>MediaPlayer</strong> 的 <strong>媒体纹理（Media Texture）</strong> 资源。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/UsingWebCams/WebCam_01.jpg">
+		<img class="  lazyload" alt="WebCam_01.png" data-src="../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/UsingWebCams/WebCam_01.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>打开 <strong>MediaPlayer</strong> 资源，然后在 <strong>媒体URL（Media URL）</strong> 字段旁边，单击并展开 <strong>采集设备（Capture Devices）</strong>，在 <strong>视频（Video）</strong> 下找到你的摄像头。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/UsingWebCams/WebCam_02.jpg">
+		<img class="  lazyload" alt="WebCam_02.png" data-src="../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/UsingWebCams/WebCam_02.jpg" />
+</picture>
+
+</p><div class="note">
+	<p>根据你的电脑设置，显示的采集设备数量和名称可能与截图不同。 </p>
+</div><p>在选择你的视频采集设备时，来自摄像头的视频将显示在媒体播放编辑器内部。 
+</p></li><li class="Default"><p>高亮显示并单击右键，复制"媒体URL（Media URL）"字段中显示的 <strong>媒体URL</strong> 字符串。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/UsingWebCams/WebCam_03.jpg">
+		<img class="  lazyload" alt="WebCam_03.png" data-src="../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/UsingWebCams/WebCam_03.jpg" />
+</picture>
+
+</p><div class="note">
+	<p>根据你的电脑设置，显示的URL字符串可能与截图不同。 </p>
+</div></li><li class="Default"><p>在 <strong>内容浏览器</strong> 单击右键，在 <strong>用户界面（User Interface）</strong> 下面，选择 <strong>控件蓝图（Widget Blueprint）</strong> 并命名为 <strong>HUD</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/UsingWebCams/WebCam_04.jpg">
+		<img class="  lazyload" alt="WebCam_04.png" data-src="../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/UsingWebCams/WebCam_04.jpg" />
+</picture>
+
+</p><p>我们将在该用户界面内部使用 <strong>媒体纹理（Media Texture）</strong> 来显示从网络摄像头获取视频的画中画风格HUD。 
+</p></li><li class="Default"><p>打开 <strong>HUD</strong> 控件蓝图，然后在 <strong>内容浏览器</strong> 中，将 <strong>MediaPlayer_Video</strong> 纹理拖入HUD图表。你会发现视频填充了 <strong>外观（Appearance）</strong> 下面的 <strong>图像（Image）</strong> 字段。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/UsingWebCams/WebCam_06.jpg">
+		<img class="  lazyload" alt="WebCam_06.png" data-src="../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/UsingWebCams/WebCam_06.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>关闭 <strong>HUD</strong> 控件蓝图，然后从主编辑器工具栏中，单击 <strong>蓝图（Blueprints）</strong>，并选择 <strong>打开关卡蓝图（Open Level Blueprint）</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/UsingWebCams/WebCam_07.jpg">
+		<img class="  lazyload" alt="WebCam_07.png" data-src="../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/UsingWebCams/WebCam_07.jpg" />
+</picture>
+
+</p><p>虽然我们并没有直接打开媒体源，而是复制媒体URL，但仍需要将其打开以便在运行时播放。
+</p></li><li class="Default"><p>在 <strong>我的蓝图（My Blueprint）</strong> 面板中，创建一个 <strong>媒体播放器对象引用（Media Player Object Reference）</strong> 类型的变量并命名为 <strong>媒体播放器（Media Player）</strong>，然后分配 <strong>媒体播放器（Media Player）</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/UsingWebCams/WebCam_08.jpg">
+		<img class="  lazyload" alt="WebCam_08.png" data-src="../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/UsingWebCams/WebCam_08.jpg" />
+</picture>
+
+</p><div class="note">
+	<p>你可能需要单击 <strong>编译（Compile）</strong> 按钮来编译蓝图，然后再分配"媒体播放器（Media Player）"变量的 <strong>默认值（Default Value）</strong>。 </p>
+</div></li><li class="Default"><p>按住 <strong>Ctrl</strong> 键并将 <strong>媒体播放器（MediaPlayer）</strong> 变量拖到图形上，然后单击右键并添加 <strong>事件开始播放（Event BeginPlay）</strong> 节点。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/UsingWebCams/WebCam_09.jpg">
+		<img class="  lazyload" alt="WebCam_09.png" data-src="../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/UsingWebCams/WebCam_09.jpg" />
+</picture>
+
+</p><p>我们已经创建了想要对其执行操作的媒体播放器的引用和用于指示游戏开始的<a id="content_link"filter-data="tag_execution_flow tag_blueprints tag_special_nodes" href="../../../../ProgrammingAndScripting/Blueprints/UserGuide/Events/index.html" ><span>事件</span></a>。 
+</p></li><li class="Default"><p>单击右键并添加 <strong>创建控件（Create Widget）</strong> 节点（以 <strong>HUD</strong> 作为 <strong>类（Class）</strong>），然后拖出 <strong>返回值（Return Value）</strong> 引脚，使用 <strong>添加到视口（Add to Viewport）</strong> 并按图所示进行连接。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/UsingWebCams/WebCam_10.jpg">
+		<img class="  lazyload" alt="WebCam_10.png" data-src="../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/UsingWebCams/WebCam_10.jpg" />
+</picture>
+
+</p><p>我们在这里要表达的是，当游戏开始时，创建HUD控件蓝图，然后将其添加到玩家视口。 
+</p></li><li class="Default"><p>拖出图形中 <strong>媒体播放器（Media Player）</strong> 节点引脚，使用 <strong>打开URL（Open URL）</strong> 并粘贴在 <strong>第3步</strong> 复制的URL，并按图所示进行连接。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/UsingWebCams/WebCam_11.jpg">
+		<img class="  lazyload" alt="WebCam_11.png" data-src="../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/UsingWebCams/WebCam_11.jpg" />
+</picture>
+
+</p><p>如果你现在在编辑器中播放，来自网络摄像头的视频将会出现在你在所需位置放置的HUD图像上。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/UsingWebCams/WebCam_12.jpg">
+		<img class="  lazyload" alt="WebCam_12.png" data-src="../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/UsingWebCams/WebCam_12.jpg" />
+</picture>
+
+</p><p>在我们的示例中，我们指定了要打开的媒体URL，但需要知道的是，实际情况并非总是如此。 
+你可能会将项目打包并通过这种功能分发给其他人，然后想要获取最终用户连接的采集设备并使用其中的一个设备。 
+或者，你可能想将项目部署到移动设备，并需要前置或后置摄像头视频来用作媒体源。 
+你可以使用 <strong>列举采集设备（Enumerate Capture Devices）</strong> 功能来返回所有连接的采集设备，并获取有关这些设备的信息。 
+</p></li><li class="Default"><p>在图形中单击右键，搜索并添加 <strong>列举视频采集设备（Enumerate Video Capture Devices）</strong> 函数。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/UsingWebCams/WebCam_13.jpg">
+		<img class="  lazyload" alt="WebCam_13.png" data-src="../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/UsingWebCams/WebCam_13.jpg" />
+</picture>
+
+</p><p>有一些用于音频、视频和网络摄像头采集设备的列举元素（网络摄像头用于移动设备，因为你可以获取前置或后置摄像头）。 
+</p></li><li class="Default"><p>拖出 <strong>过滤器（Filter）</strong> 引脚并使用 <strong>创建位掩码（Make Bitmask）</strong> 节点。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/UsingWebCams/WebCam_14.jpg">
+		<img class="  lazyload" alt="WebCam_14.png" data-src="../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/UsingWebCams/WebCam_14.jpg" />
+</picture>
+
+</p><p>使用"创建位掩码（Make Bitmask）"将使你能够筛选出一组特定的设备子集。 
+</p></li><li class="Default"><p>选中 <strong>创建位掩码（Make Bitmask）</strong> 节点，在 <strong>细节（Details）</strong> 面板中，将 <strong>位掩码列举（Bitmask Enum）</strong> 更改为 <strong>EMediaVideoCaptureDeviceFilter</strong>，然后在过滤器中启用它们。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/UsingWebCams/WebCam_14b.jpg">
+		<img class="  lazyload" alt="WebCam_14b.png" data-src="../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/UsingWebCams/WebCam_14b.jpg" />
+</picture>
+
+</p><p>这里我们将筛选每一个启用的选项来返回采集设备（你可以排除想要省略的设备，缩小返回设备列表）。 
+</p></li><li class="Default"><p>从 <strong>输出设备（Out Devices）</strong>，使用 <strong>获取副本（Get Copy）</strong> 节点并拖出其输出引脚，使用 <strong>Break MediaCpatureDevice</strong> 节点并连接到 <strong>打开URL（Open URL）</strong>，如图所示。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/UsingWebCams/WebCam_16.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/UsingWebCams/WebCam_16.jpg">
+		<img class="  lazyload" alt="WebCam_16.png" data-src="../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/UsingWebCams/WebCam_16.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。 </p>
+</div><p>该过程将查找第一个可用采集设备，并返回其URL，之后将通过"打开URL（Open URL）"使用这个URL来打开视频源进行播放。 
+</p></li><li class="Default"><p><strong>编译（Compile）</strong> 并关闭关卡蓝图，然后单击主工具栏中的 <strong>播放（Play）</strong> 按钮来在编辑器中播放。
+</p></li></ol><h2 id="最终结果">最终结果</h2>
+<p>当你在编辑器中播放时，来自你的摄像头的视频将会通过引擎推送并显示在你的HUD上。 
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_0_fs02zwr5_20
+{
+	margin: 0px;
+	width: 100%;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_0_fs02zwr5_20:after
+{
+	content: "";
+	padding-top: 56.25%;
+	display: block;
+}
+</style> 
+<div id="player_0_fs02zwr5_20"> 
+	<div id="playerContainer_0_fs02zwr5_20" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/0_fs02zwr5/embed.html"></iframe>
+	</div>
+</div>
+<p>要获取移动设备上的前置或后置摄像头： 
+</p><ul ><li class="Default"><p>使用 <strong>列举视频采集设备（Enumerate Video Capture Devices）</strong> 节点，然后将 <strong>位掩码列举（Bitmask Enum）</strong> 设置为 <strong>EMediaWebcamCaptureDeviceFilter</strong> 选项。 
+</p></li><li class="Default"><p>在 <strong>创建位掩码（Make Bitmask）</strong> 节点上，标出你想要获取的摄像头。
+</p></li></ul><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/UsingWebCams/WebCam_15.jpg">
+		<img class="  lazyload" alt="WebCam_15.png" data-src="../../../../../Images/WorkingWithMedia/MediaFramework/HowTo/UsingWebCams/WebCam_15.jpg" />
+</picture>
+
+</p>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Media%20Framework">Media Framework</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Video%20Playback">Video Playback</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/WorkingWithMedia/MediaFramework/HowTo/UsingWebCams/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:37:31 GMT -->
+</html>

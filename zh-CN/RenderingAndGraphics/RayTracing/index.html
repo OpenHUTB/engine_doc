@@ -1,0 +1,1660 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/RenderingAndGraphics/RayTracing/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 10:19:49 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "../../../Images/RenderingAndGraphics/RayTracing/RayTracingBanner_hero.png";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/RenderingAndGraphics/RayTracing/" />');
+				var udnCSS = '../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>实时光线追踪 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/RenderingAndGraphics/RayTracing/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/RenderingAndGraphics/RayTracing/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/RenderingAndGraphics/RayTracing/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/RenderingAndGraphics/RayTracing/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Rendering/RayTracing" />
+<meta name="intsourcechangelist" content="15110402" />
+<meta name="availability" content="Public" />
+<meta name="title" content="实时光线追踪" />
+<meta name="description" content="虚幻引擎4中的光线追踪的概述。" />
+<meta name="type" content="overview" />
+<meta name="version" content="4.25" />
+<meta name="parent" content="RenderingAndGraphics" />
+<meta name="keywords" content="Ray Tracing" />
+<meta name="related" content="Resources/Showcases/ArchVisInterior" />
+<meta name="order" content="16" />
+<meta name="hero-image" content="RayTracingBanner_hero.png" />
+<meta name="crumbs" content="%ROOT%,RenderingAndGraphics" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="实时光线追踪" />
+	<meta property="og:description" content="虚幻引擎4中的光线追踪的概述。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../index.html">设计视觉、渲染和图形效果</a>
+
+<span class="separator">></span> <span id="page">实时光线追踪</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  background">
+						<div class="imgContainer"><img src="../../../Images/RenderingAndGraphics/RayTracing/RayTracingBanner_hero.png" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">实时光线追踪</h1>
+							</div>	
+							<h2 >虚幻引擎4中的光线追踪的概述。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																																			</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																		<div id="seeAlso">
+	<div style="position:relative;">
+		<div id="title">参见</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<p>
+						<a id="related_link" href="../../Resources/Showcases/ArchVisInterior/index.html" title="介绍如何使用虚幻引擎的渲染功能来创建拥有照片级真实度的建筑可视化室内效果。">建筑可视化内部渲染</a>
+					</p>
+				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																														<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#虚幻引擎中的光线追踪">虚幻引擎中的光线追踪</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#在你的项目中启用光线追踪">在你的项目中启用光线追踪</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#实时光线追踪功能">实时光线追踪功能</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#使用光线追踪功能">使用光线追踪功能</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#性能与调试">性能与调试</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#其他注意事项">其他注意事项</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#支持的光线追踪功能">支持的光线追踪功能</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>电影、电视和可视化领域长期使用光线追踪技术渲染照片般逼真的影像，但这种技术需要功能强大的计算机，而且渲染每一帧图像都很花时间。对于电影和电视，可能要花费许多个小时乃至许多天来渲染出高质量的影像序列，但是最终结果可以产生逼真的3D内容，能够与实拍影像无缝地混合在一起。对于建筑可视化公司，光线追踪意味着创作出美丽的渲染效果，可以供汽车业展示，也可展示内容丰富的家居或办公楼在一切完工时的景象，并且得到逼真的观看效果。  <br /></p><p>通过将虚幻引擎4（UE4）的技术与 <strong>实时光线追踪</strong>（RTRT）相结合，就可以创作出在细微光照效果上能够与许多脱机渲染器相媲美的交互式体验。实时光线追踪可以让影像看起来更自然，制作出面积光源下的柔和阴影、准确的环境光遮蔽、交互式的全局光照等效果。 
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_1_hxzs6ifs_6
+{
+	margin: 0px;
+	width: 100%;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_1_hxzs6ifs_6:after
+{
+	content: "";
+	padding-top: 56.25%;
+	display: block;
+}
+</style> 
+<div id="player_1_hxzs6ifs_6"> 
+	<div id="playerContainer_1_hxzs6ifs_6" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/1_hxzs6ifs/embed.html"></iframe>
+	</div>
+</div>
+<div class="caption">
+	<p>建筑可视化室内示例中的光线追踪实时渲染效果；该示例可在Epic Games启动器中下载。</p>
+</div><h2 id="虚幻引擎中的光线追踪">虚幻引擎中的光线追踪</h2>
+<p>UE4中的光线追踪包含两种技术：<br /></p><ul ><li class="Default"><p>一是混合的 <strong>Ray Tracer</strong>，将光线追踪功能与我们现有的光栅效果相结合。
+</p></li><li class="Default"><p>一是 <strong>Path Tracer</strong>，用于生成参考渲染器。
+</p></li></ul><h3 id="raytracer">Ray Tracer</h3>
+<p>Ray Tracer能够针对阴影、环境光遮蔽（AO）、反射、半透明和全局光照生成带有光线追踪的实时效果。它使用数量不多的采样配合降噪算法来实现这一点，可以得到在视觉上得到与Path Tracer极为近似的效果。
+</p><h3 id="pathtracer">Path Tracer</h3>
+<p>Path Tracer是一款基于物理的无偏性路径追踪器，很适合渲染场景的参考图像。它与脱机渲染器类似，通过连续收集采样来工作，以它目前的状态更适合用于生成场景的真相渲染，而不是最终像素。
+</p><p>要了解更多信息，请参见<a id="content_link"filter-data="tag_beta tag_ray_tracing" href="PathTracer/index.html" ><span>Path Tracer</span></a>。
+</p><h2 id="在你的项目中启用光线追踪">在你的项目中启用光线追踪</h2>
+<p>请按照这些步骤在你的项目中启用光线追踪支持。 
+</p><div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>系统要求 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>操作系统</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><a id="content_link" href="https://support.microsoft.com/en-us/help/4028685/windows-10-get-the-update" ><span>Windows 10 RS5（Build 1809）或更高版本</span></a><br /></p><div class="note">
+	<p>请在Windows搜索栏中输入 <strong>winver</strong> 来确认你的Windows构建版本。</p>
+</div>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>GPU</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><a id="content_link" href="https://www.nvidia.com/en-us/geforce/news/geforce-gtx-dxr-ray-tracing-available-now" ><span>此处</span></a></p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>虚幻引擎版本</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>4.22或更高版本</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>虚幻引擎渲染路径</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>延迟路径（请参阅下方的<a id="content_link" href="#支持的光线追踪功能" ><span>支持功能</span></a>部分）</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div><h3 id="启用dx12和光线追踪">启用DX12和光线追踪</h3>
+<ol ><li class="Default"><p>转到主菜单，使用 <strong>编辑（Edit）</strong> 菜单打开 <strong>项目设置（Project Settings）</strong>。<br /></p></li><li class="Default"><p>在 <strong>平台（Platforms）> Windows</strong> 下面，使用 <strong>默认RHI（Default RHI）</strong> 下拉菜单选择 <strong>DX12</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/RayTracing/EnableDX12Mode.jpg">
+		<img class="  lazyload" alt="EnableDX12Mode.png" data-src="../../../Images/RenderingAndGraphics/RayTracing/EnableDX12Mode.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>引擎（Engine）> 渲染（Rendering）</strong> 下面，启用 <strong>光线追踪（Ray Tracing）</strong>。<br /></p><p><picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/RayTracing/ProjectSetting_EnableRT.jpg">
+		<img class="  lazyload" alt="ProjectSetting_EnableRT" title="ProjectSetting372029427EnableRT" data-src="../../../Images/RenderingAndGraphics/RayTracing/ProjectSetting_EnableRT.jpg" />
+</picture>
+
+</p><div class="note">
+	<p>要启用光线追踪，必须为项目启用 <strong>支持计算皮肤缓存（Support Compute Skincache）</strong>。如果尚未启用此设置，你会看到一个消息对话框，询问你是否要立即启用。如果是这样，请单击 <strong>是（Yes）</strong>。<br /><picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/RayTracing/SupportSkinCache.jpg">
+		<img class="  lazyload" alt="SupportSkinCache.png" data-src="../../../Images/RenderingAndGraphics/RayTracing/SupportSkinCache.jpg" />
+</picture>
+</p>
+</div></li><li class="Default"><p><strong>重新启动</strong> 引擎来使编辑器带DX12启动，并为你的项目启用光线追踪。
+</p></li></ol><h2 id="实时光线追踪功能">实时光线追踪功能</h2>
+<h3 id="光线追踪阴影">光线追踪阴影</h3>
+<p><strong>光线追踪阴影</strong> 为环境中的物体模拟柔和的面积光照效果。这意味着根据光源的大小或光源角度，物体的阴影在靠近接触面的部分会比较锐利，离接触面越远就越柔和且变宽。
+</p><!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/RayTracing/RT_Shadows_Disabled-3.jpg">
+		<img class="  lazyload" alt="使用阴影贴图的光栅阴影" data-src="../../../Images/RenderingAndGraphics/RayTracing/RT_Shadows_Disabled-3.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/RayTracing/RT_Shadows_Enabled-3.jpg">
+		<img class="  lazyload" alt="光线追踪的柔和阴影" data-src="../../../Images/RenderingAndGraphics/RayTracing/RT_Shadows_Enabled-3.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div><h3 id="光线追踪反射">光线追踪反射</h3>
+<p><strong>光线追踪反射</strong>（RTR）能够模拟准确的环境表现，并且可支持多次反射。
+</p><p>此示例比较了光线追踪反射单次反弹和多次反弹的结果。借助多次反弹， 我们可以让场景中的各个反射表面之间形成实时的相互反射效果。
+</p><!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/RayTracing/RTR_SingleBounce.jpg">
+		<img class="  lazyload" alt="单次反弹的光线追踪反射" data-src="../../../Images/RenderingAndGraphics/RayTracing/RTR_SingleBounce.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/RayTracing/RTR_MultipleBounces.jpg">
+		<img class="  lazyload" alt="多次反弹的光线追踪反射" data-src="../../../Images/RenderingAndGraphics/RayTracing/RTR_MultipleBounces.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div><p>相较而言，<a id="content_link"filter-data="tag_post_process" href="../PostProcessEffects/ScreenSpaceReflection/index.html" ><span>屏幕空间反射</span></a> (SSR)、<a id="content_link" href="../../BuildingWorlds/LightingAndShadows/PlanarReflections/index.html" ><span>平面反射</span></a>、甚至包括<a id="content_link" href="../../BuildingWorlds/LightingAndShadows/ReflectionEnvironment/index.html" ><span>反射捕获</span></a>Actor在内，都无法动态捕获整个场景；光线追踪反射也没有其他反射方法中的一些限制。
+</p><p>相比之下，SSR仅能进行一次反射反弹，并且仅限于屏幕上的可见内容。与之不同的是，RTR能够多次反弹，并且不会局限于屏幕上的可见内容，这意味着我们可以看到书的侧面、摄像机背后的反射效果，以及通过窗户反射到表面上的额外灯光。
+</p><!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/RayTracing/RTR_SSROnly.jpg">
+		<img class="  lazyload" alt="屏幕空间反射" data-src="../../../Images/RenderingAndGraphics/RayTracing/RTR_SSROnly.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/RayTracing/RTR_SingleBounce.jpg">
+		<img class="  lazyload" alt="光线追踪反射" data-src="../../../Images/RenderingAndGraphics/RayTracing/RTR_SingleBounce.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div><h3 id="光线追踪半透明">光线追踪半透明</h3>
+<p><strong>光线追踪半透明</strong>（RTT）能准确表现玻璃和液体材质，在透明表面上显示符合物理的正确反射、吸收和折射。
+</p><!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/RayTracing/RT_Translucency_Disabled.jpg">
+		<img class="  lazyload" alt="光栅半透明" data-src="../../../Images/RenderingAndGraphics/RayTracing/RT_Translucency_Disabled.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/RayTracing/RT_Translucency_Enabled.jpg">
+		<img class="  lazyload" alt="光线追踪半透明" data-src="../../../Images/RenderingAndGraphics/RayTracing/RT_Translucency_Enabled.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div><h3 id="光线追踪环境光遮蔽">光线追踪环境光遮蔽</h3>
+<p><strong>光线追踪环境光遮蔽</strong>（RTAO）准确地对环境光照被遮挡的区域投射阴影，使物体更好地融入环境，例如在角落和墙壁相交处投射阴影，或者为裂缝或皮肤上的皱纹增添深度。
+</p><!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/RayTracing/AO_SSO.jpg">
+		<img class="  lazyload" alt="屏幕空间环境光遮蔽（SSAO）" data-src="../../../Images/RenderingAndGraphics/RayTracing/AO_SSO.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/RayTracing/AO_RTAO.jpg">
+		<img class="  lazyload" alt="光线追踪环境光遮蔽（RTAO）" data-src="../../../Images/RenderingAndGraphics/RayTracing/AO_RTAO.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div><p>与屏幕空间环境光遮蔽（SSAO）相比，RTAO能使物体融入环境，并为场景增加深度，使被间接照明的区域呈现自然的阴影。
+</p><!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/RayTracing/AO_Intensity_Default.jpg">
+		<img class="  lazyload" alt="光线追踪环境光遮蔽 | 强度: 0.5" data-src="../../../Images/RenderingAndGraphics/RayTracing/AO_Intensity_Default.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/RayTracing/AO_Intensity_75.jpg">
+		<img class="  lazyload" alt="光线追踪环境光遮蔽 | 强度: 0.85" data-src="../../../Images/RenderingAndGraphics/RayTracing/AO_Intensity_75.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div><p>通过改变环境遮蔽效果的 <strong>强度（Intensity）</strong> 和 <strong>半径（Radius）</strong> 属性，你可以控制其大小和强度。
+</p><h3 id="光线追踪全局光照">光线追踪全局光照</h3>
+<p><strong>光线追踪全局光照</strong>（RTGI）会对那些未被光源直接照射的场景区域施加实时交互反射光照效果。
+</p><!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/RayTracing/GI_Off.jpg">
+		<img class="  lazyload" alt="仅使用天空光照" data-src="../../../Images/RenderingAndGraphics/RayTracing/GI_Off.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/RayTracing/GI_BruteForce.jpg">
+		<img class="  lazyload" alt="光线追踪全局光照 " data-src="../../../Images/RenderingAndGraphics/RayTracing/GI_BruteForce.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div><h4 id="最终收集法">最终收集法</h4>
+<div class="note">
+	<p>目前这是一种实验性RTGI法。 </p>
+</div><p>这是另一种基于光线追踪的全局光照法，使用基于最终收集的技术，力求提高运行时性能。该技术为two-pass算法。第一阶段分配着色点（类似于原始RTGI法），但以逐像素一个采样的固定速率进行。在此阶段，着色点采样的历史记录（最多16个）将保存在屏幕空间中。在第二阶段中，该算法尝试重新连接到着色点历史记录，从而摊销该方法的开销。 
+</p><p>原始RTGI算法旨在模拟<a id="content_link"filter-data="tag_beta tag_ray_tracing" href="PathTracer/index.html" ><span>路径追踪器</span></a>地面实况参考，与执行路径追踪结果类似。新方法用模拟换取性能，将造成一些限制；目前仅限于间接漫反射GI的单次反射，并且上一帧GI采样数据的重投影很容易出现重影。
+</p><p>点击 <strong>类型（Types）</strong> 下拉选项，在后期处理体积的 <strong>光线追踪全局光照（Ray Tracing Global Illumination）</strong> 部分启用 <strong>最终收集（Final Gather）</strong> 法。 
+</p><p>为处理临时重影的瑕疵，可以使用以下命令修改场景空间拒绝条件。 
+</p><pre class="prettyprint"><code>r.RayTracing.GlobalIllumination.FinalGatherDistance &#91;number of units&#93; </code></pre>
+<p>其当前基于从原始着色点测量的场景距离。此拒绝条件默认为10个单位。
+</p><p>还需要在后期处理体积中进行以下设置，才能有效使用最终收集法： 
+</p><ul ><li class="Default"><p>最大反射次数：<strong>1</strong>
+</p></li><li class="Default"><p>逐像素采样：<strong>16</strong>
+</p></li></ul><div class="note">
+	<p>超过1的所有其他最大反射次数都会被丢弃（无提示）；调整逐像素采样时，最好以2的幂次方进行增加（例如8、16、32、64）。</p>
+</div><h2 id="使用光线追踪功能">使用光线追踪功能</h2>
+<h3 id="后期处理体积">后期处理体积</h3>
+<p>在场景中使用<a id="content_link"filter-data="tag_rendering" href="../PostProcessEffects/index.html" ><span>后期处理体积</span></a>来控制光线追踪和路径追踪功能及属性。可以将体积添加到内部和外部的不同区域，从而应用你所需要的功能和设置。
+</p><p>以下后期追踪功能通过后期处理体积控制：
+</p><ul ><li class="Default"><p>环境光遮蔽
+</p></li><li class="Default"><p>全局光照
+</p></li><li class="Default"><p>反射
+</p></li><li class="Default"><p>半透明
+</p></li></ul><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../Images/RenderingAndGraphics/RayTracing/PPV_Settings.png" ><span><picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/RayTracing/PPV_Settings.jpg">
+		<img class="  lazyload" alt="PPV_Settings" title="PPV372029427Settings" width="250" data-src="../../../Images/RenderingAndGraphics/RayTracing/PPV_Settings.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><div class="note">
+	<p>如需进一步了解可用的后期处理设置，请参阅<a id="content_link"filter-data="tag_ray_tracing" href="RayTracingSettings/index.html" ><span>光线追踪设置</span></a>。</p>
+</div><h3 id="光源">光源</h3>
+<p>Ray Tracer对UE4中可用的所有类型光源都支持柔和区域阴影。
+</p><!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/RayTracing/RT_SoftShadows_0.jpg">
+		<img class="  lazyload" alt="光线追踪阴影：定向光源 | 光源角度：0.5357" data-src="../../../Images/RenderingAndGraphics/RayTracing/RT_SoftShadows_0.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/RayTracing/RT_SoftShadows_1.jpg">
+		<img class="  lazyload" alt="光线追踪阴影：定向光源 | 光源角度：2.0" data-src="../../../Images/RenderingAndGraphics/RayTracing/RT_SoftShadows_1.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div><p>通过调节下列设置来控制阴影柔和度： 
+</p><ul ><li class="Default"><p>在 <strong>定向光源</strong> 上，设置 <strong>光源角度（Source Angle）</strong>。
+</p></li><li class="Default"><p>在 <strong>点光源</strong> 和 <strong>聚光源</strong> 上，设置 <strong>光源半径（Source Radius）</strong>。 
+</p></li><li class="Default"><p>在 <strong>矩形光源</strong> 上，设置 <strong>挡光板角度（Barn Door Angle）</strong> 和 <strong>挡光板长度（Barn Door Length）</strong> 来控制阴影柔和度。
+</p></li></ul><h3 id="天空光照">天空光照</h3>
+<p>在 <strong>天空光照</strong> 上，使用 <strong>SLS捕捉场景（SLS Captured Scene）</strong> 或 <strong>SLS指定立方体贴图（SLS Specified Cubemap）</strong> 配合光线追踪阴影来捕捉关卡的远端部分，并作为光源应用到场景。选取 <strong>投射光线追踪阴影（Cast Raytraced Shadow）</strong> 标志以在场景中启用天空光照。  
+</p><p><picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/RayTracing/RT_SkyLight.jpg">
+		<img class="  lazyload" alt="RT_SkyLight" title="RT372029427SkyLight" data-src="../../../Images/RenderingAndGraphics/RayTracing/RT_SkyLight.jpg" />
+</picture>
+
+</p><div class="note">
+	<p>要使RTGI配合天空光照发挥作用，请启用控制台变量 <code>r.RayTracing.GlobalIllumination.EvalSkylight</code> （还处于测试阶段）。</p>
+</div><h3 id="光线追踪环境光遮蔽_1">光线追踪环境光遮蔽</h3>
+<h2 id="性能与调试">性能与调试</h2>
+<h3 id="statgpu">Stat GPU</h3>
+<p>使用控制台命令 <code>GPU Stats</code> 来检查相关的光线追踪GPU性能。你会找到已启用的光线追踪功能的相关信息，并了解在当前视图中为了渲染它们花费了多少帧时间。 <br /></p><p><picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/RayTracing/GPUStats1.jpg">
+		<img class="  lazyload" alt="GPUStats1" title="GPUStats1" data-src="../../../Images/RenderingAndGraphics/RayTracing/GPUStats1.jpg" />
+</picture>
+
+</p><h3 id="statd3d12raytracing">Stat D3D12RayTracing</h3>
+<p>使用控制台命令 <code>Stat D3D12RayTracing</code> 来检查相关的光线追踪资源使用情况。
+</p><p><picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/RayTracing/StatD3D12RayTracing.jpg">
+		<img class="  lazyload" alt="StatD3D12RayTracing" title="StatD3D12RayTracing" data-src="../../../Images/RenderingAndGraphics/RayTracing/StatD3D12RayTracing.jpg" />
+</picture>
+
+</p><h3 id="光线追踪调试视图模式">光线追踪调试视图模式</h3>
+<p>在关卡视口下面，选择 <strong>视图模式（View Mode）</strong> 下拉菜单，然后选择 <strong>光线追踪调试（Ray Tracing Debug）</strong> 以选择可用的调试视图模式。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../Images/RenderingAndGraphics/RayTracing/RT_DebugOptions.png" ><span><picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/RayTracing/RT_DebugOptions.jpg">
+		<img class="  lazyload" alt="RT_DebugOptions" title="RT372029427DebugOptions" width="300" data-src="../../../Images/RenderingAndGraphics/RayTracing/RT_DebugOptions.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><h3 id="评估降噪器质量">评估降噪器质量</h3>
+<p>通过执行下列操作来评估不同光线追踪效果的降噪器质量： 
+</p><ul ><li class="Default"><p>禁用 <strong>临时抗锯齿（Temporal Anti-Aliasing）</strong> 和 <strong>景深（Depth of Field）</strong>。
+</p><ul ><li class="Default"><p>这两个设置在虚幻引擎的渲染器中都在线性色彩空间中运行。它们会使用一些HDR颜色加权技巧来避免在阴影和高光之间产生锯齿。
+</p></li></ul></li><li class="Default"><p>请比较降噪后的逐像素单采样与未降噪的逐像素单采样。 
+</p><ul ><li class="Default"><p>由于能量差异以及降噪器对阴影暗化过多，结果看起来不正确。但是，由于色调映射器的非线性运算，逐像素单采样看起来会比较明亮。 
+</p></li><li class="Default"><p>为了更好地对比，应该对照未降噪的逐像素 <strong>多</strong> 采样来测试降噪后的逐像素 <strong>单</strong> 采样。
+</p></li></ul></li></ul><!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/RayTracing/RT_Denoiser_SingleSample.jpg">
+		<img class="  lazyload" alt="降噪后的逐像素单采样" data-src="../../../Images/RenderingAndGraphics/RayTracing/RT_Denoiser_SingleSample.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/RayTracing/RT_Denoiser_MultiSamples.jpg">
+		<img class="  lazyload" alt="未降噪的逐像素多采样" data-src="../../../Images/RenderingAndGraphics/RayTracing/RT_Denoiser_MultiSamples.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div><p>由于信息丢失，降噪后的逐像素单采样是不完美的。但是与未降噪的逐像素多采样相比，结果是一致的。 
+</p><p>此外还要记住，降噪器最多支持每个像素四次采样，这可以提高质量并且更符合未降噪的逐像素多采样结果。
+</p><h3 id="其他调试注意事项">其他调试注意事项</h3>
+<ul ><li class="Default"><p>使用命令 <code>r.raytracing.ForceAllRayTracingEffects</code> 可快速启用和禁用场景中的光线追踪。值为0时禁用所有效果，为1时启用所有效果，为-1时将使用之前启用的项目设置。
+</p></li></ul><h2 id="其他注意事项">其他注意事项</h2>
+<h3 id="材质">材质 </h3>
+<ul ><li class="Default"><p><strong>测试材质成本</strong>
+</p><ul ><li class="Default"><p>复杂材质会影响光线追踪功能的性能。使用控制台命令r.RayTracing.EnableMaterials测试性能影响。
+</p></li></ul></li><li class="Default"><p><strong>Ray Tracing Quality Switch Replace节点</strong>
+</p><ul ><li class="Default"><p>使用此节点替换整个材质逻辑，通过简单逻辑降低RTGI、RT反射和RT半透明等功能的开销。此为影响所有光线追踪效果的全局更改。 
+</p></li><li class="Default"><p>本例中，<strong>法线</strong> 逻辑路径渲染以场景中所示方式渲染。<strong>光线追踪</strong> 路径使用简单逻辑实现光线追踪中如RTGI和反射等效果，其中的纹理、法线和粗糙度的开销可能较高。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../Images/RenderingAndGraphics/RayTracing/RT_MaterialQualitySwitch.png" ><span><picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/RayTracing/RT_MaterialQualitySwitch.jpg">
+		<img class="  lazyload" alt="RT_MaterialSwitch" width="500" data-src="../../../Images/RenderingAndGraphics/RayTracing/RT_MaterialQualitySwitch.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li></ul></li><li class="Default"><p><strong>逐材质投射光线追踪阴影（Cast Ray Traced Shadows Per-Material）</strong>
+</p><ul ><li class="Default"><p>使用 <strong>投射光线追踪阴影（Cast Ray Traced Shadows）</strong> 复选框设置此材质是否投射光线追踪阴影。此设置适用于控制指定到几何体材质的特定元素，而不考虑该材质是否应投射光线追踪阴影。
+</p></li></ul></li></ul><h3 id="反射">反射</h3>
+<ul ><li class="Default"><p>渲染具有多层反射的多次反射时，光线追踪反射开销较高。若无多次反射，内部反射材质将显示为黑色。启用 <code>r.RayTracing.Reflections.ReflectionCaptures</code> 将反射捕捉Actor用作光线追踪反射中的最终反射。
+</p></li></ul><div class="fullwidth">
+	<!--
+id:paramliteral
+max:paramliteral
+ext:paramliteral
+caption:paramliteral
+image_list:param
+-->
+<div class="slider_container" id="FS">
+    <div id="FS_Image"></div>
+    <div class="slider"></div>
+	    <div id="images" class="hidden">
+        <p><picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/RayTracing/1_RTRRefCapture.jpg">
+		<img class="  lazyload" alt="1_RTRRefCapture.png" data-src="../../../Images/RenderingAndGraphics/RayTracing/1_RTRRefCapture.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/RayTracing/2_RTRRefCapture.jpg">
+		<img class="  lazyload" alt="2_RTRRefCapture.png" data-src="../../../Images/RenderingAndGraphics/RayTracing/2_RTRRefCapture.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/RayTracing/3_RTRRefCapture.jpg">
+		<img class="  lazyload" alt="3_RTRRefCapture.png" data-src="../../../Images/RenderingAndGraphics/RayTracing/3_RTRRefCapture.jpg" />
+</picture>
+</p>
+    </div>
+</div>
+
+</div><div class="caption">
+	<p>拖动滑块显示单反射RTR、无反射捕捉退却的双反射RTR，和带反射捕捉退却的单反射。</p>
+</div><h4 id="包含反射中的半透明对象">包含反射中的半透明对象</h4>
+<p>在渲染功能（Rendering Features）>光线追踪反射（Ray Tracing Reflections）的 <strong>后期处理体积（Post Process Volume）</strong> 设置中启用 <strong>包括半透明对象（Include Translucent Objects）</strong>，拥有半透明材质的对象便会出现在光线追踪反射中。
+</p><h3 id="半透明折射率_ior_">半透明折射率(IOR)</h3>
+<p>在为光线追踪设置并使用折射时，<strong>高光（Specular）</strong> 材质输入用于控制半透明材质的折射率（IOR）。虚幻引擎的光线追踪特性遵循<a id="content_link" href="https://disney-animation.s3.amazonaws.com/library/s2012_pbs_disney_brdf_notes_v2.pdf" ><span>Disney的BRDF模型</span></a>，其中反射值和IOR值是耦合的，不能独立定义。
+</p><p>当你在材质中定义高光值，在后期处理体积中设置反射属性时，你可以充分控制半透明材质的IOR。
+</p><!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/RayTracing/1.jpg">
+		<img class="  lazyload" alt="光栅半透明 | 带有伪造的折射效果" data-src="../../../Images/RenderingAndGraphics/RayTracing/1.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/RayTracing/3.jpg">
+		<img class="  lazyload" alt="光线追踪半透明 | 带有折射效果" data-src="../../../Images/RenderingAndGraphics/RayTracing/3.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div><p>材质设置：
+</p><ul ><li class="Default"><p>在材质中启用 <strong>双面（Two Sided）</strong>。 
+</p><ul ><li class="Default"><p>尽管这不是一项要求，但是单面/非流形几何体无法很好地处理体积追踪或光线介质堆叠。双面材质能够提供精确的结果，在使用光线追踪半透明时，推荐将它用于所有的半透明材质。
+</p></li></ul></li><li class="Default"><p>将 <strong>光照模式（Lighting Mode）</strong> 设置为 <strong>表面半透明体积（Surface Translucency Volume）</strong> 或者 <strong>表面正向渲染（Surface Forward Shading）</strong>。 
+</p></li><li class="Default"><p>使用 <strong>高光（Specular）</strong> 输入控制折射指数。
+</p><ul ><li class="Default"><p>注意， <strong>折射（Refraction）</strong> 输入并不会影响光线追踪半透明材质。
+</p></li></ul></li></ul><p>后期处理体积渲染特性设置：
+</p><ul ><li class="Default"><p>在 <strong>半透明（Translucency）</strong> 分类下，将 <strong>类型（Type）</strong> 设置成 <strong>光线追踪（Ray Tracing）</strong>。
+</p></li><li class="Default"><p>在 <strong>光线追踪半透明（Ray Tracing Translucency）</strong> 分类中，设置如下参数：
+</p><ul ><li class="Default"><p><strong>折射（Refraction）:</strong> 启用
+</p></li><li class="Default"><p><strong>最大折射光线（Max Refraction Rays）:</strong> 设置要使用的最大光线数。这个值应该足够高，足以让光线通过另一边。
+</p></li></ul></li></ul><div class="tip">
+	<p>使用材质实例来控制高光值，以便轻松控制IOR。</p>
+</div><h4 id="控制折射量">控制折射量</h4>
+<p>使用材质中的 <strong>高光度（Specular）</strong> 输入并使用后期处理体积的 <strong>最大折射光线数（Max Refraction Rays）</strong> 和 <strong>折射（Refraction）</strong> 属性来控制发生的折射量和光传输。 
+</p><p>下列半透明材质使用0.04的高光度值，并使用最多6束折射光线来让光线穿过材质。下列对比显示了半透明材料在启用和禁用折射时的差异。
+</p><!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/RayTracing/5.jpg">
+		<img class="  lazyload" alt="Ray Tracing Refraction: | 禁用" data-src="../../../Images/RenderingAndGraphics/RayTracing/5.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/RayTracing/3.jpg">
+		<img class="  lazyload" alt="Ray Tracing Refraction: | 启用" data-src="../../../Images/RenderingAndGraphics/RayTracing/3.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div><p>应用于高光度输入的不同值会影响半透明材质的折射率。
+</p><!--
+id:paramliteral
+max:paramliteral
+ext:paramliteral
+caption:paramliteral
+image_list:param
+-->
+<div class="slider_container" id="FS1">
+    <div id="FS1_Image"></div>
+    <div class="slider"></div>
+	    <div class="caption">
+        <b><p>拖动滑块可显示正在从0.01、0.05和0.1开始应用的折射量。</p></b>
+    </div>
+	    <div id="images" class="hidden">
+        <p><picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/RayTracing/10.jpg">
+		<img class="  lazyload" alt="10.png" data-src="../../../Images/RenderingAndGraphics/RayTracing/10.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/RayTracing/11.jpg">
+		<img class="  lazyload" alt="11.png" data-src="../../../Images/RenderingAndGraphics/RayTracing/11.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/RayTracing/12.jpg">
+		<img class="  lazyload" alt="12.png" data-src="../../../Images/RenderingAndGraphics/RayTracing/12.jpg" />
+</picture>
+</p>
+    </div>
+</div>
+<p>如果后期处理体积的最大折射光线数属性值不同，则也会影响光线穿过材质。只有一束光线时，没有足够的光线脱离材质，这让材质看起来很暗。随着光线数量的增加，则可透过玻璃折射看到物体。然而，视使用的光线数量而定，部分区域可能仍看起来很暗。增加光线可确保光线脱离体积。
+</p><!--
+id:paramliteral
+max:paramliteral
+ext:paramliteral
+caption:paramliteral
+image_list:param
+-->
+<div class="slider_container" id="FS2">
+    <div id="FS2_Image"></div>
+    <div class="slider"></div>
+	    <div class="caption">
+        <b><p>拖动滑块可显示使用1束、3束和5束折射光线的结果。</p></b>
+    </div>
+	    <div id="images" class="hidden">
+        <p><picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/RayTracing/7.jpg">
+		<img class="  lazyload" alt="7.png" data-src="../../../Images/RenderingAndGraphics/RayTracing/7.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/RayTracing/8.jpg">
+		<img class="  lazyload" alt="8.png" data-src="../../../Images/RenderingAndGraphics/RayTracing/8.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/RayTracing/9.jpg">
+		<img class="  lazyload" alt="9.png" data-src="../../../Images/RenderingAndGraphics/RayTracing/9.jpg" />
+</picture>
+</p>
+    </div>
+</div>
+<h4 id="单面材质折射">单面材质折射</h4>
+<p>尽管可使用单面材质进行光线追踪折射，但结果只是类似与而不等同于使用双面材质的结果，后者可显示物理上精确的结果。 
+</p><!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/RayTracing/4.jpg">
+		<img class="  lazyload" alt="光线追踪半透明度 | 单面材质 | 带折射" data-src="../../../Images/RenderingAndGraphics/RayTracing/4.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/RayTracing/3.jpg">
+		<img class="  lazyload" alt="光线追踪半透明度 | 双面材质 | 带折射" data-src="../../../Images/RenderingAndGraphics/RayTracing/3.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div><div class="note">
+	<p>后期处理体积的 <strong>最大折射光线数（Max Refraction Rays）</strong> 属性适用于单面和双面材质，以允许光线穿过体积传输。但是，请注意，只有双面材质能提供正确结果，因此它是使用光线追踪功能处理 <strong>所有（All）</strong> 半透明材质的推荐方法。</p>
+</div><h3 id="次表面轮廓材质的光透射">次表面轮廓材质的光透射</h3>
+<p>光源启用 <strong>透射（Transmission）</strong> 属性后，<a id="content_link"filter-data="tag_materials" href="../Materials/LightingModels/SubSurfaceProfile/index.html" ><span>次表面轮廓</span></a>材质上可以产生光透射。
+</p><!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/RayTracing/Transmission_Raster.jpg">
+		<img class="  lazyload" alt="栅格化次表面轮廓 | 透光" data-src="../../../Images/RenderingAndGraphics/RayTracing/Transmission_Raster.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/RayTracing/Transmission_RT.jpg">
+		<img class="  lazyload" alt="光线追踪次表面轮廓 | 透光" data-src="../../../Images/RenderingAndGraphics/RayTracing/Transmission_RT.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div><p>在计算光线追踪阴影期间，系统将运行较小散射模拟，以计算透过介质到阴影投射光源的预期体积散射距离。散射距离用于在光照期间计算散射内贡献。 
+</p><h3 id="天空光照_1">天空光照</h3>
+<p>如无需要，应禁用天空光照贡献的捕捉远距离对象（如天穹）。此设置可节省性能并优化场景。对于UE4自带的 <strong>BP_SkySphere</strong>，此选项默认禁用，将导致与预期不同的天空反射。启用或禁用 <strong>细节（Details）</strong> 面板属性中的 <strong>在光线追踪中可见（Visible in Ray Tracing）</strong> 复选框，可控制对象贡献。
+</p><h3 id="光线追踪功能优化">光线追踪功能优化</h3>
+<ul ><li class="Default"><p><strong>设置反射和半透明最大粗糙度（Setting Reflections and Translucency Maximum Roughness）</strong>
+</p><ul ><li class="Default"><p>使用 <strong>最大粗糙度（Max Roughness）</strong> 在材质上设置光线追踪反射的阈值。可在后期处理体积内，或使用控制台命令r.RayTracing.Reflections.MaxRoughness完成此操作。
+</p></li></ul></li><li class="Default"><p><strong>设置全局照明、反射和半透明的最大光线距离（Setting a Maximum Ray Distance for Global Illumination, Reflections, and Translucency）</strong>
+</p><ul ><li class="Default"><p>这项将设置此类功能的最大光线距离，以降低其在场景中的开销和贡献。
+</p></li><li class="Default"><p>使用控制台设置此类光线追踪功能的 <strong>MaxRayDistance</strong> 控制台变量。这些功能位于r.RayTracing.*下。
+</p></li></ul></li><li class="Default"><p><strong>RTGI优化（RTGI Optimizations）</strong>
+</p><ul ><li class="Default"><p>现在，屏幕百分比和逐像素采样分别默认为 <strong>50</strong> 和 <strong>4</strong>。如需将其设为其他值，默认使用其控制台命令进行设置：<code>r.RayTracing.GlobalIllumination.ScreenPercentage</code> 和 <code>r.RayTracing.GlobalIllumination.SamplesPerPixel</code>。
+</p></li><li class="Default"><p>可使用光源的 <strong>影响全局照明（Affect Global Illumination）</strong> 属性启用/禁用GI的光照贡献。
+</p></li></ul></li></ul><h3 id="光线追踪的几何体考虑事项">光线追踪的几何体考虑事项</h3>
+<ul ><li class="Default"><p>带小孔或大量小细节的几何体将影响性能，如植被和栅栏。 
+</p></li><li class="Default"><p>室内环境的渲染慢于室外。
+</p><ul ><li class="Default"><p>比如，光线从外部射入时，直接光照区域渲染的比间接光照区域快。 
+</p></li><li class="Default"><p>此外还须考虑其他使用中的光线追踪功能，比如反射和半透明
+</p></li></ul></li></ul><h2 id="支持的光线追踪功能">支持的光线追踪功能</h2>
+<div class="note">
+	<p>此列表旨在提供当前支持功能的概念，并未完整列出 <strong>虚幻引擎4.23</strong> 支持的光线追踪功能。</p>
+</div><table >
+	<caption></caption>
+	<col align=""/>
+	<col align="center"/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>功能 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>支持（是/否/部分） </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>其他注释 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="3" align="">
+			<p><div class="tablesection">
+	<p>Rendering Path</p>
+</div></p>
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Deferred</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="center">
+			<p>Y</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Forward</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="center">
+			<p>N</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="3" align="">
+			<p><div class="tablesection">
+	<p>光源类型</p>
+</div></p>
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>定向光源（Directional Light）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="center">
+			<p>是</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>天空光照（Sky Light）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="center">
+			<p>是</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>点光源（Point Light）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="center">
+			<p>是</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>聚光源（Spot Light）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="center">
+			<p>是</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>矩形光源（Rect Light）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="center">
+			<p>是</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="3" align="">
+			<p><div class="tablesection">
+	<p>光照功能</p>
+</div></p>
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>自发光表面（Emissive Surfaces）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="center">
+			<p>部分</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>支持表面反射，但不发射光线或投射阴影。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>光透射（Light Transmission）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="center">
+			<p>否</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>半透明阴影视为不透明，表示无彩色阴影或光线穿透材料。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Area Shadowing（区域阴影）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="center">
+			<p>是</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>IES Profiles（IES描述文件）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="center">
+			<p>是</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Light Functions（光照函数）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="center">
+			<p>否</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Volumetric Fog（体积雾）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="center">
+			<p>否</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>基于图像的照明（IBL）（Image Based Lighting (IBL)）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="center">
+			<p>是</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>HDRI和天空光照支持此功能。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="3" align="">
+			<p><div class="tablesection">
+	<p>材质：混合模式</p>
+</div></p>
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>不透明（Opaque）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="center">
+			<p>是</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>遮罩（Masked）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="center">
+			<p>是</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>半透明（Translucent）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="center">
+			<p>是</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>各向异性（Anisotropic）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="center">
+			<p>是</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="3" align="">
+			<p><div class="tablesection">
+	<p>材质：着色模型 </p>
+</div></p>
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>默认光照（Default Lit）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="center">
+			<p>是</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>无光照（Unlit）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="center">
+			<p>部分</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>遮罩（Masked）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="center">
+			<p>部分</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>支持投射遮罩阴影。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>次表面和次表面轮廓（SubSurface and SubSurface Profile）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="center">
+			<p>是</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>预整合皮肤（Preintegrated Skin）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="center">
+			<p>部分</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>可运行，但未正确光线追踪结果。其使用栅格化流程。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>透明涂层（Clear Coat）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="center">
+			<p>是</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>UE 4.25对透明图层着色模型进行了显著改善。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>双面植被（TwoSided Foliage）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="center">
+			<p>是</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>头发（Hair）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="center">
+			<p>部分</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>可运行，但未正确光线追踪结果。其使用栅格化流程。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>布料（Cloth）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="center">
+			<p>部分</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>可运行，但未正确光线追踪结果。其使用栅格化流程。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>材质函数（Material Functions）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="center">
+			<p>是</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>双面（Two-Sided）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="center">
+			<p>是</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>场景位置偏移（World Position Offset）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="center">
+			<p>是</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>逐Actor启用静态网格体。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="3" align="">
+			<p><div class="tablesection">
+	<p>几何体类型</p>
+</div></p>
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>骨架网格体（Skeletal Mesh）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="center">
+			<p>是</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>静态网格体（Static Mesh）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="center">
+			<p>是</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>几何体缓存（Alembic）（Geometry Cache (Alembic)）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="center">
+			<p>是</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>地形（Landscape）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="center">
+			<p>是</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>层级实例化静态网格体（HISM）（Hierarchical Instanced Static Mesh (HISM)）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="center">
+			<p>是</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>实例化静态网格体（ISM）（Instanced Static Mesh (ISM)）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="center">
+			<p>是</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>样条（Splines）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="center">
+			<p>否</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>程序网格体（Procedural Mesh）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="center">
+			<p>是</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>在光线追踪中渲染此类几何体的开销较高。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>BSP笔刷（BSP Brushes）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="center">
+			<p>否</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>细节等级（LOD）（Levels of Detail）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="center">
+			<p>是</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>尚不支持颤动LOD过渡。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="3" align="">
+			<p><div class="tablesection">
+	<p>视觉效果（VFX）</p>
+</div></p>
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Niagara</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="center">
+			<p>部分</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>目前仅支持Sprite、条带（Ribbon）和网格体发射器。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>级联（Cascade）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="center">
+			<p>否</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="3" align="">
+			<p><div class="tablesection">
+	<p>平台支持</p>
+</div></p>
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>多视图（VR和分屏）（Multi-View (VR and Split-Screen)）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="center">
+			<p>是</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr></tbody>
+</table>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../SiteIndex/index.html?tags=Ray%20Tracing">Ray Tracing</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/RenderingAndGraphics/RayTracing/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 10:20:05 GMT -->
+</html>

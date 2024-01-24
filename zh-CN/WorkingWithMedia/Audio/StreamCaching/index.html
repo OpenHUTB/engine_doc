@@ -1,0 +1,772 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/WorkingWithMedia/Audio/StreamCaching/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:39:20 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "../../../../Images/WorkingWithMedia/Audio/StreamCaching/audio_landing_banner.png";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/WorkingWithMedia/Audio/StreamCaching/" />');
+				var udnCSS = '../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>音频流缓存概述 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/WorkingWithMedia/Audio/StreamCaching/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/WorkingWithMedia/Audio/StreamCaching/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/WorkingWithMedia/Audio/StreamCaching/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/WorkingWithMedia/Audio/StreamCaching/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Audio/StreamCaching" />
+<meta name="intsourcechangelist" content="11404729" />
+<meta name="availability" content="public" />
+<meta name="title" content="音频流缓存概述" />
+<meta name="description" content="概述音频引擎使用的流缓存系统" />
+<meta name="version" content="4.24" />
+<meta name="parent" content="WorkingWithMedia/Audio" />
+<meta name="type" content="overview" />
+<meta name="order" content="1" />
+<meta name="topic-image" content="WorkingWithMedia/Audio/audio_topic.png" />
+<meta name="hero-image" content="audio_landing_banner.png" />
+<meta name="keywords" content="audio" />
+<meta name="keywords" content="sound" />
+<meta name="keywords" content="Beta" />
+<meta name="crumbs" content="%ROOT%,WorkingWithMedia,WorkingWithMedia/Audio" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="音频流缓存概述" />
+	<meta property="og:description" content="概述音频引擎使用的流缓存系统" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">使用媒体</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">音频和声音</a>
+
+<span class="separator">></span> <span id="page">音频流缓存概述</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+					<div id="banner" class="beta">
+	<div id="message">
+		学习使用此<span>测试</span>功能，但在用它发布产品时请谨慎行事。
+	</div>
+	<div id="bannerDescription">
+		测试功能主要供您学习如何使用、规划工作流程和创建测试内容之用。<strong>在实际生产中使用这些功能必须谨慎</strong>，因为我们仍在努力完善以使它们的性能、稳定性和平台支持达到发布水准。我们支持资源的向后兼容，这些功能的API也是稳定的。
+	</div>
+</div>
+															<div class="hero  background">
+						<div class="imgContainer"><img src="../../../../Images/WorkingWithMedia/Audio/StreamCaching/audio_landing_banner.png" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">音频流缓存概述</h1>
+							</div>	
+							<h2 >概述音频引擎使用的流缓存系统</h2>
+							<div id="access">
+								<div class="accessContainer">
+																																			</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																																				<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#启用windows的音频流缓存">启用Windows的音频流缓存</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#确定正确的缓存大小">确定正确的缓存大小</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#配置缓存大小">配置缓存大小</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#通过及时缓存音效以避免延迟">通过及时缓存音效以避免延迟</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#将音效保留在内存中">将音效保留在内存中</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#微调内存">微调内存</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#监控流缓存">监控流缓存</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#清理缓存">清理缓存</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#增加最坏情况下的缓存利用率">增加最坏情况下的缓存利用率</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#确定音频读取的优先级">确定音频读取的优先级</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p><strong>音频流缓存</strong> 大大改变了音频加载以及从内存释放的方式。 
+</p><p>若在烘焙时启用此功能，几乎所有压缩音频数据都会从 <code>USoundWave</code> 资源分离出来，置于 <code>.pak</code> 文件末尾。这样，音频就能随时加载到内存中，若近期未被使用也可重新释放。 
+</p><p>这种内存管理方法在开放世界场景游戏中很流行，在这些游戏中，很难提前确定特定用例的实际音频需求。此法的主要缺点是，由于 <code>USoundWave</code> 需要加载，因此不能保证音频即时播放。但优点是一旦采用这种系统，设计人员就能够在不超出内存界限的情况下引用尽可能多的音频资源。工程师还可利用此系统加载和引用压缩音频数据块，无需依赖音频引擎管理的状态。此外，比起减少不使用流缓存时出现的内存问题，还是减少使用流缓存播放音频时的延迟更简单些。
+</p><h2 id="启用windows的音频流缓存">启用Windows的音频流缓存</h2>
+<div class="note">
+	<p>目前，唯一支持音频流缓存的桌面平台是Windows。包括Android、iOS、Xbox One、PS4和Switch在内的其他平台也支持。</p>
+</div><ol ><li class="Default"><p>打开项目后，从主菜单选择 <strong>编辑（Edit）> 项目设置（Project Settings）</strong>。
+</p></li><li class="Default"><p>在 <strong>项目（Project）</strong> 菜单上，转到 <strong>平台（Platforms）> Windows > 音频（Audio）</strong>。
+</p></li><li class="Default"><p>启用 <strong>使用流缓存（实验性）（Use Stream Caching (Experimental)）</strong>。
+</p></li></ol><p><picture>
+		<source data-srcset="./../../../../Images/WorkingWithMedia/Audio/StreamCaching/TurnOnStreamCaching.jpg">
+		<img class="  lazyload" alt="TurnOnStreamCaching.png" data-src="../../../../Images/WorkingWithMedia/Audio/StreamCaching/TurnOnStreamCaching.jpg" />
+</picture>
+
+</p><div class="note">
+	<p>可在编辑器中为Windows启用流缓存，而无需重启编辑器，但这会停止当前播放的任何音频。</p>
+</div><h2 id="确定正确的缓存大小">确定正确的缓存大小</h2>
+<p>除明确标记为留在内存中的标头和音效数据之外，<strong>最大缓存大小（Max Cache Size）</strong> 是压缩音频数据使用内存的硬限制。若缓存太小，音效卸载速度过快，会导致加载音效时产生延迟。
+</p><h3 id="极端示例">极端示例</h3>
+<p>如果缓存限制设为8MB。每个数据块最大为256KB，所以任何时候缓存里最多有32个数据块。这意味着若一次播放32个音效，就不能再加载更多数据块了。 
+</p><h3 id="不那么极端的示例">不那么极端的示例</h3>
+<p>假设缓存限制设为16MB。缓存里最多可以有64个256KB数据块。若一次性播放32个音效，则还有缓存可再播放32个音效。但若正在播放的32个音效都很长，每个都包含多个数据块，那么按顺序加载的下一个数据块将仍自动加载到缓存。这意味着在此期间，准备要播放的任何音效都将被为32个正在播放的音效而预先加载的32个数据块所堵住。
+</p><h3 id="普通示例">普通示例</h3>
+<p>如果将缓存限制设为32MB。它可能包含128个元素，每个元素最大为256KB。如果当前正同时播放32个音效，则还可以在缓存中预存96个额外的音频数据块，避免延迟。若限制为48MB，则可包含192个元素，因此即使正在同时播放32个音效，还可预备160个数据块。
+</p><h2 id="配置缓存大小">配置缓存大小</h2>
+<ol ><li class="Default"><p>打开项目后，从主菜单选择 <strong>编辑（Edit）> 项目设置（Project Settings）</strong>。
+</p></li><li class="Default"><p>从 <strong>项目（Project）</strong> 菜单中，转到 <strong>平台（Platforms）> Windows > 音频（Audio）> 压缩覆盖（Compression Overrides）> 烘焙覆盖（CookOverrides）> 流缓存（Stream Caching）</strong>。
+</p></li><li class="Default"><p>设置 <strong>最大缓存大小(KB)（Max Cache Size (KB)）</strong> 以确定缓存中可容纳的元素数量。
+</p></li></ol><p>此值若设为 <strong>0</strong>，则此值默认为32KB。最大缓存大小为2,147,483,647 MB，但注意不要设置得太大，以免运行的机器内存不足。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/WorkingWithMedia/Audio/StreamCaching/ConfigureCacheSize.jpg">
+		<img class="  lazyload" alt="ConfigureCacheSize.png" data-src="../../../../Images/WorkingWithMedia/Audio/StreamCaching/ConfigureCacheSize.jpg" />
+</picture>
+
+</p><div class="note">
+	<p>若在启用流缓存后更改 <strong>最大缓存大小</strong>，需要重启编辑器，使更改生效。 </p>
+</div><h2 id="通过及时缓存音效以避免延迟">通过及时缓存音效以避免延迟</h2>
+<p>理想情况下，音效在轮到播放时始终已在内存中。可通过以下方式实现这一点：
+</p><h3 id="准备好要播放的音效">准备好要播放的音效</h3>
+<p>若预测未来将播放某个音效，可在蓝图中调用 <em>Prime Sound For Playback</em>（或C++环境下的 <em>UAudioMixerBlueprintLibrary::PrimeSoundForPlayback</em>）：
+</p><p><picture>
+		<source data-srcset="./../../../../Images/WorkingWithMedia/Audio/StreamCaching/PrimingSoundForPlayback.jpg">
+		<img class="  lazyload" alt="PrimingSoundForPlayback.png" data-src="../../../../Images/WorkingWithMedia/Audio/StreamCaching/PrimingSoundForPlayback.jpg" />
+</picture>
+
+</p><p>例如，在开放世界场景游戏中，当玩家走进汽车周围几英尺范围内时，车辆音效和无线电台就会加载到缓存中。若玩家未进入汽车，音效将保留在缓存中，直至最终释放。
+</p><p>声音提示也可提前准备，但加载完成时不触发委托。（<strong>委托</strong> 是一个类，包含指向某对象实例的指针或引用，即要在该对象实例上调用的该对象类的成员方法，以及提供触发该调用的方法。）
+</p><p><picture>
+		<source data-srcset="./../../../../Images/WorkingWithMedia/Audio/StreamCaching/PrimingSoundCueForPlayback.jpg">
+		<img class="  lazyload" alt="PrimingSoundCueForPlayback.png" data-src="../../../../Images/WorkingWithMedia/Audio/StreamCaching/PrimingSoundCueForPlayback.jpg" />
+</picture>
+
+</p><h3 id="设置音效的默认加载行为">设置音效的默认加载行为</h3>
+<p>若要音效在加载后短时间内就播放，可将声波的加载行为设为 <strong>加载后准备（Prime on Load）</strong>：
+</p><p><picture>
+		<source data-srcset="./../../../../Images/WorkingWithMedia/Audio/StreamCaching/SetLoadingBehaviorForSound.jpg">
+		<img class="  lazyload" alt="SetLoadingBehaviorForSound.png" data-src="../../../../Images/WorkingWithMedia/Audio/StreamCaching/SetLoadingBehaviorForSound.jpg" />
+</picture>
+
+</p><p>也可将声波的音效类的加载行为设为 <strong>加载后准备（Prime on Load）</strong>：
+</p><p><picture>
+		<source data-srcset="./../../../../Images/WorkingWithMedia/Audio/StreamCaching/SetSoundWaveClassLoadingBehaviorForSound.jpg">
+		<img class="  lazyload" alt="SetSoundWaveClassLoadingBehaviorForSound.png" data-src="../../../../Images/WorkingWithMedia/Audio/StreamCaching/SetSoundWaveClassLoadingBehaviorForSound.jpg" />
+</picture>
+
+</p><p>此外，还可通过将 <code>au.streamcache.DefaultSoundWaveLoadingBehavior</code> 设为 <strong>2</strong>，将所有声波设为加载后准备。
+</p><h2 id="将音效保留在内存中">将音效保留在内存中</h2>
+<p>若音效在任何情况下都必须无延迟播放，可在USoundWave的整个持续时间内将该音效保留在内存中。
+</p><h3 id="强制声波留在内存中">强制声波留在内存中</h3>
+<p>若将声波的加载行为设为 <strong>加载后保留（Retain on Load）</strong>，即是将该音效的第一个音频数据块永久存放在缓存中。
+</p><p><picture>
+		<source data-srcset="./../../../../Images/WorkingWithMedia/Audio/StreamCaching/ForceSoundWaveToStayInMemory.jpg">
+		<img class="  lazyload" alt="ForceSoundWaveToStayInMemory.png" data-src="../../../../Images/WorkingWithMedia/Audio/StreamCaching/ForceSoundWaveToStayInMemory.jpg" />
+</picture>
+
+</p><p>通过将 <em>au.streamcache.DefaultSoundWaveLoadingBehavior</em> 设为 <em>2</em>，可将所有声波设为默认保留第一个数据块。
+</p><h3 id="强制所有声波低于要内联的特定阈值">强制所有声波低于要内联的特定阈值</h3>
+<p>启用流缓存后，可使用 <strong>Stream All Soundwaves Longer Than</strong> 设置将所有比特定值短的声波都保留在内存中。若要保证该短声波（例如UI和枪声）首次播放无延迟，且不必检查和测试单独的音效，此设置正当其用。
+</p><p><picture>
+		<source data-srcset="./../../../../Images/WorkingWithMedia/Audio/StreamCaching/ForceSoundWavesToBeInlined.jpg">
+		<img class="  lazyload" alt="ForceSoundWavesToBeInlined.png" data-src="../../../../Images/WorkingWithMedia/Audio/StreamCaching/ForceSoundWavesToBeInlined.jpg" />
+</picture>
+
+</p><p>设置 <strong>流送所有超过此值的声波（Stream All Soundwaves Longer Than）</strong> 后，低于该时长的音效仍可选择使用声波上的 <strong>强制流送（Force Streaming）</strong> 复选框进行流送。
+</p><p><picture>
+		<source data-srcset="./../../../../Images/WorkingWithMedia/Audio/StreamCaching/ForceSoundWaveLoadingBelowThreshold.jpg">
+		<img class="  lazyload" alt="ForceSoundWaveLoadingBelowThreshold.png" data-src="../../../../Images/WorkingWithMedia/Audio/StreamCaching/ForceSoundWaveLoadingBelowThreshold.jpg" />
+</picture>
+
+</p><h2 id="微调内存">微调内存</h2>
+<p>若应用程序需要更多内存，可使用 <strong>Trim Audio Cache</strong> 函数（<code>UAudioMixerBlueprintLibrary::TrimAudioCache</code>）释放缓存中不使用的音频数据块。
+</p><p><picture>
+		<source data-srcset="./../../../../Images/WorkingWithMedia/Audio/StreamCaching/TrimmingMemory.jpg">
+		<img class="  lazyload" alt="TrimmingMemory.png" data-src="../../../../Images/WorkingWithMedia/Audio/StreamCaching/TrimmingMemory.jpg" />
+</picture>
+
+</p><p><strong>Trim Audio Cache</strong> 函数迭代缓存并释放未在使用的数据块，直至达到 <strong>In Megabytes To Free</strong> 参数指定的内存量。此函数返回成功释放的内存。
+</p><p>在C++环境下调用时，此函数是线程安全的。但要记住，它会锁定缓存，开销可能会很大。这意味着此函数运行时，流送音频的缓存可能会欠载。
+</p><h2 id="监控流缓存">监控流缓存</h2>
+<p>可在控制台中键入 <strong>stat audiostreaming</strong> 以切换缓存显示：
+</p><p><picture>
+		<source data-srcset="./../../../../Images/WorkingWithMedia/Audio/StreamCaching/MonitoringStreamCache.jpg">
+		<img class="  lazyload" alt="MonitoringStreamCache.png" data-src="../../../../Images/WorkingWithMedia/Audio/StreamCaching/MonitoringStreamCache.jpg" />
+</picture>
+
+</p><p><code>stat audiostreaming</code> 命令显示缓存中当前已加载的音频数据块，包括最近最频繁使用的数据块到最近最少使用的数据块。
+</p><p>此显示中的数据块采用颜色编码.
+</p><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>颜色 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>状态 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>蓝灰色</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>数据块已加载，但当前未播放。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>绿色</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>数据块当前正在播放。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>红色</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>数据块已被TrimMemory调用删除。</p>
+			</td>
+	
+</tr></tbody>
+</table><p>每个数据块都有以下信息：
+</p><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>名称 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>说明 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>大小</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>数据块在内存中的大小，单位KB。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>数据块</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>数据块在 <code>.pak</code> 文件中的索引。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>请求计数</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>此数据块被解码器使用的次数或被准备请求的次数。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>使用数据块的解码器数量</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>同时播放此音效的源的数量。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>数据块加载时间</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>从磁盘加载该数据块所花的时间，单位为毫秒。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>名称</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>此数据块所属的声波的名称。</p>
+			</td>
+	
+</tr></tbody>
+</table><h2 id="清理缓存">清理缓存</h2>
+<p>若尝试在缓存的所有元素都在使用时加载或播放音频数据块（原因是数据块正在播放或正在从磁盘加载），则将清理缓存。在这种情况下，这可确保达到 <code>AudioStreamingCache.cpp</code>：
+</p><p><picture>
+		<source data-srcset="./../../../../Images/WorkingWithMedia/Audio/StreamCaching/BlowingCache.jpg">
+		<img class="  lazyload" alt="BlowingCache.png" data-src="../../../../Images/WorkingWithMedia/Audio/StreamCaching/BlowingCache.jpg" />
+</picture>
+
+</p><p>若总是在清理缓存，有五个选择：
+</p><ul ><li class="Default"><p>增加缓存大小。
+</p></li><li class="Default"><p>减少保留的声波数量。
+</p></li><li class="Default"><p>降低声音限制。
+</p></li><li class="Default"><p>减少清理缓存后尝试加载的音效数量。
+</p></li><li class="Default"><p>忽略它并删除数据块请求。
+</p></li></ul><h2 id="增加最坏情况下的缓存利用率">增加最坏情况下的缓存利用率</h2>
+<p>在有很多短音效的情况下，缓存中将填充很多小数据块，这样仅用到缓存空间的一小部分。 
+</p><p>例如，缓存大小为128个数据块，每个数据块最大为256KB，若加载了大量64KB的音效，就只会用到8M缓存，而上限是32MB。
+</p><p>为了做出补偿，可将数据块最大数量设为大于 <strong>MaxCacheSize/MaxChunkSize</strong>，保留池中当前分配的字节数的运行计数器，并在内存计数器达到缓存大小或达到数据块最大数量时，驱逐最早的数据块。使用cvar <code>au.streamcaching.MinimumCacheUsage</code> 确定数据块最大数量。
+</p><h3 id="设置au.streamcaching.minimumcacheusage">设置au.streamcaching.MinimumCacheUsage</h3>
+<p><code>au.streamcaching.MinimumCacheUsage</code> 可设为 <strong>0.0–1.00</strong>。此参数仅可在 <code>IAudioStreamingManager</code> 初始化之前设置。在游戏期间设置此参数不产生任何效果。
+</p><p>增大此值会增加缓存中可存在的数据块的最大数量。例如，若 <code>au.streamcaching.MinimumCacheUsage</code> 为0.75，缓存大小为32MB，则数据块最大数量将为512。若加载了大量64KB音频资源，仍可使用32MB。这意味着 <code>au.streamcaching.MinimumCacheUsage</code> 越接近1，要充分利用缓存所需的数据块平均大小就越小。
+</p><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>au.streamcaching.MinimumCacheUsage </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>缓存大小(MB) </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>数据块最大数量 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>达到100%利用率所需的数据块最小平均大小(KB) </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>0.0</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>32</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>128</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>256</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>0.0</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>16</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>64</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>256</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>0.5</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>32</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>256</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>128</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>0.5</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>16</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>128</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>128</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>0.75</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>32</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>512</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>64</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>0.75</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>16</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>256</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>64</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>0.825</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>32</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>1024</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>32</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>0.825</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>16</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>512</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>32</p>
+			</td>
+	
+</tr></tbody>
+</table><p>不论单独音频资源有多大，都无法保证100%利用缓存，除非数据块的最大数量为无穷大。
+</p><p>增大 <code>au.streamcaching.MinimumCacheUsage</code> 有如下含义：
+</p><ul ><li class="Default"><p>由于在最坏情况下缓存中保留的音频更多，所以平均磁盘IO读取的次数会减少。
+</p></li><li class="Default"><p>由于可处理更多较小的数据块，平均内存利用率增加。
+</p></li><li class="Default"><p>查找缓存中数据块所需的平均CPU成本增加。
+</p></li><li class="Default"><p>插入/驱逐数据块的成本保持不变。
+</p></li></ul><h3 id="使用au.streamcaching.trimcachewhenoverbudget">使用 au.streamcaching.TrimCacheWhenOverBudget</h3>
+<p><code>au.streamcaching.TrimCacheWhenOverBudget</code> 值默认为 <strong>1</strong>。这解决了当 <code>au.streamcaching.MinimumCacheUsage</code> 设为任何大于零的值时，流缓存中泄露内存的潜在矢量。为LRU缓存中的大资源而驱逐小资源时，就会发生此泄露。由于这种情况可能会连续多次发生，会导致缓存利用率大大超过目标最大缓存大小。
+</p><p><code>au.streamcaching.TrimCacheWhenOverBudget</code> 使用的解决方案是去除最近最少使用的数据块，直至回到预算之内。这种权衡在于，准备或播放音效的调用会导致最近最少使用的音效被驱逐。
+</p><h2 id="确定音频读取的优先级">确定音频读取的优先级</h2>
+<p>音频数据块是利用 <code>IAsyncReadRequest</code> 的实例从磁盘中读取的，类似于纹理流送和几何体流送系统。因此，可使用cvar <code>au.streamcaching.ReadRequestPriority</code> 将音频数据块加载的优先级置于引擎中其他流送系统之上或之下。此值范围为0–4，0是最高优先级，4是最低优先级。
+</p><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>au.streamcaching.ReadRequestPriority </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>AsyncIOPriority </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>其他使用此优先级的流送管理器 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>0</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>AIOP_High</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>动画、纹理、着色器代码</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>1</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>AIOP_Normal</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>异步pak读取</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>2</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>AIOP_BelowNormal</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>几何体流送</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>3</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>AIOP_Low</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>4</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>AIOP_MIN</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr></tbody>
+</table><p>缓存音频流送请求的默认值为 <strong>2</strong>。</p>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../SiteIndex/index.html?tags=audio">audio</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../SiteIndex/index.html?tags=sound">sound</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../SiteIndex/index.html?tags=Beta">Beta</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/WorkingWithMedia/Audio/StreamCaching/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:39:24 GMT -->
+</html>

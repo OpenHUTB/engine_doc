@@ -1,0 +1,640 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/RenderingAndGraphics/Materials/HowTo/AnimatingUVCoords/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:14:25 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/RenderingAndGraphics/Materials/HowTo/AnimatingUVCoords/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>UV 坐标动画 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/RenderingAndGraphics/Materials/HowTo/AnimatingUVCoords/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/RenderingAndGraphics/Materials/HowTo/AnimatingUVCoords/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/RenderingAndGraphics/Materials/HowTo/AnimatingUVCoords/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/RenderingAndGraphics/Materials/HowTo/AnimatingUVCoords/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Rendering/Materials/HowTo/AnimatingUVCoords" />
+<meta name="intsourcechangelist" content="14416455" />
+<meta name="availability" content="Public" />
+<meta name="title" content="UV 坐标动画" />
+<meta name="description" content="有关 UV 坐标动画的指南" />
+<meta name="related" content="RenderingAndGraphics/Materials/ExpressionReference/Coordinates" />
+<meta name="related" content="RenderingAndGraphics/Materials/CustomizedUVs" />
+<meta name="related" content="BuildingWorlds/LightingAndShadows/LightFunctions" />
+<meta name="version" content="4.9" />
+<meta name="skilllevel" content="Intermediate" />
+<meta name="keywords" content="Materials" />
+<meta name="course" content="creating-pbr-materials?lang=zh-CN|创建PBR材质|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fcreating-pbr-materials%2FHighresScreenshot00006-1920x1050-2c0180460478cd00327494c6e5717e227be4926d.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fcreating-pbr-materials%2FCreating-PBR-Materials-1000x1000-0d34ec4bfc3eeb466ce5a981a867921f72464e77.png?resize=1&amp;w=300" />
+<meta name="course" content="getting-to-know-materials-for-design-visualization?lang=zh-CN|了解可视化设计中的材质|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fgetting-to-know-materials-for-design-visualization%2FIntro_to_Materials_003-1919x1079-f32638266c469a6fa2b9b2f3515e5766e8177b22.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fgetting-to-know-materials-for-design-visualization%2FGetting-to-Know-Materials-for-Design-Visualization-1000x1000-8cd1670f84e0111e39d4a3faa1e7a6ba29a30bfe.png?resize=1&amp;w=300" />
+<meta name="course" content="materials---exploring-essential-concepts?lang=zh-CN|材质：基础概念|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials---exploring-essential-concepts%2FMaterialEssentialConcepts-1920x1080-1920x1080-2414bb5cf0b0c3bd7ac4b993e725d2acedd45334.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials---exploring-essential-concepts%2FMaterials--Exploring-Essential-Concepts-1000x1000-9546cdc254e6659ce73211b5955ab9d886921256.png?resize=1&amp;w=300" />
+<meta name="course" content="materials---understanding-the-production-workflow?lang=zh-CN|材质：制作工作流|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials---understanding-the-production-workflow%2FMaterialWorkflow_ThumbnailFull-1920x1080-1920x1080-638fea6d7e3b7b299a4f433096336ce1caf662d0.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials---understanding-the-production-workflow%2F104-Materials-Production-Workflow%402x-1000x1000-ae1ba588a367d239fbe513da38bb793360c9eecf.png?resize=1&amp;w=300" />
+<meta name="course" content="materials-master-learning?lang=zh-CN|材质大师课程|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials-master-learning%2FMaterialMaster_1920x1080-1920x1080-212f85045980310d6985557f84d0217e6423b709.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials-master-learning%2FMaterials-Master-Learning-1000x1000-56fd0b66f6e798313f79737126d9215cbd4a3ff9.png?resize=1&amp;w=300" />
+<meta name="crumbs" content="%ROOT%,RenderingAndGraphics,RenderingAndGraphics/Materials,RenderingAndGraphics/Materials/HowTo" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="UV 坐标动画" />
+	<meta property="og:description" content="有关 UV 坐标动画的指南" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">设计视觉、渲染和图形效果</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">材质 </a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">材质 - 操作指南</a>
+
+<span class="separator">></span> <span id="page">UV 坐标动画</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">UV 坐标动画</h1>
+							</div>	
+							<h2 >有关 UV 坐标动画的指南</h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Intermediate"><a id="skill_link" href="../../../../SiteIndex/index.html?skills=Intermediate">Intermediate</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																		<div id="seeAlso">
+	<div style="position:relative;">
+		<div id="title">参见</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<p>
+						<a id="related_link" href="../../ExpressionReference/Coordinates/index.html" title="对纹理坐标、可用作纹理坐标的输出值或者用来修改纹理坐标的输出值执行操作的表达式。">坐标表达式</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../CustomizedUVs/index.html" title="此功能允许在顶点着色器中运行计算，与逐个像素地运行计算相比，这可以提高性能。">定制 UV</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../../../BuildingWorlds/LightingAndShadows/LightFunctions/index.html" title="使用材质作为光源来投射光照。">光照函数</a>
+					</p>
+				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																		<div id="courses">
+	<div style="position:relative;">
+		<div id="title">相关课程</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<div name="creating-pbr-materials?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/creating-pbr-materials?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_443/Unreal%20Engine/onlinelearning-courses/creating-pbr-materials/HighresScreenshot00006-1920x1050-2c0180460478cd00327494c6e5717e227be4926d4f86.png?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_443/Unreal%20Engine/onlinelearning-courses/creating-pbr-materials/Creating-PBR-Materials-1000x1000-0d34ec4bfc3eeb466ce5a981a867921f72464e77fe4b.png?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="creating-pbr-materials?lang=zh-CN_title">
+				创建PBR材质
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="getting-to-know-materials-for-design-visualization?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/getting-to-know-materials-for-design-visualization?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/getting-to-know-materials-for-design-visualizat/Intro_to_Materials_003-1919x1079-f32638266c469a6fa2b9b2f3515e5766?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/getting-to-know-materials-for-design-visualizat/Getting-to-Know-Materials-for-Design-Visualization-1000x1000-8cd1670f84e0111e39d4a3faa1e7a6b?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="getting-to-know-materials-for-design-visualization?lang=zh-CN_title">
+				了解可视化设计中的材质
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="materials---exploring-essential-concepts?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/materials---exploring-essential-concepts?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/materials---exploring-essential-concepts/MaterialEssentialConcepts-1920x1080-1920x1080-2414bb5cf0b0c3bd7ac4b993e725d2acedd45334.42c4f86.dela?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/materials---exploring-essential-concepts/Materials--Exploring-Essential-Concepts-1000x1000-9546cdc254e6659ce73211b5955ab9d886921256.42dfe4b?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="materials---exploring-essential-concepts?lang=zh-CN_title">
+				材质：基础概念
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="materials---understanding-the-production-workflow?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/materials---understanding-the-production-workflow?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/materials---understanding-the-production-workfl/MaterialWorkflow_ThumbnailFull-1920x1080-1920x1080-638fea6d7e3b7b299a4f433096336ce1caf662d0?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/materials---understanding-the-production-workfl/104-Materials-Production-Workflow%402x-1000x1000-ae1ba588a367d239fbe513da38bb793360c9eecf.42ff?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="materials---understanding-the-production-workflow?lang=zh-CN_title">
+				材质：制作工作流
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="materials-master-learning?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/materials-master-learning?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/materials-master-learning/MaterialMaster_1920x1080-1920x1080-212f85045980310d6985557f84d0217e6423b709.4314f86.del?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/materials-master-learning/Materials-Master-Learning-1000x1000-56fd0b66f6e798313f79737126d9215cbd4a3ff9.433fe4b.de?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="materials-master-learning?lang=zh-CN_title">
+				材质大师课程
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																								<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#什么是uv坐标动画">什么是 UV 坐标动画</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#_平移_（panner）节点明细">"平移"（Panner）节点明细</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#如何在材质中使用动画uv坐标">如何在材质中使用动画 UV 坐标</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#提示与技巧">提示与技巧</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#结论">结论</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>为材质添加运动的能力不可或缺，当您尝试重新创建诸如火焰、流水或烟雾之类的效果时尤其如此。 
+在虚幻引擎 4 (UE4) 中，实现此功能的一种低成本、有效方法是使用 <strong>平移（Panner）材质表达式</strong> 节点。 
+"平移"（Panner）材质表达式节点允许沿 U 或 V 方向或者同时沿这两个方向移动纹理的 UV 坐标。 
+</p><h2 id="什么是uv坐标动画">什么是 UV 坐标动画</h2>
+<p>UV 坐标动画或 UV 平移的含义是，水平 (U) 和/或垂直 (V) 移动纹理的 UV 坐标，以产生复杂动画的错觉。 
+在以下示例中，火焰纹理沿着 U（水平）方向平移，使火焰看起来像是在移动一样。 
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_0_kh65ub6l_2
+{
+	margin: 0px;
+	width: 640px;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_0_kh65ub6l_2:after
+{
+	content: "";
+	padding-top: 360px;
+	display: block;
+}
+</style> 
+<div id="player_0_kh65ub6l_2"> 
+	<div id="playerContainer_0_kh65ub6l_2" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/0_kh65ub6l/embed.html"></iframe>
+	</div>
+</div>
+<h2 id="_平移_（panner）节点明细">"平移"（Panner）节点明细</h2>
+<p>下图是"平移"（Panner）节点添加到材质图之后的外观。
+"平移"（Panner）节点有两个输入，即"坐标"（Coordinates）和"时间"（Time），并输出结果。 
+您可以通过在 <strong>选用板</strong> 中搜索 <strong>Panner</strong>，或者在鼠标位于材质图窗口内时按键盘上的 <strong>P</strong> 键，将"平移材质表达式"（Panner Material Expression）节点添加到材质图。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/AnimatingUVCoords/AU_Node_Breakdown.jpg">
+		<img class="  lazyload" alt="AU_Node_Breakdown.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/AnimatingUVCoords/AU_Node_Breakdown.jpg" />
+</picture>
+
+</p><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>属性 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>说明</p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>坐标（Coordinate）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>接收可以通过表达式来修改的基本 UV 纹理坐标。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>时间（Time）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>接收用来确定当前平移位置的值。这通常是用来提供常量平移效果的时间表达式，但是，也可以使用常量或标量参数来设置特定偏移，或者通过 Matinee 或蓝图来控制平移。</p>
+			</td>
+	
+</tr></tbody>
+</table><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/AnimatingUVCoords/AU_Node_Options_Breakdown.jpg">
+		<img class="  lazyload" alt="AU_Node_Options_Breakdown.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/AnimatingUVCoords/AU_Node_Options_Breakdown.jpg" />
+</picture>
+
+</p><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>属性 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>说明</p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>速度 X（Speed X）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>纹理坐标沿水平或 X 轴方向移动的速度。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>速度 Y（Speed Y）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>纹理坐标沿垂直或 Y 轴方向移动的速度。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>常量坐标（Const Coordinate）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>仅在未连接坐标的情况下使用。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>小数部分（Fractional Part）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>仅输出平移计算结果的小数部分，以提高精度。输出将大于或等于 0 并且小于 1。</p>
+			</td>
+	
+</tr></tbody>
+</table><h2 id="如何在材质中使用动画uv坐标">如何在材质中使用动画 UV 坐标</h2>
+<p>设置纹理以使用 UV 平移功能的步骤如下。 
+</p><div class="note">
+	<p>本教程将使用项目中包含 <strong>起步内容</strong> 时可以找到的内容。如果您的项目未包含起步内容，请参阅 <div class="errorhighlight" id="Error5">[迁移](Basics/AssetsAndPackages/Migrate)</div> 
+内容页面，以了解有关如何在项目之间移动内容的信息。通过这种方法，您可以将起步内容添加到项目中，而不必建立新项目。  </p>
+</div><ol ><li class="Default"><p>首先，在 <strong>内容浏览器</strong> 中创建新材质。为此，请在 <strong>内容浏览器</strong> 中 <strong>右键单击</strong>，从 <strong>创建基本资产（Create Basic Asset）</strong>菜单中选择 <strong> 材质（Material）</strong>，然后将它命名为 <strong>Panner_Material</strong>。 
+完成后，<strong>内容浏览器</strong> 中应该会显示类似下图的内容。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/AnimatingUVCoords/AU_Creat_New_Material.jpg">
+		<img class="  lazyload" alt="AU_Creat_New_Material.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/AnimatingUVCoords/AU_Creat_New_Material.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>材质现已创建完毕，请在 <strong>内容浏览器</strong> 中通过 <strong>双击鼠标左键</strong> 将其打开。打开材质之后，返回到 <strong>内容浏览器</strong> 并单击 <strong>Game</strong> 文件夹，然后搜索 <strong>T_Fire_Tiled_D</strong> 一词以查找火焰纹理。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/AnimatingUVCoords/AU_Find_Fire_Texture.jpg">
+		<img class="  lazyload" alt="AU_Find_Fire_Texture.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/AnimatingUVCoords/AU_Find_Fire_Texture.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>找到火焰纹理后，通过以下方法将它从 <strong>内容浏览器</strong> 拖到材质中：使用 <strong>鼠标左键</strong> 将它选中，然后按住 <strong>鼠标左键</strong> 将它拖到材质中。当鼠标指针位于材质上时，释放 <strong>鼠标左键</strong> 即可将纹理放入材质图。 
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_FgpsMM-VWrQ_130
+{
+	margin: 0px;
+	width: 640px;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_FgpsMM-VWrQ_130:after
+{
+	content: "";
+	padding-top: 360px;
+	display: block;
+}
+</style> 
+<div>
+<div id="player_FgpsMM-VWrQ_130"><div style="position:absolute;display:block;width:100%;height:100%;"><iframe class="embedded_video" id="FgpsMM-VWrQ" width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/FgpsMM-VWrQ?rel=0&amp;modestbranding=1&amp;showinfo=0" frameborder="0" allowfullscreen></iframe></div></div>
+</div></li><li class="Default"><p>纹理现在已放入材质图，请转到 <strong>选用板</strong> 并搜索 <strong>Panner</strong>。找到 <strong>平移（Panner）</strong>材质表达式后，请使用 <strong>鼠标左键</strong> 将其选中，然后将它拖到材质图中。当鼠标指针位于材质图上方时，释放 <strong>鼠标左键</strong> 即可将 <strong>平移（Panner）</strong>材质表达式放入材质图。完成之后，您的材质图应该类似于下图。 
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_Adj0C-FY_Zg_172
+{
+	margin: 0px;
+	width: 640px;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_Adj0C-FY_Zg_172:after
+{
+	content: "";
+	padding-top: 360px;
+	display: block;
+}
+</style> 
+<div>
+<div id="player_Adj0C-FY_Zg_172"><div style="position:absolute;display:block;width:100%;height:100%;"><iframe class="embedded_video" id="Adj0C-FY_Zg" width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/Adj0C-FY_Zg?rel=0&amp;modestbranding=1&amp;showinfo=0" frameborder="0" allowfullscreen></iframe></div></div>
+</div></li><li class="Default"><p>现在，您已添加了所需的所有节点，可以开始将它们连接到一起。首先，将火焰纹理的 <strong>白色</strong> 输出连接到 <strong>底色（Base Color）</strong>输入。然后，将 <strong>平移（Panner）</strong>的输出连接到火焰纹理的 <strong>UV</strong> 输入。完成后，您应该看到类似下图的内容。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/AnimatingUVCoords/AU_Making_Connections.jpg">
+		<img class="  lazyload" alt="AU_Making_Connections.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/AnimatingUVCoords/AU_Making_Connections.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>所有内容现已连接完毕，可以开始让火焰纹理平移。为此，请先选择 <strong>平移（Panner）</strong>材质表达式，然后在 <strong>细节（Details）</strong>面板中，将 <strong>速度 X（Speed X）</strong>参数设置为 <strong>0.1</strong>。 
+<picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/AnimatingUVCoords/AU_Set_Panning_Speed.jpg">
+		<img class="  lazyload" alt="AU_Set_Panning_Speed.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/AnimatingUVCoords/AU_Set_Panning_Speed.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>将 <strong>速度 X（Speed X）</strong>设置为 <strong>0.1</strong> 时，在预览窗口中，您应该会立即看到火焰纹理开始水平移动。 
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_Xl4SuzuPJ7o_270
+{
+	margin: 0px;
+	width: 640px;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_Xl4SuzuPJ7o_270:after
+{
+	content: "";
+	padding-top: 360px;
+	display: block;
+}
+</style> 
+<div>
+<div id="player_Xl4SuzuPJ7o_270"><div style="position:absolute;display:block;width:100%;height:100%;"><iframe class="embedded_video" id="Xl4SuzuPJ7o" width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/Xl4SuzuPJ7o?rel=0&amp;modestbranding=1&amp;showinfo=0" frameborder="0" allowfullscreen></iframe></div></div>
+</div></li><li class="Default"><p>现在，可以编译、保存和使用此材质。
+</p></li></ol><h2 id="提示与技巧">提示与技巧</h2>
+<p>将平移功能与其他材质表达式结合使用是一种很不错的方法，这样可以添加一些额外的控制来确定平移的工作方式。 
+在以下示例中，将对上文创建的材质进行进一步处理，即，添加控制项以帮助控制速度及平铺。
+通过增大 <strong>材质坐标（TexCoord）</strong>和 <strong>时间（Time）</strong>材质表达式的乘数，您可以调整火焰纹理的速度及平铺。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/AnimatingUVCoords/AU_Adding_More_Controal.jpg">
+		<img class="  lazyload" alt="AU_Adding_More_Controal.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/AnimatingUVCoords/AU_Adding_More_Controal.jpg" />
+</picture>
+
+</p><p>您也可以叠加 <strong>平移（Panner）</strong> 材质表达式，以产生更加复杂的移动错觉。 
+在本示例中，通过先选中所有材质表达式节点再按键盘上的 <strong>CTRL + W</strong>，创建所有原始材质表达式节点的副本。 
+然后，将新建节点的平移方向从 <strong>速度 X（Speed X）= 0.1</strong> 更改为 <strong>速度 Y（Speed Y）= 0.1</strong> 以使图像垂直移动，而不是水平移动。 
+接着，将与 <strong>时间（Time）</strong> 和 <strong>纹理坐标（TexCoord）</strong>相乘的值从 <strong>1</strong> 增大为 <strong>2</strong>。 
+最后，这两个纹理 <strong>相乘</strong> 以产生以下最终结果。
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_0_qk3y8vwd_36
+{
+	margin: 0px;
+	width: 75%;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_0_qk3y8vwd_36:after
+{
+	content: "";
+	padding-top: 56.25%;
+	display: block;
+}
+</style> 
+<div id="player_0_qk3y8vwd_36"> 
+	<div id="playerContainer_0_qk3y8vwd_36" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/0_qk3y8vwd/embed.html"></iframe>
+	</div>
+</div>
+<h2 id="结论">结论</h2>
+<p>UV 坐标动画是一种可以为材质引入运动效果的出色方法。 
+对于需要复杂运动的视觉效果（如烟雾或火焰），这种方法也极为有用。 
+但是，请记住，UV 坐标动画最适合于具有连续 UV 设置的对象。 
+网格 UV 坐标中的任何偏差在 UV 坐标动画时都会显现。 
+</p>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Materials">Materials</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/RenderingAndGraphics/Materials/HowTo/AnimatingUVCoords/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:14:28 GMT -->
+</html>

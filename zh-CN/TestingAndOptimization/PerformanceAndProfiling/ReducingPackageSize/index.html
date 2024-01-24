@@ -1,0 +1,998 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:39:53 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/" />');
+				var udnCSS = '../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>缩减游戏包容量  | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Performance/ReducingPackageSize" />
+<meta name="intsourcechangelist" content="15197287" />
+<meta name="availability" content="Public" />
+<meta name="title" content="缩减游戏包容量" />
+<meta name="description" content="如何控制游戏包的容量。" />
+<meta name="version" content="4.12" />
+<meta name="parent" content="TestingAndOptimization/PerformanceAndProfiling" />
+<meta name="topic-image" content="package_topic.png" />
+<meta name="related" content="SharingAndReleasing/Mobile/Android/ReducingAPKSize/" />
+<meta name="crumbs" content="%ROOT%,TestingAndOptimization,TestingAndOptimization/PerformanceAndProfiling" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="缩减游戏包容量 " />
+	<meta property="og:description" content="如何控制游戏包的容量。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">测试并优化你的内容</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">性能及分析</a>
+
+<span class="separator">></span> <span id="page">缩减游戏包容量 </span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">缩减游戏包容量 </h1>
+							</div>	
+							<h2 >如何控制游戏包的容量。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																																			</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																		<div id="seeAlso">
+	<div style="position:relative;">
+		<div id="title">参见</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<p>
+						<a id="related_link" href="../../../SharingAndReleasing/Mobile/Android/ReducingAPKSize/index.html" title="如何降低安卓游戏包的大小。">降低 APK 安装包的大小</a>
+					</p>
+				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																														<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#新建一个空白项目">新建一个空白项目</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#压缩已烘焙内容">压缩已烘焙内容</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#共享材质着色器和库">共享材质着色器和库</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#排除编辑器内容">排除编辑器内容</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#设置项目的关卡">设置项目的关卡</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#选择要打包和不打包的内容">选择要打包和不打包的内容</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#检查将要烘焙的内容">检查将要烘焙的内容</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#开发和发布版本容量">开发和发布版本容量</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#逐设备纹理lod">逐设备纹理LOD</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#移除未使用的内容">移除未使用的内容</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#移除未使用的插件">移除未使用的插件</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#打包黑名单">打包黑名单</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#最大可移动聚光源/点光源数">最大可移动聚光源/点光源数</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#用隐藏符号进行编译">用隐藏符号进行编译</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>无论UE4项目针对的是哪个平台，缩减游戏包容量都颇具挑战性。以下指南将说明如何利用UE4编辑器中的工具来把最终项目包尽量缩小。
+</p><h2 id="新建一个空白项目">新建一个空白项目</h2>
+<p>开始着手基于Android的移动项目时，使用者可能会尝试使用现有项目作为基础，或创建启用了"初学者内容包"的新项目。请勿如此进行操作，应改为创建基于C++或 <strong>蓝图</strong> 的全新空白项目，然后使用<div class="errorhighlight" id="Error3">[迁移工具](Basics/AssetsAndPackages/Migrate)</div>来引入您希望使用的内容。这样才能确保项目只包含必需的内容。
+</p><h2 id="压缩已烘焙内容">压缩已烘焙内容</h2>
+<p>削减APK包容量最简单快捷的方法是告知UE4在打包过程中对APK包进行压缩。在UE4编辑器中完成下列操作即可开启包压缩。
+</p><ol ><li class="Default"><p>首先前往主工具栏并选择 <strong>编辑（Edit）</strong> 选项，然后选择 <strong>项目设置（Project Settings）</strong>，打开项目设置。
+</p><!--
+category:paramliteral
+id:paramliteral
+content:param
+active:paramliteral
+-->
+<div class="button_content OS windows active_button_content">
+    <div class="container">
+        <p><picture>
+		<source data-srcset="./../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/T_Project_Settings_Menu.jpg">
+		<img class="  lazyload" alt="T_Project_Settings_Menu.png" data-src="../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/T_Project_Settings_Menu.jpg" />
+</picture>
+</p>
+    </div>
+</div><!--
+category:paramliteral
+id:paramliteral
+content:param
+active:paramliteral
+-->
+<div class="button_content OS mac ">
+    <div class="container">
+        <p><picture>
+		<source data-srcset="./../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/T_Project_Settings_Menu_Mac.jpg">
+		<img class="  lazyload" alt="T_Project_Settings_Menu_Mac.png" data-src="../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/T_Project_Settings_Menu_Mac.jpg" />
+</picture>
+</p>
+    </div>
+</div></li><li class="Default"><p>在"项目（Project）"部分下单击 <strong>打包（Packaging）</strong>，显示项目打包方式的选项。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/T_Project_Packaging.png" ><span><picture>
+		<source data-srcset="./../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/T_Project_Packaging.jpg">
+		<img class="  lazyload" alt="T_Project_Packaging.png" width="518" data-src="../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/T_Project_Packaging.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>单击位于"打包（Packaging）"设置底部的白色小三角形，显示 <strong>高级项目设置（Advanced Project settings）</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/T_Expose_Advanced_Props.png" ><span><picture>
+		<source data-srcset="./../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/T_Expose_Advanced_Props.jpg">
+		<img class="  lazyload" alt="T_Expose_Advanced_Props.png" width="518" data-src="../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/T_Expose_Advanced_Props.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>查找标记为 <strong>创建压缩烘焙包（Create compressed cooked packages）</strong> 的选项并将其启用（如未启用）。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/T_Enable_Comp_Packages.png" ><span><picture>
+		<source data-srcset="./../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/T_Enable_Comp_Packages.jpg">
+		<img class="  lazyload" alt="T_Enable_Comp_Packages.png" width="518" data-src="../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/T_Enable_Comp_Packages.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li></ol><p>如果未曾在启用"创建压缩烘焙包（Create compressed cooked packages）"勾选框的情况下打包游戏，在启用此项并重新打包项目后文件包将存在非常明显的大小差异。实际上，启用"创建压缩烘焙包（Create compressed cooked packages）"后，项目APK包的容量通常会削减50%左右。
+</p><h2 id="共享材质着色器和库">共享材质着色器和库</h2>
+<p>启用 <strong>共享材质着色器代码（Share Material Shader Code）</strong> 和 <strong>共享材质本地库（Share Material Native Libraries）</strong> 有助于削减项目包的容量，但会导致加载时间增加。执行以下操作即可在UE4项目中启用该选项：
+</p><ol ><li class="Default"><p>首先前往 <strong>主工具栏</strong> 上的 <strong>编辑（Edit）</strong> > <strong>项目设置（Project Settings）</strong>。
+</p><!--
+category:paramliteral
+id:paramliteral
+content:param
+active:paramliteral
+-->
+<div class="button_content OS windows active_button_content">
+    <div class="container">
+        <p><picture>
+		<source data-srcset="./../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/T_Project_Settings_Menu.jpg">
+		<img class="  lazyload" alt="T_Project_Settings_Menu.png" data-src="../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/T_Project_Settings_Menu.jpg" />
+</picture>
+</p>
+    </div>
+</div><!--
+category:paramliteral
+id:paramliteral
+content:param
+active:paramliteral
+-->
+<div class="button_content OS mac ">
+    <div class="container">
+        <p><picture>
+		<source data-srcset="./../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/T_Project_Settings_Menu_Mac.jpg">
+		<img class="  lazyload" alt="T_Project_Settings_Menu_Mac.png" data-src="../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/T_Project_Settings_Menu_Mac.jpg" />
+</picture>
+</p>
+    </div>
+</div></li><li class="Default"><p>在 <strong>打包（Packing）</strong> 部分底部启用以下两个勾选框。
+</p><ul ><li class="Default"><p><strong>共享材质着色器代码（Share Material Shader Code）</strong>
+</p></li><li class="Default"><p><strong>共享材质本地库（Shared Material Native Libraries）</strong>
+</p></li></ul><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/Packing_Share_Material_Code.png" ><span><picture>
+		<source data-srcset="./../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/Packing_Share_Material_Code.jpg">
+		<img class="  lazyload" alt="Packing_Share_Material_Code.png" width="490" data-src="../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/Packing_Share_Material_Code.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li></ol><h2 id="排除编辑器内容">排除编辑器内容</h2>
+<p>启用此选项后，UE4编辑器使用的内容都不会打包进项目中。须注意，启用此选项后可能导致问题：使用编辑器内容的项目出现内容缺失。执行以下操作即可在UE4项目中启用这两个选项：
+</p><ol ><li class="Default"><p>首先前往 <strong>主工具栏</strong> 上的 <strong>编辑（Edit）</strong> > <strong>项目设置（Project Settings）</strong>。
+</p><!--
+category:paramliteral
+id:paramliteral
+content:param
+active:paramliteral
+-->
+<div class="button_content OS windows active_button_content">
+    <div class="container">
+        <p><picture>
+		<source data-srcset="./../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/T_Project_Settings_Menu.jpg">
+		<img class="  lazyload" alt="T_Project_Settings_Menu.png" data-src="../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/T_Project_Settings_Menu.jpg" />
+</picture>
+</p>
+    </div>
+</div><!--
+category:paramliteral
+id:paramliteral
+content:param
+active:paramliteral
+-->
+<div class="button_content OS mac ">
+    <div class="container">
+        <p><picture>
+		<source data-srcset="./../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/T_Project_Settings_Menu_Mac.jpg">
+		<img class="  lazyload" alt="T_Project_Settings_Menu_Mac.png" data-src="../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/T_Project_Settings_Menu_Mac.jpg" />
+</picture>
+</p>
+    </div>
+</div></li><li class="Default"><p>在"项目（Project）"部分下单击 <strong>打包（Packaging）</strong>，显示项目打包方式的选项。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/T_Project_Packaging.png" ><span><picture>
+		<source data-srcset="./../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/T_Project_Packaging.jpg">
+		<img class="  lazyload" alt="T_Project_Packaging.png" width="518" data-src="../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/T_Project_Packaging.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>单击位于"打包（Packaging）"设置底部的白色小三角形，显示 <strong>高级项目设置（Advanced Project settings）</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/T_Expose_Advanced_Props.png" ><span><picture>
+		<source data-srcset="./../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/T_Expose_Advanced_Props.jpg">
+		<img class="  lazyload" alt="T_Expose_Advanced_Props.png" width="518" data-src="../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/T_Expose_Advanced_Props.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>向下滚动，使 <strong>烘焙时排除编辑器内容（Exclude editor content when cooking）</strong> 选项出现，点击旁边的勾选框将其启用。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/Packing_Exclude_Editor_Content.png" ><span><picture>
+		<source data-srcset="./../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/Packing_Exclude_Editor_Content.jpg">
+		<img class="  lazyload" alt="Packing_Exclude_Editor_Content.png" width="518" data-src="../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/Packing_Exclude_Editor_Content.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><div class="note">
+	<p>启用此项后可能引起问题：使用编辑器内容的项目可能出现内容缺失。</p>
+</div></li></ol><h2 id="设置项目的关卡">设置项目的关卡</h2>
+<p>经常被忽略的是，未正确设置项目选项（如默认情况下应该使用哪些关卡、或者关卡过渡之间应该使用哪些关卡）会导致项目APK包容量激增。执行以下步骤设置用于此类交互的关卡。
+</p><ol ><li class="Default"><p>首先前往 <strong>主工具栏</strong> 上的 <strong>编辑（Edit）</strong> > <strong>项目设置（Project Settings）</strong>。
+</p><!--
+category:paramliteral
+id:paramliteral
+content:param
+active:paramliteral
+-->
+<div class="button_content OS windows active_button_content">
+    <div class="container">
+        <p><picture>
+		<source data-srcset="./../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/T_Project_Settings_Menu.jpg">
+		<img class="  lazyload" alt="T_Project_Settings_Menu.png" data-src="../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/T_Project_Settings_Menu.jpg" />
+</picture>
+</p>
+    </div>
+</div><!--
+category:paramliteral
+id:paramliteral
+content:param
+active:paramliteral
+-->
+<div class="button_content OS mac ">
+    <div class="container">
+        <p><picture>
+		<source data-srcset="./../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/T_Project_Settings_Menu_Mac.jpg">
+		<img class="  lazyload" alt="T_Project_Settings_Menu_Mac.png" data-src="../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/T_Project_Settings_Menu_Mac.jpg" />
+</picture>
+</p>
+    </div>
+</div></li><li class="Default"><p>然后在 <strong>贴图与模式（Maps &amp; Modes）</strong> 部分中的 <strong>项目（Project）</strong> 下查找 <strong>默认贴图（Default Maps）</strong> 部分。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/T_Set_Maps.png" ><span><picture>
+		<source data-srcset="./../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/T_Set_Maps.jpg">
+		<img class="  lazyload" alt="T_Set_Maps.png" width="518" data-src="../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/T_Set_Maps.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>点击 <strong>游戏默认地图（Game Default Map）</strong> 旁边的箭头，从 <strong>资源列表</strong> 中选择应该用作游戏默认初始关卡的地图。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/T_Project_Settings_Default_Game_Map.png" ><span><picture>
+		<source data-srcset="./../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/T_Project_Settings_Default_Game_Map.jpg">
+		<img class="  lazyload" alt="T_Project_Settings_Default_Game_Map.png" width="518" data-src="../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/T_Project_Settings_Default_Game_Map.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>重复此进程，直到拥有每种必需地图类型的关卡输入。
+</p></li></ol><h2 id="选择要打包和不打包的内容">选择要打包和不打包的内容</h2>
+<p>在项目设置的"打包（Packaging）"部分中指定哪些内容应被打包到游戏中，哪些内容不应被打包到游戏中。如要指定项目中应包含的地图，应执行以下操作：
+</p><div class="warning">
+	<p>如未指定应烘焙的地图，则所有地图都将被烘焙（包括可能拥有的测试地图）。如未指定应烘焙的项目，游戏包的最终大小将比实际更大。 </p>
+</div><ol ><li class="Default"><p>首先前往 <strong>主工具栏</strong> 选择 <strong>编辑（Edit）</strong> > <strong>项目设置（Project Settings）</strong> 来打开项目设置。
+</p><!--
+category:paramliteral
+id:paramliteral
+content:param
+active:paramliteral
+-->
+<div class="button_content OS windows active_button_content">
+    <div class="container">
+        <p><picture>
+		<source data-srcset="./../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/T_Project_Settings_Menu.jpg">
+		<img class="  lazyload" alt="T_Project_Settings_Menu.png" data-src="../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/T_Project_Settings_Menu.jpg" />
+</picture>
+</p>
+    </div>
+</div><!--
+category:paramliteral
+id:paramliteral
+content:param
+active:paramliteral
+-->
+<div class="button_content OS mac ">
+    <div class="container">
+        <p><picture>
+		<source data-srcset="./../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/T_Project_Settings_Menu_Mac.jpg">
+		<img class="  lazyload" alt="T_Project_Settings_Menu_Mac.png" data-src="../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/T_Project_Settings_Menu_Mac.jpg" />
+</picture>
+</p>
+    </div>
+</div></li><li class="Default"><p>然后在 <strong>打包（Packaging）</strong> 部分中的 <strong>项目（Project）</strong> 下查找 <strong>打包（Packaging）</strong> 选项。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/Content_To_Pack.png" ><span><picture>
+		<source data-srcset="./../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/Content_To_Pack.jpg">
+		<img class="  lazyload" alt="Content_To_Pack.png" width="518" data-src="../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/Content_To_Pack.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>单击位于"打包（Packaging）"部分底部的 <strong>白色小三角形</strong>，显示高级打包设置。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/Advanced_Packing_Section.png" ><span><picture>
+		<source data-srcset="./../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/Advanced_Packing_Section.jpg">
+		<img class="  lazyload" alt="Advanced_Packing_Section.png" width="518" data-src="../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/Advanced_Packing_Section.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>滚动到"高级打包（Advanced Packaging）"选项的下部，直到 <strong>烘焙项目内容目录中的所有内容（无视下方的地图列表）Cook everything in the project content directory(ignores list of maps below)</strong> 选项的勾选框出现。此处显示的选项可用于指定哪些内容和地图应被打包到项目中，哪些不应被打包到项目中。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/Advanced_Packing_Options.png" ><span><picture>
+		<source data-srcset="./../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/Advanced_Packing_Options.jpg">
+		<img class="  lazyload" alt="Advanced_Packing_Options.png" width="518" data-src="../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/Advanced_Packing_Options.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>按下要使用的选项旁边的白色 <strong>加号</strong> 来新建条目，即可包含或排除资源。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/Add_New_Item.png" ><span><picture>
+		<source data-srcset="./../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/Add_New_Item.jpg">
+		<img class="  lazyload" alt="Add_New_Item.png" width="518" data-src="../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/Add_New_Item.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>接着点击新添加条目旁边的三个白色小点，从出现的窗口中选择版本中要包含或排除的资源。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/Select_Items_To_Cook.png" ><span><picture>
+		<source data-srcset="./../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/Select_Items_To_Cook.jpg">
+		<img class="  lazyload" alt="Select_Items_To_Cook.png" width="518" data-src="../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/Select_Items_To_Cook.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>选择资源后，条目框将包含资源所在项目文件夹的路径。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/Selected_Item_Location.png" ><span><picture>
+		<source data-srcset="./../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/Selected_Item_Location.jpg">
+		<img class="  lazyload" alt="Selected_Item_Location.png" width="518" data-src="../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/Selected_Item_Location.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li></ol><div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>属性名称 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>描述 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>烘焙项目内容目录中的所有内容 （无视下方的地图列表）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>烘焙项目内容目录中的所有内容。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>仅烘焙地图 （这只影响"烘焙所有"）。</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>仅烘焙地图（这只影响"烘焙所有"标签）。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>创建压缩烘焙包</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>创建压缩烘焙包 （削减部署大小）。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>如果此包中不包含编辑器内容，使用此内容时游戏可能会崩溃/出错</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>跳过编辑器内容的烘焙。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>打包版本中包含的地图列表</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>命令行上未指定其他地图列表时应包含的地图列表。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>要烘焙的额外资源目录</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>列出了应固定被烘焙的、包含.uasset文件的额外目录，无论其是否受项目中的内容所引用。注意：这些路径相对于项目的Content目录。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>永不烘焙的目录</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>列出了永不会烘焙的目录。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>将额外的非资源目录添加到包</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>列出了包含应固定被添加到.pak文件的文件目录（前提条件是使用.pak文件；否则其将作为单个文件进行复制）。这用于传输通过UFS（虚幻文件系统）文件IO API手动加载的额外文件。注意：这些路径相对于项目的Content目录。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>要复制的额外非资源目录</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>列出了包含打包项目时应固定被复制、但不作为.pak文件一部分的文件目录。这用于传输手动加载的额外文件，而不使用UFS（虚幻文件系统）文件IP API（如执行其自身内部文件IO的第三方库）。<div class="note">
+	<p>注意：这些路径相对于项目的Content目录。</p>
+</div></p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div><h2 id="检查将要烘焙的内容">检查将要烘焙的内容</h2>
+<p>要确保只将项目相关的内容添加到APK文件中，可查看项目中的 <strong>Cooked</strong> 文件夹，检查哪些内容正被添加到项目APK中。前往 <code>(ProjectName)\Saved\Cooked</code>，然后选择您烘焙项目所用格式的文件夹，找到Cooked文件夹。
+</p><div class="note">
+	<p>请注意：只有在完成首次烘焙之后才能查看 <strong>Cooked</strong> 文件夹中的内容。 </p>
+</div><!--
+category:paramliteral
+id:paramliteral
+content:param
+active:paramliteral
+-->
+<div class="button_content OS windows ">
+    <div class="container">
+        <div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/T_Cooked_Content_Folder.png" ><span><picture>
+		<source data-srcset="./../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/T_Cooked_Content_Folder.jpg">
+		<img class="  lazyload" alt="T_Cooked_Content_Folder.png" width="324" data-src="../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/T_Cooked_Content_Folder.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div>
+    </div>
+</div><!--
+category:paramliteral
+id:paramliteral
+content:param
+active:paramliteral
+-->
+<div class="button_content OS mac ">
+    <div class="container">
+        <div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/T_Cooked_Content_Folder_Mac.png" ><span><picture>
+		<source data-srcset="./../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/T_Cooked_Content_Folder_Mac.jpg">
+		<img class="  lazyload" alt="T_Cooked_Content_Folder_Mac.png" width="427" data-src="../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/T_Cooked_Content_Folder_Mac.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div>
+    </div>
+</div><p>下图显示的是Match 3样本游戏中的Texture文件夹。此文件夹中的内容已按大小排序，很容易分辨资源的大小。找到容量最大的资源之后，便可在UE4中对其进行检查，确定其大小是否能在保证资源完整性的前提下被实际缩减。
+</p><!--
+category:paramliteral
+id:paramliteral
+content:param
+active:paramliteral
+-->
+<div class="button_content OS windows ">
+    <div class="container">
+        <div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/T_Cooked_Content.png" ><span><picture>
+		<source data-srcset="./../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/T_Cooked_Content.jpg">
+		<img class="  lazyload" alt="T_Cooked_Content.png" width="473" data-src="../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/T_Cooked_Content.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div>
+    </div>
+</div><!--
+category:paramliteral
+id:paramliteral
+content:param
+active:paramliteral
+-->
+<div class="button_content OS mac ">
+    <div class="container">
+        <div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/T_Cooked_Content_Mac.png" ><span><picture>
+		<source data-srcset="./../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/T_Cooked_Content_Mac.jpg">
+		<img class="  lazyload" alt="T_Cooked_Content_Mac.png" width="429" data-src="../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/T_Cooked_Content_Mac.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div>
+    </div>
+</div><h2 id="开发和发布版本容量">开发和发布版本容量</h2>
+<p>尝试确定项目的最终大小时须注意，项目的开发版本将略大于发布版本。在Medieval Match游戏范例中，开发版本与发布版本之间的容量差异约为14%。但各个项目的要求有所相同，因此两个不同项目版本之间的容量差异可能大于14%，也可能小于此值。
+</p><h2 id="逐设备纹理lod">逐设备纹理LOD</h2>
+<p>在虚幻引擎4.8版本中可以指定在特定设备上使用的特定纹理大小。<a id="content_link"filter-data="tag_mobile" href="../../../SharingAndReleasing/Mobile/Textures/index.html" ><span>移动平台纹理指南</span></a>对此另有详述。
+</p><h2 id="移除未使用的内容">移除未使用的内容</h2>
+<p>当项目最终准备好进行打包上架时，必须在内容浏览器中选中并删除未使用的内容或测试内容。删除方法是先选中所要删除的内容，然后按键盘上的Delete键，或使用右键菜单中的"删除"选项。尝试从项目中删除内容时，系统将显示删除资源（Delete Assets）菜单，如下图所示。
+</p><div class="tip">
+	<p>这是在UE4中删除对象的首选方法，不应直接从Content文件夹中删除/移除资源。</p>
+</div><!--
+category:paramliteral
+id:paramliteral
+content:param
+active:paramliteral
+-->
+<div class="button_content OS windows ">
+    <div class="container">
+        <p><picture>
+		<source data-srcset="./../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/DeleteAssets_Windows.jpg">
+		<img class="  lazyload" alt="DeleteAssets_Windows.png" data-src="../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/DeleteAssets_Windows.jpg" />
+</picture>
+</p>
+    </div>
+</div><!--
+category:paramliteral
+id:paramliteral
+content:param
+active:paramliteral
+-->
+<div class="button_content OS mac ">
+    <div class="container">
+        <div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/DeleteAssets_Mac.png" ><span><picture>
+		<source data-srcset="./../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/DeleteAssets_Mac.jpg">
+		<img class="  lazyload" alt="DeleteAssets_Mac.png" width="305" data-src="../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/DeleteAssets_Mac.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div>
+    </div>
+</div><p>"删除资源（Delete Assets）"菜单将指出尝试删除的资源是否被另一资源引用。如果该资源未被引用，那么可直接将其删除；但如果该资源已被其他资源引用，则可使用 <strong>替换引用（Replace References）</strong> 选项将对该资源的引用替换为应打包到项目中的另一个资源。
+</p><h2 id="移除未使用的插件">移除未使用的插件</h2>
+<p>在UE4编辑器中禁用所有未使用 <strong>插件</strong> 也能将非必要内容和代码排除在项目最终的APK包之外。这是因为部分 <strong>插件</strong> 需要特定的一组基础资源和代码才能正常工作。如果不禁用 <strong>插件</strong>，就不会从项目中移除使 <strong>插件</strong> 正常工作的必需资源和代码。虽然这种方式所削减的容量不如缩小或移除大型纹理一样直观，但在尽量缩小容量时（例如将游戏容量控制在100 MB内），每种方法皆能发挥作用。如要在UE4中禁用插件，需完成下列步骤：
+</p><div class="note">
+	<p>务必对项目进行完整测试，确保禁用 <strong>插件</strong> 后项目的功能不受干扰。</p>
+</div><ol ><li class="Default"><p>首先前往 <strong>主工具栏</strong> 并单击 <strong>窗口（Window）</strong> 选项，然后选择 <strong>插件（Plug-in）</strong> 选项，打开插件管理器。
+</p><!--
+category:paramliteral
+id:paramliteral
+content:param
+active:paramliteral
+-->
+<div class="button_content OS windows active_button_content">
+    <div class="container">
+        <p><picture>
+		<source data-srcset="./../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/T_Open_Plugins_Browser.jpg">
+		<img class="  lazyload" alt="T_Open_Plugins_Browser.png" data-src="../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/T_Open_Plugins_Browser.jpg" />
+</picture>
+</p>
+    </div>
+</div><!--
+category:paramliteral
+id:paramliteral
+content:param
+active:paramliteral
+-->
+<div class="button_content OS mac ">
+    <div class="container">
+        <p><picture>
+		<source data-srcset="./../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/T_Open_Plugins_Browser_Mac.jpg">
+		<img class="  lazyload" alt="T_Open_Plugins_Browser_Mac.png" data-src="../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/T_Open_Plugins_Browser_Mac.jpg" />
+</picture>
+</p>
+    </div>
+</div></li><li class="Default"><p>在 <strong>插件</strong> 浏览器中选择不同部分，取消勾选 <strong>已启用（Enabled）</strong> 旁边的复选框来禁用未使用的 <strong>插件</strong>。  禁用所有 <strong>插件</strong> 之后需要重新启动UE4编辑器，然后重新打包项目。
+</p></li></ol><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_0_s5pkam9r_343
+{
+	margin: 0px;
+	width: 75%;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_0_s5pkam9r_343:after
+{
+	content: "";
+	padding-top: 56.25%;
+	display: block;
+}
+</style> 
+<div id="player_0_s5pkam9r_343"> 
+	<div id="playerContainer_0_s5pkam9r_343" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/0_s5pkam9r/embed.html"></iframe>
+	</div>
+</div>
+<h2 id="打包黑名单">打包黑名单</h2>
+<p>在现版本中，使用者可以将一个文本文件放置在项目的 <strong>Build/Platform/（目标平台文件夹）</strong> 目录中，指示烘焙器将部分或完整文件路径排除在项目打包之外。项目可以有多个分别用于调试、开发、测试和发布版本的黑名单文件。对其进行设置即可包括/排除任意项目数据。甚至可以针对项目所支持的各个平台使用不同的黑名单文件，例如针对Android使用一个黑名单文件，针对iOS使用另一个，以此类推。 下例是Android上Match 3的黑名单文件。 
+</p><!--
+category:paramliteral
+id:paramliteral
+content:param
+active:paramliteral
+-->
+<div class="button_content OS windows ">
+    <div class="container">
+        <div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/T_Blacklist_Packages.png" ><span><picture>
+		<source data-srcset="./../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/T_Blacklist_Packages.jpg">
+		<img class="  lazyload" alt="T_Blacklist_Packages.png" width="470" data-src="../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/T_Blacklist_Packages.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div>
+    </div>
+</div><!--
+category:paramliteral
+id:paramliteral
+content:param
+active:paramliteral
+-->
+<div class="button_content OS mac ">
+    <div class="container">
+        <div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/T_Blacklist_Packages_Mac.png" ><span><picture>
+		<source data-srcset="./../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/T_Blacklist_Packages_Mac.jpg">
+		<img class="  lazyload" alt="T_Blacklist_Packages_Mac.png" width="467" data-src="../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/T_Blacklist_Packages_Mac.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div>
+    </div>
+</div><p>以Match 3为例，烘焙器得到的指令是在游戏烘焙和打包时不包含以下文件。
+</p><ul ><li class="Default"><p><strong>黑名单文本文件的位置与名称：</strong> Match3/Build/Android/<strong>PakBlacklist-Shipping.txt</strong>:
+</p><!--
+category:paramliteral
+id:paramliteral
+content:param
+active:paramliteral
+-->
+<div class="button_content OS windows active_button_content">
+    <div class="container">
+        <p><picture>
+		<source data-srcset="./../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/T_Black_List.jpg">
+		<img class="  lazyload" alt="T_Black_List.png" data-src="../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/T_Black_List.jpg" />
+</picture>
+</p>
+    </div>
+</div><!--
+category:paramliteral
+id:paramliteral
+content:param
+active:paramliteral
+-->
+<div class="button_content OS mac ">
+    <div class="container">
+        <p><picture>
+		<source data-srcset="./../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/T_Black_List_Mac.jpg">
+		<img class="  lazyload" alt="T_Black_List_Mac.png" data-src="../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/T_Black_List_Mac.jpg" />
+</picture>
+</p>
+    </div>
+</div></li></ul><p>前三个条目应适用于任意项目，但某些情况下在运行时可能需要 <strong>AssetRegistry.bin</strong>（具体取决于项目）。强烈建议进行完整测试，确保移除的内容不会对项目产生负面影响。进行此检查的一个简单方法是打开项目的所有关卡，确保其正确加载，未出现错误或警告。如果遇到问题但不清除原因，请检查<a id="content_link" href="https://developer.android.com/studio/command-line/logcat.html" ><span>Logcat</span></a>。
+</p><h2 id="最大可移动聚光源/点光源数">最大可移动聚光源/点光源数</h2>
+<p><strong>最大可移动聚光源/点光源数</strong> 属性有助于减少针对动态光源生成的着色器数量。此功能尤其适用于不需要动态光照的移动平台游戏。你可以在 <strong>项目设置</strong> 下 <strong>减少移动着色器数组</strong> 的 <strong>渲染</strong> 分段中可找到它。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/MobileShaderPermutation_b.png" ><span><picture>
+		<source data-srcset="./../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/MobileShaderPermutation_b.jpg">
+		<img class="  lazyload" alt="MobileShaderPermutation_b.png" width="900" data-src="../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/MobileShaderPermutation_b.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><p>将 <strong>最大可移动聚光源/点光源数</strong> 从4设为0，弹出提示后重启UE4编辑器即可完全禁用此功能。
+</p><p><picture>
+		<source data-srcset="./../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/MobileShaderPermutation_0.jpg">
+		<img class="  lazyload" alt="MobileShaderPermutation_0.png" data-src="../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/MobileShaderPermutation_0.jpg" />
+</picture>
+
+</p><p>节约的容量不等，具体取决于项目的容量和使用的材质数量。举例而言，使用默认的第三人称模板即可找出"最大动态点光源数（Max Dynamic Point Lights）"启用和禁用时的容量差异。 
+</p><div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>状态 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>游戏包容量 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>缩减量 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>开启</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>54.3 MB</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>0</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>关闭</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>53.2 MB</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>1.1 MB</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div><h2 id="用隐藏符号进行编译">用隐藏符号进行编译</h2>
+<p>可按默认产生较小.so文件的条件对发布配置（带隐藏可视性）进行编译。然而，这将同时移除用于显示调用堆栈转存的符号，对崩溃进行调试的能力会因此而受限。要在UE4项目中启用此选项，需要执行以下操作：
+</p><ol ><li class="Default"><p>首先前往主工具栏并选择 <strong>编辑（Edit）</strong> 选项，然后选择 <strong>项目设置（Project Settings）</strong>，打开项目设置。
+</p><p><picture>
+		<source data-srcset="./../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/T_Project_Settings_Menu.jpg">
+		<img class="  lazyload" alt="T_Project_Settings_Menu.png" data-src="../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/T_Project_Settings_Menu.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>之后前往 <strong>平台（Platforms）</strong> > <strong>Android</strong> > <strong>高级编译（Advanced Build）</strong>，点击勾选框启用"在发布配置中带隐藏符号显示编译（Build with hidden symbol visibility in shipping config）"。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/Android_AB_HiddenSymbol.png" ><span><picture>
+		<source data-srcset="./../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/Android_AB_HiddenSymbol.jpg">
+		<img class="  lazyload" alt="Android_AB_HiddenSymbol.png" width="594" data-src="../../../../Images/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/Android_AB_HiddenSymbol.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li></ol>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/TestingAndOptimization/PerformanceAndProfiling/ReducingPackageSize/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:40:12 GMT -->
+</html>

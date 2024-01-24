@@ -1,0 +1,1263 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/BuildingWorlds/LightingAndShadows/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 10:17:51 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/BuildingWorlds/LightingAndShadows/" />');
+				var udnCSS = '../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>照亮环境 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/BuildingWorlds/LightingAndShadows/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/BuildingWorlds/LightingAndShadows/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/BuildingWorlds/LightingAndShadows/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/BuildingWorlds/LightingAndShadows/" hreflang="ko" />
+
+	<meta name="redirect" content="RenderingAndGraphics/LightingAndShadows" />
+<meta name="redirect" content="Engine/Rendering/LightingAndShadows" />
+<meta name="intsourcechangelist" content="11969573" />
+<meta name="availability" content="Public" />
+<meta name="title" content="照亮环境" />
+<meta name="description" content="使用光照和阴影几何体、使用全局光照，并设置反射。" />
+<meta name="navigation" content="topic" />
+<meta name="related" content="RenderingAndGraphics/ParticleSystems/ParticleLights" />
+<meta name="version" content="4.18" />
+<meta name="parent" content="BuildingWorlds" />
+<meta name="order" content="3" />
+<meta name="type" content="landing" />
+<meta name="keywords" content="Rendering" />
+<meta name="keywords" content="Graphics" />
+<meta name="topic-image" content="lighting_topic.png" />
+<meta name="course" content="lighting-essential-concepts-and-effects?lang=zh-CN|光照基础概念和效果|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Flighting-essential-concepts-and-effects%2FLightingEssentials_Topic_1920x1080-1920x1080-3e04dcaf168d9a530720df1573b417807ae00784.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Flighting-essential-concepts-and-effects%2FLighting-Essential-Concepts-and-Effects-1000x1000-14831d7f280345717b0bdd66be9422b40ffb91bd.png?resize=1&amp;w=300" />
+<meta name="course" content="introducing-global-illumination?lang=zh-CN|全局光照入门|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fintroducing-global-illumination%2F105_GlobalIllum%281200x675%29-1200x675-97270dbdc7595455b4c9acf0e83bf01da8efbfd4.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fintroducing-global-illumination%2FIntroducing-Global-Illumination-1000x1000-af5267ea2a6721b1cc73af7825d226aedbbaf5ce.png?resize=1&amp;w=300" />
+<meta name="crumbs" content="%ROOT%,BuildingWorlds" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="照亮环境" />
+	<meta property="og:description" content="使用光照和阴影几何体、使用全局光照，并设置反射。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../index.html">构建虚拟世界</a>
+
+<span class="separator">></span> <span id="page">照亮环境</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">照亮环境</h1>
+							</div>	
+							<h2 >使用光照和阴影几何体、使用全局光照，并设置反射。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																																			</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																		<div id="seeAlso">
+	<div style="position:relative;">
+		<div id="title">参见</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<p>
+						<a id="related_link" href="../../RenderingAndGraphics/ParticleSystems/ParticleLights/index.html" title="粒子光源是特效设计师工具库中的另一件得力武器。">粒子光源</a>
+					</p>
+				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																		<div id="courses">
+	<div style="position:relative;">
+		<div id="title">相关课程</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<div name="lighting-essential-concepts-and-effects?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/lighting-essential-concepts-and-effects?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/lighting-essential-concepts-and-effects/LightingEssentials_Topic_1920x1080-1920x1080-3e04dcaf168d9a530720df1573b417807ae00784.4884f86.delaye?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/lighting-essential-concepts-and-effects/Lighting-Essential-Concepts-and-Effects-1000x1000-14831d7f280345717b0bdd66be9422b40ffb91bd.489fe4b.d?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="lighting-essential-concepts-and-effects?lang=zh-CN_title">
+				光照基础概念和效果
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="introducing-global-illumination?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/introducing-global-illumination?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/introducing-global-illumination/105_GlobalIllum(1200x675)-1200x675-97270dbdc7595455b4c9acf0e83bf01da8efbfd4.48b4f?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/introducing-global-illumination/Introducing-Global-Illumination-1000x1000-af5267ea2a6721b1cc73af7825d226aedbbaf5c?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="introducing-global-illumination?lang=zh-CN_title">
+				全局光照入门
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																								<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#要点知识">要点知识</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#预计算光照">预计算光照</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#动态光照">动态光照</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#综述">综述</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<h2 id="要点知识">要点知识</h2>
+<div class="topicContainer">
+	<!--
+image:param
+title:param
+description:param
+path:param
+-->
+<div class="topics item">
+    <a id="topic_link" href="Basics/index.html">
+        		<div class="img_container">
+            <p><picture>
+		<source data-srcset="./../../../Images/BuildingWorlds/LightingAndShadows/Basics/PL_Topic.jpg">
+		<img class="  lazyload" alt="PL_Topic.png" data-src="../../../Images/BuildingWorlds/LightingAndShadows/Basics/PL_Topic.jpg" />
+</picture>
+
+</p>
+			        </div>
+		        <div class="info">
+            <div class="content">
+				<div class="subject">
+					<div class="text ">
+						
+光照基础
+					</div>
+				</div>
+                <div class="description">
+                    <p>将光源放置到关卡中并进行设置的基础要点。
+</p>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+
+</div><div class="topicContainer">
+	<!--
+image:param
+title:param
+description:param
+path:param
+-->
+<div class="topics item">
+    <a id="topic_link" href="LightMobility/index.html">
+        		<div class="img_container">
+            <p><picture>
+		<source data-srcset="./../../../Images/BuildingWorlds/LightingAndShadows/LightMobility/LM_Topic.jpg">
+		<img class="  lazyload" alt="LM_Topic.png" data-src="../../../Images/BuildingWorlds/LightingAndShadows/LightMobility/LM_Topic.jpg" />
+</picture>
+
+</p>
+			        </div>
+		        <div class="info">
+            <div class="content">
+				<div class="subject">
+					<div class="text ">
+						
+光源移动性
+					</div>
+				</div>
+                <div class="description">
+                    <p>介绍了光源移动性及其如何影响光照和阴影。
+</p>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+
+</div><div class="topicContainer">
+	<!--
+image:param
+title:param
+description:param
+path:param
+-->
+<div class="topics item">
+    <a id="topic_link" href="LightTypes/index.html">
+        		<div class="img_container">
+            <p><picture>
+		<source data-srcset="./../../../Images/BuildingWorlds/LightingAndShadows/LightTypes/LT_topic.jpg">
+		<img class="  lazyload" alt="LT_topic.png" data-src="../../../Images/BuildingWorlds/LightingAndShadows/LightTypes/LT_topic.jpg" />
+</picture>
+
+</p>
+			        </div>
+		        <div class="info">
+            <div class="content">
+				<div class="subject">
+					<div class="text ">
+						
+光源类型
+					</div>
+				</div>
+                <div class="description">
+                    <p>虚幻引擎 4 中可用的光源类型。
+</p>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+
+</div><div class="topicContainer">
+	<!--
+image:param
+title:param
+description:param
+path:param
+-->
+<div class="topics item">
+    <a id="topic_link" href="Shadows/index.html">
+        		<div class="img_container">
+            <p><picture>
+		<source data-srcset="./../../../Images/BuildingWorlds/LightingAndShadows/Shadows/LO_Shadows_Topic.jpg">
+		<img class="  lazyload" alt="LO_Shadows_Topic.png" data-src="../../../Images/BuildingWorlds/LightingAndShadows/Shadows/LO_Shadows_Topic.jpg" />
+</picture>
+
+</p>
+			        </div>
+		        <div class="info">
+            <div class="content">
+				<div class="subject">
+					<div class="text ">
+						
+投射阴影
+					</div>
+				</div>
+                <div class="description">
+                    <p>阴影高级概述。
+</p>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+
+</div><div class="topicContainer">
+	<!--
+image:param
+title:param
+description:param
+path:param
+-->
+<div class="topics item">
+    <a id="topic_link" href="QuickStart/index.html">
+        		<div class="img_container">
+            <p><picture>
+		<source data-srcset="./../../../Images/BuildingWorlds/LightingAndShadows/QuickStart/LQS_Topic.jpg">
+		<img class="  lazyload" alt="LQS_Topic.png" data-src="../../../Images/BuildingWorlds/LightingAndShadows/QuickStart/LQS_Topic.jpg" />
+</picture>
+
+</p>
+			        </div>
+		        <div class="info">
+            <div class="content">
+				<div class="subject">
+					<div class="text ">
+						
+光照快速入门指南
+					</div>
+				</div>
+                <div class="description">
+                    <p>在本指南中，你将使用各类光照技巧来创建一间公寓并照亮它。
+</p>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+
+</div><h2 id="预计算光照">预计算光照</h2>
+<div class="topicContainer">
+	<!--
+image:param
+title:param
+description:param
+path:param
+-->
+<div class="topics item">
+    <a id="topic_link" href="../../RenderingAndGraphics/Lightmass/index.html">
+        		<div class="img_container">
+            <p><picture>
+		<source data-srcset="./../../../Images/./BuildingWorlds/LightingAndShadows/lighting_topic.jpg">
+		<img class="  lazyload" alt="lighting_topic.png" data-src="../../../Images/BuildingWorlds/LightingAndShadows/lighting_topic.jpg" />
+</picture>
+
+</p>
+			        </div>
+		        <div class="info">
+            <div class="content">
+				<div class="subject">
+					<div class="text ">
+						
+CPU Lightmass全局光照
+					</div>
+				</div>
+                <div class="description">
+                    <p>概述Lightmass的全部特性和设置。
+</p>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+
+</div><div class="topicContainer">
+	<!--
+image:param
+title:param
+description:param
+path:param
+-->
+<div class="topics item">
+    <a id="topic_link" href="../../RenderingAndGraphics/Lightmass/VolumetricLightmaps/index.html">
+        		<div class="img_container">
+            <p><picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/Lightmass/VolumetricLightmaps/VLM_Topic.jpg">
+		<img class="  lazyload" alt="VLM_Topic.png" data-src="../../../Images/RenderingAndGraphics/Lightmass/VolumetricLightmaps/VLM_Topic.jpg" />
+</picture>
+
+</p>
+			        </div>
+		        <div class="info">
+            <div class="content">
+				<div class="subject">
+					<div class="text ">
+						
+体积光照贴图
+					</div>
+				</div>
+                <div class="description">
+                    <p>用于动态对象及预览未构建场景的全局光照的体积光照样本。
+</p>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+
+</div><div class="topicContainer">
+	<!--
+image:param
+title:param
+description:param
+path:param
+-->
+<div class="topics item">
+    <a id="topic_link" href="../../RenderingAndGraphics/Lightmass/IndirectLightingCache/index.html">
+        		<div class="img_container">
+            <p><picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/Lightmass/IndirectLightingCache/indirectcache_topic.jpg">
+		<img class="  lazyload" alt="indirectcache_topic.png" data-src="../../../Images/RenderingAndGraphics/Lightmass/IndirectLightingCache/indirectcache_topic.jpg" />
+</picture>
+
+</p>
+			        </div>
+		        <div class="info">
+            <div class="content">
+				<div class="subject">
+					<div class="text ">
+						
+间接光照缓存
+					</div>
+				</div>
+                <div class="description">
+                    <p>用于动态对象全局光照和未构建场景预览的缓存间接光照样本。
+</p>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+
+</div><div class="topicContainer">
+	<!--
+image:param
+title:param
+description:param
+path:param
+-->
+<div class="topics item">
+    <a id="topic_link" href="ReflectionEnvironment/index.html">
+        		<div class="img_container">
+            <p><picture>
+		<source data-srcset="./../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/reflection_topic.jpg">
+		<img class="  lazyload" alt="reflection_topic.png" data-src="../../../Images/BuildingWorlds/LightingAndShadows/ReflectionEnvironment/reflection_topic.jpg" />
+</picture>
+
+</p>
+			        </div>
+		        <div class="info">
+            <div class="content">
+				<div class="subject">
+					<div class="text ">
+						
+反射环境
+					</div>
+				</div>
+                <div class="description">
+                    <p>捕捉并显示局部光泽反射的系统。
+</p>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+
+</div><div class="topicContainer">
+	<!--
+image:param
+title:param
+description:param
+path:param
+-->
+<div class="topics item">
+    <a id="topic_link" href="LightMobility/StaticLights/index.html">
+        		<div class="img_container">
+            <p><picture>
+		<source data-srcset="./../../../Images/BuildingWorlds/LightingAndShadows/LightMobility/StaticLights/SL_topic.jpg">
+		<img class="  lazyload" alt="SL_topic.png" data-src="../../../Images/BuildingWorlds/LightingAndShadows/LightMobility/StaticLights/SL_topic.jpg" />
+</picture>
+
+</p>
+			        </div>
+		        <div class="info">
+            <div class="content">
+				<div class="subject">
+					<div class="text ">
+						
+静态光源
+					</div>
+				</div>
+                <div class="description">
+                    <p>完全静态的光线，在游戏运行中无开销。
+</p>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+
+</div><div class="topicContainer">
+	<!--
+image:param
+title:param
+description:param
+path:param
+-->
+<div class="topics item">
+    <a id="topic_link" href="LightMobility/StationaryLights/index.html">
+        		<div class="img_container">
+            <p><picture>
+		<source data-srcset="./../../../Images/BuildingWorlds/LightingAndShadows/LightMobility/StationaryLights/stationarylights_topic.jpg">
+		<img class="  lazyload" alt="stationarylights_topic.png" data-src="../../../Images/BuildingWorlds/LightingAndShadows/LightMobility/StationaryLights/stationarylights_topic.jpg" />
+</picture>
+
+</p>
+			        </div>
+		        <div class="info">
+            <div class="content">
+				<div class="subject">
+					<div class="text ">
+						
+固定光源
+					</div>
+				</div>
+                <div class="description">
+                    <p>这种类型的光源可以在运行时改变颜色和亮度，但是不能移动、旋转或修改影响范围。
+</p>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+
+</div><div class="topicContainer">
+	<!--
+image:param
+title:param
+description:param
+path:param
+-->
+<div class="topics item">
+    <a id="topic_link" href="PrecomputedLightingScenarios/index.html">
+        		<div class="img_container">
+            <p><picture>
+		<source data-srcset="./../../../Images/BuildingWorlds/LightingAndShadows/PrecomputedLightingScenarios/PCLS_Header.jpg">
+		<img class="  lazyload" alt="PCLS_Header.png" data-src="../../../Images/BuildingWorlds/LightingAndShadows/PrecomputedLightingScenarios/PCLS_Header.jpg" />
+</picture>
+
+</p>
+			        </div>
+		        <div class="info">
+            <div class="content">
+				<div class="subject">
+					<div class="text ">
+						
+预计算光照情景
+					</div>
+				</div>
+                <div class="description">
+                    <p>借助预计算光照情景，你可以为单个场景中的相同几何体准备多个光照设置。
+</p>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+
+</div><div class="topicContainer">
+	<!--
+image:param
+title:param
+description:param
+path:param
+-->
+<div class="topics item">
+    <a id="topic_link" href="#">
+        		<div class="img_container">
+            <p><picture>
+		<source data-srcset="./../../../Images/BuildingWorlds/LightingAndShadows/lighting_topic.jpg">
+		<img class="  lazyload" alt="lighting_topic.png" data-src="../../../Images/BuildingWorlds/LightingAndShadows/lighting_topic.jpg" />
+</picture>
+
+</p>
+			        </div>
+		        <div class="info">
+            <div class="content">
+				<div class="subject">
+					<div class="text ">
+						
+照亮环境
+					</div>
+				</div>
+                <div class="description">
+                    <p>使用光照和阴影几何体、使用全局光照，并设置反射。
+</p>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+
+</div><h2 id="动态光照">动态光照</h2>
+<div class="topicContainer">
+	<!--
+image:param
+title:param
+description:param
+path:param
+-->
+<div class="topics item">
+    <a id="topic_link" href="LightMobility/DynamicLights/index.html">
+        		<div class="img_container">
+            <p><picture>
+		<source data-srcset="./../../../Images/BuildingWorlds/LightingAndShadows/LightMobility/DynamicLights/PL_Topic.jpg">
+		<img class="  lazyload" alt="PL_Topic.png" data-src="../../../Images/BuildingWorlds/LightingAndShadows/LightMobility/DynamicLights/PL_Topic.jpg" />
+</picture>
+
+</p>
+			        </div>
+		        <div class="info">
+            <div class="content">
+				<div class="subject">
+					<div class="text ">
+						
+可移动光源
+					</div>
+				</div>
+                <div class="description">
+                    <p>能在运行时修改所有属性的全动态光源。
+</p>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+
+</div><div class="topicContainer">
+	<!--
+image:param
+title:param
+description:param
+path:param
+-->
+<div class="topics item">
+    <a id="topic_link" href="LightFunctions/index.html">
+        		<div class="img_container">
+            <p><picture>
+		<source data-srcset="./../../../Images/BuildingWorlds/LightingAndShadows/LightFunctions/VFXL_Topic.jpg">
+		<img class="  lazyload" alt="VFXL_Topic.png" data-src="../../../Images/BuildingWorlds/LightingAndShadows/LightFunctions/VFXL_Topic.jpg" />
+</picture>
+
+</p>
+			        </div>
+		        <div class="info">
+            <div class="content">
+				<div class="subject">
+					<div class="text ">
+						
+光照函数
+					</div>
+				</div>
+                <div class="description">
+                    <p>使用材质作为光源来投射光照。
+</p>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+
+</div><div class="topicContainer">
+	<!--
+image:param
+title:param
+description:param
+path:param
+-->
+<div class="topics item">
+    <a id="topic_link" href="LightPropagationVolumes/index.html">
+        		<div class="img_container">
+            <p><picture>
+		<source data-srcset="./../../../Images/BuildingWorlds/LightingAndShadows/LightPropagationVolumes/lpv_topic.jpg">
+		<img class="  lazyload" alt="lpv_topic.png" data-src="../../../Images/BuildingWorlds/LightingAndShadows/LightPropagationVolumes/lpv_topic.jpg" />
+</picture>
+
+</p>
+			        </div>
+		        <div class="info">
+            <div class="content">
+				<div class="subject">
+					<div class="text ">
+						
+光线传播体积
+					</div>
+				</div>
+                <div class="description">
+                    <p>System for dynamically generating global illumination.
+</p>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+
+</div><div class="topicContainer">
+	<!--
+image:param
+title:param
+description:param
+path:param
+-->
+<div class="topics item">
+    <a id="topic_link" href="MeshDistanceFields/index.html">
+        		<div class="img_container">
+            <p><picture>
+		<source data-srcset="./../../../Images/placeholder_topic.jpg">
+		<img class="  lazyload" alt="placeholder_topic.png" data-src="../../../Images/placeholder_topic.jpg" />
+</picture>
+
+</p>
+			        </div>
+		        <div class="info">
+            <div class="content">
+				<div class="subject">
+					<div class="text ">
+						
+网格体距离场
+					</div>
+				</div>
+                <div class="description">
+                    <p>概述网格体距离场以及你在开发游戏时可以用到的相关功能。
+</p>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+
+</div><div class="topicContainer">
+	<!--
+image:param
+title:param
+description:param
+path:param
+-->
+<div class="topics item">
+    <a id="topic_link" href="RayTracedDistanceFieldShadowing/index.html">
+        		<div class="img_container">
+            <p><picture>
+		<source data-srcset="./../../../Images/BuildingWorlds/LightingAndShadows/RayTracedDistanceFieldShadowing/DistanceFieldShadowing_Topic.jpg">
+		<img class="  lazyload" alt="DistanceFieldShadowing_Topic.jpg" data-src="../../../Images/BuildingWorlds/LightingAndShadows/RayTracedDistanceFieldShadowing/DistanceFieldShadowing_Topic.jpg" />
+</picture>
+
+</p>
+			        </div>
+		        <div class="info">
+            <div class="content">
+				<div class="subject">
+					<div class="text ">
+						
+距离场柔和阴影
+					</div>
+				</div>
+                <div class="description">
+                    <p>关于使用网格体距离场创建动态柔和区域阴影的概述。
+</p>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+
+</div><div class="topicContainer">
+	<!--
+image:param
+title:param
+description:param
+path:param
+-->
+<div class="topics item">
+    <a id="topic_link" href="DistanceFieldAmbientOcclusion/index.html">
+        		<div class="img_container">
+            <p><picture>
+		<source data-srcset="./../../../Images/BuildingWorlds/LightingAndShadows/DistanceFieldAmbientOcclusion/DistanceFieldAmbientOcclusion_Topic.jpg">
+		<img class="  lazyload" alt="DistanceFieldAmbientOcclusion_Topic.png" data-src="../../../Images/BuildingWorlds/LightingAndShadows/DistanceFieldAmbientOcclusion/DistanceFieldAmbientOcclusion_Topic.jpg" />
+</picture>
+
+</p>
+			        </div>
+		        <div class="info">
+            <div class="content">
+				<div class="subject">
+					<div class="text ">
+						
+距离场环境光遮蔽
+					</div>
+				</div>
+                <div class="description">
+                    <p>概述使用网格体距离场创建天空光照动态环境光遮蔽。
+</p>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+
+</div><div class="topicContainer">
+	<!--
+image:param
+title:param
+description:param
+path:param
+-->
+<div class="topics item">
+    <a id="topic_link" href="ContactShadows/index.html">
+        		<div class="img_container">
+            <p><picture>
+		<source data-srcset="./../../../Images/BuildingWorlds/LightingAndShadows/ContactShadows/ContactShadow_Topic.jpg">
+		<img class="  lazyload" alt="ContactShadow_Topic.png" data-src="../../../Images/BuildingWorlds/LightingAndShadows/ContactShadows/ContactShadow_Topic.jpg" />
+</picture>
+
+</p>
+			        </div>
+		        <div class="info">
+            <div class="content">
+				<div class="subject">
+					<div class="text ">
+						
+接触阴影（Contact Shadows）
+					</div>
+				</div>
+                <div class="description">
+                    <p>此页面包含 UE4 接触阴影的总览。
+</p>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+
+</div><div class="topicContainer">
+	<!--
+image:param
+title:param
+description:param
+path:param
+-->
+<div class="topics item">
+    <a id="topic_link" href="CapsuleShadows/index.html">
+        		<div class="img_container">
+            <p><picture>
+		<source data-srcset="./../../../Images/BuildingWorlds/LightingAndShadows/CapsuleShadows/CapsuleShadows_Topic.jpg">
+		<img class="  lazyload" alt="CapsuleShadows_Topic.png" data-src="../../../Images/BuildingWorlds/LightingAndShadows/CapsuleShadows/CapsuleShadows_Topic.jpg" />
+</picture>
+
+</p>
+			        </div>
+		        <div class="info">
+            <div class="content">
+				<div class="subject">
+					<div class="text ">
+						
+胶囊体阴影
+					</div>
+				</div>
+                <div class="description">
+                    <p>虚幻引擎4中胶囊体阴影的引导页面。
+</p>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+
+</div><h2 id="综述">综述</h2>
+<div class="topicContainer">
+	<!--
+image:param
+title:param
+description:param
+path:param
+-->
+<div class="topics item">
+    <a id="topic_link" href="../FogEffects/VolumetricFog/index.html">
+        		<div class="img_container">
+            <p><picture>
+		<source data-srcset="./../../../Images/BuildingWorlds/FogEffects/VolumetricFog/VolumetricFog_Topic.jpg">
+		<img class="  lazyload" alt="VolumetricFog_Topic.png" data-src="../../../Images/BuildingWorlds/FogEffects/VolumetricFog/VolumetricFog_Topic.jpg" />
+</picture>
+
+</p>
+			        </div>
+		        <div class="info">
+            <div class="content">
+				<div class="subject">
+					<div class="text ">
+						
+体积雾
+					</div>
+				</div>
+                <div class="description">
+                    <p>使用指数高度雾时可用的体积雾功能概览。
+</p>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+
+</div><div class="topicContainer">
+	<!--
+image:param
+title:param
+description:param
+path:param
+-->
+<div class="topics item">
+    <a id="topic_link" href="../../RenderingAndGraphics/PostProcessEffects/AmbientOcclusion/index.html">
+        		<div class="img_container">
+            <p><picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/PostProcessEffects/AmbientOcclusion/ao.jpg">
+		<img class="  lazyload" alt="ao.png" data-src="../../../Images/RenderingAndGraphics/PostProcessEffects/AmbientOcclusion/ao.jpg" />
+</picture>
+
+</p>
+			        </div>
+		        <div class="info">
+            <div class="content">
+				<div class="subject">
+					<div class="text ">
+						
+环境光遮蔽
+					</div>
+				</div>
+                <div class="description">
+                    <p>因遮蔽而造成的光源衰减近似值。
+</p>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+
+</div><div class="topicContainer">
+	<!--
+image:param
+title:param
+description:param
+path:param
+-->
+<div class="topics item">
+    <a id="topic_link" href="LightShafts/index.html">
+        		<div class="img_container">
+            <p><picture>
+		<source data-srcset="./../../../Images/BuildingWorlds/LightingAndShadows/LightShafts/LShaft_Topic.jpg">
+		<img class="  lazyload" alt="LShaft_Topic.png" data-src="../../../Images/BuildingWorlds/LightingAndShadows/LightShafts/LShaft_Topic.jpg" />
+</picture>
+
+</p>
+			        </div>
+		        <div class="info">
+            <div class="content">
+				<div class="subject">
+					<div class="text ">
+						
+光束
+					</div>
+				</div>
+                <div class="description">
+                    <p>模拟大气中散射的光线
+</p>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+
+</div><div class="topicContainer">
+	<!--
+image:param
+title:param
+description:param
+path:param
+-->
+<div class="topics item">
+    <a id="topic_link" href="../../RenderingAndGraphics/PostProcessEffects/AmbientCubemap/index.html">
+        		<div class="img_container">
+            <p><picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/PostProcessEffects/AmbientCubemap/cubemap2.jpg">
+		<img class="  lazyload" alt="cubemap2.png" data-src="../../../Images/RenderingAndGraphics/PostProcessEffects/AmbientCubemap/cubemap2.jpg" />
+</picture>
+
+</p>
+			        </div>
+		        <div class="info">
+            <div class="content">
+				<div class="subject">
+					<div class="text ">
+						
+环境光立方体贴图
+					</div>
+				</div>
+                <div class="description">
+                    <p>应用于场景照明以打造高质量照明环境的立方体贴图纹理。
+</p>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+
+</div><div class="topicContainer">
+	<!--
+image:param
+title:param
+description:param
+path:param
+-->
+<div class="topics item">
+    <a id="topic_link" href="LitTranslucency/index.html">
+        		<div class="img_container">
+            <p><picture>
+		<source data-srcset="./../../../Images/BuildingWorlds/LightingAndShadows/LitTranslucency/translucent_topic.jpg">
+		<img class="  lazyload" alt="translucent_topic.png" data-src="../../../Images/BuildingWorlds/LightingAndShadows/LitTranslucency/translucent_topic.jpg" />
+</picture>
+
+</p>
+			        </div>
+		        <div class="info">
+            <div class="content">
+				<div class="subject">
+					<div class="text ">
+						
+光照半透明
+					</div>
+				</div>
+                <div class="description">
+                    <p>说明如何对半透明表面施以光照，并投射包括自身阴影在内的阴影。
+</p>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+
+</div><div class="topicContainer">
+	<!--
+image:param
+title:param
+description:param
+path:param
+-->
+<div class="topics item">
+    <a id="topic_link" href="../../RenderingAndGraphics/Materials/BumpMappingWithoutTangentSpace/index.html">
+        		<div class="img_container">
+            <p><picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/Materials/BumpMappingWithoutTangentSpace/bump_topic.jpg">
+		<img class="  lazyload" alt="bump_topic.png" data-src="../../../Images/RenderingAndGraphics/Materials/BumpMappingWithoutTangentSpace/bump_topic.jpg" />
+</picture>
+
+</p>
+			        </div>
+		        <div class="info">
+            <div class="content">
+				<div class="subject">
+					<div class="text ">
+						
+无需切线空间应用凹凸贴图
+					</div>
+				</div>
+                <div class="description">
+                    <p>如何从无法使用经典切线空间的 3D 程序化着色器中实现凹凸贴图。
+</p>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+
+</div><div class="topicContainer">
+	<!--
+image:param
+title:param
+description:param
+path:param
+-->
+<div class="topics item">
+    <a id="topic_link" href="IESLightProfiles/index.html">
+        		<div class="img_container">
+            <p><picture>
+		<source data-srcset="./../../../Images/BuildingWorlds/LightingAndShadows/IESLightProfiles/IES_topic.jpg">
+		<img class="  lazyload" alt="IES_topic.png" data-src="../../../Images/BuildingWorlds/LightingAndShadows/IESLightProfiles/IES_topic.jpg" />
+</picture>
+
+</p>
+			        </div>
+		        <div class="info">
+            <div class="content">
+				<div class="subject">
+					<div class="text ">
+						
+IES光源描述文件
+					</div>
+				</div>
+                <div class="description">
+                    <p>在虚幻引擎4中使用IES光源描述文件
+</p>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+
+</div><div class="topicContainer">
+	<!--
+image:param
+title:param
+description:param
+path:param
+-->
+<div class="topics item">
+    <a id="topic_link" href="HDRIBackdrop/index.html">
+        		<div class="img_container">
+            <p><picture>
+		<source data-srcset="./../../../Images/placeholder_topic.jpg">
+		<img class="  lazyload" alt="placeholder_topic.png" data-src="../../../Images/placeholder_topic.jpg" />
+</picture>
+
+</p>
+			        </div>
+		        <div class="info">
+            <div class="content">
+				<div class="subject">
+					<div class="text ">
+						
+HDRI背景
+					</div>
+				</div>
+                <div class="description">
+                    <p>使用HDRI背景，快速设置带有实时光照和阴影的HDR图像投射的产品可视化。
+</p>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+
+</div>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../SiteIndex/index.html?tags=Rendering">Rendering</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../SiteIndex/index.html?tags=Graphics">Graphics</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/BuildingWorlds/LightingAndShadows/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 10:18:10 GMT -->
+</html>

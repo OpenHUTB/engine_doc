@@ -1,0 +1,657 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/RenderingAndGraphics/Materials/HowTo/Refraction/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:15:50 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/RenderingAndGraphics/Materials/HowTo/Refraction/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>使用折射 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/RenderingAndGraphics/Materials/HowTo/Refraction/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/RenderingAndGraphics/Materials/HowTo/Refraction/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/RenderingAndGraphics/Materials/HowTo/Refraction/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/RenderingAndGraphics/Materials/HowTo/Refraction/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Rendering/Materials/HowTo/Refraction" />
+<meta name="intsourcechangelist" content="14237003" />
+<meta name="availability" content="Public" />
+<meta name="title" content="使用折射" />
+<meta name="description" content="有关在材质中使用折射的操作指南。" />
+<meta name="related" content="Resources/ContentExamples/MaterialNodes/1_14" />
+<meta name="related" content="Resources/ContentExamples/MaterialProperties/1_11" />
+<meta name="related" content="RenderingAndGraphics/Materials/MaterialInputs" />
+<meta name="version" content="4.9" />
+<meta name="skilllevel" content="Intermediate" />
+<meta name="keywords" content="Materials" />
+<meta name="course" content="creating-pbr-materials?lang=zh-CN|创建PBR材质|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fcreating-pbr-materials%2FHighresScreenshot00006-1920x1050-2c0180460478cd00327494c6e5717e227be4926d.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fcreating-pbr-materials%2FCreating-PBR-Materials-1000x1000-0d34ec4bfc3eeb466ce5a981a867921f72464e77.png?resize=1&amp;w=300" />
+<meta name="course" content="getting-to-know-materials-for-design-visualization?lang=zh-CN|了解可视化设计中的材质|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fgetting-to-know-materials-for-design-visualization%2FIntro_to_Materials_003-1919x1079-f32638266c469a6fa2b9b2f3515e5766e8177b22.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fgetting-to-know-materials-for-design-visualization%2FGetting-to-Know-Materials-for-Design-Visualization-1000x1000-8cd1670f84e0111e39d4a3faa1e7a6ba29a30bfe.png?resize=1&amp;w=300" />
+<meta name="course" content="materials---exploring-essential-concepts?lang=zh-CN|材质：基础概念|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials---exploring-essential-concepts%2FMaterialEssentialConcepts-1920x1080-1920x1080-2414bb5cf0b0c3bd7ac4b993e725d2acedd45334.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials---exploring-essential-concepts%2FMaterials--Exploring-Essential-Concepts-1000x1000-9546cdc254e6659ce73211b5955ab9d886921256.png?resize=1&amp;w=300" />
+<meta name="course" content="materials---understanding-the-production-workflow?lang=zh-CN|材质：制作工作流|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials---understanding-the-production-workflow%2FMaterialWorkflow_ThumbnailFull-1920x1080-1920x1080-638fea6d7e3b7b299a4f433096336ce1caf662d0.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials---understanding-the-production-workflow%2F104-Materials-Production-Workflow%402x-1000x1000-ae1ba588a367d239fbe513da38bb793360c9eecf.png?resize=1&amp;w=300" />
+<meta name="course" content="materials-master-learning?lang=zh-CN|材质大师课程|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials-master-learning%2FMaterialMaster_1920x1080-1920x1080-212f85045980310d6985557f84d0217e6423b709.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials-master-learning%2FMaterials-Master-Learning-1000x1000-56fd0b66f6e798313f79737126d9215cbd4a3ff9.png?resize=1&amp;w=300" />
+<meta name="crumbs" content="%ROOT%,RenderingAndGraphics,RenderingAndGraphics/Materials,RenderingAndGraphics/Materials/HowTo" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="使用折射" />
+	<meta property="og:description" content="有关在材质中使用折射的操作指南。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">设计视觉、渲染和图形效果</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">材质 </a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">材质 - 操作指南</a>
+
+<span class="separator">></span> <span id="page">使用折射</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">使用折射</h1>
+							</div>	
+							<h2 >有关在材质中使用折射的操作指南。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Intermediate"><a id="skill_link" href="../../../../SiteIndex/index.html?skills=Intermediate">Intermediate</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																		<div id="seeAlso">
+	<div style="position:relative;">
+		<div id="title">参见</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<p>
+						<a id="related_link" href="../../../../Resources/ContentExamples/MaterialNodes/1_14/index.html" title="材质节点示例关卡概述，示例 1.14: 折射。">1.14 - 折射</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../../../Resources/ContentExamples/MaterialProperties/1_11.html" title="材质实例示例关卡概述，示例1.11： 折射深度偏移">1.11 -折射深度偏移</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../MaterialInputs/index.html" title="深入了解材质上可用的各种输入，及其使用方式。">材质输入</a>
+					</p>
+				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																		<div id="courses">
+	<div style="position:relative;">
+		<div id="title">相关课程</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<div name="creating-pbr-materials?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/creating-pbr-materials?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_443/Unreal%20Engine/onlinelearning-courses/creating-pbr-materials/HighresScreenshot00006-1920x1050-2c0180460478cd00327494c6e5717e227be4926d4f86.png?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_443/Unreal%20Engine/onlinelearning-courses/creating-pbr-materials/Creating-PBR-Materials-1000x1000-0d34ec4bfc3eeb466ce5a981a867921f72464e77fe4b.png?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="creating-pbr-materials?lang=zh-CN_title">
+				创建PBR材质
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="getting-to-know-materials-for-design-visualization?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/getting-to-know-materials-for-design-visualization?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/getting-to-know-materials-for-design-visualizat/Intro_to_Materials_003-1919x1079-f32638266c469a6fa2b9b2f3515e5766?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/getting-to-know-materials-for-design-visualizat/Getting-to-Know-Materials-for-Design-Visualization-1000x1000-8cd1670f84e0111e39d4a3faa1e7a6b?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="getting-to-know-materials-for-design-visualization?lang=zh-CN_title">
+				了解可视化设计中的材质
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="materials---exploring-essential-concepts?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/materials---exploring-essential-concepts?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/materials---exploring-essential-concepts/MaterialEssentialConcepts-1920x1080-1920x1080-2414bb5cf0b0c3bd7ac4b993e725d2acedd45334.42c4f86.dela?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/materials---exploring-essential-concepts/Materials--Exploring-Essential-Concepts-1000x1000-9546cdc254e6659ce73211b5955ab9d886921256.42dfe4b?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="materials---exploring-essential-concepts?lang=zh-CN_title">
+				材质：基础概念
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="materials---understanding-the-production-workflow?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/materials---understanding-the-production-workflow?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/materials---understanding-the-production-workfl/MaterialWorkflow_ThumbnailFull-1920x1080-1920x1080-638fea6d7e3b7b299a4f433096336ce1caf662d0?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/materials---understanding-the-production-workfl/104-Materials-Production-Workflow%402x-1000x1000-ae1ba588a367d239fbe513da38bb793360c9eecf.42ff?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="materials---understanding-the-production-workflow?lang=zh-CN_title">
+				材质：制作工作流
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="materials-master-learning?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/materials-master-learning?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/materials-master-learning/MaterialMaster_1920x1080-1920x1080-212f85045980310d6985557f84d0217e6423b709.4314f86.del?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/materials-master-learning/Materials-Master-Learning-1000x1000-56fd0b66f6e798313f79737126d9215cbd4a3ff9.433fe4b.de?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="materials-master-learning?lang=zh-CN_title">
+				材质大师课程
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																								<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#折射">折射</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#折射率或ior">折射率或 IOR</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#在材质中使用折射">在材质中使用折射</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#折射提示与技巧">折射提示与技巧</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#折射与法线贴图">折射与法线贴图</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#折射和移动">折射和移动</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#折射深度偏移">折射深度偏移</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#总结">总结</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>当光线从一种媒介传播到另一种媒介时，例如从空气传播到水时，光线传播方向会在这两种媒介的交界处发生改变。 
+这种照明现象称为"折射"，是因为光线所接触的不同类型材质会改变光线传播速度而发生。 
+在虚幻引擎 4 中，您可以使用"折射"在材质中模拟这种照明现象。 
+</p><h2 id="折射">折射</h2>
+<p>术语 <strong>折射</strong> 用于描述因传输媒介改变而使光波方向改变的现象。 
+换而言之，当光线投射到某些表面（例如水面或玻璃）时，光线会发生轻微弯折，因为这些表面会影响光线穿透它们的速度。
+将铅笔的一部分放入水中，您即可看到折射效果的最佳示例。
+由于折射原因，放入水中的铅笔部分看起来像是在铅笔与水接触的位置发生弯折。
+下面这个非常简单的示例说明折射如何发生。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Refraction/R_Refraction_Example.jpg">
+		<img class="  lazyload" alt="R_Refraction_Example.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Refraction/R_Refraction_Example.jpg" />
+</picture>
+
+</p><p>从摄像机查看时，由于折射原因，位于水下的铅笔部分像是发生弯折。 
+这是因为，来自原始铅笔位置 X 的光波受水折射影响，当通过摄像机查看时，好像是实际来自 Y。
+出现这种现象的原因是，光线传播速度在光线投射到水面时发生改变，而遇到空气时会再次改变。 
+</p><h2 id="折射率或ior">折射率或 IOR</h2>
+<p>光学测量值 <strong>折射率</strong>（简称 IOR）可用于准确说明光线从一种媒介传播到另一种媒介时的弯折程度。 
+由于这种光学现象可测量，我们可以在 UE4 中使用这些测量值来影响折射，从而使我们的 3D 世界的现实感更加强烈。 
+以下是您每天都可能接触到的对象的一些 IOR 值。 
+</p><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>材质 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>IOR 值</p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>空气</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>1.00</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>水</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>1.33</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>冰</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>1.31</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>玻璃</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>1.52</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>钻石</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>2.42</p>
+			</td>
+	
+</tr></tbody>
+</table><h2 id="在材质中使用折射">在材质中使用折射</h2>
+<p>通过遵循以下指示，可以设置使用折射的材质。 
+</p><div class="note">
+	<p>本教程假设您已将起步内容包括在项目中。如果未包括该内容，请了解如何将起步内容从另一项目 <div class="errorhighlight" id="Error5">[迁移](Basics/AssetsAndPackages/Migrate)</div> 到此项目。</p>
+</div><ol ><li class="Default"><p>首先，在 <strong>内容浏览器</strong> 中使用鼠标 <strong>右键单击</strong>，从 <strong>基本资产列表（Basic Assets List）</strong>中选择 <strong>材质（Material）</strong>以创建新材质，然后将该材质命名为 <strong>Refraction_Material</strong>。完成后，您的 <strong>内容浏览器</strong> 应该如下所示。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Refraction/R_Create_Refraction_Material.jpg">
+		<img class="  lazyload" alt="R_Create_Refraction_Material.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Refraction/R_Create_Refraction_Material.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>内容浏览器</strong> 中使用 <strong>鼠标左键双击</strong> 刚刚创建的材质，以将其打开。材质打开之后，请将 <strong>混合模式（Blend Mode）</strong>从 <strong>不透明（Opaque）</strong>更改为 <strong>半透明（Translucent）</strong>，并将 <strong>照明模型（Lighting Model）</strong>从 <strong>体积无方向（Volumetric Non Directional）</strong>更改为 <strong>表面半透明体积（Surface Translucency Volume）</strong>。完成之后，材质 <strong>细节（Details）</strong>面板应该类似于下图。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Refraction/DetailsPanel.jpg">
+		<img class="  lazyload" alt="DetailsPanel.jpg" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Refraction/DetailsPanel.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>材质现已具有正确的属性，我们可以开始添加必需的材质表达式节点。对于此材质，我们需要下列类型及数量的材质表达式节点。
+</p><ul ><li class="Default"><p>常量（Constant）x 5
+</p></li><li class="Default"><p>插值（Lerp） x 1
+</p></li><li class="Default"><p>菲涅耳效果（Fresnel） x 1
+</p></li></ul><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Refraction/R_Required_Nodes.jpg">
+		<img class="  lazyload" alt="R_Required_Nodes.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Refraction/R_Required_Nodes.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>需要的所有材质表达式节点现已添加到材质图中，我们可以开始将它们连接到一起。 
+完成之后，您的材质图应该类似于下图。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Refraction/R_Finshed_Material.jpg">
+		<img class="  lazyload" alt="R_Finshed_Material.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Refraction/R_Finshed_Material.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>为了以后测试方便，请选中与"插值"（Lerp）节点的 <strong>B</strong> 输入相连接的"常量"（Constant）材质表达式节点，并 <strong>右键单击</strong> 该节点。从显示的菜单中，选择 <strong>转换为参数（Convert to Parameter）</strong>选项。完成此操作后，务必命名该输入。在本示例中，我们将使用 <strong>IOR</strong> 作为其名称。完成之后，您的材质图应该类似于下图。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Refraction/R_Finshed_Material_IOR_Tweak.jpg">
+		<img class="  lazyload" alt="R_Finshed_Material_IOR_Tweak.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Refraction/R_Finshed_Material_IOR_Tweak.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>材质现已设置完毕，请确保按 <strong>应用（Apply）</strong>和 <strong>保存（Save）</strong>按钮并关闭材质。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Refraction/R_Apply_&_Save.jpg">
+		<img class="  lazyload" alt="R_Apply_&_Save.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Refraction/R_Apply_%26_Save.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>关闭材质后，请在 <strong>内容浏览器</strong> 中找到该材质。找到之后，请使用鼠标 <strong>右键单击</strong> 该材质，然后从菜单中选择 <strong>创建材质实例（Create Material Instance）</strong>选项。完成后，您的 <strong>内容浏览器</strong> 应该如下所示。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Refraction/R_Create_New_MI.jpg">
+		<img class="  lazyload" alt="R_Create_New_MI.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Refraction/R_Create_New_MI.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>材质实例现已创建完毕，我们可在环境中添加一些对象，以便更好地预览材质。如果您已将起步内容包括在项目中，那么可以在 <strong>形状（Shapes）</strong>文件夹中找到许多不同形状网格。在本示例中，已在环境中添加"立方体" （Cube）、"圆锥体"（Cone）和"球体"（Sphere）。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Refraction/R_Adding_Test_Meshes.jpg">
+		<img class="  lazyload" alt="R_Adding_Test_Meshes.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Refraction/R_Adding_Test_Meshes.jpg" />
+</picture>
+
+</p><div class="note">
+	<p>如果您找不到"立方体"（Cube）、"圆锥体"（Cone）和"球体"（Sphere），那么可能表示您未将起步内容包括在项目中。如果未包括起步内容，您可以创建一个新项目并确保包括起步内容，也可以将起步内容从另一个项目 <div class="errorhighlight" id="Error7">[迁移](Basics/AssetsAndPackages/Migrate)</div> 到此项目。</p>
+</div></li><li class="Default"><p>现已添加一些测试形状，请将折射材质实例应用于这些形状，方法如下：在 <strong>内容浏览器</strong> 中使用 <strong>鼠标左键</strong> 选择材质实例，然后将该材质实例拖到某个形状上并释放 <strong>鼠标左键</strong>。完成后，关卡应该会显示类似下图的内容。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Refraction/R_Applied_Material.jpg">
+		<img class="  lazyload" alt="R_Applied_Material.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Refraction/R_Applied_Material.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>内容浏览器</strong> 中，通过 <strong>鼠标左键双击</strong> 打开折射材质实例。打开后，通过使用 <strong>鼠标左键</strong> 单击复选框来启用 IOR 参数。激活后，您可将 IOR 设置为不同的值，以模拟不同的表面相互作用。在以下示例中，IOR 从默认值 1.33（水的 IOR）更改为 1.52（玻璃的 IOR），最后更改为 2.42（钻石的 IOR）。 
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_9wRgOXYwMvs_260
+{
+	margin: 0px;
+	width: 640px;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_9wRgOXYwMvs_260:after
+{
+	content: "";
+	padding-top: 360px;
+	display: block;
+}
+</style> 
+<div>
+<div id="player_9wRgOXYwMvs_260"><div style="position:absolute;display:block;width:100%;height:100%;"><iframe class="embedded_video" id="9wRgOXYwMvs" width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/9wRgOXYwMvs?rel=0&amp;modestbranding=1&amp;showinfo=0" frameborder="0" allowfullscreen></iframe></div></div>
+</div></li></ol><h2 id="折射提示与技巧">折射提示与技巧</h2>
+<p>在下一节中，我们会说明将折射与材质编辑器的其他方面结合使用的一些其他方法，这些方法可产生一些非常有趣的结果。 
+</p><h3 id="折射与法线贴图">折射与法线贴图</h3>
+<p>添加折射材质的选项以使用法线贴图，可产生一些非常有趣的结果，这在法线贴图中有大量有趣细节的区域尤其明显。 
+按以下方式修改刚才创建的材质，以允许它与法线贴图配合使用。
+</p><ol ><li class="Default"><p>首先，找到要使用的法线贴图。在本示例中，使用的是 <strong>T_Brick_Clay_Old_N</strong>，但可以使用任何法线贴图。找到法线贴图之后，请打开 <strong>Refraction_Material</strong>，然后将该法线贴图从 <strong>内容浏览器</strong> 拖到材质图中。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Refraction/R_Adding_Normal_Map.jpg">
+		<img class="  lazyload" alt="R_Adding_Normal_Map.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Refraction/R_Adding_Normal_Map.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>将法线贴图放入材质图之后，请将其连接到"法线"（Normal）输入。连接之后，请选中"法线贴图纹理样本"（Normal map Texture Sampler）节点，并使用鼠标 <strong>右键单击</strong> 此节点。从显示的菜单中，选择 <strong>转换为参数（Convert to Parameter）</strong>选项，并将其命名为 <strong>Normal_Map</strong>。 
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_HkQHIkEyll0_321
+{
+	margin: 0px;
+	width: 640px;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_HkQHIkEyll0_321:after
+{
+	content: "";
+	padding-top: 360px;
+	display: block;
+}
+</style> 
+<div>
+<div id="player_HkQHIkEyll0_321"><div style="position:absolute;display:block;width:100%;height:100%;"><iframe class="embedded_video" id="HkQHIkEyll0" width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/HkQHIkEyll0?rel=0&amp;modestbranding=1&amp;showinfo=0" frameborder="0" allowfullscreen></iframe></div></div>
+</div></li><li class="Default"><p>务必单击 <strong>应用（Apply）</strong>和 <strong>保存（Save）</strong>按钮，然后关闭材质。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Refraction/R_Apply_&_Save.jpg">
+		<img class="  lazyload" alt="R_Apply_&_Save.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Refraction/R_Apply_%26_Save.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>材质现已经过编译并保存，请打开材质实例，并查看 <strong>纹理参数值（Texture Parameters Values）</strong>部分中的 <strong>参数组（Parameter Groups）</strong>。在这里，您应该会看到，法线贴图已变为可编辑的参数。要更改法线贴图，您首先应双击灰色的复选框以启用该贴图。启用之后，您可以更改法线贴图，方法如下：在 <strong>内容浏览器</strong> 中查找新的法线贴图，将其选中，然后使用 <strong>使用内容浏览器中选中的资产（Use Selected Assets from the Content Browser）</strong>按钮将选择的法线贴图指定给材质实例。 
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_zZ5kijsLZQY_376
+{
+	margin: 0px;
+	width: 640px;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_zZ5kijsLZQY_376:after
+{
+	content: "";
+	padding-top: 360px;
+	display: block;
+}
+</style> 
+<div>
+<div id="player_zZ5kijsLZQY_376"><div style="position:absolute;display:block;width:100%;height:100%;"><iframe class="embedded_video" id="zZ5kijsLZQY" width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/zZ5kijsLZQY?rel=0&amp;modestbranding=1&amp;showinfo=0" frameborder="0" allowfullscreen></iframe></div></div>
+</div></li><li class="Default"><p>通过更改法线贴图，您可以通过非常有趣的方式影响折射效果。以下示例仅使用起步内容的"纹理"（Textures）文件夹中的法线贴图。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Refraction/R_Reflection_&_Normal_Maps.jpg">
+		<img class="  lazyload" alt="R_Reflection_&_Normal_Maps.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Refraction/R_Reflection_%26_Normal_Maps.jpg" />
+</picture>
+
+</p></li></ol><h3 id="折射和移动">折射和移动</h3>
+<p>如果将 <strong>平移（Panner）材质表达式</strong> 节点添加到材质图，并将其连接到 UV 的法线贴图纹理的，那么将产生一些非常有趣的结果。 
+这种方法适合于玻璃窗，对于剧烈爆炸产生的热霾或扭曲等视觉效果也非常有用。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Refraction/R_Panning_Normal_Map.jpg">
+		<img class="  lazyload" alt="R_Panning_Normal_Map.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Refraction/R_Panning_Normal_Map.jpg" />
+</picture>
+
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_0_zk3503tg_11
+{
+	margin: 0px;
+	width: 640px;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_0_zk3503tg_11:after
+{
+	content: "";
+	padding-top: 360px;
+	display: block;
+}
+</style> 
+<div id="player_0_zk3503tg_11"> 
+	<div id="playerContainer_0_zk3503tg_11" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/0_zk3503tg/embed.html"></iframe>
+	</div>
+</div>
+<h3 id="折射深度偏移">折射深度偏移</h3>
+<p><strong>折射深度偏移</strong> 方法用于防止距离较近的对象以锐视角渲染到扭曲的表面。
+但是，这可能会增加表面与折射开始位置之间的距离。
+在 UE4 中，可以在两个位置调整 <strong>折射深度偏离（Refraction Depth Bias）</strong>。 
+</p><ul ><li class="Default"><p><strong>材质编辑器</strong> - 您可以在**细节（Details）<strong>面板的"材质"部分中找到 </strong>折射深度偏离（Refraction Depth Bias）**。您需要按白色三角形（突出显示时显示为绿色）才能显示此属性。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Refraction/R_RDB_Materail_Editor.jpg">
+		<img class="  lazyload" alt="R_RDB_Materail_Editor.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Refraction/R_RDB_Materail_Editor.jpg" />
+</picture>
+
+</p></li><li class="Default"><p><strong>材质实例</strong> - 您可以在 <strong>细节（Details）</strong>面板的 <strong>常规（General）</strong>部分中找到 <strong>折射深度偏离（Refraction Depth Bias）</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Refraction/R_RDB_Materail_Instance.jpg">
+		<img class="  lazyload" alt="R_RDB_Materail_Instance.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Refraction/R_RDB_Materail_Instance.jpg" />
+</picture>
+
+</p></li></ul><h2 id="总结">总结</h2>
+<p>向材质（特别是玻璃和水）添加折射可产生非常逼真的效果。 
+请记住使用您尝试模拟的表面类型的正确 IOR 值。 
+您也可能很希望将 IOR 值增大到超过表面类型的正确 IOR 值，但务必克制这种冲动。 
+IOR 值源自现实世界中的测量值，所以，将 IOR 值增大或减小到合理水平以外并不会产生更好的效果。 
+</p>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Materials">Materials</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/RenderingAndGraphics/Materials/HowTo/Refraction/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:15:56 GMT -->
+</html>

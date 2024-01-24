@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/WorkingWithContent/Types/StaticMeshes/HowTo/StripUnUsedLOD/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:01:56 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var finishButton = finishButtonTemplate;
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/WorkingWithContent/Types/StaticMeshes/HowTo/StripUnUsedLOD/" />');
+				var udnCSS = '../../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>剥离未使用的LOD | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+		    <script  src="../../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+		    <script  src="../../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/WorkingWithContent/Types/StaticMeshes/HowTo/StripUnUsedLOD/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/WorkingWithContent/Types/StaticMeshes/HowTo/StripUnUsedLOD/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/WorkingWithContent/Types/StaticMeshes/HowTo/StripUnUsedLOD/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/WorkingWithContent/Types/StaticMeshes/HowTo/StripUnUsedLOD/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Content/Types/StaticMeshes/HowTo/StripUnUsedLOD" />
+<meta name="intsourcechangelist" content="6189809" />
+<meta name="availability" content="Public" />
+<meta name="title" content="剥离未使用的LOD" />
+<meta name="description" content="了解如何在UE4项目已进行烘焙时去除未使用的LOD。" />
+<meta name="type" content="how-to" />
+<meta name="version" content="" />
+<meta name="parent" content="WorkingWithContent/Types/StaticMeshes/HowTo" />
+<meta name="order" content="" />
+<meta name="keywords" content="" />
+<meta name="crumbs" content="%ROOT%,WorkingWithContent,WorkingWithContent/Types,WorkingWithContent/Types/StaticMeshes,WorkingWithContent/Types/StaticMeshes/HowTo" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="剥离未使用的LOD" />
+	<meta property="og:description" content="了解如何在UE4项目已进行烘焙时去除未使用的LOD。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../../index.html">管理内容</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">内容资产类型</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">静态网格体</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">静态网格模型操作说明</a>
+
+<span class="separator">></span> <span id="page">剥离未使用的LOD</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">剥离未使用的LOD</h1>
+							</div>	
+							<h2 >了解如何在UE4项目已进行烘焙时去除未使用的LOD。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																																			</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																																																<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#步骤">步骤</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#最终结果">最终结果</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>将已烘焙的虚幻引擎4 (UE4)项目减到最小可能是一项具有挑战性的任务。在下面的教程中，我们将了解，当UE4项目已针对PC、控制台和移动设备时进行烘焙时，如何自动删除未使用的细节层级(LOD)网格体。
+</p><h2 id="步骤">步骤</h2>
+<p>在下面部分，我们将了解如何从从最终的烘焙UE4项目中删除未使用的LOD网格体。
+</p><ol ><li class="Default"><p>首先，前往 <strong>YourProjectName\Config</strong> 找到 UE4 项目的 <strong>DefaultEngine.INI</strong> 文件。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/StripUnUsedLOD/StripUnUsedLOD_01.jpg">
+		<img class="  lazyload" alt="StripUnUsedLOD_01.png" title="StripUnUsedLOD37202942701.png" data-src="../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/StripUnUsedLOD/StripUnUsedLOD_01.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>找到项目的DefaultEngine.INI文件后，在任何文本编辑器中打开。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/StripUnUsedLOD/StripUnUsedLOD_02.jpg">
+		<img class="  lazyload" alt="StripUnUsedLOD_02.png" title="StripUnUsedLOD37202942702.png" data-src="../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/StripUnUsedLOD/StripUnUsedLOD_02.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在DefaultEngine.INI文件中，查找名为 <strong>[Console Variables]</strong> 的部分。如果没有找到名为[Console Variables]的部分，您需要在DefaultEngine.INI文件的任何位置输入以下文本来添加这个部分。<br /><strong>[Console Variables]</strong><br /></p><p><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/StripUnUsedLOD/StripUnUsedLOD_03.jpg">
+		<img class="  lazyload" alt="StripUnUsedLOD_03.png" title="StripUnUsedLOD37202942703.png" data-src="../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/StripUnUsedLOD/StripUnUsedLOD_03.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在新添加的[Console Variables]部分中，添加以下项目：
+</p><pre class="prettyprint"><code>&#91;ConsoleVariables&#93;
+; 在烘焙过程中，在MinLOD下为目标平台剥离LOD的渲染数据。
+r.StaticMesh.StripMinLodDataDuringCooking=1
+r.SkeletalMesh.StripMinLodDataDuringCooking=1</code></pre></li></ol><div class="note">
+	<p>记住，<strong>r.StaticMesh.StripMinLodDataDuringCooking=1</strong> 将剥离静态网格体LOD，而 <strong>r.SkeletalMesh.StripMinLodDataDuringCooking=1</strong> 将剥离骨架网格体LOD。您不必同时使用这两个命令，可以根据项目的需要使用静态命令或骨架命令。</p>
+</div><ol ><li class="Default"><p>一旦添加控制台变量后，保存并关闭DefaultEngine.INI文件。 <br /></p></li><li class="Default"><p>现在，确保您为项目的网格体设置了<a id="content_link"filter-data="tag_" href="../../PerPlatformLOD/index.html" ><span>每个平台LOD</span></a>，然后尝试烘焙UE4项目。
+</p></li></ol><h2 id="最终结果">最终结果</h2>
+<p>现在已经在DefaultEngine.INI文件的控制变量部分添加了剥离命令，下次您将UE4项目打包发布时，应该会注意到打包项目的大小有所减小。根据您的项目内容的设置方式，使用这种方法可以帮助您将UE4项目减小25%-50%。
+</p>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/WorkingWithContent/Types/StaticMeshes/HowTo/StripUnUsedLOD/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:01:57 GMT -->
+</html>

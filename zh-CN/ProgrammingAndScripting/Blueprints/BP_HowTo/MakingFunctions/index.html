@@ -1,0 +1,399 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/ProgrammingAndScripting/Blueprints/BP_HowTo/MakingFunctions/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:25:58 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/ProgrammingAndScripting/Blueprints/BP_HowTo/MakingFunctions/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>创建函数 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/ProgrammingAndScripting/Blueprints/BP_HowTo/MakingFunctions/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/ProgrammingAndScripting/Blueprints/BP_HowTo/MakingFunctions/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/ProgrammingAndScripting/Blueprints/BP_HowTo/MakingFunctions/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/ProgrammingAndScripting/Blueprints/BP_HowTo/MakingFunctions/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Blueprints/BP_HowTo/MakingFunctions" />
+<meta name="intsourcechangelist" content="11969652" />
+<meta name="availability" content="Public" />
+<meta name="title" content="创建函数" />
+<meta name="description" content="创建一个按键时显示文本的函数。" />
+<meta name="related" content="ProgrammingAndScripting/Blueprints/UserGuide/Functions" />
+<meta name="related" content="ProgrammingAndScripting/Blueprints/UserGuide/Functions/FunctionCalls" />
+<meta name="version" content="4.9" />
+<meta name="skilllevel" content="Intermediate" />
+<meta name="keywords" content="Blueprints" />
+<meta name="course" content="blueprints---essential-concepts?lang=zh-CN|蓝图：基础概念|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fblueprints---essential-concepts%2FBPEssentialsThumbnail_1920x1080-1920x1080-2fcdde875f1d79ade1c295fe4fef53c4b8c5ecde.PNG?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fblueprints---essential-concepts%2FBlueprint--Essential-Concepts-1000x1000-9f372ce55de42ce9596dffd6c931839e44fcc873.png?resize=1&amp;w=300" />
+<meta name="course" content="interactive-material-swaps-using-blueprints?lang=zh-CN|蓝图：可交互材质切换|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Finteractive-material-swaps-using-blueprints%2F406---Hero2-1920x1080-ce26b6199cf620364149d2d934c73ae30e983110.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Finteractive-material-swaps-using-blueprints%2FInteractive-Material-Swaps-Using-Blueprints-1000x1000-21158a5fe67365e3bf5db49712b52482382f15ac.png?resize=1&amp;w=300" />
+<meta name="course" content="making-a-blueprint-product-configurator?lang=zh-CN|企业级蓝图开发|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fblueprint-for-enterprise%2F301-Blueprints-%281200X675%29-1200x675-d140b8a0b13b05c0619e35e1076b4c82e4a4b855.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fblueprint-for-enterprise%2FBlueprint-for-Enterprise-1000x1000-13caa11b8e5c5e91506a8dd63b39d247318c3208.png?resize=1&amp;w=300" />
+<meta name="crumbs" content="%ROOT%,ProgrammingAndScripting,ProgrammingAndScripting/Blueprints,ProgrammingAndScripting/Blueprints/BP_HowTo" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="创建函数" />
+	<meta property="og:description" content="创建一个按键时显示文本的函数。 " />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">编程和脚本编写</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">蓝图可视化脚本</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">蓝图指南</a>
+
+<span class="separator">></span> <span id="page">创建函数</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">创建函数</h1>
+							</div>	
+							<h2 >创建一个按键时显示文本的函数。 </h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Intermediate"><a id="skill_link" href="../../../../SiteIndex/index.html?skills=Intermediate">Intermediate</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																		<div id="seeAlso">
+	<div style="position:relative;">
+		<div id="title">参见</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<p>
+						<a id="related_link" href="../../UserGuide/Functions/index.html" title="可以从另一个图表执行或调用的节点图表。">函数</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../UserGuide/Functions/FunctionCalls/index.html" title="执行目标Actor或对象的函数的节点，既包括代码定义的函数也包括用户定义的函数。">函数调用</a>
+					</p>
+				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																		<div id="courses">
+	<div style="position:relative;">
+		<div id="title">相关课程</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<div name="blueprints---essential-concepts?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/blueprints---essential-concepts?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/blueprints---essential-concepts/BPEssentialsThumbnail_1920x1080-1920x1080-2fcdde875f1d79ade1c295fe4fef53c4b8c5ecd?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/blueprints---essential-concepts/Blueprint--Essential-Concepts-1000x1000-9f372ce55de42ce9596dffd6c931839e44fcc873?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="blueprints---essential-concepts?lang=zh-CN_title">
+				蓝图：基础概念
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="interactive-material-swaps-using-blueprints?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/interactive-material-swaps-using-blueprints?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/interactive-material-swaps-using-blueprints/406---Hero2-1920x1080-ce26b6199cf620364149d2d934c73ae30e983110.8314f8?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/interactive-material-swaps-using-blueprints/Interactive-Material-Swaps-Using-Blueprints-1000x1000-21158a5fe67365e3bf5db49712b52482382f15ac.8?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="interactive-material-swaps-using-blueprints?lang=zh-CN_title">
+				蓝图：可交互材质切换
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="making-a-blueprint-product-configurator?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/making-a-blueprint-product-configurator?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/blueprint-for-enterprise/301-Blueprints-(1200X675)-1200x675-d140b8a0b13b05c0619e35e1076b4c82e4a4b855.8344f86.dela?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/blueprint-for-enterprise/Blueprint-for-Enterprise-1000x1000-13caa11b8e5c5e91506a8dd63b39d247318c3208.836fe4b.dela?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="making-a-blueprint-product-configurator?lang=zh-CN_title">
+				企业级蓝图开发
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																								<div class="include_wrapper" data-path="ProgrammingAndScripting/Blueprints/UserGuide/Functions">
+<p><strong>函数（Functions）</strong> 是属于特定 <strong>蓝图（Blueprint）</strong> 的节点图表，它们可以从蓝图中的另一个图表 
+执行或调用。函数具有一个由节点指定的单一进入点，函数的名称 
+包含一个执行输出引脚。当您从另一个图表调用函数时，输出执行引脚将被激活， 
+从而使连接的网络执行。</p>
+</div>
+<p>以下步骤将说明如何创建按键时在屏幕上显示文本的函数。 
+</p><ol ><li class="Default"><p>在 <strong>Content Browser</strong> 中，点击 <strong>New</strong> 按钮，然后选择 <strong>Blueprint Class</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/MakingFunctions/NewBlueprint.jpg">
+		<img class="  lazyload" alt="NewBlueprint.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/MakingFunctions/NewBlueprint.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>Pick Parent Class</strong> 窗口中选择 <strong>Actor</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/MakingFunctions/ActorBlueprint.jpg">
+		<img class="  lazyload" alt="ActorBlueprint.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/MakingFunctions/ActorBlueprint.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>为蓝图命名，然后 <strong>双击</strong> 将其在蓝图编辑器中打开。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/MakingFunctions/FunctionBlueprint.jpg">
+		<img class="  lazyload" alt="FunctionBlueprint.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/MakingFunctions/FunctionBlueprint.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在图表中 <strong>单击右键</strong>，搜索并添加 <strong>Event Begin Play</strong> 事件。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/MakingFunctions/EventBeginPlay.jpg">
+		<img class="  lazyload" alt="EventBeginPlay.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/MakingFunctions/EventBeginPlay.jpg" />
+</picture>
+
+</p><p>游戏启动后该节点便伴随其后的脚本开始执行。 
+</p></li><li class="Default"><p>在图表中 <strong>单击右键</strong>，搜索并添加 <strong>Get Player Controller</strong> 节点。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/MakingFunctions/GetPlayerController.jpg">
+		<img class="  lazyload" alt="GetPlayerController.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/MakingFunctions/GetPlayerController.jpg" />
+</picture>
+
+</p><p>此操作将获取当前指派的玩家控制器，并为该蓝图启用输入。 
+</p></li><li class="Default"><p>在图表中 <strong>单击右键</strong>，搜索并添加 <strong>Enable Input</strong> 节点。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/MakingFunctions/EnableInput.jpg">
+		<img class="  lazyload" alt="EnableInput.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/MakingFunctions/EnableInput.jpg" />
+</picture>
+
+</p><p>此节点使输入被该蓝图接收。 
+</p></li><li class="Default"><p>按下图所示连接节点。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/MakingFunctions/ConnectNodes.jpg">
+		<img class="  lazyload" alt="ConnectNodes.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/MakingFunctions/ConnectNodes.jpg" />
+</picture>
+
+</p><p>游戏启动后，选取玩家控制器并在该蓝图中启用控制器的输入。 
+</p></li><li class="Default"><p>在 <strong>MyBlueprint</strong> 窗口中点击 <strong>Add New Function</strong> 按钮。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/MakingFunctions/AddFunctionButton.jpg">
+		<img class="  lazyload" alt="AddFunctionButton.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/MakingFunctions/AddFunctionButton.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>My Blueprint</strong> 窗口中选择新函数并按 <strong>F2</strong> 键对其重命名。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/MakingFunctions/RenameFunction.jpg">
+		<img class="  lazyload" alt="RenameFunction.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/MakingFunctions/RenameFunction.jpg" />
+</picture>
+
+</p><p>为函数命名，如"Print Text"。 
+</p></li><li class="Default"><p>在函数图表中，拖动 <strong>Print Text</strong> 引脚，搜索并添加一个 <strong>Print String</strong> 节点。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/MakingFunctions/PrintStringFunction.jpg">
+		<img class="  lazyload" alt="PrintStringFunction.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/MakingFunctions/PrintStringFunction.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>In String</strong> 框中，可对游戏中显示的文本进行修改。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/MakingFunctions/EnterText.jpg">
+		<img class="  lazyload" alt="EnterText.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/MakingFunctions/EnterText.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>点击 <strong>Event Graph</strong> 标签返回事件图表。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/MakingFunctions/EventGraphTab.jpg">
+		<img class="  lazyload" alt="EventGraphTab.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/MakingFunctions/EventGraphTab.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在图表中 <strong>单击右键</strong>，搜索并添加一个 <strong>F</strong> 按键事件。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/MakingFunctions/FKeyEvent.jpg">
+		<img class="  lazyload" alt="FKeyEvent.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/MakingFunctions/FKeyEvent.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>拖动 <strong>Pressed</strong> 引脚，搜索并添加 <strong>Print Text</strong> 函数。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/MakingFunctions/CallFunction.jpg">
+		<img class="  lazyload" alt="CallFunction.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/MakingFunctions/CallFunction.jpg" />
+</picture>
+
+</p><p>按下 <strong>F</strong> 键时将调用 Print Text 函数，它使用 Print String 将文本显示到屏幕上。 
+</p><div class="note">
+	<p>如找不到函数，点击工具栏中的 <strong>Compile</strong> 按钮，然后尝试重新搜索。 </p>
+</div></li><li class="Default"><p>网络外观与下图相似。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/MakingFunctions/FinishedGraph.jpg">
+		<img class="  lazyload" alt="FinishedGraph.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/MakingFunctions/FinishedGraph.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>点击 <strong>Compile</strong> 按钮，然后关闭蓝图。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/MakingFunctions/CompileButton.jpg">
+		<img class="  lazyload" alt="CompileButton.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/MakingFunctions/CompileButton.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>将蓝图拖入关卡，然后点击 <strong>Play</strong> 按钮在编辑器中开始游戏。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/MakingFunctions/DragIntoLevel.jpg">
+		<img class="  lazyload" alt="DragIntoLevel.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/MakingFunctions/DragIntoLevel.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>按下 <strong>F</strong> 键，函数将被调用，屏幕上将显示出文本。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/MakingFunctions/WorkingFunction.jpg">
+		<img class="  lazyload" alt="WorkingFunction.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/MakingFunctions/WorkingFunction.jpg" />
+</picture>
+
+</p></li></ol><p>虽然这个范例函数只能在按键时在屏幕上显示文本，但也可以为其添加更多指定键按下时执行的脚本。 
+</p><p>举例而言，函数可用于按键发生时施出魔法，脚本则包含魔法的生成、位置、魔法的相关效果、对游戏世界场景的影响、是否对其他 Actors 造成伤害等内容。它们可全部包含在函数中，使事件图表中不包含函数中已有的脚本。 
+</p><p>如需了解函数使用与访问的其他方法，请查阅下方的 <strong>相关页面</strong> 章节。 
+</p>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Blueprints">Blueprints</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/ProgrammingAndScripting/Blueprints/BP_HowTo/MakingFunctions/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:26:05 GMT -->
+</html>

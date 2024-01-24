@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/ProgrammingAndScripting/Rendering/ShaderDevelopment/HLSLCrossCompiler/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 10:22:39 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/ProgrammingAndScripting/Rendering/ShaderDevelopment/HLSLCrossCompiler/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>HLSL 交叉编译器 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/ProgrammingAndScripting/Rendering/ShaderDevelopment/HLSLCrossCompiler/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/ProgrammingAndScripting/Rendering/ShaderDevelopment/HLSLCrossCompiler/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/ProgrammingAndScripting/Rendering/ShaderDevelopment/HLSLCrossCompiler/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/ProgrammingAndScripting/Rendering/ShaderDevelopment/HLSLCrossCompiler/" hreflang="ko" />
+
+	<meta name="redirect" content="Programming/Rendering/ShaderDevelopment/HLSLCrossCompiler" />
+<meta name="intsourcechangelist" content="3151855" />
+<meta name="availability" content="Public" />
+<meta name="title" content="HLSL 交叉编译器" />
+<meta name="description" content="有关用来将 HLSL 转换为 GLSL 的 HLSLCC 工具的信息。" />
+<meta name="version" content="4.9" />
+<meta name="keywords" content="Rendering" />
+<meta name="crumbs" content="%ROOT%,ProgrammingAndScripting,ProgrammingAndScripting/Rendering,ProgrammingAndScripting/Rendering/ShaderDevelopment" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="HLSL 交叉编译器" />
+	<meta property="og:description" content="有关用来将 HLSL 转换为 GLSL 的 HLSLCC 工具的信息。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">编程和脚本编写</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">图形编程</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">着色器开发</a>
+
+<span class="separator">></span> <span id="page">HLSL 交叉编译器</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">HLSL 交叉编译器</h1>
+							</div>	
+							<h2 >有关用来将 HLSL 转换为 GLSL 的 HLSLCC 工具的信息。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																																			</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																																				<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#解析">解析</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#编译">编译</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#扩展编译器">扩展编译器</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>这个库将 <strong>高级着色语言 (HLSL)</strong> 着色器源代码编译成高级中间表示法，执行独立于设备的优化，并生成 <strong>OpenGL 着色语言 (GLSL)</strong> 兼容源代码。这个库在很大程度上基于 Mesa 的 GLSL 编译器。前端已进行大量重新编写，以解析 HLSL 并根据 HLSL <strong>抽象语法树 (AST)</strong> 生成 Mesa IR。这个库利用 Mesa 的 IR 优化来简化代码，并根据 Mesa IR 最终生成 GLSL 源代码。GLSL 生成是以 GLSL 优化器中的工作为基础。
+</p><p>除了生成 GLSL 代码以外，这个编译器还将全局一致变量打包成数组以便轻松高效地进行设置，提供一种反射机制以通知高级代码需要哪些一致变量，并提供映射信息以使高级代码在运行时可通过索引而非名称来绑定资源。
+</p><div class="note">
+	<p>UnrealBuildTool 不会检测对外部库（例如 HLSLCC）进行的更改。
+当您重新构建 HLSLCC 库时，请在 OpenGLShaders.cpp 中添加一个空格，以便强制重新链接该模块。</p>
+</div><p>主库入口点是 HLSLCrossCompile。此函数使用所请求的选项执行根据源 HLSL 生成 GLSL 代码所需执行的所有步骤。每个阶段的摘要如下所示：
+</p><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>操作</p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>说明</p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>预处理</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>代码通过类似于 C 的预处理器运行。此阶段是可选的，您可使用 NoPreprocess 标志省略此阶段。虚幻引擎会在编译前使用 MCPP 执行预处理，从而跳过此步骤。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>解析</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>解析 HLSL 源代码以生成抽象语法树。此工作在 <strong>_mesa_hlsl_parse</strong> 函数中完成。词法分析器和解析器分别由 flex 和 bison 生成。有关更多信息，请参阅关于解析的小节。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>编译</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>将 AST 编译为 Mesa 中间表示法。此过程在 <strong>_mesa_ast_to_hir</strong> 函数中发生。在此阶段，编译器执行隐式转换、函数重载解析、生成内部函数的指令等功能。将生成 GLSL 主入口点。请参阅"生成 GLSL 主入口点"。此阶段会将输入及输出变量的全局声明添加到 IR，计算 HLSL 入口点的输入，调用 HLSL 入口点，并将输出写入全局输出变量。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>优化</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>对 IR 执行多遍优化，包括直接插入函数、消除无用代码、传播常量、消除公共的子表达式，等等。有关详细信息，请参阅"优化 IR"，尤其是参阅 <strong>do_optimization_pass</strong>。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>一致变量打包</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>将全局一致变量打包成数组并保留映射信息，以便引擎可将参数与一致变量数组的相关部分绑定。有关详细信息，请参阅"打包一致变量"。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>最终优化</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>打包一致变量之后，将对 IR 运行第二遍优化，以简化打包一致变量时生成的代码。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>生成 GLSL</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>最后，将经过优化的 IR 转换为 GLSL 源代码。从 IR 到 GLSL 的转换相对简单。除了生成所有构造及一致变量缓冲区的定义以及源代码本身以外，还会在文件开头的注释中写入一个映射表。虚幻引擎将解析这个映射表，以便绑定参数。有关详细信息，请参阅"生成 GLSL"，尤其是参阅 <strong>ir_gen_glsl_visitor</strong> 类。</p>
+			</td>
+	
+</tr></tbody>
+</table><a name="parsing" ></a><h2 id="解析">解析</h2>
+<p>HLSL 解析器分为两部分：词法分析器和解析器。词法分析器通过使正则表达式与相应的标记匹配，将 HLSL 输入标记化。源文件是 hlsl_lexer.ll，并由 flex 处理以生成 C 代码。每一行都以一个正则表达式开头，后跟以 C 代码编写的语句。该正则表达式匹配时，将执行相应的 C 代码。状态存储在许多以 "yy" 为前缀的全局变量中。
+</p><p>解析器将规则与标记化输入匹配，以解释语言的语法并构建 AST。源文件是 hlsl_parser.yy，并由 bison 处理以生成 C 代码。对 bison 所使用的语法进行全面说明超出了本文档的范畴，但通过检视 HLSL 解析器可了解一些基本信息。通常，您将规则定义为与某个以递归方式求值的标记序列匹配。规则匹配时，将执行一些相应的 C 代码，这使您能够构建自己的 AST。C 代码块中的语法如下所示：
+</p><p>$$ = 解析此规则的结果，这通常是抽象语法树中的节点
+$1、$2，等等 = 当前规则所匹配的子规则的输出
+</p><p>对词法分析器或解析器进行更改后，必须使用 flex 和 bison 重新生成 C 代码。GenerateParsers 批处理文件可处理此任务，但您必须根据系统上 flex 和 bison 的安装位置来设置目录。README 文件中包含的信息说明了使用的版本，以及可以从什么位置下载用于 Windows 的二进制文件。
+</p><a name="compilation" ></a><h2 id="编译">编译</h2>
+<p>在编译期间，将遍历 AST 并使用 AST 来生成 IR 指令。您应掌握的一个重要概念是，IR 是非常低级别的操作序列。因此，它不会执行隐式转换或任何具有隐式转换性质的操作：所有操作都必须显式地执行。
+</p><p>下面是一些有趣的常用函数：
+</p><p><strong>apply_type_conversion</strong> - 此函数将一种类型的值转换为另一种类型（如果有可能的话）。是执行隐式转换还是显式转换由参数控制。
+</p><p><strong>arithmetic_result_type</strong> 等- 这组函数确定对输入值应用操作的结果类型。
+</p><p><strong>validate_assignment</strong> - 确定某个 rvalue 是否可赋予特定类型的 lvalue。必要时，将应用允许的隐式转换。
+</p><p><strong>do_assignment</strong> - 将 rvalue 赋予 lvalue（如果可使用 validate_assignment 完成）。
+</p><p><strong>ast_expression::hir</strong> - 将 AST 中的表达式节点转换为一组 IR 指令。
+</p><p><strong>process_initializer</strong> - 将初始化表达式应用于变量。
+</p><p><strong>ast_struct_specifier::hir</strong> - 构建聚集类型，以表示所声明的结构。
+</p><p><strong>ast_cbuffer_declaration::hir</strong> - 构建常量缓冲区布局的构造，并将其存储为一致变量块。
+</p><p><strong>process_mul</strong> - 这是用于处理 HLSL 内部乘法的特殊代码。
+</p><p><strong>match_function_by_name</strong> - 根据输入参数的名称和列表来查找函数特征符。
+</p><p><strong>rank_parameter_lists</strong> - 对两个参数列表进行比较，并指定数字排名以指示这两个列表的匹配程度。这是一个辅助函数，用于执行重载解析：排名最低的特征符将胜出，如果有任何特征符的排名与排名最低的特征符相同，那么将函数调用声明为具有歧义。排名为零表示精确匹配。
+</p><p><strong>gen_texture_op</strong> - 处理内置 HLSL 纹理和取样对象的方法调用。
+</p><p><strong>_mesa_glsl_initialize_functions</strong> - 生成 HLSL 内部函数的内置函数。大部分函数（例如 sin 和 cos）会生成 IR 代码以执行操作，但某些函数（例如 transpose 和 determinant）会保留函数调用以推迟操作，使其由驱动程序的 GLSL 编译器执行。
+</p><a name="extendingthecompiler" ></a><h2 id="扩展编译器">扩展编译器</h2>
+<p>下面是一些有关实现某些类型的功能的提示：
+</p><p>新表达式
+</p><pre class="prettyprint"><code>向 ir&#95;expression&#95;operation 枚举添加一个条目。
+在 ir&#95;expression 构造函数中，处理您的新表达式，以根据输入操作数的类型来设置表达式的类型化结果。
+如果有可能，请向 ir&#95;expression::constant&#95;expression&#95;value 添加一个处理程序，以便在编译时对常量表达式进行求值。
+向 ir&#95;validate::visit&#95;leave(ir&#95;expression &#42;ir) 添加一个处理程序，以验证该表达式的正确性。
+向 GLSLExpressionTable 添加一个条目，以将该表达式映射到 GLSL 表达式。
+修改词法分析器，使其识别该表达式的标记（如果适用的话）。
+修改解析器以使其识别该标记，并创建适当的 ast&#95;expression 节点（如果适用的话）。</code></pre>
+<p>内部函数
+</p><pre class="prettyprint"><code>向 &#95;mesa&#95;glsl&#95;initialize&#95;functions 添加内置函数定义。
+在大部分情况下，内部函数将直接映射到单个表达式。如果是这样，您只需添加新的 ir&#95;expression 并使用 make&#95;intrinsic&#95;genType 来生成内部函数。</code></pre>
+<p>类型
+</p><pre class="prettyprint"><code>添加 glsl&#95;type，以在 IR 中表示您的类型。您可将其添加到 &#95;mesa&#95;glsl&#95;initialize&#95;types，或添加到其中一个内置类型表，例如 glsl&#95;type::builtin&#95;core&#95;types。对于模板化类型，请参阅 glsl&#95;type::get&#95;sampler&#95;instance 作为示例。
+修改词法分析器以使其识别必要的标记，并修改解析器以使其与您的标记匹配。请参阅 Texture2DArray 作为示例。
+修改解析器以使其识别该标记，并创建必要的类型说明符。texture&#95;type&#95;specifier&#95;nonarray 是一个不错的示例。
+修改 ast&#95;type&#95;specifier::hir，以执行创建用户定义类型所需的任何处理。请参阅结构的处理作为示例。
+修改 ast&#95;type&#95;specifier::glsl&#95;type 以返回适当的 glsl&#95;type。
+如果类型包含方法，请修改 &#95;mesa&#95;ast&#95;field&#95;selection&#95;to&#95;hir 以处理这些方法。请参阅 gen&#95;texture&#95;op 作为示例。</code></pre>
+<p>属性、标志和限定符
+</p><pre class="prettyprint"><code>将属性/标志/限定符添加到任何需要它们的 IR 和/或 AST 节点。
+修改词法分析器，使其识别必要的标记。
+修改解析器，以根据需要添加语法规则。例如，如果您要添加对 &#91;loop&#93; 属性的支持，请修改 iteration&#95;statement 规则以接受其前面的可选属性。操作如下：将 iteration&#95;statement 更改为 base&#95;iteration&#95;statement，并添加</code></pre>
+<p>iteration_statement：</p><pre class="prettyprint"><code>iteration&#95;attr base&#95;iteration&#95;statement
+{
+    // result is the iteration statement
+    $$ = $2;
+    // apply attribute
+    $$-&gt;attr = $1;
+}
+base&#95;iteration&#95;statement
+{
+    // pass thru if no attribute
+    $$ = $1;
+}</code></pre>
+<p>最后，在编译器中任何需要了解该属性的位置进行修改。
+</p>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Rendering">Rendering</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/ProgrammingAndScripting/Rendering/ShaderDevelopment/HLSLCrossCompiler/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 10:22:39 GMT -->
+</html>

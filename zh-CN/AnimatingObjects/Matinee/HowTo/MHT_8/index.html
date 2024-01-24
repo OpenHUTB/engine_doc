@@ -1,0 +1,503 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/AnimatingObjects/Matinee/HowTo/MHT_8/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:36:18 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/AnimatingObjects/Matinee/HowTo/MHT_8/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>触发事件并切换可视性 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/AnimatingObjects/Matinee/HowTo/MHT_8/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/AnimatingObjects/Matinee/HowTo/MHT_8/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/AnimatingObjects/Matinee/HowTo/MHT_8/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/AnimatingObjects/Matinee/HowTo/MHT_8/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Matinee/HowTo/MHT_8" />
+<meta name="intsourcechangelist" content="10086382" />
+<meta name="availability" content="Public" />
+<meta name="title" content="触发事件并切换可视性" />
+<meta name="description" content="使用事件和可视性创建一个倒计时结束后爆炸的石块。" />
+<meta name="version" content="4.24" />
+<meta name="skilllevel" content="Intermediate" />
+<meta name="banner" content="在虚幻引擎4.24中，无法再通过过场动画（Cinematics）菜单和细节面板访问Matinee编辑器。" />
+<meta name="banner-description" content="这是为4.25将Matinee从UE4中彻底移除做准备。你现在仍然可以使用[从Matinee到Sequencer转化工具](AnimatingObjects/Sequencer\HowTo\MatineeConversionTool)将Matinee Actor转换为Sequencer资源。" />
+<meta name="crumbs" content="%ROOT%,AnimatingObjects,AnimatingObjects/Matinee,AnimatingObjects/Matinee/HowTo" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="触发事件并切换可视性" />
+	<meta property="og:description" content="使用事件和可视性创建一个倒计时结束后爆炸的石块。 " />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">为角色和对象添加动画</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">Matinee和过场动画</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">Matinee 指导</a>
+
+<span class="separator">></span> <span id="page">触发事件并切换可视性</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+					<div id="banner" class="deprecated">
+	<div id="message">
+		<span>在虚幻引擎4.24中，无法再通过过场动画（Cinematics）菜单和细节面板访问Matinee编辑器。</span>
+	</div>
+			<div id="bannerDescription">
+		这是为4.25将Matinee从UE4中彻底移除做准备。你现在仍然可以使用<a id="content_link"filter-data="tag_matinee tag_sequencer tag_conversion" href="../../../Sequencer/HowTo/MatineeConversionTool/index.html" ><span>从Matinee到Sequencer转化工具</span></a>将Matinee Actor转换为Sequencer资源。
+	</div>
+		</div>
+															<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">触发事件并切换可视性</h1>
+							</div>	
+							<h2 >使用事件和可视性创建一个倒计时结束后爆炸的石块。 </h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Intermediate"><a id="skill_link" href="../../../../SiteIndex/index.html?skills=Intermediate">Intermediate</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																																				<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#添加matineeactor和道具">添加 Matinee Actor 和道具</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#向matinee添加资源并设置轨迹">向 Matinee 添加资源并设置轨迹</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#在蓝图中使用matineeactor">在蓝图中使用 Matinee Actor</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>在以下步骤中，我们将使用 <strong>Matinee 事件（Matinee Events）</strong> 和 <strong>可视性（Visibility）</strong> 轨迹创建在倒计时结束后爆炸的岩石和破碎效果。
+</p><div class="include_wrapper" data-path="AnimatingObjects/Matinee/HowTo/MHT_1">
+<h2 id="创建项目">创建项目</h2>
+<p>在这部分中，我们将设置项目。 
+</p><ol ><li class="Default"><p>在 <strong>虚幻项目浏览器（Unreal Project Browser）</strong> 窗口中创建一个 <strong>新项目（New Project）</strong>，然后使用 <strong>蓝图第三人称（Blueprint Third Person）</strong> 模板。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_1/MatineeHowTo.jpg">
+		<img class="  lazyload" alt="MatineeHowTo.jpg" width="640" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_1/MatineeHowTo.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>启用 <strong>包括初学者内容包（Include starter content）</strong> 选项。 
+</p></li><li class="Default"><p>命名项目。 
+</p></li><li class="Default"><p>上述步骤完成后点击 <strong>创建项目（Create Project）</strong> 新建项目。
+</p></li></ol>
+</div>
+<h2 id="添加matineeactor和道具">添加 Matinee Actor 和道具</h2>
+<p>在这步中，我们将添加用于此场景的 <strong>Matinee Actor</strong> 和资源。
+</p><ol ><li class="Default"><p>在 <strong>工具栏</strong> 菜单中选择 <strong>Matinee</strong> 并点击 <strong>Add Matinee</strong> 按钮。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_1/MHT1_AddMatinee.jpg">
+		<img class="  lazyload" alt="MHT1_AddMatinee.png" width="720" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_1/MHT1_AddMatinee.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>如出现 Matinee 撤销警告提示，<strong>点击</strong> <strong>继续</strong> 按钮。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_1/MHT1_MatineeWarning.jpg">
+		<img class="  lazyload" alt="MHT1_MatineeWarning.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_1/MHT1_MatineeWarning.jpg" />
+</picture>
+
+</p></li><li class="Default"><p><strong>Matinee Editor</strong> 窗口将打开。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_1/MHT1_MatineeOpen.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_1/MHT1_MatineeOpen.jpg">
+		<img class="  lazyload" alt="MHT1_MatineeOpen.png" width="640" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_1/MHT1_MatineeOpen.jpg" />
+</picture>
+</span></a></span></p>
+</div><p><em>点击查看全图。</em>
+</p></li><li class="Default"><p>最小化 Matinee，在 <strong>Content Browser</strong> 的 <strong>Game/Props</strong> 文件夹中，<strong>右键单击</strong> <strong>SM_Rock</strong> 并选择 <strong>Create Destructible Mesh</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_8/MHT8_CreateDM.jpg">
+		<img class="  lazyload" alt="MHT8_CreateDM.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_8/MHT8_CreateDM.jpg" />
+</picture>
+
+</p></li><li class="Default"><p><strong>Destructible Mesh</strong> 窗口将打开，点击工具栏中的 <strong>Fracture Mesh</strong> 按钮。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_8/MHT8_FractureMesh.jpg">
+		<img class="  lazyload" alt="MHT8_FractureMesh.png" width="720" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_8/MHT8_FractureMesh.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>Destructible Settings</strong> 中，打开 <strong>Fracture Effects</strong> 和 <strong>0</strong>，然后在 <strong>Particle System</strong> 下点击下拉菜单选择 <strong>P_Explosion</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_8/MHT8_AssignParticleEffct.jpg">
+		<img class="  lazyload" alt="MHT8_AssignParticleEffct.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_8/MHT8_AssignParticleEffct.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在相同部分点击 <strong>Sound</strong> 下拉菜单并选择 <strong>Explosion01</strong> 资源。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_8/MHT8_AssignSound.jpg">
+		<img class="  lazyload" alt="MHT8_AssignSound.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_8/MHT8_AssignSound.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>从工具栏点击 <strong>Save</strong> 按钮然后关闭窗口。 
+</p></li><li class="Default"><p>在 <strong>Content Browser</strong> 中，将 <strong>SM_Rock_DM</strong> 拖入关卡。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_8/MHT8_DragRockIn.jpg">
+		<img class="  lazyload" alt="MHT8_DragRockIn.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_8/MHT8_DragRockIn.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>Content Browser</strong> 的 <strong>Game/Particles</strong> 文件夹中，将 <strong>P_Fire</strong> 效果拖放进关卡里的岩石中。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_8/MHT8_AddFire.jpg">
+		<img class="  lazyload" alt="MHT8_AddFire.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_8/MHT8_AddFire.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>P_Fire</strong> 的 <strong>Details</strong> 面板中，向下滚动，找到 <strong>Activation</strong> 部分并 <strong>取消勾选 Auto Activate</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_8/MHT8_UncheckAutoActivate.jpg">
+		<img class="  lazyload" alt="MHT8_UncheckAutoActivate.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_8/MHT8_UncheckAutoActivate.jpg" />
+</picture>
+
+</p><p><em>此操作将使资源处于关卡内但不会启动，直到我们通过 <strong>Matinee</strong> 发出指令。</em>
+</p></li><li class="Default"><p>选择 <strong>TextRenderActor</strong> 文本并将其移至下图所示的小方块处（按 <strong>E</strong> 键进入旋转模式使其朝前）。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_8/MHT8_MoveTemplateText.jpg">
+		<img class="  lazyload" alt="MHT8_MoveTemplateText.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_8/MHT8_MoveTemplateText.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 TextRenderActor <strong>Details</strong> 面板中的 <strong>Text</strong> 部分下，将文本框中的文本替换为 <strong>3</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_8/MHT8_3.jpg">
+		<img class="  lazyload" alt="MHT8_3.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_8/MHT8_3.jpg" />
+</picture>
+
+</p><p><em>它将作为引发爆炸的倒数计时器。</em>
+</p></li><li class="Default"><p>在 <strong>Details</strong> 面板中，记录 <strong>Transform</strong> 下的文本 <strong>Location</strong> 数值，稍后将会用到。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_8/MHT8_TextLocation.jpg">
+		<img class="  lazyload" alt="MHT8_TextLocation.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_8/MHT8_TextLocation.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在关卡视口中选中文本，按下 <strong>Control+W</strong> 复制 <strong>Text Render</strong> Actor。 
+</p></li><li class="Default"><p>在新 Text Render Actor 的 <strong>Details</strong> 面板中，将 <strong>Location</strong> 数值设为和其他的 Text Render Actor 相同，将 <strong>Text</strong> 设为 <strong>2</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_8/MHT8_2.jpg">
+		<img class="  lazyload" alt="MHT8_2.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_8/MHT8_2.jpg" />
+</picture>
+
+</p></li><li class="Default"><p><strong>重复以上两个步骤</strong> 创建另一个 Text Render Actor。在和其他相同的位置进行设置，将文本设为 <strong>1</strong>。 
+</p></li><li class="Default"><p>为 Details 面板中 <strong>Rendering</strong> 下每个 Text Render Actors 勾选 <strong>Actor Hidden In Game</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_8/MHT8_ActorHiddenInGame.jpg">
+		<img class="  lazyload" alt="MHT8_ActorHiddenInGame.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_8/MHT8_ActorHiddenInGame.jpg" />
+</picture>
+
+</p><p><em>我们将通过 Matinee 控制 Actors 的可视性以及其默认隐藏的属性。</em>
+</p></li></ol><h2 id="向matinee添加资源并设置轨迹">向 Matinee 添加资源并设置轨迹</h2>
+<p>在这步中，我们将把所有资源添加到 <strong>Matinee</strong>，并定义用于驱动序列的轨迹。
+</p><ol ><li class="Default"><p>在 <strong>World Outliner</strong> 或视口中 <strong>选择</strong> Matinee，然后在 Details 面板中选择 <strong>Open Matinee</strong>，打开后将其最小化。 
+</p></li><li class="Default"><p><strong>选择</strong> 视口中的石块，然后返回 Matinee 的 <strong>Tracks 窗口</strong>，<strong>单击右键</strong> 并选择 <strong>Add New Empty Group</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_8/MHT8_AddEmptyGroup.jpg">
+		<img class="  lazyload" alt="MHT8_AddEmptyGroup.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_8/MHT8_AddEmptyGroup.jpg" />
+</picture>
+
+</p><p><em>在弹出菜单中为新群组命名，在此例中我们将其简单命名为 <strong>Rock</strong>。</em>
+</p></li><li class="Default"><p>在群组上 <strong>单击右键</strong>，从快捷菜单中选择 <strong>Add New Event Track</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_8/MHT8_AddEventTrack.jpg">
+		<img class="  lazyload" alt="MHT8_AddEventTrack.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_8/MHT8_AddEventTrack.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>选中事件轨迹，将 <strong>时间条</strong> 移至 <strong>4.00</strong> 处，按下 <strong>Enter</strong> 键添加一个关键帧，然后将事件命名为 <strong>Explode</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_8/MHT8_EventTrackComplete.jpg">
+		<img class="  lazyload" alt="MHT8_EventTrackComplete.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_8/MHT8_EventTrackComplete.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>5.00</strong> 处的红色结束标记上 <strong>单击右键</strong> 并选择 <strong>Move To Longest Track Endpoint</strong>，将序列缩短至 <strong>4.00</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_8/MHT8_SetLength.jpg">
+		<img class="  lazyload" alt="MHT8_SetLength.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_8/MHT8_SetLength.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>最小化 Matinee 并选择在 World Outliner 中设为 <strong>3</strong> 的 <strong>Text Render</strong> Actor。 
+</p></li><li class="Default"><p>返回 Matinee 的 Tracks 窗口，<strong>单击右键</strong> 并选择 <strong>Add New Empty Group</strong>，将群组赋予 <strong>Text-3</strong> 之类的命名。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_8/MHT8_Text3Added.jpg">
+		<img class="  lazyload" alt="MHT8_Text3Added.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_8/MHT8_Text3Added.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在群组上 <strong>单击右键</strong> 并选择 <strong>Add New Visibility Track</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_8/MHT8_AddNewVisTrack.jpg">
+		<img class="  lazyload" alt="MHT8_AddNewVisTrack.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_8/MHT8_AddNewVisTrack.jpg" />
+</picture>
+
+</p></li><li class="Default"><p><strong>重复以上两步</strong> 创建两个新群组（<strong>Text-2</strong> 和 <strong>Text-1</strong>），使两者均拥有 <strong>可视性</strong> 轨迹。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_8/MHT8_MatineeSetupComplete.jpg">
+		<img class="  lazyload" alt="MHT8_MatineeSetupComplete.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_8/MHT8_MatineeSetupComplete.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>点击 <strong>Track-3</strong> 的可视性轨迹，将时间条移至 <strong>1.00</strong> 处并按下 <strong>Enter</strong> 键，然后从弹出菜单中选择 Show 添加一个关键帧。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_8/MHT8_Show3.jpg">
+		<img class="  lazyload" alt="MHT8_Show3.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_8/MHT8_Show3.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>将时间条移至 <strong>2.00</strong> 处并按下 <strong>Enter</strong> 键，然后从弹出菜单中选择 <strong>Hide</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_8/MHT8_Hide3.jpg">
+		<img class="  lazyload" alt="MHT8_Hide3.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_8/MHT8_Hide3.jpg" />
+</picture>
+
+</p><p><em><strong>1.00</strong> 和 <strong>2.00</strong> 之间将创建一个条，表明 text <strong>3</strong> 将显示 1 秒钟。</em>
+</p></li><li class="Default"><p>重复之前两步展示/隐藏 <strong>2.00</strong> 至 <strong>3.00</strong> 的文本 <strong>2</strong>，以及 <strong>3.00</strong> 至 <strong>4.00</strong> 的文本 <strong>1</strong>，然后关闭 Matinee。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_8/MHT8_MatineeFinished.jpg">
+		<img class="  lazyload" alt="MHT8_MatineeFinished.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_8/MHT8_MatineeFinished.jpg" />
+</picture>
+
+</p></li></ol><h2 id="在蓝图中使用matineeactor">在蓝图中使用 Matinee Actor</h2>
+<p>在这步中，<strong>爆炸</strong> 事件在 <strong>Matinee</strong> 序列中被调用时将触发事件，<strong>Matinee</strong> 结束后开启粒子效果。
+</p><ol ><li class="Default"><p>在关卡视口或 World Outliner 中选择 <strong>MatineeActor</strong>，然后在主工具栏点击 <strong>Blueprints</strong> 按钮并选择 <strong>Open Level Blueprint</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_8/MHT8_OpenLevelBlueprint.jpg">
+		<img class="  lazyload" alt="MHT8_OpenLevelBlueprint.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_8/MHT8_OpenLevelBlueprint.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在图表窗口中 <strong>单击右键</strong> 并选择 <strong>Add MatineeController</strong> 选项。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_8/MHT8_AddMatineeController.jpg">
+		<img class="  lazyload" alt="MHT8_AddMatineeController.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_8/MHT8_AddMatineeController.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>最小化 <strong>关卡蓝图</strong> 并选择关卡中的石块，然后返回关卡蓝图，在图表中 <strong>单击右键</strong> 并选择 <strong>Add Reference to SM_Rock_DM</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_8/MHT8_AddReferenceToRock.jpg">
+		<img class="  lazyload" alt="MHT8_AddReferenceToRock.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_8/MHT8_AddReferenceToRock.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>再次最小化关卡蓝图并选择 <strong>P_Fire</strong> 资源，然后返回关卡蓝图，<strong>单击右键</strong> 并选择 <strong>Add Reference to P_Fire</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_8/MHT8_ReferencesAdded.jpg">
+		<img class="  lazyload" alt="MHT8_ReferencesAdded.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_8/MHT8_ReferencesAdded.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>左键单击并拖动 <strong>SM_Rock_DM</strong> 节点的输出引脚，在出现的窗口中输入文本 <strong>Apply</strong>，然后点击 <strong>Apply Radius Damage</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_8/MHT8_ApplyRadiusDamage.jpg">
+		<img class="  lazyload" alt="MHT8_ApplyRadiusDamage.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_8/MHT8_ApplyRadiusDamage.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>左键单击并拖动 <strong>MatineeActor</strong> 的 <strong>Explode</strong> 输出引脚，将其连接至 Apply Radius Damage 节点的输入引脚，然后将各自的 float 值设为 <strong>12000</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_8/MHT8_ExplodeComplete.jpg">
+		<img class="  lazyload" alt="MHT8_ExplodeComplete.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_8/MHT8_ExplodeComplete.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>左键单击并拖动 <strong>SM_Rock_DM</strong> 节点的输出引脚，在出现的窗口中输入文本 <strong>Location</strong>，然后选择 <strong>Get Actor Location</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_8/MHT8_GetActorLocation.jpg">
+		<img class="  lazyload" alt="MHT8_GetActorLocation.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_8/MHT8_GetActorLocation.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>左键单击并拖动 Get Actor Location 节点的输出引脚，将其和 Apply Radius Damage 节点的 <strong>Hurt Origin</strong> 输入引脚连接起来。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_8/MHT8_HurtOrigin.jpg">
+		<img class="  lazyload" alt="MHT8_HurtOrigin.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_8/MHT8_HurtOrigin.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>左键单击并拖动 <strong>P_Fire</strong> 节点的输出引脚，在出现的窗口中输入文本 Activate，然后选择 <strong>Activate</strong> 选项。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_8/MHT8_ActivateNode.jpg">
+		<img class="  lazyload" alt="MHT8_ActivateNode.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_8/MHT8_ActivateNode.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>左键单击并拖动 <strong>MatineeActor</strong> 的 <strong>Finished</strong> 输出引脚，将其和 Activate 节点的输入引脚连接起来。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_8/MHT8_BlueprintFinished.jpg">
+		<img class="  lazyload" alt="MHT8_BlueprintFinished.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_8/MHT8_BlueprintFinished.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>点击工具栏上的 <strong>Compile</strong> 按钮并关闭关卡蓝图。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_8/MHT8_Compile.jpg">
+		<img class="  lazyload" alt="MHT8_Compile.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_8/MHT8_Compile.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 World Outliner 中点击 <strong>MatineeActor</strong>，然后在 Details 面板中点击 <strong>Play on Level Load</strong> 选项。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_8/MHT8_PlayOnLoad.jpg">
+		<img class="  lazyload" alt="MHT8_PlayOnLoad.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_8/MHT8_PlayOnLoad.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在主工具栏中点击 <strong>Play</strong> 按钮即可在编辑器中进行游戏。 
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_E2MHE2vQGDk_886
+{
+	margin: 0px;
+	width: 640px;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_E2MHE2vQGDk_886:after
+{
+	content: "";
+	padding-top: 360px;
+	display: block;
+}
+</style> 
+<div>
+<div id="player_E2MHE2vQGDk_886"><div style="position:absolute;display:block;width:100%;height:100%;"><iframe class="embedded_video" id="E2MHE2vQGDk" width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/E2MHE2vQGDk?rel=0&amp;modestbranding=1&amp;showinfo=0" frameborder="0" allowfullscreen></iframe></div></div>
+</div>
+<p><em>可以在场景中看到倒计时开始，石块爆炸，出现粒子效果和音效，之后石块位置上将出现火焰。</em>
+</p></li></ol>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/AnimatingObjects/Matinee/HowTo/MHT_8/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:36:30 GMT -->
+</html>

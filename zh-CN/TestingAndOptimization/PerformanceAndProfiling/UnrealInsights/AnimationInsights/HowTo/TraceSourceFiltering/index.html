@@ -1,0 +1,1243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/HowTo/TraceSourceFiltering/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:40:31 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var finishButton = finishButtonTemplate;
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/HowTo/TraceSourceFiltering/" />');
+				var udnCSS = '../../../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>如何实现追踪源过滤  | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+		    <script  src="../../../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+		    <script  src="../../../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/HowTo/TraceSourceFiltering/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/HowTo/TraceSourceFiltering/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/HowTo/TraceSourceFiltering/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/HowTo/TraceSourceFiltering/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Performance/UnrealInsights/AnimationInsights/HowTo/TraceSourceFiltering" />
+<meta name="intsourcechangelist" content="14419218" />
+<meta name="availability" content="Public" />
+<meta name="title" content="如何实现追踪源过滤" />
+<meta name="description" content="学习如何实现追踪源过滤以优化Animation Insights追踪。" />
+<meta name="type" content="how-to" />
+<meta name="skilllevel" content="advanced" />
+<meta name="version" content="4.25" />
+<meta name="parent" content="TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights" />
+<meta name="order" content="0" />
+<meta name="prereq" content="TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/Overview" />
+<meta name="prereq" content="TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights " />
+<meta name="prereq" content="ProgrammingAndScripting/Blueprints " />
+<meta name="prereq" content="ProgrammingAndScripting/ProgrammingWithCPP " />
+<meta name="reference-image" content="HT_HasTagBPFilter_10.gif" />
+<meta name="reference-image" content="HT_DistanceToPlayerNativeFilter_2.gif " />
+<meta name="reference-image" content="HT_UseCase1Result_1.gif " />
+<meta name="reference-image" content="HT_UseCase1Result_2.gif" />
+<meta name="reference-image" content="HT_RaycastActor_2.gif " />
+<meta name="reference-image" content="HT_UseCase2Result_1.gif" />
+<meta name="keywords" content="Unreal Insights" />
+<meta name="keywords" content="Animation Insights " />
+<meta name="keywords" content="Trace Source Filtering" />
+<meta name="keywords" content="How-to" />
+<meta name="keywords" content="Experimental" />
+<meta name="crumbs" content="%ROOT%,TestingAndOptimization,TestingAndOptimization/PerformanceAndProfiling,TestingAndOptimization/PerformanceAndProfiling/UnrealInsights,TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="如何实现追踪源过滤 " />
+	<meta property="og:description" content="学习如何实现追踪源过滤以优化Animation Insights追踪。 " />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../../../index.html">测试并优化你的内容</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../../../index.html">性能及分析</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">Unreal Insights</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">Animation Insights概述</a>
+
+<span class="separator">></span> <span id="page">如何实现追踪源过滤 </span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+					<div id="banner" class="experimental">
+	<div id="message">
+		您可以尝试该<span>实验性</span>功能，但我们不推荐在发布产品中使用它。
+	</div>
+	<div id="bannerDescription">
+		有时，我们会提供一些实验阶段的功能供您试用，以便您给出反馈，并了解我们的开发计划。<strong>我们不推荐在发布项目中使用实验功能。</strong>请记住，我们不保证您在实验阶段创建的资源的向后兼容性，这些功能的API可能变更，我们也可能酌情移除整个实验功能或其中某个特定功能。
+	</div>
+</div>
+															<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">如何实现追踪源过滤 </h1>
+							</div>	
+							<h2 >学习如何实现追踪源过滤以优化Animation Insights追踪。 </h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Advanced"><a id="skill_link" href="../../../../../../SiteIndex/index.html?skills=Advanced">Advanced</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																																										<div class="prereq">
+    <div class="normaltitle">
+        前置主题
+    </div>
+    <p style="margin-bottom:8px;">
+        为了理解并使用本文中的内容，请确保您已掌握以下主题：
+    </p>
+    <ul style="margin-bottom:0.5em;">
+                <li>
+            <p>
+                <a href="../../../Overview/index.html" title="简要介绍应用分析工具Unreal Insights">Unreal Insights介绍</a>
+            </p>
+        </li>
+                <li>
+            <p>
+                <a href="../../index.html" title="Gameplay和动画性能分析工具——编辑器插件Animation Insights的概述。">Animation Insights概述</a>
+            </p>
+        </li>
+                <li>
+            <p>
+                <a href="../../../../../../ProgrammingAndScripting/Blueprints/index.html" title="关于使用蓝图可视化脚本系统制作游戏的介绍。">蓝图可视化脚本</a>
+            </p>
+        </li>
+                <li>
+            <p>
+                <a href="../../../../../../ProgrammingAndScripting/ProgrammingWithCPP/index.html" title="供使用虚幻引擎进行开发的程序员参考的信息。">编程指南</a>
+            </p>
+        </li>
+            </ul>
+</div>
+																		<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#必要的设置">必要的设置</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#追踪源过滤">追踪源过滤</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#用例1">用例1</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#hastag蓝图过滤器">HasTag蓝图过滤器</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#distancetoplayer原生过滤器">DistanceToPlayer原生过滤器</a></p>
+	</li>					</ul>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#实现用例1">实现用例1</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#用例2">用例2</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#raycastactor原生过滤器">RaycastActor原生过滤器</a></p>
+	</li>					</ul>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#实现用例2">实现用例2</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#自行尝试！">自行尝试！</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>在本指南中，你将通过实现两个范例来学习如何将追踪源过滤用于项目。 例如，在实现第二用例后，追踪源过滤系统可以在你的玩家Pawn的光线投射命中站立的Actor时过滤Actor（如以下视频所示）。
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_1_k5702van_2
+{
+	margin: 0px;
+	width: 75%;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_1_k5702van_2:after
+{
+	content: "";
+	padding-top: 56.25%;
+	display: block;
+}
+</style> 
+<div id="player_1_k5702van_2"> 
+	<div id="playerContainer_1_k5702van_2" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/1_k5702van/embed.html"></iframe>
+	</div>
+</div>
+<p><div class="caption">
+	<p>Notice how Actors filter in</p>
+</div>
+</p><h2 id="必要的设置">必要的设置</h2>
+<div class="note">
+	<p>在本指南中，我们将使用 <strong>游戏</strong> > <strong>第三人称模板</strong> 项目，并启用 <strong>C++</strong> 和 <strong>无初学者内容包（No Starter Content）</strong> 设置，<strong>动画初学者包（Animation Starter Pack）</strong> （可在<a id="content_link" href="https://www.unrealengine.com/marketplace/en-US/product/animation-starter-pack" ><span>Epic Games商城</span></a>中获取）。</p>
+</div><ol ><li class="Default"><p>添加一个站立和一个蹲伏骨骼网格体Actor到场景中。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/HowTo/TraceSourceFiltering/HT_ReqSetup_1.png" ><span><picture>
+		<source data-srcset="./../../../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/HowTo/TraceSourceFiltering/HT_ReqSetup_1.jpg">
+		<img class="  lazyload" alt="HT_ReqSetup_1.png" width="640" data-src="../../../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/HowTo/TraceSourceFiltering/HT_ReqSetup_1.jpg" />
+</picture>
+</span></a></span></p>
+</div><p><div class="caption">
+	<p>在右侧使用Equip_Rifle_Standing，在左侧使用Crouch_Idle_Rifle_Ironsights。</p>
+</div>
+</p></li><li class="Default"><p>选择并用"Standing"Actor标签标记站立骨骼网格体Actor。 
+</p></li><li class="Default"><p>重复上一步骤，并标记蹲伏骨骼网格体Actor。 
+</p><p><picture>
+		<source data-srcset="./../../../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/HowTo/TraceSourceFiltering/HT_ReqSetup_2.jpg">
+		<img class="  lazyload" alt="HT_ReqSetup_2.png" data-src="../../../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/HowTo/TraceSourceFiltering/HT_ReqSetup_2.jpg" />
+</picture>
+
+</p></li></ol><h2 id="追踪源过滤">追踪源过滤</h2>
+<p><a id="content_link"filter-data="tag_performance tag_profiling tag_animation_insights" href="../../index.html" ><span>概述</span></a></p><p>在大型项目上使用Animation Insights时，务必限制应用程序的开销和硬盘空间用量。在以下范例中，Animation Insights将输出场景中所有Actor的追踪数据。 
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_1_umk7k5pc_54
+{
+	margin: 0px;
+	width: 75%;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_1_umk7k5pc_54:after
+{
+	content: "";
+	padding-top: 56.25%;
+	display: block;
+}
+</style> 
+<div id="player_1_umk7k5pc_54"> 
+	<div id="playerContainer_1_umk7k5pc_54" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/1_umk7k5pc/embed.html"></iframe>
+	</div>
+</div>
+<p><div class="caption">
+	<p>如该项目发展为包含上千对象，将会难以发现性能问题。</p>
+</div>
+</p><p>若要减少Animation Insights追踪数据，可使用追踪源过滤来选择哪些gameplay对象可以输出追踪数据。执行以下步骤即可启用追踪源过滤： 
+</p><ol ><li class="Default"><p>在 <strong>Animation Insights</strong> 中，选择 <strong>菜单（Menu）>（过滤）追踪源过滤（(Filtering) Trace Source Filtering）</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/HowTo/TraceSourceFiltering/HT_TraceSourceFiltering_1.jpg">
+		<img class="  lazyload" alt="HT_TraceSourceFiltering_1.png" data-src="../../../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/HowTo/TraceSourceFiltering/HT_TraceSourceFiltering_1.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>追踪源过滤（Trace Source Filtering）</strong> 中，启用选项（Options）> 可视化（Visualize）> <strong>Actor过滤（Actor Filtering）</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/HowTo/TraceSourceFiltering/HT_TraceSourceFiltering_2.jpg">
+		<img class="  lazyload" alt="HT_TraceSourceFiltering_2.png" data-src="../../../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/HowTo/TraceSourceFiltering/HT_TraceSourceFiltering_2.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>要验证在编辑器中运行的追踪源过滤，可在激活关卡编辑器视口（PIE会话）中运行关卡。你将看到以下内容： 
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_9jKkC05fkLc_479
+{
+	margin: 0px;
+	width: 640px;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_9jKkC05fkLc_479:after
+{
+	content: "";
+	padding-top: 360px;
+	display: block;
+}
+</style> 
+<div>
+<div id="player_9jKkC05fkLc_479"><div style="position:absolute;display:block;width:100%;height:100%;"><iframe class="embedded_video" id="9jKkC05fkLc" width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/9jKkC05fkLc?rel=0&amp;modestbranding=1&amp;showinfo=0" frameborder="0" allowfullscreen></iframe></div></div>
+</div>
+<p><div class="caption">
+	<p>追踪源将渲染此场景中所有Actor周围的盒体。</p>
+</div>
+</p></li><li class="Default"><p>要实现追踪源过滤器，启用选项（Options）> 可视化（Visualize）> <strong>仅通过过滤的Actor（Only Actor(s) passing Filtering）</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/HowTo/TraceSourceFiltering/HT_TraceSourceFiltering_3.jpg">
+		<img class="  lazyload" alt="HT_TraceSourceFiltering_3.png" data-src="../../../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/HowTo/TraceSourceFiltering/HT_TraceSourceFiltering_3.jpg" />
+</picture>
+
+</p></li></ol><p>如果在PIE会话中运行关卡，并同时启用Actor过滤（Actor Filtering）和仅通过过滤的Actor（Only Actor(s) passing Filtering），则由于尚未实现过滤器，追踪源过滤功能将显示场景中所有Actor。 
+</p><p><picture>
+		<source data-srcset="./../../../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/HowTo/TraceSourceFiltering/HT_TraceSourceFiltering_EndResult.jpg">
+		<img class="  lazyload" alt="HT_TraceSourceFiltering_EndResult.png" data-src="../../../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/HowTo/TraceSourceFiltering/HT_TraceSourceFiltering_EndResult.jpg" />
+</picture>
+
+<div class="caption">
+	<p>已启用追踪源过滤的Animation Insights</p>
+</div>
+</p><p>启用追踪源过滤后，你可以实现部分过滤器以限制Animation Insights将输出的追踪数据量。本指南的剩余章节将展示部分范例，包括各用例的蓝图和C++（原生）过滤器实现。
+</p><h3 id="用例1">用例1</h3>
+<p>假定我们要实现位于玩家Pawn位置的指定距离内的已标记Actor过滤器。根据此用例，我们将实现以下过滤器： 
+</p><div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>实现类型</p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>过滤器命名</p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>用法</p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>蓝图</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>HasTag</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>过滤具有已定义Actor标签的Actor。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>原生</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>DistanceToPlayer</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>过滤玩家Pawn位置的指定距离内的Actor。将默认距离定义为300虚幻单位（cm）。</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div><p>实现过滤器后，我们将组合它们，以便在已标记的Actor位于玩家Pawn的指定距离内时滤入Actor，Animation Insights可以记录其的追踪数据。在本章最后，还应确保过滤器满足用例要求，将过滤器逻辑如下设置： 
+</p><div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>过滤器逻辑</p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>返回true</p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>返回false</p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>DistanceToPlayer AND HasTag</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>滤入Actor</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>滤出Actor</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div><p><div class="note">
+	<p>定义过滤器逻辑时，建议将需求写成完整句子，因为这样可有助于在实现之前发现逻辑中的潜在缺陷。</p>
+</div>
+</p><h4 id="hastag蓝图过滤器">HasTag蓝图过滤器</h4>
+<ol ><li class="Default"><p>在 <strong>追踪源过滤（Trace Source Filtering）</strong> 中，选择 <strong>添加过滤器（Add Filter）>新建过滤器蓝图（Create new Filter Blueprint）</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/HowTo/TraceSourceFiltering/HT_HasTagBPFilter_1.jpg">
+		<img class="  lazyload" alt="HT_HasTagBPFilter_1.png" data-src="../../../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/HowTo/TraceSourceFiltering/HT_HasTagBPFilter_1.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>显示"资产另存为（Save Asset As）"菜单时，在"/Game/"中新建FilterBP文件夹。 
+</p><p><picture>
+		<source data-srcset="./../../../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/HowTo/TraceSourceFiltering/HT_HasTagBPFilter_2.jpg">
+		<img class="  lazyload" alt="HT_HasTagBPFilter_2.png" data-src="../../../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/HowTo/TraceSourceFiltering/HT_HasTagBPFilter_2.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在<code>/Game/FilterBP/</code>下，将资产另存为HasTag。
+</p></li><li class="Default"><p>在HasTag蓝图编辑器（HasTag Blueprint）中，选择 <strong>函数（Functions）>（函数）重载（(Function) Override）> Actor通过过滤器（Does Actor Pass Filter）</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/HowTo/TraceSourceFiltering/HT_HasTagBPFilter_3.jpg">
+		<img class="  lazyload" alt="HT_HasTagBPFilter_3.png" data-src="../../../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/HowTo/TraceSourceFiltering/HT_HasTagBPFilter_3.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>添加包含以下细节的新变量： 
+</p><ul ><li class="Default"><p>变量命名：<strong>ActorTag</strong> 
+</p></li><li class="Default"><p>变量类型：<strong>字符串</strong> 
+</p></li><li class="Default"><p>可编辑实例：<strong>已启用</strong> 
+</p></li><li class="Default"><p>提示文本：<strong>Actor标签命名</strong>
+</p></li></ul></li><li class="Default"><p>编译蓝图即可定义默认值。 
+</p></li><li class="Default"><p>在细节面板中，将默认值设为`ACTOR TAG`。 
+</p><p><picture>
+		<source data-srcset="./../../../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/HowTo/TraceSourceFiltering/HT_HasTagBPFilter_4.jpg">
+		<img class="  lazyload" alt="HT_HasTagBPFilter_4.png" data-src="../../../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/HowTo/TraceSourceFiltering/HT_HasTagBPFilter_4.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>使用以下蓝图定义 <strong>Actor通过过滤器</strong> 功能。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/HowTo/TraceSourceFiltering/HT_HasTagBPFilter_5.png" ><span><picture>
+		<source data-srcset="./../../../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/HowTo/TraceSourceFiltering/HT_HasTagBPFilter_5.jpg">
+		<img class="  lazyload" alt="HT_HasTagBPFilter_5.png" width="640" data-src="../../../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/HowTo/TraceSourceFiltering/HT_HasTagBPFilter_5.jpg" />
+</picture>
+</span></a></span></p>
+</div><p><div class="caption">
+	<p>点击查看大图。</p>
+</div>
+</p></li><li class="Default"><p>在"我的蓝图"面板上的"追踪源过滤"分类中，右键点击 <strong>获取工具提示文本（Get Tool Tip Text）</strong> 函数，然后选择 <strong>实现函数（Implement Function）</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/HowTo/TraceSourceFiltering/HT_HasTagBPFilter_6.jpg">
+		<img class="  lazyload" alt="HT_HasTagBPFilter_6.png" data-src="../../../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/HowTo/TraceSourceFiltering/HT_HasTagBPFilter_6.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>使用以下蓝图定义 <strong>获取工具提示文本（Get Tool Tip Text）</strong> 函数： 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/HowTo/TraceSourceFiltering/HT_HasTagBPFilter_7.png" ><span><picture>
+		<source data-srcset="./../../../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/HowTo/TraceSourceFiltering/HT_HasTagBPFilter_7.jpg">
+		<img class="  lazyload" alt="HT_HasTagBPFilter_7.png" width="640" data-src="../../../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/HowTo/TraceSourceFiltering/HT_HasTagBPFilter_7.jpg" />
+</picture>
+</span></a></span></p>
+</div><p><div class="caption">
+	<p>点击查看大图。</p>
+</div>
+</p><p><a id="content_link"filter-data="tag_localization tag_text_formatting" href="../../../../../../ProductionPipelines/Localization/Formatting/index.html" ><span>文本本地化</span></a></p></li><li class="Default"><p>使用以下蓝图定义 <strong>获取显示文本（Get Display Text）</strong> 函数。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/HowTo/TraceSourceFiltering/HT_HasTagBPFilter_8.png" ><span><picture>
+		<source data-srcset="./../../../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/HowTo/TraceSourceFiltering/HT_HasTagBPFilter_8.jpg">
+		<img class="  lazyload" alt="HT_HasTagBPFilter_8.png" width="640" data-src="../../../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/HowTo/TraceSourceFiltering/HT_HasTagBPFilter_8.jpg" />
+</picture>
+</span></a></span></p>
+</div><p><div class="caption">
+	<p>点击查看大图。</p>
+</div>
+</p></li><li class="Default"><p>编译、保存并关闭HashTag蓝图编辑器，以在过滤器区域查看HashTag蓝图过滤器。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/HowTo/TraceSourceFiltering/HT_HasTagBPFilter_9.png" ><span><picture>
+		<source data-srcset="./../../../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/HowTo/TraceSourceFiltering/HT_HasTagBPFilter_9.jpg">
+		<img class="  lazyload" alt="HT_HasTagBPFilter_9.png" width="640" data-src="../../../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/HowTo/TraceSourceFiltering/HT_HasTagBPFilter_9.jpg" />
+</picture>
+</span></a></span></p>
+</div><p><div class="caption">
+	<p>点击查看大图。</p>
+</div>
+</p><p><strong>添加过滤器（Add Filter）</strong></p></li><li class="Default"><p>点击HashTag过滤器，然后将ACTOR标签（ACTOR TAG）改为 <code>Crouching</code> 即可定义 <code>Actor TAG</code>。 
+</p><div class="asyncgif">
+	<p><picture>
+		<source data-srcset="./../../../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/HowTo/TraceSourceFiltering/HT_HasTagBPFilter_10.jpg">
+		<img class="  lazyload" alt="HasTag过滤器" width="843" data-src="../../../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/HowTo/TraceSourceFiltering/HT_HasTagBPFilter_10.jpg" />
+</picture>
+</p>
+</div></li><li class="Default"><p>运行PIE会话即可验证是否已在必要设置（Required Setup）部分正确标记Actor。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/HowTo/TraceSourceFiltering/HT_HasTagBPFilter_11.png" ><span><picture>
+		<source data-srcset="./../../../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/HowTo/TraceSourceFiltering/HT_HasTagBPFilter_11.jpg">
+		<img class="  lazyload" alt="HT_HasTagBPFilter_11.png" width="640" data-src="../../../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/HowTo/TraceSourceFiltering/HT_HasTagBPFilter_11.jpg" />
+</picture>
+</span></a></span></p>
+</div><p><div class="caption">
+	<p>在PIE会话期间，被标记为蹲伏（左侧）的Actor将滤入。</p>
+</div>
+</p><p>验证HashTag蓝图过滤器预期工作后，即可实现DistanceToPlayer原生过滤器。 
+</p><p><div class="note">
+	<p>如HasTag未滤入Actor，则验证Actor标签命名是否与指定到Actor标签命名变量的命名相同。如命名相同，则检查蓝图中的bug。</p>
+</div>
+</p></li></ol><h4 id="distancetoplayer原生过滤器">DistanceToPlayer原生过滤器</h4>
+<ol ><li class="Default"><p>将空C++类添加到项目，并命名为"DistanceToPlayer"。 
+</p></li><li class="Default"><p>在项目的`*.Build.cs`文件中，添加"SourceFilteringTrace"、"SourceFilteringCore"和"SourceFilteringEditor"公共依赖性模块命名： 
+</p><pre class="prettyprint"><code>// 版权所有 1998-2019 Epic Games, Inc。保留所有权利。
+
+using UnrealBuildTool;
+
+public class TraceSourceFilterHT :ModuleRules
+{
+    public TraceSourceFilterHT(ReadOnlyTargetRules Target) : base(Target)
+    {
+        PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
+
+        PublicDependencyModuleNames.AddRange(new string&#91;&#93; { "Core", "CoreUObject", "Engine", "InputCore", "HeadMountedDisplay", "SourceFilteringTrace", "SourceFilteringCore", "SourceFilteringEditor" });
+    }
+}</code></pre></li><li class="Default"><p>在 `DistanceToPlayer.h`中，添加以下代码：
+</p><pre class="prettyprint"><code>//在项目设置的描述页面中填写版权声明。
+
+#pragma once
+
+#include "DataSourceFilter.h"
+#include "DistanceToPlayer.generated.h"
+
+UCLASS(NotBlueprintable)
+class UDistanceToPlayer : public UDataSourceFilter
+{
+    GENERATED&#95;BODY()
+        UDistanceToPlayer();
+public:
+    UPROPERTY(Category = Filtering, EditAnywhere)
+        float Distance;
+protected:
+    virtual bool DoesActorPassFilter&#95;Internal(const AActor&#42; InActor) const override;
+    virtual void GetDisplayText&#95;Internal(FText&amp; OutDisplayText) const override;
+};</code></pre></li><li class="Default"><p>在 `DistanceToPlayer.cpp`中，添加以下代码：
+</p><pre class="prettyprint"><code>//在项目设置的描述页面中填写版权声明。
+
+#include "DistanceToPlayer.h"
+#include "GameFramework/PlayerController.h"
+#include "GameFramework/Pawn.h"
+#include "Engine/World.h"
+
+#define LOCTEXT&#95;NAMESPACE "UDistanceToPlayer"
+
+/&#42;&#42;
+将初始距离设置为300虚幻单位（cm）。&#124;
+&#42;/
+UDistanceToPlayer::UDistanceToPlayer() :Distance(300.0f)
+{
+}
+
+/&#42;&#42;
+检查Actor和玩家Pawn间的距离。
+&#42;/
+bool UDistanceToPlayer::DoesActorPassFilter&#95;Internal(const AActor&#42; InActor) const
+{
+    if (InActor)
+    {
+        UWorld&#42; World = InActor-&gt;GetWorld();
+        if (World)
+        {
+            if (APlayerController&#42; Controller = World-&gt;GetFirstPlayerController())
+            {
+                if (APawn&#42; Pawn = Controller-&gt;GetPawn())
+                {
+                    / &#42;&#42;如Actor和玩家Pawn间的距离小于距离阈值，则返回true。&#42;/
+                    return Pawn-&gt;GetDistanceTo(InActor) &lt; Distance;
+                }
+            }
+        }
+    }
+    return false;
+}
+
+/&#42;&#42;
+玩家可自定义距离值。
+&#42;/
+void UDistanceToPlayer::GetDisplayText&#95;Internal(FText&amp; OutDisplayText) const
+{
+    OutDisplayText = FText::Format(LOCTEXT("DisplayText", "Distance to Player Pawn &lt; {0}"), { Distance });
+}
+#undef LOCTEXT&#95;NAMESPACE // "UDistanceToPlayer"</code></pre></li><li class="Default"><p>在 <strong>添加过滤器（Add Filter）</strong> 下拉菜单中，编译代码以查看 <strong>DistanceToPlayer</strong> 过滤器。 
+</p><p><picture>
+		<source data-srcset="./../../../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/HowTo/TraceSourceFiltering/HT_DistanceToPlayerNativeFilter_1.jpg">
+		<img class="  lazyload" alt="HT_DistanceToPlayerNativeFilter_1.png" data-src="../../../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/HowTo/TraceSourceFiltering/HT_DistanceToPlayerNativeFilter_1.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>选择 <strong>DistanceToPlayer</strong> 即可将新原生过滤器添加到过滤器区域。 
+</p></li><li class="Default"><p>右键点击"蹲伏（Crouching）"标签，然后选择 <strong>移除过滤器（Remove Filter）</strong>，将过滤器区域中的HashTag蓝图过滤器移除。 
+</p><div class="asyncgif">
+	<p><picture>
+		<source data-srcset="./../../../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/HowTo/TraceSourceFiltering/HT_DistanceToPlayerNativeFilter_2.jpg">
+		<img class="  lazyload" alt="DistanceToPlayer过滤器" width="843" data-src="../../../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/HowTo/TraceSourceFiltering/HT_DistanceToPlayerNativeFilter_2.jpg" />
+</picture>
+</p>
+</div></li><li class="Default"><p>运行PIE会话即可验证DistanceToPlayer过滤器。 
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_HbUt5xPpDeg_866
+{
+	margin: 0px;
+	width: 640px;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_HbUt5xPpDeg_866:after
+{
+	content: "";
+	padding-top: 360px;
+	display: block;
+}
+</style> 
+<div>
+<div id="player_HbUt5xPpDeg_866"><div style="position:absolute;display:block;width:100%;height:100%;"><iframe class="embedded_video" id="HbUt5xPpDeg" width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/HbUt5xPpDeg?rel=0&amp;modestbranding=1&amp;showinfo=0" frameborder="0" allowfullscreen></iframe></div></div>
+</div>
+<p><div class="caption">
+	<p>滤入玩家Pawn过滤器300虚幻单位（cm）内的Actor。</p>
+</div>
+</p></li></ol><p>验证DistanceToPlayer原生过滤器预期运行后，即可组合过滤器以满足用例要求。 
+</p><h3 id="实现用例1">实现用例1</h3>
+<p>首先回顾一下用例要求： 
+</p><div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>过滤器逻辑</p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>返回False</p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>返回True</p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>DistanceToPlayer AND HasTag</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>滤入Actor</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>滤出Actor</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div><p>执行以下步骤即可满足此要求： 
+</p><ol ><li class="Default"><p>将 <strong>HasTag</strong> 过滤器添加到过滤器区域（Filter Area）。 
+</p></li><li class="Default"><p>将Actor标签命名变量设为`Standing`。 
+</p></li><li class="Default"><p>在过滤器区域中，将 <strong>HashTag</strong> 拖到 <strong>DistanceToPlayer</strong> 旁。 
+</p><div class="asyncgif">
+	<p><picture>
+		<source data-srcset="./../../../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/HowTo/TraceSourceFiltering/HT_UseCase1Result_1.jpg">
+		<img class="  lazyload" alt="拖动HasTag" width="843" data-src="../../../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/HowTo/TraceSourceFiltering/HT_UseCase1Result_1.jpg" />
+</picture>
+</p>
+</div></li><li class="Default"><p>将 <strong>距离（Distance）</strong> 变量默认值从300改为400。 
+</p><div class="asyncgif">
+	<p><picture>
+		<source data-srcset="./../../../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/HowTo/TraceSourceFiltering/HT_UseCase1Result_2.jpg">
+		<img class="  lazyload" alt="修改距离变量" width="843" data-src="../../../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/HowTo/TraceSourceFiltering/HT_UseCase1Result_2.jpg" />
+</picture>
+</p>
+</div><div class="note">
+	<p>组成过滤器集时，可使用AND、OR和NOT逻辑运算符。右键点击逻辑运算符即可选择其他逻辑运算符。
+</p><p><picture>
+		<source data-srcset="./../../../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/HowTo/TraceSourceFiltering/HT_DistanceToPlayerNativeFilter_4.jpg">
+		<img class="  lazyload" alt="HT_DistanceToPlayerNativeFilter_4.png" data-src="../../../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/HowTo/TraceSourceFiltering/HT_DistanceToPlayerNativeFilter_4.jpg" />
+</picture>
+</p>
+</div></li><li class="Default"><p>运行PIE会话即可验证过滤器逻辑。
+</p></li></ol><p>当玩家Pawn和标有站立Actor标签的Actor相聚在400cm内时，追踪源过滤系统将滤入该Actor。 
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_1_y7w7li5u_219
+{
+	margin: 0px;
+	width: 75%;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_1_y7w7li5u_219:after
+{
+	content: "";
+	padding-top: 56.25%;
+	display: block;
+}
+</style> 
+<div id="player_1_y7w7li5u_219"> 
+	<div id="playerContainer_1_y7w7li5u_219" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/1_y7w7li5u/embed.html"></iframe>
+	</div>
+</div>
+<p><div class="caption">
+	<p>观察玩家Pawn位于范围内时，Animation Insights（左下方面板）仅追踪Equip_Pistol_Standing - 混合权重（和图表）数据的方式。</p>
+</div>
+</p><h3 id="用例2">用例2</h3>
+<p>我们假定需要在场景中移动时实现被玩家Pawn光线投射命中（或碰撞）的已标记骨骼网格体Actor的过滤器。根据此用例，我们将实现以下过滤器：
+</p><div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>实现类型</p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>过滤器命名</p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>用法</p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>蓝图</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>IsOfClass</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>滤入属于指定类的Actor。将默认类定义为骨骼网格体Actor。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>原生</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>光线投射</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>滤入被玩家Pawn的光线投射命中的已标记Actor。将默认光线长度定义为400cm。</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div><p>实现过滤器后，我们将组合它们，以便在已标记骨骼网格体Actor被玩家Pawn的光线投射命中时滤入Actor，Animation Insights可以记录其的追踪数据。在本章最后，还应确保过滤器满足用例要求，将过滤器逻辑如下设置： 
+</p><div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>过滤器逻辑</p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>返回True</p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>返回False</p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>RaycastActor AND IsOfClass</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>滤入Actor</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>滤出Actor</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div><p>IsOfClass蓝图过滤器 
+</p><ol ><li class="Default"><p>在 <strong>追踪源过滤（Trace Source Filtering）</strong> 对话框中，选择 <strong>添加过滤器（Add Filter）</strong>> <strong>新建过滤器蓝图（Create new Filter Blueprint）</strong>。 
+</p></li><li class="Default"><p>在<code>/Game/FilterBP/</code>下将资产另存为IsOfClass。 
+</p></li><li class="Default"><p>在IsOfClass蓝图（HasTag Blueprint）编辑器中，选择 <strong>函数（Functions）>（函数）重载（(Function) Override）>Actor通过过滤器（Does Actor Pass Filter）</strong>。 
+</p></li><li class="Default"><p>添加包含以下细节的新变量： 
+</p><ul ><li class="Default"><p>变量命名<em>：**ActorClassRef</em><br /></p></li><li class="Default"><p>变量类型：<strong>Actor类参考</strong><br /></p></li><li class="Default"><p>可编辑实例：<strong>启用</strong> 
+</p></li><li class="Default"><p>提示文本：<strong>Actor类参考</strong>
+</p></li></ul></li><li class="Default"><p>编译蓝图即可定义默认值。 
+</p></li><li class="Default"><p>将默认值定义为 <strong>SkeletalMeshActor</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/HowTo/TraceSourceFiltering/HT_IsOfClassBP_1.jpg">
+		<img class="  lazyload" alt="HT_IsOfClassBP_1.png" data-src="../../../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/HowTo/TraceSourceFiltering/HT_IsOfClassBP_1.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>使用以下蓝图定义Actor通过过滤器函数： 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/HowTo/TraceSourceFiltering/HT_IsOfClassBP_2.png" ><span><picture>
+		<source data-srcset="./../../../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/HowTo/TraceSourceFiltering/HT_IsOfClassBP_2.jpg">
+		<img class="  lazyload" alt="HT_IsOfClassBP_2.png" width="640" data-src="../../../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/HowTo/TraceSourceFiltering/HT_IsOfClassBP_2.jpg" />
+</picture>
+</span></a></span></p>
+</div></li><li class="Default"><p>在"我的蓝图"面板中的"追踪源过滤"（Trace Source Filtering）分类中，右键点击 <strong>获取工具提示文本（Get Tool Tip Text）</strong> 函数，然后选择 <strong>实现函数（Implement Function）</strong>。 
+</p></li><li class="Default"><p>使用以下蓝图定义 <strong>获取工具提示文本（Get Tool Tip Text）</strong> 函数。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/HowTo/TraceSourceFiltering/HT_IsOfClassBP_3.png" ><span><picture>
+		<source data-srcset="./../../../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/HowTo/TraceSourceFiltering/HT_IsOfClassBP_3.jpg">
+		<img class="  lazyload" alt="HT_IsOfClassBP_3.png" width="640" data-src="../../../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/HowTo/TraceSourceFiltering/HT_IsOfClassBP_3.jpg" />
+</picture>
+</span></a></span></p>
+</div></li><li class="Default"><p>使用以下蓝图定义 <strong>获取显示文本（Get Display Text）</strong> 函数。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/HowTo/TraceSourceFiltering/HT_IsOfClassBP_4.png" ><span><picture>
+		<source data-srcset="./../../../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/HowTo/TraceSourceFiltering/HT_IsOfClassBP_4.jpg">
+		<img class="  lazyload" alt="HT_IsOfClassBP_4.png" width="640" data-src="../../../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/HowTo/TraceSourceFiltering/HT_IsOfClassBP_4.jpg" />
+</picture>
+</span></a></span></p>
+</div></li><li class="Default"><p>编译、保存并关闭HashTag蓝图编辑器，以在过滤器区域查看IsOfClass蓝图过滤器。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/HowTo/TraceSourceFiltering/HT_IsOfClassBP_5.png" ><span><picture>
+		<source data-srcset="./../../../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/HowTo/TraceSourceFiltering/HT_IsOfClassBP_5.jpg">
+		<img class="  lazyload" alt="HT_IsOfClassBP_5.png" width="640" data-src="../../../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/HowTo/TraceSourceFiltering/HT_IsOfClassBP_5.jpg" />
+</picture>
+</span></a></span></p>
+</div></li><li class="Default"><p>运行PIE会话即可验证IsOfClass过滤器。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/HowTo/TraceSourceFiltering/HT_IsOfClassBP_6.png" ><span><picture>
+		<source data-srcset="./../../../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/HowTo/TraceSourceFiltering/HT_IsOfClassBP_6.jpg">
+		<img class="  lazyload" alt="HT_IsOfClassBP_6.png" width="640" data-src="../../../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/HowTo/TraceSourceFiltering/HT_IsOfClassBP_6.jpg" />
+</picture>
+</span></a></span></p>
+</div><p><div class="caption">
+	<p>Skeletal Mesh Actors filter in during PIE Session.</p>
+</div>
+</p></li></ol><p>验证IsOfClass蓝图过滤器预期工作后，即可实现RaycastActor原生过滤器。
+</p><h4 id="raycastactor原生过滤器">RaycastActor原生过滤器</h4>
+<ol ><li class="Default"><p>将空C++类添加到项目，并命名为`RaycastActor`。 
+</p></li><li class="Default"><p>在`RaycastActor.h`中，添加以下代码： 
+</p><pre class="prettyprint"><code>//在项目设置的描述页面中填写版权声明。
+
+#pragma once
+
+#include "DataSourceFilter.h"
+#include "RaycastActor.generated.h"
+
+UCLASS(NotBlueprintable)
+class URaycastActor : public UDataSourceFilter
+{
+    GENERATED&#95;BODY()
+        URaycastActor();
+
+private:
+    UPROPERTY(Category = Filtering, EditAnywhere)
+        FName ActorTagName;
+
+    UPROPERTY(Category = Filtering, EditAnywhere)
+        float RayLength;
+
+protected:
+    virtual bool DoesActorPassFilter&#95;Internal(const AActor&#42; InActor) const override;
+    virtual void GetDisplayText&#95;Internal(FText&amp; OutDisplayText) const override;
+};</code></pre></li><li class="Default"><p>在`RaycastActor.cpp`中，添加以下代码： 
+</p><pre class="prettyprint"><code>//在项目设置的描述页面中填写版权声明。
+
+#include "RaycastActor.h"
+#include "GameFramework/PlayerController.h"
+#include "GameFramework/Pawn.h"
+#include "Engine/World.h"
+#include "DrawDebugHelpers.h"
+
+#define LOCTEXT&#95;NAMESPACE "URaycastActor"
+
+/&#42;&#42;
+将初始距离设置为400虚幻单位（cm）。&#124;
+&#42;/
+URaycastActor::URaycastActor() :ActorTagName("ADD ACTOR TAG"), RayLength(400.0f)
+{
+}
+
+/&#42;&#42;
+从玩家Pawn处光线投射以命中已标记Actor。
+&#42;/
+bool URaycastActor::DoesActorPassFilter&#95;Internal(const AActor&#42; InActor) const
+{
+    if (InActor)
+    {
+        UWorld&#42; World = InActor-&gt;GetWorld();
+        if (World)
+        {
+            if (APlayerController&#42; Controller = World-&gt;GetFirstPlayerController())
+            {
+                if (APawn&#42; Pawn = Controller-&gt;GetPawn())
+                {
+                    FHitResult&#42; HitResult = new FHitResult();
+                    FVector StartTrace = Pawn-&gt;GetActorLocation();
+                    FVector ForwardVector = Pawn-&gt;GetActorForwardVector();
+                    FVector EndTrace = (ForwardVector &#42; RayLength) + StartTrace;
+                    FCollisionQueryParams&#42; CollisionQuery = new FCollisionQueryParams();
+                    World-&gt;LineTraceSingleByChannel(&#42;HitResult, StartTrace, EndTrace, ECC&#95;Visibility, &#42;CollisionQuery);
+                    DrawDebugLine(World, StartTrace, EndTrace, FColor(0, 255, 0), false, 0.0f);
+
+                    /&#42;&#42;如玩家Pawn的光线命中已标记Actor，则返回true。&#42;/
+                    if (HitResult-&gt;GetActor() != NULL &amp;&amp; HitResult-&gt;GetActor()-&gt;ActorHasTag(ActorTagName))
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+    }
+    return false;
+}
+
+/&#42;&#42;
+玩家可自定义以下内容：
+&#42; - 要查找的Actor标签命名
+&#42; - 光线长度
+&#42;/
+void URaycastActor::GetDisplayText&#95;Internal(FText&amp; OutDisplayText) const
+{
+    OutDisplayText = FText::Format(LOCTEXT("TraceSourceText", "Hit {0} Actor with Ray Length {1}"), FText::FromName(ActorTagName), RayLength);
+}
+#define LOCTEXT&#95;NAMESPACE // "URaycastActor"</code></pre></li><li class="Default"><p>在 <strong>添加过滤器（Add Filter）</strong> 下拉菜单中，编译代码以查看RaycastActor过滤器。
+</p><p><picture>
+		<source data-srcset="./../../../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/HowTo/TraceSourceFiltering/HT_RaycastActor_1.jpg">
+		<img class="  lazyload" alt="HT_RaycastActor_1.png" data-src="../../../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/HowTo/TraceSourceFiltering/HT_RaycastActor_1.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>右键点击"为SkeletalMeshActor过滤器"，然后选择 <strong>移除过滤器（Remove Filter）</strong>，将过滤器区域中的IsOfClass蓝图过滤器移除。 
+</p></li><li class="Default"><p>选择 <strong>RaycastActor</strong> 即可将新原生过滤器（Native Filter）添加到过滤器区域（Filter Area）。 
+</p></li><li class="Default"><p>点击光线过滤器（Rayfilter），然后将 <code>ADD ACTOR TAG</code> 更改为 <code>Standing</code> 即可定义Actor标签命名。 
+</p><div class="asyncgif">
+	<p><picture>
+		<source data-srcset="./../../../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/HowTo/TraceSourceFiltering/HT_RaycastActor_2.jpg">
+		<img class="  lazyload" alt="RaycastActor过滤器" width="843" data-src="../../../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/HowTo/TraceSourceFiltering/HT_RaycastActor_2.jpg" />
+</picture>
+</p>
+</div></li><li class="Default"><p>运行PIE会话即可验证RaycastActor过滤器。 
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_Q4ROzEDaU1Y_1216
+{
+	margin: 0px;
+	width: 640px;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_Q4ROzEDaU1Y_1216:after
+{
+	content: "";
+	padding-top: 360px;
+	display: block;
+}
+</style> 
+<div>
+<div id="player_Q4ROzEDaU1Y_1216"><div style="position:absolute;display:block;width:100%;height:100%;"><iframe class="embedded_video" id="Q4ROzEDaU1Y" width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/Q4ROzEDaU1Y?rel=0&amp;modestbranding=1&amp;showinfo=0" frameborder="0" allowfullscreen></iframe></div></div>
+</div>
+<p><div class="caption">
+	<p>站立Actor被玩家Pawn的光线投射命中时，所有Actor将滤入。</p>
+</div>
+</p></li></ol><p>验证RaycastActor原生过滤器预期工作后，即可组合过滤器以满足用例要求。 
+</p><h3 id="实现用例2">实现用例2</h3>
+<p>首先回顾一下用例要求： 
+</p><div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>过滤器逻辑</p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>返回True</p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>返回False</p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>RaycastActor AND IsOfClass</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>滤入Actor</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>滤出Actor</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div><ol ><li class="Default"><p>将IsOfClass过滤器添加至过滤器区域（Filter Area）。 
+</p></li><li class="Default"><p>在过滤器区域中，将IsOfClass拖到RaycastActor旁。 
+</p><div class="asyncgif">
+	<p><picture>
+		<source data-srcset="./../../../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/HowTo/TraceSourceFiltering/HT_UseCase2Result_1.jpg">
+		<img class="  lazyload" alt="拖动IsOfClass过滤器" width="843" data-src="../../../../../../../Images/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/HowTo/TraceSourceFiltering/HT_UseCase2Result_1.jpg" />
+</picture>
+</p>
+</div></li><li class="Default"><p>运行PIE会话即可验证过滤器逻辑。
+</p></li></ol><p>当玩家Pawn的光线投射命中标有站立Actor标签的Actor时，追踪源过滤系统将滤入骨骼网格体Actor。 
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_nKZQbqEfoD4_384
+{
+	margin: 0px;
+	width: 640px;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_nKZQbqEfoD4_384:after
+{
+	content: "";
+	padding-top: 360px;
+	display: block;
+}
+</style> 
+<div>
+<div id="player_nKZQbqEfoD4_384"><div style="position:absolute;display:block;width:100%;height:100%;"><iframe class="embedded_video" id="nKZQbqEfoD4" width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/nKZQbqEfoD4?rel=0&amp;modestbranding=1&amp;showinfo=0" frameborder="0" allowfullscreen></iframe></div></div>
+</div>
+<p><div class="caption">
+	<p>观察玩家Pawn的光线投射命中站立Actor时，Animation Insights（左下方面板）仅追踪Equip_Pistol_Standing - 混合权重和Crouch_Idle_Rifle_Ironsights - 混合权重（和图表）数据的方式。</p>
+</div>
+</p><h2 id="自行尝试！">自行尝试！</h2>
+<p>通过对两个范例用例进行实现，你已学习了如何使用追踪源过滤。可思考利用其他哪些过滤器可便于Animation Insights仅追踪自己需要的Actor数据。<br /></p><p>部分过滤器理念可能包括： 
+</p><ul ><li class="Default"><p>发射物碰撞 
+</p></li><li class="Default"><p>自动导向发射物碰撞 
+</p></li><li class="Default"><p>按钮触发器
+</p></li></ul><p>在实现过滤器时，请思考对过滤器进行逻辑组合的方式，以便过滤器滤入有助于优化和调试动画的Actor数据。虽然我们只使用了AND逻辑运算符，但不妨思考利用OR和NOT运算符来组合逻辑的方法。 </p>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../../../SiteIndex/index.html?tags=Unreal%20Insights">Unreal Insights </a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../../../SiteIndex/index.html?tags=Animation%20Insights">Animation Insights </a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../../../SiteIndex/index.html?tags=Trace%20Source%20Filtering">Trace Source Filtering</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../../../SiteIndex/index.html?tags=How-to">How-to</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../../../SiteIndex/index.html?tags=Experimental">Experimental</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/TestingAndOptimization/PerformanceAndProfiling/UnrealInsights/AnimationInsights/HowTo/TraceSourceFiltering/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:40:48 GMT -->
+</html>

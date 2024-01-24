@@ -1,0 +1,510 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/InteractiveExperiences/Physics/PhysicsAssetEditor/HowTo/ApplyConstraintProfile/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:28:23 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/InteractiveExperiences/Physics/PhysicsAssetEditor/HowTo/ApplyConstraintProfile/" />');
+				var udnCSS = '../../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>如何应用物理约束配置文件 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/InteractiveExperiences/Physics/PhysicsAssetEditor/HowTo/ApplyConstraintProfile/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/InteractiveExperiences/Physics/PhysicsAssetEditor/HowTo/ApplyConstraintProfile/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/InteractiveExperiences/Physics/PhysicsAssetEditor/HowTo/ApplyConstraintProfile/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/InteractiveExperiences/Physics/PhysicsAssetEditor/HowTo/ApplyConstraintProfile/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Physics/PhysicsAssetEditor/HowTo/ApplyConstraintProfile" />
+<meta name="intsourcechangelist" content="15716379" />
+<meta name="availability" content="Public" />
+<meta name="title" content="如何应用物理约束配置文件" />
+<meta name="description" content="本操作指南向你演示如何使用蓝图对骨架网格体组件应用物理约束配置文件。" />
+<meta name="parent" content="InteractiveExperiences/Physics/PhysicsAssetEditor/HowTo" />
+<meta name="order" content="1" />
+<meta name="version" content="4.26" />
+<meta name="skilllevel" content="Intermediate" />
+<meta name="prereq" content="ProgrammingAndScripting/Blueprints/QuickStart" />
+<meta name="prereq" content="InteractiveExperiences/Physics/PhysicsAssetEditor/HowTo/UsingProfiles" />
+<meta name="related" content="InteractiveExperiences/Physics/PhysicsAssetEditor/HowTo/ApplyPhysicalAnimationProfile" />
+<meta name="topic-image" content="InteractiveExperiences/Physics/physics_topic.png" />
+<meta name="crumbs" content="%ROOT%,InteractiveExperiences,InteractiveExperiences/Physics,InteractiveExperiences/Physics/PhysicsAssetEditor,InteractiveExperiences/Physics/PhysicsAssetEditor/HowTo" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="如何应用物理约束配置文件" />
+	<meta property="og:description" content="本操作指南向你演示如何使用蓝图对骨架网格体组件应用物理约束配置文件。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../../index.html">创建交互体验</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">物理</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">物理资产编辑器</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">物理资源编辑器操作指南汇总</a>
+
+<span class="separator">></span> <span id="page">如何应用物理约束配置文件</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">如何应用物理约束配置文件</h1>
+							</div>	
+							<h2 >本操作指南向你演示如何使用蓝图对骨架网格体组件应用物理约束配置文件。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Intermediate"><a id="skill_link" href="../../../../../SiteIndex/index.html?skills=Intermediate">Intermediate</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																		<div id="seeAlso">
+	<div style="position:relative;">
+		<div id="title">参见</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<p>
+						<a id="related_link" href="../ApplyPhysicalAnimationProfile/index.html" title="本操作指南向你演示如何使用蓝图对骨架网格体组件应用物理动画配置文件。">如何应用物理动画配置文件</a>
+					</p>
+				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																								<div class="prereq">
+    <div class="normaltitle">
+        前置主题
+    </div>
+    <p style="margin-bottom:8px;">
+        为了理解并使用本文中的内容，请确保您已掌握以下主题：
+    </p>
+    <ul style="margin-bottom:0.5em;">
+                <li>
+            <p>
+                <a href="../../../../../ProgrammingAndScripting/Blueprints/QuickStart/index.html" title="创建并运行你的第一个蓝图。">蓝图快速入门指南</a>
+            </p>
+        </li>
+                <li>
+            <p>
+                <a href="../UsingProfiles/index.html" title="如何在物理资源编辑器中为形体和约束使用配置文件。">为形体和约束使用配置文件</a>
+            </p>
+        </li>
+            </ul>
+</div>
+																		<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#步骤">步骤</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#结果">结果</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#其他资源">其他资源</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>下面介绍了创建简单图以在 <strong>Pawn</strong> 的 <strong>骨架网格体组件</strong> 上启用 <strong>约束配置文件</strong> 的步骤。 
+</p><h2 id="步骤">步骤</h2>
+<ol ><li class="Default"><p>打开或创建带有 <strong>骨架网格体组件</strong> 的蓝图。
+</p><ul ><li class="Default"><p>如果你的蓝图不包含 <strong>骨架网格体组件</strong>，请使用 <strong>组件面板</strong> 添加一个。
+</p></li></ul><p><picture>
+		<source data-srcset="./../../../../../../Images/InteractiveExperiences/Physics/PhysicsAssetEditor/HowTo/ApplyConstraintProfile/addSkelMeshComp.jpg">
+		<img class="  lazyload" alt="addSkelMeshComp.png" data-src="../../../../../../Images/InteractiveExperiences/Physics/PhysicsAssetEditor/HowTo/ApplyConstraintProfile/addSkelMeshComp.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>调整 <strong>骨架网格体组件</strong> 碰撞设置。
+</p><ul ><li class="Default"><p>需要更改 <strong>碰撞预设（Collision Preset）</strong>，以便 <strong>骨架网格体组件</strong> <strong>启用碰撞</strong>，如果 <strong>Pawn</strong> 胶囊体（或其他几何结构）存在，确保碰撞设置兼容。例如，对于 <strong>Pawn</strong> 胶囊体，确保忽略 <strong>Pawn</strong> 碰撞：
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/InteractiveExperiences/Physics/PhysicsAssetEditor/HowTo/ApplyPhysicalAnimationProfile/collisionSettings.jpg">
+		<img class="  lazyload" alt="collisionSettings.png" width="400" data-src="../../../../../../Images/InteractiveExperiences/Physics/PhysicsAssetEditor/HowTo/ApplyPhysicalAnimationProfile/collisionSettings.jpg" />
+</picture>
+
+</p><div class="note">
+	<p>在我们的示例中，你会注意到 <strong>对象类型（Object Type）</strong> 设置为 <strong>Pawn</strong>，并且我们在碰撞通道中忽略了 <strong>Pawn</strong>。这就解决了 <strong>骨架网格体</strong> 试图从碰撞胶囊体 
+中弹出自己的问题。但是，如果你希望骨架网格体与其他Pawn碰撞，将需要调整骨架网格体的对象类型，然后更改 
+<strong>胶囊体</strong> 与该 <strong>对象类型</strong> 的互动方式。请参见：<strong><a id="content_link" href="../../../Collision/HowTo/AddCustomCollisionType/index.html" ><span>为项目添加自定义物体类型</span></a></strong> 以了解有关创建 <strong>自定义碰撞通道</strong> 的更多信息。</p>
+</div></li></ul></li><li class="Default"><p>使用 <strong>组件面板</strong> 向蓝图添加 <strong>物理动画组件</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/InteractiveExperiences/Physics/PhysicsAssetEditor/HowTo/ApplyConstraintProfile/addPhysAnimComp.jpg">
+		<img class="  lazyload" alt="addPhysAnimComp.png" data-src="../../../../../../Images/InteractiveExperiences/Physics/PhysicsAssetEditor/HowTo/ApplyConstraintProfile/addPhysAnimComp.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>添加一个 <strong>名称</strong> 变量并将其命名为 <strong>骨骼名称（Bone Name）</strong>。
+</p><div class="raw">
+	<p><picture>
+		<source data-srcset="./../../../../../../Images/InteractiveExperiences/Physics/PhysicsAssetEditor/HowTo/ApplyConstraintProfile/variableName.jpg">
+		<img class="  lazyload" alt="variableName.png" data-src="../../../../../../Images/InteractiveExperiences/Physics/PhysicsAssetEditor/HowTo/ApplyConstraintProfile/variableName.jpg" />
+</picture>
+</p>
+</div></li><li class="Default"><p>进行编译，以便设置 <strong>骨骼名称（Bone Name）</strong> 变量的值。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/InteractiveExperiences/Physics/PhysicsAssetEditor/HowTo/ApplyConstraintProfile/compile.jpg">
+		<img class="  lazyload" alt="compile.png" data-src="../../../../../../Images/InteractiveExperiences/Physics/PhysicsAssetEditor/HowTo/ApplyConstraintProfile/compile.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>将 <strong>骨骼名称（Bone Name）</strong> 的默认值设置为所需目标 <strong>骨骼</strong>，在本例中为`spine_01`。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/InteractiveExperiences/Physics/PhysicsAssetEditor/HowTo/ApplyConstraintProfile/boneName.jpg">
+		<img class="  lazyload" alt="boneName.png" data-src="../../../../../../Images/InteractiveExperiences/Physics/PhysicsAssetEditor/HowTo/ApplyConstraintProfile/boneName.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>切换到 <strong>事件图表</strong>。
+</p></li><li class="Default"><p>找到或创建 <strong>事件开始播放（Event BeginPlay）</strong> 事件节点。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/InteractiveExperiences/Physics/PhysicsAssetEditor/HowTo/ApplyConstraintProfile/eventBP.jpg">
+		<img class="  lazyload" alt="eventBP.png" data-src="../../../../../../Images/InteractiveExperiences/Physics/PhysicsAssetEditor/HowTo/ApplyConstraintProfile/eventBP.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>添加对 <strong>骨架网格体组件</strong> 的引用
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/InteractiveExperiences/Physics/PhysicsAssetEditor/HowTo/ApplyConstraintProfile/addSKMPref.jpg">
+		<img class="  lazyload" alt="addSKMPref.png" data-src="../../../../../../Images/InteractiveExperiences/Physics/PhysicsAssetEditor/HowTo/ApplyConstraintProfile/addSKMPref.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>添加一个 <strong>全局设置约束配置文件（Set Constraint Profile for All）</strong> 节点。
+</p><ul ><li class="Default"><p><strong>目标（Target）</strong> 是你的 <strong>骨架网格体组件</strong>。
+</p></li><li class="Default"><p><strong>配置文件名称（Profile Name）</strong> 是你在 <strong>物理资源工具（Physics Asset Tool）</strong> 中已经创建（或将要创建）的 <strong>约束配置文件（Constraint Profile）</strong>。
+</p></li><li class="Default"><p><strong>找不到则默认（Default if Not Found）</strong> 是一个可选项，如果启用了，则假如配置文件中不存在某个骨骼，将保持当前设置。
+</p></li></ul><p><picture>
+		<source data-srcset="./../../../../../../Images/InteractiveExperiences/Physics/PhysicsAssetEditor/HowTo/ApplyConstraintProfile/constraintProfNodeSettings.jpg">
+		<img class="  lazyload" alt="constraintProfNodeSettings.png" data-src="../../../../../../Images/InteractiveExperiences/Physics/PhysicsAssetEditor/HowTo/ApplyConstraintProfile/constraintProfNodeSettings.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>添加一个 <strong>在模拟物理下设置所有形体（Set All Bodies Below Simulate Physics）</strong> 节点，将它连接到 <strong>应用下面的物理动画配置文件（Apply Physcial Animation Profile Below）</strong> 节点。
+</p><ul ><li class="Default"><p><strong>目标（Target）</strong> 是你的 <strong>骨架网格体组件</strong>。
+</p></li><li class="Default"><p><strong>在骨骼名称中（In Bone Name）</strong> 将以 <strong>骨骼名称（Bone Name）</strong> 变量为输入。
+</p></li><li class="Default"><p><strong>新模拟（New Simulate）</strong> 应设置为 <strong>True</strong>。
+</p></li><li class="Default"><p>同样，由于我们使用`spine_01`作为目标骨骼，因此应选中 <strong>包含自身（Include Self）</strong>。
+</p></li></ul></li><li class="Default"><p>蓝图最终效果：
+</p><!--
+type:paramliteral
+id:paramliteral
+image:param
+snippet:param
+-->
+
+<div id="snippet_image">
+    <div id="snippet_copy" onclick="if ($('#ApplyPhysicalAnimProfBP_snippet code').length != 0) { copyToClipboard($('#ApplyPhysicalAnimProfBP_snippet code').html()); } else if ($('#ApplyPhysicalAnimProfBP_snippet > p').length != 0) { copyToClipboard($('#ApplyPhysicalAnimProfBP_snippet > p').html()); } else { copyToClipboard($('#ApplyPhysicalAnimProfBP_snippet').html()); }">Copy Node Graph</div>
+    <p><picture>
+		<source data-srcset="./../../../../../../Images/InteractiveExperiences/Physics/PhysicsAssetEditor/HowTo/ApplyConstraintProfile/fullGraph.jpg">
+		<img class="  lazyload" alt="fullGraph.png" data-src="../../../../../../Images/InteractiveExperiences/Physics/PhysicsAssetEditor/HowTo/ApplyConstraintProfile/fullGraph.jpg" />
+</picture>
+</p>
+    <div id="ApplyPhysicalAnimProfBP_snippet" style="display:none;"><pre class="prettyprint"><code>Begin Object Class=K2Node&#95;Event Name="K2Node&#95;Event&#95;8"
+   EventReference=(MemberParent=Class'/Script/Engine.Actor',MemberName="ReceiveBeginPlay")
+   bOverrideFunction=True
+   NodePosX=32
+   NodePosY=-16
+   NodeGuid=48E7E2C9458A1028A689B3A249855163
+   CustomProperties Pin (PinId=D1792C7A4CBF979351A63AB775A61034,PinName="OutputDelegate",Direction="EGPD&#95;Output",PinType.PinCategory="delegate",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(MemberParent=Class'/Script/Engine.Actor',MemberName="ReceiveBeginPlay"),PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,)
+   CustomProperties Pin (PinId=3880C4144B19D9B0F602638392FAD6FA,PinName="then",Direction="EGPD&#95;Output",PinType.PinCategory="exec",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node&#95;CallFunction&#95;132 7ED8710C4A46FF83B175828EFBF77DAE,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,)
+End Object
+Begin Object Class=K2Node&#95;VariableGet Name="K2Node&#95;VariableGet&#95;155"
+   VariableReference=(MemberName="SkeletalMeshComponent",bSelfContext=True)
+   NodePosX=32
+   NodePosY=112
+   NodeGuid=42ADF0644E0964ECBC298DB6863ADA89
+   CustomProperties Pin (PinId=788C7F5B4B4B5A7362C8AEA404935EEB,PinName="SkeletalMeshComponent",Direction="EGPD&#95;Output",PinType.PinCategory="object",PinType.PinSubCategoryObject=Class'/Script/Engine.SkeletalMeshComponent',PinType.PinSubCategoryMemberReference=(),PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node&#95;CallFunction&#95;132 E1392084422728C657D6C3A54A4116F2,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,)
+   CustomProperties Pin (PinId=D7B4F9F54069CB07496DEE843FDBBA6B,PinName="self",PinFriendlyName=NSLOCTEXT("K2Node", "Target", "Target"),PinType.PinCategory="object",PinType.PinSubCategoryObject=BlueprintGeneratedClass'/Game/PhysAnimPawn.PhysAnimPawn&#95;C',PinType.PinSubCategoryMemberReference=(),PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PersistentGuid=00000000000000000000000000000000,bHidden=True,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,)
+End Object
+Begin Object Class=K2Node&#95;CallFunction Name="K2Node&#95;CallFunction&#95;132"
+   FunctionReference=(MemberParent=Class'/Script/Engine.SkeletalMeshComponent',MemberName="SetConstraintProfileForAll")
+   NodePosX=320
+   NodeGuid=19366CE04ECF7D2D1B3F3FAB826015E3
+   CustomProperties Pin (PinId=7ED8710C4A46FF83B175828EFBF77DAE,PinName="execute",PinToolTip="\nExec",PinType.PinCategory="exec",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node&#95;Event&#95;8 3880C4144B19D9B0F602638392FAD6FA,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,)
+   CustomProperties Pin (PinId=94ECC7884A2DC860DBB45E8573B644E7,PinName="then",PinToolTip="\nExec",Direction="EGPD&#95;Output",PinType.PinCategory="exec",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node&#95;CallFunction&#95;8 399238E643A83FB3CFC85CB926B5CF9F,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,)
+   CustomProperties Pin (PinId=E1392084422728C657D6C3A54A4116F2,PinName="self",PinFriendlyName=NSLOCTEXT("K2Node", "Target", "Target"),PinToolTip="Target\nSkeletal Mesh Component Reference",PinType.PinCategory="object",PinType.PinSubCategoryObject=Class'/Script/Engine.SkeletalMeshComponent',PinType.PinSubCategoryMemberReference=(),PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node&#95;VariableGet&#95;155 788C7F5B4B4B5A7362C8AEA404935EEB,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,)
+   CustomProperties Pin (PinId=28663C674854E90FE78C718CD73FB3DF,PinName="ProfileName",PinToolTip="Profile Name\nName",PinType.PinCategory="name",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultValue="DocsConstraintProfile",AutogeneratedDefaultValue="None",PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,)
+   CustomProperties Pin (PinId=D960208D49BE62D6FDE20698BB7D27CC,PinName="bDefaultIfNotFound",PinToolTip="Default if Not Found\nBoolean",PinType.PinCategory="bool",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultValue="true",AutogeneratedDefaultValue="false",PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,)
+End Object
+Begin Object Class=K2Node&#95;VariableGet Name="K2Node&#95;VariableGet&#95;1"
+   VariableReference=(MemberName="SkeletalMeshComponent",bSelfContext=True)
+   NodePosX=624
+   NodePosY=80
+   NodeGuid=211663904BCAEE00C6164CBF0871A8B9
+   CustomProperties Pin (PinId=1EEABDD6494CBF38903C6691F5F5B45C,PinName="SkeletalMeshComponent",Direction="EGPD&#95;Output",PinType.PinCategory="object",PinType.PinSubCategoryObject=Class'/Script/Engine.SkeletalMeshComponent',PinType.PinSubCategoryMemberReference=(),PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node&#95;CallFunction&#95;8 4DD6FE2846E695E0F3F569B06CED0A46,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,)
+   CustomProperties Pin (PinId=D68B011B4E4D641D541E8CA766972993,PinName="self",PinFriendlyName=NSLOCTEXT("K2Node", "Target", "Target"),PinType.PinCategory="object",PinType.PinSubCategoryObject=BlueprintGeneratedClass'/Game/PhysAnimPawn.PhysAnimPawn&#95;C',PinType.PinSubCategoryMemberReference=(),PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PersistentGuid=00000000000000000000000000000000,bHidden=True,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,)
+End Object
+Begin Object Class=K2Node&#95;CallFunction Name="K2Node&#95;CallFunction&#95;8"
+   FunctionReference=(MemberParent=Class'/Script/Engine.SkeletalMeshComponent',MemberName="SetAllBodiesBelowSimulatePhysics")
+   NodePosX=848
+   NodeGuid=3116B9174BA9B4F48CE4CAA1E47000EC
+   CustomProperties Pin (PinId=399238E643A83FB3CFC85CB926B5CF9F,PinName="execute",PinToolTip="\nExec",PinType.PinCategory="exec",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node&#95;CallFunction&#95;132 94ECC7884A2DC860DBB45E8573B644E7,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,)
+   CustomProperties Pin (PinId=C132D8014BC6A4DE84C437AF07CF838E,PinName="then",PinToolTip="\nExec",Direction="EGPD&#95;Output",PinType.PinCategory="exec",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,)
+   CustomProperties Pin (PinId=4DD6FE2846E695E0F3F569B06CED0A46,PinName="self",PinFriendlyName=NSLOCTEXT("K2Node", "Target", "Target"),PinToolTip="Target\nSkeletal Mesh Component Reference",PinType.PinCategory="object",PinType.PinSubCategoryObject=Class'/Script/Engine.SkeletalMeshComponent',PinType.PinSubCategoryMemberReference=(),PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node&#95;VariableGet&#95;1 1EEABDD6494CBF38903C6691F5F5B45C,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,)
+   CustomProperties Pin (PinId=7D29E35244DEB831C54B1CAEF4A5FE5C,PinName="InBoneName",PinToolTip="In Bone Name\nName (by ref)",PinType.PinCategory="name",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.bIsArray=False,PinType.bIsReference=True,PinType.bIsConst=True,PinType.bIsWeakPointer=False,DefaultValue="None",AutogeneratedDefaultValue="None",LinkedTo=(K2Node&#95;VariableGet&#95;181 4DF93E5141ACE87768E5D8A7543C7B07,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=True,bAdvancedView=False,)
+   CustomProperties Pin (PinId=AE4340174DD534FEA5B812AE6DAEA1EB,PinName="bNewSimulate",PinToolTip="New Simulate\nBoolean",PinType.PinCategory="bool",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultValue="true",AutogeneratedDefaultValue="false",PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,)
+   CustomProperties Pin (PinId=80EC7602465D797C7F0D4D93D6BA9BD5,PinName="bIncludeSelf",PinToolTip="Include Self\nBoolean",PinType.PinCategory="bool",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultValue="true",AutogeneratedDefaultValue="true",PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,)
+End Object
+Begin Object Class=K2Node&#95;VariableGet Name="K2Node&#95;VariableGet&#95;181"
+   VariableReference=(MemberName="BoneName",MemberGuid=A5E270C141CEE32A0269309215CEBAC4,bSelfContext=True)
+   NodePosX=640
+   NodePosY=128
+   NodeGuid=B116D28D4BF4E6625FF02F92D2EA8DFD
+   CustomProperties Pin (PinId=4DF93E5141ACE87768E5D8A7543C7B07,PinName="BoneName",Direction="EGPD&#95;Output",PinType.PinCategory="name",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,AutogeneratedDefaultValue="None",LinkedTo=(K2Node&#95;CallFunction&#95;8 7D29E35244DEB831C54B1CAEF4A5FE5C,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,)
+   CustomProperties Pin (PinId=F259489241A7853EE35268954C561767,PinName="self",PinFriendlyName=NSLOCTEXT("K2Node", "Target", "Target"),PinType.PinCategory="object",PinType.PinSubCategoryObject=BlueprintGeneratedClass'/Game/PhysAnimPawn.PhysAnimPawn&#95;C',PinType.PinSubCategoryMemberReference=(),PinType.bIsArray=False,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PersistentGuid=00000000000000000000000000000000,bHidden=True,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,)
+End Object</code></pre>
+</div>
+    <div id="snippet_overlay" onclick="if ($('#ApplyPhysicalAnimProfBP_snippet code').length != 0) { copyToClipboard($('#ApplyPhysicalAnimProfBP_snippet code').html()); } else if ($('#ApplyPhysicalAnimProfBP_snippet > p').length != 0) { copyToClipboard($('#ApplyPhysicalAnimProfBP_snippet > p').html()); } else { copyToClipboard($('#ApplyPhysicalAnimProfBP_snippet').html()); }"></div>
+</div><p><strong>隐藏图信息</strong>
+</p><div class="raw">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align="left"/>
+	<col align="left"/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>变量 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>值 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>说明 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>骨骼名称（Bone Name）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="left">
+			<p><code>spine&#95;01</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="left">
+			<p><strong>在模拟物理下设置所有形体（Set All Bodies Below Simulate Physics）</strong> 用它来定义骨架网格体正在模拟的是哪个部位。</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div><table >
+	<caption></caption>
+	<col align=""/>
+	<col align="center"/>
+	<col align="left"/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="2" >
+			<p>组件 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>说明 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="2" align="">
+			<p><strong>骨架网格体组件（Skeletal Mesh Component）</strong></p>
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+	<td rowspan="1" colspan="1" align="left">
+			<p>作为 <strong>约束配置文件</strong> 应用目标的 <strong>骨架网格体组件</strong>。假如你所用的蓝图继承自角色类，则该组件就会被命名为`网格体（Mesh）`。</p>
+			</td>
+	
+</tr></tbody>
+</table></li></ol><h2 id="结果">结果</h2>
+<p>现在，在运行游戏时，<strong>约束配置文件</strong> 将发挥作用。根据设置，这可能表示角色会四分五裂，或者加入马达以使手臂甩出去进行攻击。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/InteractiveExperiences/Physics/PhysicsAssetEditor/HowTo/ApplyConstraintProfile/result.jpg">
+		<img class="  lazyload" alt="result.png" data-src="../../../../../../Images/InteractiveExperiences/Physics/PhysicsAssetEditor/HowTo/ApplyConstraintProfile/result.jpg" />
+</picture>
+
+</p><p>要实现这种效果，可以将上臂约束的 <strong>线性限制（Linear Limits）</strong> 设置为 <strong>自由（Free）</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/InteractiveExperiences/Physics/PhysicsAssetEditor/HowTo/ApplyConstraintProfile/achievedBy.jpg">
+		<img class="  lazyload" alt="achievedBy.png" data-src="../../../../../../Images/InteractiveExperiences/Physics/PhysicsAssetEditor/HowTo/ApplyConstraintProfile/achievedBy.jpg" />
+</picture>
+
+</p><h2 id="其他资源">其他资源</h2>
+<!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_V_0EgHr2_2
+{
+	margin: 0px;
+	width: 100%;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_V_0EgHr2_2:after
+{
+	content: "";
+	padding-top: 56.25%;
+	display: block;
+}
+</style> 
+<div id="player_V_0EgHr2_2"> 
+	<div id="playerContainer_V_0EgHr2_2" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/V_0EgHr2/embed.html"></iframe>
+	</div>
+</div>
+
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/InteractiveExperiences/Physics/PhysicsAssetEditor/HowTo/ApplyConstraintProfile/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:28:29 GMT -->
+</html>

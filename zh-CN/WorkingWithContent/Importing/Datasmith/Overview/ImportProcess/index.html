@@ -1,0 +1,713 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/WorkingWithContent/Importing/Datasmith/Overview/ImportProcess/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:04:10 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/WorkingWithContent/Importing/Datasmith/Overview/ImportProcess/" />');
+				var udnCSS = '../../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>关于Datasmith导入流程 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/WorkingWithContent/Importing/Datasmith/Overview/ImportProcess/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/WorkingWithContent/Importing/Datasmith/Overview/ImportProcess/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/WorkingWithContent/Importing/Datasmith/Overview/ImportProcess/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/WorkingWithContent/Importing/Datasmith/Overview/ImportProcess/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Content/Importing/Datasmith/Overview/ImportProcess" />
+<meta name="intsourcechangelist" content="14237003" />
+<meta name="availability" content="Public" />
+<meta name="title" content="关于Datasmith导入流程" />
+<meta name="description" content="包含Datasmith将场景导入虚幻的方法的特定问题详情，以及在虚幻中处理导入资源可以遵循的后续步骤。" />
+<meta name="type" content="overview" />
+<meta name="version" content="4.23" />
+<meta name="parent" content="WorkingWithContent/Importing/Datasmith/Overview" />
+<meta name="keywords" content="Datasmith" />
+<meta name="keywords" content="Guides" />
+<meta name="keywords" content="importing" />
+<meta name="topic-image" content="datasmith-about-import-topic.png" />
+<meta name="related" content="WorkingWithContent/Types/StaticMeshes/HowTo/SettingCollision" />
+<meta name="related" content="RenderingAndGraphics/Materials/MaterialInstances/Editor" />
+<meta name="related" content="RenderingAndGraphics/Materials/MaterialInstances" />
+<meta name="related" content="AnimatingObjects/Sequencer" />
+<meta name="related" content="WorkingWithContent/Types/StaticMeshes/AutoGeneratedLightmaps" />
+<meta name="related" content="RenderingAndGraphics/Lightmass/Basics" />
+<meta name="related" content="WorkingWithContent/Importing/Datasmith/Overview/UsingDatasmithMetadata" />
+<meta name="related" content="ProductionPipelines/ScriptingAndAutomation/HowTos/SettingUpCollisionProperties" />
+<meta name="related" content="WorkingWithContent/Types/StaticMeshes/HowTo/ModifyStaticMeshGeometry" />
+<meta name="related" content="WorkingWithContent/Types/StaticMeshes/HowTo/UVChannels" />
+<meta name="order" content="0" />
+<meta name="crumbs" content="%ROOT%,WorkingWithContent,WorkingWithContent/Importing,WorkingWithContent/Importing/Datasmith,WorkingWithContent/Importing/Datasmith/Overview" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="关于Datasmith导入流程" />
+	<meta property="og:description" content="包含Datasmith将场景导入虚幻的方法的特定问题详情，以及在虚幻中处理导入资源可以遵循的后续步骤。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../../index.html">管理内容</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">导入内容</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">虚幻Datasmith</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">Datasmith概述</a>
+
+<span class="separator">></span> <span id="page">关于Datasmith导入流程</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">关于Datasmith导入流程</h1>
+							</div>	
+							<h2 >包含Datasmith将场景导入虚幻的方法的特定问题详情，以及在虚幻中处理导入资源可以遵循的后续步骤。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																																			</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																		<div id="seeAlso">
+	<div style="position:relative;">
+		<div id="title">参见</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<p>
+						<a id="related_link" href="../../../../Types/StaticMeshes/HowTo/SettingCollision/index.html" title="如何设置碰撞">为静态网格体设置碰撞</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../../../../RenderingAndGraphics/Materials/MaterialInstances/Editor/index.html" title="使用材质实例编辑器修改材质实例常量（MaterialInstanceConstant）的指南。">材质实例编辑器用户指南</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../../../../RenderingAndGraphics/Materials/MaterialInstances/index.html" title="分层材质关系，这些关系允许修改属性，以改变子材质的行为和外观，而不必重新编译着色器。">实例化材质</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../../../../AnimatingObjects/Sequencer/index.html" title="Sequencer是虚幻引擎4中的多轨道编辑器，可用于实时创建和预览动画序列。">Sequencer 编辑器</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../../../Types/StaticMeshes/AutoGeneratedLightmaps/index.html" title="概述如何在虚幻引擎4中生成你自己的光照贴图UV。">生成光照贴图UV</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../../../../RenderingAndGraphics/Lightmass/Basics/index.html" title="Lightmass 概要介绍。">Lightmass 基础知识</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../UsingDatasmithMetadata/index.html" title="介绍将资源相关的自定义元数据导入虚幻，及利用蓝图和Python脚本同时在编辑器中和运行时处理使用此类元数据的方法。">使用Datasmith元数据</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../../../../ProductionPipelines/ScriptingAndAutomation/HowTos/SettingUpCollisionProperties/index.html" title="描述如何在虚幻编辑器中使用蓝图或Python为静态网格体设置碰撞属性。">在蓝图和Python中使用静态网格体设置碰撞</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../../../Types/StaticMeshes/HowTo/ModifyStaticMeshGeometry/index.html" title="对使用静态网格编辑器的编辑模式功能按钮修改静态网格体资源几何体的方法进行讲解。">修改静态网格体几何体</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../../../Types/StaticMeshes/HowTo/UVChannels/index.html" title="UV通道在渲染静态网格体时所扮演的角色，以及如何在虚幻编辑器中使用。">使用UV通道</a>
+					</p>
+				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																														<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#单位和比例">单位和比例</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#名称和标签">名称和标签</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#三角形朝向">三角形朝向</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#光照贴图uv">光照贴图UV</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#碰撞和物理">碰撞和物理</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#光源">光源</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#区域、平面和体积光源">区域、平面和体积光源</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#材质">材质</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#datasmith颜色材质">Datasmith颜色材质</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#动画">动画</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#渲染摄像机动画">渲染摄像机动画</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#在多个关卡中使用动画">在多个关卡中使用动画</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#动画时间和帧精度">动画时间和帧精度</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#图层">图层</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#元数据">元数据</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#技术应用程序特定的元数据">技术应用程序特定的元数据</a></p>
+	</li>					</ul>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>以下各部分提供了Datasmith在场景转换期间处理的特定问题的详细信息。理解这些问题有助于您理解Datasmith产生的结果以及在虚幻编辑器中处理内容。
+</p><h2 id="单位和比例">单位和比例</h2>
+<p>在虚幻引擎中，所有距离始终用厘米测量。但是，其他3D设计应用程序通常提供计量单位选项。如果您在源应用程序中使用其他计量单位，Datasmith会自动调整场景比例，以使几何结构在虚幻引擎中与真实世界大小完全一致，并且在3D空间中位于正确的位置。您不必更改您在源应用程序中的工作方式。<br /></p><p>例如，如果您在源应用程序中使用英寸作为计量单位，在原始场景中长10个单位的物体导入到虚幻引擎中后会变为25.4个场景单位。
+</p><div class="imagetable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Importing/Datasmith/Overview/ImportProcess/datasmith-units-1.jpg">
+		<img class="  lazyload" alt="datasmith-units-1.png" data-src="../../../../../../Images/WorkingWithContent/Importing/Datasmith/Overview/ImportProcess/datasmith-units-1.jpg" />
+</picture>
+</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Importing/Datasmith/Overview/ImportProcess/datasmith-units-2.jpg">
+		<img class="  lazyload" alt="datasmith-units-2.png" data-src="../../../../../../Images/WorkingWithContent/Importing/Datasmith/Overview/ImportProcess/datasmith-units-2.jpg" />
+</picture>
+</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>源应用</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>导出后</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div><div class="note">
+	<p>当场景层级包含具有不均匀缩放和自定义枢轴变换（在单独对象的层级上补偿校正）的父项时，因为坐标系转换非常复杂，可能会导致虚幻引擎中的结果与初始场景不匹配。若遇到此问题，解决办法是返回原始场景并简化场景层级中的变换。</p>
+</div><h2 id="名称和标签">名称和标签</h2>
+<p>Datasmith检测到源应用程序中的几何结构的相关命名信息，并将该信息尽可能重复用于它所创建的资源和Actor。每个不同的应用程序或文件格式的确切流程会有稍许不同，虚幻引擎中的结果可能与源应用程序稍有不同，但最终目标是使您能够在导入后找到和管理内容。
+</p><p>对于静态网格体，您会看到内容浏览器中的资源名称、磁盘上的资源文件名和关卡中的Actor名称通常不同。
+</p><ul ><li class="Default"><p><strong>内容浏览器标签 -</strong> Datasmith根据它在源文件中找到的命名信息（如果有）在内容浏览器中为每个静态网格体资源生成标签。<br />某些受支持的应用程序和文件格式允许存在多个同名对象。如果您的场景中是这种情况，您会发现内容浏览器中有多个资源以相同的标签结尾。
+</p></li><li class="Default"><p><strong>文件名 -</strong> 但是，磁盘上每个资源的文件名需要唯一。因此，Datasmith使用从源应用程序中抽取的唯一标识符来命名每个资源文件。
+</p></li><li class="Default"><p><strong>Actor名称 -</strong> Datasmith每次将Actor放入关卡时，都尝试为该Actor指定与源文件中对应对象（如果有）完全相同的名称。<br />如果找不到唯一名称，则重用内容浏览器中的相同标签来命名Actor。如果关卡中已经存在另一个具有该名称的Actor，则Datasmith会通过递增数字后缀让Actor名称变得唯一。
+</p></li></ul><p>例如，在下图中，您会看到源场景中的所有名称原样导入虚幻中，只不过多个对象具有相同的名称。
+</p><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>源文件中的层级 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>虚幻中的层级 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../../Images/WorkingWithContent/Importing/Datasmith/Overview/ImportProcess/datasmith-naming-before.png" title="Hierarchy in source file "><span><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Importing/Datasmith/Overview/ImportProcess/datasmith-naming-before.jpg">
+		<img class="  lazyload" alt="datasmith-naming-before.png" data-src="../../../../../../Images/WorkingWithContent/Importing/Datasmith/Overview/ImportProcess/datasmith-naming-before.jpg" />
+</picture>
+</span></a></span></p>
+</div>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../../Images/WorkingWithContent/Importing/Datasmith/Overview/ImportProcess/datasmith-naming-after.png" title=" Hierarchy in Unreal"><span><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Importing/Datasmith/Overview/ImportProcess/datasmith-naming-after.jpg">
+		<img class="  lazyload" alt="datasmith-naming-after.png" data-src="../../../../../../Images/WorkingWithContent/Importing/Datasmith/Overview/ImportProcess/datasmith-naming-after.jpg" />
+</picture>
+</span></a></span></p>
+</div>
+			</td>
+	
+</tr></tbody>
+</table><div class="note">
+	<p>请注意，您在内容浏览器中看到的静态网格体资源的 <em>标签</em> 与Datasmith为这些资源在磁盘上生成的文件 <em>名称</em> 是有区别的。在编辑器中工作时，在大多数情况下这一点应该都是十分明确的。但是，如果您想要使用蓝图或Python脚本来处理资源或Datasmith场景，需要了解这个区别。</p>
+</div><h2 id="三角形朝向">三角形朝向</h2>
+<p>为了在运行时达到可能的最佳性能，虚幻会剔除它不希望被看到的任何三角形。这可以避免花费任何GPU循环来渲染这些三角形。尤其是引擎假设所有对象都有一定的厚度。没有朝向摄像机的任何三角形都被假设为在对象的背面，在对象正面时会将它们隐藏。这叫做 <em>背面剔除</em>，这是在3D渲染中广泛使用的一种优化方法。
+</p><p>但是，某些设计应用程序不会对表面的正面和背面进行相同的区分，无论您从哪一侧查看都会渲染这些表面。在设计工具中工作时，可能并不会总是知道指定表面的朝向。这可能会引起表面法线，这是垂直于表面的方向，指向内侧，或者远离您需要查看表面的方向。或者，这可能会导致创建完全没有厚度的平面单壁几何结构。
+</p><p>导入场景后，在虚幻引擎中，这可能会导致在从特定角度查看时看不到场景的某些部分。甚至看起来就像模型的这些部分没有导入；但是，原因很可能是表面法线只是指向远离您查看场景的摄像机的方向。如果您围绕着模型旋转，可能会发现这些表面突然出现。
+</p><p>例如，在以下场景（左侧）中，天花板和管道端点似乎缺失，即使已经正确导入了几何结构。为材质启用 <strong>双面（Two Sided）</strong> 选项会让表面出现（请参阅下文了解详细信息）。
+</p><!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Importing/Datasmith/Overview/ImportProcess/datasmith-two-sided-off.jpg">
+		<img class="  lazyload" alt="单面" data-src="../../../../../../Images/WorkingWithContent/Importing/Datasmith/Overview/ImportProcess/datasmith-two-sided-off.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Importing/Datasmith/Overview/ImportProcess/datasmith-two-sided-on.jpg">
+		<img class="  lazyload" alt="双面" data-src="../../../../../../Images/WorkingWithContent/Importing/Datasmith/Overview/ImportProcess/datasmith-two-sided-on.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div><p>这种情况最好在源应用程序中进行处理。请记住以下建议：<br /></p><ul ><li class="Default"><p>我们强烈建议每当需要从所有面查看有厚度的所有对象时都对这些对象建模，并确保法线朝外。
+</p></li><li class="Default"><p>如果您知道对象只需要从一面查看，可以在源应用程序中翻转表面法线并重新导入场景来修复缺失的网格体。这会使表面保留一面，至少调转表面的朝向，这样在虚幻引擎中从您需要的方向查看时能够正确显示。
+</p></li><li class="Default"><p>Rhino、3ds Max、Cinema 4D和SketchUp等建模应用程序拥有视口模式，便于更轻松地查找背向三角形。详情请参阅建模工具的文档。
+</p></li></ul><p>但是，如果想要在虚幻编辑器中修复问题，而不回到源场景，还可以考虑以下选项：
+</p><ul ><li class="Default"><p>您可以在静态网格体编辑器中调转三角形的朝向，这样它们可以朝向其他方向。请参阅<a id="content_link"filter-data="tag_static_mesh tag_how_to tag_datasmith tag_beginner" href="../../../../Types/StaticMeshes/HowTo/ModifyStaticMeshGeometry/index.html" ><span>修改静态网格体几何结构</span></a>。<br />但是，如果这些三角形从另一面可见，则同一个问题仍然存在。对于只能从内部看到的天花板等对象，这可能是一种很好的解决方案，但对于两面都能看到的内部墙壁则不然。<br />需要记住的是，如果您在源场景中修改几何结构的这个部分，然后重新导入Datasmith场景资源，会失去您在静态网格体编辑器中所做的更改。因此如果因为某个原因必须返回并修改几何结构，确保同时返回SketchUp并修复朝向。
+</p></li><li class="Default"><p>您可以在材质编辑器中将材质设为两面。这样无论从哪一侧查看表面，引擎都会渲染表面。尽管起初听起来像是一个很好的解决方案，但在与 <strong>静态</strong> 或 <strong>静止</strong> 照明一起使用时往往会产生视觉瑕疵，因为表面的两侧都会在光照贴图纹理中使用相同的空间。<br />如果材质是材质实例，在材质编辑器的 <strong>细节（Details）</strong> 面板中查找 <strong>常规（General）>材质属性覆盖（Material Property Overrides）>双面（Two Sided）</strong>。<br /><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Importing/Datasmith/Overview/ImportProcess/material-instance-two-sided.jpg">
+		<img class="  lazyload" alt="双面材质属性覆盖" title="Two Sided Material Property Override" data-src="../../../../../../Images/WorkingWithContent/Importing/Datasmith/Overview/ImportProcess/material-instance-two-sided.jpg" />
+</picture>
+<br />否则，在材质编辑器的 <strong>细节（Details）</strong> 面板中查找 <strong>材质（Material）>双面（Two Sided）</strong>：<br /><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Importing/Datasmith/Overview/ImportProcess/material-details-two-sided.jpg">
+		<img class="  lazyload" alt="双面材质属性" title="Two Sided Material Property" data-src="../../../../../../Images/WorkingWithContent/Importing/Datasmith/Overview/ImportProcess/material-details-two-sided.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>如果问题不在于表面可视性本身，而在于穿过对象的光线——如天花板没有正确阻挡来自头顶的直接光线——您可以配置静态网格体Actor，让它从两面投射阴影。<br />在 <strong>细节（Details）</strong> 面板中寻找 <strong>照明（Lighting）>阴影双面（Shadow Two Sided）</strong> 设置。<br /></p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../../Images/WorkingWithContent/Importing/Datasmith/Overview/ImportProcess/staticmeshactor-shadowtwosided.png" ><span><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Importing/Datasmith/Overview/ImportProcess/staticmeshactor-shadowtwosided.jpg">
+		<img class="  lazyload" alt="阴影双面" title="Shadow Two Sided" data-src="../../../../../../Images/WorkingWithContent/Importing/Datasmith/Overview/ImportProcess/staticmeshactor-shadowtwosided.jpg" />
+</picture>
+  </span></a></span><em>单击查看大图。</em></p>
+</div></li></ul><h2 id="光照贴图uv">光照贴图UV</h2>
+<p>虚幻引擎提供了多种方法来照亮场景。提供最佳运行时性能，通常也能最流畅、最逼真地传播间接照明的方法是 <em>烘焙</em> 照明。要在虚幻引擎中使用这种方法，可以将场景中的光源 <strong>移动性（Mobility）</strong> 设置指定为 <strong>静态（Static）</strong> 或 <strong>静止（Stationary）</strong>，然后使用虚幻编辑器中名为<a id="content_link" href="../../../../../RenderingAndGraphics/Lightmass/index.html" ><span>Lightmass</span></a>的工具来为场景构建照明。这样会计算从静态和静止光源照射到场景中每个对象的光线，并将它存储在一种特殊类型的纹理中，叫做 <em>光照贴图</em>。运行时，该照明信息从每个对象的光照贴图纹理应用于其表面。
+</p><p>为了使该系统工作，静态网格体中的每个顶点都需要映射到光照贴图纹理2D空间中的唯一坐标。该映射叫做UV集或UV通道。此外，该2D坐标空间的布局应使网格体中的任意两个三角形在2D纹理空间中都不会彼此重叠。如果网格体中的两个三角形映射2D纹理的相同区域，则Lightmass无法存储每个三角形的独特光源和阴影图案。这会导致运行时出现奇怪的光照瑕疵。
+</p><p>为确保所有静态网格体都准备好接收静态照明，Datasmith会对它导入的每个静态网格体自动调用虚幻编辑器的自动UV展开系统。该过程会向每个静态网格体添加两个新的UV集：
+</p><ul ><li class="Default"><p>一个是三角形的简单展开，让网格体在2D空间中形成平面表示。这会将网格体分解成多个较小的"岛屿"，每个表示网格体表面的一个连接部分。
+</p></li><li class="Default"><p>然后第一个光照贴图中的岛屿会重新安排和重调大小，以使其形成避免任何重叠的布局，尽量减少浪费岛屿周围的空间。这是您为关卡构建照明时将用于对象光照贴图的最终布局。
+</p></li></ul><p>然后，Datasmith会自动设置静态网格体资源以使用第二个生成的UV来存储和应用光照贴图。
+</p><div class="note">
+	<p>如果您使用3ds Max，并且您已设置想要用于光照贴图的UV通道，请参阅<a id="content_link"filter-data="tag_enterprise tag_3ds_max tag_datasmith tag_overview tag_interop tag_unreal_studio" href="../../SoftwareInteropGuides/3dsMax/index.html" ><span>将Datasmith与3ds Max一起使用</span></a>。</p>
+</div><h2 id="碰撞和物理">碰撞和物理</h2>
+<p>默认情况下，Datasmith不会为它创建的静态网格体资源设置任何物理。您可以在导入后在虚幻编辑器中为静态网格体设置物理；有关详细信息，请参阅<a id="content_link" href="../../../../Types/StaticMeshes/HowTo/SettingCollision/index.html" ><span>设置与静态网格体的碰撞</span></a>或<a id="content_link"filter-data="tag_blueprints tag_physics tag_collision tag_how-to tag_python_ tag_scripting tag_editor" href="../../../../../ProductionPipelines/ScriptingAndAutomation/HowTos/SettingUpCollisionProperties/index.html" ><span>在蓝图和Python中设置与静态网格体的碰撞</span></a>。
+</p><p>如果您要使用3ds Max，可以在3ds Max中对自己的定制几何结构建模，并让Datasmith导入程序自动将该几何结构分配到它创建的静态网格体资源。有关详细信息，请参阅<a id="content_link" href="../../SoftwareInteropGuides/3dsMax/index.html#自定义碰撞形态" ><span>将Datasmith与3ds Max结合使用</span></a>。
+</p><h2 id="光源">光源</h2>
+<p>Datasmith以支持的文件格式导入光源，并自动将光源转换为虚幻引擎支持的最合适光源类型，通常为<a id="content_link" href="../../../../../BuildingWorlds/LightingAndShadows/LightTypes/Point/index.html" ><span>点光源</span></a>、<a id="content_link" href="../../../../../BuildingWorlds/LightingAndShadows/LightTypes/Spot/index.html" ><span>聚光源</span></a>、<a id="content_link" href="../../../../../BuildingWorlds/LightingAndShadows/LightTypes/RectLights/index.html" ><span>矩形光源</span></a>或<a id="content_link" href="../../../../../BuildingWorlds/LightingAndShadows/LightTypes/Directional/index.html" ><span>定向光源</span></a>。
+</p><h3 id="区域、平面和体积光源">区域、平面和体积光源</h3>
+<p>3ds Max和Cinema 4D等应用程序支持从2D形状或3D体积发出的光线。此类光源在虚幻引擎中没有完全对应的相似物。此类光源包括mental ray区域光源、V-Ray和Corona平面光源、圆盘光源、圆顶光源和球面光源等。当Datasmith导入其中一个区域光源时，它使用自定义编写的特殊蓝图类 <strong>DatasmithAreaLightMesh</strong> 来模拟光源的行为。
+</p><!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Importing/Datasmith/Overview/ImportProcess/max_datasmith_arealightmesh_off.jpg">
+		<img class="  lazyload" alt="区域光源关闭" data-src="../../../../../../Images/WorkingWithContent/Importing/Datasmith/Overview/ImportProcess/max_datasmith_arealightmesh_off.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Importing/Datasmith/Overview/ImportProcess/max_datasmith_arealightmesh_on.jpg">
+		<img class="  lazyload" alt="区域光源开启" data-src="../../../../../../Images/WorkingWithContent/Importing/Datasmith/Overview/ImportProcess/max_datasmith_arealightmesh_on.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div><p>此蓝图本质上是将自动生成的自发光表面与自动生成的矩形光源、点光源或聚光源配对：
+</p><ul ><li class="Default"><p>自发光表面的作用是表现光源在关卡3D空间中、以及其他表面反射光中的可见物理范围。
+</p></li><li class="Default"><p>矩形光源、点光源或聚光源的作用是将实际光线发射到场景中。
+</p></li></ul><p>可控制自发光的形状、大小、颜色和强度，以及光源Actor的属性。在 <strong>关卡视口</strong> 或 <strong>世界大纲视图</strong> 中选择 <strong>DatasmithAreaLightMesh</strong> Actor，并使用 <strong>细节（Details）</strong> 面板 <strong>光源（Light）</strong> 类目中的设置。例如：
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../../Images/WorkingWithContent/Importing/Datasmith/Overview/ImportProcess/max-datasmith-area-light-422.png" ><span><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Importing/Datasmith/Overview/ImportProcess/max-datasmith-area-light-422.jpg">
+		<img class="  lazyload" alt="DatasmithAreaLightMesh设置" title="DatasmithAreaLightMesh settings" width="800" data-src="../../../../../../Images/WorkingWithContent/Importing/Datasmith/Overview/ImportProcess/max-datasmith-area-light-422.jpg" />
+</picture>
+</span></a></span><br /><em>点击查看大图。</em></p>
+</div><div class="note">
+	<ul ><li class="Default"><p>如需详细了解光源属性，请参阅<a id="content_link" href="../../../../../BuildingWorlds/LightingAndShadows/LightTypes/RectLights/index.html" ><span>矩形光源</span></a>、<a id="content_link" href="../../../../../BuildingWorlds/LightingAndShadows/LightTypes/Point/index.html" ><span>点光源</span></a>和<a id="content_link" href="../../../../../BuildingWorlds/LightingAndShadows/LightTypes/Spot/index.html" ><span>聚光源</span></a>文档。
+</p></li><li class="Default"><p><strong>颜色（Color）</strong> 和 <strong>强度（Intensity）</strong> 等设置会同时影响自发光和光源Actor。
+</p></li></ul>
+</div><p>使用这种设置时，光源在场景中可见，并会照亮周围的物体。然而，不同于源应用程序中执行的离线渲染，若 <strong>DatasmithAreaLightMesh</strong> 用聚光源或点光源，则DatasmithAreaLightMesh向关卡发出的实际光线将单点投射，而非整面投射。
+</p><div class="note">
+	<p>无论使用Lightmass烘焙照明还是动态照明，当前自发光表面都不会将任何光线投射到场景中。只有点光源或聚光源组件才能真正照亮关卡中的周边物体。</p>
+</div><h2 id="材质">材质</h2>
+<p>如<a id="content_link"filter-data="tag_enterprise tag_getting_started tag_datasmith tag_manufacturing tag_overview" href="../index.html" ><span>Datasmith概述</span></a>所述，Datasmith导入流程在虚幻引擎项目中创建新的材质资源来表示它在导入场景中识别到的每一组不同的几何结构表面属性。虽然场景变换目标是以可能的最佳保真度继承表面属性，您可能需要在导入后调整这些材质。您可以双击任何材质资源进行编辑。
+</p><p>您可以在 <strong>材质</strong> 文件夹中找到的大部分材质资源都是材质实例。这意味着当您编辑材质实例时，会看到按其父项或"主"材质确定的预先设置的设置列表。例如，下图显示了针对从SketchUp导入的模型创建的材质实例：
+</p><div class="lightbox">
+	<p><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Importing/Datasmith/Overview/ImportProcess/datasmith-material-instance.jpg">
+		<img class="  lazyload" alt="![Material Instance created by Datasmith" width="800" data-src="../../../../../../Images/WorkingWithContent/Importing/Datasmith/Overview/ImportProcess/datasmith-material-instance.jpg" />
+</picture>
+<br /><em>点击查看全图</em></p>
+</div><p>有关何谓材质实例以及如何使用材质实例的更多信息，请参阅<a id="content_link"filter-data="tag_materials" href="../../../../../RenderingAndGraphics/Materials/MaterialInstances/index.html" ><span>实例化材质</span></a>和<a id="content_link"filter-data="tag_materials" href="../../../../../RenderingAndGraphics/Materials/MaterialInstances/Editor/index.html" ><span>材质实例编辑器用户指南</span></a>。
+</p><p>每种材质实例还有一个父材质：这是一种不同类别的材质资源，包含类似于蓝图的节点图表。该图表确定虚幻引擎需要渲染应用了父材质或其任何材质实例的表面时，对GPU执行的实际操作。构造父材质图表的方法还控制其材质实例中公开的设置，以及这些设置的使用方式。
+</p><p>根据源应用程序，Datasmith按照以下原则为材质实例分配不同的父材质：
+</p><ul ><li class="Default"><p>在大多数情况下，Datasmith为每种材质实例分配一个预先存在的父材质，这个父材质作为Datasmith插件的一部分包含在其中。通常，由这些父材质公开的预定义设置非常类似于源应用程序中提供的材质编写设置。<br />您可以自由编辑Datasmith在您的项目中创建的每个材质实例中的这些公开设置。Datasmith提供的每个不同的父材质都提供一组不同的属性：
+</p><ul ><li class="Default"><p><strong>Datasmith_Color -</strong> 该父材质用于纯色和纹理表面，主要在导入CAD模型时使用。请参阅下文的<a id="content_link" href="#datasmith颜色材质" ><span>Datasmith颜色材质</span></a>。
+</p></li><li class="Default"><p><strong>SketchUpMaster -</strong> 该父材质用于从SketchUp导入的所有表面。请参阅<a id="content_link"filter-data="tag_enterprise tag_datasmith tag_overview tag_sketchup tag_interop" href="../../SoftwareInteropGuides/SketchUp/index.html" ><span>将Datasmith与SketchUp Pro一起使用</span></a>。
+</p></li><li class="Default"><p><strong>RevitMaster -</strong> 该父材质用于从Revit导入的所有表面。请参阅<a id="content_link"filter-data="tag_datasmith tag_overview tag_interop tag_landing_page" href="../../SoftwareInteropGuides/Revit/index.html" ><span>将Datasmith与Revit一起使用</span></a>。
+</p></li></ul></li><li class="Default"><p>如果要从3ds Max或Rhino导入内容，可能会发现Datasmith也会在项目中的 <strong>Materials/Master</strong> 文件夹中创建新的父材质。3ds Max提供比大多数其他源应用程序更丰富的材质编写工作流程，在概念上类似于虚幻引擎材质图表。因此，Datasmith通常能够创建非常接近于您在3ds Max中的自定义材质的新主材质，而不是必须重用拥有预设置图表和预设置公开设置列表的预设置父材质。<br />在这种情况下，Datasmith通常仍会为这些自定义父材质创建材质实例。然后它将这些材质实例应用于静态网格体资源和场景中的静态网格体Actor。在大多数情况下，修改材质实例的属性应该足以让您良好地控制渲染结果。<br />对于某些类型的3ds Max材质，Datasmith可以跳过创建材质实例这一步骤。在该情况下，它只会将新的父材质分配给静态网格体资源和Actor。
+</p></li></ul><p>如果想要变更材质实例用于确定如何根据这些属性对表面着色的实际材质图表，需要复制父材质并修改副本中的属性。有关该流程的详细信息，请参阅<a id="content_link"filter-data="tag_how_to tag_datasmith tag_beginner" href="../../HowTo/ModifyDSParentMaterial/index.html" ><span>修改Datasmith主材质</span></a>。<br /></p><p>如果不使用Datasmith创建的材质，则可以使用另外一个选项，即彻底将Datasmith创建的材质替换为另一个基于物理的材质。这可能是您在虚幻编辑器中自行创建的材质，也可以是来自第三方的材质。
+</p><h3 id="datasmith颜色材质">Datasmith颜色材质</h3>
+<p>许多计算机辅助设计（CAD）应用程序使用简单的表面颜色来对几何结构着色。Datasmith通常会将这些表面作为 <strong>Datasmith_Color</strong> 材质导入到虚幻中：
+</p><div class="lightbox">
+	<p><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Importing/Datasmith/Overview/ImportProcess/datasmith-color-material.jpg">
+		<img class="  lazyload" alt="![Datasmith Color Material Instance" title="Datasmith Color Material Instance" width="800" data-src="../../../../../../Images/WorkingWithContent/Importing/Datasmith/Overview/ImportProcess/datasmith-color-material.jpg" />
+</picture>
+<br /><em>点击查看全图</em></p>
+</div><ul ><li class="Default"><p>该材质的颜色通常会预设以与源场景的颜色完全匹配。<br />当您在虚幻引擎中使用这些材质时，特别注意颜色的亮度值。设计工具有时允许非常明亮的表面颜色——甚至包括纯白色——大自然中通常找不到这种颜色。您可能需要大幅降低这些值以便照明看起来更逼真。
+</p></li><li class="Default"><p>Datasmith通常能够遵从源材质的不透明度。如果源场景中的表面颜色设置为半透明，例如玻璃面板，Datasmith将其不透明度引入到颜色（Color）设置的 <strong>Alpha</strong> 通道。<br />如果想要使用Alpha通道让之前不透明的材质在虚幻编辑器中变为半透明，则还必须更改材质的混合模式。在 <strong>常规（General）</strong> 部分中，展开 <strong>材质属性覆盖（Material Property Overrides）</strong> 组中，选中 <strong>混合模式（Blend Mode）</strong> 选项，并将其值设置为 <strong>半透明（Translucent）</strong>。 
+</p></li><li class="Default"><p>Datasmith_Color父材质还允许您使用三种不同类别的纹理贴图：漫反射贴图，提供表面的基本颜色（覆盖颜色设置）；法线贴图，提供良好的表面细节；透明贴图，允许同一个表面的不同部分拥有不同的不透明度值。<br />Datasmith可以使用这些纹理贴图设置，前提是它可以从源应用程序中导出这些类型的纹理贴图。如果您的Datasmith_Color实例拥有平面颜色，而您想要使用这类纹理贴图，以便增加表面的真实度，可能需要激活这些设置并为它们分配纹理资源。<br />当您启用其中一个贴图设置时，系统会在纹理参数值（Texture Parameter Values）下面为您提供一个新的设置，供您设置想要使用的纹理：<br /><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Importing/Datasmith/Overview/ImportProcess/datasmith-color-map-active.jpg">
+		<img class="  lazyload" alt="Datasmith_Color实例与纹理贴图" title="Datasmith372029427Color Instance with a texture map" data-src="../../../../../../Images/WorkingWithContent/Importing/Datasmith/Overview/ImportProcess/datasmith-color-map-active.jpg" />
+</picture>
+<br />但是，您最好从头创建自己的材质，这样可以利用其他基于物理的虚幻引擎渲染器属性，这些属性并没有被Datasmith_Color父材质公开，例如粗糙度和金属感属性。请参阅<a id="content_link"filter-data="tag_physically_based_shading tag_pbr tag_materials" href="../../../../../RenderingAndGraphics/Materials/PhysicallyBased/index.html" ><span>基于物理的材质</span></a>。
+</p></li></ul><h2 id="动画">动画</h2>
+<p>如果源场景包含具有动画3D变换的对象——平移、旋转和/或缩放值随着时间而更改的对象——Datasmith可以将这些动画导入到虚幻引擎项目中。它创建一个新的关卡序列，其中包含场景中每个动画对象的轨迹，将该关卡序列保存到Datasmith场景资源旁边的 <strong>动画</strong> 文件夹。您可以使用该关卡序列在虚幻编辑器中或在虚幻引擎中在运行时播放动画。
+</p><p>例如，在该3ds Max场景中，将该汽车库门部分动画化，使其会沿着一个样条移动，同时将摄像机动画化以绕着对象旋转。
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_0_lf0r9tvn_150
+{
+	margin: 0px;
+	width: 640px;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_0_lf0r9tvn_150:after
+{
+	content: "";
+	padding-top: 360px;
+	display: block;
+}
+</style> 
+<div id="player_0_lf0r9tvn_150"> 
+	<div id="playerContainer_0_lf0r9tvn_150" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/0_lf0r9tvn/embed.html"></iframe>
+	</div>
+</div>
+<p>导入后，您可以双击 <strong>内容浏览器</strong> 中的关卡序列资源以在Sequencer UI中将它打开，并播放动画。
+</p><p>例如，在该视频中，关卡视口（Level Viewport）设置为显示在Datasmith场景中的摄像机的视图，因此动画化结果看起来与3ds Max中的原始视图一样。
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_0_gxa7gpql_171
+{
+	margin: 0px;
+	width: 640px;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_0_gxa7gpql_171:after
+{
+	content: "";
+	padding-top: 360px;
+	display: block;
+}
+</style> 
+<div id="player_0_gxa7gpql_171"> 
+	<div id="playerContainer_0_gxa7gpql_171" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/0_gxa7gpql/embed.html"></iframe>
+	</div>
+</div>
+<p>关于该工作流程有一些重要的注意事项：。
+</p><ul ><li class="Default"><p>Datasmith不会导入任何动画曲线。相反，对于原始源动画中的每一帧，它都会为包含对象当前变换的每个动画对象烘焙一个关键帧。
+</p></li><li class="Default"><p>Datasmith不处理子对象、网格体变形、对象属性或骨架绑定动画上的动画。它仅处理会更改场景对象在3D空间中的总体平移、旋转或缩放的动画。
+</p></li></ul><p>有关关卡序列以及如何在Sequencer UI中工作的更多信息，请参阅<a id="content_link"filter-data="tag_sequencer" href="../../../../../AnimatingObjects/Sequencer/index.html" ><span>Sequencer编辑器</span></a>文档。
+</p><div class="note">
+	<p>导入动画目前仅支持从3ds Max、Cinema 4D、VRED、Deltagen和glTF文件导入的场景。<br />（欲了解如何在导出的Datasmith文件中包含3ds Max场景中的动画，请参阅<a id="content_link"filter-data="tag_enterprise tag_3ds_max tag_how_to tag_datasmith" href="../../SoftwareInteropGuides/3dsMax/ExportingDatasmithContentfrom3dsMax/index.html" ><span>从3ds Max导出Datasmith内容</span></a>。）</p>
+</div><h3 id="渲染摄像机动画">渲染摄像机动画</h3>
+<p>若源场景含带动画的摄像机，Datasmith创建的关卡序列将包含虚幻引擎关卡中对应CineCameraActor的轨迹。此轨迹所含的关键帧存储着该摄像机在3D空间中移动和旋转时的3D变换。若在 <strong>世界大纲视图</strong> 中选择该CineCameraActor，并在虚幻编辑器中播放关卡序列，将在关卡视口中看到摄像机的预览窗口播放着从摄像机视角拍摄的动画。
+</p><p>但若要从动画摄像机的视角将关卡序列渲染为磁盘上的电影文件或图像序列，则首先需要向关卡序列添加一个 <strong>摄像机切换（Camera Cut）</strong> 轨迹，并将带动画的摄像机添加到该轨迹。
+</p><ol ><li class="Default"><p>双击关卡序列将其在序列UI中打开。
+</p></li><li class="Default"><p>点击 <strong>+轨迹（+ Track）</strong> 按钮，然后从菜单选择 <strong>摄像机切换轨迹（Camera Cut Track）</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Importing/Datasmith/Overview/ImportProcess/anim-camera-cuts-add.jpg">
+		<img class="  lazyload" alt="添加摄像机切换轨迹" title="Add a Camera Cut Track" data-src="../../../../../../Images/WorkingWithContent/Importing/Datasmith/Overview/ImportProcess/anim-camera-cuts-add.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>点击新 <strong>摄像机切换（Camera Cuts）</strong> 轨迹上的 <strong>+摄像机（+ Camera）</strong> 按钮，选择要使用的摄像机视角。若要使用已在关卡序列中添加动画的摄像机，可从 <strong>现有绑定（Existing Binding）</strong> 列表选择。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Importing/Datasmith/Overview/ImportProcess/anim-camera-cuts-addcamera.jpg">
+		<img class="  lazyload" alt="将一个摄像机添加到摄像机切换轨迹" title="Add a camera to the Camera Cuts track" data-src="../../../../../../Images/WorkingWithContent/Importing/Datasmith/Overview/ImportProcess/anim-camera-cuts-addcamera.jpg" />
+</picture>
+
+</p><div class="tip">
+	<p>若关卡序列包含许多动画轨迹，可能难以在 <strong>现有绑定（Existing Binding）</strong> 列表中找到所需摄像机。若如此，可从 <strong>新绑定（New Binding）</strong> 列表中选择所需摄像机，或从 <strong>世界大纲视图</strong> 将CineCameraActor拖至Sequencer UI中的新 <strong>摄像机切换</strong> 轨迹中。</p>
+</div></li><li class="Default"><p>在摄像机切换轨迹中，该CineCameraActor表示为时间轴上的一个块。必要时，拖动此块的左右边界可调整动画的开头与结尾。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Importing/Datasmith/Overview/ImportProcess/anim-camera-cuts-timeline.jpg">
+		<img class="  lazyload" alt="摄像机切换轨迹时间轴中的一个摄像机" title="A camera in the Camera Cut track timeline" data-src="../../../../../../Images/WorkingWithContent/Importing/Datasmith/Overview/ImportProcess/anim-camera-cuts-timeline.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>下次渲染关卡序列时，将在摄像机切换轨迹中从摄像机视角渲染每一帧。
+</p></li></ol><div class="tip">
+	<p>可向摄像机切换轨迹添加多个不同的CineCameraActor，实现在不同时间自动来回切换渲染。</p>
+</div><div class="note">
+	<p>详情另请参阅<a id="content_link"filter-data="tag_sequencer" href="../../../../../AnimatingObjects/Sequencer/HowTo/TracksCameraCut/index.html" ><span>使用摄像机切换</span></a>和<a id="content_link"filter-data="tag_sequencer" href="../../../../../AnimatingObjects/Sequencer/Workflow/RenderAndExport/RenderMovies/index.html" ><span>渲染过场动画电影</span></a>。</p>
+</div><h3 id="在多个关卡中使用动画">在多个关卡中使用动画</h3>
+<p>每个关卡序列包含对单个特定关卡中的Actor的引用。当您使用Datasmith导入包含动画的场景时，关卡序列将包含对该关卡中您导入场景时打开的动画Actor的引用。<br /></p><p>如果您稍后将同一个Datasmith场景资源放入其他关卡，关卡序列无法在该新关卡中找到相同的Actor。轨迹名称在Sequencer中显示为红色，在新关卡打开的情况下播放序列不会有任何效果。有一些选项可以修复这个问题：
+</p><ul ><li class="Default"><p>您可以更新关卡序列以指向新关卡中的Actor副本。<br />打开新关卡，单击Sequencer工具栏中的常规设置（General Settings）图标，从菜单中选择 <strong>修复Actor引用（Fix Actor References）</strong>。<br /></p><div class="lightbox">
+	<p><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Importing/Datasmith/Overview/ImportProcess/datasmith-animation-fix-actor-refs.jpg">
+		<img class="  lazyload" alt="![Fix Actor References" title="Fix Actor References" width="800" data-src="../../../../../../Images/WorkingWithContent/Importing/Datasmith/Overview/ImportProcess/datasmith-animation-fix-actor-refs.jpg" />
+</picture>
+<br /><em>点击查看全图</em></p>
+</div><p>Actor轨迹应该恢复为常规颜色。然后，将更改保存到关卡序列。
+</p><div class="note">
+	<p>由于关卡序列现在引用新关卡，它现在不适用于原始关卡。它一次只能用于一个关卡。</p>
+</div></li><li class="Default"><p>您可以复制内容浏览器中的关卡序列资源，然后再按上述修复其Actor引用。这样，您就有了一个在导入内容的原始关卡中可用的关卡序列，也有一个在新关卡中可用的关卡序列。
+</p><div class="note">
+	<p>如果重新导入Datasmith场景资源，那么对源场景中的动画所做的更改只会更新到原始关卡序列中。您可能需要重新创建副本并再次修复其Actor引用。</p>
+</div></li><li class="Default"><p>如果需要相同的导入关卡序列动画能够在多个关卡中工作，考虑使用 <em>子关卡</em>。您可以将Datasmith场景导入到空关卡，然后将该关卡作为子关卡添加到需要播放动画的每个关卡内部。有关具体有哪些子关卡以及如何使用它们的更多信息，请参阅<a id="content_link" href="../../../../../Basics/Levels/LevelsWindow/index.html" ><span>管理多个关卡</span></a>。
+</p></li></ul><h3 id="动画时间和帧精度">动画时间和帧精度</h3>
+<p>由于播放会对动画帧率与虚幻引擎每秒渲染帧数之间的不一致进行调整，所以播放包含许多轨迹和关键帧的复杂动画时，可能会发生卡顿和"跳帧"现象。为避免此问题，尽量使播放流畅，Datasmith会固定在创建的关卡序列上启用 <strong>在运行时锁定为显示率（Lock to Display Rate at Runtime）</strong> 属性。
+</p><p>此设置位于 <strong>Sequencer</strong> 的UI中：
+</p><div class="lightbox">
+	<p><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Importing/Datasmith/Overview/ImportProcess/animation-lock-setting.jpg">
+		<img class="  lazyload" alt="![在运行时锁定为显示率" title="Lock to Display Rate at Runtime" width="800" data-src="../../../../../../Images/WorkingWithContent/Importing/Datasmith/Overview/ImportProcess/animation-lock-setting.jpg" />
+</picture>
+<br /><em>点击查看大图。</em></p>
+</div><p>这将提高动画的流畅性。但要注意，此设置会将引擎的最大帧率限制为动画的帧率。若要引擎使用更大帧率，则此法不适用。例如，若动画片段在源应用程序中以每秒24或30帧的速率创建，而该片段需要在VR中以每秒90帧的速率播放，那么将引擎帧率限制为动画帧率则并非良策。此类情况下，需要在关卡序列资源上禁用此选项。
+</p><h2 id="图层">图层</h2>
+<p>如果您的源应用程序让您能够将内容组织为多个图层，或类似的内容，Datasmith会在虚幻编辑器中保留该组织形式。您可以使用 <strong>图层（Layers）</strong> 窗口（<strong>窗口（Window）>图层（Layers）</strong>）来显示和隐藏图层，或者快速找到并选择一个图层中的所有对象。
+</p><div class="lightbox">
+	<p><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Importing/Datasmith/Overview/ImportProcess/datasmith_overview_layers.jpg">
+		<img class="  lazyload" alt="![Layers imported by Datasmith" title="Layers imported by Datasmith" width="800" data-src="../../../../../../Images/WorkingWithContent/Importing/Datasmith/Overview/ImportProcess/datasmith_overview_layers.jpg" />
+</picture>
+<br /><em>点击查看全图</em></p>
+</div><p>但是，虚幻编辑器不支持 <em>嵌套</em> 图层。如果源场景使用嵌套图层，Datasmith自动将图层的层级展平为一个列表。
+</p><p>有关如何在虚幻编辑器中使用图层的更多信息，请参阅<a id="content_link" href="../../../../../BuildingWorlds/LevelEditor/Layers/index.html" ><span>图层面板用户指南</span></a>。
+</p><h2 id="元数据">元数据</h2>
+<p>对于某些类型的源文件格式，Datasmith会导入场景中您在源应用程序中设置的几何结构对象的元数据。您可以在虚幻编辑器中使用蓝图和Python脚本访问该元数据。有关该系统的详细信息，请参阅<a id="content_link"filter-data="tag_metadata tag_datasmith tag_guides" href="../UsingDatasmithMetadata/index.html" ><span>使用Datasmith元数据</span></a>。
+</p><h3 id="技术应用程序特定的元数据">技术应用程序特定的元数据</h3>
+<p>某些第三方应用程序和文件格式提供对场景对象的相关技术元数据值的访问，如它们的唯一ID、对象类或其他应用程序特定数据。Datasmith将该类技术数据导入到它分配给静态网格体组件的组件标记，该组件表示关卡中每个对象的几何结构。
+</p><p>要访问该技术元数据：
+</p><ol ><li class="Default"><p>选择想要在 <strong>关卡视口（Level Viewport）</strong> 或在 <strong>世界大纲视图（World Outliner）</strong> 中查看其组件标记的Actor。<br /></p><div class="lightbox">
+	<p><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Importing/Datasmith/Overview/ImportProcess/tags-select-object.jpg">
+		<img class="  lazyload" alt="![Select an Actor" title="Select an Actor" width="800" data-src="../../../../../../Images/WorkingWithContent/Importing/Datasmith/Overview/ImportProcess/tags-select-object.jpg" />
+</picture>
+<br /><em>点击查看全图</em></p>
+</div></li><li class="Default"><p>在 <strong>细节（Details）</strong> 面板中，选择分配给Actor的静态网格体组件。<br /><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Importing/Datasmith/Overview/ImportProcess/tags-select-component.jpg">
+		<img class="  lazyload" alt="选择静态网格体组件" title="Select the Static Mesh Component" data-src="../../../../../../Images/WorkingWithContent/Importing/Datasmith/Overview/ImportProcess/tags-select-component.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>细节（Details）</strong> 面板中滚动以找到 <strong>标记（Tags）>组件标记（ Component Tags）</strong> 列表。<br /><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Importing/Datasmith/Overview/ImportProcess/tags-list.jpg">
+		<img class="  lazyload" alt="组件标记列表" title="Component Tags list" data-src="../../../../../../Images/WorkingWithContent/Importing/Datasmith/Overview/ImportProcess/tags-list.jpg" />
+</picture>
+<br />例如，上图显示了从3ds Max导入的对象。其组件标记包含3ds Max中原始对应对象的类和超类、对象的句柄ID和其他特定于3ds Max对象表示方式的信息。
+</p></li></ol><div class="tip">
+	<p>这类技术信息通常特定于创建该对象的源应用程序。因此，与上一部分所述的Datasmith元数据区分开来。相比之下，Datasmith元数据通常表示关于各个场景对象的"真实世界"信息，例如BIM数据、构造属性、成本，或制造商等；或者表示在生产流程中有特殊含义的用户自定义属性。</p>
+</div>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../../SiteIndex/index.html?tags=Datasmith">Datasmith</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../../SiteIndex/index.html?tags=Guides">Guides</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../../SiteIndex/index.html?tags=importing">importing</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/WorkingWithContent/Importing/Datasmith/Overview/ImportProcess/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:04:21 GMT -->
+</html>

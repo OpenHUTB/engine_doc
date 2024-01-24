@@ -1,0 +1,656 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/RenderingAndGraphics/Niagara/HowTo/BeamEffect/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:04:56 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "../../../../../Images/RenderingAndGraphics/Niagara/HowTo/BeamEffect/NiagaraBanner.png";
+				var finishButton = finishButtonTemplate;
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/RenderingAndGraphics/Niagara/HowTo/BeamEffect/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>如何在Niagara中创建光束效果 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+		    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+		    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/RenderingAndGraphics/Niagara/HowTo/BeamEffect/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/RenderingAndGraphics/Niagara/HowTo/BeamEffect/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/RenderingAndGraphics/Niagara/HowTo/BeamEffect/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/RenderingAndGraphics/Niagara/HowTo/BeamEffect/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Niagara/HowTo/BeamEffect" />
+<meta name="intsourcechangelist" content="15716074" />
+<meta name="availability" content="Public" />
+<meta name="title" content="如何在Niagara中创建光束效果" />
+<meta name="description" content="本页面介绍如何创建模拟光照的光束效果。" />
+<meta name="skilllevel" content="Intermediate" />
+<meta name="version" content="4.26" />
+<meta name="parent" content="RenderingAndGraphics/Niagara/HowTo" />
+<meta name="order" content="10" />
+<meta name="type" content="how-to" />
+<meta name="keywords" content="Niagara" />
+<meta name="keywords" content="Effects" />
+<meta name="keywords" content="Visual Effects" />
+<meta name="keywords" content="Particle Effects" />
+<meta name="prereq" content="RenderingAndGraphics/Niagara/HowTo/EnableNiagara" />
+<meta name="topic-image" content="Niagara_Topic.png" />
+<meta name="hero-image" content="NiagaraBanner.png" />
+<meta name="crumbs" content="%ROOT%,RenderingAndGraphics,RenderingAndGraphics/Niagara,RenderingAndGraphics/Niagara/HowTo" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="如何在Niagara中创建光束效果" />
+	<meta property="og:description" content="本页面介绍如何创建模拟光照的光束效果。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">设计视觉、渲染和图形效果</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">Niagara视觉效果</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">Niagara - 使用指南</a>
+
+<span class="separator">></span> <span id="page">如何在Niagara中创建光束效果</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  background">
+						<div class="imgContainer"><img src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/BeamEffect/NiagaraBanner.png" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">如何在Niagara中创建光束效果</h1>
+							</div>	
+							<h2 >本页面介绍如何创建模拟光照的光束效果。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Intermediate"><a id="skill_link" href="../../../../SiteIndex/index.html?skills=Intermediate">Intermediate</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																																										<div class="prereq">
+    <div class="normaltitle">
+        前置主题
+    </div>
+    <p style="margin-bottom:8px;">
+        为了理解并使用本文中的内容，请确保您已掌握以下主题：
+    </p>
+    <ul style="margin-bottom:0.5em;">
+                <li>
+            <p>
+                <a href="../EnableNiagara/index.html" title="描述如何启动Niagara。">启用Niagara插件</a>
+            </p>
+        </li>
+            </ul>
+</div>
+																		<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#创建系统和发射器">创建系统和发射器</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#更改渲染器设置">更改渲染器设置</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#编辑发射器更新组设置">编辑发射器更新组设置</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#编辑粒子生成组设置">编辑粒子生成组设置</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#编辑粒子更新组设置">编辑粒子更新组设置</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#最终结果">最终结果</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<div class="note">
+	<p>操作前提：本指南会用到Niagara插件资源中的默认条带材质（DefaultRibbonMaterial）。但是，假如你已经完成了<a id="content_link"filter-data="tag_niagara tag_vfx tag_effects tag_visual_effects tag_particle_effects" href="../MeshEffect/index.html" ><span>创建网格体粒子效果</span></a>教程，你可以使用其中的M_Balloon材质。</p>
+</div><p>在Niagara中，你需要结合使用条带渲染器以及特定模块（该模块用于指示条带为光束）。在本指南中，你将学习如何创建能够模拟光照的光束。
+</p><h2 id="创建系统和发射器">创建系统和发射器</h2>
+<p>在Niagara中，发射器和系统相互独立。目前推荐的工作流程是从现有发射器或发射器模板创建系统。
+</p><ol ><li class="Default"><p>首先，在内容浏览器（Content Browser）中右键点击，创建Niagara系统（Niagara System），并选择 <strong>FX > Niagara系统（Niagara System）</strong>。之后将显示Niagara发射器（Niagara Emitter）向导。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/BeamEffect/CreateSystem_NewMenuSelections.png" title="创建系统菜单"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/BeamEffect/CreateSystem_NewMenuSelections.jpg">
+		<img class="  lazyload" alt="创建系统菜单" title="创建系统菜单" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/BeamEffect/CreateSystem_NewMenuSelections.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>选择 <strong>从选定发射器新建系统（New system from selected emitters）</strong>。然后点击 <strong>下一步（Next）</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/BeamEffect/CreateSystem_SystemWizard.png" title="系统向导：从选定项新建"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/BeamEffect/CreateSystem_SystemWizard.jpg">
+		<img class="  lazyload" alt="系统向导：从选定项新建" title="系统向导：从选定项新建" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/BeamEffect/CreateSystem_SystemWizard.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>在 <strong>模板（Templates）</strong> 中，选择 <strong>静态光束（Static Beam）</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/BeamEffect/CreateSystem_SelectStaticBeam.png" title="选择静态光束模板"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/BeamEffect/CreateSystem_SelectStaticBeam.jpg">
+		<img class="  lazyload" alt="选择静态光束模板" title="选择静态光束模板" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/BeamEffect/CreateSystem_SelectStaticBeam.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>点击 <strong>加号</strong> 图标（<strong>+</strong>），将发射器添加到发射器列表中，以便添加到系统中。然后点击 <strong>完成（Finish）</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/BeamEffect/CreateSystem_AddEmitterandFinish.png" title="添加发射器并完成"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/BeamEffect/CreateSystem_AddEmitterandFinish.jpg">
+		<img class="  lazyload" alt="添加发射器并完成" title="添加发射器并完成" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/BeamEffect/CreateSystem_AddEmitterandFinish.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>将新系统命名为 <strong>BeamSystem</strong>。双击它，以便在Niagara编辑器（Niagara Editor）中打开。
+</p><p> <picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/BeamEffect/CreateSystem_NameSystem.jpg">
+		<img class="  lazyload" alt="命名系统" title="命名系统" width="100" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/BeamEffect/CreateSystem_NameSystem.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>新系统中发射器实例的默认名称为 <strong>StaticBeam</strong>，但是你可以重命名。在系统概述中点击发射器实例的名称，该字段将变为可编辑。将发射器命名为 <strong>FX_Beam</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/BeamEffect/CreateSystem_RenameEmitter.png" title="重命名发射器"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/BeamEffect/CreateSystem_RenameEmitter.jpg">
+		<img class="  lazyload" alt="重命名发射器" title="重命名发射器" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/BeamEffect/CreateSystem_RenameEmitter.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li></ol><h2 id="更改渲染器设置">更改渲染器设置</h2>
+<p><strong>渲染组</strong> 位于堆栈的最后，但是你需更改一些内容，以便效果按照预期的方式显示。 
+</p><ol ><li class="Default"><p>在 <strong>系统概述（System Overview）</strong> 中，点击 <strong>渲染器（Render）</strong>，在 <strong>选择（Selection）</strong> 面板中将其打开。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/BeamEffect/SystemOverview_OpenRender.png" title="打开渲染组"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/BeamEffect/SystemOverview_OpenRender.jpg">
+		<img class="  lazyload" alt="打开渲染组" title="打开渲染组" width="700" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/BeamEffect/SystemOverview_OpenRender.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><div class="note">
+	<p>此系统中的发射器模板已经包含条带渲染器。在本指南的后面部分，你将添加特定模块，以便将指示条带作为光束使用。</p>
+</div></li><li class="Default"><p>用于此渲染器的材质为 <strong>DefaultRibbonMaterial</strong>。如果要使用其他材质，你可以点击下拉列表搜索并选择该材质。
+</p></li><li class="Default"><p>如果你滚动到 <strong>条带渲染（Ribbon Rendering）</strong> 分段中的设置，你会找到一个名为 <strong>曲面细分（Tessellation）</strong> 的分段。在该分段中，将 <strong>曲线张力（Curve Tension）</strong> 设置为 <strong>0.5</strong>。这将影响光照效果的尖锐程度。你可以提高或降低该值，改变效果。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/BeamEffect/ChangeRenderer_SetCurveTension.png" title="设置曲线张力"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/BeamEffect/ChangeRenderer_SetCurveTension.jpg">
+		<img class="  lazyload" alt="设置曲线张力" title="设置曲线张力" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/BeamEffect/ChangeRenderer_SetCurveTension.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>将 **BeamSystem 拖到关卡中。
+</p><div class="note">
+	<p>当你制作粒子效果时，最好将系统拖到关卡中。这样你可以查看每项更改并在上下文中编辑。你对系统所做的任何更改都会自动传播到关卡中的系统实例。</p>
+</div></li></ol><h2 id="编辑发射器更新组设置">编辑发射器更新组设置</h2>
+<p>首先，你在 <strong>发射器更新（Emitter Update）</strong> 组中编辑模块。这些是应用于发射器并更新每帧的行为。
+</p><ol ><li class="Default"><p>在 <strong>系统概述（System Overview）</strong> 中，点击 <strong>发射器更新（Emitter Update）</strong> 组，在 <strong>选择（Selection）</strong> 面板中将其打开。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/BeamEffect/SystemOverview_OpenEmitterUpdate.png" title="打开发射器更新"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/BeamEffect/SystemOverview_OpenEmitterUpdate.jpg">
+		<img class="  lazyload" alt="打开发射器更新" title="打开发射器更新" width="700" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/BeamEffect/SystemOverview_OpenEmitterUpdate.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p><strong>静态光束</strong> 发射器模板默认将 <strong>生命周期模式（Life Cycle Mode）</strong> 设置为 <strong>自身（Self） </strong>。这意味着直接设置发射器的生命周期和循环行为，而不是由系统处理。对于此效果，你可以向值添加浮点，为 <strong>循环时长（Loop Duration）</strong> 添加一些随机性。点击 <strong>循环时长（Loop Duration）</strong> 下拉箭头，然后选择 <strong>动态输入（Dynamic Inputs）> 随机范围浮点（Random Ranged Float）</strong>。此操作将在循环时长（Loop Duration）中添加 <strong>最小值（Minimum）</strong> 和 <strong>最大值（Maximum）</strong> 字段。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/BeamEffect/EmitterUpdate_LoopDurationAddUniformFloat.png" title="为循环时长添加统一范围浮点"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/BeamEffect/EmitterUpdate_LoopDurationAddUniformFloat.jpg">
+		<img class="  lazyload" alt="为循环时长添加随机范围浮点" title="为循环时长添加随机范围浮点" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/BeamEffect/EmitterUpdate_LoopDurationAddUniformFloat.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>将循环时长（Loop Duration）的最小值（Minimum）和最大值（Maximum）设置如下。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/BeamEffect/EmitterUpdate_LoopDurationSetMinMax.png" title="设置循环时长的最小值和最大值"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/BeamEffect/EmitterUpdate_LoopDurationSetMinMax.jpg">
+		<img class="  lazyload" alt="设置循环时长的最小值和最大值" title="设置循环时长的最小值和最大值" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/BeamEffect/EmitterUpdate_LoopDurationSetMinMax.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>设置 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>数值 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>最小值（Minimum）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>0.1</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>最大值（Maximum）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>0.2</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr></tbody>
+</table>
+</div></li><li class="Default"><p>指示此效果使用光束的第一个模块是 <strong>光束发射器设置（Beam Emitter Setup）</strong> 模块。由于你从静态光束模板开始，因此已经包含此模块。对于 <strong>光束开始（Beam Start）</strong> 和 <strong>光束结束（Beam End）</strong>，保留默认值。选中复选框，启用 <strong>绝对开始（Absolute Start）</strong> 和 <strong>绝对结束（Absolute End）</strong>。光束的起始位置由场景中Niagara系统的位置决定。结束位置由"光束结束位置（Beam End）"中设置的静态坐标定义。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/BeamEffect/EmitterUpdate_SetBeamStartandEnd.png" title="启用绝对开始和绝对结束"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/BeamEffect/EmitterUpdate_SetBeamStartandEnd.jpg">
+		<img class="  lazyload" alt="启用绝对开始和绝对结束" title="启用绝对开始和绝对结束" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/BeamEffect/EmitterUpdate_SetBeamStartandEnd.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>要为效果添加弧线或曲线，请选中复选框，启用 <strong>使用光束切线（Use Beam Tangents）</strong>。系统显示 <strong>光束开始切线（Beam Start Tangent）</strong> 和 <strong>光束结束切线（Beam End Tangent）</strong> 设置。点击 <strong>光束开始切线（Beam Start Tangent）</strong> 的 <strong>重置为默认值（Reset to Default）</strong> （黄色小箭头）图标，将值更改为 <strong>矢量乘以浮点（Multiply Vector by Float）</strong>。<strong>光束结束切线（Beam End Tangent）</strong> 已设置为矢量乘以浮点（Multiply Vector by Float）。将光束开始切线（Beam Start Tangent） <strong>矢量（Vector）</strong> 和 <strong>浮点（Float）</strong> 设置为以下值。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/BeamEffect/EmitterUpdate_SetBeamStartTangent.png" title="设置光束开始切线"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/BeamEffect/EmitterUpdate_SetBeamStartTangent.jpg">
+		<img class="  lazyload" alt="设置光束开始切线" title="设置光束开始切线" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/BeamEffect/EmitterUpdate_SetBeamStartTangent.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>设置 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>数值 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>矢量（Vector）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>X</strong>：0，<strong>Y</strong>：0，<strong>Z</strong>：1</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>浮点（Float）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>0.5</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr></tbody>
+</table>
+</div></li><li class="Default"><p>将光束结束切线（Beam End Tangent）矢量（Vector）和浮点（Float）设置为以下值。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/BeamEffect/EmitterUpdate_SetBeamEndTangent.png" title="设置光束结束切线"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/BeamEffect/EmitterUpdate_SetBeamEndTangent.jpg">
+		<img class="  lazyload" alt="设置光束结束切线" title="设置光束结束切线" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/BeamEffect/EmitterUpdate_SetBeamEndTangent.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>设置 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>数值 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>矢量（Vector）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>X</strong>：0，<strong>Y</strong>：0，<strong>Z</strong>：1</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>浮点（Float）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>1</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr></tbody>
+</table>
+</div></li><li class="Default"><p>在 <strong>即时生成迸发（Spawn Burst Instantaneous）</strong> 模块中，将 <strong>生成计数（Spawn Count）</strong> 值设置为 <strong>35</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/BeamEffect/EmitterUpdate_SetSpawnCount.png" title="设置生成计数"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/BeamEffect/EmitterUpdate_SetSpawnCount.jpg">
+		<img class="  lazyload" alt="设置生成计数" title="设置生成计数" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/BeamEffect/EmitterUpdate_SetSpawnCount.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li></ol><h2 id="编辑粒子生成组设置">编辑粒子生成组设置</h2>
+<p>然后，你将在 <strong>粒子生成（Particle Spawn）</strong> 组中编辑模块。此为首次生成粒子时应用于粒子的行为。
+</p><ol ><li class="Default"><p>在 <strong>系统概述（System Overview）</strong> 中，点击 <strong>粒子生成（Particle Spawn）</strong> 组，在 <strong>选择（Selection）</strong> 面板中将其打开。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/BeamEffect/SystemOverview_OpenParticleSpawn.png" title="打开粒子生成"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/BeamEffect/SystemOverview_OpenParticleSpawn.jpg">
+		<img class="  lazyload" alt="打开粒子生成" title="打开粒子生成" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/BeamEffect/SystemOverview_OpenParticleSpawn.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>在 <strong>初始化粒子（Initialize Particle）</strong> 模块中，找到 <strong>生命周期（Lifetime）</strong> 参数。生命周期参数确定粒子消失之前的显示时长。将 <strong>生命周期（Lifetime）</strong> 设置为 <strong>0.2</strong>。此短生命周期将导致光束闪烁，从而使光照显得更真实。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/BeamEffect/ParticleSpawn_InitParticleLifetime.png" title="设置生命周期参数"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/BeamEffect/ParticleSpawn_InitParticleLifetime.jpg">
+		<img class="  lazyload" alt="设置生命周期参数" title="设置生命周期参数" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/BeamEffect/ParticleSpawn_InitParticleLifetime.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p><strong>生成光束（Spawn Beam）</strong> 模块是第二个光束特定模块。你无需为此模块设置任何内容，只需保持当前状态。 
+</p></li><li class="Default"><p>第三个光束特定模块为 <strong>光束宽度（Beam Width）</strong> 模块。光束宽度（Beam Width）设置为 <strong>曲线中浮点（Float from Curve）</strong>。点击第二个曲线键可显示时间（Time）和值（Value）字段。将 <strong>时间（Time）</strong> 设置为 <strong>0.5</strong>，将 <strong>值（Value）</strong> 设置为 <strong>1</strong>。要使形状看起来合适，请右键点击每个曲线键，并确保将其设置为 <strong>自动（Auto）</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/BeamEffect/ParticleSpawn_SetBeamWidth.png" title="设置光束宽度"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/BeamEffect/ParticleSpawn_SetBeamWidth.jpg">
+		<img class="  lazyload" alt="设置光束宽度" title="设置光束宽度" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/BeamEffect/ParticleSpawn_SetBeamWidth.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>在曲线图下方，你可以看到一些其他设置。将 <strong>缩放曲线（Scale Curve）</strong> 设置为 <strong>5</strong>。
+</p></li></ol><h2 id="编辑粒子更新组设置">编辑粒子更新组设置</h2>
+<p>现在，你将在 <strong>粒子更新（Particle Update）</strong> 组中编辑模块。此类行为将应用于发射器的粒子并更新每个帧。
+</p><ol ><li class="Default"><p>在 <strong>系统概述（System Overview）</strong> 中，点击 <strong>粒子更新（Particle Update）</strong> 组，在 <strong>选择（Selection）</strong> 面板中将其打开。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/BeamEffect/SystemOverview_OpenParticleUpdate.png" title="打开粒子更新"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/BeamEffect/SystemOverview_OpenParticleUpdate.jpg">
+		<img class="  lazyload" alt="打开粒子更新" title="打开粒子更新" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/BeamEffect/SystemOverview_OpenParticleUpdate.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>对于 <strong>颜色（Color）</strong> 模块，将 <strong>RGB</strong> 值设置如下。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/BeamEffect/ParticleUpdate_SetColor.png" title="设置颜色"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/BeamEffect/ParticleUpdate_SetColor.jpg">
+		<img class="  lazyload" alt="设置颜色" title="设置颜色" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/BeamEffect/ParticleUpdate_SetColor.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>要断开曲线并使光束像闪电一样裂开跳跃，请点击 <strong>粒子更新（Particle Update）</strong> 的 <strong>加号</strong> （<strong>+</strong>）图标并选择 <strong>位置（Location）> 抖动位置（Jitter Position）</strong>，添加 <strong>抖动位置（Jitter Position）</strong> 模块。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/BeamEffect/ParticleUpdate_AddJitterPosition.png" title="添加抖动位置"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/BeamEffect/ParticleUpdate_AddJitterPosition.jpg">
+		<img class="  lazyload" alt="添加抖动位置" title="添加抖动位置" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/BeamEffect/ParticleUpdate_AddJitterPosition.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>为了使 <strong>抖动位置（Jitter Position）</strong> 模块正常运行，你需要更新光束（Update Beam）模块。点击 <strong>粒子更新（Particle Update）</strong> 的 <strong>加号</strong> （<strong>+</strong>）图标并选择 <strong>光束（Beam）> 更新光束（Update Beam）</strong>，添加 <strong>更新光束（Update Beam）</strong> 模块。在 <strong>系统概述（System Overview）</strong>中，将 <strong>更新光束（Update Beam）</strong> 模块拖到堆栈中 <strong>抖动位置（Jitter Position）</strong> 模块上方的位置。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/BeamEffect/ParticleUpdate_AddUpdateBeam.png" title="添加更新光束"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/BeamEffect/ParticleUpdate_AddUpdateBeam.jpg">
+		<img class="  lazyload" alt="添加更新光束" title="添加更新光束" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/BeamEffect/ParticleUpdate_AddUpdateBeam.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>现在回到 <strong>抖动位置（Jitter Position）</strong> 模块。<strong>抖动量（Jitter Amount）</strong> 的默认设置为 <strong>10</strong>，<strong>抖动延迟（Jitter Delay）</strong> 的默认设置为 <strong>0.25</strong>。但是，如果将 <strong>抖动延迟（Jitter Delay）</strong> 减小到 <strong>0.1</strong>，你将开始看到光束弯曲并呈角度锯齿状运动。如果值为 <strong>0.1</strong>，你仍然可以看到锯齿状光束下的原始弧形，这并非理想效果。要修复此问题，你必须将抖动延迟（Jitter Delay）设置为负数。将 <strong>抖动延迟（Jitter Delay）</strong> 设置为 <strong>-0.01</strong>。将 <strong>抖动量（Jitter Amount）</strong> 设置为 <strong>15</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/BeamEffect/ParticleUpdate_SetJitterAmountandDelay.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/BeamEffect/ParticleUpdate_SetJitterAmountandDelay.jpg">
+		<img class="  lazyload" alt="ParticleUpdate_SetJitterAmountandDelay.png" width="400" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/BeamEffect/ParticleUpdate_SetJitterAmountandDelay.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li></ol><h2 id="最终结果">最终结果</h2>
+<p>恭喜！你已经创建了模拟光照的光束效果。在下面的视频中，你可以看到光照光束效果的示例。你可以将光束用于各种视觉效果：激光、武器射线、特斯拉线圈等。
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_1_a94md342_11
+{
+	margin: 0px;
+	width: 640px;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_1_a94md342_11:after
+{
+	content: "";
+	padding-top: 360px;
+	display: block;
+}
+</style> 
+<div id="player_1_a94md342_11"> 
+	<div id="playerContainer_1_a94md342_11" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/1_a94md342/embed.html"></iframe>
+	</div>
+</div>
+
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Niagara">Niagara</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Effects">Effects</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Visual%20Effects">Visual Effects</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Particle%20Effects">Particle Effects</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/RenderingAndGraphics/Niagara/HowTo/BeamEffect/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:05:21 GMT -->
+</html>

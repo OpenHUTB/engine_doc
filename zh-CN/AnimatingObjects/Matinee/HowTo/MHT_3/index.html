@@ -1,0 +1,509 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/AnimatingObjects/Matinee/HowTo/MHT_3/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:35:19 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/AnimatingObjects/Matinee/HowTo/MHT_3/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>使用多机位 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/AnimatingObjects/Matinee/HowTo/MHT_3/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/AnimatingObjects/Matinee/HowTo/MHT_3/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/AnimatingObjects/Matinee/HowTo/MHT_3/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/AnimatingObjects/Matinee/HowTo/MHT_3/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Matinee/HowTo/MHT_3" />
+<meta name="intsourcechangelist" content="10086382" />
+<meta name="availability" content="Public" />
+<meta name="title" content="使用多机位" />
+<meta name="description" content="该部分讲述如何在多个摄像机之间切换并应用摄像机运动。" />
+<meta name="version" content="4.24" />
+<meta name="skilllevel" content="Intermediate" />
+<meta name="banner" content="在虚幻引擎4.24中，无法再通过过场动画（Cinematics）菜单和细节面板访问Matinee编辑器。" />
+<meta name="banner-description" content="这是为4.25将Matinee从UE4中彻底移除做准备。你现在仍然可以使用[从Matinee到Sequencer转化工具](AnimatingObjects/Sequencer\HowTo\MatineeConversionTool)将Matinee Actor转换为Sequencer资源。" />
+<meta name="crumbs" content="%ROOT%,AnimatingObjects,AnimatingObjects/Matinee,AnimatingObjects/Matinee/HowTo" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="使用多机位" />
+	<meta property="og:description" content="该部分讲述如何在多个摄像机之间切换并应用摄像机运动。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">为角色和对象添加动画</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">Matinee和过场动画</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">Matinee 指导</a>
+
+<span class="separator">></span> <span id="page">使用多机位</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+					<div id="banner" class="deprecated">
+	<div id="message">
+		<span>在虚幻引擎4.24中，无法再通过过场动画（Cinematics）菜单和细节面板访问Matinee编辑器。</span>
+	</div>
+			<div id="bannerDescription">
+		这是为4.25将Matinee从UE4中彻底移除做准备。你现在仍然可以使用<a id="content_link"filter-data="tag_matinee tag_sequencer tag_conversion" href="../../../Sequencer/HowTo/MatineeConversionTool/index.html" ><span>从Matinee到Sequencer转化工具</span></a>将Matinee Actor转换为Sequencer资源。
+	</div>
+		</div>
+															<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">使用多机位</h1>
+							</div>	
+							<h2 >该部分讲述如何在多个摄像机之间切换并应用摄像机运动。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Intermediate"><a id="skill_link" href="../../../../SiteIndex/index.html?skills=Intermediate">Intermediate</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																																				<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#添加matinee，摄像机和道具">添加 Matinee，摄像机和道具</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#在matinee中创建摄像机序列">在 Matinee 中创建摄像机序列</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#利用导演轨迹创建镜头切换">利用导演轨迹创建镜头切换</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>在以下步骤中我们将创建使用多个摄像机角度的简短序列。 
+</p><div class="include_wrapper" data-path="AnimatingObjects/Matinee/HowTo/MHT_1">
+<h2 id="创建项目">创建项目</h2>
+<p>在这部分中，我们将设置项目。 
+</p><ol ><li class="Default"><p>在 <strong>虚幻项目浏览器（Unreal Project Browser）</strong> 窗口中创建一个 <strong>新项目（New Project）</strong>，然后使用 <strong>蓝图第三人称（Blueprint Third Person）</strong> 模板。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_1/MatineeHowTo.jpg">
+		<img class="  lazyload" alt="MatineeHowTo.jpg" width="640" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_1/MatineeHowTo.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>启用 <strong>包括初学者内容包（Include starter content）</strong> 选项。 
+</p></li><li class="Default"><p>命名项目。 
+</p></li><li class="Default"><p>上述步骤完成后点击 <strong>创建项目（Create Project）</strong> 新建项目。
+</p></li></ol>
+</div>
+<h2 id="添加matinee，摄像机和道具">添加 Matinee，摄像机和道具</h2>
+<p>在这步中，我们将添加 <strong>Matinee Actor</strong>、<strong>摄像机</strong> 和作为镜头目标的道具。 
+</p><ol ><li class="Default"><p>在 <strong>工具栏</strong> 菜单中选择 <strong>Matinee</strong> 并点击 <strong>Add Matinee</strong> 按钮。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_1/MHT1_AddMatinee.jpg">
+		<img class="  lazyload" alt="MHT1_AddMatinee.png" width="720" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_1/MHT1_AddMatinee.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>如出现 <strong>Matinee</strong> 撤销警告提示，点击 <strong>继续</strong> 按钮。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_1/MHT1_MatineeWarning.jpg">
+		<img class="  lazyload" alt="MHT1_MatineeWarning.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_1/MHT1_MatineeWarning.jpg" />
+</picture>
+
+</p></li><li class="Default"><p><strong>Matinee Editor</strong> 窗口将打开。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_1/MHT1_MatineeOpen.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_1/MHT1_MatineeOpen.jpg">
+		<img class="  lazyload" alt="MHT1_MatineeOpen.png" width="640" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_1/MHT1_MatineeOpen.jpg" />
+</picture>
+</span></a></span></p>
+</div><p><em>点击查看全图。</em>
+</p></li><li class="Default"><p>最小化 Matinee 窗口，从 <strong>Modes</strong> 菜单的 <strong>Basic</strong> 标签下将一个 <strong>摄像机</strong> <strong>拖放</strong> 进视口。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_3/MHT_3_Drag_In_Camera.jpg">
+		<img class="  lazyload" alt="MHT_3_Drag_In_Camera.jpg" width="580" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_3/MHT_3_Drag_In_Camera.jpg" />
+</picture>
+
+</p><p><em>如上图所示，尝试将 <strong>摄像机</strong> 放置在模板文本左边的位置。</em>
+</p></li><li class="Default"><p>如下图所示，在视口中再放置两个 <strong>摄像机</strong>，并将它们向内旋转对准方块。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_3/MHT3_All_CamerasPlaced.jpg">
+		<img class="  lazyload" alt="MHT3_All_CamerasPlaced.jpg" width="580" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_3/MHT3_All_CamerasPlaced.jpg" />
+</picture>
+
+</p><p><em>选中 <strong>摄像机</strong> 后按下 <strong>E</strong> 键，然后使用控件进行定位。</em>
+</p></li><li class="Default"><p>从 <strong>Content Browser</strong> 的 <strong>Game/Props</strong> 文件夹中选取 <strong>SM_Chair</strong> 并 <strong>拖放</strong> 至视口中的方块上。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_3/MHT3_Drag_In_Chair.jpg">
+		<img class="  lazyload" alt="MHT3_Drag_In_Chair.jpg" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_3/MHT3_Drag_In_Chair.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>选中椅子，按下 <strong>E</strong> 键进入 <strong>旋转模式</strong> 将椅子按下图所示旋转至 <strong>140.00</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_3/MHT3_ChairRotated.jpg">
+		<img class="  lazyload" alt="MHT3_ChairRotated.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_3/MHT3_ChairRotated.jpg" />
+</picture>
+
+</p></li></ol><h2 id="在matinee中创建摄像机序列">在 Matinee 中创建摄像机序列</h2>
+<p>在这步中我们将为每个 <strong>摄像机</strong> 指定运动，并将它们衔接到 <strong>Matinee</strong>。 
+</p><ol ><li class="Default"><p>打开 Matinee 窗口（如已关闭，可选择 <strong>Matinee</strong>，然后在 <strong>Details</strong> 面板中选择 <strong>Open Matinee</strong> 重新打开）。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_3/MHT3_OpenMatinee.jpg">
+		<img class="  lazyload" alt="MHT3_OpenMatinee.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_3/MHT3_OpenMatinee.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>选中放置在视口中的第一个 <strong>摄像机</strong>，在 <strong>Tracks</strong> 窗口中 <strong>单击右键</strong> 并选择菜单中的 <strong>Add New Camera Group</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_3/MHT3_AddCameraToMatinee.jpg">
+		<img class="  lazyload" alt="MHT3_AddCameraToMatinee.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_3/MHT3_AddCameraToMatinee.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在出现的 <strong>Name Camera Group</strong> 框中将摄像机命名为 <strong>Camera1</strong>，按下 enter 键完成轨迹的添加。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_3/MHT3_Camera1Added.jpg">
+		<img class="  lazyload" alt="MHT3_Camera1Added.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_3/MHT3_Camera1Added.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>重复以上步骤将剩余两个摄像机添加至 Matinee。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_3/MHT3_AllCamerasInMatinee.jpg">
+		<img class="  lazyload" alt="MHT3_AllCamerasInMatinee.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_3/MHT3_AllCamerasInMatinee.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>下一步中，长按 <strong>Control</strong> 键拖动红色标记（下图黄色框内）到 <strong>15.00</strong> 标记处（下图黄色 X 处），延长 Matinee 长度。 
+</p><div class="fullwidth">
+	<p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_3/MHT3_Increase_MatineeTime.jpg">
+		<img class="  lazyload" alt="MHT3_Increase_MatineeTime.jpg" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_3/MHT3_Increase_MatineeTime.jpg" />
+</picture>
+</p>
+</div></li><li class="Default"><p>点击 Camera1 <strong>运动</strong> 轨迹 <strong>0.00</strong> 处的首个关键帧，在视口中选中摄像机。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_3/MHT3_Camera1KeySelected.jpg">
+		<img class="  lazyload" alt="MHT3_Camera1KeySelected.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_3/MHT3_Camera1KeySelected.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在视口中使用控件上移摄像机并使其角度稍微朝下（按 <strong>E</strong> 键进入 <strong>旋转</strong> 模式）。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_3/MHT3_Camera1Moved.jpg">
+		<img class="  lazyload" alt="MHT3_Camera1Moved.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_3/MHT3_Camera1Moved.jpg" />
+</picture>
+
+</p><p><em>向右平移摄像机，经过模板文本；将摄像机的角度调好，使其能观察到文本。</em>
+</p></li><li class="Default"><p>返回 Matinee 窗口，将 <strong>时间条</strong> 移至 Camera1 运动轨迹的 <strong>5.00</strong> 标记处，然后按下 <strong>Enter</strong> 键添加一个新的关键帧。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_3/MHT3_Camera1Key2.jpg">
+		<img class="  lazyload" alt="MHT3_Camera1Key2.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_3/MHT3_Camera1Key2.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>选中第二个关键帧，返回编辑器视口，抓住 <strong>平移（Translation）</strong> 控件的 <strong>绿色</strong> 箭头将摄像机移至右方（途经文本）。 
+</p><div class="fullwidth">
+	<p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_3/MHT3_Camera1Done.jpg">
+		<img class="  lazyload" alt="MHT3_Camera1Done.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_3/MHT3_Camera1Done.jpg" />
+</picture>
+</p>
+</div><p><em>图中黄色虚线是摄像机的运动轨迹。</em>
+</p></li><li class="Default"><p>返回 <strong>Matinee</strong> 窗口，点击 <strong>Camera2</strong> <strong>移动</strong> 轨迹的首个关键帧，然后 <strong>按住 Control 键拖动</strong> 关键帧到 <strong>5.00</strong> 标记处。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_3/MHT3_Camera2Key1.jpg">
+		<img class="  lazyload" alt="MHT3_Camera2Key1.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_3/MHT3_Camera2Key1.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>选中 <strong>Camera2 的</strong> 关键帧，返回编辑器视口并将摄像机向方块移动（即为放置椅子的方块），使方块完全填充镜头画面。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_3/MHT3_Camera2StartPosition.jpg">
+		<img class="  lazyload" alt="MHT3_Camera2StartPosition.png" height="420" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_3/MHT3_Camera2StartPosition.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>返回 Matinee 窗口，将 <strong>时间条</strong> 移至 Camera2 运动轨迹的 <strong>7.50</strong> 标记处，然后按下 <strong>Enter</strong> 键添加一个新的关键帧。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_3/MHT3_Camera2Key2.jpg">
+		<img class="  lazyload" alt="MHT3_Camera2Key2.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_3/MHT3_Camera2Key2.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>选中新的关键帧，返回编辑器视口，抓住 <strong>平移</strong> 控件的 <strong>蓝色</strong> 箭头将摄像机向上移动，使椅子出现在镜头画面中。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_3/MHT3_Camera2Finished.jpg">
+		<img class="  lazyload" alt="MHT3_Camera2Finished.png" height="420" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_3/MHT3_Camera2Finished.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>返回 Matinee 窗口并将 <strong>Camera3</strong> 运动轨迹 <strong>0.00</strong> 处的关键帧移至 <strong>7.50</strong> 标记处。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_3/MHT3_Camera3Key1.jpg">
+		<img class="  lazyload" alt="MHT3_Camera3Key1.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_3/MHT3_Camera3Key1.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>选中 Camera3 的关键帧，返回编辑器视口，向上移动摄像机，使其悬停在椅子上方。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_3/MHT3_Camera3Starting.jpg">
+		<img class="  lazyload" alt="MHT3_Camera3Starting.png" height="420" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_3/MHT3_Camera3Starting.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>返回 Matinee 窗口，将 <strong>时间条</strong> 移至 <strong>11.00</strong> 标记处，然后按下 <strong>Enter</strong> 键添加一个新的关键帧。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_3/MHT3_Camera3FinalKey.jpg">
+		<img class="  lazyload" alt="MHT3_Camera3FinalKey.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_3/MHT3_Camera3FinalKey.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>选中新关键帧，返回编辑器视口，使用控件向后移动摄像机，使椅子出现在镜头画面中。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_3/MHT3_Camera3FinalShot.jpg">
+		<img class="  lazyload" alt="MHT3_Camera3FinalShot.png" height="420" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_3/MHT3_Camera3FinalShot.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>返回 Matinee 窗口，选择 Camera1 的 <strong>运动</strong> 轨迹，然后将 <strong>时间条</strong> 移至 <strong>11.00</strong> 处，再按下 <strong>Enter</strong> 键添加一个新的关键帧。 
+</p><div class="fullwidth">
+	<p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_3/MHT3_Camera1LastKey1.jpg">
+		<img class="  lazyload" alt="MHT3_Camera1LastKey1.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_3/MHT3_Camera1LastKey1.jpg" />
+</picture>
+</p>
+</div></li><li class="Default"><p>选中新关键帧，返回编辑器视口并点击 <strong>Viewport Options</strong> 按钮，然后选择 <strong>Lock Viewport to Actor</strong> 并选择 <strong>Selected Actor</strong>（即为所用摄像机）。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_3/MHT3_LockingViewport.jpg">
+		<img class="  lazyload" alt="MHT3_LockingViewport.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_3/MHT3_LockingViewport.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>镜头画面如下图所示，屏幕左上角有一个 <strong>锁定图标</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_3/MHT3_CameraIsLocked.jpg">
+		<img class="  lazyload" alt="MHT3_CameraIsLocked.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_3/MHT3_CameraIsLocked.jpg" />
+</picture>
+
+</p><p><em>视口现已锁定至摄像机，利于获得更精确的角度和掌控镜头画面。</em>
+</p></li><li class="Default"><p>利用 <strong>W、A、S、D</strong> 键将摄像机上升至空中的位置，俯视椅子。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_3/MHT3_Camera3InPosition.jpg">
+		<img class="  lazyload" alt="MHT3_Camera3InPosition.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_3/MHT3_Camera3InPosition.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>然后返回 Viewport Options 窗口，以之前锁定的方式 <strong>解锁</strong> 摄像机。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_3/MHT3_UnlockCamera.jpg">
+		<img class="  lazyload" alt="MHT3_UnlockCamera.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_3/MHT3_UnlockCamera.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>返回 Matinee 窗口并将 <strong>时间条</strong> 移至 <strong>15.00</strong>，在 <strong>Camera1</strong> 的 <strong>运动</strong> 轨迹上添加一个关键帧。 
+</p><div class="fullwidth">
+	<p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_3/MHT3_LastCameraKey.jpg">
+		<img class="  lazyload" alt="MHT3_LastCameraKey.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_3/MHT3_LastCameraKey.jpg" />
+</picture>
+</p>
+</div></li><li class="Default"><p>选中新关键帧，返回编辑器视口并将摄像机移至下图所示的位置（使用 <strong>平移</strong> 控件或 <strong>Locking the Viewport</strong> 选项）。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_3/MHT3_CamerasDone.jpg">
+		<img class="  lazyload" alt="MHT3_CamerasDone.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_3/MHT3_CamerasDone.jpg" />
+</picture>
+
+</p></li></ol><h2 id="利用导演轨迹创建镜头切换">利用导演轨迹创建镜头切换</h2>
+<p>在这步中我们将添加一个 <strong>导演轨迹（Director Track）</strong>，用于处理所有的镜头切换。 
+</p><ol ><li class="Default"><p>打开 Matinee 窗口（如已关闭，可选择 <strong>Matinee</strong>，然后在 <strong>Details</strong> 面板中选择 <strong>Open Matinee</strong> 重新打开）。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_3/MHT3_OpenMatinee.jpg">
+		<img class="  lazyload" alt="MHT3_OpenMatinee.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_3/MHT3_OpenMatinee.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 Camera3 中，在 <strong>Tracks</strong> 窗口中空白处 <strong>单击右键</strong>，从快捷菜单中选择 <strong>Add New Director Group</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_3/MHT3_AddDirectorGroup.jpg">
+		<img class="  lazyload" alt="MHT3_AddDirectorGroup.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_3/MHT3_AddDirectorGroup.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>将 <strong>时间条</strong> 移回至 <strong>0.00</strong> 处（如不在此处），点击 <strong>Director</strong> 轨迹后按下 <strong>Enter</strong> 键添加一个关键帧。 
+</p></li><li class="Default"><p>将出现 <strong>Cut To Group</strong> 弹出窗口，为 <strong>Camera1</strong> 按下 <strong>Ok</strong> 添加关键帧。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_3/MHT3_FirstCutAdded.jpg">
+		<img class="  lazyload" alt="MHT3_FirstCutAdded.png" width="740" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_3/MHT3_FirstCutAdded.jpg" />
+</picture>
+
+</p><p><em>将为 <strong>Camera1</strong> 添加一个条，表明其用于 15 秒序列；之后将对序列进行修改，包含其他摄像机。</em>
+</p></li><li class="Default"><p>将 <strong>时间条</strong> 移至 <strong>5.00</strong>、<strong>7.50</strong> 和 <strong>11.00</strong>，并为每处添加一个关键帧，分别切换至 <strong>Camera2</strong>、<strong>Camera3</strong>、再切回 <strong>Camera1</strong>（如下图所示）。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_3/MHT3_FinishedMatinee.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_3/MHT3_FinishedMatinee.jpg">
+		<img class="  lazyload" alt="MHT3_FinishedMatinee.png" width="780" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_3/MHT3_FinishedMatinee.jpg" />
+</picture>
+</span></a></span></p>
+</div><p><em>点击图片查看全图。</em>
+</p></li><li class="Default"><p><strong>关闭</strong> Matinee 窗口，在 <strong>World Outliner</strong> 中选择 <strong>Matinee</strong>，然后在 Details 面板中勾选下列选项：<strong>Play on Level Load</strong>、<strong>Looping</strong>、<strong>Disable Movement Input</strong>、<strong>Disable Look at Input</strong>、<strong>Hide Player</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_3/MHT3_CutToGroup.jpg">
+		<img class="  lazyload" alt="MHT3_CutToGroup.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_3/MHT3_CutToGroup.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_3/MHT3_MatineeActorSettings.jpg">
+		<img class="  lazyload" alt="MHT3_MatineeActorSettings.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_3/MHT3_MatineeActorSettings.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在主工具栏中点击 <strong>Build</strong> 按钮（可选，构建关卡中的灯光），然后点击 <strong>Play</strong> 按钮。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_3/MHT3_BuildAndPlay.jpg">
+		<img class="  lazyload" alt="MHT3_BuildAndPlay.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_3/MHT3_BuildAndPlay.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>现在 Matinee 序列便已设好，关卡载入时便开始播放，在三个摄像机之间循环。 
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_k3r1aNcbO8Y_827
+{
+	margin: 0px;
+	width: 640px;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_k3r1aNcbO8Y_827:after
+{
+	content: "";
+	padding-top: 360px;
+	display: block;
+}
+</style> 
+<div>
+<div id="player_k3r1aNcbO8Y_827"><div style="position:absolute;display:block;width:100%;height:100%;"><iframe class="embedded_video" id="k3r1aNcbO8Y" width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/k3r1aNcbO8Y?rel=0&amp;modestbranding=1&amp;showinfo=0" frameborder="0" allowfullscreen></iframe></div></div>
+</div></li></ol>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/AnimatingObjects/Matinee/HowTo/MHT_3/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:35:31 GMT -->
+</html>

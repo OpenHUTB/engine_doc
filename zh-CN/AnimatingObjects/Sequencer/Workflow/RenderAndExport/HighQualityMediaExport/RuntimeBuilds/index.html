@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RuntimeBuilds/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:28:00 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var finishButton = finishButtonTemplate;
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RuntimeBuilds/" />');
+				var udnCSS = '../../../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>在运行时构建中使用Movie Render Queue | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+		    <script  src="../../../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+		    <script  src="../../../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RuntimeBuilds/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RuntimeBuilds/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RuntimeBuilds/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RuntimeBuilds/" hreflang="ko" />
+
+	<meta name="intsourcechangelist" content="15136251" />
+<meta name="availability" content="Public" />
+<meta name="title" content="在运行时构建中使用Movie Render Queue" />
+<meta name="description" content="如何在分布式构建中使用Movie Render Queue，以便在最终用户设备上创建视频。" />
+<meta name="version" content="4.26" />
+<meta name="type" content="how-to" />
+<meta name="skilllevel" content="Advanced" />
+<meta name="keywords" content="Sequencer" />
+<meta name="keywords" content="Movie Render Queue" />
+<meta name="keywords" content="Blueprint" />
+<meta name="keywords" content="Beta" />
+<meta name="keywords" content="render" />
+<meta name="crumbs" content="%ROOT%,AnimatingObjects,AnimatingObjects/Sequencer,AnimatingObjects/Sequencer/Workflow,AnimatingObjects/Sequencer/Workflow/RenderAndExport,AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="在运行时构建中使用Movie Render Queue" />
+	<meta property="og:description" content="如何在分布式构建中使用Movie Render Queue，以便在最终用户设备上创建视频。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../../../index.html">为角色和对象添加动画</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../../../index.html">Sequencer 编辑器</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">使用Sequencer</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">渲染并导出Sequencer的内容</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">影片渲染队列概述</a>
+
+<span class="separator">></span> <span id="page">在运行时构建中使用Movie Render Queue</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+					<div id="banner" class="beta">
+	<div id="message">
+		学习使用此<span>测试</span>功能，但在用它发布产品时请谨慎行事。
+	</div>
+	<div id="bannerDescription">
+		测试功能主要供您学习如何使用、规划工作流程和创建测试内容之用。<strong>在实际生产中使用这些功能必须谨慎</strong>，因为我们仍在努力完善以使它们的性能、稳定性和平台支持达到发布水准。我们支持资源的向后兼容，这些功能的API也是稳定的。
+	</div>
+</div>
+															<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">在运行时构建中使用Movie Render Queue</h1>
+							</div>	
+							<h2 >如何在分布式构建中使用Movie Render Queue，以便在最终用户设备上创建视频。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Advanced"><a id="skill_link" href="../../../../../../SiteIndex/index.html?skills=Advanced">Advanced</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																																																<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#工作流程">工作流程</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#步骤">步骤</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#取消作业">取消作业</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#自定义执行器">自定义执行器</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#更改调试控件">更改调试控件</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#限制">限制</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>在 <strong>虚幻引擎4.26</strong> 和之后版本中，可以使用 <strong>Movie Render Queue</strong> 在运行时构建中渲染视频，并使用 <strong>蓝图</strong> 输出文件到用户的计算机。此功能有助于在特定目标硬件上渲染高质量视频。
+</p><h2 id="工作流程">工作流程</h2>
+<p>你可以在蓝图中使用 <strong>Movie Pipeline Queue Engine Subsystem</strong> 节点来访问Movie Render Queue。
+</p><p><picture>
+		<source data-srcset="./../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RuntimeBuilds/MRQSubsystemNode.jpg">
+		<img class="  lazyload" alt="MRQSubsystemNode.png" data-src="../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RuntimeBuilds/MRQSubsystemNode.jpg" />
+</picture>
+
+</p><p>该子系统使用一个 <strong>队列（Queue）</strong>，队列中有一系列渲染 <strong>作业（Jobs）</strong>。每个作业可以包含一个或多个 <strong>镜头（shots）</strong>，并有自己的 <strong>配置（configuration）</strong> 界面，显示用于渲染作业内镜头的<a id="content_link"filter-data="tag_sequencer tag_movie_render_queue tag_motion_blur tag_anti-aliasing tag_antialiasing tag_render tag_raytracing_ tag_beta tag_settingsreference" href="../Reference/index.html" ><span>设置</span></a>。  要渲染视频，你需要建立一系列作业，把作业加入队列中，然后调用Movie Render Queue子系统的 <strong>执行器（Executor）</strong> 来处理队列。 
+</p><h2 id="步骤">步骤</h2>
+<p>要在运行时渲染Sequencer视频，应用程序必须执行以下步骤：
+</p><ol ><li class="Default"><p>创建 <strong>Movie Pipeline Queue Engine Subsystem</strong> 节点。点击输出引脚并拖出一条引线，然后创建一个 <strong>Get Queue</strong> 节点，以获得队列引用。
+</p><p><picture>
+		<source data-srcset="./../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RuntimeBuilds/EngineSubsystemRef.jpg">
+		<img class="  lazyload" alt="EngineSubsystemRef.png" data-src="../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RuntimeBuilds/EngineSubsystemRef.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>点击"Get Queue"节点上的"返回值（Return Value）"并拖动，然后调用 <strong>Allocate New Job</strong>。上述操作将在队列中添加一个作业。
+</p><p><picture>
+		<source data-srcset="./../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RuntimeBuilds/AllocateNewJob.jpg">
+		<img class="  lazyload" alt="AllocateNewJob.png" data-src="../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RuntimeBuilds/AllocateNewJob.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>点击Allocate New Job节点的返回值（Return Value）并拖出一条引线，获得作业的一个引用。调用 <strong>Set Sequence</strong>，将其配置为要播放的关卡序列的 <strong>软对象路径（soft object path）</strong>，然后调用 <strong>Set Map</strong>，将其配置为序列所在关卡的软对象路径。在此作业启动后，Movie Render Queue将加载指定贴图，并启动指定序列。
+</p><p><picture>
+		<source data-srcset="./../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RuntimeBuilds/SetSequenceAndMap.jpg">
+		<img class="  lazyload" alt="SetSequenceAndMap.png" data-src="../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RuntimeBuilds/SetSequenceAndMap.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>再次点击Allocate New Job节点上的"返回值（Return Value）"并拖出一条引线，然后调用 <strong>Get Configuration</strong>，以获得作业设置的引用。
+</p><p><picture>
+		<source data-srcset="./../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RuntimeBuilds/GetConfig.jpg">
+		<img class="  lazyload" alt="GetConfig.png" data-src="../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RuntimeBuilds/GetConfig.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>点击Get Configuration节点上的"返回值（Return Value）"并拖出一条引线，然后调用 <strong>Find or Add Setting by Class</strong>，以添加一个新设置。点击 <strong>In Class</strong> 输入引脚的下拉菜单，选择你想要更改的设置。  你可以点击Find or Add Setting by Class节点上的"返回值（Return Value）"并拖出一条引线，以编辑这些设置的属性。
+</p><p><picture>
+		<source data-srcset="./../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RuntimeBuilds/CreateSettings.jpg">
+		<img class="  lazyload" alt="CreateSettings.png" data-src="../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RuntimeBuilds/CreateSettings.jpg" />
+</picture>
+
+</p><div class="warning">
+	<p>一些Movie Render Queue设置依赖于编辑器独有的功能，无法在运行时构建中使用。详见下文<a id="content_link" href="#" ><span>限制（Limitations）</span></a>部分。</p>
+</div></li><li class="Default"><p>根据需要对每个分配的作业重复步骤2至5。
+</p></li><li class="Default"><p>分配结束后，获取Movie Pipeline Queue Engine Subsystem节点的引用，然后调用 <strong>Render Queue with Executor</strong>。将 <strong>In Executor Type</strong> 设置为 <strong>MoviePipelineInProcessExecutor</strong>。此节点将通知执行器处理你在Movie Pipeline Queue Engine Subsystem中建立的队列，并将引用返回至执行器。
+</p><p><picture>
+		<source data-srcset="./../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RuntimeBuilds/RenderQueueWithExecutor.jpg">
+		<img class="  lazyload" alt="RenderQueueWithExecutor.png" data-src="../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RuntimeBuilds/RenderQueueWithExecutor.jpg" />
+</picture>
+
+</p><div class="note">
+	<p>MoviePipelineInProcessExecutor是一个执行器类，专用于应用的运行时构建。其他执行器类分别用于不同情况，如在编辑器内运行期间。</p>
+</div></li><li class="Default"><p>要在执行器处理完队列后调用事件，点击Render Queue with Executor上的"返回值（Return Value）"引脚并拖出一条引线，然后调用 <strong>Bind Event to On Executor Finished Delegate</strong>。然后便可将事件到此节点，以便在队列结束后运行此事件。
+</p><p><picture>
+		<source data-srcset="./../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RuntimeBuilds/BindEventOnRenderFinish.jpg">
+		<img class="  lazyload" alt="BindEventOnRenderFinish.png" data-src="../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RuntimeBuilds/BindEventOnRenderFinish.jpg" />
+</picture>
+
+</p></li></ol><h3 id="取消作业">取消作业</h3>
+<p>可以从执行器中调用 <strong>Cancel Current Job</strong> 来取消执行器正在运行的作业，继续处理下一个作业。调用 <strong>Cancel All Jobs</strong> 将取消队列中的全部作业。
+</p><p><picture>
+		<source data-srcset="./../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RuntimeBuilds/CancelingJobs.jpg">
+		<img class="  lazyload" alt="CancelingJobs.png" data-src="../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RuntimeBuilds/CancelingJobs.jpg" />
+</picture>
+
+</p><h2 id="自定义执行器">自定义执行器</h2>
+<p>可以通过更改执行器的设置项来控制执行器如何处理队列。
+</p><p>使用 <strong>Construct Object</strong> 节点，可以手动构建执行器对于新建的执行器实例，选择 <strong>Movie Pipeline In Process Executor</strong> 作为 <strong>类（Class）</strong>，然后将一个引用连接到 <strong>Movie Pipeline Queue Engine Subsystem</strong> 作为 <strong>外部（Outer）</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RuntimeBuilds/ConstructExecutor.jpg">
+		<img class="  lazyload" alt="ConstructExecutor.png" data-src="../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RuntimeBuilds/ConstructExecutor.jpg" />
+</picture>
+
+</p><p>你可以用此节点的"返回值（Return Value）"来编辑新建执行器的设置，或者将事件绑定到代理。操作完成后，调用Render Queue With Executor Instance而非 <strong>Render Queue With Executor</strong>，然后把执行器连接到 <strong>In Executor</strong> 引脚。
+</p><p><picture>
+		<source data-srcset="./../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RuntimeBuilds/ChangeExecutorSettings.jpg">
+		<img class="  lazyload" alt="ChangeExecutorSettings.png" data-src="../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RuntimeBuilds/ChangeExecutorSettings.jpg" />
+</picture>
+
+</p><div class="tip">
+	<p>如果你想在当前已加载的关卡中运行一个序列而无须再次载入，把执行器的 <strong>使用当前关卡（Use Current Level）</strong> 变量值设置为 <strong>True</strong>。此设置将确保在运行过程中保留所有已做出的更改，而不是重启关卡并从头开始。
+</p><p><picture>
+		<source data-srcset="./../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RuntimeBuilds/UseCurrentLevel.jpg">
+		<img class="  lazyload" alt="UseCurrentLevel.png" data-src="../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RuntimeBuilds/UseCurrentLevel.jpg" />
+</picture>
+</p>
+</div><h3 id="更改调试控件">更改调试控件</h3>
+<p><strong>Debug调试控件（Debug Widget）</strong> 是UI控件，用于在渲染过程中显示视频预览帧。你可以通过设置执行器的 <strong>调试控件类（Debug Widget Class）</strong> 来更改调试控件。
+</p><p><picture>
+		<source data-srcset="./../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RuntimeBuilds/SetDebugWidgetClass.jpg">
+		<img class="  lazyload" alt="SetDebugWidgetClass.png" data-src="../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RuntimeBuilds/SetDebugWidgetClass.jpg" />
+</picture>
+
+</p><p>将此属性值设为"None"表示使用缺省调试控件。你可以通过创建一个 <strong>控件蓝图（Widget Blueprint）</strong> 来创建自己的自定义调试控件，然后将其 <strong>父类（Parent Class）</strong> 属性设置为 <strong>MovieRenderDebugWidget</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RuntimeBuilds/MovieRenderParentClass.jpg">
+		<img class="  lazyload" alt="MovieRenderParentClass.png" data-src="../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RuntimeBuilds/MovieRenderParentClass.jpg" />
+</picture>
+
+</p><p>然后你可以选择此自定义控件作为执行器的调试控件类。
+</p><p><picture>
+		<source data-srcset="./../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RuntimeBuilds/UsingCustomDebugWidget.jpg">
+		<img class="  lazyload" alt="UsingCustomDebugWidget.png" data-src="../../../../../../../Images/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RuntimeBuilds/UsingCustomDebugWidget.jpg" />
+</picture>
+
+</p><h2 id="限制">限制</h2>
+<p>某些设置在运行时构建中不可用，因为它们依赖于编辑器特有功能。包括：
+</p><pre class="prettyprint"><code>+ FinalCut Pro XML输出格式
++ Object ID渲染通道</code></pre>
+
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../../../SiteIndex/index.html?tags=Sequencer">Sequencer</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../../../SiteIndex/index.html?tags=Movie%20Render%20Queue">Movie Render Queue</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../../../SiteIndex/index.html?tags=Blueprint">Blueprint</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../../../SiteIndex/index.html?tags=Beta">Beta</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../../../SiteIndex/index.html?tags=render">render</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/AnimatingObjects/Sequencer/Workflow/RenderAndExport/HighQualityMediaExport/RuntimeBuilds/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:28:07 GMT -->
+</html>

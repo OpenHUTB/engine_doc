@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/SharingAndReleasing/XRDevelopment/AR/HandheldAR/ARHowToHitTesting/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:51:41 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/SharingAndReleasing/XRDevelopment/AR/HandheldAR/ARHowToHitTesting/" />');
+				var udnCSS = '../../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>如何在AR中进行命中检测 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/SharingAndReleasing/XRDevelopment/AR/HandheldAR/ARHowToHitTesting/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/SharingAndReleasing/XRDevelopment/AR/HandheldAR/ARHowToHitTesting/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/SharingAndReleasing/XRDevelopment/AR/HandheldAR/ARHowToHitTesting/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/SharingAndReleasing/XRDevelopment/AR/HandheldAR/ARHowToHitTesting/" hreflang="ko" />
+
+	<meta name="redirect" content="Platforms/AR/HandheldAR/ARHowToHitTesting" />
+<meta name="intsourcechangelist" content="14529640" />
+<meta name="availability" content="Public" />
+<meta name="title" content="如何在AR中进行命中检测" />
+<meta name="description" content="如何在增强现实中对追踪几何体进行命中检测。" />
+<meta name="type" content="" />
+<meta name="version" content="4.24" />
+<meta name="parent" content="SharingAndReleasing/XRDevelopment/AR/HandheldAR" />
+<meta name="order" content="5" />
+<meta name="keywords" content="mobile" />
+<meta name="keywords" content="iOS" />
+<meta name="keywords" content="Android" />
+<meta name="keywords" content="AR" />
+<meta name="prereq" content="SharingAndReleasing\XRDevelopment\AR\AppleARKit\ARKitPrerequisites" />
+<meta name="prereq" content="SharingAndReleasing\XRDevelopment\AR\GoogleArcore\ARCorePrerequisites" />
+<meta name="prereq" content="SharingAndReleasing\XRDevelopment\AR\HandheldAR\ARQuickStart" />
+<meta name="crumbs" content="%ROOT%,SharingAndReleasing,SharingAndReleasing/XRDevelopment,SharingAndReleasing/XRDevelopment/AR,SharingAndReleasing/XRDevelopment/AR/HandheldAR" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="如何在AR中进行命中检测" />
+	<meta property="og:description" content="如何在增强现实中对追踪几何体进行命中检测。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../../index.html">项目分享及发布</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">XR开发</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">增强现实开发</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">手持式设备的增强现实开发</a>
+
+<span class="separator">></span> <span id="page">如何在AR中进行命中检测</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">如何在AR中进行命中检测</h1>
+							</div>	
+							<h2 >如何在增强现实中对追踪几何体进行命中检测。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																																			</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																														<div class="prereq">
+    <div class="normaltitle">
+        前置主题
+    </div>
+    <p style="margin-bottom:8px;">
+        为了理解并使用本文中的内容，请确保您已掌握以下主题：
+    </p>
+    <ul style="margin-bottom:0.5em;">
+                <li>
+            <p>
+                <a href="../../AppleARKit/ARKitPrerequisites/index.html" title="使用苹果ARKit进行增强现实开发的先决条件与步骤。">使用ARKit先决条件和准备工作</a>
+            </p>
+        </li>
+                <li>
+            <p>
+                <a href="../../GoogleArcore/ARCorePrerequisites/index.html" title="将谷歌ARCore用于增强现实开发的先决条件。">使用ARCore的先决条件和准备工作</a>
+            </p>
+        </li>
+                <li>
+            <p>
+                <a href="../ARQuickStart/index.html" title="本指南介绍了如何使用手持类AR模板来创建项目，并在移动设备上测试你的项目">手持类AR项目模板快速入门</a>
+            </p>
+        </li>
+            </ul>
+</div>
+																		<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#步骤">步骤</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#新建手持式ar项目">新建手持式AR项目</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#对被追踪的几何体与世界对象进行命中检测">对被追踪的几何体与世界对象进行命中检测</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#探索其他ar功能">探索其他AR功能</a></p>
+	</li>					</ul>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p><picture>
+		<source data-srcset="./../../../../../../Images/SharingAndReleasing/XRDevelopment/AR/HandheldAR/ARHowToHitTesting/AR_HitTesting.jpg">
+		<img class="  lazyload" alt="AR_HitTesting.png" data-src="../../../../../../Images/SharingAndReleasing/XRDevelopment/AR/HandheldAR/ARHowToHitTesting/AR_HitTesting.jpg" />
+</picture>
+
+</p><div class="note">
+	<p>对于本指南，我们使用 <strong>手持式AR</strong> 模板。</p>
+</div><p>在下方的方法中，我们将查看由 <strong>手持式AR</strong> 模板创建的示例项目如何演示标准命中测试和跟踪对象命中测试。命中测试（轨迹追踪）对虚幻引擎或蓝图来说并不新鲜。然而，重要的是要认识到，虚幻世界中的命中测试和增强现实中的命中测试需要采用不同的方法。示例项目包含手持式设备上的虚幻世界和增强现实中的标准命中测试模式。 
+</p><div class="tip">
+	<p>其他类型的AR设备（例如AR头显）所用方法将与下文中的方法不同。</p>
+</div><h2 id="步骤">步骤</h2>
+<h3 id="新建手持式ar项目">新建手持式AR项目</h3>
+<ol ><li class="Default"><p>打开项目浏览器（Project Browser）并新建 <strong>手持式AR</strong> 蓝图项目，或打开现有增强现实项目。<br />如需帮助新建增强现实项目，参见<a id="content_link"filter-data="tag_ar tag_xr tag_template" href="../ARQuickStart/index.html" ><span>手持类AR项目模板快速入门</span></a>文档。<br /></p></li><li class="Default"><p>打开 <strong>BP_ARPawn</strong> 蓝图类。<br /><picture>
+		<source data-srcset="./../../../../../../Images/SharingAndReleasing/XRDevelopment/AR/HandheldAR/ARHowToHitTesting/AR_BlueprintARPawnClass.jpg">
+		<img class="  lazyload" alt="AR_BlueprintARPawnClass.png" data-src="../../../../../../Images/SharingAndReleasing/XRDevelopment/AR/HandheldAR/ARHowToHitTesting/AR_BlueprintARPawnClass.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>选择 <strong>事件图表（Event Graph）</strong> 选项卡。<br /><picture>
+		<source data-srcset="./../../../../../../Images/SharingAndReleasing/XRDevelopment/AR/HandheldAR/ARHowToHitTesting/AR_BlueprintARPawnEventGraph.jpg">
+		<img class="  lazyload" alt="AR_BlueprintARPawnEventGraph.png" data-src="../../../../../../Images/SharingAndReleasing/XRDevelopment/AR/HandheldAR/ARHowToHitTesting/AR_BlueprintARPawnEventGraph.jpg" />
+</picture>
+
+</p></li></ol><h3 id="对被追踪的几何体与世界对象进行命中检测">对被追踪的几何体与世界对象进行命中检测</h3>
+<p>示例项目演示 <strong>对象轨迹追踪</strong> 和 <strong>轨迹追踪的对象</strong> 在正常工作流程中的用法。<strong>对象轨迹追踪</strong> 将用于检查对虚幻世界对象的命中，而 <strong>轨迹追踪的对象</strong> 将用于检查对被追踪对象的命中（增强现实被追踪的几何体）。轨迹追踪是虚幻引擎的旧有功能，而新功能 <strong>轨迹追踪的对象</strong> 可以检测世界中的其他被追踪的几何体。
+</p><div class="tip">
+	<p>如下例所示，我们先查看世界对象。之所以这样做，是因为生成的世界对象通常呈现得更接近轨迹追踪的原点，因此用户将在看到被追踪的几何体之前看到它们。如果我们先测试被追踪的几何体，那么我们会错过我们每次尝试触碰的东西。</p>
+</div><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../../Images/SharingAndReleasing/XRDevelopment/AR/HandheldAR/ARHowToHitTesting/AR_BlueprintBothHitTests.png" ><span><picture>
+		<source data-srcset="./../../../../../../Images/SharingAndReleasing/XRDevelopment/AR/HandheldAR/ARHowToHitTesting/AR_BlueprintBothHitTests.jpg">
+		<img class="  lazyload" alt="AR_BlueprintBothHitTests.png" data-src="../../../../../../Images/SharingAndReleasing/XRDevelopment/AR/HandheldAR/ARHowToHitTesting/AR_BlueprintBothHitTests.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><ul ><li class="Default"><p><strong>测试用户是否碰触了世界对象</strong><br />这是 <strong>对象轨迹追踪</strong> 功能的标准用法（在 <strong>世界命中测试</strong> 中），检查潜在的虚幻世界对象数组，并返回"真"或"假"。在这种情况下，如果返回值为"真"，将调用 <strong>AR命中结果</strong>，更新其中一个 <strong>调试菜单</strong> 项目。如果返回值为"假"，则执行路径将移动至新的增强现实功能 <strong>轨迹追踪的对象</strong>。 <br /></p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../../Images/SharingAndReleasing/XRDevelopment/AR/HandheldAR/ARHowToHitTesting/AR_BlueprintHitTests_WorldHitTest.png" ><span><picture>
+		<source data-srcset="./../../../../../../Images/SharingAndReleasing/XRDevelopment/AR/HandheldAR/ARHowToHitTesting/AR_BlueprintHitTests_WorldHitTest.jpg">
+		<img class="  lazyload" alt="AR_BlueprintHitTests_WorldHitTest.png" data-src="../../../../../../Images/SharingAndReleasing/XRDevelopment/AR/HandheldAR/ARHowToHitTesting/AR_BlueprintHitTests_WorldHitTest.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../../Images/SharingAndReleasing/XRDevelopment/AR/HandheldAR/ARHowToHitTesting/AR_WorldHitTest.png" ><span><picture>
+		<source data-srcset="./../../../../../../Images/SharingAndReleasing/XRDevelopment/AR/HandheldAR/ARHowToHitTesting/AR_WorldHitTest.jpg">
+		<img class="  lazyload" alt="AR_WorldHitTest.png" data-src="../../../../../../Images/SharingAndReleasing/XRDevelopment/AR/HandheldAR/ARHowToHitTesting/AR_WorldHitTest.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p><strong>测试用户是否碰触了被追踪的几何体、生成的对象</strong><br /><strong>轨迹追踪的对象</strong> 是一个新的增强现实功能，用于对被追踪对象（增强现实追踪系统发现的几何体）进行轨迹追踪测试。<strong>轨迹追踪的对象</strong> 返回按与摄像机的距离排序的结果列表。在这种情况下，如果返回值 <em>大于0</em>（我们命中一个被追踪的对象），则将调用 <strong>AR命中结果</strong>，更新其中一个 <strong>调试菜单</strong> 项目，并调用 <strong>生成可放置 Actor BP</strong>，在命中的"被追踪"位置创建Pawn。如果返回值不包含命中结果（未命中被追踪的对象），将调用 <strong>AR命中结果</strong>，更新其中一个 <strong>调试菜单</strong> 项目。 <br /></p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../../Images/SharingAndReleasing/XRDevelopment/AR/HandheldAR/ARHowToHitTesting/AR_BlueprintHitTests_ARHitTest.png" ><span><picture>
+		<source data-srcset="./../../../../../../Images/SharingAndReleasing/XRDevelopment/AR/HandheldAR/ARHowToHitTesting/AR_BlueprintHitTests_ARHitTest.jpg">
+		<img class="  lazyload" alt="AR_BlueprintHitTests_ARHitTest.png" data-src="../../../../../../Images/SharingAndReleasing/XRDevelopment/AR/HandheldAR/ARHowToHitTesting/AR_BlueprintHitTests_ARHitTest.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li></ul><div class="tip">
+	<p>尽管这个项目的很多操作最终都会更新应用程序的 <strong>调试菜单</strong>，但这种情况只特定于这个项目。当然，您可通过任何需要的方式来使用轨迹追踪中的命中数据。这里的不同之处在于，<strong>轨迹追踪的对象</strong> 能够检测增强现实被追踪的几何体，并对其做出反应。</p>
+</div><h3 id="探索其他ar功能">探索其他AR功能</h3>
+<p>探索基于 <strong>手持式AR</strong> 蓝图模板的项目，可让您有机会检查各种增强现实功能在上下文中的实际用法。还有几十个新的增强现实功能，因此请花些时间深入研究一下这个项目，探索实施细节。 
+</p><div class="tip">
+	<p>要探索此项目和新的增强现实功能，可以通过以下方式开始：打开 <strong>内容浏览器（Content Browser）</strong>，导航至 <strong>内容\手持式ARBP\蓝图\UI</strong>，然后在 <strong>蓝图编辑器（Blueprint Editor）</strong> 中打开 <strong>BP_DebugMenu</strong> 资源。</p>
+</div>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../../SiteIndex/index.html?tags=mobile">mobile</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../../SiteIndex/index.html?tags=iOS">iOS</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../../SiteIndex/index.html?tags=Android">Android</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../../SiteIndex/index.html?tags=AR">AR</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/SharingAndReleasing/XRDevelopment/AR/HandheldAR/ARHowToHitTesting/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:51:46 GMT -->
+</html>

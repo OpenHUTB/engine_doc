@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/CurveDrivenAnimation/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:26:57 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var finishButton = finishButtonTemplate;
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/CurveDrivenAnimation/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>曲线驱动动画 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+		    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+		    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/CurveDrivenAnimation/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/CurveDrivenAnimation/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/CurveDrivenAnimation/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/CurveDrivenAnimation/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Animation/AnimHowTo/CurveDrivenAnimation" />
+<meta name="intsourcechangelist" content="14237003" />
+<meta name="availability" content="Public" />
+<meta name="title" content="曲线驱动动画" />
+<meta name="description" content="说明如何使用动作资源和曲线数据新建由动画曲线数据驱动的动画序列。" />
+<meta name="related" content="AnimatingObjects/SkeletalMeshAnimation\AnimHowTo\CreatePoseAsset" />
+<meta name="related" content="AnimatingObjects/SkeletalMeshAnimation\Persona\AnimCurves" />
+<meta name="related" content="AnimatingObjects/SkeletalMeshAnimation\AnimPose" />
+<meta name="version" content="4.14" />
+<meta name="skilllevel" content="Advanced" />
+<meta name="type" content="how-to" />
+<meta name="keywords" content="Animation" />
+<meta name="keywords" content="Animation Blueprint" />
+<meta name="keywords" content="Skeletal Controls" />
+<meta name="crumbs" content="%ROOT%,AnimatingObjects,AnimatingObjects/SkeletalMeshAnimation,AnimatingObjects/SkeletalMeshAnimation/AnimHowTo" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="曲线驱动动画" />
+	<meta property="og:description" content="说明如何使用动作资源和曲线数据新建由动画曲线数据驱动的动画序列。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">为角色和对象添加动画</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">骨架网格体动画系统</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">动画操作指南</a>
+
+<span class="separator">></span> <span id="page">曲线驱动动画</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">曲线驱动动画</h1>
+							</div>	
+							<h2 >说明如何使用动作资源和曲线数据新建由动画曲线数据驱动的动画序列。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Advanced"><a id="skill_link" href="../../../../SiteIndex/index.html?skills=Advanced">Advanced</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																														<div id="seeAlso">
+	<div style="position:relative;">
+		<div id="title">参见</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<p>
+						<a id="related_link" href="../CreatePoseAsset/index.html" title="如何使用动画编辑器生成单帧姿势资源。">创建姿势资源</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../Persona/AnimCurves/index.html" title="说明动画曲线窗口中的可用操作">动画曲线</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../AnimPose/index.html" title="讲解动画姿势资源，其可通过加权曲线数据来驱动动画。">动画姿势资源</a>
+					</p>
+				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																														<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#最终结果">最终结果</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>在此指南中，我们新建了一个行走动画，它完全依赖于曲线数据驱动。 
+使用基于现有 <strong>动画序列</strong> 的 <strong>动作资源</strong>，从动画中抓取两个动作，在两者之间进行混合，创建全新的行走动作。 
+虽然这是一个用于创建运动的 <strong>Full Body</strong> 示例，但也可采用这些相同概念并将它们应用到面部动画中，创建由曲线数据驱动的 <strong>叠加</strong> 面部动画。 
+</p><div class="note">
+	<p>此指南中我们使用的是 <strong>Blueprint Thirdperson Template</strong> 项目。 </p>
+</div><ol ><li class="Default"><p>在 <strong>Content Browser</strong> 中的 <strong>Content/Mannequin/Animations</strong> 文件夹下，<strong>右键点击</strong> <strong>ThirdPersonWalk</strong> 并选择 <strong>Create PoseAsset</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/CurveDrivenAnimation/CreatePoseAsset_01.jpg">
+		<img class="  lazyload" alt="CreatePoseAsset_01.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/CurveDrivenAnimation/CreatePoseAsset_01.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>使用新 <strong>动作资源</strong> 的默认命名，然后 <strong>双击</strong> 将其打开。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/CurveDrivenAnimation/CreatePoseAsset_2.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/CurveDrivenAnimation/CreatePoseAsset_2.jpg">
+		<img class="  lazyload" alt="CreatePoseAsset_2.png" width="640" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/CurveDrivenAnimation/CreatePoseAsset_2.jpg" />
+</picture>
+</span></a></span></p>
+</div><p><em>点击查看全图。</em>
+</p><p>创建 <strong>动作资源</strong> 时，<strong>动作命名</strong> 将默认自动生成（只要曲线存在于动画中）。 
+将在 <strong>动作资源</strong> 所创建的动画中对每帧创建动作。 
+可调整每个动作的曲线权重，在应用权重影响时查看最终的动作。 
+例如在上图中我们对 <strong>Pose_6</strong> 的权重进行了调整，角色向前移动右脚。 
+</p><div class="note">
+	<p>所有 <strong>动作资源</strong> 均默认设为 <strong>Full Body</strong> 且不为 <strong>Additive</strong>，意味着加权值为 0（无影响）或 1（全影响）。 
+因此，在此将加权值设为 0.2 或设为 1 均无区别。 
+为得到更大的粒度，可将 <strong>动作资源</strong> 设为 <strong>Additive</strong>。然而，对应用到角色全身的动画执行此操作可能导致角色意外出现缩小或比例失调。</p>
+</div></li><li class="Default"><p><strong>右键点击</strong> <strong>Pose_6</strong> 并将其 <strong>重命名</strong> 为 <strong>r_foot_fwd</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/CurveDrivenAnimation/CreatePoseAsset_3.jpg">
+		<img class="  lazyload" alt="CreatePoseAsset_3.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/CurveDrivenAnimation/CreatePoseAsset_3.jpg" />
+</picture>
+
+</p></li><li class="Default"><p><strong>右键点击</strong> <strong>Pose_24</strong> 并将其 <strong>重命名</strong> 为 <strong>l_foot_fwd</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/CurveDrivenAnimation/CreatePoseAsset_Add01.jpg">
+		<img class="  lazyload" alt="CreatePoseAsset_Add01.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/CurveDrivenAnimation/CreatePoseAsset_Add01.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>主工具栏</strong> 中点击 <strong>Create Asset</strong> 并选择 <strong>Create Animation</strong> / <strong>From Reference Pose</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/CurveDrivenAnimation/CreatePoseAsset_4.jpg">
+		<img class="  lazyload" alt="CreatePoseAsset_4.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/CurveDrivenAnimation/CreatePoseAsset_4.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>选择保存路径和保存命名（此例命名为 <strong>CurveWalk</strong>）。 
+</p></li><li class="Default"><p>在新动画中 <strong>右键点击</strong> 时间轴，选择 <strong>Append at the End</strong> 并添加 <strong>30</strong> 帧。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/CurveDrivenAnimation/CreatePoseAsset_5.jpg">
+		<img class="  lazyload" alt="CreatePoseAsset_5.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/CurveDrivenAnimation/CreatePoseAsset_5.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>点击 <strong>Curves</strong> 下的 <strong>Add</strong> 按钮，然后在 <strong>Add Variable Curve..</strong> 下选择 <strong>l_foot_fwd</strong> 进行添加，然后再添加 <strong>r_foot_fwd</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/CurveDrivenAnimation/AddLeftCurve.jpg">
+		<img class="  lazyload" alt="AddLeftCurve.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/CurveDrivenAnimation/AddLeftCurve.jpg" />
+</picture>
+
+</p><p>我们现在便拥有了两个需要用曲线数据驱动的动作。 
+</p></li><li class="Default"><p>点击 <strong>l_foot_fwd</strong> 和 <strong>r_foot_fwd</strong> 曲线的 <strong>Expand Window</strong> 复选框。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/CurveDrivenAnimation/Checkboxes.jpg">
+		<img class="  lazyload" alt="Checkboxes.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/CurveDrivenAnimation/Checkboxes.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>将时间轴移至 <strong>0</strong>，然后在 <strong>l_foot_fwd</strong> 曲线中按住 <strong>Shift + 左键</strong> 创建一个键并将 <strong>Time</strong> 和 <strong>Value</strong> 设为 <strong>0</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/CurveDrivenAnimation/1stKey.jpg">
+		<img class="  lazyload" alt="1stKey.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/CurveDrivenAnimation/1stKey.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>按住 <strong>Shift + 左键</strong> 并添加分别为 <strong>Time 0.5</strong> 和 <strong>Value 1.0</strong>、<strong>Time 1.0</strong> 和 <strong>Value 0.0</strong> 的键。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/CurveDrivenAnimation/2ndKey.jpg">
+		<img class="  lazyload" alt="2ndKey.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/CurveDrivenAnimation/2ndKey.jpg" />
+</picture>
+
+</p><p>这样的设置将使角色的左脚在动画中向前迈出半步。 
+</p></li><li class="Default"><p>在 <strong>r_foot_fwd</strong> 曲线中按住 <strong>Shift + 左键</strong> 并数值如下的键：（<strong>Time 0、Value 1</strong>）、（<strong>Time 0.5、Value 0</strong>），和（<strong>Time 1、Value 1</strong>）。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/CurveDrivenAnimation/3rdKey.jpg">
+		<img class="  lazyload" alt="3rdKey.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/CurveDrivenAnimation/3rdKey.jpg" />
+</picture>
+
+</p><p>在动画的开头，角色的右脚将向前迈出半步，然后切换至左脚向前。 
+动画接近结束时，我们使用曲线数据再次驱动右脚向前动作，循环即可生成行走动作循环。 
+</p></li><li class="Default"><p>如需预览带动作资源的动画，在 <strong>Asset Details</strong> 面板中将当前的 <strong>Preview Pose Asset</strong> 设为使用 <strong>ThirdPersonWalk_PoseAsset</strong> 即可。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/CurveDrivenAnimation/CreatePoseAsset_7.jpg">
+		<img class="  lazyload" alt="CreatePoseAsset_7.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/CurveDrivenAnimation/CreatePoseAsset_7.jpg" />
+</picture>
+
+</p></li></ol><h2 id="最终结果">最终结果</h2>
+<p>现在即可播放动画，查看由曲线数据混合的两个动作。 
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_0_n5esfg16_11
+{
+	margin: 0px;
+	width: 640px;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_0_n5esfg16_11:after
+{
+	content: "";
+	padding-top: 360px;
+	display: block;
+}
+</style> 
+<div id="player_0_n5esfg16_11"> 
+	<div id="playerContainer_0_n5esfg16_11" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/0_n5esfg16/embed.html"></iframe>
+	</div>
+</div>
+<p>如需在运行时播放动画，需要在动画蓝图中使用一个 动作节点。 
+</p>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Animation">Animation</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Animation%20Blueprint">Animation Blueprint</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Skeletal%20Controls">Skeletal Controls</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/CurveDrivenAnimation/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:27:03 GMT -->
+</html>

@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/WorkingWithMedia/ProVideoIO/TimecodeGenlock/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:37:18 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/WorkingWithMedia/ProVideoIO/TimecodeGenlock/" />');
+				var udnCSS = '../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>时间码和集中同步 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/WorkingWithMedia/ProVideoIO/TimecodeGenlock/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/WorkingWithMedia/ProVideoIO/TimecodeGenlock/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/WorkingWithMedia/ProVideoIO/TimecodeGenlock/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/WorkingWithMedia/ProVideoIO/TimecodeGenlock/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/ProVideoIO/TimecodeGenlock" />
+<meta name="intsourcechangelist" content="11105908" />
+<meta name="availability" content="Public" />
+<meta name="title" content="时间码和集中同步" />
+<meta name="description" content="说明如何使虚幻引擎采用来自AJA视频输入的时间码，以及如何锁定引擎的帧率以匹配源视频。" />
+<meta name="type" content="overview" />
+<meta name="version" content="4.20" />
+<meta name="parent" content="WorkingWithMedia/ProVideoIO" />
+<meta name="order" content="2" />
+<meta name="keywords" content="Guide" />
+<meta name="keywords" content="professional video" />
+<meta name="topic-image" content="tc-genlock-topic-421.png" />
+<meta name="crumbs" content="%ROOT%,WorkingWithMedia,WorkingWithMedia/ProVideoIO" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="时间码和集中同步" />
+	<meta property="og:description" content="说明如何使虚幻引擎采用来自AJA视频输入的时间码，以及如何锁定引擎的帧率以匹配源视频。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">使用媒体</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">专业视频I/O</a>
+
+<span class="separator">></span> <span id="page">时间码和集中同步</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">时间码和集中同步</h1>
+							</div>	
+							<h2 >说明如何使虚幻引擎采用来自AJA视频输入的时间码，以及如何锁定引擎的帧率以匹配源视频。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																																			</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																																				<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#在虚幻编辑器中显示时间码">在虚幻编辑器中显示时间码</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#设置时间码和集中同步">设置时间码和集中同步</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#最终结果">最终结果</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#时间码纹素编码">时间码纹素编码</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>默认情况下，虚幻编辑器会根据计算机上的当前系统时间生成自己的时间码。该时间码默认设置为每秒30帧，但是引擎在任何给定秒内渲染的帧数通常都超过了30帧。因此，通常会为输出中的多个连续帧指定相同的时间码值。
+</p><p>当您处理专业视频时，您经常需要在多个不同的视频源和信号处理设备之间保持时间码的同步。要做到这一点，您可能需要使虚幻引擎的时间码与您正在处理的视频源的时间码匹配。在某些情况下，您可能想更进一步，锁定引擎，以便引擎仅为通过引用输入得到的每个视频帧生成一个帧，我们称之为*集中同步*。
+</p><p>本页介绍如何使虚幻引擎采用来自您在AJA卡上指定的端口的时间码值（而不是生成自己的时间码），以及如何将虚幻引擎集中同步到该时间码信号。
+</p><div class="note">
+	<p>时间码和集中同步管理正在积极开发中，在未来的版本中可能会发生更改。</p>
+</div><h2 id="在虚幻编辑器中显示时间码">在虚幻编辑器中显示时间码</h2>
+<p>当您在虚拟编辑器中工作时，要查看虚幻引擎使用的实际时间码值，请使用 <strong>时间码提供者（Timecode Provider）</strong> 面板。您可以在主菜单的 <strong>窗口（Window）> 开发者工具（Developer Tool） > 时间码提供者（Timecode Provider）</strong> 下找到该面板。
+</p><p><picture>
+		<source data-srcset="./../../../../Images/WorkingWithMedia/ProVideoIO/TimecodeGenlock/timecode-panel.jpg">
+		<img class="  lazyload" alt="timecode-panel.png" title="timecode-panel.png" data-src="../../../../Images/WorkingWithMedia/ProVideoIO/TimecodeGenlock/timecode-panel.jpg" />
+</picture>
+
+</p><p>它显示当前时间码、时间码提供者（时间码值的来源）和每秒生成的时间码帧数。您可以将该面板停靠在主关卡编辑器的UI中的任何位置。
+</p><p>或者，您可以使用以下控制台命令：
+</p><pre class="prettyprint"><code>stat timecode</code></pre>
+<p>您将看到以 <strong>时分秒帧（HH:MM:SS:FF）</strong> 格式印在虚幻编辑器视口中的值：
+</p><p><picture>
+		<source data-srcset="./../../../../Images/WorkingWithMedia/ProVideoIO/TimecodeGenlock/tc-genlock-vis-1.jpg">
+		<img class="  lazyload" alt="Timecode display in the viewport" title="Timecode display in the viewport" data-src="../../../../Images/WorkingWithMedia/ProVideoIO/TimecodeGenlock/tc-genlock-vis-1.jpg" />
+</picture>
+
+</p><p>如果您已经将虚幻引擎设置为采用来自输入信号的时间码，或集中同步到视频信号，您还将看到时间码和集中同步源代码。例如：
+</p><p><picture>
+		<source data-srcset="./../../../../Images/WorkingWithMedia/ProVideoIO/TimecodeGenlock/tc-genlock-vis-2.jpg">
+		<img class="  lazyload" alt="Genlocked and synchronized timecode in the viewport" title="Genlocked and synchronized timecode in the viewport" data-src="../../../../Images/WorkingWithMedia/ProVideoIO/TimecodeGenlock/tc-genlock-vis-2.jpg" />
+</picture>
+
+</p><p>您可以使用该命令来确认虚幻引擎正在以您期望的速率生成帧，并且它使用与输入视频相同的时间码值。
+</p><h2 id="设置时间码和集中同步">设置时间码和集中同步</h2>
+<p>下面的步骤显示了如何使虚幻引擎采用来自AJA或Blackmagic设备的输入SDI视频源的时间码值，以及如何使虚幻引擎将其帧率锁定到该来源，以便它仅为每个输入帧生成一个输出帧。
+</p><ol ><li class="Default"><p>右键单击内容浏览器，并选择 <strong>创建基础资源（Create a Basic Asset）> 蓝图类（Blueprint Class）</strong>。<br /><picture>
+		<source data-srcset="./../../../../Images/WorkingWithMedia/ProVideoIO/TimecodeGenlock/tc-genlock-1.jpg">
+		<img class="  lazyload" alt="Create new Blueprint class" title="Create new Blueprint class" data-src="../../../../Images/WorkingWithMedia/ProVideoIO/TimecodeGenlock/tc-genlock-1.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>选择父类（Pick Parent Class）</strong> 窗口中，展开 <strong>所有类（All Classes）</strong> 部分(1)。搜索并选择 <strong>AjaTimecodeProvider</strong> 类（如图）或 <strong>BlackmagicTimecodeProvider</strong> 类(2)，然后单击 <strong>选择（Select）</strong> (3)。<br /><picture>
+		<source data-srcset="./../../../../Images/WorkingWithMedia/ProVideoIO/TimecodeGenlock/timecode-2-timecodeproviderparent.jpg">
+		<img class="  lazyload" alt="TimecodeProvider parent classes" title="TimecodeProvider parent classes" data-src="../../../../Images/WorkingWithMedia/ProVideoIO/TimecodeGenlock/timecode-2-timecodeproviderparent.jpg" />
+</picture>
+<br />回到内容浏览器中，为新资源提供一个描述性名称，，例如 <strong>AJA_Timecode_Port</strong> 或 <strong>Blackmagic_Timecode_Port</strong>。
+</p></li><li class="Default"><p>双击新资源以在蓝图编辑器中打开它，并在 <strong>详细信息（Details）</strong> 面板中设置属性。<picture>
+		<source data-srcset="./../../../../Images/WorkingWithMedia/ProVideoIO/TimecodeGenlock/timecode-3-timecodeprovidersettings.jpg">
+		<img class="  lazyload" alt="Timecode Provider settings" title="Timecode Provider settings" data-src="../../../../Images/WorkingWithMedia/ProVideoIO/TimecodeGenlock/timecode-3-timecodeprovidersettings.jpg" />
+</picture>
+
+</p><ul ><li class="Default"><p>要从传入视频流读取时间码，请设置 <strong>视频配置（Video Configuration）</strong> 或 <strong>媒体配置（Media Configuration）</strong> 以指向AJA或Blackmagic卡上的端口，并设置要从源（LTC或VITC）读取的时间码类型（如果适用）。
+</p></li><li class="Default"><p>如果您使用的是AJA卡，想要从该卡上的引用端口而不是从视频流读取时间码，请启用 <strong>Use Reference In</strong>，并设置 <strong>引用配置（Reference Configuration）</strong>，而非 <strong>视频配置（Video Configuration）</strong>。
+</p></li></ul></li><li class="Default"><p><strong>编译（Compile）</strong> 并 <strong>保存（Save）</strong> 蓝图类，并关闭蓝图编辑器。
+</p></li><li class="Default"><p>如果您想将虚幻引擎集中同步到您的视频源，请重复前面的操作说明创建并设置另一个蓝图类，但这次使用 <strong>AjaCustomTimeStep</strong> 或 <strong>BlackmagicCustomTimeStep</strong> 作为父类。<br /><picture>
+		<source data-srcset="./../../../../Images/WorkingWithMedia/ProVideoIO/TimecodeGenlock/timecode-5-timestepparents.jpg">
+		<img class="  lazyload" alt="Custom Time Step Provider parent classes" title="Custom Time Step Provider parent classes" data-src="../../../../Images/WorkingWithMedia/ProVideoIO/TimecodeGenlock/timecode-5-timestepparents.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>该类需要类似 <strong>AjaTimecodeProvider</strong> 或 <strong>BlackmagicTimecodeProvider</strong> 的设置：<br /><picture>
+		<source data-srcset="./../../../../Images/WorkingWithMedia/ProVideoIO/TimecodeGenlock/timecode-6-timestepsettings.jpg">
+		<img class="  lazyload" alt="Custom Time Step Provider settings" title="Custom Time Step Provider settings" data-src="../../../../Images/WorkingWithMedia/ProVideoIO/TimecodeGenlock/timecode-6-timestepsettings.jpg" />
+</picture>
+<br />AJA卡还提供额外的设置；详细信息，请参阅提示文本。<br /></p></li><li class="Default"><p>从主菜单选择 <strong>编辑（Edit）> 项目设置（Project Settings）</strong>。<br />在 <strong>项目设置（Project Settings）</strong> 窗口中，打开 <strong>引擎（Engine）> 常规设置（General Settings）</strong> 类别(1)，找到 <strong>时间码（Timecode）</strong> 部分(2)。从 <strong>时间码提供者（TimecodeProvider）</strong> 下拉列表中，选择创建的时间码端口资源。<br /><picture>
+		<source data-srcset="./../../../../Images/WorkingWithMedia/ProVideoIO/TimecodeGenlock/tc-genlock-6.jpg">
+		<img class="  lazyload" alt="Set the TimecodeProvider in the Project Settings" title="Set the TimecodeProvider in the Project Settings" data-src="../../../../Images/WorkingWithMedia/ProVideoIO/TimecodeGenlock/tc-genlock-6.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>如果您想要将虚幻引擎同步集中到您的视频源，找到上面的 <strong>帧率（Framerate）</strong> 部分，并在该部分底部展开高级属性。从 <strong>自定义时间步（Custom TimeStep）</strong> 下拉列表中，选择创建的集中同步端口资源。<br /><picture>
+		<source data-srcset="./../../../../Images/WorkingWithMedia/ProVideoIO/TimecodeGenlock/tc-genlock-7.jpg">
+		<img class="  lazyload" alt="Set the Custom TimeStep in the Project Settings" title="Set the Custom TimeStep in the Project Settings" data-src="../../../../Images/WorkingWithMedia/ProVideoIO/TimecodeGenlock/tc-genlock-7.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>关闭虚幻编辑器并重新启动项目。
+</p></li></ol><div class="tip">
+	<p>如果您使用了媒体描述文件为项目设置多种不同的媒体配置，还可以在每个媒体描述文件中覆盖时间码和时间步提供者的项目级默认设置。更多信息，请参阅<a id="content_link"filter-data="tag_guide tag_professional_video" href="../MediaProfiles/index.html" ><span>支持多种媒体配置</span></a>。</p>
+</div><h3 id="最终结果">最终结果</h3>
+<p>只要您有视频输入传入到您为时间码提供者类和自定义时间步类设置的端口，且该视频具有您指定的分辨率、帧率和时间码格式，虚幻引擎应该就会采用您的视频的时间码并锁定其帧更新频率，以便它为每个输入帧生成一个输出帧。
+</p><p>要验证是否如此，使用<a id="content_link" href="#在虚幻编辑器中显示时间码" ><span>在虚幻编辑器中显示时间码</span></a>中描述的选项之一。
+</p><h2 id="时间码纹素编码">时间码纹素编码</h2>
+<p>出于调试目的，AJA和Blackmagic设备的媒体源和媒体输出资源可以通过用白色照亮像素将每帧的时间码编码到视频图像中。如果您需要一种可视化的方法来验证给定的视频帧是否与它所对应的时间码信号匹配，那么该功能可以十分有用。
+</p><p>时间码通常以 <strong>时分秒帧（HH:MM:SS:FF）</strong> 格式表示，共8位数。从图像的顶部开始，在纹理输出中为每个数字指定一行。在每一行中，从图像的左边到时间码数字的值进行计数，以找到表示时间码值的像素。最左边的像素为0号像素。
+</p><p>例如，假定时间码值为12:08:44:12:
+</p><ul ><li class="Default"><p>在第一行，左起第二个像素被照亮（1号像素）。
+</p></li><li class="Default"><p>在第二行，左起第三个像素被照亮（2号像素）。
+</p></li><li class="Default"><p>在第三行，最左边的像素被照亮（0号像素）。
+</p></li><li class="Default"><p>在第四行，左起第九个像素被照亮（8号像素）。
+</p></li><li class="Default"><p>以此类推。
+</p></li></ul>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../SiteIndex/index.html?tags=Guide">Guide</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../SiteIndex/index.html?tags=professional%20video">professional video</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/WorkingWithMedia/ProVideoIO/TimecodeGenlock/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:37:22 GMT -->
+</html>

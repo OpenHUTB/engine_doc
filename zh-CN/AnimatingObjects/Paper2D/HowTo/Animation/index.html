@@ -1,0 +1,440 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/AnimatingObjects/Paper2D/HowTo/Animation/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:33:38 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/AnimatingObjects/Paper2D/HowTo/Animation/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>设置动画状态机 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/AnimatingObjects/Paper2D/HowTo/Animation/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/AnimatingObjects/Paper2D/HowTo/Animation/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/AnimatingObjects/Paper2D/HowTo/Animation/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/AnimatingObjects/Paper2D/HowTo/Animation/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Paper2D/HowTo/Animation" />
+<meta name="intsourcechangelist" content="3108692" />
+<meta name="availability" content="Public" />
+<meta name="title" content="设置动画状态机" />
+<meta name="description" content="如何基于各种状态设置播放 2D 角色动画。" />
+<meta name="related" content="AnimatingObjects/Paper2D\HowTo\TopDown" />
+<meta name="related" content="AnimatingObjects/Paper2D\Sprites" />
+<meta name="related" content="AnimatingObjects/Paper2D\Flipbooks" />
+<meta name="related" content="AnimatingObjects/SkeletalMeshAnimation/StateMachines/CreatingStateMachines" />
+<meta name="related" content="AnimatingObjects/SkeletalMeshAnimation/StateMachines" />
+<meta name="version" content="4.9" />
+<meta name="skilllevel" content="Intermediate" />
+<meta name="crumbs" content="%ROOT%,AnimatingObjects,AnimatingObjects/Paper2D,AnimatingObjects/Paper2D/HowTo" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="设置动画状态机" />
+	<meta property="og:description" content="如何基于各种状态设置播放 2D 角色动画。 " />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">为角色和对象添加动画</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">Paper 2D</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">Paper 2D 指导</a>
+
+<span class="separator">></span> <span id="page">设置动画状态机</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">设置动画状态机</h1>
+							</div>	
+							<h2 >如何基于各种状态设置播放 2D 角色动画。 </h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Intermediate"><a id="skill_link" href="../../../../SiteIndex/index.html?skills=Intermediate">Intermediate</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																		<div id="seeAlso">
+	<div style="position:relative;">
+		<div id="title">参见</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<p>
+						<a id="related_link" href="../TopDown/index.html" title="如何快速设置带可操作角色的顶视 2D 游戏。">顶视 2D 游戏设置</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../Sprites/index.html" title="虚幻引擎 4 中 Sprite 的描述及其创建方法。">Paper 2D Sprites</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../Flipbooks/index.html" title="虚幻引擎 4 中 Flipbooks 的描述及其创建方法。">Paper 2D Flipbooks</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../../SkeletalMeshAnimation/StateMachines/CreatingStateMachines/index.html" title="有关创建新的状态机以在动画资源的动画图表中使用的指南。">创建状态机</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../../SkeletalMeshAnimation/StateMachines/index.html" title="状态机允许将骨骼动画拆分成各种状态，可以完全控制如何从一个状态混合到另一个状态。">状态机</a>
+					</p>
+				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																														<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#变量设置">变量设置</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#更新动画设置">更新动画设置</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#动画状态机函数">动画状态机函数</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#完成updateanimation事件">完成 Update Animation 事件</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>此页讲述如何设置 2D 角色的动画状态机，使角色基于定义的条件在不同 Flipbook 动画之间切换。 
+</p><div class="warning">
+	<p>在进入此教程前，须先设置好 Paper 2D 角色的动作，以及角色需要切换的 Flipbook 动画。如尚未设为设置好角色或 Flipbook 动画，请查阅 <a id="content_link" href="../TopDown/index.html" ><span>Paper 2D 顶视教程</span></a> 中关于设置 Paper 2D 角色、应用动作，并通过链接下载教程中使用的样本资源。 </p>
+</div><p>打开项目，设置好 Paper 2D 角色之后即可按以下步骤执行。 
+</p><a name="variablesetup" ></a><h2 id="变量设置">变量设置</h2>
+<ol ><li class="Default"><p>在项目中打开 Paper 2D 角色蓝图（此例中为 <strong>TopDownCharacter</strong>）。 
+</p></li><li class="Default"><p>在 <strong>My Blueprint</strong> 窗口中，点击 <strong>Add Variable</strong> 按钮创建一个布尔变量并将其命名为 <strong>IsMoving?</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Paper2D/HowTo/Animation/Animation1.jpg">
+		<img class="  lazyload" alt="Animation1.png" data-src="../../../../../Images/AnimatingObjects/Paper2D/HowTo/Animation/Animation1.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>基于一个 Flipbook 动画（如 Idle）创建另一个变量并对其命名，再将其设为 <strong>Paper Flipbook</strong> 类型。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Paper2D/HowTo/Animation/Animation2.jpg">
+		<img class="  lazyload" alt="Animation2.png" data-src="../../../../../Images/AnimatingObjects/Paper2D/HowTo/Animation/Animation2.jpg" />
+</picture>
+
+</p><p>制作的游戏类型不同，所需要的动画也不同。大多数以角色为基础的游戏中，角色均有待机状态（原地休息不动）。 
+</p></li><li class="Default"><p>点击 <strong>Compile</strong>，然后将变量的默认值设为其对应的 Flipbook 资源。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Paper2D/HowTo/Animation/Animation3.jpg">
+		<img class="  lazyload" alt="Animation3.png" data-src="../../../../../Images/AnimatingObjects/Paper2D/HowTo/Animation/Animation3.jpg" />
+</picture>
+
+</p><p>上图中，我们将 Idle Flipbook 动画指定到 IdleFlipbook 变量。 
+</p><p>（任选）为保证清晰明了，需要将变量放入名为 <strong>Animations</strong> 的 <strong>Category</strong> 中。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Paper2D/HowTo/Animation/Animation4.jpg">
+		<img class="  lazyload" alt="Animation4.png" data-src="../../../../../Images/AnimatingObjects/Paper2D/HowTo/Animation/Animation4.jpg" />
+</picture>
+
+</p><p>可根据您自己的需求输入类目名称，使资源组织有序。 
+</p></li><li class="Default"><p>在角色播放的每个动画上重复之前的两个步骤。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Paper2D/HowTo/Animation/Animation5.jpg">
+		<img class="  lazyload" alt="Animation5.png" data-src="../../../../../Images/AnimatingObjects/Paper2D/HowTo/Animation/Animation5.jpg" />
+</picture>
+
+</p><p>上图中创建了名为 <strong>RunFlipbook</strong> 的另一个 Paper Flipbook 变量，点击 <strong>Compile</strong>，然后将变量的 <strong>默认值</strong> 设置到对应的 Run Flipbook 动画。范例中只拥有两个动画，可将一个设为死亡动画，另一个设为装填枪支（如有）或近身攻击，其他一个设为拾起或使用道具，等等。 
+</p><p>为每个 Flipbook 动画状态添加变量后即可进入下一部分。
+</p></li></ol><a name="updateanimationsetup" ></a><h2 id="更新动画设置">更新动画设置</h2>
+<p>下一步将创建一些脚本，处理动画状态的更新。 
+</p><ol ><li class="Default"><p>在 <strong>事件图表</strong> 中 <strong>单击右键</strong>，搜索并添加一个 <strong>自定义事件（Custom Event）</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Paper2D/HowTo/Animation/Animation6.jpg">
+		<img class="  lazyload" alt="Animation6.png" data-src="../../../../../Images/AnimatingObjects/Paper2D/HowTo/Animation/Animation6.jpg" />
+</picture>
+
+</p><p>将自定义事件设为与 <strong>UpdateAnimation</strong> 效果有关的命名。 
+</p></li><li class="Default"><p>再次在此图表中 <strong>单击右键</strong> 并添加一个 <strong>Get Velocity</strong> 节点，然后从返回值拖出连线，添加 <strong>Vector Length</strong> 节点。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Paper2D/HowTo/Animation/Animation7.jpg">
+		<img class="  lazyload" alt="Animation7.png" data-src="../../../../../Images/AnimatingObjects/Paper2D/HowTo/Animation/Animation7.jpg" />
+</picture>
+
+</p><p>可通过速度（Velocity）的矢量长度（Vector Length）来确定角色是否处于移动状态。 
+</p></li><li class="Default"><p>在 Vector Length 返回值的引出连线后添加一个 <strong>></strong> 节点，然后将 <strong>IsMoving?</strong> 变量拖放到布尔返回上完成设置。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Paper2D/HowTo/Animation/Animation8.jpg">
+		<img class="  lazyload" alt="Animation8.png" data-src="../../../../../Images/AnimatingObjects/Paper2D/HowTo/Animation/Animation8.jpg" />
+</picture>
+
+</p></li></ol><a name="animationstatemachinefunction" ></a><h2 id="动画状态机函数">动画状态机函数</h2>
+<p>我们将在此创建一个函数用于进行状态确认，并输入对应的 Flipbook 动画进行使用。 
+</p><ol ><li class="Default"><p>在 <strong>My Blueprint</strong> 窗口中，新建一个名为 <strong>Anim State Machine</strong> 的 <strong>函数</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Paper2D/HowTo/Animation/Animation9.jpg">
+		<img class="  lazyload" alt="Animation9.png" data-src="../../../../../Images/AnimatingObjects/Paper2D/HowTo/Animation/Animation9.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在函数的 <strong>Details</strong> 面板中，添加一个名为 <strong>IsMoving?</strong> 的 <strong>Input</strong> 布尔和一个名为 <strong>Output Flipbook</strong> 的 <strong>Output</strong> Paper Flipbook。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Paper2D/HowTo/Animation/Animation10.jpg">
+		<img class="  lazyload" alt="Animation10.png" data-src="../../../../../Images/AnimatingObjects/Paper2D/HowTo/Animation/Animation10.jpg" />
+</picture>
+
+</p><p>函数将抓取同样名为 IsMoving? 的变量值，确定当前是否处于移动状态，并将其作为测试用例决定当前的状态（是否移动）。函数将输出一个 <em>Output Flipbook</em>，稍后我们将设置使用的 sprite。 
+</p></li><li class="Default"><p>在函数输入可执行引脚的引出连线后连接一个 <strong>Branch</strong> 节点。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Paper2D/HowTo/Animation/Animation11.jpg">
+		<img class="  lazyload" alt="Animation11.png" data-src="../../../../../Images/AnimatingObjects/Paper2D/HowTo/Animation/Animation11.jpg" />
+</picture>
+
+</p><p>调用此函数时，首先将对 <strong>IsMoving?</strong> 变量执行 True/False 检查。 
+</p></li><li class="Default"><p>返回 <strong>内容浏览器</strong> 中，<strong>单击右键</strong>，然后在 <strong>Blueprints</strong> 下创建一个 <strong>枚举</strong>，将其命名为 <strong>Animation State</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Paper2D/HowTo/Animation/Animation12.jpg">
+		<img class="  lazyload" alt="Animation12.png" data-src="../../../../../Images/AnimatingObjects/Paper2D/HowTo/Animation/Animation12.jpg" />
+</picture>
+
+</p><p>我们使用枚举创建一个列表，此列表包含所有可选择的角色动画状态。 
+</p></li><li class="Default"><p>打开枚举，然后为角色的每个动画添加状态。<br /></p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Paper2D/HowTo/Animation/Animation13.jpg">
+		<img class="  lazyload" alt="Animation13.png" data-src="../../../../../Images/AnimatingObjects/Paper2D/HowTo/Animation/Animation13.jpg" />
+</picture>
+
+</p><p>例如，我们现在只拥有 Idle 和 Run，但您可根据要使用的动画添加更多状态。 
+</p></li><li class="Default"><p>返回 Paper 2D 角色蓝图，新建一个名为 <strong>AnimationState</strong> 的变量，将 Enum 设为 <em>Animation State</em>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Paper2D/HowTo/Animation/Animation14.jpg">
+		<img class="  lazyload" alt="Animation14.png" data-src="../../../../../Images/AnimatingObjects/Paper2D/HowTo/Animation/Animation14.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>Anim State Machine</strong> 函数中长按 <strong>Alt</strong> 并拖入 <strong>AnimationState</strong> 进行设置。 
+</p></li><li class="Default"><p>拖入另一个 <strong>AnimationState</strong> 变量并将这两者和 <strong>Branch</strong> 节点的 <strong>True</strong> 和 <strong>False</strong> 引脚连接起来。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Paper2D/HowTo/Animation/Animation15.jpg">
+		<img class="  lazyload" alt="Animation15.png" data-src="../../../../../Images/AnimatingObjects/Paper2D/HowTo/Animation/Animation15.jpg" />
+</picture>
+
+</p><p>将连接到 True 的枚举状态设为 <strong>Run</strong>，另一个枚举设为 <strong>Idle</strong>。如 IsMoving? 为 true，则枚举状态设为 Run；如为 false，则设为 Idle。范例只检查是否存在移动，您可根据自身需求添加各种 Branch 节点，对各种条件进行检查。 
+</p><p>有一点需要注意：进行检查的顺序十分重要，需要优先进行一些状态的检查。例如需要先播放角色死亡 Flipbook 动画，并检查角色是否已死；如确认已死，则播放死亡动画并判定角色死亡。如未死，则继续执行其他检查（角色是否移动、攻击、使用道具等），最后检查角色是否执行操作；如不执行任何操作，则显示待机动作。 
+</p><div class="note">
+	<p>如需了解更多内容，请观看 Paper 2D 视频教程系列的 <a id="content_link" href="https://wiki.unrealengine.com/Videos/Player?series=PLZlv_N0_O1gauJh60307mE_67jqK42twB&amp;video=Af-jsQFlLFU" ><span>动画状态机</span></a> 部分。 </p>
+</div></li><li class="Default"><p>长按 <strong>Ctrl</strong> 拖入 <strong>IdleFlipbook</strong>、<strong>RunFlipbook</strong> 和 <strong>Animation State</strong> 变量，然后 <strong>单击右键</strong> 添加一个 <strong>Select</strong> 节点。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Paper2D/HowTo/Animation/Animation16.jpg">
+		<img class="  lazyload" alt="Animation16.png" data-src="../../../../../Images/AnimatingObjects/Paper2D/HowTo/Animation/Animation16.jpg" />
+</picture>
+
+</p><p>在这部分中，需要将每个动画变量拖入图表。 
+</p></li><li class="Default"><p>连接每个节点使函数完整，与下图相似。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Paper2D/HowTo/Animation/Animation17.jpg">
+		<img class="  lazyload" alt="Animation17.png" width="800" data-src="../../../../../Images/AnimatingObjects/Paper2D/HowTo/Animation/Animation17.jpg" />
+</picture>
+
+</p><p>函数现在将检查是否处于移动状态，如是，则将枚举状态设为 Run（如未移动，则设为 Idle）。然后使用 Select 节点从枚举获得动画状态，再基于状态指定相应的 Flipbook 作为 <em>Output Flipbook</em> 使用。
+</p></li></ol><a name="finishingupdateanimationevent" ></a><h2 id="完成updateanimation事件">完成 Update Animation 事件</h2>
+<p>完成函数后，将其作为 Update Animation 事件的一部分调用，并完成剩余脚本。 
+</p><ol ><li class="Default"><p>在 <strong>My Blueprint</strong> 窗口的 <strong>事件图表</strong> 上选择 <strong>Show Inherited Variables</strong>，然后长按 <strong>Ctrl</strong> 拖入 <strong>Sprite</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Paper2D/HowTo/Animation/Animation18.jpg">
+		<img class="  lazyload" alt="Animation18.png" data-src="../../../../../Images/AnimatingObjects/Paper2D/HowTo/Animation/Animation18.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>拖入 <strong>Anim State Machine</strong> 函数并将其和 <strong>Set Is Moving?</strong> 节点连接，然后在 <strong>Sprite</strong> 连接引线后添加一个 <strong>Set Flipbook</strong> 节点。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Paper2D/HowTo/Animation/Animation19.jpg">
+		<img class="  lazyload" alt="Animation19.png" data-src="../../../../../Images/AnimatingObjects/Paper2D/HowTo/Animation/Animation19.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>按下图所示，为 <strong>UpdateAnimation</strong> 自定义事件将所有节点连接起来。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Paper2D/HowTo/Animation/Animation20.jpg">
+		<img class="  lazyload" alt="Animation20.png" width="820" data-src="../../../../../Images/AnimatingObjects/Paper2D/HowTo/Animation/Animation20.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>从 MoveForward 事件的 <strong>Add Movement Input</strong> 节点调用 <strong>Update Animation</strong> 自定义事件。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Paper2D/HowTo/Animation/Animation21.jpg">
+		<img class="  lazyload" alt="Animation21.png" data-src="../../../../../Images/AnimatingObjects/Paper2D/HowTo/Animation/Animation21.jpg" />
+</picture>
+
+</p></li><li class="Default"><p><strong>编译</strong> 并 <strong>保存</strong>，然后在编辑器中进行游戏。 
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_umA8BlEjgF8_540
+{
+	margin: 0px;
+	width: 640px;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_umA8BlEjgF8_540:after
+{
+	content: "";
+	padding-top: 360px;
+	display: block;
+}
+</style> 
+<div>
+<div id="player_umA8BlEjgF8_540"><div style="position:absolute;display:block;width:100%;height:100%;"><iframe class="embedded_video" id="umA8BlEjgF8" width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/umA8BlEjgF8?rel=0&amp;modestbranding=1&amp;showinfo=0" frameborder="0" allowfullscreen></iframe></div></div>
+</div>
+<p>现在，角色将基于是否移动在两个状态之间切换。
+</p></li></ol><p>如上所述，如需在此设置中添加更多动画状态，需要： 
+</p><ul ><li class="Default"><p>为角色需要进入的每个动画状态设置 Flipbook 动画。 
+</p></li><li class="Default"><p>在 Paper 2D 角色蓝图中添加动画状态并将其设为 Flipbook 变量。 
+</p></li><li class="Default"><p>将每个状态添加到创建的 <strong>Animation State</strong> 枚举。 
+</p></li><li class="Default"><p>创建条件（决定玩家进入每种状态的时机），并将其添加到 <strong>Anim State Machine</strong> 函数。 
+</p></li><li class="Default"><p>将每个 Flipbook 变量连接到 <strong>Anim State Machine</strong> 函数中的 <strong>Select</strong> 节点。
+</p></li></ul>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/AnimatingObjects/Paper2D/HowTo/Animation/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:33:45 GMT -->
+</html>

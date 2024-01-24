@@ -1,0 +1,11 @@
+var defaultHost = "https://www.unrealengine.com";
+var stagingHost = "https://unrealengine-gamedev.ol.epicgames.net";
+var trackingURL = "https://tracking.unrealengine.com/tracking.js";
+var recommendationsTitle = "可能对您有用的页面";
+var recommendationsNoResults = "推荐系统旨在帮助您找到在开发过程中可能有用的信息。它需要花费一点时间来生成建议。请稍后再回来查看结果。";
+var recommendationsCookieMessage = "<strong>注意：</strong>推荐系统需要启用浏览器的Cookie功能。如果您希望看到有用页面的推荐，请启用Cookie。";
+var finishButtonTemplate = '<a class="btn btn-default btn-lg finish-step"><span class="glyphicon glyphicon-ok"></span>步骤完成</a>';
+var lastVisitedTitle = "打开从上次关闭的页面";
+var inboxTitle = "我的文档";
+var inboxOptIn = "“我的文档”会根据您的浏览历史提供建议，帮助您找到可能有用的信息。为了生成更准确的建议，我们需要使用Cookie存储部分液面浏览信息。确定要启用“我的文档”吗？";
+var inboxAccept = "启用";

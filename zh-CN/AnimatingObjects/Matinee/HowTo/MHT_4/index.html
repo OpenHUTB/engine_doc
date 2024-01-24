@@ -1,0 +1,629 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/AnimatingObjects/Matinee/HowTo/MHT_4/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:35:31 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/AnimatingObjects/Matinee/HowTo/MHT_4/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>使用相机效果 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/AnimatingObjects/Matinee/HowTo/MHT_4/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/AnimatingObjects/Matinee/HowTo/MHT_4/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/AnimatingObjects/Matinee/HowTo/MHT_4/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/AnimatingObjects/Matinee/HowTo/MHT_4/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Matinee/HowTo/MHT_4" />
+<meta name="intsourcechangelist" content="10086382" />
+<meta name="availability" content="Public" />
+<meta name="title" content="使用相机效果" />
+<meta name="description" content="创建一个简单场景，实现淡入/淡出效果，添加多个视野角度和后期处理效果。" />
+<meta name="version" content="4.24" />
+<meta name="skilllevel" content="Intermediate" />
+<meta name="banner" content="在虚幻引擎4.24中，无法再通过过场动画（Cinematics）菜单和细节面板访问Matinee编辑器。" />
+<meta name="banner-description" content="这是为4.25将Matinee从UE4中彻底移除做准备。你现在仍然可以使用[从Matinee到Sequencer转化工具](AnimatingObjects/Sequencer\HowTo\MatineeConversionTool)将Matinee Actor转换为Sequencer资源。" />
+<meta name="crumbs" content="%ROOT%,AnimatingObjects,AnimatingObjects/Matinee,AnimatingObjects/Matinee/HowTo" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="使用相机效果" />
+	<meta property="og:description" content="创建一个简单场景，实现淡入/淡出效果，添加多个视野角度和后期处理效果。 " />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">为角色和对象添加动画</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">Matinee和过场动画</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">Matinee 指导</a>
+
+<span class="separator">></span> <span id="page">使用相机效果</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+					<div id="banner" class="deprecated">
+	<div id="message">
+		<span>在虚幻引擎4.24中，无法再通过过场动画（Cinematics）菜单和细节面板访问Matinee编辑器。</span>
+	</div>
+			<div id="bannerDescription">
+		这是为4.25将Matinee从UE4中彻底移除做准备。你现在仍然可以使用<a id="content_link"filter-data="tag_matinee tag_sequencer tag_conversion" href="../../../Sequencer/HowTo/MatineeConversionTool/index.html" ><span>从Matinee到Sequencer转化工具</span></a>将Matinee Actor转换为Sequencer资源。
+	</div>
+		</div>
+															<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">使用相机效果</h1>
+							</div>	
+							<h2 >创建一个简单场景，实现淡入/淡出效果，添加多个视野角度和后期处理效果。 </h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Intermediate"><a id="skill_link" href="../../../../SiteIndex/index.html?skills=Intermediate">Intermediate</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																																				<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#添加matinee，摄像机和道具">添加 Matinee，摄像机和道具</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#为matinee添加摄像机并添加轨迹">为 Matinee 添加摄像机并添加轨迹</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#camera1,shot1-移动以及后期处理效果">Camera 1, Shot 1 - 移动以及后期处理效果</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#camera2,shot2-移动以及后期处理效果">Camera 2, Shot 2 - 移动以及后期处理效果</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#camera1,shot3-添加电影效果">Camera 1, Shot 3 - 添加电影效果</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#camera2,shot4-添加场景色彩效果">Camera 2, Shot 4 - 添加场景色彩效果</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#导演群组-添加镜头切换和淡化">导演群组 - 添加镜头切换和淡化</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>在此指导系列中，我们将创建一个简短的序列。它拥有多个摄像机角度，多个不同视野、景深以及其他后期处理效果。 
+</p><div class="include_wrapper" data-path="AnimatingObjects/Matinee/HowTo/MHT_1">
+<h2 id="创建项目">创建项目</h2>
+<p>在这部分中，我们将设置项目。 
+</p><ol ><li class="Default"><p>在 <strong>虚幻项目浏览器（Unreal Project Browser）</strong> 窗口中创建一个 <strong>新项目（New Project）</strong>，然后使用 <strong>蓝图第三人称（Blueprint Third Person）</strong> 模板。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_1/MatineeHowTo.jpg">
+		<img class="  lazyload" alt="MatineeHowTo.jpg" width="640" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_1/MatineeHowTo.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>启用 <strong>包括初学者内容包（Include starter content）</strong> 选项。 
+</p></li><li class="Default"><p>命名项目。 
+</p></li><li class="Default"><p>上述步骤完成后点击 <strong>创建项目（Create Project）</strong> 新建项目。
+</p></li></ol>
+</div>
+<h2 id="添加matinee，摄像机和道具">添加 Matinee，摄像机和道具</h2>
+<p>在这步中我们将添加 <strong>Matinee Actor</strong>、<strong>摄像机</strong> 和一些作为镜头目标的道具。 
+</p><ol ><li class="Default"><p>在 <strong>工具栏</strong> 菜单中选择 <strong>Matinee</strong> 并点击 <strong>Add Matinee</strong> 按钮。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_1/MHT1_AddMatinee.jpg">
+		<img class="  lazyload" alt="MHT1_AddMatinee.png" width="720" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_1/MHT1_AddMatinee.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>如出现 Matinee 撤销警告提示，点击 <strong>继续</strong> 按钮。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_1/MHT1_MatineeWarning.jpg">
+		<img class="  lazyload" alt="MHT1_MatineeWarning.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_1/MHT1_MatineeWarning.jpg" />
+</picture>
+
+</p></li><li class="Default"><p><strong>Matinee Editor</strong> 窗口将打开。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_1/MHT1_MatineeOpen.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_1/MHT1_MatineeOpen.jpg">
+		<img class="  lazyload" alt="MHT1_MatineeOpen.png" width="640" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_1/MHT1_MatineeOpen.jpg" />
+</picture>
+</span></a></span></p>
+</div><p><em>点击查看全图。</em>
+</p></li><li class="Default"><p>在 <strong>Content Browser</strong> 的 <strong>Game/Props</strong> 文件夹中，将 <strong>SM_Brush</strong>、<strong>SM_Couch</strong>、和 <strong>SM_Rock</strong> 拖入视口。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_AllPropsAdded.jpg">
+		<img class="  lazyload" alt="MHT4_AllPropsAdded.png" width="720" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_AllPropsAdded.jpg" />
+</picture>
+
+</p><p><em>使用 <strong>平移</strong>（<strong>W</strong> 键）和 <strong>旋转</strong>（<strong>E</strong> 键）控件移动并旋转道具，构成与上图相似的布局。</em>
+</p></li><li class="Default"><p>下一步，在 <strong>Game/Particles</strong> 文件夹中，拖入 <strong>P_Fire</strong> 粒子效果并放置在 SM_Brush 中。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_FireParticleAdded.jpg">
+		<img class="  lazyload" alt="MHT4_FireParticleAdded.png" width="720" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_FireParticleAdded.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>从 <strong>Modes</strong> 菜单的 <strong>Basic</strong> 标签下拖入一个 <strong>Camera</strong> 并放置在 SM_Brush 前。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_Camera1Placed.jpg">
+		<img class="  lazyload" alt="MHT4_Camera1Placed.png" width="720" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_Camera1Placed.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>选中新摄像机后，在 <strong>Depth of Field</strong> 的 <strong>Details</strong> 面板中按下图所示启用选项并赋予数值。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_C1_CameraSettings.jpg">
+		<img class="  lazyload" alt="MHT4_C1_CameraSettings.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_C1_CameraSettings.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>拖入另一个摄像机，将其放置在 SM_Rock 后（旋转摄像机，使岩石显示在镜头中） 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_Camera2Placed.jpg">
+		<img class="  lazyload" alt="MHT4_Camera2Placed.png" height="420" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_Camera2Placed.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>选中新摄像机后，在 Depth of Field 的 Details 面板中按下图所示启用选项并赋予数值。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_C2_CameraSettings.jpg">
+		<img class="  lazyload" alt="MHT4_C2_CameraSettings.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_C2_CameraSettings.jpg" />
+</picture>
+
+</p></li></ol><h2 id="为matinee添加摄像机并添加轨迹">为 Matinee 添加摄像机并添加轨迹</h2>
+<p>在这步中，我们将为 <strong>Matinee</strong> 添加 <strong>摄像机</strong> 并设置在场景中操作的后期处理轨道。
+</p><ol ><li class="Default"><p>在 <strong>World Outliner</strong> 中选中 Matinee，然后从 Details 面板中选择 <strong>Open Matinee</strong> 选项。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_OpenMatinee.jpg">
+		<img class="  lazyload" alt="MHT4_OpenMatinee.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_OpenMatinee.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>最小化 Matinee 窗口，然后在 World Outliner 或视口中选择 <strong>CameraActor1</strong>。 
+</p></li><li class="Default"><p>高亮 CameraActor1，重新打开 Matinee 窗口，然后在 <strong>Tracks</strong> 窗口中 <strong>单击右键</strong> 并选择 <strong>Add New Camera Group</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_AddNewCameraGroup.jpg">
+		<img class="  lazyload" alt="MHT4_AddNewCameraGroup.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_AddNewCameraGroup.jpg" />
+</picture>
+
+</p></li><li class="Default"><p><strong>Name Camera Group</strong> 窗口出现后，将其命名为 <strong>Camera1</strong>。 
+</p></li><li class="Default"><p>重复步骤 2、3、4 添加 <strong>CameraActor2</strong> 摄像机并将群组命名为 <strong>Camera2</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_CamerasAdded.jpg">
+		<img class="  lazyload" alt="MHT4_CamerasAdded.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_CamerasAdded.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>按住 <strong>Control</strong> 键，<strong>点击并拖动</strong> 红色结束标记（图中黄色框），将其拖至 <strong>20.00</strong> 标记处（图中黄色 X 处） 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_IncreaseLength.jpg">
+		<img class="  lazyload" alt="MHT4_IncreaseLength.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_IncreaseLength.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 Camera1 群组上 <strong>单击右键</strong> 并从快捷菜单中选择 <strong>Add New Float Property Track</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_Camera1FloatProperty.jpg">
+		<img class="  lazyload" alt="MHT4_Camera1FloatProperty.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_Camera1FloatProperty.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>从 <strong>Choose Property</strong> 下拉菜单中选择 <strong>CameraComponent.PostProcessBlendWeight</strong> 选项并按下 <strong>Ok</strong> 按钮。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_Camera1BlendAdded.jpg">
+		<img class="  lazyload" alt="MHT4_Camera1BlendAdded.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_Camera1BlendAdded.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>重复步骤 7 和 8，添加一个 <strong>CameraComponent.PostProcessSettings.FilmContrast</strong> 选项并按下 <strong>Ok</strong>。 
+</p></li><li class="Default"><p>再次重复步骤 7 和 8，添加一个 <strong>CameraComponent.PostProcessSettings.FilmSaturation</strong> 选项并按下 <strong>Ok</strong>。 
+</p></li><li class="Default"><p>如下图所示，Camera1 群组现在应该拥有一个 <strong>运动（Movement）</strong> 轨迹、一个 <strong>视野（FOV）</strong> 轨迹、以及三个 <strong>Float 属性</strong> 轨迹。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_Camera1PropertiesComplete.jpg">
+		<img class="  lazyload" alt="MHT4_Camera1PropertiesComplete.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_Camera1PropertiesComplete.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 Camera2 群组上 <strong>单击右键</strong> 并从快捷菜单中选择 Add New Float Property Track。 
+</p></li><li class="Default"><p>从 Choose Property 下拉菜单中选择 <strong>CameraComponent.PostProcessSettings.DepthOfFieldScale</strong> 选项并按下 <strong>Ok</strong> 按钮。 
+</p></li><li class="Default"><p>重复步骤 12 和 13，添加一个 <strong>CameraComponent.PostProcessSettings.GrainIntensity</strong> 选项并按下 <strong>Ok</strong>。 
+</p></li><li class="Default"><p>两个摄像机群组现已设置好，外观与下图相似。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_CameraGroupsComplete.jpg">
+		<img class="  lazyload" alt="MHT4_CameraGroupsComplete.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_CameraGroupsComplete.jpg" />
+</picture>
+
+</p></li></ol><h2 id="camera1,shot1-移动以及后期处理效果">Camera 1, Shot 1 - 移动以及后期处理效果</h2>
+<p>在这步中我们将为 Camera 1 添加摄像机运动和后期处理效果。Camera 1 也就是我们的第一个镜头。
+</p><ol ><li class="Default"><p>在 Matinee 编辑器中，选择 Camera1 群组的 <strong>FOVAngle</strong> 轨迹，按下 <strong>Enter</strong> 键在 <strong>0.00</strong> 处添加一个关键帧。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_Camera1FOV1.jpg">
+		<img class="  lazyload" alt="MHT4_Camera1FOV1.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_Camera1FOV1.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>再为 Camera1 群组选择 <strong>...ssBlendWeight</strong>（混合权重）轨迹，然后按下 <strong>Enter</strong> 键在 <strong>0.00</strong> 处添加一个关键帧。 
+</p></li><li class="Default"><p>选中添加至 <strong>BlendWeight</strong> 轨迹的新关键帧，在它上方 <strong>单击右键</strong>，选择 <strong>Set Value</strong> 将值设为 <strong>0</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_BlendWeight1SetValue.jpg">
+		<img class="  lazyload" alt="MHT4_BlendWeight1SetValue.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_BlendWeight1SetValue.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 Camera1 FOVAngle 轨迹的第一个关键帧上 <strong>单击右键</strong> 并选择 <strong>Set Value</strong> 选项，将值设为 <strong>25</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_C1_FOV1.jpg">
+		<img class="  lazyload" alt="MHT4_C1_FOV1.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_C1_FOV1.jpg" />
+</picture>
+
+</p></li><li class="Default"><p><strong>左键单击</strong> Camera1 运动轨迹的第一个关键帧将其选中。
+</p></li><li class="Default"><p>选中关键帧后，最小化 Matinee 窗口并向上移动摄像机，使灌木丛和火焰离开镜头画面。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_C1_Movement1.jpg">
+		<img class="  lazyload" alt="MHT4_C1_Movement1.png" width="520" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_C1_Movement1.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>返回 Matinee 编辑器，将 <strong>Time Bar</strong> 移至 <strong>5.00</strong>。 
+</p></li><li class="Default"><p>选中 Camera1 的运动轨迹，按下 <strong>Enter</strong> 键在 <strong>5.00</strong> 处添加一个关键帧。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_C1_Movement2.jpg">
+		<img class="  lazyload" alt="MHT4_C1_Movement2.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_C1_Movement2.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>选中新关键帧，最小化 Matinee 窗口并将摄像机下移至地面。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_C1_Movement3.jpg">
+		<img class="  lazyload" alt="MHT4_C1_Movement3.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_C1_Movement3.jpg" />
+</picture>
+
+</p><p><em>图中黄色虚线即为摄像机运动轨迹。</em>
+</p></li><li class="Default"><p>返回 Matinee 编辑器，点击 <strong>Camera1</strong> 的 <strong>FOVAngle</strong> 轨迹。 
+</p></li><li class="Default"><p>将时间条保留在 <strong>5.00</strong> 处，按下 <strong>Enter</strong> 键添加一个新关键帧。 
+</p></li><li class="Default"><p>在新关键帧上 <strong>单击右键</strong>，选择 <strong>Set Value</strong> 将值设为 <strong>45</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_C1_FOV2.jpg">
+		<img class="  lazyload" alt="MHT4_C1_FOV2.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_C1_FOV2.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>将时间条移至 <strong>6.00</strong> 标记处，然后点击 <strong>BlendWeight</strong> 轨迹。 
+</p></li><li class="Default"><p><strong>按下 Enter 键</strong> 在 <strong>BlendWeight</strong> 轨迹的 <strong>6.00</strong> 处添加一个新关键帧。 
+</p></li><li class="Default"><p>在新关键帧上 <strong>单击右键</strong>，选择 <strong>Set Value</strong> 将值设为 <strong>0.3</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_C1_Blendweight2.jpg">
+		<img class="  lazyload" alt="MHT4_C1_Blendweight2.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_C1_Blendweight2.jpg" />
+</picture>
+
+</p><p><em>此操作将使背景先处于焦距中，在摄像机聚焦于前景的灌木之后开始淡出焦距。</em>
+</p></li></ol><h2 id="camera2,shot2-移动以及后期处理效果">Camera 2, Shot 2 - 移动以及后期处理效果</h2>
+<p>在这步中我们将为 Camera 2 添加摄像机运动和后期处理效果。Camera 2 将用于我们的第二个镜头。 
+</p><ol ><li class="Default"><p>在 <strong>Camera2</strong> 的运动轨迹上将时间条移至 <strong>5.00</strong> 处，按下 <strong>Enter</strong> 键添加一个关键帧，然后删除 <strong>0.00</strong> 处的关键帧。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_C2_Movement1.jpg">
+		<img class="  lazyload" alt="MHT4_C2_Movement1.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_C2_Movement1.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>选中 <strong>Camera2</strong> 运动轨迹 <strong>5.00</strong> 处的关键帧，最小化 Matinee 窗口。 
+</p></li><li class="Default"><p>在视口中按下 <strong>E</strong> 键进入 <strong>旋转</strong> 模式并 <strong>旋转摄像机</strong>，使其角度朝上对准天空。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_C2_RotateCamera.jpg">
+		<img class="  lazyload" alt="MHT4_C2_RotateCamera.png" height="420" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_C2_RotateCamera.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>返回 Matinee 编辑器，将 Time Bar 移至 <strong>6.50</strong> 标记处。 
+</p></li><li class="Default"><p>选择 Camera2 的 <strong>...hOfFieldScale</strong>（景深标尺），按下 <strong>Enter</strong> 键在该轨迹的 <strong>6.50</strong> 处添加一个关键帧。 
+</p></li><li class="Default"><p>选择 Camera2 的 <strong>...rainIntensity</strong>（颗粒强度），按下 <strong>Enter</strong> 键在该轨迹的 <strong>6.50</strong> 处添加一个关键帧。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_C2_GrainIntensity1.jpg">
+		<img class="  lazyload" alt="MHT4_C2_GrainIntensity1.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_C2_GrainIntensity1.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>FieldScale</strong> 的关键帧上 <strong>单击右键</strong>，选择 <strong>Set Value</strong> 将值设为 <strong>0.50</strong>。 
+</p></li><li class="Default"><p>在 <strong>GrainIntensity</strong> 的关键帧上 <strong>单击右键</strong>，选择 <strong>Set Value</strong> 将值设为 <strong>0.00</strong>。 
+</p></li><li class="Default"><p>将时间条移至 <strong>9.00</strong> 标记处，选择 Camera2 的运动轨迹，然后按下 <strong>Enter</strong> 键添加一个新关键帧。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_C2_Movement2.jpg">
+		<img class="  lazyload" alt="MHT4_C2_Movement2.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_C2_Movement2.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>选中新关键帧，最小化 Matinee 窗口并返回视口。 
+</p></li><li class="Default"><p>向上移动摄像机并向下旋转，使岩石的一部分仍位于镜头画面中。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_C2_Movement3.jpg">
+		<img class="  lazyload" alt="MHT4_C2_Movement3.png" height="420" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_C2_Movement3.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>返回 Matinee 编辑器窗口。
+</p></li><li class="Default"><p>在 Camera2 的运动轨迹上将时间条移至 <strong>12.00</strong>，按下 <strong>Enter</strong> 键添加另一个关键帧。
+</p></li><li class="Default"><p>选中新关键帧，返回视口，移动摄像机角度朝上，使云朵出现在镜头画面中。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_C2_Movement4.jpg">
+		<img class="  lazyload" alt="MHT4_C2_Movement4.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_C2_Movement4.jpg" />
+</picture>
+
+</p><p><em>此操作将使摄像机向上移动，然后向上追拍云朵。</em>
+</p></li><li class="Default"><p>返回 Matinee 编辑器，在 Camera2 <strong>FieldScale</strong> 轨迹的 <strong>12.00</strong> 处添加一个关键帧并将值设为 <strong>0</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_C2_FieldScale2.jpg">
+		<img class="  lazyload" alt="MHT4_C2_FieldScale2.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_C2_FieldScale2.jpg" />
+</picture>
+
+</p><p><em>此操作将在聚焦于岩石时使背景模糊，然后在追拍云朵时聚焦于云朵。</em>
+</p></li></ol><h2 id="camera1,shot3-添加电影效果">Camera 1, Shot 3 - 添加电影效果</h2>
+<p>在这步中，我们将切换回 camera 1 为序列的第三个镜头添加电影后期处理效果。 
+</p><ol ><li class="Default"><p>在 Matinee 编辑器中，选择并复制 Camera1 运动轨迹 <strong>5.00</strong> 处的关键帧。 
+</p></li><li class="Default"><p>将复制的关键帧粘贴于 Camera1 运动轨迹 的 <strong>11.50</strong> 标记处。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_C1_MovementS3.jpg">
+		<img class="  lazyload" alt="MHT4_C1_MovementS3.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_C1_MovementS3.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在运动轨迹上将时间条移至 <strong>12.00</strong>，按下 <strong>Enter</strong> 键添加新关键帧。 
+</p></li><li class="Default"><p>选中新关键帧，最小化 Matinee 并返回关卡视口。 
+</p></li><li class="Default"><p>移动 CameraActor1 使灌木处于镜头画面的右边（如下图所示）。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_C1_S3_Key1.jpg">
+		<img class="  lazyload" alt="MHT4_C1_S3_Key1.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_C1_S3_Key1.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>返回 Matinee 编辑器和 Camera1。 
+</p></li><li class="Default"><p>点击 <strong>....FilmContrast</strong>（对比度）轨迹的 <strong>12.00</strong> 标记处，按下 <strong>Enter</strong> 键添加一个关键帧。 
+</p></li><li class="Default"><p>接下来点击 <strong>...FilmSaturation</strong>（饱和度）轨迹，按下 <strong>Enter</strong> 键添加一个关键帧。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_C1_ContrastSaturation.jpg">
+		<img class="  lazyload" alt="MHT4_C1_ContrastSaturation.png" width="720" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_C1_ContrastSaturation.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>对比度</strong> <strong>12.00</strong> 标记处的关键帧上 <strong>单击右键</strong>，选择 <strong>Set Value</strong> 将值设为 <strong>50</strong>。 
+</p></li><li class="Default"><p>在 <strong>饱和度</strong> <strong>12.00</strong> 标记处的关键帧上 <strong>单击右键</strong>，选择 <strong>Set Value</strong> 将值设为 <strong>25</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_C1_SaturationValueSet.jpg">
+		<img class="  lazyload" alt="MHT4_C1_SaturationValueSet.png" width="720" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_C1_SaturationValueSet.jpg" />
+</picture>
+
+</p><p><em>对比度和饱和度数值已设置完成，现在进行默认设置。</em>
+</p></li><li class="Default"><p>将 Camera1 对比度和饱和度轨迹的时间条均移回至 <strong>0.00</strong>，并各自添加一个关键帧。 
+</p></li><li class="Default"><p>在两个关键帧上分别 <strong>单击右键</strong>，选择 <strong>Set Value</strong> 将值设为 <strong>1</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_C1_SaturationDefault.jpg">
+		<img class="  lazyload" alt="MHT4_C1_SaturationDefault.png" width="720" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_C1_SaturationDefault.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在对比度和饱和度轨迹上将时间条移至 <strong>11.50</strong> 并 <strong>添加</strong> 一个新的关键帧。 
+</p></li><li class="Default"><p>在两个关键帧上分别 <strong>单击右键</strong>，选择 <strong>Set Value</strong> 将值设为 <strong>1</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_C1_SaturationFinalKey.jpg">
+		<img class="  lazyload" alt="MHT4_C1_SaturationFinalKey.png" width="720" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_C1_SaturationFinalKey.jpg" />
+</picture>
+
+</p><p><em>此操作可确保第一个镜头中的对比度和饱和度数值为 1，在第三个镜头中将进行更新。</em>
+</p></li><li class="Default"><p>最小化 Matinee 窗口，在 World Outliner 中选择 <strong>CameraActor1</strong>。 
+</p></li><li class="Default"><p>在 CameraActor1 的 <strong>Details</strong> 面板中向下滚动，在 <strong>Film</strong> 部分启用对比度和饱和度选项。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_C1_EnableSaturation.jpg">
+		<img class="  lazyload" alt="MHT4_C1_EnableSaturation.png" height="540" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_C1_EnableSaturation.jpg" />
+</picture>
+
+</p><p><em>保持其默认设定，因其将通过 Matinee 更新。</em>
+</p></li></ol><h2 id="camera2,shot4-添加场景色彩效果">Camera 2, Shot 4 - 添加场景色彩效果</h2>
+<p>在这步中，我们将切换回 camera 2 为最后镜头的场景添加噪点滤镜效果。 
+</p><ol ><li class="Default"><p>在 Matinee 编辑器中将时间条移至 <strong>15.50</strong> 处。 
+</p></li><li class="Default"><p>在 Camera2 运动轨迹的 <strong>15.50</strong> 处 <strong>添加</strong> 一个新关键帧。 
+</p></li><li class="Default"><p>选择 <strong>强度</strong> 轨迹并在 <strong>15.50</strong> 处 <strong>添加</strong> 一个新关键帧。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_C2_FinalKeysAdded.jpg">
+		<img class="  lazyload" alt="MHT4_C2_FinalKeysAdded.png" width="720" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_C2_FinalKeysAdded.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 强度 轨迹的 <strong>20.00</strong> 处 <strong>添加</strong> 一个新关键帧，<strong>单击右键</strong> 将其数值设为 <strong>5</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_C2_FinalGrainKey.jpg">
+		<img class="  lazyload" alt="MHT4_C2_FinalGrainKey.png" width="720" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_C2_FinalGrainKey.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>选中 Camera2 运动轨迹 <strong>15.50</strong> 处的关键帧，然后最小化 Matinee 窗口。 
+</p></li><li class="Default"><p>如下图所示，在关卡视口中将 CameraActor2 移至长椅附近，使灌木位于背景中。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_C2_FinalPlacement.jpg">
+		<img class="  lazyload" alt="MHT4_C2_FinalPlacement.png" width="640" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_C2_FinalPlacement.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>选中 CameraActor2，在 Details 面板的 <strong>Scene Color</strong> 部分 <strong>启用</strong> <strong>颗粒强度</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_C2_EnableIntensity.jpg">
+		<img class="  lazyload" alt="MHT4_C2_EnableIntensity.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_C2_EnableIntensity.jpg" />
+</picture>
+
+</p><p><em>保持默认设定，因其将通过 Matinee 更新。</em>
+</p></li></ol><h2 id="导演群组-添加镜头切换和淡化">导演群组 - 添加镜头切换和淡化</h2>
+<p>在这步中，我们将通过 <strong>导演（Director）</strong> 轨迹添加镜头切换和淡化，完成片段。 
+</p><ol ><li class="Default"><p>在 Matinee 编辑器中 Camera2 最后一个轨迹下方的空白处 <strong>单击右键</strong>，从快捷菜单中选择 <strong>Add New Director Group</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_AddDirectorGroup.jpg">
+		<img class="  lazyload" alt="MHT4_AddDirectorGroup.png" height="400" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_AddDirectorGroup.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在新 <strong>导演</strong> 轨迹时间条 <strong>0.00</strong> 处按下 <strong>Enter</strong> 键添加一个新关键帧，然后从弹出菜单中选择 <strong>Camera1</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_DirectorTrackkey1.jpg">
+		<img class="  lazyload" alt="MHT4_DirectorTrackkey1.png" width="800" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_DirectorTrackkey1.jpg" />
+</picture>
+
+</p><p><em>Camera1 已指派到镜头。注解：条的颜色可能存在不同。</em>
+</p></li><li class="Default"><p>将时间条移至 <strong>6.50</strong>，按下 <strong>Enter</strong> 键添加一个关键帧，然后选择 <strong>Camera2</strong> 添加新镜头。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_SecondCutAdded.jpg">
+		<img class="  lazyload" alt="MHT4_SecondCutAdded.png" width="800" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_SecondCutAdded.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>将 Camera1 的时间条移至 <strong>12.00</strong>，<strong>添加</strong> 一个关键帧；然后将 Camera2 的时间条移至 <strong>15.50</strong>，添加一个关键帧。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_AllCutsAdded.jpg">
+		<img class="  lazyload" alt="MHT4_AllCutsAdded.png" width="800" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_AllCutsAdded.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>DirGroup</strong> 上 <strong>单击右键</strong>，在快捷菜单中选择 <strong>Add New Fade Track</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_AddFadeTrack.jpg">
+		<img class="  lazyload" alt="MHT4_AddFadeTrack.png" height="400" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_AddFadeTrack.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>Fade</strong> 轨迹上的 <strong>0.00</strong>（值设为 <strong>1</strong>）和 <strong>1.00</strong>（值设为 <strong>0</strong>）处各 <strong>添加</strong> 一个关键帧。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_Fade1.jpg">
+		<img class="  lazyload" alt="MHT4_Fade1.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_Fade1.jpg" />
+</picture>
+
+</p><p><em>此操作将使轨迹在 1 秒内淡入。</em>
+</p></li><li class="Default"><p>下一步，在 <strong>6.50</strong>（值设为 <strong>1</strong>）、<strong>5.50</strong> 和 <strong>7.50</strong>（值均设为 <strong>0</strong>）处各添加一个关键帧。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_Fade2.jpg">
+		<img class="  lazyload" alt="MHT4_Fade2.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_Fade2.jpg" />
+</picture>
+
+</p><p><em>此操作将使 shot 1 淡出，shot 2 淡入。</em>
+</p></li><li class="Default"><p>在 <strong>12.00</strong>（值设为 <strong>1</strong>）、<strong>11.00</strong> 和 <strong>13.00</strong>（值均设为 <strong>0</strong>）处各 <strong>添加</strong> 一个关键帧。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_Fade3.jpg">
+		<img class="  lazyload" alt="MHT4_Fade3.png" width="720" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_Fade3.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>最后，在 <strong>19.00</strong>（值设为 <strong>0</strong>）和序列末尾（值设为 <strong>1</strong>）处各 <strong>添加</strong> 一个关键帧。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_Fade4.jpg">
+		<img class="  lazyload" alt="MHT4_Fade4.png" width="720" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_Fade4.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>关闭 Matinee 窗口，在 World Outliner 中选择 <strong>Matinee Actor</strong>。 
+</p></li><li class="Default"><p>在 Details 面板中 <strong>启用</strong> 选项 <strong>Play on Level Load</strong>、<strong>Looping</strong>、<strong>Disable Movement Input</strong>、<strong>Disable Look at Input</strong>、<strong>Hide Player</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_MatineeActorOptions.jpg">
+		<img class="  lazyload" alt="MHT4_MatineeActorOptions.png" height="500" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_MatineeActorOptions.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在主工具栏上点击 <strong>Build</strong> 图标（可按需构建灯光），然后按下 <strong>Play</strong> 图标在编辑器中开始游戏。 
+</p><p><span class="non-localized"><a id="content_link" href="https://docs.unrealengine.com/4.26/Attachments/AnimatingObjects/Matinee/HowTo/MHT_4/MHT4_FinalVideo.wmv" ><span><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MovieThumbnail.jpg">
+		<img class="  lazyload" alt="MovieThumbnail.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_4/MovieThumbnail.jpg" />
+</picture>
+</span></a></span>
+</p><p><em>最终成品中将展示使用不同视野、景深和后期处理效果的镜头。</em>
+</p></li></ol>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/AnimatingObjects/Matinee/HowTo/MHT_4/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:35:49 GMT -->
+</html>

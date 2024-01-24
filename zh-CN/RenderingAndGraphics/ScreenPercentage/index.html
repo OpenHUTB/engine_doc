@@ -1,0 +1,616 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/RenderingAndGraphics/ScreenPercentage/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 10:21:40 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/RenderingAndGraphics/ScreenPercentage/" />');
+				var udnCSS = '../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>屏幕百分比与时序上采样 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/RenderingAndGraphics/ScreenPercentage/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/RenderingAndGraphics/ScreenPercentage/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/RenderingAndGraphics/ScreenPercentage/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/RenderingAndGraphics/ScreenPercentage/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Rendering/ScreenPercentage" />
+<meta name="intsourcechangelist" content="15018255" />
+<meta name="availability" content="Public" />
+<meta name="title" content="屏幕百分比与时序上采样" />
+<meta name="description" content="对屏幕百分比和时序上采样的结合使用进行了概述。" />
+<meta name="type" content="Overview" />
+<meta name="version" content="4.26" />
+<meta name="parent" content="RenderingAndGraphics" />
+<meta name="order" content="" />
+<meta name="keywords" content="Rendering" />
+<meta name="keywords" content="Graphics" />
+<meta name="crumbs" content="%ROOT%,RenderingAndGraphics" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="屏幕百分比与时序上采样" />
+	<meta property="og:description" content="对屏幕百分比和时序上采样的结合使用进行了概述。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../index.html">设计视觉、渲染和图形效果</a>
+
+<span class="separator">></span> <span id="page">屏幕百分比与时序上采样</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">屏幕百分比与时序上采样</h1>
+							</div>	
+							<h2 >对屏幕百分比和时序上采样的结合使用进行了概述。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																																			</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																																				<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#主要屏幕百分比">主要屏幕百分比</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#空间放大质量">空间放大质量</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#时序抗锯齿上采样">时序抗锯齿上采样</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#启用时序上采样">启用时序上采样</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#其他示例">其他示例</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#automaticviewtexturemipbias">Automatic View Texture Mip Bias</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#实现抗锯齿质量的着色器性能permutation">实现抗锯齿质量的着色器性能Permutation</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#材质改进">材质改进</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#视图大小和渲染目标大小">视图大小和渲染目标大小</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#screenposition高精度像素位置输出">Screen Position高精度像素位置输出</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#时序上采样之后的材质后期处理">时序上采样之后的材质后期处理</a></p>
+	</li>					</ul>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#次要空间放大">次要空间放大</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#dpi编辑器视口缩放">DPI编辑器视口缩放</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#vr像素密度">VR像素密度</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<div class="note">
+	<p>虚幻引擎4.19版对屏幕百分比的工作方式进行了重大更改。大部分更改将直接影响到开发中的虚拟现实（VR）项目，在大多数情况下，会破坏向后兼容性。</p>
+</div><p><strong>屏幕百分比</strong> 是一种分辨率调节技术，用于渲染分辨率低于或高于实际显示图像的图像。通过调节屏幕百分比，你的游戏可以在性能和图像分辨率之间保持平衡。
+</p><p>在虚幻引擎4（UE4）4.19版之前，你只需要更改屏幕百分比，但现在它分成了渲染管道中的两类缩放：主要和次要空间放大。
+</p><ul ><li class="Default"><p><strong>主要空间放大（Primary Spatial Upscaling）</strong> 就是以前使用的屏幕百分比功能。它的基本理念是以较低的分辨率渲染画面，然后先放大，再绘制用户界面（UI）。
+</p></li><li class="Default"><p><strong>次要空间放大（Secondary Spatial Upscaling）</strong> 执行第二次也是最终的空间放大传递，与主要放大传递无关。
+</p></li></ul><h2 id="主要屏幕百分比">主要屏幕百分比</h2>
+<p><strong>主要空间放大</strong>（即主要屏幕百分比）的工作方式是按屏幕百分比渲染屏幕分辨率，然后进行缩放以适应你的当前屏幕分辨率。如果使用较低的屏幕百分比（或较低的分辨率），然后放大，就称为上采样。或者，在屏幕百分比增大之后（按较高的分辨率渲染），会缩小到当前屏幕的分辨率，这称为 <strong>超级取样</strong>。这一切都发生在绘制用户界面（UI）之前，可能对性能产生影响。
+</p><p>关于屏幕分辨率如何对组成屏幕上所渲染图像的所有缓冲区渲染目标起作用并使其组成一个GPU帧的概念，可以作如下说明：
+</p><p><picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/ScreenPercentage/NoUpscaling.jpg">
+		<img class="  lazyload" alt="NoUpscaling.png" title="NoUpscaling.png" data-src="../../../Images/RenderingAndGraphics/ScreenPercentage/NoUpscaling.jpg" />
+</picture>
+
+</p><p>对于每个GPU帧，所有渲染目标在管道中自始至终使用其全分辨率。<br /></p><p><picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/ScreenPercentage/SpatialUpscale.jpg">
+		<img class="  lazyload" alt="SpatialUpscale.png" title="SpatialUpscale.png" data-src="../../../Images/RenderingAndGraphics/ScreenPercentage/SpatialUpscale.jpg" />
+</picture>
+
+</p><p>在使用空间放大的情况下，在UI之前绘制的一切都根据所用的屏幕百分比使用或高或低的分辨率。屏幕百分比已经降低（从UI之前变窄的渲染目标可以看出），为渲染目标产生了降低分辨率的图像。空间缩放发生在UI之前，将图像缩放至将要输出的屏幕分辨率。例如，如果当前分辨率设置为1920x1080，并且使用83%的屏幕分辨率，那么渲染目标的大小将调整为近似的1600x900分辨率，然后重新放大到1920x1080。
+</p><h3 id="空间放大质量">空间放大质量</h3>
+<p>在放大渲染目标时，可以使用以下控制台变量定义放大质量：
+</p><pre class="prettyprint"><code>r.Upscale.Quality</code></pre>
+<p>它控制屏幕百分比和全屏窗口模式缩放3D渲染的质量。
+</p><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>上采样质量数值 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>上采样结果 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>0</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>最接近的过滤</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>1</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>简单双线</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>2</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>定向模糊，带有非锐化遮罩上采样</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>3</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>5-tap Catmull-Rom双立方插值，近似Lanczos 2（默认）</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>4</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>13-tap Lanczos 3</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>5</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>36-tap高斯过滤非锐化遮罩（成本非常高，但很适合极端上采样）</p>
+			</td>
+	
+</tr></tbody>
+</table><p>或者，你可以使用下列控制台变量来控制如何处理色调映射器传递：
+</p><pre class="prettyprint"><code>r.Tonemapper.MergeWithUpscale.Mode</code></pre>
+<p>色调映射器集成了一个简单的颜色空间空间放大，可以因为性能原因而使用值 <strong>1</strong> 来启用它。但是，如果材质后期处理在色调映射器之后插入，那么色调映射器就不会执行放大。它将重新使用主要空间放大，就像被禁用了一样。
+</p><h2 id="时序抗锯齿上采样">时序抗锯齿上采样</h2>
+<p>除了主要空间放大外，主要屏幕分辨率还支持第二种放大技术：时序上采样。在时序抗锯齿上采样（TAAU）中，不是先使用时序抗锯齿（TAA）执行临时集成，然后再执行主要空间放大，实际上这两者是同时发生的。它们也可以收敛为比仅使用空间放大时更锐利的图像，不过这样做的成本也会比较高，因为要在较高的分辨率下运行更多后期处理。动态分辨率还可以隐藏主要屏幕百分比更改，从而更频繁地进行更改，尽可能接近地匹配GPU预算。
+</p><p><picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/ScreenPercentage/SpatialAndTemporalUpsample.jpg">
+		<img class="  lazyload" alt="SpatialAndTemporalUpsample.png" title="SpatialAndTemporalUpsample.png" data-src="../../../Images/RenderingAndGraphics/ScreenPercentage/SpatialAndTemporalUpsample.jpg" />
+</picture>
+
+</p><div class="caption">
+	<p>TAAU在管道中发生得比较早，这导致在其后的传递会以较高的分辨率渲染，因此以较高的成本产生更为锐利的图像。</p>
+</div><p>应该注意的是，在使用时序上采样时，不同的后期处理顺序不会因为增加TAAU而改变，因为它只是取代了TAA。真正的差别是，在TAAU之前进行的所有处理都将先使用较低的分辨率，然后上采样到TAAU传递之后的分辨率。在4.19版之前，是假定后期处理中的分辨率始终不变。
+</p><div class="note">
+	<p>在主要屏幕百分比降低后，到干净的全分辨率输出的收敛会改变。因此，一些原有的TAA瑕疵会变得更明显。例如在非常细的几何体上，锯齿可能成为问题，增加在降低主要屏幕百分比时丢失此几何体细节的概率。</p>
+</div><h3 id="启用时序上采样">启用时序上采样</h3>
+<p>要使用时序抗锯齿上采样，你需要进入"项目设置（Project Setting）"中找到 <strong>时序上采样（Temporal Upsampling）</strong>，更简单的办法是使用下列控制台变量：
+</p><pre class="prettyprint"><code>r.TemporalAA.Upsampling 1</code></pre>
+<p>如果使用空间放大的主要屏幕百分比较低，在降低分辨率时，可能丢失重要细节。例如，对于铁链栅栏或者车头的格栅，当使用时序抗锯齿时，可能在较远的距离比较难以看清细节。如果启用TAAU，就可以在仍然使用降低的屏幕百分比的情况下减少这一问题。
+</p><!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/ScreenPercentage/TemporalUpsample_Before1-1.jpg">
+		<img class="  lazyload" alt="屏幕百分比：70 | 时序上采样：禁用" data-src="../../../Images/RenderingAndGraphics/ScreenPercentage/TemporalUpsample_Before1-1.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/ScreenPercentage/TemporalUpsample_After1-1.jpg">
+		<img class="  lazyload" alt="屏幕百分比：70 | 时序上采样：启用" data-src="../../../Images/RenderingAndGraphics/ScreenPercentage/TemporalUpsample_After1-1.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div><p>在这个对比案例中，主要屏幕百分比已经设置为 <strong>70</strong>，摄像机移动到了足够远的距离，可以有效地看到TAA如何影响高频几何体和材质。时序上采样使我们能够看到这些细节，即便使用了较低的分辨率，也会尽可能维持这些细节。
+</p><h3 id="其他示例">其他示例</h3>
+<p>在这第一组对比中，一边是仅仅降低了屏幕百分比的默认场景，另一边是使用同样的屏幕百分比但启动了时序上采样的场景。从这些屏幕截图上也许只能看出微小的差异，但是在更大的屏幕上，具有密集几何体或高频纹理的区域可以重新获得一些丢失的细节，例如屋顶上的栏杆或树上的叶子（包括近景和远景）。
+</p><!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/ScreenPercentage/Shot3a-1.jpg">
+		<img class="  lazyload" alt="屏幕百分比：70 | 时序上采样：禁用" data-src="../../../Images/RenderingAndGraphics/ScreenPercentage/Shot3a-1.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/ScreenPercentage/Shot2a-2.jpg">
+		<img class="  lazyload" alt="屏幕百分比：70 | 时序上采样：启用" data-src="../../../Images/RenderingAndGraphics/ScreenPercentage/Shot2a-2.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div><p>在这个示例中，可以将不使用任何时序上采样的默认屏幕百分比100与使用时序上采样的较低屏幕百分比对比。虽然丢失了一些高光和材质细节，但是尽管屏幕百分比已经降低，时序上采样还是很好地保持了几何体细节。
+</p><!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/ScreenPercentage/Shot2a-5.jpg">
+		<img class="  lazyload" alt="屏幕百分比：70 | 时序上采样：启用" data-src="../../../Images/RenderingAndGraphics/ScreenPercentage/Shot2a-5.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/ScreenPercentage/Shot1a-1.jpg">
+		<img class="  lazyload" alt="屏幕百分比：100 | 时序上采样：禁用" data-src="../../../Images/RenderingAndGraphics/ScreenPercentage/Shot1a-1.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div><h3 id="automaticviewtexturemipbias">Automatic View Texture Mip Bias</h3>
+<p>因为屏幕百分比会导致几何体以较低的像素密度渲染，所以时序上采样需要更多来自 <strong>表面</strong> 和 <strong>延迟贴花</strong> 材质域的纹理信息才能保持输出锐利度不变。为此，在默认情况下可以使用纹理取样表达式 <strong>Automatic View Mip Bias</strong>。
+</p><p>纹理取样表达式可使用 <strong>Automatic View Mip Bias</strong> 来切换是否应该通过逐视图的Mip偏差对纹理进行取样，从而使时序抗锯齿具有更锐利的输出。
+</p><p><picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/ScreenPercentage/AutomaticViewMipBias.jpg">
+		<img class="  lazyload" alt="AutomaticViewMipBias.png" title="AutomaticViewMipBias.png" data-src="../../../Images/RenderingAndGraphics/ScreenPercentage/AutomaticViewMipBias.jpg" />
+</picture>
+
+</p><p>对于高频纹理（例如下面的示例），自动Mip偏差在较低的屏幕百分比下可能问题较多。
+</p><p><picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/ScreenPercentage/HFtexture.jpg">
+		<img class="  lazyload" alt="HFtexture.png" title="HFtexture.png" data-src="../../../Images/RenderingAndGraphics/ScreenPercentage/HFtexture.jpg" />
+</picture>
+
+</p><p>在这种情况下，可以使用Mip偏差输入来补偿，或者选择不使用 <strong>Automatic View Mip Bias</strong>。<br /></p><p><picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/ScreenPercentage/AutomaticViewMipBiasUnchecked.jpg">
+		<img class="  lazyload" alt="AutomaticViewMipBiasUnchecked.png" title="AutomaticViewMipBiasUnchecked.png" data-src="../../../Images/RenderingAndGraphics/ScreenPercentage/AutomaticViewMipBiasUnchecked.jpg" />
+</picture>
+
+</p><div class="note">
+	<p><strong>Automatic View Mip Bias</strong> 仅发生在启用TAAU的情况下。常规抗锯齿方法（TAA、MSAA和FXAA）将无法使用此选项。</p>
+</div><h3 id="实现抗锯齿质量的着色器性能permutation">实现抗锯齿质量的着色器性能Permutation</h3>
+<p>和TAA一样，临时放大采样附带用于实现后期处理质量3和4的更快着色器Permutation。着色器Permutation换来的是一定的质量，能够在主机平台上发布60Hz运行的作品。质量设置与设置后期处理质量时已经使用的设置相似。此外还应牢记，TAAU需要比TAA更多的工作，因为它是在较高的分辨率下运行，并且在TAAU传递之后还有后期处理。
+</p><p>可以使用下列控制台变量调节后期处理质量：
+</p><pre class="prettyprint"><code>r.PostProcessAAQuality</code></pre>
+<p>值得注意的是，时序上采样之后的后期处理是在全分辨率下运行的，所以禁用TAA将使它们在较低的分辨率下运行，这是因为它们将在最后进行空间放大，从而加快后期处理的速度。请使用命令`profileGPU`来调查每次传递中GPU性能的明细，使用的是什么传递，以及大部分预算用在哪里。
+</p><p>下表说明了使用这些范围中的主要屏幕百分比值设置时你可以期待的结果：
+</p><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>屏幕范围 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>百分比 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>备注 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>50%</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>71%</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>这是提高性能的最快方法，因为它在内存中使用较小的本地数据存储（LDS）块。如果目标是在台式机和游戏机上时序上采样到4K，这是理想的选择。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>71%</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>100%</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>对于台式机和游戏机上的普通DPI（每英寸点数）渲染是理想选择。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>100%</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>200%</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>如果要使<a id="content_link"filter-data="tag_rendering tag_graphics" href="../DynamicResolution/index.html" ><span>动态分辨率</span></a>在不被用于渲染目标的GPU内存限制的前提下具有超过100%的理论可能，那么这是理想选择。</p>
+			</td>
+	
+</tr></tbody>
+</table><h3 id="材质改进">材质改进</h3>
+<p>对于材质使用场景纹理表达式对场景取样的方式做了一些改进。现在它已简化，因此视图大小始终等于所使用的渲染目标的大小。在实现视图尺寸中准确的像素定位的Screen Position表达式上增加了一个新的输出。还列出了一些在TAAU之后使用材质后期处理时要考虑的附加事项。
+</p><h4 id="视图大小和渲染目标大小">视图大小和渲染目标大小</h4>
+<p>现在视图大小将始终等于材质中的渲染目标大小。在UE4的4.19版之前，对场景纹理取样时，材质必须处理不同于视口UV的复杂场景纹理UV。例如，Screen Position表达式会输出这两种数值，而View Property也会公开不一定等于视图大小的渲染目标大小。这是因为渲染器实际上是在可能更大的渲染目标中渲染视口。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../Images/RenderingAndGraphics/ScreenPercentage/ViewportVsRenderTargetResolution-1.jpg" ><span><picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/ScreenPercentage/ViewportVsRenderTargetResolution-1.jpg">
+		<img class="  lazyload" alt="ViewportVsRenderTargetResolution-1.jpg" title="ViewportVsRenderTargetResolution-1.jpg" width="500" data-src="../../../Images/RenderingAndGraphics/ScreenPercentage/ViewportVsRenderTargetResolution-1.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><p>这种复杂性现已消除，材质的行为将始终以渲染目标大小等于视图大小的情况为准。Screen Position表达式现在将始终返回视口UV，而Scene Texture表达式会将视口UV作为输入。<br /></p><p><picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/ScreenPercentage/ScreenPosViewportUVMat.jpg">
+		<img class="  lazyload" alt="ScreenPosViewportUVMat.png" title="ScreenPosViewportUVMat.png" data-src="../../../Images/RenderingAndGraphics/ScreenPercentage/ScreenPosViewportUVMat.jpg" />
+</picture>
+
+</p><div class="caption">
+	<p>关于Screen Position如何返回用于Scene Texture表达式的 <strong>ViewportUV</strong> 大小的示例设置。</p>
+</div><h4 id="screenposition高精度像素位置输出">Screen Position高精度像素位置输出</h4>
+<p>Screen Position表达式现在包含用于像素位置的第二个输出，它是视口UV乘以传递大小的结果。View Property的视图大小将始终返回TAAU之前的分辨率，即使在<a id="content_link" href="#时序上采样之后的材质后期处理" ><span>TAAU之后运行的材质后期处理</span></a>中也不例外。
+</p><p>像素位置用于给材质提供视图大小中最准确的像素位置，这对于与TAA同步的自定义像素抖动之类的效果有关键意义。以下是关于如何计算视口UV的示例：
+</p><p><picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/ScreenPercentage/ViewportUV-1.jpg">
+		<img class="  lazyload" alt="ViewportUV-1.png" title="ViewportUV-1.png" data-src="../../../Images/RenderingAndGraphics/ScreenPercentage/ViewportUV-1.jpg" />
+</picture>
+
+</p><h4 id="时序上采样之后的材质后期处理">时序上采样之后的材质后期处理</h4>
+<p>创建材质后期处理之后，你可以选择要使用的可混合位置。<strong>色调映射之后</strong> 和 <strong>替换色调映射器</strong> 位置在管道中位于TAAU之后，这意味着它们实际上是在全分辨率下运行的，而且不同于视图大小。
+</p><p><picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/ScreenPercentage/BlendableLocation.jpg">
+		<img class="  lazyload" alt="BlendableLocation.png" title="BlendableLocation.png" data-src="../../../Images/RenderingAndGraphics/ScreenPercentage/BlendableLocation.jpg" />
+</picture>
+
+</p><p>View Property表达式的视图大小和渲染目标大小将仍然返回TAAU之前的视图分辨率，尽管它是发生在TAAU之后。要了解TAAU之后的视图大小和纹素UV大小是多少，使用PostProcessInput0的Scene Texture表达式可以使用 <strong>Size</strong> 和 <strong>InvSize</strong> 的输出。
+</p><p><picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/ScreenPercentage/ViewProperty.jpg">
+		<img class="  lazyload" alt="ViewProperty.png" title="ViewProperty.png" data-src="../../../Images/RenderingAndGraphics/ScreenPercentage/ViewProperty.jpg" />
+</picture>
+
+</p><p>可以像这样根据像素位置重新计算视口UV：
+</p><p><picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/ScreenPercentage/ScreenPosFromPixelPos.jpg">
+		<img class="  lazyload" alt="ScreenPosFromPixelPos.png" title="ScreenPosFromPixelPos.png" data-src="../../../Images/RenderingAndGraphics/ScreenPercentage/ScreenPosFromPixelPos.jpg" />
+</picture>
+
+</p><p>既然Scene Texture表达式只接受视口UV，就可以在执行UV视口转换的同时在任意场景纹理中取样，而且不可能出错。
+</p><h2 id="次要空间放大">次要空间放大</h2>
+<p>除了<a id="content_link" href="#主要屏幕百分比" ><span>主要空间放大</span></a>外，还有 <strong>次要空间放大（Secondary Spatial Upscale）</strong>，它发生在<a id="content_link" href="#时序抗锯齿上采样" ><span>TAAU</span></a>传递之后。对于高DPI的显示器这可能产生问题，因为GPU可能无法适应在较高分辨率下渲染的场景复杂度。为此，渲染器支持使用驱动第二和最终放大传递的次要屏幕百分比。此传递与主要屏幕百分比无关。
+</p><div class="note">
+	<p>请注意，与主要空间放大不同的是，次要空间放大是静态的，无法在游戏中动态更改。</p>
+</div><p><picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/ScreenPercentage/PrimaryAndSecondaryScreenPercentageUpscale.jpg">
+		<img class="  lazyload" alt="PrimaryAndSecondaryScreenPercentageUpscale.png" title="PrimaryAndSecondaryScreenPercentageUpscale.png" data-src="../../../Images/RenderingAndGraphics/ScreenPercentage/PrimaryAndSecondaryScreenPercentageUpscale.jpg" />
+</picture>
+
+</p><p>你可以在配置（.ini）文件中使用下列控制台变量设置次要屏幕百分比：
+</p><pre class="prettyprint"><code>r.SecondaryScreenPercentage.GameViewport</code></pre>
+<p>如果我们知道后台缓冲区分辨率是1080p，要把目标定为较低的900p分辨率，可以为次要屏幕百分比输入相应的百分比。
+</p><pre class="prettyprint"><code>目标分辨率 / 当前设置的分辨率 &#42; 100 = 次要屏幕百分比
+900 / 1080 &#42; 100 = 0.8333 &#42; 100 = 83.33</code></pre>
+<p>例如，假设我们的目标是让《堡垒之夜：大逃杀》在Xbox One上以60hz运行，可以使用83.33的数值，并作如下设置：
+</p><pre class="prettyprint"><code>&#91;XboxOne&#95;60 DeviceProfile&#93;
+DeviceType=XboxOne
+BaseProfileName=XboxOne
++CVars=r.SecondaryScreenPercentage.GameViewport=83.33</code></pre>
+<div class="note">
+	<p>向配置文件添加次要屏幕百分比将覆盖编辑器和它所针对的所有平台设置。你还要记住，应使用控制台变量`r.SetRes`控制后台缓冲区分辨率。最好让该分辨率保持为1080p或4k，这样UI就可始终以目标平台的原生分辨率渲染。</p>
+</div><h3 id="dpi编辑器视口缩放">DPI编辑器视口缩放</h3>
+<p>在编辑器中工作时，所有视口都按除以操作系统（OS）DPI比例的次要屏幕百分比渲染。次要屏幕百分比是使用下列公式确定的：<br /></p><pre class="prettyprint"><code>SecondaryScreenPercentage = 100 / 操作系统DPI比例</code></pre>
+<p>对于高DPI的显示器会调节场景比例（或质量），确保非常大的渲染目标也能保持一致的性能。这还能防止分配可能对系统的GPU而言显得过大的中间渲染目标，避免造成编辑器崩溃和工作成果丢失。在默认情况下，编辑器会针对高DPI显示器调整场景比例，以确保在非常高的像素密度下保持一致的性能。但也可以在编辑器首选项中启用设置 <strong>禁用基于DPI的视口编辑器缩放（Disable DPI Based Editor Viewport Scaling）</strong> 来自定义此功能。该设置允许将次要屏幕百分比默认设置为100，对所有编辑器视口都按全分辨率渲染。
+</p><p><picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/ScreenPercentage/DPIEditorViewportScaling.jpg">
+		<img class="  lazyload" alt="DPIEditorViewportScaling.png" title="DPIEditorViewportScaling.png" data-src="../../../Images/RenderingAndGraphics/ScreenPercentage/DPIEditorViewportScaling.jpg" />
+</picture>
+
+</p><p>更改此选项只会影响编辑器，游戏构建版本的次要屏幕百分比在默认情况下将等于100%。
+</p><h2 id="vr像素密度">VR像素密度</h2>
+<p>在虚幻引擎4.19之前，我们使用屏幕百分比控制台变量来确定头戴式显示器（HMD）屏幕应该以多大的分辨率来渲染VR项目。这往往是一个"魔法"数字，需要根据用于显示项目的HMD来调节（和记忆）。
+</p><p>现在，屏幕分辨率是由像素密度控制的。这样就不需要使用屏幕百分比的"魔法"数字，方便了针对多种HMD进行开发。在默认情况下，将会按HMD的推荐分辨率来渲染眼视图，避免HMD合成器执行任何通常会导致模糊的放大处理。你可以使用下列控制台变量来指定高于或低于屏幕的推荐分辨率的像素密度：
+</p><pre class="prettyprint"><code>vr.PixelDensity</code></pre>
+<p><picture>
+		<source data-srcset="./../../../Images/RenderingAndGraphics/ScreenPercentage/VRPixelDensity.jpg">
+		<img class="  lazyload" alt="VRPixelDensity.png" title="VRPixelDensity.png" data-src="../../../Images/RenderingAndGraphics/ScreenPercentage/VRPixelDensity.jpg" />
+</picture>
+
+</p><p>在这个示意图中，你可以看到使用了HMD的理想分辨率，而VR像素密度使你可以调节任意数字，根据需要提高或降低理想的HMD分辨率。这一改变允许独立控制主要屏幕百分比到临时放大再到视图分辨率，然后在此管道中传递到HMD合成器。
+</p><div class="note">
+	<p>要了解更多信息，请在此处阅读关于<a id="content_link" href="https://www.unrealengine.com/en-US/blog/significant-changes-coming-to-vr-resolution-settings-in-4-19" ><span>VR像素密度</span></a>的内容。</p>
+</div>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../SiteIndex/index.html?tags=Rendering">Rendering</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../SiteIndex/index.html?tags=Graphics">Graphics</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/RenderingAndGraphics/ScreenPercentage/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 10:21:48 GMT -->
+</html>

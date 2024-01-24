@@ -1,0 +1,679 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:11:07 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var finishButton = finishButtonTemplate;
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>使用UMG的用户界面 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/" hreflang="ko" />
+
+	<meta name="redirect" content="ProgrammingAndScripting/Tutorials/UMG" />
+<meta name="redirect" content="Programming/Tutorials/UMG" />
+<meta name="intsourcechangelist" content="15283240" />
+<meta name="availability" content="Public" />
+<meta name="title" content="使用UMG的用户界面" />
+<meta name="description" content="使用UMG创建简易的菜单系统" />
+<meta name="version" content="4.24" />
+<meta name="type" content="quick start" />
+<meta name="type" content="landing" />
+<meta name="skilllevel" content="Intermediate" />
+<meta name="crumbs" content="%ROOT%,ProgrammingAndScripting,ProgrammingAndScripting/ProgrammingWithCPP,ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="使用UMG的用户界面" />
+	<meta property="og:description" content="使用UMG创建简易的菜单系统" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">编程和脚本编写</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">编程指南</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">C++ 编程教程</a>
+
+<span class="separator">></span> <span id="page">使用UMG的用户界面</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">使用UMG的用户界面</h1>
+							</div>	
+							<h2 >使用UMG创建简易的菜单系统</h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Intermediate"><a id="skill_link" href="../../../../SiteIndex/index.html?skills=Intermediate">Intermediate</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>												<div class="tip" id="notice" style="display:none;">
+欢迎回来！要回到您上次离开的地方吗？
+<div class="button-container">
+<a href="javascript:void();" id="goButton" class="btn btn-lrg btn-default action">前往</a>
+<a href="javascript:void();" id="cancelButton" class="btn btn-lrg btn-default">取消</a>
+</div>
+</div>																																				<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#1.设置umg的模块依赖性">1.设置UMG的模块依赖性</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#半成品代码">半成品代码</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#2.扩展游戏模式">2.扩展游戏模式</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#成品代码">成品代码</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#3.创建菜单控件蓝图">3.创建菜单控件蓝图</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#4.配置游戏模式">4.配置游戏模式</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#5.构建二级菜单">5.构建二级菜单</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#6.自行尝试！">6.自行尝试！</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>在本教程中，可学习使用虚幻示意图形（UMG）构建具有多屏幕和按钮的基本菜单系统。
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_1_11np5oyp_2
+{
+	margin: 0px;
+	width: 640px;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_1_11np5oyp_2:after
+{
+	content: "";
+	padding-top: 360px;
+	display: block;
+}
+</style> 
+<div id="player_1_11np5oyp_2"> 
+	<div id="playerContainer_1_11np5oyp_2" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/1_11np5oyp/embed.html"></iframe>
+	</div>
+</div>
+<h2 id="1.设置umg的模块依赖性">1.设置UMG的模块依赖性</h2>
+<p><strong>虚幻引擎4</strong>，建议先阅读<a id="content_link"filter-data="tag_programming tag_c++" href="../../CPPProgrammingQuickStart/index.html" ><span>编程快速入门 tutorial</span></a>。本教程将假设您已熟悉项目的创建、向其中添加C++代码，以及编译代码。同时也会向 <strong>蓝图</strong> 公开函数和属性。如欲了解更多信息，可从<a id="content_link" href="../VariablesTimersEvents/index.html" ><span>变量、定时器和事件 tutorial</span></a></p><ol ><li class="Default"><p>将从新建项目开始：
+</p><ul ><li class="Default"><p>点击新项目中的 <strong>游戏</strong> 分类，然后点击 <strong>下一步</strong>。
+</p></li><li class="Default"><p>选择一个空白模板并点击 <strong>下一步</strong>。
+</p></li><li class="Default"><p>确认启用了 <strong>C++</strong>、<strong>台式机/主机</strong> 和 <strong>使用初学者内容包（With Starter Content）</strong> 设置。
+</p></li><li class="Default"><p>将项目命名为"HowTo_UMG"。
+</p></li></ul><p><strong>虚幻运动图形（UMG）</strong> 的代码，因此需进入 <strong>Visual Studio</strong></p></li><li class="Default"><p>使用主编辑器界面上 <strong>文件</strong> 下拉菜单中的 <strong>打开Visual Studio</strong> 命令来获取项目代码。
+</p><p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/OpenVisualStudio.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/OpenVisualStudio.jpg">
+		<img class="  lazyload" alt="OpenVisualStudio.png" data-src="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/OpenVisualStudio.jpg" />
+</picture>
+</span></a></span>
+</p></li><li class="Default"><p>UMG依赖于模块，因此需将此类模块添加至HowTo_UMG.Build.cs中。
+</p><p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/BuildCS.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/BuildCS.jpg">
+		<img class="  lazyload" alt="BuildCS.png" data-src="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/BuildCS.jpg" />
+</picture>
+</span></a></span>
+</p><p>在HowTo_UMG.Build.cs中，需将UMG添加到包含的公共模块列表中，并将Slate和SlateCore添加到包含的私有模块列表中。需对HowTo_UMG的构造函数首行进行如下修改：</p><pre class="prettyprint"><code>PublicDependencyModuleNames.AddRange(new string&#91;&#93; { "Core", "CoreUObject", "Engine", "InputCore", "UMG" });</code></pre>
+<p>然后将以下行取消注释：</p><pre class="prettyprint"><code>PrivateDependencyModuleNames.AddRange(new string&#91;&#93; { "Slate", "SlateCore" });</code></pre>
+<p>完整源代码提供如下，以便仔细核对代码。
+</p></li></ol><hr />
+<p>设置UMG后，可在项目的自定义 <strong>游戏模式</strong> 中添加代码，以创建和显示游戏菜单。
+</p><h3 id="半成品代码">半成品代码</h3>
+<p><strong>HowTo_UMG.Build.cs</strong>
+</p><pre class="prettyprint"><code>// Copyright 1998-2018 Epic Games, Inc. All Rights Reserved.
+
+using UnrealBuildTool;
+
+public class HowTo&#95;UMG :ModuleRules
+{
+    public HowTo&#95;UMG(TargetInfo Target)
+    {
+        PublicDependencyModuleNames.AddRange(new string&#91;&#93; { "Core", "CoreUObject", "Engine", "InputCore", "UMG" });
+
+        //PrivateDependencyModuleNames.AddRange(new string&#91;&#93; {  });
+
+        // 如使用Slate UI，则取消注释
+        PrivateDependencyModuleNames.AddRange(new string&#91;&#93; { "Slate", "SlateCore" });
+
+        // 如使用在线功能，则取消注释
+        // PrivateDependencyModuleNames.Add("OnlineSubsystem");
+        // if ((Target.Platform == UnrealTargetPlatform.Win32) &#124;&#124; (Target.Platform == UnrealTargetPlatform.Win64))
+        // {
+        //      if (UEBuildConfiguration.bCompileSteamOSS == true)
+        //      {
+        //          DynamicallyLoadedModuleNames.Add("OnlineSubsystemSteam");
+        //      }
+        // }
+    }
+}</code></pre>
+<h2 id="2.扩展游戏模式">2.扩展游戏模式</h2>
+<ol ><li class="Default"><p>创建的菜单将由 <strong>用户控件</strong> 组成。需编写函数以新建并显示用户控件，然后在游戏开始时调用该函数。同时还需追踪创建内容，以便之后进行删除。各项目已有自定义 <strong>游戏模式</strong> 类，可直接打开，其在HowToUMGGameMode.h中被定义。需将以下函数和属性添加到类的底部：
+</p><pre class="prettyprint"><code>public:
+    /&#42;&#42; 移除当前菜单控件，并在指定类（如有）中新建控件。&#42;/
+    UFUNCTION(BlueprintCallable, Category = "UMG Game")
+    void ChangeMenuWidget(TSubclassOf&lt;UUserWidget&gt; NewWidgetClass);
+
+protected:
+    /&#42;&#42; 游戏开始时调用。&#42;/
+    virtual void BeginPlay() override;
+
+    /&#42;&#42; 游戏开始时，用作菜单的控件类。&#42;/
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "UMG Game")
+    TSubclassOf&lt;UUserWidget&gt; StartingWidgetClass;
+
+    /&#42;&#42; 用作菜单的控件实例。&#42;/
+    UPROPERTY()
+    UUserWidget&#42; CurrentWidget;</code></pre></li><li class="Default"><p>为在代码中使用用户控件，需在#include部分的顶部添加以下行：
+</p><pre class="prettyprint"><code>#include "Blueprint/UserWidget.h"</code></pre></li><li class="Default"><p>现在开始处理HowTo_UMGGameMode.cpp，需填充声明的两个函数的主体。将从覆盖 <strong>BeginPlay()</strong> 开始：
+</p><pre class="prettyprint"><code>void AHowTo&#95;UMGGameMode::BeginPlay()
+{
+    Super::BeginPlay();
+    ChangeMenuWidget(StartingWidgetClass);
+}</code></pre>
+<p><strong>Super::BeginPlay</strong></p></li><li class="Default"><p>接下来，同样在HowTo_UMGGameMode.cpp中，需定义菜单间的变化。如视口中存在活跃的用户控件，需将其移除。然后可新建用户控件，并将其添加到视口中。
+</p><pre class="prettyprint"><code>void AHowTo&#95;UMGGameMode::ChangeMenuWidget(TSubclassOf&lt;UUserWidget&gt; NewWidgetClass)
+{
+    if (CurrentWidget != nullptr)
+    {
+        CurrentWidget-&gt;RemoveFromViewport();
+        CurrentWidget = nullptr;
+    }
+    if (NewWidgetClass != nullptr)
+    {
+        CurrentWidget = CreateWidget&lt;UUserWidget&gt;(GetWorld(), NewWidgetClass);
+        if (CurrentWidget != nullptr)
+        {
+            CurrentWidget-&gt;AddToViewport();
+        }
+    }
+}</code></pre>
+<p><strong>虚幻引擎</strong></p></li><li class="Default"><p>最后，需要在 <strong>玩家控制器（Player Controller）</strong> 类上设置输入模式。为此，在项目中添加基于 <strong>玩家控制器</strong> 的新C++类。游戏开始时，只需在此类中调用一个额外函数，便能确保与UI元素进行交互。
+</p><p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/NewClass.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/NewClass.jpg">
+		<img class="  lazyload" alt="NewClass.png" data-src="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/NewClass.jpg" />
+</picture>
+</span></a></span>
+<span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/PlayerController.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/PlayerController.jpg">
+		<img class="  lazyload" alt="PlayerController.png" data-src="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/PlayerController.jpg" />
+</picture>
+</span></a></span>
+</p><p>在HowTo_UMGPlayerControlle.h中，将向该类添加以下覆盖：
+</p><pre class="prettyprint"><code>public:
+    virtual void BeginPlay() override;</code></pre>
+<p>在HowToUMGPlayerController.cpp中，将添加被覆盖的函数：
+</p><pre class="prettyprint"><code>void AHowTo&#95;UMGPlayerController::BeginPlay()
+{
+    Super::BeginPlay();
+    SetInputMode(FInputModeGameAndUI());
+}</code></pre></li></ol><p>代码框架已构建完毕，以创建和显示菜单并在无需要时将其删除。现在返回 <strong>虚幻编辑器</strong>，开始设计菜单资源吧！
+</p><h2 id="成品代码">成品代码</h2>
+<p><strong>HowTo_UMG.Build.cs</strong>
+</p><pre class="prettyprint"><code>// Copyright 1998-2018 Epic Games, Inc. All Rights Reserved.
+
+using UnrealBuildTool;
+
+public class HowTo&#95;UMG :ModuleRules
+{
+    public HowTo&#95;UMG(TargetInfo Target)
+    {
+        PublicDependencyModuleNames.AddRange(new string&#91;&#93; { "Core", "CoreUObject", "Engine", "InputCore", "UMG" });
+
+        //PrivateDependencyModuleNames.AddRange(new string&#91;&#93; {  });
+
+        // 如使用Slate UI，则取消注释
+        PrivateDependencyModuleNames.AddRange(new string&#91;&#93; { "Slate", "SlateCore" });
+
+        // 如使用在线功能，则取消注释
+        // PrivateDependencyModuleNames.Add("OnlineSubsystem");
+        // if ((Target.Platform == UnrealTargetPlatform.Win32) &#124;&#124; (Target.Platform == UnrealTargetPlatform.Win64))
+        // {
+        //      if (UEBuildConfiguration.bCompileSteamOSS == true)
+        //      {
+        //          DynamicallyLoadedModuleNames.Add("OnlineSubsystemSteam");
+        //      }
+        // }
+    }
+}</code></pre>
+<p><strong>HowTo_UMGGameMode.h</strong>
+</p><pre class="prettyprint"><code>// Copyright 1998-2018 Epic Games, Inc. All Rights Reserved.
+
+#pragma once
+
+#include "Blueprint/UserWidget.h"
+#include "GameFramework/GameModeBase.h"
+#include "HowTo&#95;UMGGameMode.generated.h"
+
+/&#42;&#42;
+    &#42; 
+    &#42;/
+UCLASS()
+class HOWTO&#95;UMG&#95;API AHowTo&#95;UMGGameMode : public AGameModeBase
+{
+    GENERATED&#95;BODY()
+
+public:
+    /&#42;&#42; 移除当前菜单控件，并在指定类（如有）中新建控件。&#42;/
+    UFUNCTION(BlueprintCallable, Category = "UMG Game")
+    void ChangeMenuWidget(TSubclassOf&lt;UUserWidget&gt; NewWidgetClass);
+
+protected:
+    /&#42;&#42; 游戏开始时调用。&#42;/
+    virtual void BeginPlay() override;
+
+    /&#42;&#42; 游戏开始时，用作菜单的控件类。&#42;/
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "UMG Game")
+    TSubclassOf&lt;UUserWidget&gt; StartingWidgetClass;
+
+    /&#42;&#42; 用作菜单的控件实例。&#42;/
+    UPROPERTY()
+    UUserWidget&#42; CurrentWidget;
+};</code></pre>
+<p><strong>HowTo_UMGGameMode.cpp</strong>
+</p><pre class="prettyprint"><code>// Copyright 1998-2018 Epic Games, Inc. All Rights Reserved.
+
+#include "HowTo&#95;UMG.h"
+#include "HowTo&#95;UMGGameMode.h"
+
+void AHowTo&#95;UMGGameMode::BeginPlay()
+{
+    Super::BeginPlay();
+    ChangeMenuWidget(StartingWidgetClass);
+}
+
+void AHowTo&#95;UMGGameMode::ChangeMenuWidget(TSubclassOf&lt;UUserWidget&gt; NewWidgetClass)
+{
+    if (CurrentWidget != nullptr)
+    {
+        CurrentWidget-&gt;RemoveFromViewport();
+        CurrentWidget = nullptr;
+    }
+    if (NewWidgetClass != nullptr)
+    {
+        CurrentWidget = CreateWidget&lt;UUserWidget&gt;(GetWorld(), NewWidgetClass);
+        if (CurrentWidget != nullptr)
+        {
+            CurrentWidget-&gt;AddToViewport();
+        }
+    }
+}</code></pre>
+<p><strong>HowTo_UMGPlayerController.h</strong>
+</p><pre class="prettyprint"><code>// Copyright 1998-2018 Epic Games, Inc. All Rights Reserved.
+
+#pragma once
+
+#include "GameFramework/PlayerController.h"
+#include "HowTo&#95;UMGPlayerController.generated.h"
+
+/&#42;&#42;
+    &#42; 
+    &#42;/
+UCLASS()
+class HOWTO&#95;UMG&#95;API AHowTo&#95;UMGPlayerController : public APlayerController
+{
+    GENERATED&#95;BODY()
+
+public:
+    virtual void BeginPlay() override;
+};</code></pre>
+<p><strong>HowTo_UMGPlayerController.cpp</strong>
+</p><pre class="prettyprint"><code>// Copyright 1998-2018 Epic Games, Inc. All Rights Reserved.
+
+#include "HowTo&#95;UMG.h"
+#include "HowTo&#95;UMGPlayerController.h"
+
+void AHowTo&#95;UMGPlayerController::BeginPlay()
+{
+    Super::BeginPlay();
+    SetInputMode(FInputModeGameAndUI());
+}</code></pre>
+<h2 id="3.创建菜单控件蓝图">3.创建菜单控件蓝图</h2>
+<ol ><li class="Default"><p>在 <strong>虚幻编辑器</strong> 中，可按 <strong>编译</strong> 按钮构建新代码。利用此操作可将 <strong>用户控件</strong> 用作菜单。
+</p><p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/CompileFromEditor.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/CompileFromEditor.jpg">
+		<img class="  lazyload" alt="CompileFromEditor.png" data-src="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/CompileFromEditor.jpg" />
+</picture>
+</span></a></span>
+</p></li><li class="Default"><p>现在创建被 <strong>游戏模式</strong> 用作菜单的用户控件。通过 <strong>内容浏览器</strong> 中的 <strong>新增（Add New）</strong> 按钮，即可完成此操作。<strong>控件蓝图</strong> 类位于 <strong>用户界面</strong> 类别中。需创建两个控件，并分别命名为MainMenu和NewGameMenu。可主菜单开始游戏，同时拥有可进入新游戏菜单的选项。
+</p><p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/CreateWidgetBP.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/CreateWidgetBP.jpg">
+		<img class="  lazyload" alt="CreateWidgetBP.png" data-src="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/CreateWidgetBP.jpg" />
+</picture>
+</span></a></span>
+</p></li><li class="Default"><p>双击刚刚创建的主菜单 <strong>控件</strong>，前往 <strong>蓝图设计器</strong>，可在其中创建菜单布局。
+</p></li><li class="Default"><p>将 <strong>按钮</strong> 和 <strong>文本</strong> 从 <strong>控制板面板</strong> 的 <strong>常用</strong> 部分拖入 <strong>图表</strong>。该按钮将被用于打开新游戏菜单。
+</p><p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/AddButton.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/AddButtonAndTextBlock.jpg">
+		<img class="  lazyload" alt="AddButtonAndTextBlock.png" data-src="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/AddButtonAndTextBlock.jpg" />
+</picture>
+</span></a></span>
+</p></li><li class="Default"><p>创建正确布局的首部，便是调整按钮的位置和大小。应进行以下修改：
+</p><ul ><li class="Default"><p>将大小设为 -200 x -200。
+</p></li><li class="Default"><p>将位置设为（-200，-200）。
+</p></li><li class="Default"><p>将其重命名为NewGameButton，以便之后将其与功能连接时进行识别。
+</p></li></ul><p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/ButtonDetails.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/ButtonDetails.jpg">
+		<img class="  lazyload" alt="ButtonDetails.png" data-src="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/ButtonDetails.jpg" />
+</picture>
+</span></a></span>
+</p></li><li class="Default"><p>由于未绘制一套按钮的自定义图像，因此可通过将文本块拖放到按钮上并进行以下修改，以标记按钮：
+</p><ul ><li class="Default"><p>设置"新游戏"的文本显示。
+</p></li><li class="Default"><p>将可见性改为"点击测试不可见"。此操作可防止文本块阻碍鼠标点击下方按钮。
+</p></li><li class="Default"><p>将命名设为NewGameText。此并非必要步骤，而是好习惯。
+</p></li></ul><p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/TextBlockDetails.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/TextBlockDetails.jpg">
+		<img class="  lazyload" alt="TextBlockDetails.png" data-src="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/TextBlockDetails.jpg" />
+</picture>
+</span></a></span>
+</p></li><li class="Default"><p>接下来，将使用第二个按钮和文本块，创建"退出"功能。其设置方法与新游戏按钮和文本块的设置方法相同，但有以下变化。
+</p><ul ><li class="Default"><p>将按钮命名设为QuitButton
+</p></li><li class="Default"><p>将按钮的位置设为（-200，-400）
+</p></li><li class="Default"><p>将文本块命名设为QuitText
+</p></li></ul></li><li class="Default"><p>完成后即可将 <strong>事件</strong> 添加到按钮，以便点击按钮时运行代码。通过在 <strong>细节面板</strong> 中找到并按下相应事件命名旁的+号，便能完成此操作。而现在，<strong>OnClicked</strong> 即是要使用的事件。同时创建NewGameButton和QuitButton控件的的该事件。
+</p><p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/CreateOnClickedEvent.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/CreateOnClickedEvent.jpg">
+		<img class="  lazyload" alt="CreateOnClickedEvent.png" data-src="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/CreateOnClickedEvent.jpg" />
+</picture>
+</span></a></span>
+</p><p><strong>蓝图</strong></p></li><li class="Default"><p>对于名为 <strong>OnClicked(NewGameButton)</strong> 的事件，需：
+</p><ul ><li class="Default"><p>连接 <strong>ChangeMenuWidget</strong> 节点，以使用之前添加到GameMode中的功能。
+</p></li><li class="Default"><p>将 ChangeMenuWidget<strong> 节点上的 </strong>新控件类** 字段设为NewGameMenu资源。
+</p></li></ul><p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/OnClicked_NewGame.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/OnClicked_NewGame.jpg">
+		<img class="  lazyload" alt="OnClicked_NewGame.png" data-src="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/OnClicked_NewGame.jpg" />
+</picture>
+</span></a></span>
+</p></li><li class="Default"><p>对于名为 <strong>OnClicked(QuitButton)</strong> 的事件，需：
+</p><ul ><li class="Default"><p>连接 <strong>Quit Game</strong> 节点。
+</p></li></ul><p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/OnClicked_Quit.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/OnClicked_Quit.jpg">
+		<img class="  lazyload" alt="OnClicked_Quit.png" data-src="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/OnClicked_Quit.jpg" />
+</picture>
+</span></a></span>
+</p></li></ol><p>构建主菜单后，可设置在关卡启动时立即加载主菜单的GameMode资源。
+</p><h2 id="4.配置游戏模式">4.配置游戏模式</h2>
+<ol ><li class="Default"><p>基于项目的 <strong>GameMode</strong>，在 <strong>内容浏览器</strong> 中添加 <strong>蓝图类</strong>.利用此操作，可将这两个类上的公开变量设为需要的值。为此，需：
+</p><ul ><li class="Default"><p>在 <strong>内容浏览器</strong> 中点击的 <strong>添加</strong> 按钮。
+</p></li></ul><p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/AddNewBPClass.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/AddNewBPClass.jpg">
+		<img class="  lazyload" alt="AddNewBPClass.png" data-src="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/AddNewBPClass.jpg" />
+</picture>
+</span></a></span>
+</p><ul ><li class="Default"><p>选择 <strong>HowTo_UMGGameMode</strong> 作为父类。其将被列入 <strong>所有类（All Classes）</strong> 部分。
+</p></li></ul><p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/PickParentClassForGameModeBP.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/PickParentClassForGameModeBP.jpg">
+		<img class="  lazyload" alt="PickParentClassForGameModeBP.png" data-src="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/PickParentClassForGameModeBP.jpg" />
+</picture>
+</span></a></span>
+</p><ul ><li class="Default"><p>将得到的蓝图资源命名为MenuGameMode。
+</p></li></ul></li><li class="Default"><p>为使游戏光标出现在游戏中，需进行GameMode中的相同操作，创建 <strong>PlayerController</strong> 的蓝图。
+</p><ul ><li class="Default"><p>在 <strong>内容浏览器</strong> 中再次点击 <strong>添加</strong> 按钮。
+</p></li><li class="Default"><p>在 <strong>常用类（Common Classes）</strong> 部分选择 <strong>玩家控制器</strong>。
+</p></li><li class="Default"><p>将该蓝图命名为MenuPlayerController。
+</p></li></ul></li><li class="Default"><p>编辑MenuPlayerController。
+</p><ul ><li class="Default"><p>勾选 <strong>显示鼠标光标（Show Mouse Cursor）</strong> 复选框。
+</p></li></ul><p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/GamePlayerController.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/GamePlayerController.jpg">
+		<img class="  lazyload" alt="GamePlayerController.png" data-src="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/GamePlayerController.jpg" />
+</picture>
+</span></a></span>
+</p></li><li class="Default"><p>编辑MenuGameMode。
+</p><ul ><li class="Default"><p>须将 <strong>启动控件类（Starting Widget Class）</strong> 设为MainMenu资源，以便在游戏开始时打开菜单。
+</p></li><li class="Default"><p>应将 <strong>默认Pawn类（Default Pawn Class）</strong> 设为 <strong>Pawn</strong> 而非 <strong>DefaultPawn</strong>，玩家便不会在菜单中乱飞。
+</p></li><li class="Default"><p>应将 <strong>玩家控制器类</strong> 设为创建的MenuPlayerController资源，以便在游戏中显示鼠标光标。
+</p></li></ul><p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/ConfigureGameMode.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/ConfigureGameMode.jpg">
+		<img class="  lazyload" alt="ConfigureGameMode.png" data-src="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/ConfigureGameMode.jpg" />
+</picture>
+</span></a></span>
+</p></li><li class="Default"><p>为使用蓝图，必返回 <strong>关卡编辑器</strong> 窗口，并通过 <strong>设置</strong> 按钮修改当前 <strong>关卡</strong> 的 <strong>场景设置</strong>。
+</p><p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/WorldSettingsBar.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/WorldSettingsBar.jpg">
+		<img class="  lazyload" alt="WorldSettingsBar.png" data-src="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/WorldSettingsBar.jpg" />
+</picture>
+</span></a></span>
+</p><p><strong>地图和模式</strong> 部分的 <strong>项目设置</strong></p></li><li class="Default"><p>将打开 <strong>场景设置面板</strong>。其将默认与 <strong>细节面板</strong> 停靠，但也可将其移动到其他位置。需将 <strong>游戏模式覆盖（Game Mode Override）</strong> 字段设为MenuGameMode资源。
+</p><p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/WorldSettings.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/WorldSettings.jpg">
+		<img class="  lazyload" alt="WorldSettings.png" data-src="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/WorldSettings.jpg" />
+</picture>
+</span></a></span>
+</p></li></ol><p>自定义GameMode资源现已在关卡上生效，并被配置以加载主菜单，同时使用显示鼠标光标的玩家控制器。如现在运行游戏，退出按钮将预期生效，使用新游戏按钮将进入空白菜单。将在下一步中设置新游戏菜单。
+</p><h2 id="5.构建二级菜单">5.构建二级菜单</h2>
+<ol ><li class="Default"><p>在 <strong>内容浏览器</strong> 中，找到并打开之前创建的NewGameMenu资源。该菜单将包含可输入命名的 <strong>文本框</strong>、开始游戏的 <strong>按钮</strong>（输入命名前无法按下），及可返回主菜单的按钮。
+</p></li><li class="Default"><p>为创建命名输入框，需将文本框（而非 <strong>文本块</strong>）拖入布局。
+</p><p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/CreateTextEntryBox.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/CreateTextEntryBox.jpg">
+		<img class="  lazyload" alt="CreateTextEntryBox.png" data-src="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/CreateTextEntryBox.jpg" />
+</picture>
+</span></a></span>
+</p></li><li class="Default"><p>应按以下值配置文本框：
+</p><ul ><li class="Default"><p>将命名改为NameTextEntry
+</p></li><li class="Default"><p>位置（325，200）。此操作可在文本框左侧预留空间，以放置文本块。
+</p></li><li class="Default"><p>尺寸为250x40。
+</p></li><li class="Default"><p>字体大小（在"样式"标头下)为20。
+</p></li></ul><p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/TextBoxDetails.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/TextBoxDetails.jpg">
+		<img class="  lazyload" alt="TextBoxDetails.png" data-src="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/TextBoxDetails.jpg" />
+</picture>
+</span></a></span>
+</p></li><li class="Default"><p>利用与在上一菜单中创建按钮的相同方式，即可创建带文本块标签的游戏按钮。
+</p><ul ><li class="Default"><p>对于按钮：将命名改为PlayGameButton，<strong>位置</strong> 改为（200，300），<strong>尺寸</strong> 改为（200，100）
+</p></li><li class="Default"><p>对于文本块：将命名改为PlayGameText，将 <strong>可见性</strong> 设为"命中测试不可见"，并将其拖到PlayGameButton的顶部。
+</p></li></ul></li><li class="Default"><p>"开始游戏"按钮将有一个特殊功能：仅在文本框中输入非空白命名时启用。可使用 <strong>虚幻运动图形</strong>（UMG）绑定功能新建 <strong>已启用（Is Enabled）</strong> 字段（在 <strong>行为(Behavior)</strong> 部分下)的功能。
+</p><p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/PlayGameButtonDetails.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/PlayGameButtonDetails.jpg">
+		<img class="  lazyload" alt="PlayGameButtonDetails.png" data-src="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/PlayGameButtonDetails.jpg" />
+</picture>
+</span></a></span>
+</p><p><strong>GameMode</strong> 上公开 <strong>UFUNCTION</strong> 或在项目中的某处公开静态函数。但由于仅需名称字符串不为空，因此可在 <strong>控件</strong></p></li><li class="Default"><p>为确保仅在文本框非空白时启用按钮，可将文本框中的文本转换为字符串，然后检查其长度是否大于零。以下为此逻辑的显示方式：
+</p><p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/PlayGameButtonEnableFunction.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/PlayGameButtonEnableFunction.jpg">
+		<img class="  lazyload" alt="PlayGameButtonEnableFunction.png" data-src="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/PlayGameButtonEnableFunction.jpg" />
+</picture>
+</span></a></span>
+</p></li><li class="Default"><p>再添加一个按钮，以便退出并从此处进入主菜单。添加方式与添加主菜单的"开始游戏"按钮相同，但其位置位于右下角而非左上角。为了完成此操作，点击 <strong>细节面板</strong> 中的 <strong>锚</strong> 下拉列表，并在弹出菜单中找到适当的图示。
+</p><ul ><li class="Default"><p>将命名改为MainMenuButton
+</p></li><li class="Default"><p>将 <strong>位置</strong> 设为（-400，-200）
+</p></li><li class="Default"><p>将 <strong>尺寸</strong> 设为200x100
+</p></li></ul><p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/SelectAnchor.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/SelectAnchor.jpg">
+		<img class="  lazyload" alt="SelectAnchor.png" data-src="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/SelectAnchor.jpg" />
+</picture>
+</span></a></span>
+</p><p><div class="tip">
+	<p>将锚放在右下角，此操作不会改变其大小和位置值的工作方式，因此需将位置值设为负值，使其在屏幕中显示。保留尺寸值为正。</p>
+</div>
+</p></li><li class="Default"><p>现在再次添加 <strong>OnClicked</strong> 事件，向新按钮添加脚本。主菜单按钮将简单重加载主菜单控件，在 <strong>ChangeMenuWidget</strong> 函数的调用中不提供新控件，开始游戏按钮将停止菜单。显示短语 <strong>选择类</strong> 而非实际类或资产的命名，可对此进行显示。
+</p><p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/NewGameButtonBPs.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/NewGameButtonBPs.jpg">
+		<img class="  lazyload" alt="NewGameButtonBPs.png" data-src="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/NewGameButtonBPs.jpg" />
+</picture>
+</span></a></span>
+</p><p><strong>Pawn</strong></p></li><li class="Default"><p>现在应该具备两种屏幕，大致如下：
+</p><p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/FinalScreen.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/FinalScreen.jpg">
+		<img class="  lazyload" alt="FinalScreen.png" data-src="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/FinalScreen.jpg" />
+</picture>
+</span></a></span>
+</p><p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/FinalScreen2.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/FinalScreen2.jpg">
+		<img class="  lazyload" alt="FinalScreen2.png" data-src="../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/FinalScreen2.jpg" />
+</picture>
+</span></a></span>
+</p></li></ol><h2 id="6.自行尝试！">6.自行尝试！</h2>
+<p>利用所学内容，尝试以下操作：
+</p><ul ><li class="Default"><p>同时打开的多个菜单。
+</p></li><li class="Default"><p>在屏幕上滑入或淡入 <strong>控件</strong>，而非直接显示。
+</p></li><li class="Default"><p>查看控件支持的不同声音、样式和颜色属性。
+</p></li><li class="Default"><p>在菜单中设置 **GameMode 内如难度、角色级别等变量。
+</p></li><li class="Default"><p>创建游戏内菜单，可在玩家按键时弹出并暂停游戏，而在关闭后可继续游戏。
+</p></li><li class="Default"><p>将之前教程中构建或学习的功能关联到在 <strong>虚幻示意图形</strong>（UMG）中构建的菜单。
+</p></li></ul><p>本教程中讲解的相关细节：
+</p><ul ><li class="Default"><p>欲了解在UMG中设计游戏进程屏幕显示和使用诸多可用控件，请阅读<a id="content_link"filter-data="tag_umg_ui_designer" href="../../../../InteractiveExperiences/UMG/UserGuide/index.html" ><span>UMG界面设计器用户指南</span></a>或<a id="content_link"filter-data="tag_umg_ui_designer tag_getting_started" href="../../../../InteractiveExperiences/UMG/UserGuide/WidgetTypeReference/index.html" ><span>控件类型参考</span></a>页面。
+</p></li><li class="Default"><p>欲了解公开变量和函数及在菜单中使用 <strong>定时器</strong> 和 <strong>事件</strong> 的更多相关信息，参见<a id="content_link" href="../VariablesTimersEvents/index.html" ><span>变量、定时器和事件</span></a>页面。
+</p></li><li class="Default"><p>欲学习更多教程，参见<a id="content_link" href="../index.html" ><span>C++ 编程教程</span></a>页面。
+</p></li></ul>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/UMG/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:11:25 GMT -->
+</html>

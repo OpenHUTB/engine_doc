@@ -1,0 +1,516 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/RenderingAndGraphics/Materials/HowTo/BumpOffset/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:14:28 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/RenderingAndGraphics/Materials/HowTo/BumpOffset/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>使用凹凸贴图偏移（Bump Offset）  | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/RenderingAndGraphics/Materials/HowTo/BumpOffset/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/RenderingAndGraphics/Materials/HowTo/BumpOffset/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/RenderingAndGraphics/Materials/HowTo/BumpOffset/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/RenderingAndGraphics/Materials/HowTo/BumpOffset/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Rendering/Materials/HowTo/BumpOffset" />
+<meta name="intsourcechangelist" content="14237003" />
+<meta name="availability" content="Public" />
+<meta name="title" content="使用凹凸贴图偏移（Bump Offset）" />
+<meta name="parent" content="RenderingAndGraphics/Materials/HowTo" />
+<meta name="description" content="有关在材质中使用"凹凸贴图偏移"（Bump Offset）节点的指南。" />
+<meta name="related" content="RenderingAndGraphics/Materials/ExpressionReference/Utility" />
+<meta name="related" content="RenderingAndGraphics/Materials" />
+<meta name="version" content="4.9" />
+<meta name="skilllevel" content="Intermediate" />
+<meta name="keywords" content="Materials" />
+<meta name="course" content="creating-pbr-materials?lang=zh-CN|创建PBR材质|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fcreating-pbr-materials%2FHighresScreenshot00006-1920x1050-2c0180460478cd00327494c6e5717e227be4926d.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fcreating-pbr-materials%2FCreating-PBR-Materials-1000x1000-0d34ec4bfc3eeb466ce5a981a867921f72464e77.png?resize=1&amp;w=300" />
+<meta name="course" content="getting-to-know-materials-for-design-visualization?lang=zh-CN|了解可视化设计中的材质|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fgetting-to-know-materials-for-design-visualization%2FIntro_to_Materials_003-1919x1079-f32638266c469a6fa2b9b2f3515e5766e8177b22.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fgetting-to-know-materials-for-design-visualization%2FGetting-to-Know-Materials-for-Design-Visualization-1000x1000-8cd1670f84e0111e39d4a3faa1e7a6ba29a30bfe.png?resize=1&amp;w=300" />
+<meta name="course" content="materials---exploring-essential-concepts?lang=zh-CN|材质：基础概念|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials---exploring-essential-concepts%2FMaterialEssentialConcepts-1920x1080-1920x1080-2414bb5cf0b0c3bd7ac4b993e725d2acedd45334.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials---exploring-essential-concepts%2FMaterials--Exploring-Essential-Concepts-1000x1000-9546cdc254e6659ce73211b5955ab9d886921256.png?resize=1&amp;w=300" />
+<meta name="course" content="materials---understanding-the-production-workflow?lang=zh-CN|材质：制作工作流|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials---understanding-the-production-workflow%2FMaterialWorkflow_ThumbnailFull-1920x1080-1920x1080-638fea6d7e3b7b299a4f433096336ce1caf662d0.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials---understanding-the-production-workflow%2F104-Materials-Production-Workflow%402x-1000x1000-ae1ba588a367d239fbe513da38bb793360c9eecf.png?resize=1&amp;w=300" />
+<meta name="course" content="materials-master-learning?lang=zh-CN|材质大师课程|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials-master-learning%2FMaterialMaster_1920x1080-1920x1080-212f85045980310d6985557f84d0217e6423b709.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials-master-learning%2FMaterials-Master-Learning-1000x1000-56fd0b66f6e798313f79737126d9215cbd4a3ff9.png?resize=1&amp;w=300" />
+<meta name="crumbs" content="%ROOT%,RenderingAndGraphics,RenderingAndGraphics/Materials,RenderingAndGraphics/Materials/HowTo" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="使用凹凸贴图偏移（Bump Offset） " />
+	<meta property="og:description" content="有关在材质中使用"凹凸贴图偏移"（Bump Offset）节点的指南。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">设计视觉、渲染和图形效果</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">材质 </a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">材质 - 操作指南</a>
+
+<span class="separator">></span> <span id="page">使用凹凸贴图偏移（Bump Offset） </span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">使用凹凸贴图偏移（Bump Offset） </h1>
+							</div>	
+							<h2 >有关在材质中使用"凹凸贴图偏移"（Bump Offset）节点的指南。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Intermediate"><a id="skill_link" href="../../../../SiteIndex/index.html?skills=Intermediate">Intermediate</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																		<div id="seeAlso">
+	<div style="position:relative;">
+		<div id="title">参见</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<p>
+						<a id="related_link" href="../../ExpressionReference/Utility/index.html" title="对一个或多个输入执行各种实用运算的表达式。">实用表达式</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../index.html" title="使用着色器控制世界中的表面外形。">材质</a>
+					</p>
+				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																		<div id="courses">
+	<div style="position:relative;">
+		<div id="title">相关课程</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<div name="creating-pbr-materials?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/creating-pbr-materials?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_443/Unreal%20Engine/onlinelearning-courses/creating-pbr-materials/HighresScreenshot00006-1920x1050-2c0180460478cd00327494c6e5717e227be4926d4f86.png?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_443/Unreal%20Engine/onlinelearning-courses/creating-pbr-materials/Creating-PBR-Materials-1000x1000-0d34ec4bfc3eeb466ce5a981a867921f72464e77fe4b.png?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="creating-pbr-materials?lang=zh-CN_title">
+				创建PBR材质
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="getting-to-know-materials-for-design-visualization?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/getting-to-know-materials-for-design-visualization?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/getting-to-know-materials-for-design-visualizat/Intro_to_Materials_003-1919x1079-f32638266c469a6fa2b9b2f3515e5766?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/getting-to-know-materials-for-design-visualizat/Getting-to-Know-Materials-for-Design-Visualization-1000x1000-8cd1670f84e0111e39d4a3faa1e7a6b?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="getting-to-know-materials-for-design-visualization?lang=zh-CN_title">
+				了解可视化设计中的材质
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="materials---exploring-essential-concepts?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/materials---exploring-essential-concepts?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/materials---exploring-essential-concepts/MaterialEssentialConcepts-1920x1080-1920x1080-2414bb5cf0b0c3bd7ac4b993e725d2acedd45334.42c4f86.dela?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/materials---exploring-essential-concepts/Materials--Exploring-Essential-Concepts-1000x1000-9546cdc254e6659ce73211b5955ab9d886921256.42dfe4b?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="materials---exploring-essential-concepts?lang=zh-CN_title">
+				材质：基础概念
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="materials---understanding-the-production-workflow?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/materials---understanding-the-production-workflow?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/materials---understanding-the-production-workfl/MaterialWorkflow_ThumbnailFull-1920x1080-1920x1080-638fea6d7e3b7b299a4f433096336ce1caf662d0?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/materials---understanding-the-production-workfl/104-Materials-Production-Workflow%402x-1000x1000-ae1ba588a367d239fbe513da38bb793360c9eecf.42ff?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="materials---understanding-the-production-workflow?lang=zh-CN_title">
+				材质：制作工作流
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="materials-master-learning?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/materials-master-learning?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/materials-master-learning/MaterialMaster_1920x1080-1920x1080-212f85045980310d6985557f84d0217e6423b709.4314f86.del?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/materials-master-learning/Materials-Master-Learning-1000x1000-56fd0b66f6e798313f79737126d9215cbd4a3ff9.433fe4b.de?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="materials-master-learning?lang=zh-CN_title">
+				材质大师课程
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																								<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#凹凸贴图偏移（bumpoffset）">凹凸贴图偏移（Bump Offset）</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#查找_凹凸贴图偏移_（bumpoffset）材质表达式">查找"凹凸贴图偏移"（Bump Offset）材质表达式</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#使用_凹凸贴图偏移_（bumpoffset）材质表达式">使用"凹凸贴图偏移"（Bump Offset）材质表达式</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#结论">结论</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p><strong>凹凸贴图偏移</strong>（Bump Offset）贴图通过以创新的方式修改 UV 坐标来帮助强化纹素与对象表面的错位，从而营造出表面细节超出实际情况的错觉。 
+在本操作方式示例中，我们不仅阐述如何找到凹凸贴图偏移材质表达式，还将说明如何在材质中利用"凹凸贴图偏移"（Bump Offset）节点。
+</p><h2 id="凹凸贴图偏移（bumpoffset）">凹凸贴图偏移（Bump Offset）</h2>
+<div class="include_wrapper" data-path="RenderingAndGraphics\Materials\ExpressionReference\Utility">
+<p><strong>凹凸贴图偏移（BumpOffset）</strong> 是虚幻引擎4术语，就是通常所谓的"视差贴图"。BumpOffset表达式可以使材质产生深度错觉，而不需要额外的几何体。BumpOffset材质使用灰阶_高度贴图_来提供深度信息。高度贴图中的值越亮，材质的"凸出"效果越明显；当摄像机在表面上移动时，这些区域将产生视差（移位）。高度贴图中较暗的区域将显得"距离较远"，其移位程度最小。</p>
+</div>
+<h2 id="查找_凹凸贴图偏移_（bumpoffset）材质表达式">查找"凹凸贴图偏移"（Bump Offset）材质表达式</h2>
+<p>你可以通过在 <strong> 选用板（Palette）</strong>搜索框中进行搜索来找到"凹凸贴图偏移"（Bump Offset）材质表达式。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/BumpOffset/BumpOffset_Finding_The_Node.jpg">
+		<img class="  lazyload" alt="BumpOffset_Finding_The_Node.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/BumpOffset/BumpOffset_Finding_The_Node.jpg" />
+</picture>
+
+</p><p>或者，通过在材质图中 <strong>右键单击</strong> 并进行搜索来查找。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/BumpOffset/BumpOffset_Finding_The_Node_Right_Click.jpg">
+		<img class="  lazyload" alt="BumpOffset_Finding_The_Node_Right_Click.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/BumpOffset/BumpOffset_Finding_The_Node_Right_Click.jpg" />
+</picture>
+
+</p><div class="note">
+	<p>搜索"凹凸贴图偏移"（Bump Offset）材质表达式时，你将看到名为 <strong>高级凹凸贴图偏移（Bump Offset Advanced）</strong>的另一个材质表达式。"高级凹凸贴图偏移"（Bump Offset Advanced）是为了添加一些在常规凹凸贴图偏移表达式中不可用的额外控件而创建的材质函数。尽管这两个节点的输入不相同，但其工作方式相同，都是通过处理其所在对象的 UV，营造对象表面比实际情况有更多细节的错觉。 </p>
+</div><p>找到"凹凸贴图偏移"（Bump Offset）材质表达式之后，你就可以像引入任何其他材质表达式一样将其引入材质图，方法如下：使用 <strong>鼠标左键</strong> 将其选中，然后将其拖到材质图中。当你释放 <strong>鼠标左键</strong> 时，"凹凸贴图偏移"材质表达式就会放入材质图。
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_0_6cqi6rte_12
+{
+	margin: 0px;
+	width: 640px;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_0_6cqi6rte_12:after
+{
+	content: "";
+	padding-top: 360px;
+	display: block;
+}
+</style> 
+<div id="player_0_6cqi6rte_12"> 
+	<div id="playerContainer_0_6cqi6rte_12" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/0_6cqi6rte/embed.html"></iframe>
+	</div>
+</div>
+<h2 id="使用_凹凸贴图偏移_（bumpoffset）材质表达式">使用"凹凸贴图偏移"（Bump Offset）材质表达式</h2>
+<p>可以通过下列步骤将材质设置为使用"凹凸贴图偏移"（Bump Offset）材质表达式。 
+</p><div class="note">
+	<p>本教程将使用项目中包含 <strong>起步内容</strong> 时可以找到的内容。如果你的项目未包含起步内容，请参阅 <div class="errorhighlight" id="Error4">[迁移](Basics/AssetsAndPackages/Migrate)</div> 
+内容页面，以了解有关如何在项目之间移动内容的信息。通过这种方法，你可以将起步内容添加到项目中，而不必建立新项目。  </p>
+</div><ol ><li class="Default"><p>首先，使用鼠标在 <strong>内容浏览器</strong> 中 <strong>右键单击</strong>，然后从弹出菜单的 <strong>创建基本资产（Create Basic Asset）</strong>部分中选择 <strong>材质（Material）</strong>，并将材质命名为 <strong>Bump_Offset_Example</strong>。
+命名后，在 <strong>内容浏览器</strong> 中 <strong>双击</strong> 该材质以将其打开。
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_THFueQLwS6Q_51
+{
+	margin: 0px;
+	width: 640px;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_THFueQLwS6Q_51:after
+{
+	content: "";
+	padding-top: 360px;
+	display: block;
+}
+</style> 
+<div>
+<div id="player_THFueQLwS6Q_51"><div style="position:absolute;display:block;width:100%;height:100%;"><iframe class="embedded_video" id="THFueQLwS6Q" width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/THFueQLwS6Q?rel=0&amp;modestbranding=1&amp;showinfo=0" frameborder="0" allowfullscreen></iframe></div></div>
+</div></li><li class="Default"><p>因为"凹凸贴图偏移"材质表达式使用 UV 坐标来工作，所以我们需要一个将纹理用于"底色"（Base Color）、"粗糙度"（Roughness）、"环境光遮蔽"（Ambient Occlusion）以及"法线"（Normal）输入的材质。 
+在本示例中，我们将使用 Textures 文件夹中的下列纹理（如果项目包含起步内容）。 
+</p><ul ><li class="Default"><p><strong>T_Brick_Clay_New_D</strong>
+</p></li><li class="Default"><p><strong>T_Brick_Clay_New_M</strong>
+</p></li><li class="Default"><p><strong>T_Brick_Clay_New_N</strong>
+</p></li></ul><p>找到纹理之后，请打开材质，然后将纹理引入材质图，方法如下：在 <strong>内容浏览器</strong> 中使用 <strong>鼠标左键</strong> 选中纹理，然后将该纹理拖到材质图中。当鼠标位于材质图上方时，释放 <strong>鼠标左键</strong> 即可将纹理放入图中。添加第一个纹理之后，请对另外两个纹理重复以上过程。完成后，结果如下图所示。 
+</p><p> <picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/BumpOffset/BumpOffset_Adding_Textures.jpg">
+		<img class="  lazyload" alt="BumpOffset_Adding_Textures.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/BumpOffset/BumpOffset_Adding_Textures.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>纹理现已放入材质图，现在你可以开始将纹理连接到正确的输入。 
+首先将 <strong>T_Brick_Clay_New_D</strong> 连接到 <strong>底色（Base Color）</strong>输入。 
+接着，将 <strong>T_Brick_Clay_New_N</strong> 连接到 <strong>法线（Normal）</strong>输入。 
+然后，将 <strong>T_Brick_Clay_New_M</strong> 纹理的 <strong>红色</strong> 通道连接到 <strong>粗糙度（Roughness）</strong>输入。 
+最后，将 <strong>T_Brick_Clay_New_M</strong> 的 <strong>绿色</strong> 通道连接到 <strong>环境光遮蔽（Ambient Occlusion）</strong>输入。 
+完成后，结果如下图所示。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/BumpOffset/BumpOffset_Making_Connections.jpg">
+		<img class="  lazyload" alt="BumpOffset_Making_Connections.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/BumpOffset/BumpOffset_Making_Connections.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>所有纹理现已连接完毕，现在可将 <strong>凹凸贴图偏移（Bump Offset）</strong>材质表达式添加到材质图中。要查找"凹凸贴图偏移"（Bump Offset）材质表达式，请在 <strong>选用板（Palette）</strong>中使用 Bump Offset 作为搜索项进行搜索。找到该材质表达式后，你可以像添加任何其他材质表达式一样将其添加到材质图，方法如下：先使用 <strong>鼠标左键</strong> 将其选中，然后将其拖到材质图中。当鼠标指针位于材质图上方时，释放 <strong>鼠标左键</strong> 即可将表达式放入材质图。完成后，你应该看到类似下图的内容。 
+<picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/BumpOffset/BumpOffset_Adding_BumpOffset_Node.jpg">
+		<img class="  lazyload" alt="BumpOffset_Adding_BumpOffset_Node.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/BumpOffset/BumpOffset_Adding_BumpOffset_Node.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>将"凹凸贴图偏移"（Bump Offset）材质表达式放入材质图后，它需要与三个纹理的 UV 输入连接才能正常工作。要将"凹凸贴图偏移"（Bump Offset）材质表达式与纹理连接，请使用 <strong>鼠标左键</strong> 并单击"凹凸贴图偏移"（Bump Offset）材质表达式右侧的输出圈。按住 <strong>鼠标左键</strong>，将鼠标拖到显示 <strong>UV</strong> 的 <strong>纹理取样（Texture Sample）</strong>输入上，并在看到绿色勾号时释放鼠标左键。对一个纹理完成此操作后，请确保对其余纹理也执行此操作。完成后，你应该会看到类似下图的内容。<br /><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/BumpOffset/BumpOffset_Connecting_BumpOffset.jpg">
+		<img class="  lazyload" alt="BumpOffset_Connecting_BumpOffset.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/BumpOffset/BumpOffset_Connecting_BumpOffset.jpg" />
+</picture>
+
+</p><div class="note">
+	<p>当你第一次将"凹凸贴图偏移"（Bump Offset）材质表达式连接到三个纹理中任何一个的 UV 输入时，你会注意到"凹凸贴图偏移"（Bump Offset）材质表达式底部会显示红色警告。"凹凸贴图偏移"（Bump Offset）材质表达式需要高度贴图才能正常工作，但是，当前未提供任何高度贴图。输入"高度"（Height）的输入后，此错误将消失。   </p>
+</div></li><li class="Default"><p>当"凹凸贴图偏移"（Bump Offset）材质表达式与所有纹理的 UV 输入连接之后，需要对其进行设置才能使其正常工作。需要完成的第一项操作是为其提供"高度"（Height）输入。为此，找到我们用于底色（Base Color）输入的纹理 <strong>T_Brick_Clay_New_D</strong>，使用鼠标将其选中，然后按键盘上的 <strong>CRTL + W</strong> 进行复制。复制节点之后，将它移到"凹凸贴图偏移"（Bump Offset）材质表达式前面，并将该纹理的"阿尔法"（Alpha）输出连接到"凹凸贴图偏移"（Bump Offset）材质表达式的"高度"（Height）输入。完成后，你应该会看到类似下图的内容。 
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_dIRc_h7jX-s_256
+{
+	margin: 0px;
+	width: 640px;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_dIRc_h7jX-s_256:after
+{
+	content: "";
+	padding-top: 360px;
+	display: block;
+}
+</style> 
+<div>
+<div id="player_dIRc_h7jX-s_256"><div style="position:absolute;display:block;width:100%;height:100%;"><iframe class="embedded_video" id="dIRc_h7jX-s" width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/dIRc_h7jX-s?rel=0&amp;modestbranding=1&amp;showinfo=0" frameborder="0" allowfullscreen></iframe></div></div>
+</div></li><li class="Default"><p>现在，需要设置"凹凸贴图偏移"（Bump Offset）材质表达式的设置，确保不会产生称为"UV 漂浮"的效果。要调整"凹凸贴图偏移"（Bump Offset）材质表达式的设置，请在材质图中使用 <strong>鼠标左键</strong> 单击将其选中，然后在 <strong>细节（Details）</strong>面板中，将 <strong>高度比（Height Ratio）</strong>设置为 <strong>0.005</strong>。完成后，你应该会看到类似下图的内容。 
+<picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/BumpOffset/BumpOffset_Setting_Up_BO_Node.jpg">
+		<img class="  lazyload" alt="BumpOffset_Setting_Up_BO_Node.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/BumpOffset/BumpOffset_Setting_Up_BO_Node.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>设置"高度比"（Height Ratio）之后，请务必按绿色的 <strong>应用（Apply）</strong>按钮来编译材质。材质通过编译后，即可在游戏中使用。<br /></p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_e-DLy1G7lts_313
+{
+	margin: 0px;
+	width: 640px;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_e-DLy1G7lts_313:after
+{
+	content: "";
+	padding-top: 360px;
+	display: block;
+}
+</style> 
+<div>
+<div id="player_e-DLy1G7lts_313"><div style="position:absolute;display:block;width:100%;height:100%;"><iframe class="embedded_video" id="e-DLy1G7lts" width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/e-DLy1G7lts?rel=0&amp;modestbranding=1&amp;showinfo=0" frameborder="0" allowfullscreen></iframe></div></div>
+</div>
+<p>以下是创建的新材质投入使用的示例。 
+<picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/BumpOffset/BumpOffset_Setting_Results.jpg">
+		<img class="  lazyload" alt="BumpOffset_Setting_Results.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/BumpOffset/BumpOffset_Setting_Results.jpg" />
+</picture>
+
+</p></li></ol><h2 id="结论">结论</h2>
+<p>使用"凹凸贴图偏移"（Bump Offset）材质表达式是一种非常有效的低成本方法，你可以采用这种方法为材质添加额外的深度信息，而无需添加额外的 3D 几何体。 
+但是，请记住，"凹凸贴图偏移"（Bump Offset）材质表达式仅提供额外深度信息的错觉，因此这种效果在以下情况下可能会失效/不起作用： 
+玩家/用户可能移动他们的摄像机，使其与应用了凹凸贴图偏移效果的表面平行。 
+</p>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Materials">Materials</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/RenderingAndGraphics/Materials/HowTo/BumpOffset/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:14:31 GMT -->
+</html>

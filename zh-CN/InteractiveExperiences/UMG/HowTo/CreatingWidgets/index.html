@@ -1,0 +1,471 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/InteractiveExperiences/UMG/HowTo/CreatingWidgets/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:19:24 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var finishButton = finishButtonTemplate;
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/InteractiveExperiences/UMG/HowTo/CreatingWidgets/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>创建和显示UI | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+		    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+		    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/InteractiveExperiences/UMG/HowTo/CreatingWidgets/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/InteractiveExperiences/UMG/HowTo/CreatingWidgets/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/InteractiveExperiences/UMG/HowTo/CreatingWidgets/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/InteractiveExperiences/UMG/HowTo/CreatingWidgets/" hreflang="ko" />
+
+	<meta name="redirect" content="RenderingAndGraphics/UMG/HowTo/CreatingWidgets" />
+<meta name="redirect" content="Engine/UMG/HowTo/CreatingWidgets" />
+<meta name="intsourcechangelist" content="14419164" />
+<meta name="availability" content="Public" />
+<meta name="title" content="创建和显示UI" />
+<meta name="description" content="通过范例，讲解创建、显示及在游戏进程时移除屏幕中的UI元素。" />
+<meta name="related" content="InteractiveExperiences/UMG" />
+<meta name="related" content="InteractiveExperiences/UMG/UserGuide" />
+<meta name="version" content="4.22" />
+<meta name="type" content="how-to" />
+<meta name="skilllevel" content="Beginner" />
+<meta name="keywords" content="UMG UI Designer" />
+<meta name="parent" content="InteractiveExperiences/UMG/HowTo" />
+<meta name="course" content="your-first-hour-with-umg?lang=zh-CN|UMG入门|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fclass-not-launched%2Fyour-first-hour-with-umg%2FClass-ImageDesktop---1200x675-1200x675-735cc45bfbdaf5ac3ea8eff1ed9dad69a95418d5.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fclass-not-launched%2Fyour-first-hour-with-umg%2F127-Your-First-Hour-with-UMG%402x-1000x1000-02bf280e8a64904345e724062a7d9258ea826820.png?resize=1&amp;w=300" />
+<meta name="course" content="interactive-material-swaps-using-blueprints?lang=zh-CN|蓝图：可交互材质切换|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Finteractive-material-swaps-using-blueprints%2F406---Hero2-1920x1080-ce26b6199cf620364149d2d934c73ae30e983110.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Finteractive-material-swaps-using-blueprints%2FInteractive-Material-Swaps-Using-Blueprints-1000x1000-21158a5fe67365e3bf5db49712b52482382f15ac.png?resize=1&amp;w=300" />
+<meta name="course" content="making-a-blueprint-product-configurator?lang=zh-CN|企业级蓝图开发|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fblueprint-for-enterprise%2F301-Blueprints-%281200X675%29-1200x675-d140b8a0b13b05c0619e35e1076b4c82e4a4b855.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fblueprint-for-enterprise%2FBlueprint-for-Enterprise-1000x1000-13caa11b8e5c5e91506a8dd63b39d247318c3208.png?resize=1&amp;w=300" />
+<meta name="crumbs" content="%ROOT%,InteractiveExperiences,InteractiveExperiences/UMG,InteractiveExperiences/UMG/HowTo" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="创建和显示UI" />
+	<meta property="og:description" content="通过范例，讲解创建、显示及在游戏进程时移除屏幕中的UI元素。 " />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">创建交互体验</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">UMG UI设计器</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">UMG UI 设计器 - 操作指南</a>
+
+<span class="separator">></span> <span id="page">创建和显示UI</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">创建和显示UI</h1>
+							</div>	
+							<h2 >通过范例，讲解创建、显示及在游戏进程时移除屏幕中的UI元素。 </h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Beginner"><a id="skill_link" href="../../../../SiteIndex/index.html?skills=Beginner">Beginner</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																														<div id="seeAlso">
+	<div style="position:relative;">
+		<div id="title">参见</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<p>
+						<a id="related_link" href="../../index.html" title="本文是使用虚幻示意图形来创建UI元素的指南。">UMG UI设计器</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../UserGuide/index.html" title="关于使用虚幻示意图形创建UI元素的指南。">UMG界面设计器用户指南</a>
+					</p>
+				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																		<div id="courses">
+	<div style="position:relative;">
+		<div id="title">相关课程</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<div name="your-first-hour-with-umg?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/your-first-hour-with-umg?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/class-not-launched/your-first-hour-with-umg/Class-ImageDesktop---1200x675-1200x675-735cc45bfbdaf5ac3ea8eff1ed9dad?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/class-not-launched/your-first-hour-with-umg/127-Your-First-Hour-with-UMG%402x-1000x1000-02bf280e8a64904345e724062a7d9258ea826820.8ebfe4b.delay?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="your-first-hour-with-umg?lang=zh-CN_title">
+				UMG入门
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="interactive-material-swaps-using-blueprints?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/interactive-material-swaps-using-blueprints?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/interactive-material-swaps-using-blueprints/406---Hero2-1920x1080-ce26b6199cf620364149d2d934c73ae30e983110.8314f8?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/interactive-material-swaps-using-blueprints/Interactive-Material-Swaps-Using-Blueprints-1000x1000-21158a5fe67365e3bf5db49712b52482382f15ac.8?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="interactive-material-swaps-using-blueprints?lang=zh-CN_title">
+				蓝图：可交互材质切换
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="making-a-blueprint-product-configurator?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/making-a-blueprint-product-configurator?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/blueprint-for-enterprise/301-Blueprints-(1200X675)-1200x675-d140b8a0b13b05c0619e35e1076b4c82e4a4b855.8344f86.dela?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/blueprint-for-enterprise/Blueprint-for-Enterprise-1000x1000-13caa11b8e5c5e91506a8dd63b39d247318c3208.836fe4b.dela?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="making-a-blueprint-product-configurator?lang=zh-CN_title">
+				企业级蓝图开发
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																								<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#1-设置ui控件蓝图">1 - 设置UI控件蓝图</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#2-向关卡添加ui蓝图控件">2 - 向关卡添加UI蓝图控件</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#最终结果">最终结果</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>多数游戏中，需将部分信息通过游戏用户界面传递给玩家。 
+其中包括主菜单、游戏暂停菜单、生命或经验值等HUD元素、物品栏物品或在指定情景中指导玩家操作的帮助文本。 
+</p><p>利用 <strong>虚幻示意图形（UMG）</strong>，可创建<a id="content_link"filter-data="tag_umg_ui_designer tag_getting_started" href="../../UserGuide/WidgetBlueprints/index.html" ><span>控件蓝图</span></a>来处理项目中的UI元素显示。 
+控件蓝图使用<a id="content_link"filter-data="tag_blueprints" href="../../../../ProgrammingAndScripting/Blueprints/index.html" ><span>蓝图可视化脚本</span></a>来设计UI元素布局及脚本功能，例如点击按钮或值改变时的行为。 
+</p><p>在本说明指南中，将创建控件蓝图并向其添加文本，然后通过关卡蓝图，在按下按键时进行显示。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/UMG/HowTo/CreatingWidgets/heroimage_helloworld.jpg">
+		<img class="  lazyload" alt="heroimage_helloworld.png" data-src="../../../../../Images/InteractiveExperiences/UMG/HowTo/CreatingWidgets/heroimage_helloworld.jpg" />
+</picture>
+
+</p><h2 id="1-设置ui控件蓝图">1 - 设置UI控件蓝图</h2>
+<p>首先需设置用户界面（UI）控件蓝图。 
+</p><div class="note">
+	<p>本操作指南将使用 <strong>蓝图第三人称模板</strong>。也可使用其他任何项目。 </p>
+</div><ol ><li class="Default"><p>在<a id="content_link"filter-data="tag_content_browser" href="../../../../Basics/ContentBrowser/index.html" ><span>内容浏览器</span></a>中，点击 <strong>新增（Add New）</strong> 按钮，在 <strong>用户界面</strong> 下，选择 <strong>控件蓝图</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/UMG/HowTo/CreatingWidgets/CreatingWidgets01.jpg">
+		<img class="  lazyload" alt="CreatingWidgets01.png" data-src="../../../../../Images/InteractiveExperiences/UMG/HowTo/CreatingWidgets/CreatingWidgets01.jpg" />
+</picture>
+
+</p><p>在控件蓝图内创建所有UMG UI。<br /></p></li><li class="Default"><p>将控件蓝图命名为 <strong>SampleUI</strong> ，然后双击打开。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/UMG/HowTo/CreatingWidgets/CreatingWidgets02.jpg">
+		<img class="  lazyload" alt="CreatingWidgets02.png" data-src="../../../../../Images/InteractiveExperiences/UMG/HowTo/CreatingWidgets/CreatingWidgets02.jpg" />
+</picture>
+
+</p><p>打开蓝图时，将显示UMG编辑器界面。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/InteractiveExperiences/UMG/HowTo/CreatingWidgets/CW03_UMGEditor.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/UMG/HowTo/CreatingWidgets/CW03_UMGEditor.jpg">
+		<img class="  lazyload" alt="CW03_UMGEditor.png" width="582" data-src="../../../../../Images/InteractiveExperiences/UMG/HowTo/CreatingWidgets/CW03_UMGEditor.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。 </p>
+</div><p>控件蓝图默认打开到 <strong>设计器</strong> 选项卡，可用于设置UI元素的视觉布局。要编写控件蓝图的功能脚本，在编辑器右上角选择 <strong>图表</strong>。
+</p></li><li class="Default"><p>在 <strong>控制板</strong> 窗口中，将 <strong>文本</strong> 控件拖如 <strong>视觉设计器</strong> 图表。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/UMG/HowTo/CreatingWidgets/CW04_textblock.jpg">
+		<img class="  lazyload" alt="CW04_textblock.png" data-src="../../../../../Images/InteractiveExperiences/UMG/HowTo/CreatingWidgets/CW04_textblock.jpg" />
+</picture>
+
+</p><p>"控制板"窗口包含多种类型的控件，可用于构造UI元素。 
+</p></li><li class="Default"><p>在文本控件的 <strong>细节</strong> 面板中，点击<a id="content_link"filter-data="tag_umg_ui_designer" href="../../UserGuide/Anchors/index.html" ><span>锚</span></a>下拉菜单，选择锁定到居中。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/UMG/HowTo/CreatingWidgets/CreatingWidgets05.jpg">
+		<img class="  lazyload" alt="CreatingWidgets05.png" data-src="../../../../../Images/InteractiveExperiences/UMG/HowTo/CreatingWidgets/CreatingWidgets05.jpg" />
+</picture>
+ 
+</p><p>此操作可确保视口大小改变时，文本控件将继续相对屏幕中心位置锁定。
+</p></li><li class="Default"><p>在 <strong>细节</strong> 面板中为 <strong>文本</strong> 控件设置以下属性：
+</p><ul ><li class="Default"><p><strong>文本控件命名</strong>：建议将此属性改为可快速区分所建不同元素的命名。
+</p></li><li class="Default"><p><strong>内容大小（Size to Content）</strong>：点击此，将自动调整控件适应控件大小。 
+</p></li><li class="Default"><p><strong>文本</strong>：此为UI中显示的控件内文本。 
+</p></li><li class="Default"><p><strong>颜色和不透明度</strong>：选择文本颜色。 
+</p></li><li class="Default"><p><strong>字体大小</strong>：打开字体组，将大小调整为56。该部分中还可更改 <strong>字体系列（Font Family）</strong> 和 <strong>字型（Typeface）</strong>。
+</p></li></ul><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/UMG/HowTo/CreatingWidgets/CW06_details.jpg">
+		<img class="  lazyload" alt="CW06_details.png" data-src="../../../../../Images/InteractiveExperiences/UMG/HowTo/CreatingWidgets/CW06_details.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>调整后选择 <strong>编译</strong>，然后选择 <strong>保存</strong>。然后关闭控件蓝图。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/UMG/HowTo/CreatingWidgets/CreatingWidgets09.jpg">
+		<img class="  lazyload" alt="CreatingWidgets09.png" data-src="../../../../../Images/InteractiveExperiences/UMG/HowTo/CreatingWidgets/CreatingWidgets09.jpg" />
+</picture>
+
+</p></li></ol><h2 id="2-向关卡添加ui蓝图控件">2 - 向关卡添加UI蓝图控件</h2>
+<p>要在游戏中显示刚创建的文本，需将蓝图控件添加到关卡。其中设计添加脚本告知关卡，按 <strong>Enter</strong> 键时应在游戏中显示文本。 
+</p><ol ><li class="Default"><p>在主工具栏中，选择 <strong>蓝图</strong> 下拉按钮，然后 <strong>打开关卡蓝图</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/UMG/HowTo/CreatingWidgets/CreatingWidgets10.jpg">
+		<img class="  lazyload" alt="CreatingWidgets10.png" data-src="../../../../../Images/InteractiveExperiences/UMG/HowTo/CreatingWidgets/CreatingWidgets10.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在图表中点击右键，搜索 <strong>Create Widget</strong> 节点。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/UMG/HowTo/CreatingWidgets/CreatingWidgets11.jpg">
+		<img class="  lazyload" alt="CreatingWidgets11.png" data-src="../../../../../Images/InteractiveExperiences/UMG/HowTo/CreatingWidgets/CreatingWidgets11.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在此节点上，点击 <strong>类（Class）</strong> 下拉菜单，搜索刚创建的控件蓝图 <strong>SampleUI</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/UMG/HowTo/CreatingWidgets/CreatingWidgets12.jpg">
+		<img class="  lazyload" alt="CreatingWidgets12.png" data-src="../../../../../Images/InteractiveExperiences/UMG/HowTo/CreatingWidgets/CreatingWidgets12.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>右键点击 <strong>Return Value</strong> 引脚，选择 <strong>Promote to Variable</strong>。将变量重命名为 <strong>SampleUI</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/UMG/HowTo/CreatingWidgets/CreatingWidgets13.jpg">
+		<img class="  lazyload" alt="CreatingWidgets13.png" data-src="../../../../../Images/InteractiveExperiences/UMG/HowTo/CreatingWidgets/CreatingWidgets13.jpg" />
+</picture>
+ <picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/UMG/HowTo/CreatingWidgets/CW10.5_promotevariable_sampleuiname.jpg">
+		<img class="  lazyload" alt="CW10.5_promotevariable_sampleuiname.png" data-src="../../../../../Images/InteractiveExperiences/UMG/HowTo/CreatingWidgets/CW10.5_promotevariable_sampleuiname.jpg" />
+</picture>
+
+</p><div class="tip">
+	<p>创建控件蓝图（UI）时，建议将其提升为变量，以便之后通过蓝图脚本进行访问。</p>
+</div></li><li class="Default"><p>从 <strong>Set</strong> 节点上的输出引脚连出引线，并搜索 <strong>Add to Viewport</strong> 节点。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/UMG/HowTo/CreatingWidgets/CreatingWidgets14.jpg">
+		<img class="  lazyload" alt="CreatingWidgets14.png" data-src="../../../../../Images/InteractiveExperiences/UMG/HowTo/CreatingWidgets/CreatingWidgets14.jpg" />
+</picture>
+
+</p><p>此为告知控件蓝图在游戏中显示的方式。 
+</p></li><li class="Default"><p>在图表中点击右键，并搜索 <strong>Enter</strong> 键盘事件。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/UMG/HowTo/CreatingWidgets/CreatingWidgets15.jpg">
+		<img class="  lazyload" alt="CreatingWidgets15.png" data-src="../../../../../Images/InteractiveExperiences/UMG/HowTo/CreatingWidgets/CreatingWidgets15.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>将 <strong>Pressed</strong> 引脚连接到 <strong>Create Sample UI Widget</strong> 节点的可执行引脚。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/UMG/HowTo/CreatingWidgets/CreatingWidgets16.jpg">
+		<img class="  lazyload" alt="CreatingWidgets16.png" data-src="../../../../../Images/InteractiveExperiences/UMG/HowTo/CreatingWidgets/CreatingWidgets16.jpg" />
+</picture>
+
+</p><p>此操作将告知视口，按下 <strong>Enter</strong> 时创建控件并存储为变量，然后在游戏中显示 <strong>SampleUI</strong> 控件。 
+</p></li><li class="Default"><p>按住 <strong>Ctrl</strong> 并将 <strong>SampleUI</strong> 变量从 <strong>我的蓝图（My Blueprint）</strong> 面板拖入图表。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/UMG/HowTo/CreatingWidgets/CreatingWidgets17.jpg">
+		<img class="  lazyload" alt="CreatingWidgets17.png" data-src="../../../../../Images/InteractiveExperiences/UMG/HowTo/CreatingWidgets/CreatingWidgets17.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>从新节点的引脚连出引线，搜索并添加 <strong>Remove from Parent</strong> 节点。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/UMG/HowTo/CreatingWidgets/CreatingWidgets18.jpg">
+		<img class="  lazyload" alt="CreatingWidgets18.png" data-src="../../../../../Images/InteractiveExperiences/UMG/HowTo/CreatingWidgets/CreatingWidgets18.jpg" />
+</picture>
+ 
+</p><p>Remove from Parent节点将告知蓝图应在视口中移除元素。
+</p></li><li class="Default"><p>将 <strong>Enter</strong> 节点的 <strong>Release</strong> 引脚连接到 <strong>Remove from Parent</strong> 可执行引脚。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/UMG/HowTo/CreatingWidgets/CreatingWidgets19.jpg">
+		<img class="  lazyload" alt="CreatingWidgets19.png" data-src="../../../../../Images/InteractiveExperiences/UMG/HowTo/CreatingWidgets/CreatingWidgets19.jpg" />
+</picture>
+
+</p><p>现在在游戏进程时按下 <strong>Enter</strong> 键时，将显示文本。松开Enter键时，文本将消失。 
+</p></li><li class="Default"><p>选择 <strong>编译</strong> 并 <strong>保存</strong> 后，关闭 <strong>关卡蓝图</strong>。之后点击主工具栏中的 <strong>运行</strong> 按钮。按下并松开 <strong>Enter</strong> 查看SampleUI控件的使用情况！ 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/UMG/HowTo/CreatingWidgets/CreatingWidgets20.jpg">
+		<img class="  lazyload" alt="CreatingWidgets20.png" data-src="../../../../../Images/InteractiveExperiences/UMG/HowTo/CreatingWidgets/CreatingWidgets20.jpg" />
+</picture>
+
+</p></li></ol><h2 id="最终结果">最终结果</h2>
+<p>在编辑器中运行时，每当按下和松开 <strong>Enter</strong> 键，便可得到类似以下范例的结果。 
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_1_6bopqzls_11
+{
+	margin: 0px;
+	width: 75%;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_1_6bopqzls_11:after
+{
+	content: "";
+	padding-top: 56.25%;
+	display: block;
+}
+</style> 
+<div id="player_1_6bopqzls_11"> 
+	<div id="playerContainer_1_6bopqzls_11" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/1_6bopqzls/embed.html"></iframe>
+	</div>
+</div>
+
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=UMG%20UI%20Designer">UMG UI Designer</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/InteractiveExperiences/UMG/HowTo/CreatingWidgets/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:19:32 GMT -->
+</html>

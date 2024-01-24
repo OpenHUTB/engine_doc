@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/RenderingAndGraphics/VisibilityCulling/CullDistanceVolume/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:07:46 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/RenderingAndGraphics/VisibilityCulling/CullDistanceVolume/" />');
+				var udnCSS = '../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>剔除距离体积（Cull Distance Volume） | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/RenderingAndGraphics/VisibilityCulling/CullDistanceVolume/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/RenderingAndGraphics/VisibilityCulling/CullDistanceVolume/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/RenderingAndGraphics/VisibilityCulling/CullDistanceVolume/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/RenderingAndGraphics/VisibilityCulling/CullDistanceVolume/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Rendering/VisibilityCulling/CullDistanceVolume" />
+<meta name="intsourcechangelist" content="14261697" />
+<meta name="availability" content="Public" />
+<meta name="title" content="剔除距离体积（Cull Distance Volume）" />
+<meta name="description" content="概述使用剔除距离体积（Cull Distance Volume）基于Actor的大小剔除关卡中特定距离处的Actor的方法。" />
+<meta name="type" content="" />
+<meta name="version" content="4.21" />
+<meta name="parent" content="RenderingAndGraphics/VisibilityCulling" />
+<meta name="order" content="" />
+<meta name="keywords" content="Performance" />
+<meta name="crumbs" content="%ROOT%,RenderingAndGraphics,RenderingAndGraphics/VisibilityCulling" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="剔除距离体积（Cull Distance Volume）" />
+	<meta property="og:description" content="概述使用剔除距离体积（Cull Distance Volume）基于Actor的大小剔除关卡中特定距离处的Actor的方法。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">设计视觉、渲染和图形效果</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">可视性和遮挡剔除</a>
+
+<span class="separator">></span> <span id="page">剔除距离体积（Cull Distance Volume）</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">剔除距离体积（Cull Distance Volume）</h1>
+							</div>	
+							<h2 >概述使用剔除距离体积（Cull Distance Volume）基于Actor的大小剔除关卡中特定距离处的Actor的方法。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																																			</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																																				<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#设置和用法">设置和用法</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#插入、删除和复制剔除距离对">插入、删除和复制剔除距离对</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#示例场景和设置">示例场景和设置</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#最佳实践">最佳实践</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p><strong>剔除距离体积（Cull Distance Volume）</strong> 是非常有用的优化工具，它定义绘制（显现）该体积中的Actor的距离。这些体积可存储任意数量的"大小"和"距离"组合（称为 <strong>剔除距离对</strong>）。这些剔除距离对会被映射到Actor（沿其最长有效维度）的边界，然后指定给关卡中的该Actor实例。剔除距离体积（Cull Distance Volume）对于优化包含精细内部空间的大型室外关卡非常有用。当室内空间小到可被视为不重要时，可以剔除它们。
+</p><h2 id="设置和用法">设置和用法</h2>
+<p>可通过编辑器中的 <strong>放置Actor（Place Actors）</strong> 面板向关卡中添加剔除距离体积（Cull Distance Volume），并且你可以缩放它，以适应关卡需求。
+</p><p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/VisibilityCulling/CullDistanceVolume/AddCDVToWorld.jpg">
+		<img class="  lazyload" alt="AddCDVToWorld.png" title="AddCDVToWorld.png" data-src="../../../../Images/RenderingAndGraphics/VisibilityCulling/CullDistanceVolume/AddCDVToWorld.jpg" />
+</picture>
+
+</p><p>选中体积之后，使用 <strong>细节（Details）</strong> 面板访问 <strong>剔除距离（Cull Distance）</strong> 对数组。每个"剔除距离（Cull Distance）"对都包含 <strong>大小（Size）</strong> 和 <strong>剔除距离（Cull Distance）</strong> 数值。单击 <strong>加号</strong>（<strong>+</strong> 号）可向数组元素列表底部添加新剔除距离（Cull Distance）对。<br /></p><p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/VisibilityCulling/CullDistanceVolume/AddCDVPairs.jpg">
+		<img class="  lazyload" alt="AddCDVPairs.png" title="AddCDVPairs.png" data-src="../../../../Images/RenderingAndGraphics/VisibilityCulling/CullDistanceVolume/AddCDVPairs.jpg" />
+</picture>
+
+</p><p>默认情况下会为体积添加两个 <strong>剔除距离（Cull Distance）</strong> 对；你可以将第一个剔除距离对作为要编辑的第一个条目，它的大小和距离都尚未设置，第二个剔除距离对使大于10000单位的对象免于被剔除，因为那些对象的距离为0。通过设置较大的剔除距离对，你可以使远处的大型建筑或高山等对象免于被剔除。<br /></p><h3 id="插入、删除和复制剔除距离对">插入、删除和复制剔除距离对</h3>
+<p>使用每个数组元素旁的下拉菜单可插入、删除或复制剔除距离对元素。
+</p><p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/VisibilityCulling/CullDistanceVolume/EditCDVPairs.jpg">
+		<img class="  lazyload" alt="EditCDVPairs.png" title="EditCDVPairs.png" data-src="../../../../Images/RenderingAndGraphics/VisibilityCulling/CullDistanceVolume/EditCDVPairs.jpg" />
+</picture>
+
+</p><ul ><li class="Default"><p><strong>插入（Insert）</strong> 会在选中的元素上方添加新剔除距离对。
+</p></li><li class="Default"><p><strong>删除（Delete）</strong> 会从列表中删除现有剔除距离对元素。
+</p></li><li class="Default"><p><strong>复制（Duplicate）</strong> 会将选中的剔除距离对复制到下面的新数组元素。
+</p></li></ul><div class="note">
+	<p>你可以根据需要拥有任意数量的剔除距离数组元素，其先后顺序不会影响它们的有效性。</p>
+</div><h2 id="示例场景和设置">示例场景和设置</h2>
+<p>本示例使用Infinity Blades Grasslands项目，我们设置了几个剔除距离对，它们可从摄像机的位置剔除不同大小的对象。
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_0_wifv1w99_7
+{
+	margin: 0px;
+	width: 640px;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_0_wifv1w99_7:after
+{
+	content: "";
+	padding-top: 360px;
+	display: block;
+}
+</style> 
+<div id="player_0_wifv1w99_7"> 
+	<div id="playerContainer_0_wifv1w99_7" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/0_wifv1w99/embed.html"></iframe>
+	</div>
+</div>
+<div class="note">
+	<p>此处使用的数值是极端示例，便于你快速理解剔除距离对对关卡中的Actor发挥的作用。添加更多对数值并且进行更多测试将有助于改善本示例中出现的"突然出现"问题。</p>
+</div><p>我们将下列数值用于定义"剔除距离（Cull Distance）"和"大小（Size）"的演示。
+</p><p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/VisibilityCulling/CullDistanceVolume/ExampleSceneCDVValues.jpg">
+		<img class="  lazyload" alt="ExampleSceneCDVValues.png" title="ExampleSceneCDVValues.png" data-src="../../../../Images/RenderingAndGraphics/VisibilityCulling/CullDistanceVolume/ExampleSceneCDVValues.jpg" />
+</picture>
+
+</p><ul ><li class="Default"><p>该体积中大小最接近 <strong>200</strong> 单位的对象会在它们距摄像机 <strong>1000</strong> 单位或更远时被从视野中剔除。
+</p></li><li class="Default"><p>该体积中大小最接近 <strong>500</strong> 单位的对象会在它们距摄像机 <strong>2000</strong> 单位或更远时被从视野中剔除。
+</p></li><li class="Default"><p>该体积中大小最接近 <strong>1000</strong> 单位的对象将永不会被剔除。这可以确保尺寸极大的对象被视为无穷大，这意味着它们距摄像机的距离永不可能远到应将它们剔除的程度。
+</p></li></ul><p>设置剔除距离对时，请牢记以下规则：
+</p><ul ><li class="Default"><p>剔除距离对数组非线性插值。
+</p><ul ><li class="Default"><p>这意味着你无需使用虚拟对，在存在重叠的剔除距离对时，引擎将挑选最激进的设置（或大于0的最低设置）并将它指定给Actor。
+</p></li></ul></li><li class="Default"><p>你可以根据需要拥有任意数量的剔除距离对。
+</p><ul ><li class="Default"><p>为了便于组织，最好使这些对具有一定的顺序（例如从高到低），但并非必需。
+</p></li><li class="Default"><p>添加新对时，请记住，你始终可在稍后使用 <strong>插入（Insert）</strong> 下拉菜单添加对。
+</p></li></ul></li><li class="Default"><p>剔除距离对将指定给边界直径与其大小最接近的Actor。你可以使用Actor的 <strong>当前最大绘制距离（Current Max Draw Distance）</strong> 了解它基于剔除距离对数值被指定到的缓存绘制距离组。
+</p></li></ul><p>为了帮助你入门，我们在下图中列出了一些推荐的对数值：
+</p><p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/VisibilityCulling/CullDistanceVolume/ExampleScene_SuggestedPairValues.jpg">
+		<img class="  lazyload" alt="ExampleScene_SuggestedPairValues.png" title="ExampleScene372029427SuggestedPairValues.png" data-src="../../../../Images/RenderingAndGraphics/VisibilityCulling/CullDistanceVolume/ExampleScene_SuggestedPairValues.jpg" />
+</picture>
+
+</p><h2 id="最佳实践">最佳实践</h2>
+<p>下列建议可帮助你实现有效的结果：
+</p><ul ><li class="Default"><p>使用单个剔除距离体积（Cull Distance Volume）覆盖整个关卡。
+</p><ul ><li class="Default"><p>包含可代表关卡中大部分Actor的多种剔除距离对。
+</p></li><li class="Default"><p>对于体积中的区域，你可以使用额外的剔除距离体积（Cull Distance Volume）实现对剔除的额外的更加激进的控制。
+</p></li></ul></li><li class="Default"><p>设置剔除距离对时，可先从较大尺寸和距离开始，以了解你希望使用的上限和下限。<br /></p><ul ><li class="Default"><p>请在关卡视口的"游戏（Game）"视图下在关卡中四处移动，以查看对象是否存在任何可见的"突然出现"。
+</p></li><li class="Default"><p>进行更改（可能需要在现有的剔除距离对间添加一些新剔除距离对）。选择存在问题的Actor并使用其 <strong>缓存剔除距离（Cached Cull Distance）</strong> 了解部分Actor所属的剔除距离对分组情况。
+</p></li></ul></li><li class="Default"><p>请记住，剔除距离对组仅在低于个体Actor的 <strong>最大绘制距离</strong> 时才会被使用。<br /></p></li><li class="Default"><p>如果某些Actor应永不被剔除距离体积（Cull Distance Volume）剔除，请使用该Actor的"细节（Details）"面板并禁用 <strong>允许剔除距离体积（Allow Cull Distance Volume）</strong>。<br /></p><ul ><li class="Default"><p>请记住，如果需要为大量Actor禁用此选项，可以考虑使用最后一个剔除距离对作为"过大不应剔除距离"数值（<strong>大小（Size）</strong> 的数值很大，<strong>剔除距离（Cull Distance）</strong> 为 <strong>0</strong>）。这可以防止高山或建筑物等非常大的对象被剔除。
+</p></li></ul></li></ul>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../SiteIndex/index.html?tags=Performance">Performance</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/RenderingAndGraphics/VisibilityCulling/CullDistanceVolume/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:07:48 GMT -->
+</html>

@@ -1,0 +1,446 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/AnimatingObjects/Sequencer/HowTo/TriggeringSequences/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:30:52 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var finishButton = finishButtonTemplate;
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/AnimatingObjects/Sequencer/HowTo/TriggeringSequences/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>在Gameplay中触发序列 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+		    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+		    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/AnimatingObjects/Sequencer/HowTo/TriggeringSequences/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/AnimatingObjects/Sequencer/HowTo/TriggeringSequences/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/AnimatingObjects/Sequencer/HowTo/TriggeringSequences/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/AnimatingObjects/Sequencer/HowTo/TriggeringSequences/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Sequencer/HowTo/TriggeringSequences" />
+<meta name="intsourcechangelist" content="15631847" />
+<meta name="availability" content="Public" />
+<meta name="title" content="在Gameplay中触发序列" />
+<meta name="description" content="说明如何在游戏事件中触发序列。" />
+<meta name="version" content="4.25" />
+<meta name="skilllevel" content="Intermediate" />
+<meta name="parent" content="AnimatingObjects/Sequencer/HowTo" />
+<meta name="order" content="1" />
+<meta name="related" content="AnimatingObjects/Sequencer/Overview" />
+<meta name="related" content="ProgrammingAndScripting/Blueprints" />
+<meta name="keywords" content="Sequencer" />
+<meta name="type" content="how-to" />
+<meta name="crumbs" content="%ROOT%,AnimatingObjects,AnimatingObjects/Sequencer,AnimatingObjects/Sequencer/HowTo" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="在Gameplay中触发序列" />
+	<meta property="og:description" content="说明如何在游戏事件中触发序列。 " />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">为角色和对象添加动画</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">Sequencer 编辑器</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">Sequencer - 操作指南</a>
+
+<span class="separator">></span> <span id="page">在Gameplay中触发序列</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">在Gameplay中触发序列</h1>
+							</div>	
+							<h2 >说明如何在游戏事件中触发序列。 </h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Intermediate"><a id="skill_link" href="../../../../SiteIndex/index.html?skills=Intermediate">Intermediate</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																														<div id="seeAlso">
+	<div style="position:relative;">
+		<div id="title">参见</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<p>
+						<a id="related_link" href="../../Overview/index.html" title="Sequencer是虚幻引擎4的多轨迹编辑器，用于实时创建和预览过场动画序列。">Sequencer概述</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../../../ProgrammingAndScripting/Blueprints/index.html" title="关于使用蓝图可视化脚本系统制作游戏的介绍。">蓝图可视化脚本</a>
+					</p>
+				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																														<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#步骤">步骤</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#最终结果">最终结果</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>创建过场序列后，需要在游戏过程中将其作为剧情动画的一部分调用并播放。 
+举例而言，可能需要在玩家进入房间时让摄像机对准某个物体。 
+或者在玩家击杀敌人后触发结束过场动画。 
+获取对关卡序列的引用后，即可使用<a id="content_link"filter-data="tag_blueprints" href="../../../../ProgrammingAndScripting/Blueprints/index.html" ><span>蓝图</span></a>或C++代码来告知序列开始播放。 
+</p><p>在此指南中，我们将创建一个过场动画范例，在玩家进入触发框后打开一盏灯。 
+过场动画播放结束后，我们将指示Sequencer将修改应用到关卡中的灯，使其在过场动画播放完毕后仍然存在。 
+我们还将允许播放器在播放时跳过过场动画，但指示Sequencer在跳过过场后将灯保持为开启状态。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/TriggeringSequences/HeroImage.jpg">
+		<img class="  lazyload" alt="HeroImage.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/TriggeringSequences/HeroImage.jpg" />
+</picture>
+
+</p><h2 id="步骤">步骤</h2>
+<div class="note">
+	<p>此指南中使用的是 <strong>蓝图第三人称模板</strong> 项目。 </p>
+</div><ol ><li class="Default"><p>在 <strong>放置Actor（Place Actors）</strong> 面板的 <strong>基本（Basic）</strong> 选项卡中，将一个 <strong>盒体触发器</strong> 拖入关卡并调整为理想的大小和位置。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/TriggeringSequences/Trigger01.jpg">
+		<img class="  lazyload" alt="Trigger01.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/TriggeringSequences/Trigger01.jpg" />
+</picture>
+
+</p><p>玩家进入触发器后，我们便会指示过场动画通过蓝图开始播放。 
+</p></li><li class="Default"><p>在主工具栏中点击 <strong>过场动画（Cinematics）</strong> 按钮，然后选择 <strong>添加关卡序列（Add Level Sequence）</strong>，为过场动画命名。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/TriggeringSequences/Trigger02.jpg">
+		<img class="  lazyload" alt="Trigger02.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/TriggeringSequences/Trigger02.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>放置Actor（Place Actors）</strong> 面板的 <strong>基本（Basic）</strong> 选项卡中，将一个 <strong>点光源</strong> 拖入关卡，并放置在下图显示的位置处。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/TriggeringSequences/Trigger03.jpg">
+		<img class="  lazyload" alt="Trigger03.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/TriggeringSequences/Trigger03.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>选中 <strong>点光源</strong>，在 <strong>细节</strong> 面板中将 <strong>强度（Intensity）</strong> 值改为 <strong>0.0</strong>，然后点击 <strong>关键帧（Keyframe）</strong> 按钮。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/TriggeringSequences/Trigger04.jpg">
+		<img class="  lazyload" alt="Trigger04.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/TriggeringSequences/Trigger04.jpg" />
+</picture>
+
+</p><p>此操作将把点光源添加到Sequencer，并对序列开始处的初值设置关键帧。 
+</p></li><li class="Default"><p>在Sequencer中将时间轴移动至第 <strong>150</strong> 帧，然后将灯光的 <strong>强度（Intensity）</strong> 值设为 <strong>5000</strong>，并设置关键帧。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/AnimatingObjects/Sequencer/HowTo/TriggeringSequences/Trigger05.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/TriggeringSequences/Trigger05.jpg">
+		<img class="  lazyload" alt="Trigger05.png" width="1000" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/TriggeringSequences/Trigger05.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击图片查看全图。 </p>
+</div><p>点光源将出现在初始位置中，并随着序列播放完毕而开始变亮。 
+</p></li><li class="Default"><p>点击 <strong>添加相机（Add Camera）</strong> 按钮，然后将相机移动到关卡中角色附近的一个位置，并设置关键帧。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/AnimatingObjects/Sequencer/HowTo/TriggeringSequences/Trigger06.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/TriggeringSequences/Trigger06.jpg">
+		<img class="  lazyload" alt="Trigger06.png" width="900" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/TriggeringSequences/Trigger06.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击图片查看全图。 </p>
+</div></li><li class="Default"><p>将时间轴移动到第 <strong>75</strong> 帧，然后在关卡中将相机移动到一个俯视角色和灯光的新位置，然后设置关键帧。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/AnimatingObjects/Sequencer/HowTo/TriggeringSequences/Trigger07.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/TriggeringSequences/Trigger07.jpg">
+		<img class="  lazyload" alt="Trigger07.png" width="900" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/TriggeringSequences/Trigger07.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击图片查看全图。 </p>
+</div></li><li class="Default"><p>将时间轴移动到第 <strong>150</strong> 帧，然后在关卡中将相机移动到一个聚焦于灯的位置，然后设置关键帧。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/AnimatingObjects/Sequencer/HowTo/TriggeringSequences/Trigger08.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/TriggeringSequences/Trigger08.jpg">
+		<img class="  lazyload" alt="Trigger08.png" width="900" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/TriggeringSequences/Trigger08.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击图片查看全图。 </p>
+</div><p>现在过场动画中将包含相机漫游动画，为玩家显示关卡中的灯光位置。 
+</p></li><li class="Default"><p>选择关卡中的 <strong>触发框</strong>，然后在主工具栏中点击 <strong>蓝图</strong> 按钮并选择 <strong>打开关卡蓝图</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/TriggeringSequences/Trigger09.jpg">
+		<img class="  lazyload" alt="Trigger09.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/TriggeringSequences/Trigger09.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在图表中点击右键，然后为 <strong>触发框</strong> 选择 <strong>添加在actor上开始重叠（Add On Actor Begin Overlap）</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/TriggeringSequences/Trigger10.jpg">
+		<img class="  lazyload" alt="Trigger10.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/TriggeringSequences/Trigger10.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>返回关卡并选择关卡序列，然后返回 <strong>关卡蓝图</strong> 中，点击右键并 <strong>创建</strong> 对关卡序列的引用。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/TriggeringSequences/Trigger11.jpg">
+		<img class="  lazyload" alt="Trigger11.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/TriggeringSequences/Trigger11.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>从关卡序列引用连出引线，选择 <strong>播放（序列播放器）</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/TriggeringSequences/Trigger12.jpg">
+		<img class="  lazyload" alt="Trigger12.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/TriggeringSequences/Trigger12.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>将 <strong>OnActorBeginOverlap</strong> 节点连接到 <strong>Play</strong> 节点。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/TriggeringSequences/Trigger13.jpg">
+		<img class="  lazyload" alt="Trigger13.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/TriggeringSequences/Trigger13.jpg" />
+</picture>
+
+</p><p>进入触发框时将执行 <strong>Play</strong> 节点，播放关卡序列。 
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_7G2zHwVbmHg_303
+{
+	margin: 0px;
+	width: 100%;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_7G2zHwVbmHg_303:after
+{
+	content: "";
+	padding-top: 56.25%;
+	display: block;
+}
+</style> 
+<div>
+<div id="player_7G2zHwVbmHg_303"><div style="position:absolute;display:block;width:100%;height:100%;"><iframe class="embedded_video" id="7G2zHwVbmHg" width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/7G2zHwVbmHg?rel=0&amp;modestbranding=1&amp;showinfo=0&amp;loop=1&amp;controls=0" frameborder="0" allowfullscreen></iframe></div></div>
+</div>
+<p>在编辑器中运行时您将注意到，进入触发框后序列将开始播放，然而其只会播放一次。 
+如果希望再次播放序列，需要在告知序列进行播放之前使用 <strong>Set Playback Position</strong> 节点让序列从头开始播放，"播放位置"设为 <strong>0</strong> 或序列的开头。 
+</p></li><li class="Default"><p>在 <strong>关卡蓝图</strong> 中，从 <strong>Sequence Player</strong> 节点连出引线，使用 <strong>Set Playback Position</strong> 节点。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/TriggeringSequences/Trigger14.jpg">
+		<img class="  lazyload" alt="Trigger14.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/TriggeringSequences/Trigger14.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>OnActorBeginOverlap</strong> 和 <strong>Play</strong> 节点之间连接 <strong>Set Playback Position</strong> 节点。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/TriggeringSequences/Trigger15.jpg">
+		<img class="  lazyload" alt="Trigger15.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/TriggeringSequences/Trigger15.jpg" />
+</picture>
+
+</p><p>此操作将把关卡序列在播放之前重设到开头。 
+</p></li><li class="Default"><p>在 <strong>Sequencer</strong> 中右键点击 <strong>强度（Intensity）</strong> 轨迹，然后在 <strong>属性（Properties）</strong> 下将 <strong>完成时（When Finished）</strong> 设为 <strong>保持状态（Keep State）</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/TriggeringSequences/Trigger16.jpg">
+		<img class="  lazyload" alt="Trigger16.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/TriggeringSequences/Trigger16.jpg" />
+</picture>
+
+</p><p>使用 <strong>保持状态（Keep State）</strong> 选项，使灯光强度设置在序列播放完毕后得到保留。 
+如果需要使Sequencer中设置的效果或设置在序列播放完毕后仍然保留，此操作将十分实用。 
+举例而言，在过场动画中有一扇门被打开，而您希望过场动画播放完毕时门保持打开状态。 
+</p></li><li class="Default"><p>在 <strong>关卡蓝图</strong> 中添加一个 <strong>F</strong> 键盘事件，连接到一个 <strong>Branch</strong> 节点（条件为 <strong>Is Playing</strong>），此节点连接到 <strong>Go to End and Stop</strong> 节点。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/TriggeringSequences/Trigger17.jpg">
+		<img class="  lazyload" alt="Trigger17.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/TriggeringSequences/Trigger17.jpg" />
+</picture>
+
+</p><p>按下 <strong>F</strong> 键时，如果关卡序列当前正在播放，其将直接跳至结尾并停止播放。 
+需要播放器跳过过场动画，但如果序列继续播放，则继续沿用Sequencer已应用的修改。在此情形下，<strong>Go to End and Stop</strong> 节点十分实用。 
+</p><p>举例而言，在我们的过场动画中，Sequencer开启了关卡中的一盏灯。如果玩家跳过灯光开启的过场动画，我们仍然希望跳过过场动画后灯光仍然为开启状态。 
+如果单纯只是使用 <strong>Stop</strong> 节点来停止播放过场动画，过场动画的播放则不会完成，其将停在我们选择停止的点上（这意味着灯光可能不会完全开启，甚至不会开启，具体取决于停止的点）。 
+</p></li><li class="Default"><p>返回主编辑器，然后在主工具栏中点击 <strong>运行（Play）</strong> 按钮在编辑器中运行。
+</p></li></ol><h2 id="最终结果">最终结果</h2>
+<p>在编辑器中运行时，您将注意到灯光并非默认开启。
+进入触发框时将开始播放过场动画，灯光将开启，在过场动画播放完毕后仍将保持开启状态。 
+再次进入触发框将再次触发过场动画，从开头播放序列。 
+进入触发框后按下 <strong>F</strong> 键即可跳过过场动画，此操作将使灯光自动开启。 
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_0_n9ywuod8_11
+{
+	margin: 0px;
+	width: 100%;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_0_n9ywuod8_11:after
+{
+	content: "";
+	padding-top: 56.25%;
+	display: block;
+}
+</style> 
+<div id="player_0_n9ywuod8_11"> 
+	<div id="playerContainer_0_n9ywuod8_11" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/0_n9ywuod8/embed.html"></iframe>
+	</div>
+</div>
+
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Sequencer">Sequencer</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/AnimatingObjects/Sequencer/HowTo/TriggeringSequences/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:31:00 GMT -->
+</html>

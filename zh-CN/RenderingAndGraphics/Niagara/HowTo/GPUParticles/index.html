@@ -1,0 +1,970 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/RenderingAndGraphics/Niagara/HowTo/GPUParticles/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:01:53 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/GPU_Hero.png";
+				var finishButton = finishButtonTemplate;
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/RenderingAndGraphics/Niagara/HowTo/GPUParticles/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>创建GPU Sprite效果 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+		    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+		    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/RenderingAndGraphics/Niagara/HowTo/GPUParticles/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/RenderingAndGraphics/Niagara/HowTo/GPUParticles/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/RenderingAndGraphics/Niagara/HowTo/GPUParticles/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/RenderingAndGraphics/Niagara/HowTo/GPUParticles/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Niagara/HowTo/GPUParticles" />
+<meta name="intsourcechangelist" content="15342552" />
+<meta name="availability" content="Public" />
+<meta name="title" content="创建GPU Sprite效果" />
+<meta name="description" content="本文档介绍如何使用GPU生成数百万个Sprite粒子。" />
+<meta name="type" content="how-to" />
+<meta name="skilllevel" content="Beginner" />
+<meta name="version" content="4.25" />
+<meta name="parent" content="RenderingAndGraphics/Niagara/HowTo" />
+<meta name="order" content="3" />
+<meta name="keywords" content="Niagara" />
+<meta name="keywords" content="Effects" />
+<meta name="keywords" content="Visual Effects" />
+<meta name="keywords" content="Particle Effects" />
+<meta name="prereq" content="RenderingAndGraphics/Niagara/HowTo/EnableNiagara" />
+<meta name="hero-image" content="GPU_Hero.png" />
+<meta name="topic-image" content="GPU_Topic.png" />
+<meta name="crumbs" content="%ROOT%,RenderingAndGraphics,RenderingAndGraphics/Niagara,RenderingAndGraphics/Niagara/HowTo" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="创建GPU Sprite效果" />
+	<meta property="og:description" content="本文档介绍如何使用GPU生成数百万个Sprite粒子。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">设计视觉、渲染和图形效果</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">Niagara视觉效果</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">Niagara - 使用指南</a>
+
+<span class="separator">></span> <span id="page">创建GPU Sprite效果</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  background">
+						<div class="imgContainer"><img src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/GPU_Hero.png" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">创建GPU Sprite效果</h1>
+							</div>	
+							<h2 >本文档介绍如何使用GPU生成数百万个Sprite粒子。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Beginner"><a id="skill_link" href="../../../../SiteIndex/index.html?skills=Beginner">Beginner</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																																										<div class="prereq">
+    <div class="normaltitle">
+        前置主题
+    </div>
+    <p style="margin-bottom:8px;">
+        为了理解并使用本文中的内容，请确保您已掌握以下主题：
+    </p>
+    <ul style="margin-bottom:0.5em;">
+                <li>
+            <p>
+                <a href="../EnableNiagara/index.html" title="描述如何启动Niagara。">启用Niagara插件</a>
+            </p>
+        </li>
+            </ul>
+</div>
+																		<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#创建系统和发射器">创建系统和发射器</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#发射器设置-发射器属性">发射器设置 - 发射器属性</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#发射器更新组设置">发射器更新组设置</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#粒子生成组设置">粒子生成组设置</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#粒子更新组设置">粒子更新组设置</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#最终结果">最终结果</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>要获得某些效果，你可能需要生成数万个粒子。然而，使用标准的CPU生成这么多粒子会导致性能问题。本指南将向你展示如何创建使用GPU而不是CPU来运行模拟的Sprite粒子效果。
+</p><h2 id="创建系统和发射器">创建系统和发射器</h2>
+<p>与在Cascade中不同，Niagara发射器和系统是独立的。当前推荐工作流将从现有发射器或发射器模板创建系统。
+</p><ol ><li class="Default"><p>首先，在内容浏览器中点击右键以创建Niagara系统，然后从显示菜单中选择 <strong>FX > Niagara系统（FX > Niagara System）</strong>。将显示Niagara系统（Niagara System）向导。<br /></p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/CreateSystem_NewMenuSelections.png" title="Create Niagara System"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/CreateSystem_NewMenuSelections.jpg">
+		<img class="  lazyload" alt="创建Niagara系统" title="Create Niagara System" width="500" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/CreateSystem_NewMenuSelections.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>选择 <strong>从所选发射器新建系统（New system from selected emitters）</strong>。然后单击 <strong>下一步（Next）</strong>。<br /></p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/CreateSystem_SystemWizard.png" title="System Wizard"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/CreateSystem_SystemWizard.jpg">
+		<img class="  lazyload" alt="系统向导" title="System Wizard" width="500" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/CreateSystem_SystemWizard.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>在 <strong>模板（Templates）</strong> 下选择 <strong>简单Sprite迸发（Simple Sprite Burst）</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/CreateSystem_SelectSpriteBurstTemplate.png" title="Select the Sprite Burst Template"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/CreateSystem_SelectSpriteBurstTemplate.jpg">
+		<img class="  lazyload" alt="选择Sprite迸发模板" title="Select the Sprite Burst Template" width="500" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/CreateSystem_SelectSpriteBurstTemplate.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>单击 <strong>加号图标（Plus icon）</strong>（<strong>+</strong>），以将发射器添加到要添加到系统的发射器列表中。然后单击 <strong>完成（Finish）</strong>。<br /></p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/CreateSystem_AddEmitterAndFinish.png" title="Add Emitter and Finish"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/CreateSystem_AddEmitterAndFinish.jpg">
+		<img class="  lazyload" alt="添加发射器并完成" title="Add Emitter and Finish" width="500" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/CreateSystem_AddEmitterAndFinish.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>将新系统命名为 <strong>GPUSprite</strong>。双击以在Niagara编辑器中将其打开。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/CreateSystem_NameSystem.png" title="命名新系统"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/CreateSystem_NameSystem.jpg">
+		<img class="  lazyload" alt="命名新系统" title="命名新系统" width="100" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/CreateSystem_NameSystem.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>新系统中发射器实例的默认名称为 <strong>SimpleSpriteBurst</strong>，但你可以对其重命名。在 <strong>系统概览（System Overview）</strong> 中单击发射器实例名称，该字段将转变为可编辑状态。将发射器命名为 <strong>FX_GPUSprite</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/CreateSystem_RenameEmitter.png" title="Open Emitter Properties"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/CreateSystem_RenameEmitter.jpg">
+		<img class="  lazyload" alt="打开发射器属性" title="Open Emitter Properties" width="500" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/CreateSystem_RenameEmitter.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><p>1.将 <strong>GPUSprite</strong> 系统拖到关卡中。
+</p><div class="note">
+	<p>制作粒子效果时，最好将系统拖到关卡中。这样便可查看每一项更改并在上下文中进行编辑。  你对系统所做的任何更改都将自动传播到关卡中的系统实例。</p>
+</div></li></ol><h2 id="发射器设置-发射器属性">发射器设置 - 发射器属性</h2>
+<p>首先，你需要在 <strong>发射器属性（Emitter Properties）</strong> 中更改某些设置。你可以在此处从CPU模拟切换到GPU模拟。
+</p><ol ><li class="Default"><p>在 <strong>系统概览（System Overview）</strong> 中，单击 <strong>发射器设置（Emitter Settings）</strong>，以在 <strong>选择（Selection）</strong> 面板中将其打开。<br /></p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/SystemOverview_OpenEmitterSettings.png" title="Open Emitter Settings"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/SystemOverview_OpenEmitterSettings.jpg">
+		<img class="  lazyload" alt="打开发射器设置" title="Open Emitter Settings" width="700" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/SystemOverview_OpenEmitterSettings.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>展开 <strong>发射器属性（Emitter Properties）</strong>。找到 <strong>模拟目标（Sim Target）</strong> 字段。你可以在此处告知虚幻引擎使用GPU进行模拟。单击下拉菜单，并选择 <strong>GPUComputeSim</strong>。<br /></p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/EmitterSettings_EmitterProperties.png" title="Change Emitter Properties"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/EmitterSettings_EmitterProperties.jpg">
+		<img class="  lazyload" alt="更改发射器属性" title="Change Emitter Properties" width="500" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/EmitterSettings_EmitterProperties.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>你可能会触发有关未设置固定边界的警告。单击 <strong>固定边界（Fixed Bounds）</strong> 对话框。这样可以解决错误。将 <strong>最小值（Minimum）</strong> 和 <strong>最大值（Maximum）</strong> 设置为默认值。
+</p><div class="note">
+	<p>由于粒子模拟在GPU上完成，因此系统无法读取效果的大小。这就是必须设置固定边界的原因。你可以在发射器中执行此操作，如本步骤所示，也可以在 <strong>系统属性（System Properties）</strong> 项中为整个系统设置固定边界。</p>
+</div></li></ol><h2 id="发射器更新组设置">发射器更新组设置</h2>
+<p>下一步，你将在 <strong>发射器更新（Emitter Update）</strong> 组中编辑模块。这些是将应用于发射器并更新每一帧的行为。
+</p><ol ><li class="Default"><p>在 <strong>系统概览（System Overview）</strong> 中，单击 <strong>发射器更新（Emitter Update）</strong>，以在 <strong>选择（Selection）</strong> 面板中将其打开。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/SystemOverview_OpenEmitterUpdate.png" title="Open Emitter Update"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/SystemOverview_OpenEmitterUpdate.jpg">
+		<img class="  lazyload" alt="打开发射器更新" title="Open Emitter Update" width="700" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/SystemOverview_OpenEmitterUpdate.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>展开 <strong>发射器状态（Emitter State）</strong> 模块。此模块控制此发射器的时间和可延展性。由于你使用了简单Sprite迸发模板，因此 <strong>生命周期模式（Life Cycle Mode）</strong> 设置为 <strong>自身（Self）</strong>。通常，该模式用于为此特定发射器完全定制发射器生命周期逻辑，但此效果并不需要它。单击下拉列表，并将 <strong>生命周期模式（Life Cycle Mode）</strong> 设置为 <strong>系统（System）</strong>。此操作将使系统能够计算生命周期设置，而这通常可以优化性能。在默认情况下，系统以5秒的间隔无限循环。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/EmitterUpdate_SetLifeCycleMode.png" title="更改生命周期模式"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/EmitterUpdate_SetLifeCycleMode.jpg">
+		<img class="  lazyload" alt="更改生命周期模式" title="更改生命周期模式" width="500" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/EmitterUpdate_SetLifeCycleMode.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>当发射器生成时，<strong>生成即时迸发（Spawn Burst Instantaneous）</strong> 模块会产生大量粒子。此模块包含在简单Sprite爆发模板中。将 <strong>生成计数（Spawn Count）</strong> 设置为 <strong>2500</strong>。由于 <strong>生成时间（Spawn Time）</strong> 设置为 <strong>0</strong>，所以迸发会在启动时立即发生。<br /></p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/EmitterUpdate_SetSpawnCount.png" title="Set Burst Spawn Count"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/EmitterUpdate_SetSpawnCount.jpg">
+		<img class="  lazyload" alt="设置迸发生成计数" title="Set Burst Spawn Count" width="500" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/EmitterUpdate_SetSpawnCount.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>对于此效果，当发射器生成时，你需要的不仅是粒子迸发。当发射器处于活动状态时，<strong>生成速率（Spawn Rate）</strong> 模块创建连续粒子流。单击发射器更新的 <strong>加号（Plus sign）</strong> 图标（<strong>+</strong>）并选择 <strong>生成 > 生成速率（Spawning > Spawn Rate）</strong>，以添加 <strong>生成速率（Spawn Rate）</strong> 模块。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/EmitterUpdate_AddSpawnRate.png" title="Add Spawn Rate Module"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/EmitterUpdate_AddSpawnRate.jpg">
+		<img class="  lazyload" alt="添加生成速率模块" title="Add Spawn Rate Module" width="500" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/EmitterUpdate_AddSpawnRate.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>将 <strong>生成速率（Spawn Rate）</strong> 设置为 <strong>500</strong>。这样将以每秒500个的速度生成粒子，由此在初始迸发后提供连续的粒子流。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/EmitterUpdate_SetSpawnRate.png" title="Set Continuous Spawn Rate"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/EmitterUpdate_SetSpawnRate.jpg">
+		<img class="  lazyload" alt="设置持续生成速率" title="Set Continuous Spawn Rate" width="500" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/EmitterUpdate_SetSpawnRate.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li></ol><h2 id="粒子生成组设置">粒子生成组设置</h2>
+<p>下一步，你将在 <strong>粒子生成（Particle Spawn）</strong> 组中编辑模块。这些是粒子首次生成时将应用于粒子的行为。
+</p><ol ><li class="Default"><p>在 <strong>系统概览（System Overview）</strong> 中，单击 <strong>粒子生成（Particle Spawn）</strong>，以在 <strong>选择（Selection）</strong> 面板中将其打开。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/SystemOverview_OpenParticleSpawn.png" title="Open Particle Spawn"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/SystemOverview_OpenParticleSpawn.jpg">
+		<img class="  lazyload" alt="打开粒子生成" title="Open Particle Spawn" width="700" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/SystemOverview_OpenParticleSpawn.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>展开 <strong>初始化粒子（Initialize Particle）</strong> 模块。此模块将多个相关参数采集到一个模块中，从而最大程度地减少堆栈中的混乱。在 <strong>点属性（Point Attributes）</strong> 下，找到 <strong>生命周期（Lifetime）</strong> 参数。<br /></p></li><li class="Default"><p>生命周期参数确定了粒子在消失之前将显示多久。对于此效果，你需要一个恒定值，从而使粒子在效果的整个持续时长内显示。将 <strong>生命周期（Lifetime）</strong> 设置为 <strong>5</strong>。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/ParticleSpawn_InitParticleLifetime.png" title="Set Lifetime Parameter"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/ParticleSpawn_InitParticleLifetime.jpg">
+		<img class="  lazyload" alt="设置生命周期参数" title="Set Lifetime Parameter" width="500" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/ParticleSpawn_InitParticleLifetime.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>你将在本指南的另一部分中将Sprite大小随机化，但是在此处，我们将设置Sprite的基本大小。在 <strong>Sprite属性（Sprite Attributes）</strong> 下，找到 <strong>Sprite大小（Sprite Size）</strong> 参数，并确保启用它。将 <strong>Sprite大小（Sprite Size）</strong> 设置如下：<br /></p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/ParticleSpawn_InitParticleSpriteSize.png" title="Set Base Sprite Size"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/ParticleSpawn_InitParticleSpriteSize.jpg">
+		<img class="  lazyload" alt="设置基本Sprite大小" title="Set Base Sprite Size" width="500" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/ParticleSpawn_InitParticleSpriteSize.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>大小矢量 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>数值 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>X</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>5</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Y</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>5</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div></li><li class="Default"><p>球体位置控制Sprite生成所在位置的形状。添加 <strong>球体位置（Sphere Location）</strong> 模块后，Sprite将以球体形状生成，而且你可以通过指示半径以设置球体形状的大小。单击粒子生成的 <strong>加号（Plus sign）</strong> 图标（<strong>+</strong>）并选择 <strong>位置 > 球体位置（Location > Sphere Location）</strong>，以添加 <strong>球体位置（Sphere Location）</strong> 模块。你可以保留模块的默认设置。<br /></p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/ParticleSpawn_AddSphereLocation.png" title="Add Sphere Location Module"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/ParticleSpawn_AddSphereLocation.jpg">
+		<img class="  lazyload" alt="添加球体位置模块" title="Add Sphere Location Module" width="500" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/ParticleSpawn_AddSphereLocation.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li></ol><h2 id="粒子更新组设置">粒子更新组设置</h2>
+<p>现在，你将在 <strong>粒子更新（Particle Update）</strong> 组中编辑模块。这些行为将应用于发射器的粒子并更新每一帧。
+</p><ol ><li class="Default"><p>在 <strong>系统概览（System Overview）</strong> 中，单击 <strong>粒子更新（Particle Update）</strong> 组，以在 <strong>选择（Selection）</strong> 面板中将其打开。<br /></p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/SystemOverview_OpenParticleUpdate.png" title="Open Particle Update"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/SystemOverview_OpenParticleUpdate.jpg">
+		<img class="  lazyload" alt="打开粒子更新" title="Open Particle Update" width="700" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/SystemOverview_OpenParticleUpdate.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>在粒子生成组的初始化粒子模块中，你已选择Sprite的基本大小。你可以通过添加缩放Sprite大小模块来随机化Sprite的大小。这样可将比例因子应用于基本大小。单击 <strong>加号（Plus sign）</strong> 图标（<strong>+</strong>）并选择 <strong>大小 > 缩放Sprite大小（Size > Scale Sprite Size）</strong>，以添加 <strong>缩放Sprite大小（Scale Sprite Size）</strong> 模块。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/ParticleUpdate_AddScaleSpriteSize.png" title="Add Scale Sprite Size Module"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/ParticleUpdate_AddScaleSpriteSize.jpg">
+		<img class="  lazyload" alt="添加缩放Sprite大小模块" title="Add Scale Sprite Size Module" width="500" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/ParticleUpdate_AddScaleSpriteSize.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>缩放Sprite大小的默认值为 <strong>X: 1</strong> 和 <strong>Y: 1</strong>。更改这些默认值将统一使所有粒子变大或变小。然而，随机大小变化比静态大小更具视觉吸引力。单击 <strong>比例因子（Scale Factor）</strong> 字段旁的向下箭头，然后选择 <strong>动态输入 > 来自浮点的Vector2D（Dynamic Inputs > Vector2D from Float）</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/ParticleUpdate_AddVector2DFromFloat.png" title="Add Vector2D from Float"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/ParticleUpdate_AddVector2DFromFloat.jpg">
+		<img class="  lazyload" alt="添加来自浮点的Vector2D" title="Add Vector2D from Float" width="500" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/ParticleUpdate_AddVector2DFromFloat.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>请注意，<strong>比例因子（Scale Factor）</strong> 的值已转变为一个静态值。有多种方法可添加浮点值，具体取决于你所需的粒子外观。对于流动且渐进的大小变化，曲线是理想选择。单击 <strong>值（Value）</strong> 旁的向下箭头，然后选择 <strong>动态输入 > 曲线中的浮点（Dynamic Inputs > Float from Curve）</strong>。<br /></p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/ParticleUpdate_AddFloatFromCurve.png" title="Add Float from Curve"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/ParticleUpdate_AddFloatFromCurve.jpg">
+		<img class="  lazyload" alt="添加曲线中的浮点" title="Add Float from Curve" width="500" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/ParticleUpdate_AddFloatFromCurve.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>你在步骤5中添加的曲线具有两个默认值。你可以向曲线添加更多键，以使大小变化更加复杂。右键点击线条，然后选择 <strong>向曲线添加键（Add Key to Curve）</strong>。再次执行此操作，从而使曲线上总共显示4个键。<br /></p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/ParticleUpdate_FloatFromCurve_AddKey.png" title="Add Keys to the Scale Factor Curve"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/ParticleUpdate_FloatFromCurve_AddKey.jpg">
+		<img class="  lazyload" alt="向比例因子曲线添加键" title="Add Keys to the Scale Factor Curve" width="500" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/ParticleUpdate_FloatFromCurve_AddKey.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>将曲线上的四个键设置为以下值。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/ParticleUpdate_SpriteSizeCurveKeys.png" title="Curve Key Settings"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/ParticleUpdate_SpriteSizeCurveKeys.jpg">
+		<img class="  lazyload" alt="曲线键设置" title="Curve Key Settings" width="500" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/ParticleUpdate_SpriteSizeCurveKeys.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>键号 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>时间 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>值 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>1</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>0</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>0</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>2</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>.25</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>1</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>3</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>.75</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>1</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>4</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>1</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>0</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr></tbody>
+</table>
+</div></li><li class="Default"><p>现在，当前设置只是创建了一团并非十分有趣的粒子。你可以添加一些能够增加粒子变化和运动的其他元素。单击粒子更新（Particle Update）的 <strong>加号（Plus sign）</strong>（<strong>+</strong>）图标，然后选择 <strong>力 > 旋度噪点力（Forces > Curl Noise Force）</strong>。<br /></p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/ParticleUpdate_AddCurlNoiseForce.png" title="Add Curl Noise Force Module"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/ParticleUpdate_AddCurlNoiseForce.jpg">
+		<img class="  lazyload" alt="添加旋度噪点力模块" title="Add Curl Noise Force Module" width="500" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/ParticleUpdate_AddCurlNoiseForce.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>你可以使用旋度噪点力完成许多操作。<strong>噪点强度（Noise Strength）</strong> 控制整个噪点场的大小（即，噪点干扰原始粒子球体的程度）。<strong>噪点频率（Noise Frequency）</strong> 控制旋度噪点应用于粒子的频率：数字越小，粒子的球体位置将越翘曲。当前使用下面的设置，但你稍后可以尝试使用这些设置以获取不同的外观。 <br /></p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/ParticleUpdate_CurlNoiseSettings.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/ParticleUpdate_CurlNoiseSettings.jpg">
+		<img class="  lazyload" alt="旋度噪点设置" width="500" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/ParticleUpdate_CurlNoiseSettings.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>参数 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>值 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>噪点强度（Noise Strength）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>72</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>噪点强度（Noise Frequency）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>02</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr></tbody>
+</table>
+</div></li><li class="Default"><p>现在，你将看到粒子首先旋转，然后便持续向外移动，直到消亡。对于此效果，粒子应向外移动，然后返回其原点，以形成漩涡状物质。<strong>点吸引力（Point Attraction Force）</strong> 模块使粒子向单个点移动（默认情况下，该点是发射器的位置）。单击粒子更新的 <strong>加号（Plus sign）</strong> 图标（<strong>+</strong>），然后选择 <strong>力 > 点吸引力（Forces > Point Attraction Force）</strong>。<br /></p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/ParticleUpdate_AddPointAttractionForce.png" title="Add Point Attraction Force Module"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/ParticleUpdate_AddPointAttractionForce.jpg">
+		<img class="  lazyload" alt="添加点吸引力模块" title="Add Point Attraction Force Module" width="500" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/ParticleUpdate_AddPointAttractionForce.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p><strong>吸引强度（Attraction Strength）</strong> 是将粒子拉到吸引子点的力大小。<strong>吸引半径（Attraction Radius）</strong> 描述点吸引力作用于粒子的场大小。<strong>衰减指数（Falloff Exponent）</strong> 控制球体的扩散程度；数字越小，粒子球体的扩散范围越大。<strong>消亡半径（Kill Radius）</strong> 设置粒子在生命周期结束时分解所处区域的大小。将 <strong>吸引强度（Attraction Strength）</strong>、<strong>吸引半径（Attraction Radius）</strong>、<strong>衰减指数（Falloff Exponent）</strong> 和 <strong>消亡半径（Kill Radius）</strong> 设置为以下值。 
+</p><div class="note">
+	<p>单击模块底部的三角形，以显示 <strong>消亡半径（Kill Radius）</strong> 参数。如果尚未勾选此复选框，则请勾选以启用它。</p>
+</div><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/ParticleUpdate_PointAttractionForceSettings.png" title="Point Attraction Force Settings"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/ParticleUpdate_PointAttractionForceSettings.jpg">
+		<img class="  lazyload" alt="点吸引力设置" title="Point Attraction Force Settings" width="500" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/ParticleUpdate_PointAttractionForceSettings.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>参数 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>值 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>吸引强度（Attraction Strength）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>5.5</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>吸引半径（Attraction Radius）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>300.0</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>衰减指数（Falloff Exponent）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>0.6</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>消亡半径（Kill Radius）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>4.0</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr></tbody>
+</table>
+</div></li><li class="Default"><p>现在，更改颜色。单击粒子更新的 <strong>加号（Plus sign）</strong> 图标（<strong>+</strong>），然后选择 <strong>颜色 > 颜色（Colors > Color）</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/ParticleUpdate_AddColorFromCurve.png" title="Add Color Module"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/ParticleUpdate_AddColorFromCurve.jpg">
+		<img class="  lazyload" alt="添加颜色模块" title="Add Color Module" width="500" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/ParticleUpdate_AddColorFromCurve.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>你可以单击颜色条上方的空间以向曲线添加颜色停止点，也可以通过双击停止点打开取色器以更改颜色。若要设置不透明度停止点，请点击颜色条下方的空间。将颜色和不透明度设置如下。<br /></p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/ParticleUpdate_ColorCurveSettings.png" title="Set Color and Opacity Stops"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/ParticleUpdate_ColorCurveSettings.jpg">
+		<img class="  lazyload" alt="设置颜色和不透明度停止点" title="Set Color and Opacity Stops" width="500" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/GPUParticles/ParticleUpdate_ColorCurveSettings.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>颜色或不透明度停止点 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>时间 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>值 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="3" align="">
+			<p><div class="tablesection">
+	<p> 颜色 </p>
+</div></p>
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>停止点1（Stop 1）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>0.0</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>R: 1, G: 0, B: 1</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>停止点2（Stop 2）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>.35</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>R: .08, G: 0, B: 1</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>停止点3（Stop 3）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>..60</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>R: .2 , G: 1, B: .8</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>停止点4（Stop 4）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>.8</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>R: 1, G: .96, B: .3</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="3" align="">
+			<p><div class="tablesection">
+	<p> 不透明度 </p>
+</div></p>
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>停止点1（Stop 1）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>0</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>1</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>停止点2（Stop 2）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>.7</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>1</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>停止点3（Stop 3）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>1</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>0</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr></tbody>
+</table>
+</div></li></ol><h2 id="最终结果">最终结果</h2>
+<p>祝贺你！你成功创建了通过GPU而非CPU计算的酷炫Sprite效果。
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_1_et9m9vcb_2
+{
+	margin: 0px;
+	width: 78%;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_1_et9m9vcb_2:after
+{
+	content: "";
+	padding-top: 56.25%;
+	display: block;
+}
+</style> 
+<div id="player_1_et9m9vcb_2"> 
+	<div id="playerContainer_1_et9m9vcb_2" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/1_et9m9vcb/embed.html"></iframe>
+	</div>
+</div>
+
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Niagara">Niagara</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Effects">Effects</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Visual%20Effects">Visual Effects</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Particle%20Effects">Particle Effects</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/RenderingAndGraphics/Niagara/HowTo/GPUParticles/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:02:15 GMT -->
+</html>

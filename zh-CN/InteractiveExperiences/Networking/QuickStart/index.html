@@ -1,0 +1,1317 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/InteractiveExperiences/Networking/QuickStart/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 10:25:34 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var finishButton = finishButtonTemplate;
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/InteractiveExperiences/Networking/QuickStart/" />');
+				var udnCSS = '../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>多人游戏编程快速入门指南 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/instructional.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/InteractiveExperiences/Networking/QuickStart/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/InteractiveExperiences/Networking/QuickStart/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/InteractiveExperiences/Networking/QuickStart/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/InteractiveExperiences/Networking/QuickStart/" hreflang="ko" />
+
+	<meta name="redirect" content="Gameplay/Networking/QuickStart" />
+<meta name="intsourcechangelist" content="16114738" />
+<meta name="availability" content="Public" />
+<meta name="title" content="多人游戏编程快速入门指南" />
+<meta name="description" content="用C++创建简单的多人游戏。" />
+<meta name="type" content="quick start" />
+<meta name="type" content="multi-step [5]" />
+<meta name="skilllevel" content="Intermediate" />
+<meta name="version" content="4.25" />
+<meta name="parent" content="InteractiveExperiences/Networking" />
+<meta name="order" content="0" />
+<meta name="prereq" content="InteractiveExperiences/Networking/Server" />
+<meta name="prereq" content="InteractiveExperiences/Networking/Overview" />
+<meta name="related" content="ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter" />
+<meta name="related" content="InteractiveExperiences/Networking/TestMultiplayer" />
+<meta name="related" content="InteractiveExperiences/Networking/Actors" />
+<meta name="related" content="InteractiveExperiences/Networking/CharacterMovementComponent" />
+<meta name="keywords" content="network" />
+<meta name="keywords" content="multiplayer" />
+<meta name="keywords" content="gameplay" />
+<meta name="keywords" content="Basics/GettingStarted" />
+<meta name="keywords" content="quickstart" />
+<meta name="topic-image" content="Preview.png" />
+<meta name="crumbs" content="%ROOT%,InteractiveExperiences,InteractiveExperiences/Networking" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="多人游戏编程快速入门指南" />
+	<meta property="og:description" content="用C++创建简单的多人游戏。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">创建交互体验</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">联网和多人游戏</a>
+
+<span class="separator">></span> <span id="page">多人游戏编程快速入门指南</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">多人游戏编程快速入门指南</h1>
+							</div>	
+							<h2 >用C++创建简单的多人游戏。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Intermediate"><a id="skill_link" href="../../../SiteIndex/index.html?skills=Intermediate">Intermediate</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>												<div class="tip" id="notice" style="display:none;">
+欢迎回来！要回到您上次离开的地方吗？
+<div class="button-container">
+<a href="javascript:void();" id="goButton" class="btn btn-lrg btn-default action">前往</a>
+<a href="javascript:void();" id="cancelButton" class="btn btn-lrg btn-default">取消</a>
+</div>
+</div>																		<div id="seeAlso">
+	<div style="position:relative;">
+		<div id="title">参见</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<p>
+						<a id="related_link" href="../../../ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/index.html" title="学习如何实现第一人称射击游戏中的机制。">第一人称射击游戏教程</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../TestMultiplayer/index.html" title="如何设置 Unreal Editor 以测试多人游戏。">测试多人游戏</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../Actors/index.html" title="关于复制 Actor 对象及其组件的各方面介绍。">Actor 的复制</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../CharacterMovementComponent/index.html" title="角色移动组件的详细说明">角色移动组件</a>
+					</p>
+				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																								<div class="prereq">
+    <div class="normaltitle">
+        前置主题
+    </div>
+    <p style="margin-bottom:8px;">
+        为了理解并使用本文中的内容，请确保您已掌握以下主题：
+    </p>
+    <ul style="margin-bottom:0.5em;">
+                <li>
+            <p>
+                <a href="../Server/index.html" title="关于服务器在多人游戏中担当角色的概述。">客户端-服务器模式</a>
+            </p>
+        </li>
+                <li>
+            <p>
+                <a href="../Overview/index.html" title="设置多人游戏的联网游戏。">网络概述</a>
+            </p>
+        </li>
+            </ul>
+</div>
+																		<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#1.基本设置">1.基本设置</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#2.使用repnotify复制玩家的生命值">2.使用RepNotify复制玩家的生命值</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#3.使玩家响应伤害">3.使玩家响应伤害</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#4.使用复制创建投射物">4.使用复制创建投射物</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#5.使投射物造成伤害">5.使投射物造成伤害</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#6.发射投射物">6.发射投射物</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#7.测试游戏">7.测试游戏</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#最终结果">最终结果</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#看你的了">看你的了</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#代码示例">代码示例</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/Networking/QuickStart/Preview.jpg">
+		<img class="  lazyload" alt="Preview.png" data-src="../../../../Images/InteractiveExperiences/Networking/QuickStart/Preview.jpg" />
+</picture>
+
+</p><p>开发多人游戏的游戏进程需要在游戏的 <strong>Actor</strong> 中实现 <strong>复制</strong>。还必须设计特定于 <strong>服务器</strong>（充当游戏会话的主机）或 <strong>客户端</strong>（代表连接到会话的玩家）的功能。本分步指南将介绍创建简单多人游戏进程的流程，包括以下内容：
+</p><ul ><li class="Default"><p>如何向基本Actor添加复制。
+</p></li><li class="Default"><p>如何利用网络游戏中的 <strong>移动组件</strong>。
+</p></li><li class="Default"><p>如何向 <strong>变量</strong> 添加复制。
+</p></li><li class="Default"><p>如何在变量更改时使用 <strong>RepNotify</strong>。
+</p></li><li class="Default"><p>如何在C++环境下使用 <strong>远程过程调用(RPC)</strong>。
+</p></li><li class="Default"><p>如何检查Actor的 <strong>网络角色</strong>，以过滤在函数中执行的调用。
+</p></li></ul><p>最终将形成第三人称游戏，玩家可以向对方投掷爆炸性投射物。我们的主要工作是创建投射物并向角色添加伤害响应。
+</p><div class="note">
+	<p>在开始之前，强烈建议查看<a id="content_link"filter-data="tag_network,_multiplayer,_gameplay,_introductory" href="../Server/index.html" ><span>客户端-服务器模型</span></a>和<a id="content_link"filter-data="tag_network tag_multiplayer_ tag_gameplay tag_introductory" href="../Overview/index.html" ><span>网络概述</span></a>页面上的要点。作为本指南的比对点，可参见<a id="content_link" href="../../../ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/index.html" ><span>第一人称射击游戏教程</span></a>的向游戏添加投射物章节，但其中未介绍复制概念。</p>
+</div><h2 id="1.基本设置">1.基本设置</h2>
+<ol ><li class="Default"><p>打开 <strong>编辑器</strong>，创建一个 <strong>新项目</strong>。确保使用以下设置：
+</p><ul ><li class="Default"><p>是 <strong>C++项目</strong>
+</p></li><li class="Default"><p>使用 <strong>第三人称模板</strong>
+</p></li><li class="Default"><p>包括 <strong>初学者内容包</strong>
+</p></li><li class="Default"><p>针对 <strong>主机和PC</strong>
+</p></li></ul><p>应用这些设置后，将项目命名为 <strong>ThirdPersonMP</strong>，然后单击 <strong>创建（Create）</strong> 按钮继续。将创建项目的C++文件，且虚幻编辑器将自动打开 <strong>ThirdPersonExampleMap</strong>。
+</p></li><li class="Default"><p>单击此场景中站立的 <strong>ThirdPersonCharacter</strong> 并 <strong>删除</strong> 它，然后确保地图中存在两个 <strong>玩家出生点</strong>。这些出生点会生成玩家，而非手动放置场景默认包括的ThirdPersonCharacter。
+</p><div class="lightbox">
+	<p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/Networking/QuickStart/1-2.jpg">
+		<img class="  lazyload" alt="[Add PlayerStarts" width="900" data-src="../../../../Images/InteractiveExperiences/Networking/QuickStart/1-2.jpg" />
+</picture>
+</p>
+</div><div class="caption">
+	<p>单击图像以查看大图。</p>
+</div></li></ol><p>大多数模板中的Pawn和角色默认启用了复制。在我们的示例中，ThirdPersonCharacter已拥有会自动复制移动的 <strong>角色移动组件</strong>。
+</p><p><a id="content_link"filter-data="tag_multiplayer tag_gameplay tag_network tag_fundamentals" href="../CharacterMovementComponent/index.html" ><span>角色移动组件</span></a></p><p>化妆组件，如角色的 <strong>骨架网格体</strong> 及其 <strong>动画蓝图</strong>，不会被复制。但与游戏进程和移动相关的变量（如角色的速度）则会被复制，且动画蓝图会在变量更新时读取这些变量。因此，角色在每个客户端上的副本都会更新其视觉呈现，只要游戏进程变量准确更新，这种更新就是一致的。同样，<a id="content_link"filter-data="tag_gameplay_framework" href="../../Framework/index.html" ><span><strong>游戏进程框架</strong></span></a>自动处理角色在玩家出生点的生成操作，并向角色分配 <strong>玩家控制器</strong>。
+</p><p>若使用此项目启动服务器，并有客户端加入该服务器，这就已经是一个正常的多人游戏。但玩家仅可让其游戏化身移动和跳跃。因此要创建一些其他的多人游戏进程。
+</p><h2 id="2.使用repnotify复制玩家的生命值">2.使用RepNotify复制玩家的生命值</h2>
+<p>玩家需要生命值，才能在游戏进程受到伤害。该值需要复制，使所有客户端都拥有各玩家生命值的同步信息，并需要在玩家受到伤害时向其提供反馈。本节将演示如何在不依赖RPC的情况下，利用RepNotify同步变量的所有必要更新。
+</p><div class="note">
+	<p>注意，'Role' 已经被相应替换为 'GetLocalRole()' 和 'GetRemoteRole()'。你会注意到下述小节中有些地方之前使用的是 'Role'，请注意更改。</p>
+</div><ol ><li class="Default"><p>打开 <code>ThirdPersonMPCharacter.h</code>。在 <code>protected</code> 下添加以下属性：
+</p><p><div class="codetitlebar">
+	<p>ThirdPersonMPCharacter.h</p>
+</div></p><pre class="prettyprint"><code>/&#42;&#42; 玩家的最大生命值。这是玩家的最高生命值，也是出生时的生命值。&#42;/
+UPROPERTY(EditDefaultsOnly, Category = "Health")
+float MaxHealth;
+
+/&#42;&#42; 玩家的当前生命值。降到0就表示死亡。&#42;/
+UPROPERTY(ReplicatedUsing=OnRep&#95;CurrentHealth)
+float CurrentHealth;
+
+/&#42;&#42; RepNotify，用于同步对当前生命值所做的更改。&#42;/
+UFUNCTION()
+void OnRep&#95;CurrentHealth();</code></pre>
+<p>我们要严格控制玩家生命值的变化，因此这些生命值有以下约束： 
+</p><ul ><li class="Default"><p><code>MaxHealth</code> 不复制，仅可在默认值中编辑。此值是针对所有玩家预先计算得出的，不会更改。
+</p></li><li class="Default"><p><code>CurrentHealth</code> 复制，但无法在蓝图的任何地方编辑或访问。
+</p></li><li class="Default"><p><code>MaxHealth</code> 和 <code>CurrentHealth</code> 都是 <code>受保护</code> 的，以防被外部C++类访问。仅可在 <code>AThirdPersonMPCharacter</code> 或其派生类中进行修改。
+</p></li></ul><p>这降低了实时游戏进程中玩家的 <code>CurrentHealth</code> 或 <code>MaxHealth</code> 发生意外更改的风险。在稍后的步骤中，我们会提供其他公共函数，用于获取和修改这些值。
+</p><p><code>Replicated</code> 说明符在服务器上启用Actor的副本，以在变量值更改时，将该变量值复制到所有连接的客户端。<code>ReplicatedUsing</code> 也有同样的功能，但还能设置 <strong>RepNotify</strong> 函数，此函数将在客户端成功接收复制数据时触发。将基于此变量的更改，使用 <code>OnRep&#95;CurrentHealth</code> 执行各个客户端的更新。
+</p></li><li class="Default"><p>打开 <code>ThirdPersonMPCharacter.cpp</code>。在顶部的 <code>#include "GameFramework/SpringArmComponent.h"</code> 一行下添加以下 <code>#include</code> 语句：
+</p><p><div class="codetitlebar">
+	<p>ThirdPersonMPCharacter.cpp</p>
+</div></p><pre class="prettyprint"><code>#include "Net/UnrealNetwork.h"
+#include "Engine/Engine.h"</code></pre>
+<p>它们提供用于复制变量以及访问 <code>GEngine</code> 中的 <code>AddOnscreenDebugMessage</code> 函数（用于将消息输出至屏幕）的必要功能。
+</p></li><li class="Default"><p>在 <code>ThirdPersonMPCharacter.cpp</code> 中，在构造函数底部添加以下代码：
+</p><p><div class="codetitlebar">
+	<p>ThirdPersonMPCharacter.cpp</p>
+</div></p><pre class="prettyprint"><code>//初始化玩家生命值
+MaxHealth = 100.0f;
+CurrentHealth = MaxHealth;</code></pre>
+<p>这将初始化玩家的生命值。创建此角色的新副本时，角色当前生命值将设为其最大生命值。
+</p></li><li class="Default"><p>在 <code>ThirdPersonMPCharacter.h</code> 中，在 <code>AThirdPersonMPCharacter</code> 构造函数之后添加以下公共函数声明：
+</p><p><div class="codetitlebar">
+	<p>ThirdPersonMPCharacter.h</p>
+</div></p><pre class="prettyprint"><code>/&#42;&#42; 属性复制 &#42;/
+void GetLifetimeReplicatedProps(TArray&lt;FLifetimeProperty&gt;&amp; OutLifetimeProps) const override;</code></pre></li><li class="Default"><p>在 <code>ThirdPersonMPCharacter.cpp</code> 中，为此函数添加以下实现：
+</p><p><div class="codetitlebar">
+	<p>ThirdPersonMPCharacter.cpp</p>
+</div></p><pre class="prettyprint"><code>//////////////////////////////////////////////////////////////////////////
+// 复制的属性
+
+void AThirdPersonMPCharacter::GetLifetimeReplicatedProps(TArray &lt;FLifetimeProperty&gt; &amp; OutLifetimeProps) const
+{
+    Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+
+    //复制当前生命值。
+    DOREPLIFETIME(AThirdPersonMPCharacter, CurrentHealth);
+}</code></pre>
+<p><code>GetLifetimeReplicatedProps</code> 函数负责复制我们使用 <code>Replicated</code> 说明符指派的任何属性，并可用于配置属性的复制方式。这里使用 <code>CurrentHealth</code> 的最基本实现。一旦添加更多需要复制的属性，也必须添加到此函数。 
+</p><div class="warning">
+	<p>必须调用 <code>GetLifetimeReplicatedProps</code> 的 <code>Super</code> 版本，否则从Actor父类继承的属性不会复制，即便该父类指定要复制。</p>
+</div></li><li class="Default"><p>在 <code>ThirdPersonMPCharacter.h</code> 中，在 <code>Protected</code> 下添加以下函数声明：
+</p><p><div class="codetitlebar">
+	<p>ThirdPersonMPCharacter.h</p>
+</div></p><pre class="prettyprint"><code>/&#42;&#42; 响应要更新的生命值。修改后，立即在服务器上调用，并在客户端上调用以响应RepNotify&#42;/
+void OnHealthUpdate();</code></pre></li><li class="Default"><p>在 <code>ThirdPersonMPCharacter.cpp</code> 中，添加以下实现：
+</p><p><div class="codetitlebar">
+	<p>ThirdPersonMPCharacter.cpp</p>
+</div></p><pre class="prettyprint"><code>void AThirdPersonMPCharacter::OnHealthUpdate()
+{
+    //客户端特定的功能
+    if (IsLocallyControlled())
+    {
+        FString healthMessage = FString::Printf(TEXT("You now have %f health remaining."), CurrentHealth);
+        GEngine-&gt;AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, healthMessage);
+
+        if (CurrentHealth &lt;= 0)
+        {
+            FString deathMessage = FString::Printf(TEXT("You have been killed."));
+            GEngine-&gt;AddOnScreenDebugMessage(-1, 5.f, FColor::Red, deathMessage);
+        }
+    }
+
+    //服务器特定的功能
+    if (GetLocalRole() == ROLE&#95;Authority)
+    {
+        FString healthMessage = FString::Printf(TEXT("%s now has %f health remaining."), &#42;GetFName().ToString(), CurrentHealth);
+        GEngine-&gt;AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, healthMessage);
+    }
+
+    //在所有机器上都执行的函数。 
+    /&#42;  
+        因任何因伤害或死亡而产生的特殊功能都应放在这里。 
+    &#42;/
+}</code></pre>
+<p>我们将使用此函数执行更新，以响应玩家的 <code>CurrentHealth</code> 所发生的更改。目前它的功能仅限于提供屏幕调试消息，但后续可添加更多功能，例如在所有机器上调用的OnDeath函数，用于触发死亡动画。注意，<code>OnHealthUpdate</code> 不复制，需要在所有设备上手动调用。
+</p></li><li class="Default"><p>在 <code>ThirdPersonMPCharacter.cpp</code> 中，为 <code>OnRep&#95;CurrentHealth</code> 添加以下实现：
+</p><p><div class="codetitlebar">
+	<p>ThirdPersonMPCharacter.cpp</p>
+</div></p><pre class="prettyprint"><code>void AThirdPersonMPCharacter::OnRep&#95;CurrentHealth()
+{
+    OnHealthUpdate();
+}</code></pre>
+<p>变量在其值发生更改时复制，而非持续不断地复制，RepNotify在客户端成功收到变量的复制值时运行。因此，只要在服务器上更改玩家的 <code>CurrentHealth</code>，<code>OnRep&#95;CurrentHealth</code> 就会在所有连接的客户端上运行。这就使 <code>OnRep&#95;CurrentHealth</code> 成为在客户端机器上调用 <code>OnHealthUpdate</code> 的最佳场所。
+</p></li></ol><h2 id="3.使玩家响应伤害">3.使玩家响应伤害</h2>
+<p>现在我们已实现玩家的生命值，接下来需要想办法在此类之外修改玩家生命值。
+</p><ol ><li class="Default"><p>在 <code>ThirdPersonMPCharacter.h</code> 中，在 <code>Public</code> 下添加以下函数声明：
+</p><p><div class="codetitlebar">
+	<p>ThirdPersonMPCharacter.h</p>
+</div></p><pre class="prettyprint"><code>/&#42;&#42; 最大生命值的取值函数。&#42;/
+UFUNCTION(BlueprintPure, Category="Health")
+FORCEINLINE float GetMaxHealth() const { return MaxHealth; } 
+
+/&#42;&#42; 当前生命值的取值函数。&#42;/
+UFUNCTION(BlueprintPure, Category="Health")
+FORCEINLINE float GetCurrentHealth() const { return CurrentHealth; }
+
+/&#42;&#42; 当前生命值的存值函数。将此值的范围限定在0到MaxHealth之间，并调用OnHealthUpdate。仅在服务器上调用。&#42;/
+UFUNCTION(BlueprintCallable, Category="Health")
+void SetCurrentHealth(float healthValue);
+
+/&#42;&#42; 承受伤害的事件。从APawn覆盖。&#42;/
+UFUNCTION(BlueprintCallable, Category = "Health")
+float TakeDamage( float DamageTaken, struct FDamageEvent const&amp; DamageEvent, AController&#42; EventInstigator, AActor&#42; DamageCauser ) override;</code></pre>
+<p><code>GetMaxHealth</code> 和 <code>GetCurrentHealth</code> 函数取值函数，可在C++环境和蓝图中从 <code>AThirdPersonMPCharacter</code> 外部访问玩家生命值。它们作为 <code>const</code> 函数，能安全地获取这些值，而且不允许修改。我们还声明了用于设置玩家生命值和承受伤害的函数。
+</p></li><li class="Default"><p>在 <code>ThirdPersonMPCharacter.cpp</code> 中，为 <code>SetCurrentHealth</code> 添加以下实现：
+</p><p><div class="codetitlebar">
+	<p>ThirdPersonMPCharacter.cpp</p>
+</div></p><pre class="prettyprint"><code>void AThirdPersonMPCharacter::SetCurrentHealth(float healthValue)
+{
+    if (GetLocalRole() == ROLE&#95;Authority)
+    {
+        CurrentHealth = FMath::Clamp(healthValue, 0.f, MaxHealth);
+        OnHealthUpdate();
+    }
+}</code></pre>
+<p><code>SetCurrentHealth</code> 提供了一种可控的办法从 <code>AThirdPersonMPCharacter</code> 外部修改玩家 <code>CurrentHealth</code> 。此函数并非复制而来，但是通过检查确认Actor的网络角色为 <code>ROLE&#95;Authority</code>，我们限制仅在托管游戏的服务器上调用此函数时，此函数才会执行。它将 <code>CurrentHealth</code> 值的范围限定于0到玩家 <code>MaxHealth</code> 之间，因此无法将 <code>CurrentHealth</code> 设置为无效值，并且它调用 <code>OnHealthUpdate</code> 以确保服务器和客户端都有对此函数的并行调用。由于服务器不会收到RepNotify，因此此功能是必要的。
+</p><div class="tip">
+	<p>虽然并非所有变量都需要这样的"存值"函数，但对于游戏期间会频繁变化的敏感游戏进程变量，尤其是可被很多不同源修改的变量，这种函数很有用。对于类似的单机游戏和多人游戏，使用存值函数都是最佳做法，因为它使这些变量的实时更改更加一致，更便于调试，也更容易扩展新功能。</p>
+</div></li><li class="Default"><p>在 <code>ThirdPersonMPCharacter.cpp</code> 中，为 <code>TakeDamage</code> 添加以下实现：
+</p><p><div class="codetitlebar">
+	<p>ThirdPersonMPCharacter.cpp</p>
+</div></p><pre class="prettyprint"><code>float AThirdPersonMPCharacter::TakeDamage(float DamageTaken, struct FDamageEvent const&amp; DamageEvent, AController&#42; EventInstigator, AActor&#42; DamageCauser)
+{
+    float damageApplied = CurrentHealth - DamageTaken;
+    SetCurrentHealth(damageApplied);
+    return damageApplied;
+}</code></pre>
+<p>这些内置函数用于对Actor施加伤害，会调用该Actor的 <code>TakeDamage</code> 基本函数。本例中使用 <code>SetCurrentHealth</code> 实现简单的生命值扣减。
+</p></li></ol><p>若已学到本节此处，那么以下应是对Actor施加伤害的流程：
+</p><ul ><li class="Default"><p>外部Actor或函数对角色调用 <code>CauseDamage</code>，而角色又调用其 <code>TakeDamage</code> 函数。
+</p></li><li class="Default"><p><code>TakeDamage</code> 调用 <code>SetCurrentHealth</code> 以在服务器上更改玩家的当前生命值。
+</p></li><li class="Default"><p><code>SetCurrentHealth</code> 在服务器上调用 <code>OnHealthUpdate</code>，导致执行功能，响应玩家生命值的更改。
+</p></li><li class="Default"><p><code>CurrentHealth</code> 复制到所有已连接的客户端的角色副本。
+</p></li><li class="Default"><p>各个客户端从服务器收到 <code>CurrentHealth</code> 的新值时，会调用 <code>OnRep&#95;CurrentHealth</code>。
+</p></li><li class="Default"><p><code>OnRep&#95;CurrentHealth</code> 调用 <code>OnHealthUpdate</code>，确保各个客户端以相同方式响应 <code>CurrentHealth</code> 的新值。
+</p></li></ul><p>此实现有两个优势。首先，它浓缩了围绕两大关键函数 <code>SetCurrentHealth</code> 和 <code>OnHealthUpdate</code> 添加的新功能的工作流程，这两个函数会使将来的代码维护和扩展工作变得更加容易。其次，由于此实现不使用任何服务器、客户端或NetMulticast RPC，它浓缩了在整个网络上发送的信息量，仅依靠复制 <code>CurrentHealth</code> 以触发所有必要更改。由于无论实现了任何其他函数，<code>CurrentHealth</code> 都需要复制，因此这是复制生命值更改的最有效模型。
+</p><h2 id="4.使用复制创建投射物">4.使用复制创建投射物</h2>
+<ol ><li class="Default"><p>在虚幻编辑器中，使用 <strong>文件（File）</strong> 菜单或 <strong>内容浏览器</strong> 创建 <strong>新C++类</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/Networking/QuickStart/4-1.jpg">
+		<img class="  lazyload" alt="Create New Class" width="300" data-src="../../../../Images/InteractiveExperiences/Networking/QuickStart/4-1.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>选择父类（Choose Parent Class）</strong> 菜单中，选择 <strong>Actor</strong> 作为父类，并单击 <strong>下一步（Next）</strong>。
+</p><div class="lightbox">
+	<p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/Networking/QuickStart/4-2.jpg">
+		<img class="  lazyload" alt="[Choose Parent Class" width="900" data-src="../../../../Images/InteractiveExperiences/Networking/QuickStart/4-2.jpg" />
+</picture>
+</p>
+</div><div class="caption">
+	<p>单击图像以查看大图。</p>
+</div></li><li class="Default"><p>在 <strong>命名新Actor（Name Your New Actor）</strong> 菜单，将类命名为 <strong>ThirdPersonMPProjectile</strong>，然后单击 <strong>创建类（Create Class）</strong>。
+</p><div class="lightbox">
+	<p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/Networking/QuickStart/4-3.jpg">
+		<img class="  lazyload" alt="[Name Your Class" width="900" data-src="../../../../Images/InteractiveExperiences/Networking/QuickStart/4-3.jpg" />
+</picture>
+</p>
+</div><div class="caption">
+	<p>单击图像以查看大图。</p>
+</div></li><li class="Default"><p>打开 <code>ThirdPersonMPProjectile.h</code>，并将以下代码添加到类定义中的 <code>public</code> 下：
+</p><p><div class="codetitlebar">
+	<p>ThirdPersonMPProjectile.h</p>
+</div></p><pre class="prettyprint"><code>// 用于测试碰撞的球体组件。
+UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Components")
+class USphereComponent&#42; SphereComponent;
+
+// 用于提供对象视觉呈现效果的静态网格体。
+UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Components")
+class UStaticMeshComponent&#42; StaticMesh;
+
+// 用于处理投射物移动的移动组件。
+UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Components")
+class UProjectileMovementComponent&#42; ProjectileMovementComponent;
+
+// 在投射物撞击其他对象并爆炸时使用的粒子。
+UPROPERTY(EditAnywhere, Category = "Effects")
+class UParticleSystem&#42; ExplosionEffect;
+
+//此投射物将造成的伤害类型和伤害。
+UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Damage")
+TSubclassOf&lt;class UDamageType&gt; DamageType;
+
+//此投射物造成的伤害。
+UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Damage")
+float Damage;</code></pre>
+<div class="note">
+	<p>这些声明中的各个类型前面都冠以 <code>class</code> 关键字。这样，这些声明除了是变量声明之外，还是各自类的前向声明，从而确保各自的类会在头文件中被识别。下一个步骤中，我们会在CPP文件中为它们添加 <code>#include</code>。</p>
+</div><p>我们正在声明的属性将提供以下项目： 
+</p><ul ><li class="Default"><p><strong>静态网格体组件</strong>，作为投射物的视觉呈现。 
+</p></li><li class="Default"><p><strong>球体组件</strong>，用于检查碰撞。 
+</p></li><li class="Default"><p><strong>投射物移动组件</strong>，用于移动投射物。 
+</p></li><li class="Default"><p><strong>粒子系统</strong>，引用我们要使用的内容，在后续步骤中生成爆炸效果。
+</p></li><li class="Default"><p><strong>伤害类型</strong>，用于伤害事件。
+</p></li><li class="Default"><p><strong>伤害</strong> 的浮点值，表示角色被此投射物击中时应扣减的生命值。
+</p></li></ul><p>但以上各项都尚未定义。
+</p><p><code>bReplicates</code> 设为 <code>True</code></p></li><li class="Default"><p>打开 <code>ThirdPersonMPProjectile.cpp</code>，将以下代码添加到文件顶部的 <code>#include</code> 语句中的 <code>#include "ThirdPersonMPProjectile.h"</code> 一行下：
+</p><p><div class="codetitlebar">
+	<p>ThirdPersonMPProjectile.cpp</p>
+</div></p><pre class="prettyprint"><code>#include "Components/SphereComponent.h"
+#include "Components/StaticMeshComponent.h"
+#include "GameFramework/ProjectileMovementComponent.h"
+#include "GameFramework/DamageType.h"
+#include "Particles/ParticleSystem.h"
+#include "Kismet/GameplayStatics.h"
+#include "UObject/ConstructorHelpers.h"</code></pre>
+<p>我们将在本演示中使用这些语句。前四个是我们使用的组件，而 <code>GamePlayStatics.h</code> 可用于访问基本游戏进程函数，<code>ConstructorHelpers.h</code> 可用于访问一些有用的构造函数以便设置组件。 
+</p></li><li class="Default"><p>将以下代码添加到 <code>ThirdPersonMPProjectile.cpp</code> 中的构造函数中：
+</p><p><div class="codetitlebar">
+	<p>ThirdPersonMPProjectile.cpp</p>
+</div></p><pre class="prettyprint"><code>bReplicates = true;</code></pre>
+<p><code>bReplicates</code> 变量告知游戏此Actor应复制。Actor默认仅存在于生成它的机器上。当 <code>bReplicates</code> 设为 <code>True</code>，只要Actor的权威副本存在于服务器上，就会尝试将该Actor复制到所有已连接的客户端。
+</p></li><li class="Default"><p>将以下代码添加到 <code>AThirdPersonMPProjectile</code> 的构造函数中：
+</p><p><div class="codetitlebar">
+	<p>ThirdPersonMPProjectile.cpp</p>
+</div></p><pre class="prettyprint"><code>//定义将作为投射物及其碰撞的根组件的SphereComponent。
+SphereComponent = CreateDefaultSubobject&lt;USphereComponent&gt;(TEXT("RootComponent"));
+SphereComponent-&gt;InitSphereRadius(37.5f);
+SphereComponent-&gt;SetCollisionProfileName(TEXT("BlockAllDynamic"));
+RootComponent = SphereComponent;</code></pre>
+<p>这会在构造对象时定义SphereComponent，使投射物碰撞。
+</p></li><li class="Default"><p>在构造函数内添加以下代码：
+</p><p><div class="codetitlebar">
+	<p>ThirdPersonMPProjectile.cpp</p>
+</div></p><pre class="prettyprint"><code>//定义将作为视觉呈现的网格体。
+static ConstructorHelpers::FObjectFinder&lt;UStaticMesh&gt; DefaultMesh(TEXT("/Game/StarterContent/Shapes/Shape&#95;Sphere.Shape&#95;Sphere"));
+StaticMesh = CreateDefaultSubobject&lt;UStaticMeshComponent&gt;(TEXT("Mesh"));
+StaticMesh-&gt;SetupAttachment(RootComponent);
+
+//若成功找到要使用的静态网格体资产，则设置该静态网格体及其位置/比例。
+if (DefaultMesh.Succeeded())
+{
+    StaticMesh-&gt;SetStaticMesh(DefaultMesh.Object);
+    StaticMesh-&gt;SetRelativeLocation(FVector(0.0f, 0.0f, -37.5f));
+    StaticMesh-&gt;SetRelativeScale3D(FVector(0.75f, 0.75f, 0.75f));
+}</code></pre>
+<p>这将定义要作为视觉呈现的StaticMeshComponent。将自动尝试在 <strong>初学者内容包</strong> 中查找 <strong>Shape_Sphere</strong> 网格体，并自行填充。球体也将调整尺寸，与SphereComponent尺寸一致。
+</p></li><li class="Default"><p>在构造函数内添加以下代码：
+</p><p><div class="codetitlebar">
+	<p>ThirdPersonMPProjectile.cpp</p>
+</div></p><pre class="prettyprint"><code>static ConstructorHelpers::FObjectFinder&lt;UParticleSystem&gt; DefaultExplosionEffect(TEXT("/Game/StarterContent/Particles/P&#95;Explosion.P&#95;Explosion"));
+if (DefaultExplosionEffect.Succeeded())
+{
+    ExplosionEffect = DefaultExplosionEffect.Object;
+}</code></pre>
+<p>This will set the asset reference for our <code>ExplosionEffect</code> to be the <strong>P_Explosion</strong> asset inside of StarterContent.
+</p></li><li class="Default"><p>在构造函数内添加以下代码：
+</p><p><div class="codetitlebar">
+	<p>ThirdPersonMPProjectile.cpp</p>
+</div></p><pre class="prettyprint"><code>//定义投射物移动组件。
+ProjectileMovementComponent = CreateDefaultSubobject&lt;UProjectileMovementComponent&gt;(TEXT("ProjectileMovement"));
+ProjectileMovementComponent-&gt;SetUpdatedComponent(SphereComponent);
+ProjectileMovementComponent-&gt;InitialSpeed = 1500.0f;
+ProjectileMovementComponent-&gt;MaxSpeed = 1500.0f;
+ProjectileMovementComponent-&gt;bRotationFollowsVelocity = true;
+ProjectileMovementComponent-&gt;ProjectileGravityScale = 0.0f;</code></pre>
+<p>这将定义投射物的投射物移动组件。该组件会复制，在服务器上执行的任何移动都将复制到客户端上。
+</p></li><li class="Default"><p>在构造函数内添加以下代码：
+</p><p><div class="codetitlebar">
+	<p>ThirdPersonMPProjectile.cpp</p>
+</div></p><pre class="prettyprint"><code>DamageType = UDamageType::StaticClass();
+Damage = 10.0f;</code></pre>
+<p>这些代码会初始化投射物将对Actor造成的伤害量以及将在伤害事件中使用的伤害类型。本例中由于尚未定义任何新伤害类型，因此使用基本 <code>UDamageType</code> 进行初始化。
+</p></li></ol><h2 id="5.使投射物造成伤害">5.使投射物造成伤害</h2>
+<p>若已按本指南学到此处，应可在服务器上生成投射物，且将在所有客户端上显示并移动。但若撞到墙壁或阻挡物，就会停止。我们需要它对玩家造成伤害，并需要对会话中所有已连接的客户端显示爆炸效果。
+</p><ol ><li class="Default"><p>在 <code>ThirdPersonMPProjectile.h</code> 中，在 <code>Protected</code> 下添加以下代码：
+</p><p><div class="codetitlebar">
+	<p>ThirdPersonMPProjectile.h</p>
+</div></p><pre class="prettyprint"><code>virtual void Destroyed() override;</code></pre></li><li class="Default"><p>在 <code>ThirdPersonMPProjectile.cpp</code> 中，为此函数添加以下实现：
+</p><p><div class="codetitlebar">
+	<p>ThirdPersonMPProjectile.cpp</p>
+</div></p><pre class="prettyprint"><code>void AThirdPersonMPProjectile::Destroyed()
+{
+    FVector spawnLocation = GetActorLocation();
+    UGameplayStatics::SpawnEmitterAtLocation(this, ExplosionEffect, spawnLocation, FRotator::ZeroRotator, true, EPSCPoolMethod::AutoRelease);
+}</code></pre>
+<p>每当有Actor被摧毁时，就会调用 <code>Destroyed</code> 函数。粒子发射器自身通常不复制，但由于Actor摧毁会复制，我们知道若在服务器上摧毁此投射物，则各个连接客户端在摧毁各自的投射物副本时将调用此函数。结果，所有玩家都会看到投射物被摧毁时的爆炸效果。
+</p></li><li class="Default"><p>在 <code>ThirdPersonMPProjectile.h</code> 中，在 <code>Protected</code> 下添加以下代码：
+</p><p><div class="codetitlebar">
+	<p>ThirdPersonMPProjectile.h</p>
+</div></p><pre class="prettyprint"><code>UFUNCTION(Category="Projectile")
+void OnProjectileImpact(UPrimitiveComponent&#42; HitComponent, AActor&#42; OtherActor, UPrimitiveComponent&#42; OtherComp, FVector NormalImpulse, const FHitResult&amp; Hit);</code></pre></li><li class="Default"><p>在 <code>ThirdPersonMPProjectile.cpp</code> 中，为此函数添加以下实现：
+</p><p><div class="codetitlebar">
+	<p>ThirdPersonMPProjectile.cpp</p>
+</div></p><pre class="prettyprint"><code>void AThirdPersonMPProjectile::OnProjectileImpact(UPrimitiveComponent&#42; HitComponent, AActor&#42; OtherActor, UPrimitiveComponent&#42; OtherComp, FVector NormalImpulse, const FHitResult&amp; Hit)
+{   
+    if ( OtherActor )
+    {
+        UGameplayStatics::ApplyPointDamage(OtherActor, Damage, NormalImpulse, Hit, GetInstigator()-&gt;Controller, this, DamageType);
+    }
+
+    Destroy();
+}</code></pre>
+<p>这是在投射物撞击对象时要调用的函数。若撞击对象是有效Actor，将调用 <code>ApplyPointDamage</code> 函数，在碰撞处对该对象造成伤害。同时，无论撞击表面是什么，任何碰撞都将摧毁该Actor，导致爆炸效果显示。
+</p></li><li class="Default"><p>在 <code>ThirdPersonMPProjectile.cpp</code> 中，将以下代码添加到构造函数中的 <code>RootComponent = SphereComponent</code> 一行下：
+</p><p><div class="codetitlebar">
+	<p>ThirdPersonMPProjectile.h</p>
+</div></p><pre class="prettyprint"><code>//在击中事件上注册此投射物撞击函数。
+if (GetLocalRole() == ROLE&#95;Authority)
+{
+    SphereComponent-&gt;OnComponentHit.AddDynamic(this, &amp;AThirdPersonMPProjectile::OnProjectileImpact);
+}</code></pre>
+<p>这将在球体组件上向 <code>OnComponentHit</code> 事件注册 <code>OnProjectileImpact</code>，该球体组件作为投射物的主碰撞组件。为了专门确保仅有服务器运行此游戏进程逻辑，注册 <code>OnProjectileImpact</code> 之前检查确认 <code>GetLocalRole() == ROLE&#95;Authority</code>。
+</p></li></ol><h2 id="6.发射投射物">6.发射投射物</h2>
+<ol ><li class="Default"><p>打开 <strong>编辑器（Editor）</strong>，然后单击屏幕顶部的 <strong>编辑（Edit）</strong> 下拉菜单，并打开 <strong>项目设置（Project Settings）</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/Networking/QuickStart/6-1.jpg">
+		<img class="  lazyload" alt="Project Settings" width="300" data-src="../../../../Images/InteractiveExperiences/Networking/QuickStart/6-1.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>引擎（Engine）</strong> 部分中，单击 <strong>输入（Input）</strong> 打开项目的输入设置。展开 <strong>绑定（Bindings）</strong> 部分，添加新条目。将它命名为"<strong>Fire</strong>"，并选择 <strong>鼠标左键</strong> 作为此Actor的绑定键。
+</p><div class="lightbox">
+	<p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/Networking/QuickStart/6-2.jpg">
+		<img class="  lazyload" alt="[Locate Input" width="900" data-src="../../../../Images/InteractiveExperiences/Networking/QuickStart/6-2.jpg" />
+</picture>
+</p>
+</div><div class="caption">
+	<p>单击图像以查看大图。</p>
+</div></li><li class="Default"><p>在 <code>ThirdPersonMPCharacter.cpp</code> 中，在 <code>#include "Engine/Engine.h"</code> 一行下方添加以下 <code>#include</code>：
+</p><p><div class="codetitlebar">
+	<p>ThirdPersonMPCharacter.cpp</p>
+</div></p><pre class="prettyprint"><code>#include "ThirdPersonMPProjectile.h"</code></pre>
+<p>这使角色类能够识别投射物类型并生成投射物。
+</p></li><li class="Default"><p>在 <code>ThirdPersonMPCharacter.h</code> 中，在 <code>Protected</code> 下添加以下代码：
+</p><p><div class="codetitlebar">
+	<p>ThirdPersonMPCharacter.h</p>
+</div></p><pre class="prettyprint"><code>UPROPERTY(EditDefaultsOnly, Category="Gameplay&#124;Projectile")
+TSubclassOf&lt;class AThirdPersonMPProjectile&gt; ProjectileClass;
+
+/&#42;&#42; 射击之间的延迟，单位为秒。用于控制测试发射物的射击速度，还可防止服务器函数的溢出导致将SpawnProjectile直接绑定至输入。&#42;/
+UPROPERTY(EditDefaultsOnly, Category="Gameplay")
+float FireRate;
+
+/&#42;&#42; 若为true，则正在发射投射物。&#42;/
+bool bIsFiringWeapon;
+
+/&#42;&#42; 用于启动武器射击的函数。&#42;/
+UFUNCTION(BlueprintCallable, Category="Gameplay")
+void StartFire();
+
+/&#42;&#42; 用于结束武器射击的函数。一旦调用这段代码，玩家可再次使用StartFire。&#42;/
+UFUNCTION(BlueprintCallable, Category = "Gameplay")
+void StopFire();  
+
+/&#42;&#42; 用于生成投射物的服务器函数。&#42;/
+UFUNCTION(Server, Reliable)
+void HandleFire();
+
+/&#42;&#42; 定时器句柄，用于提供生成间隔时间内的射速延迟。&#42;/
+FTimerHandle FiringTimer;</code></pre>
+<p>这些是将用于发射投射物的变量和函数。<code>HandleFire</code> 是将在本教程中实现的唯一RPC，它将负责在服务器上生成投射物。因为它拥有 <code>Server</code> 说明符，如若尝试在客户端上调用它，都会导致该调用通过网络直接被定向到服务器上的权威角色。 
+</p><p>因为 <code>HandleFire</code> 也拥有 <code>Reliable</code> 说明符，因此一旦调用，它就会被放置到可靠RPC的队列中，并在服务器成功收到之后从队列中移除。这保证服务器一定会收到此函数调用。但若可靠RPC的队列中一次性放入太多RPC却不移除它们，则该队列可能会溢出，如果是这种情况，用户将被强制断开连接。因此，我们主要注意允许玩家调用此函数的频率。
+</p><ol ><li class="Default"><p>在 <code>ThirdPersonMPCharacter.cpp</code> 中，在构造函数底部添加以下代码：
+</p></li></ol><p><div class="codetitlebar">
+	<p>ThirdPersonMPCharacter.cpp</p>
+</div></p><pre class="prettyprint"><code>//初始化投射物类
+ProjectileClass = AThirdPersonMPProjectile::StaticClass();
+//初始化射速
+FireRate = 0.25f;
+bIsFiringWeapon = false;</code></pre>
+<p>这些代码将初始化处理投射物发射所需的变量。
+</p><ol ><li class="Default"><p>在 <code>ThirdPersonMPCharacter.cpp</code> 中，添加以下实现：
+</p></li></ol><p><div class="codetitlebar">
+	<p>ThirdPersonMPCharacter.cpp</p>
+</div></p><pre class="prettyprint"><code>void AThirdPersonMPCharacter::StartFire()
+{
+    if (!bIsFiringWeapon)
+    {
+        bIsFiringWeapon = true;
+        UWorld&#42; World = GetWorld();
+        World-&gt;GetTimerManager().SetTimer(FiringTimer, this, &amp;AThirdPersonMPCharacter::StopFire, FireRate, false);
+        HandleFire();
+    }
+}
+
+void AThirdPersonMPCharacter::StopFire()
+{
+    bIsFiringWeapon = false;
+}
+
+void AThirdPersonMPCharacter::HandleFire&#95;Implementation()
+{
+    FVector spawnLocation = GetActorLocation() + ( GetControlRotation().Vector()  &#42; 100.0f ) + (GetActorUpVector() &#42; 50.0f);
+    FRotator spawnRotation = GetControlRotation();
+
+    FActorSpawnParameters spawnParameters;
+    spawnParameters.Instigator = GetInstigator();
+    spawnParameters.Owner = this;
+
+    AThirdPersonMPProjectile&#42; spawnedProjectile = GetWorld()-&gt;SpawnActor&lt;AThirdPersonMPProjectile&gt;(spawnLocation, spawnRotation, spawnParameters);
+}</code></pre>
+<p><code>StartFire</code> 是玩家在本地机器上调用的函数，用于初始化发射流程，它基于以下条件限制用户调用 <code>HandleFire</code> 的频率：
+</p><ul ><li class="Default"><p>若用户正在发射投射物，则不可发射。这是用 <code>bFiringWeapon</code> 指派的，在调用 <code>StartFire</code> 时，<code>bFiringWeapon</code> 设为 <code>true</code>。
+</p></li><li class="Default"><p>调用 <code>StopFire</code> 时，<code>bFiringWeapon</code> 仅可设为 <code>false</code>。
+</p></li><li class="Default"><p>时长为 <code>FireRate</code> 的定时器结束时，会调用 <code>StopFire</code>。
+</p></li></ul><p>这意味着用户发射投射物时，必须等待数秒（等于 <code>FireRate</code>），之后方可继续发射。无论 <code>StartFire</code> 绑定到何种输入，这种情况始终一致。例如，若用户将"Fire"命令绑定到滚轮或类似的不当输入，或用户反复狂按按钮，此函数仍会按可接受的时间间隔执行，不会使 <code>HandleFire</code> 调用导致用户的可靠函数队列溢出。
+</p><p>因为 <code>HandleFire</code> 是服务器RPC，其在CPP文件中的实现必须在函数名前面添加前缀 <code>&#95;Implementation</code>。本指南中的实施使用角色的控制旋转获取摄像机的朝向，然后生成面朝该方向的投射物，以便玩家瞄准。接下来，投射物的投射物移动组件使其朝该方向移动。
+</p></li><li class="Default"><p>在 <code>ThirdPersonMPCharacter.cpp</code> 中，在函数 <code>SetupPlayerInputComponent</code> 底部添加以下代码：
+</p><p><div class="codetitlebar">
+	<p>ThirdPersonMPCharacter.cpp</p>
+</div></p><pre class="prettyprint"><code>// 处理发射投射物
+PlayerInputComponent-&gt;BindAction("Fire", IE&#95;Pressed, this, &amp;AThirdPersonMPCharacter::StartFire);</code></pre>
+<p>这段代码将 <code>StartFire</code> 绑定到本节第一个步骤中创建的 <strong>Fire</strong> 输入操作，以便用户将其激活。
+</p></li></ol><h2 id="7.测试游戏">7.测试游戏</h2>
+<ol ><li class="Default"><p>在编辑器中打开项目。单击 <strong>编辑（Edit）</strong> 下拉菜单，并打开 <strong>编辑器首选项（Editor Preferences）</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/Networking/QuickStart/7-1.jpg">
+		<img class="  lazyload" alt="Open Level Editor/Play" width="300" data-src="../../../../Images/InteractiveExperiences/Networking/QuickStart/7-1.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>导航至 <strong>关卡编辑器（Level Editor）</strong> 部分，并单击 <strong>运行（Play）</strong> 菜单。找到 <strong>多人游戏选项（Multiplayer Options）</strong>，并将 <strong>玩家数量（Number of Players）</strong> 更改为2。
+</p><div class="lightbox">
+	<p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/Networking/QuickStart/7-2.jpg">
+		<img class="  lazyload" alt="[Set Number of Players" width="900" data-src="../../../../Images/InteractiveExperiences/Networking/QuickStart/7-2.jpg" />
+</picture>
+</p>
+</div><div class="caption">
+	<p>单击图像以查看大图。</p>
+</div></li><li class="Default"><p>按 <strong>运行（Play）</strong> 按钮。<strong>在编辑器中运行（Play in Editor）(PIE)</strong> 主窗口将作为服务器启动多人游戏会话，之后第二个PIE窗口打开，作为客户端连接。
+</p></li></ol><h2 id="最终结果">最终结果</h2>
+<div class="lightbox">
+	<p><picture>
+		<source data-srcset="./../../../../Images/InteractiveExperiences/Networking/QuickStart/8-1.jpg">
+		<img class="  lazyload" alt="[Final Result" width="1100" data-src="../../../../Images/InteractiveExperiences/Networking/QuickStart/8-1.jpg" />
+</picture>
+</p>
+</div><div class="caption">
+	<p>单击图像以查看大图。</p>
+</div><p>游戏中的两位玩家都应能够看到对方移动，并可向对方发射自定义投射物。若其中一位玩家被自定义投射物击中，应向两位玩家同时显示爆炸粒子，且被击中的玩家将收到一条"命中"消息，告知伤害量和当前生命值，而会话中的所有其他玩家不会看到任何消息。若玩家生命值降至0，会看到一条消息，通知已被杀死。
+</p><p>本演练到此完成，你应已掌握在C++环境下构建多人游戏功能的一些基础知识，包括变量和组件复制的概述、网络角色的使用方式，以及使用RPC的适当时机。了解这些信息后，应可在虚幻的服务器-客户端模型中构建自己的多人游戏 。
+</p><h2 id="看你的了">看你的了</h2>
+<p>要继续扩展网络多人游戏编程方面的技能，尝试完成以下项目：
+</p><ul ><li class="Default"><p>展开投射物的OnHit功能，以在投射物击中目标时创建额外的效果，例如创建球形轨迹以模拟爆炸半径。
+</p></li><li class="Default"><p>扩展ThirdPersonMPProjectile并对其ProjectileMovement组件进行试验，以创建采取不同行为的新变体。
+</p></li><li class="Default"><p>扩展ThirdPersonMPCharacter中的TakeDamage函数，以杀死玩家的pawn并使它们重新生成。
+</p></li><li class="Default"><p>向本地PlayerController添加HUD，使其显示复制的信息或响应客户端函数。
+</p></li><li class="Default"><p>使用DamageType在玩家被杀死时创建个性化消息。
+</p></li><li class="Default"><p>探索游戏模式、玩家状态和游戏状态的用途，以创建一套完整的规则来利用玩家统计数据和记分板主持比赛。
+</p></li></ul><h2 id="代码示例">代码示例</h2>
+<p><div class="codetitlebar">
+	<p>ThirdPersonMPProjectile.h</p>
+</div></p><pre class="prettyprint"><code>// 版权所有 1998-2019 Epic Games, Inc。保留所有权利。
+
+#pragma once
+
+#include "CoreMinimal.h"
+#include "GameFramework/Actor.h"
+#include "ThirdPersonMPProjectile.generated.h"
+
+class UParticleSystem;
+class UStaticMeshComponent;
+class USphereComponent;
+class UProjectileMovementComponent;
+class UDamageType;
+
+UCLASS()
+class THIRDPERSONMP&#95;API AThirdPersonMPProjectile : public AActor
+{
+    GENERATED&#95;BODY()
+
+public: 
+    // 为此Actor的属性设置默认值
+    AThirdPersonMPProjectile();
+
+    // 此投射物的基本组件
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Components")
+    USphereComponent&#42; SphereComponent;
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Components")
+    UStaticMeshComponent&#42; StaticMesh;
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Components")
+    UProjectileMovementComponent&#42; ProjectileMovementComponent;
+    UPROPERTY(EditAnywhere, Category = "Effects")
+    UParticleSystem&#42; ExplosionEffect;
+
+    //此投射物将造成的伤害类型和伤害。
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Damage")
+    TSubclassOf&lt;UDamageType&gt; DamageType;
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Damage")
+    float Damage;
+
+protected:
+    // 当游戏开始或生成时调用
+    virtual void BeginPlay() override;
+
+    UFUNCTION()
+    void OnProjectileImpact(UPrimitiveComponent&#42; HitComponent, AActor&#42; OtherActor, UPrimitiveComponent&#42; OtherComp, FVector NormalImpulse, const FHitResult&amp; Hit);
+
+    void Destroyed() override;
+
+public: 
+    // 每一帧调用
+    virtual void Tick(float DeltaTime) override;
+};</code></pre>
+<p><div class="codetitlebar">
+	<p>ThirdPersonMPProjectile.cpp</p>
+</div></p><pre class="prettyprint"><code>// 版权所有 1998-2019 Epic Games, Inc。保留所有权利。
+
+#include "ThirdPersonMPProjectile.h"
+#include "Components/SphereComponent.h"
+#include "Components/StaticMeshComponent.h"
+#include "GameFramework/ProjectileMovementComponent.h"
+#include "GameFramework/DamageType.h"
+#include "Particles/ParticleSystem.h"
+#include "Kismet/GameplayStatics.h"
+#include "UObject/ConstructorHelpers.h"
+#include "IDamageInterface.h"
+
+// 设置默认值
+AThirdPersonMPProjectile::AThirdPersonMPProjectile()
+{
+    // 将此Actor设置为每一帧调用Tick()。如果不需要，可以关闭此选项来提高性能。
+    PrimaryActorTick.bCanEverTick = true;
+
+    bReplicates = true;
+
+    DamageType = UDamageType::StaticClass();
+    Damage = 10.0f;
+
+    static ConstructorHelpers::FObjectFinder&lt;UParticleSystem&gt; DefaultExplosionEffect(TEXT("/Game/StarterContent/Particles/P&#95;Explosion.P&#95;Explosion"));
+    if (DefaultExplosionEffect.Succeeded())
+    {
+        ExplosionEffect = DefaultExplosionEffect.Object;
+    }
+
+    //定义将作为投射物及其碰撞的根组件的SphereComponent。
+    SphereComponent = CreateDefaultSubobject&lt;USphereComponent&gt;(TEXT("RootComponent"));
+    SphereComponent-&gt;InitSphereRadius(12.5f);
+    SphereComponent-&gt;SetCollisionProfileName(TEXT("BlockAllDynamic"));
+    RootComponent = SphereComponent;
+
+    //在击中事件上注册此投射物撞击函数。
+    if (GetLocalRole() == ROLE&#95;Authority)
+    {
+        SphereComponent-&gt;OnComponentHit.AddDynamic(this, &amp;AThirdPersonMPProjectile::OnProjectileImpact);
+    }
+
+    //定义将作为视觉呈现的网格体。
+    static ConstructorHelpers::FObjectFinder&lt;UStaticMesh&gt; DefaultMesh(TEXT("/Game/StarterContent/Shapes/Shape&#95;Sphere.Shape&#95;Sphere"));
+    StaticMesh = CreateDefaultSubobject&lt;UStaticMeshComponent&gt;(TEXT("Mesh"));
+    StaticMesh-&gt;SetupAttachment(RootComponent);
+
+    if (DefaultMesh.Succeeded())
+    {
+        StaticMesh-&gt;SetStaticMesh(DefaultMesh.Object);
+        StaticMesh-&gt;RelativeLocation = FVector(0.0f, 0.0f, -12.5f);
+        StaticMesh-&gt;RelativeScale3D = FVector(0.25f, 0.25f, 0.25f);
+    }
+
+    //定义投射物移动组件。
+    ProjectileMovementComponent = CreateDefaultSubobject&lt;UProjectileMovementComponent&gt;(TEXT("ProjectileMovement"));
+    ProjectileMovementComponent-&gt;SetUpdatedComponent(SphereComponent);
+    ProjectileMovementComponent-&gt;InitialSpeed = 1500.0f;
+    ProjectileMovementComponent-&gt;MaxSpeed = 1500.0f;
+    ProjectileMovementComponent-&gt;bRotationFollowsVelocity = true;
+    ProjectileMovementComponent-&gt;ProjectileGravityScale = 0.0f;
+}
+
+// 当游戏开始或生成时调用
+void AThirdPersonMPProjectile::BeginPlay()
+{
+    Super::BeginPlay();
+
+}
+
+void AThirdPersonMPProjectile::OnProjectileImpact(UPrimitiveComponent&#42; HitComponent, AActor&#42; OtherActor, UPrimitiveComponent&#42; OtherComp, FVector NormalImpulse, const FHitResult&amp; Hit)
+{   
+    if ( OtherActor )
+    {
+        UGameplayStatics::ApplyPointDamage(OtherActor, Damage, NormalImpulse, Hit, Instigator-&gt;Controller, this, DamageType);
+    }
+
+    Destroy();
+}
+
+void AThirdPersonMPProjectile::Destroyed()
+{
+    FVector spawnLocation = GetActorLocation();
+    UGameplayStatics::SpawnEmitterAtLocation(this, ExplosionEffect, spawnLocation, FRotator::ZeroRotator, true, EPSCPoolMethod::AutoRelease);
+}
+
+// 每一帧调用
+void AThirdPersonMPProjectile::Tick(float DeltaTime)
+{
+    Super::Tick(DeltaTime);
+
+}</code></pre>
+<p><div class="codetitlebar">
+	<p>ThirdPersonMPCharacter.h</p>
+</div></p><pre class="prettyprint"><code>// 版权所有 1998-2019 Epic Games, Inc。保留所有权利。
+
+#pragma once
+
+#include "CoreMinimal.h"
+#include "GameFramework/Character.h"
+#include "IDamageInterface.h"
+#include "ThirdPersonMPCharacter.generated.h"
+
+UCLASS(config=Game)
+class AThirdPersonMPCharacter : public ACharacter 
+{
+    GENERATED&#95;BODY()
+
+    /&#42;&#42; 摄像机吊杆将摄像机置于角色身后 &#42;/
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
+    class USpringArmComponent&#42; CameraBoom;
+
+    /&#42;&#42; 跟随摄像机 &#42;/
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
+    class UCameraComponent&#42; FollowCamera;
+public:
+
+    /&#42;&#42; 构造函数 &#42;/
+    AThirdPersonMPCharacter();
+
+    /&#42;&#42; 属性复制 &#42;/
+    void GetLifetimeReplicatedProps(TArray&lt;FLifetimeProperty&gt;&amp; OutLifetimeProps) const override;
+
+    /&#42;&#42; 基础旋转速度，单位为度/秒。其他缩放比例可能会影响最终旋转速度。&#42;/
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Camera)
+    float BaseTurnRate;
+
+    /&#42;&#42; 基础向上/下看速度，单位为度/秒。其他缩放比例可能会影响最终速度。&#42;/
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Camera)
+    float BaseLookUpRate;
+
+protected:
+    /&#42;&#42; 玩家的最大生命值。这是玩家的最高生命值，也是出生时的生命值。&#42;/
+    UPROPERTY(EditDefaultsOnly, Category = "Health")
+    float MaxHealth;
+
+    /&#42;&#42; 玩家的当前生命值。降到0就表示死亡。&#42;/
+    UPROPERTY(ReplicatedUsing=OnRep&#95;CurrentHealth)
+    float CurrentHealth;
+
+    /&#42;&#42; RepNotify，用于同步对当前生命值所做的更改。&#42;/
+    UFUNCTION()
+    void OnRep&#95;CurrentHealth();
+
+    /&#42;&#42; 响应要更新的生命值。修改后，立即在服务器上调用，并在客户端上调用以响应RepNotify&#42;/
+    void OnHealthUpdate();
+
+public:
+    /&#42;&#42; 最大生命值的取值函数。&#42;/
+    UFUNCTION(BlueprintPure, Category="Health")
+    FORCEINLINE float GetMaxHealth() const { return MaxHealth; } 
+
+    /&#42;&#42; 当前生命值的取值函数。&#42;/
+    UFUNCTION(BlueprintPure, Category="Health")
+    FORCEINLINE float GetCurrentHealth() const { return CurrentHealth; }
+
+    /&#42;&#42; 当前生命值的存值函数。将此值的范围限定在0到MaxHealth之间，并调用OnHealthUpdate。仅在服务器上调用。&#42;/
+    UFUNCTION(BlueprintCallable, Category="Health")
+    void SetCurrentHealth(float healthValue);
+
+    /&#42;&#42; 承受伤害的事件。从APawn覆盖。&#42;/
+    UFUNCTION(BlueprintCallable, Category = "Health")
+    float TakeDamage( float DamageTaken, struct FDamageEvent const&amp; DamageEvent, AController&#42; EventInstigator, AActor&#42; DamageCauser ) override;
+
+    protected:
+    /&#42;&#42; 在VR中重置HMD方向。&#42;/
+    void OnResetVR();
+
+    /&#42;&#42; 调用用于向前/向后输入 &#42;/
+    void MoveForward(float Value);
+
+    /&#42;&#42; 调用用于侧向输入 &#42;/
+    void MoveRight(float Value);
+
+    /&#42;&#42; 
+     &#42; 通过输入调用，以给定速度旋转。 
+     &#42; @param Rate  这是标准化速度，即1.0表示100%的所需旋转速度
+     &#42;/
+    void TurnAtRate(float Rate);
+
+    /&#42;&#42;
+     &#42; 通过输入调用，以给定速度向上/下看。 
+     &#42; @param Rate  这是标准化速度，即1.0表示100%的所需旋转速度
+     &#42;/
+    void LookUpAtRate(float Rate);
+
+    /&#42;&#42; 触控输入开始时使用的处理程序。&#42;/
+    void TouchStarted(ETouchIndex::Type FingerIndex, FVector Location);
+
+    /&#42;&#42; 触控输入停止时使用的处理程序。&#42;/
+    void TouchStopped(ETouchIndex::Type FingerIndex, FVector Location);
+
+protected:
+    // APawn界面
+    virtual void SetupPlayerInputComponent(class UInputComponent&#42; PlayerInputComponent) override;
+    // APawn界面结束
+
+    /&#42;&#42; 角色要发射的发射物类型。&#42;/
+    UPROPERTY(EditDefaultsOnly, Category="Gameplay&#124;Projectile")
+    TSubclassOf&lt;class AThirdPersonMPProjectile&gt; ProjectileClass;
+
+    /&#42;&#42; 射击之间的延迟，单位为秒。用于控制测试发射物的射击速度，还可防止服务器函数的溢出导致将SpawnProjectile直接绑定至输入。&#42;/
+    UPROPERTY(EditDefaultsOnly, Category="Gameplay")
+    float FireRate;
+
+    /&#42;&#42; 若为true，此武器正在发射过程中。&#42;/
+    bool bIsFiringWeapon;
+
+    /&#42;&#42; 用于启动武器发射的函数。应仅可由本地玩家触发。&#42;/
+    UFUNCTION(BlueprintCallable, Category="Gameplay")
+    void StartFire();
+
+    /&#42;&#42; 用于结束武器射击的函数。一旦调用这段代码，玩家可再次使用StartFire。&#42;/
+    UFUNCTION(BlueprintCallable, Category = "Gameplay")
+    void StopFire();  
+
+    /&#42;&#42; 用于生成投射物的服务器函数。&#42;/
+    UFUNCTION(Server, Reliable)
+    void HandleFire();
+
+    /&#42;&#42; 定时器句柄，用于提供生成间隔时间内的射速延迟。&#42;/
+    FTimerHandle FiringTimer;
+
+public:
+    /&#42;&#42; 返回CameraBoom子对象 &#42;&#42;/
+    FORCEINLINE class USpringArmComponent&#42; GetCameraBoom() const { return CameraBoom; }
+    /&#42;&#42; 返回FollowCamera子对象 &#42;&#42;/
+    FORCEINLINE class UCameraComponent&#42; GetFollowCamera() const { return FollowCamera; }
+};</code></pre>
+<p><div class="codetitlebar">
+	<p>ThirdPersonMPCharacter.cpp</p>
+</div></p><pre class="prettyprint"><code>// 版权所有 1998-2019 Epic Games, Inc。保留所有权利。
+
+#include "ThirdPersonMPCharacter.h"
+#include "HeadMountedDisplayFunctionLibrary.h"
+#include "Camera/CameraComponent.h"
+#include "Components/CapsuleComponent.h"
+#include "Components/InputComponent.h"
+#include "GameFramework/CharacterMovementComponent.h"
+#include "GameFramework/Controller.h"
+#include "GameFramework/SpringArmComponent.h"
+#include "Net/UnrealNetwork.h"
+#include "Engine/Engine.h"
+#include "ThirdPersonMPProjectile.h"
+#include "TimerManager.h"
+
+//////////////////////////////////////////////////////////////////////////
+// AThirdPersonMPCharacter
+
+AThirdPersonMPCharacter::AThirdPersonMPCharacter()
+{
+    // 设置碰撞胶囊体的大小
+    GetCapsuleComponent()-&gt;InitCapsuleSize(42.f, 96.0f);
+
+    // 设置输入的旋转速度
+    BaseTurnRate = 45.f;
+    BaseLookUpRate = 45.f;
+
+    // 控制器旋转时不旋转。只影响摄像机。
+    bUseControllerRotationPitch = false;
+    bUseControllerRotationYaw = false;
+    bUseControllerRotationRoll = false;
+
+    // 配置角色移动
+    GetCharacterMovement()-&gt;bOrientRotationToMovement = true; // 角色朝输入的方向移动...  
+    GetCharacterMovement()-&gt;RotationRate = FRotator(0.0f, 540.0f, 0.0f); // ...采用此旋转速度
+    GetCharacterMovement()-&gt;JumpZVelocity = 600.f;
+    GetCharacterMovement()-&gt;AirControl = 0.2f;
+
+    // 创建摄像机吊杆（发生碰撞时向玩家拉近）
+    CameraBoom = CreateDefaultSubobject&lt;USpringArmComponent&gt;(TEXT("CameraBoom"));
+    CameraBoom-&gt;SetupAttachment(RootComponent);
+    CameraBoom-&gt;TargetArmLength = 300.0f; // 摄像机以这个距离跟在角色身后 
+    CameraBoom-&gt;bUsePawnControlRotation = true; // 基于控制器旋转吊臂
+
+    // 创建跟随摄像头
+    FollowCamera = CreateDefaultSubobject&lt;UCameraComponent&gt;(TEXT("FollowCamera"));
+    FollowCamera-&gt;SetupAttachment(CameraBoom, USpringArmComponent::SocketName); // 将摄像机连接到吊杆末端，调节吊杆以匹配控制器方向
+    FollowCamera-&gt;bUsePawnControlRotation = false; // 摄像机不相对于吊臂旋转
+
+    // 注意：骨架网格体和网格体组件上的动画蓝图引用（继承自角色） 
+    // 都在名为MyCharacter的派生蓝图资产中设置（以避免C++环境下的直接内容引用）
+
+    //初始化玩家生命值
+    MaxHealth = 100.0f;
+    CurrentHealth = MaxHealth;
+
+    //初始化投射物类
+    ProjectileClass = AThirdPersonMPProjectile::StaticClass();
+    //初始化射速
+    FireRate = 0.25f;
+    bIsFiringWeapon = false;
+}
+
+//////////////////////////////////////////////////////////////////////////
+// 输入
+
+void AThirdPersonMPCharacter::SetupPlayerInputComponent(class UInputComponent&#42; PlayerInputComponent)
+{
+    // 设置游戏进程键绑定
+    check(PlayerInputComponent);
+    PlayerInputComponent-&gt;BindAction("Jump", IE&#95;Pressed, this, &amp;ACharacter::Jump);
+    PlayerInputComponent-&gt;BindAction("Jump", IE&#95;Released, this, &amp;ACharacter::StopJumping);
+
+    PlayerInputComponent-&gt;BindAxis("MoveForward", this, &amp;AThirdPersonMPCharacter::MoveForward);
+    PlayerInputComponent-&gt;BindAxis("MoveRight", this, &amp;AThirdPersonMPCharacter::MoveRight);
+
+    // 我们有两个旋转绑定版本，可以用不同的方式处理不同类型的设备
+    // "turn"处理提供绝对增量的设备。
+    // "turnrate"用于选择视为变化速度的设备，例如模拟操纵杆
+    PlayerInputComponent-&gt;BindAxis("Turn", this, &amp;APawn::AddControllerYawInput);
+    PlayerInputComponent-&gt;BindAxis("TurnRate", this, &amp;AThirdPersonMPCharacter::TurnAtRate);
+    PlayerInputComponent-&gt;BindAxis("LookUp", this, &amp;APawn::AddControllerPitchInput);
+    PlayerInputComponent-&gt;BindAxis("LookUpRate", this, &amp;AThirdPersonMPCharacter::LookUpAtRate);
+
+    // 处理触控设备
+    PlayerInputComponent-&gt;BindTouch(IE&#95;Pressed, this, &amp;AThirdPersonMPCharacter::TouchStarted);
+    PlayerInputComponent-&gt;BindTouch(IE&#95;Released, this, &amp;AThirdPersonMPCharacter::TouchStopped);
+
+    // VR头戴设备功能
+    PlayerInputComponent-&gt;BindAction("ResetVR", IE&#95;Pressed, this, &amp;AThirdPersonMPCharacter::OnResetVR);
+
+    // 处理发射投射物
+    PlayerInputComponent-&gt;BindAction( "Fire", IE&#95;Pressed, this, &amp;AThirdPersonMPCharacter::StartFire);
+    //PlayerInputComponent-&gt;BindAction("Fire", IE&#95;Released, this, &amp;AThirdPersonMPCharacter::StopFire);
+}</code></pre>
+<pre class="prettyprint"><code>//////////////////////////////////////////////////////////////////////////
+// 复制的属性
+
+void AThirdPersonMPCharacter::GetLifetimeReplicatedProps(TArray &lt;FLifetimeProperty&gt; &amp; OutLifetimeProps) const
+{
+    Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+    DOREPLIFETIME(AThirdPersonMPCharacter, CurrentHealth);
+}
+
+void AThirdPersonMPCharacter::StartFire()
+{
+    if (!bIsFiringWeapon)
+    {
+        bIsFiringWeapon = true;
+        UWorld&#42; World = GetWorld();
+        World-&gt;GetTimerManager().SetTimer(FiringTimer, this, &amp;AThirdPersonMPCharacter::StopFire, FireRate, false);
+        SpawnProjectile();
+    }
+}
+
+void AThirdPersonMPCharacter::StopFire()
+{
+    bIsFiringWeapon = false;
+}
+
+void AThirdPersonMPCharacter::SpawnProjectile&#95;Implementation()
+{
+    FVector spawnLocation = GetActorLocation() + ( GetActorRotation().Vector()  &#42; 100.0f ) + (GetActorUpVector() &#42; 50.0f);
+    FRotator spawnRotation = GetActorRotation();
+
+    FActorSpawnParameters spawnParameters;
+    spawnParameters.Instigator = Instigator;
+    spawnParameters.Owner = this;
+
+    AThirdPersonMPProjectile&#42; spawnedProjectile = GetWorld()-&gt;SpawnActor&lt;AThirdPersonMPProjectile&gt;(ProjectileClass, spawnLocation, spawnRotation, spawnParameters);
+}
+
+void AThirdPersonMPCharacter::OnHealthUpdate()
+{
+    //客户端特定的功能
+    if (IsLocallyControlled())
+    {
+        FString healthMessage = FString::Printf(TEXT("You now have %f health remaining."), CurrentHealth);
+        GEngine-&gt;AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, healthMessage);
+
+        if (CurrentHealth &lt;= 0)
+        {
+            FString deathMessage = FString::Printf(TEXT("You have been killed."));
+            GEngine-&gt;AddOnScreenDebugMessage(-1, 5.f, FColor::Red, deathMessage);
+        }
+    }
+
+    //服务器特定的功能
+    if (GetLocalRole() == ROLE&#95;Authority)
+    {
+        FString healthMessage = FString::Printf(TEXT("%s now has %f health remaining."), &#42;GetFName().ToString(), CurrentHealth);
+        GEngine-&gt;AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, healthMessage);
+    }
+
+    //在所有机器上都执行的函数。 
+    /&#42;  
+        因任何因伤害或死亡而产生的特殊功能都应放在这里。 
+    &#42;/
+}
+
+void AThirdPersonMPCharacter::OnRep&#95;CurrentHealth()
+{
+    OnHealthUpdate();
+}
+
+void AThirdPersonMPCharacter::SetCurrentHealth(float healthValue)
+{
+    if (GetLocalRole() == ROLE&#95;Authority)
+    {
+        CurrentHealth = FMath::Clamp(healthValue, 0.f, MaxHealth);
+        OnHealthUpdate();
+    }
+}
+
+float AThirdPersonMPCharacter::TakeDamage(float DamageTaken, struct FDamageEvent const&amp; DamageEvent, AController&#42; EventInstigator, AActor&#42; DamageCauser)
+{
+    float damageApplied = CurrentHealth - DamageTaken;
+    SetCurrentHealth(damageApplied);
+    return damageApplied;
+}
+
+void AThirdPersonMPCharacter::OnResetVR()
+{
+    UHeadMountedDisplayFunctionLibrary::ResetOrientationAndPosition();
+}
+
+void AThirdPersonMPCharacter::TouchStarted(ETouchIndex::Type FingerIndex, FVector Location)
+{
+    Jump();
+}
+
+void AThirdPersonMPCharacter::TouchStopped(ETouchIndex::Type FingerIndex, FVector Location)
+{
+        StopJumping();
+}
+
+void AThirdPersonMPCharacter::TurnAtRate(float Rate)
+{
+    // 根据速度信息计算此帧的增量
+    AddControllerYawInput(Rate &#42; BaseTurnRate &#42; GetWorld()-&gt;GetDeltaSeconds());
+}
+
+void AThirdPersonMPCharacter::LookUpAtRate(float Rate)
+{
+    // 根据速度信息计算此帧的增量
+    AddControllerPitchInput(Rate &#42; BaseLookUpRate &#42; GetWorld()-&gt;GetDeltaSeconds());
+}
+
+void AThirdPersonMPCharacter::MoveForward(float Value)
+{
+    if ((Controller != NULL) &amp;&amp; (Value != 0.0f))
+    {
+        // find out which way is forward
+        const FRotator Rotation = Controller-&gt;GetControlRotation();
+        const FRotator YawRotation(0, Rotation.Yaw, 0);
+
+        // 获取前向矢量
+        const FVector Direction = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
+        AddMovementInput(Direction, Value);
+    }
+}
+
+void AThirdPersonMPCharacter::MoveRight(float Value)
+{
+    if ( (Controller != NULL) &amp;&amp; (Value != 0.0f) )
+    {
+        // 找出正确的道路
+        const FRotator Rotation = Controller-&gt;GetControlRotation();
+        const FRotator YawRotation(0, Rotation.Yaw, 0);
+
+        // 获取正确的矢量 
+        const FVector Direction = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
+        // add movement in that direction
+        AddMovementInput(Direction, Value);
+    }
+}</code></pre>
+
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../SiteIndex/index.html?tags=network">network</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../SiteIndex/index.html?tags=multiplayer">multiplayer</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../SiteIndex/index.html?tags=gameplay">gameplay</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../SiteIndex/index.html?tags=Basics/GettingStarted">Basics/GettingStarted</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../SiteIndex/index.html?tags=quickstart">quickstart</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/InteractiveExperiences/Networking/QuickStart/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 10:25:39 GMT -->
+</html>

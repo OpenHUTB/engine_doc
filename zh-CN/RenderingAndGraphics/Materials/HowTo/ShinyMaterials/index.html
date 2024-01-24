@@ -1,0 +1,495 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/RenderingAndGraphics/Materials/HowTo/ShinyMaterials/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:15:56 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/RenderingAndGraphics/Materials/HowTo/ShinyMaterials/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>创建有光泽度的材质 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/RenderingAndGraphics/Materials/HowTo/ShinyMaterials/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/RenderingAndGraphics/Materials/HowTo/ShinyMaterials/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/RenderingAndGraphics/Materials/HowTo/ShinyMaterials/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/RenderingAndGraphics/Materials/HowTo/ShinyMaterials/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Rendering/Materials/HowTo/ShinyMaterials" />
+<meta name="intsourcechangelist" content="15217808" />
+<meta name="availability" content="Public" />
+<meta name="title" content="创建有光泽度的材质" />
+<meta name="description" content="有光泽度的材质创建指南" />
+<meta name="related" content="RenderingAndGraphics/Materials/PhysicallyBased" />
+<meta name="related" content="Resources/ContentExamples/MaterialNodes/1_4" />
+<meta name="related" content="Resources/ContentExamples/MaterialNodes/1_2" />
+<meta name="related" content="Resources/ContentExamples/MaterialNodes/1_3" />
+<meta name="version" content="4.9" />
+<meta name="skilllevel" content="Intermediate" />
+<meta name="keywords" content="Materials" />
+<meta name="course" content="creating-pbr-materials?lang=zh-CN|创建PBR材质|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fcreating-pbr-materials%2FHighresScreenshot00006-1920x1050-2c0180460478cd00327494c6e5717e227be4926d.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fcreating-pbr-materials%2FCreating-PBR-Materials-1000x1000-0d34ec4bfc3eeb466ce5a981a867921f72464e77.png?resize=1&amp;w=300" />
+<meta name="course" content="getting-to-know-materials-for-design-visualization?lang=zh-CN|了解可视化设计中的材质|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fgetting-to-know-materials-for-design-visualization%2FIntro_to_Materials_003-1919x1079-f32638266c469a6fa2b9b2f3515e5766e8177b22.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fgetting-to-know-materials-for-design-visualization%2FGetting-to-Know-Materials-for-Design-Visualization-1000x1000-8cd1670f84e0111e39d4a3faa1e7a6ba29a30bfe.png?resize=1&amp;w=300" />
+<meta name="course" content="materials---exploring-essential-concepts?lang=zh-CN|材质：基础概念|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials---exploring-essential-concepts%2FMaterialEssentialConcepts-1920x1080-1920x1080-2414bb5cf0b0c3bd7ac4b993e725d2acedd45334.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials---exploring-essential-concepts%2FMaterials--Exploring-Essential-Concepts-1000x1000-9546cdc254e6659ce73211b5955ab9d886921256.png?resize=1&amp;w=300" />
+<meta name="course" content="materials---understanding-the-production-workflow?lang=zh-CN|材质：制作工作流|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials---understanding-the-production-workflow%2FMaterialWorkflow_ThumbnailFull-1920x1080-1920x1080-638fea6d7e3b7b299a4f433096336ce1caf662d0.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials---understanding-the-production-workflow%2F104-Materials-Production-Workflow%402x-1000x1000-ae1ba588a367d239fbe513da38bb793360c9eecf.png?resize=1&amp;w=300" />
+<meta name="course" content="materials-master-learning?lang=zh-CN|材质大师课程|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials-master-learning%2FMaterialMaster_1920x1080-1920x1080-212f85045980310d6985557f84d0217e6423b709.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials-master-learning%2FMaterials-Master-Learning-1000x1000-56fd0b66f6e798313f79737126d9215cbd4a3ff9.png?resize=1&amp;w=300" />
+<meta name="crumbs" content="%ROOT%,RenderingAndGraphics,RenderingAndGraphics/Materials,RenderingAndGraphics/Materials/HowTo" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="创建有光泽度的材质" />
+	<meta property="og:description" content="有光泽度的材质创建指南" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">设计视觉、渲染和图形效果</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">材质 </a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">材质 - 操作指南</a>
+
+<span class="separator">></span> <span id="page">创建有光泽度的材质</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">创建有光泽度的材质</h1>
+							</div>	
+							<h2 >有光泽度的材质创建指南</h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Intermediate"><a id="skill_link" href="../../../../SiteIndex/index.html?skills=Intermediate">Intermediate</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																		<div id="seeAlso">
+	<div style="position:relative;">
+		<div id="title">参见</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<p>
+						<a id="related_link" href="../../PhysicallyBased/index.html" title="有关主要材质输入及如何加以善用的概述。">基于物理的材质</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../../../Resources/ContentExamples/MaterialNodes/1_4/index.html" title="材质节点示例关卡概述，示例1.4：粗糙度。">1.4 - 粗糙度</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../../../Resources/ContentExamples/MaterialNodes/1_2/index.html" title="材质节点示例关卡概述，示例1.2： 金属色。">1.2 -金属色</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../../../Resources/ContentExamples/MaterialNodes/1_3/index.html" title="材质节点示例关卡概述，示例1.3： 高光。">1.3 - 高光</a>
+					</p>
+				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																		<div id="courses">
+	<div style="position:relative;">
+		<div id="title">相关课程</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<div name="creating-pbr-materials?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/creating-pbr-materials?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_443/Unreal%20Engine/onlinelearning-courses/creating-pbr-materials/HighresScreenshot00006-1920x1050-2c0180460478cd00327494c6e5717e227be4926d4f86.png?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_443/Unreal%20Engine/onlinelearning-courses/creating-pbr-materials/Creating-PBR-Materials-1000x1000-0d34ec4bfc3eeb466ce5a981a867921f72464e77fe4b.png?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="creating-pbr-materials?lang=zh-CN_title">
+				创建PBR材质
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="getting-to-know-materials-for-design-visualization?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/getting-to-know-materials-for-design-visualization?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/getting-to-know-materials-for-design-visualizat/Intro_to_Materials_003-1919x1079-f32638266c469a6fa2b9b2f3515e5766?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/getting-to-know-materials-for-design-visualizat/Getting-to-Know-Materials-for-Design-Visualization-1000x1000-8cd1670f84e0111e39d4a3faa1e7a6b?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="getting-to-know-materials-for-design-visualization?lang=zh-CN_title">
+				了解可视化设计中的材质
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="materials---exploring-essential-concepts?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/materials---exploring-essential-concepts?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/materials---exploring-essential-concepts/MaterialEssentialConcepts-1920x1080-1920x1080-2414bb5cf0b0c3bd7ac4b993e725d2acedd45334.42c4f86.dela?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/materials---exploring-essential-concepts/Materials--Exploring-Essential-Concepts-1000x1000-9546cdc254e6659ce73211b5955ab9d886921256.42dfe4b?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="materials---exploring-essential-concepts?lang=zh-CN_title">
+				材质：基础概念
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="materials---understanding-the-production-workflow?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/materials---understanding-the-production-workflow?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/materials---understanding-the-production-workfl/MaterialWorkflow_ThumbnailFull-1920x1080-1920x1080-638fea6d7e3b7b299a4f433096336ce1caf662d0?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/materials---understanding-the-production-workfl/104-Materials-Production-Workflow%402x-1000x1000-ae1ba588a367d239fbe513da38bb793360c9eecf.42ff?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="materials---understanding-the-production-workflow?lang=zh-CN_title">
+				材质：制作工作流
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="materials-master-learning?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/materials-master-learning?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/materials-master-learning/MaterialMaster_1920x1080-1920x1080-212f85045980310d6985557f84d0217e6423b709.4314f86.del?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/materials-master-learning/Materials-Master-Learning-1000x1000-56fd0b66f6e798313f79737126d9215cbd4a3ff9.433fe4b.de?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="materials-master-learning?lang=zh-CN_title">
+				材质大师课程
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																								<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#光泽度">光泽度</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#粗糙度与光泽度">粗糙度与光泽度</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#金属感与光泽度">金属感与光泽度</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#高光度与光泽度">高光度与光泽度</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#在材质中使用光泽度">在材质中使用光泽度</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#总结">总结</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>你每天接触的每个对象都具有一定的光泽度。 
+在虚幻引擎4中，你可以使用"金属感（Metallic）"、"高光度（Specular）"和"粗糙度（Roughness）"等材质输入来模拟对象的光泽度。 
+在以下操作指南中，我们将学习在材质中引入光泽度所需了解的所有内容。
+</p><h2 id="光泽度">光泽度</h2>
+<p>光泽度无非是指表面反射光线的能力。 
+表面能够反射的光线越多，光泽度越高。 
+表面能够反射的光线越少，光泽度越低。 
+表面反射光线的能力受环境中各种因素的影响，例如落在对象上的那些非常小颗粒的灰尘，以及接触对象时从手上沾染到对象上的油污， 
+所有这一切都会影响表面反射光线的能力。
+</p><h2 id="粗糙度与光泽度">粗糙度与光泽度</h2>
+<p>粗糙度在帮助确定表面光泽度方面扮演着重要角色。 
+表面越粗糙，其光泽度越低。 
+表面越光滑，其光泽度越高。
+以下是粗糙度如何影响光泽度的示例。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/PhysicallyBased/roughness_nonmetal.jpg">
+		<img class="  lazyload" alt="roughness_nonmetal.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/PhysicallyBased/roughness_nonmetal.jpg" />
+</picture>
+
+</p><p>最左侧球体的"粗糙度（Roughness）"值为0，光的反射很明显。 
+越往右边，球体的光泽度越来越低。 
+这是因为"粗糙度（Roughness）"值逐渐增大，直到值为1为止。
+</p><h2 id="金属感与光泽度">金属感与光泽度</h2>
+<p>金属感对象的光泽度由粗糙度控制。 
+材质越粗糙，其光泽度就会越低， 
+而缺少粗糙度将使金属显得非常有光泽。 
+以下是粗糙度如何影响金属感的示例。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/PhysicallyBased/roughness_metal.jpg">
+		<img class="  lazyload" alt="roughness_metal.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/PhysicallyBased/roughness_metal.jpg" />
+</picture>
+
+</p><p>最左侧球体的"金属感（Metallic）"值为1，"粗糙度（Roughness）"值为0，因此它显得非常有光泽。 
+但是，最右侧球体的"金属感（Metallic）"值为1，"粗糙度（Roughness）"值为1。 
+这使金属看起来非常晦暗，就像已经用过很久一样。 
+</p><h2 id="高光度与光泽度">高光度与光泽度</h2>
+<div class="note">
+	<p>在99%的情况下，你从不需要调整"高光度（Specular）"输入，其默认值0.5对于大部分材质来说已经足够好。 </p>
+</div><p>高光度也可影响材质的光泽度。 
+将"高光度（Specular）"值调整到接近1时，将使材质的反射和反射高光显得特别强特别显眼， 
+而将该值减小到接近0会弱化反射及反射高光，直到它们几乎不存在为止。 
+以下示例说明当"高光度（Specular）"值从0更改为1时，对反射及反射高光强度的影响。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/ShinyMaterials/Shiny_Specular.jpg">
+		<img class="  lazyload" alt="Shiny_Specular.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/ShinyMaterials/Shiny_Specular.jpg" />
+</picture>
+
+</p><p>与所有其他输入一样，"高光度（Specular）"也深受粗糙度影响。 
+即使"高光度（Specular）"输入设置为1，通过将"粗糙度（Roughness）"的值设置为1，也可以取消高光度效果。
+另外，如果启用了金属感，那么调整高光度不会影响材质。
+再次声明，在 <strong>99%</strong> 的情况下，你从不需要启用此值，使用默认值0.5可产生最佳效果。 
+</p><h2 id="在材质中使用光泽度">在材质中使用光泽度</h2>
+<p>你可通过下列步骤使材质具有光泽度。 
+</p><div class="note">
+	<p>本教程将使用项目中包含 <strong>初学者内容包</strong> 时可以找到的内容。如果你未将初学者内容包包括在项目中，请参阅 <div class="errorhighlight" id="Error6">[迁移](Basics/AssetsAndPackages/Migrate)</div>
+内容页面，以了解有关如何在项目之间移动内容的信息。通过这种方法，你可以将初学者内容包添加到项目中，而不必建立新项目。  </p>
+</div><ol ><li class="Default"><p>首先，在 <strong>内容浏览器</strong> 中 <strong>右键单击</strong>，然后在弹出菜单的 <strong>创建基本资源（Create Basic Asset）</strong> 部分中，选择 <strong>材质（Material）</strong>。 
+选择此选项将创建新的材质。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/ShinyMaterials/Create_New_Material.jpg">
+		<img class="  lazyload" alt="Create_New_Material.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/ShinyMaterials/Create_New_Material.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>将材质命名为 <strong>Shiny_Material</strong>，然后在 <strong>内容浏览器</strong> 中使用 <strong>鼠标左键</strong> <strong>双击</strong> 此材质以将其打开。 
+</p></li><li class="Default"><p>打开材质之后，将以下纹理和材质表达式节点添加到材质图中。请注意，此纹理位于初学者内容包的Textures文件夹中。
+</p><ul ><li class="Default"><p><strong>纹理取样：</strong>T_Metal_Gold_D x 1 
+</p></li><li class="Default"><p><strong>纹理取样：</strong>T_Metal_Gold_N x 1
+</p></li><li class="Default"><p><strong>标量参数：</strong> x 3
+</p></li><li class="Default"><p><strong>乘数</strong> x 1
+</p></li></ul><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/ShinyMaterials/Shiny_Required_Nodes.jpg">
+		<img class="  lazyload" alt="Shiny_Required_Nodes.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/ShinyMaterials/Shiny_Required_Nodes.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>放入材质表达式节点后，现在需要对标量参数进行命名并填写默认值。以下是应使用的名称和默认值：
+</p><ul ><li class="Default"><p><strong>金属感（Metallic）：</strong>0
+</p></li><li class="Default"><p><strong>高光度（Specular）：</strong>0.5
+</p></li><li class="Default"><p><strong>粗糙度（Roughness）：</strong>0.5
+</p></li></ul><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/ShinyMaterials/Shiny_Named_Nodes.jpg">
+		<img class="  lazyload" alt="Shiny_Named_Nodes.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/ShinyMaterials/Shiny_Named_Nodes.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>现在，可以开始将所有材质表达式节点连接到主材质节点上相应的输入。完成之后，材质图应该类似于下图：
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/ShinyMaterials/Shiny_Connected_Nodes.jpg">
+		<img class="  lazyload" alt="Shiny_Connected_Nodes.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/ShinyMaterials/Shiny_Connected_Nodes.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>接着，务必单击 <strong>应用（Apply）</strong> 和 <strong>保存（Save）</strong> 按钮，然后关闭材质编辑器。<br /><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Refraction/R_Apply_&_Save.jpg">
+		<img class="  lazyload" alt="R_Apply_&_Save.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Refraction/R_Apply_%26_Save.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>现在，在 <strong>内容浏览器</strong> 中找到 <strong>Shiny_Material</strong>，然后使用鼠标 <strong>右键单击</strong> 它，并从显示的菜单中选择 <strong>创建材质实例（Create Material Instance）</strong> 选项。<br /></p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_115AqnPtp9s_173
+{
+	margin: 0px;
+	width: 640px;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_115AqnPtp9s_173:after
+{
+	content: "";
+	padding-top: 360px;
+	display: block;
+}
+</style> 
+<div>
+<div id="player_115AqnPtp9s_173"><div style="position:absolute;display:block;width:100%;height:100%;"><iframe class="embedded_video" id="115AqnPtp9s" width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/115AqnPtp9s?rel=0&amp;modestbranding=1&amp;showinfo=0" frameborder="0" allowfullscreen></iframe></div></div>
+</div></li><li class="Default"><p>在 <strong>内容浏览器</strong> 中，通过 <strong>鼠标左键</strong> <strong>双击</strong> 打开材质实例。打开后，通过使用 <strong>鼠标左键</strong> 选中灰色的复选框，启用所有 <strong>标量参数值（Scalar Parameter Values）</strong>。 
+<picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/ShinyMaterials/Shiny_Enabled_MI_Properties.jpg">
+		<img class="  lazyload" alt="Shiny_Enabled_MI_Properties.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/ShinyMaterials/Shiny_Enabled_MI_Properties.jpg" />
+</picture>
+
+</p></li></ol><p><strong>标量参数值（Scalar Parameter Values）</strong> 现已启用，将它们设置为不同的值可以影响对象的光泽度。 
+例如，将"金属感（Metallic）"设置为1，然后将"粗糙度（Roughness）"设置为0，可得到像金子一样闪闪发亮的金属。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/ShinyMaterials/Shiny_MI_Metal_Example.jpg">
+		<img class="  lazyload" alt="Shiny_MI_Metal_Example.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/ShinyMaterials/Shiny_MI_Metal_Example.jpg" />
+</picture>
+
+</p><p>如果将"金属感（Metallic）"设置为0，并且将"高光度（Specular）"从0.5更改为1.0，你会得到非常有光泽的黄色塑料。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/ShinyMaterials/Shiny_MI_Plastic_Example.jpg">
+		<img class="  lazyload" alt="Shiny_MI_Plastic_Example.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/ShinyMaterials/Shiny_MI_Plastic_Example.jpg" />
+</picture>
+
+</p><p>如果将"粗糙度（Roughness）"设置为1，并将"高光度（Specular）"设置为1，那么将得到略微反光的黄色涂料。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/ShinyMaterials/Shiny_MI_Paint_Example.jpg">
+		<img class="  lazyload" alt="Shiny_MI_Paint_Example.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/ShinyMaterials/Shiny_MI_Paint_Example.jpg" />
+</picture>
+
+</p><p>如果上述黄色涂料的反光太强，请尝试减小"高光度（Specular）"，直到你满意为止。下列示例显示将"高光度（Specular）"分别设置为0、0.5和1.0时，对材质反射所产生的影响。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/ShinyMaterials/Shiny_Different_Spec_Amounts.jpg">
+		<img class="  lazyload" alt="Shiny_Different_Spec_Amounts.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/ShinyMaterials/Shiny_Different_Spec_Amounts.jpg" />
+</picture>
+
+</p><h2 id="总结">总结</h2>
+<p>使用有光泽度的材质的确可以使你的3D项目更加逼真。 
+但是，就像3D环境中的所有其他对象一样，让材质有光泽需要付出代价。 
+请记住，使用大量彼此反射的金属感对象可能会引起成本高昂的性能问题。 
+并且，请确保不要在材质中完全禁用光泽，这是因为，所有材质都具有一定程度的光泽。
+</p>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Materials">Materials</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/RenderingAndGraphics/Materials/HowTo/ShinyMaterials/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:16:00 GMT -->
+</html>

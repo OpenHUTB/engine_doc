@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/AnimatingObjects/SkeletalMeshAnimation/LiveLinkPlugin/LiveLinkPluginDevelopment/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:31:20 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/AnimatingObjects/SkeletalMeshAnimation/LiveLinkPlugin/LiveLinkPluginDevelopment/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>Live Link插件的开发 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/AnimatingObjects/SkeletalMeshAnimation/LiveLinkPlugin/LiveLinkPluginDevelopment/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/AnimatingObjects/SkeletalMeshAnimation/LiveLinkPlugin/LiveLinkPluginDevelopment/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/AnimatingObjects/SkeletalMeshAnimation/LiveLinkPlugin/LiveLinkPluginDevelopment/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/AnimatingObjects/SkeletalMeshAnimation/LiveLinkPlugin/LiveLinkPluginDevelopment/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Animation/LiveLinkPlugin/LiveLinkPluginDevelopment" />
+<meta name="intsourcechangelist" content="8386203" />
+<meta name="availability" content="Public" />
+<meta name="title" content="Live Link插件的开发" />
+<meta name="description" content="描述开发插件以及将Live Link整合到UE4中的方法。" />
+<meta name="type" content="" />
+<meta name="version" content="4.23" />
+<meta name="parent" content="AnimatingObjects/SkeletalMeshAnimation/LiveLinkPlugin" />
+<meta name="order" content="3" />
+<meta name="keywords" content="Animation, Live Link" />
+<meta name="crumbs" content="%ROOT%,AnimatingObjects,AnimatingObjects/SkeletalMeshAnimation,AnimatingObjects/SkeletalMeshAnimation/LiveLinkPlugin" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="Live Link插件的开发" />
+	<meta property="og:description" content="描述开发插件以及将Live Link整合到UE4中的方法。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">为角色和对象添加动画</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">骨架网格体动画系统</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">Live Link插件</a>
+
+<span class="separator">></span> <span id="page">Live Link插件的开发</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">Live Link插件的开发</h1>
+							</div>	
+							<h2 >描述开发插件以及将Live Link整合到UE4中的方法。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																																			</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																																				<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#livelink源">Live Link源</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#消息总线源">消息总线源</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#使用livelink消息总线框架">使用Live Link消息总线框架</a></p>
+	</li>					</ul>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>Live Link中有两种集成方式： 
+</p><ul ><li class="Default"><p>构建一个虚幻引擎插件并将一个新源公开到Live Link。
+</p></li></ul><p>如果已有自己的流协议，建议使用此方法。
+</p><ul ><li class="Default"><p>将一个消息总线（Message Bus）端点集成到第三方软件中，允许其作为内置消息总线源的数据发送器。
+</p></li></ul><p>针对我们的Maya和Motionbuilder插件，我们采用了此方法。
+</p><div class="warning">
+	<p>如果您的机器中不止一张网卡，且想要指定用来接受数据的网卡，就需要在项目设置中指定<a id="content_link" href="../index.html" ><span><strong>单播断点</strong></span></a>。 </p>
+</div><h2 id="livelink源">Live Link源</h2>
+<p>Live Link源将动画数据提供给Live Link客户端。源插件需要提供以下项目：<br /></p><ul ><li class="Default"><p>源工厂 <code>基类ULiveLinkSourceFactory</code>
+</p></li></ul><p>这是Live Link了解其可使用的源的方式。源工厂必须是一个UObject，并派生自ULiveLinkSourceFactory。此工厂提供各个函数以创建源，并创建自定义编辑器UI以供创建源。源工厂由客户端自动挑选（没有手动注册流程）。
+</p><p>您的源工厂必须覆盖以下函数：
+</p><ul ><li class="Default"><p><code>GetSourceDisplayName</code> - 返回源名称的本地化字符串
+</p></li><li class="Default"><p><code>GetSourceTooltip</code> - 返回源UI提示文本的本地化字符串
+</p></li><li class="Default"><p><code>CreateSourceCreationPanel</code> - 返回要用于创建源的slate控件的参考。
+</p></li><li class="Default"><p><code>OnSourceCreationPanelClosed</code> - 当客户端完成源创建控件时调用此函数。bCreateSource参数告知源工厂是否应使用UI的内容创建源。
+</p></li><li class="Default"><p>源对象（基类ILiveLinkSource）
+</p></li></ul><p>这是管理从外部世界到客户端的数据传输的对象。源必须派生自ILiveLinkSource。它由源工厂创建，负责将动画数据传递到客户端并管理其数据连接生命周期。<br /></p><p>您的源必须覆盖以下函数：
+</p><ul ><li class="Default"><p><code>ReceiveClient</code> - 创建源时调用。
+</p></li><li class="Default"><p><code>IsSourceStillValid</code>
+</p></li><li class="Default"><p><code>RequestSourceShutdown</code> - 调用此函数以要求源关闭。连接清理操作通常发生在此处。如果需要更多时间完全关闭连接，会返回false
+</p></li></ul><p>以下函数由客户端UI使用：
+</p><ul ><li class="Default"><p><code>GetSourceType</code> - 返回代表源类型的本地化字符串
+</p></li><li class="Default"><p><code>GetSourceMachineName</code> - 返回代表源身份的字符串（MachineName、IP地址等）。
+</p></li><li class="Default"><p><code>GetSourceStatus</code> - 返回源状态的本地化字符串
+</p></li></ul><h2 id="消息总线源">消息总线源</h2>
+<p>有关新建源所需条件的示例可在编辑器中找到，方法是在/Engine/Plugins/Animation/LiveLink/Source/LiveLink中查找以下类别：
+</p><ul ><li class="Default"><p><code>FLiveLinkMessageBusSource</code>
+</p></li><li class="Default"><p><code>ULiveLinkMessageBusSourceFactory</code>
+</p></li><li class="Default"><p><code>SLiveLinkMessageBusSourceEditor</code>
+</p></li></ul><p>这些类别组成了Live Link插件中内置的消息总线Live Link源。此消息总线源使用一个自定义消息总线协议，允许第三方应用程序将动画数据传输到引擎。
+</p><h3 id="使用livelink消息总线框架">使用Live Link消息总线框架</h3>
+<p>利用Live Link消息总线框架（像Maya和MotionBuilder插件，软件需要包括虚幻引擎的核心库并创建一个LiveLinkProvider）。 
+</p><pre class="prettyprint"><code>TSharedPtr&lt;ILiveLinkProvider&gt; LiveLinkProvider;
+LiveLinkProvider = ILiveLinkProvider::CreateLiveLinkProvider(TEXT("Maya"));</code></pre>
+<p>这会自动处理与一个或多个虚幻引擎实例的通信。然后软件所要做的就只是使用以下两个函数告知提供程序已流送的数据：<br /></p><ul ><li class="Default"><p><code>UpdateSubject</code> - 向Live Link提供主题的说明（名称和关节层级）。
+</p></li><li class="Default"><p><code>UpdateSubjectFrame</code> - 向Live Link提供有关该主题的数据帧（当前变换、任何我们想要关联的指定浮点参数以及一个时间/帧编号）。
+</p></li></ul><p>此方法的一个示例可在Engine\Source\Programs\MayaLiveLinkPlugin\中找到。</p>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Animation,%20Live%20Link">Animation, Live Link</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/AnimatingObjects/SkeletalMeshAnimation/LiveLinkPlugin/LiveLinkPluginDevelopment/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:31:20 GMT -->
+</html>

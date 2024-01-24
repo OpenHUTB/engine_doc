@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/TestingAndOptimization/ProxyGeoTool/ProxyGeomScripting/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:41:14 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var finishButton = finishButtonTemplate;
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/TestingAndOptimization/ProxyGeoTool/ProxyGeomScripting/" />');
+				var udnCSS = '../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>在蓝图和Python中使用代理几何体工具 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+		    <script  src="../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+		    <script  src="../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/TestingAndOptimization/ProxyGeoTool/ProxyGeomScripting/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/TestingAndOptimization/ProxyGeoTool/ProxyGeomScripting/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/TestingAndOptimization/ProxyGeoTool/ProxyGeomScripting/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/TestingAndOptimization/ProxyGeoTool/ProxyGeomScripting/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/ProxyGeoTool/ProxyGeomScripting" />
+<meta name="intsourcechangelist" content="13814566" />
+<meta name="availability" content="Public" />
+<meta name="title" content="在蓝图和Python中使用代理几何体工具" />
+<meta name="description" content="通过从在虚幻编辑器中运行的蓝图或Python脚本中调用代理几何体工具，自动化你的资源准备工作流程。" />
+<meta name="type" content="how-to" />
+<meta name="skilllevel" content="Intermediate" />
+<meta name="version" content="4.21" />
+<meta name="parent" content="TestingAndOptimization/ProxyGeoTool" />
+<meta name="order" content="" />
+<meta name="keywords" content="Optimization" />
+<meta name="keywords" content="Proxy Geometry Tool" />
+<meta name="crumbs" content="%ROOT%,TestingAndOptimization,TestingAndOptimization/ProxyGeoTool" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="在蓝图和Python中使用代理几何体工具" />
+	<meta property="og:description" content="通过从在虚幻编辑器中运行的蓝图或Python脚本中调用代理几何体工具，自动化你的资源准备工作流程。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">测试并优化你的内容</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">代理几何体工具</a>
+
+<span class="separator">></span> <span id="page">在蓝图和Python中使用代理几何体工具</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">在蓝图和Python中使用代理几何体工具</h1>
+							</div>	
+							<h2 >通过从在虚幻编辑器中运行的蓝图或Python脚本中调用代理几何体工具，自动化你的资源准备工作流程。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Intermediate"><a id="skill_link" href="../../../SiteIndex/index.html?skills=Intermediate">Intermediate</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																																																<p>你可以从蓝图和Python脚本中调用代理几何体工具。这可以帮助你自动化你的资源创建和数据准备管道，组合和简化静态网格体Actor及其来自你在虚幻编辑器中运行的脚本的材质。这可以显著提高渲染性能，但要以一定的视觉精度为代价。
+</p><p>例如，这个车轮组件包含147个单独的静态网格体Actor，总共包含90万个三角形，每个网格体都使用单独的材质。这就给GPU增加了数百次繁重的绘制调用。运行代理几何体工具后，Actor被合并到采用单一材质的单一模型中，可以通过一次绘制调用来渲染。
+</p><!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../../Images/TestingAndOptimization/ProxyGeoTool/ProxyGeomScripting/proxygeom-wheel-before-1.jpg">
+		<img class="  lazyload" alt="运行前：147个静态网格体" data-src="../../../../Images/TestingAndOptimization/ProxyGeoTool/ProxyGeomScripting/proxygeom-wheel-before-1.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../../Images/TestingAndOptimization/ProxyGeoTool/ProxyGeomScripting/proxygeom-wheel-after.jpg">
+		<img class="  lazyload" alt="运行后：1个静态网格体" data-src="../../../../Images/TestingAndOptimization/ProxyGeoTool/ProxyGeomScripting/proxygeom-wheel-after.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div><p>三角形数量也减少了97%。这导致了一些变形，但是你可以调整脚本中的设置，以在简化和视觉质量之间找到适当的平衡。
+</p><p>因为代理几何体工具涉及对你的几何体进行一些相对复杂的转换，并且提供了许多用于控制其操作的设置，所以我们建议你通过编辑器中的UI来开始使用该工具。只有在确信理解了工具及其设置并对预期的效果有了很好的了解之后，才能从脚本中调用它。更多信息请参阅本节中的其他指南。
+</p><div class="note">
+	<p> <strong>先决条件：</strong> 如果还没有这么做，则需要安装编辑器脚本工具插件。有关详情，请参阅<a id="content_link"filter-data="tag_blueprints tag_python tag_scripting" href="../../../ProductionPipelines/ScriptingAndAutomation/index.html" ><span>脚本化和自动化编辑器</span></a>。</p>
+</div><div class="togglesection">
+	<div class="normaltitle">
+	<p>选择实现方法：</p>
+</div><div class="toggleButtons">
+	<!--
+category:paramliteral
+id:paramliteral
+label:paramliteral
+active:paramliteral
+-->
+<div class="btn btn-default btn-toggle BlueprintOrCPPSelect blueprintimplementation active_button" onclick="setSelector('BlueprintOrCPPSelect', 'blueprintimplementation');">
+    <p>Blueprints</p>
+</div><!--
+category:paramliteral
+id:paramliteral
+label:paramliteral
+active:paramliteral
+-->
+<div class="btn btn-default btn-toggle BlueprintOrCPPSelect pythonimplementation " onclick="setSelector('BlueprintOrCPPSelect', 'pythonimplementation');">
+    <p>Python</p>
+</div>
+</div>
+</div><!--
+category:paramliteral
+id:paramliteral
+content:param
+active:paramliteral
+-->
+<div class="button_content BlueprintOrCPPSelect blueprintimplementation active_button_content">
+    <div class="container">
+        <p>代理几何体工具通过 <strong>编辑器关卡库（Editor Level Library）> 创建代理网格体Actor（Create Proxy Mesh Actor）</strong> 节点公开。
+</p><p><picture>
+		<source data-srcset="./../../../../Images/TestingAndOptimization/ProxyGeoTool/ProxyGeomScripting/proxy-scripting-createproxymeshactor.jpg">
+		<img class="  lazyload" alt="Create Proxy Mesh Actor" title="Create Proxy Mesh Actor" data-src="../../../../Images/TestingAndOptimization/ProxyGeoTool/ProxyGeomScripting/proxy-scripting-createproxymeshactor.jpg" />
+</picture>
+
+</p><p>你需要向这个节点提供以下输入：
+</p><ul ><li class="Default"><p>包含要合并的所有静态网格体Actor的数组。注意，这些必须是静态网格体Actor，不是包含静态网格体组件的Actor。
+</p></li><li class="Default"><p><strong>编辑器脚本创建代理网格体Actor选项（Editor Scripting Create Proxy Mesh Actor Options）</strong> 对象，其中包含代理几何体工具使用的设置。此对象公开代理几何体工具的UI中显示的大多数设置。<br />要获取其中一个对象，可以从 <strong>合并选项（Merge Options）</strong> 输入中拖到左边，然后选择 <strong>让编辑器脚本创建代理网格体Actor选项（Make EditorScriptingCreateProxyMeshActorOptions）</strong>。<br /></p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/TestingAndOptimization/ProxyGeoTool/ProxyGeomScripting/proxygeom-script-makeoptions.png" ><span><picture>
+		<source data-srcset="./../../../../Images/TestingAndOptimization/ProxyGeoTool/ProxyGeomScripting/proxygeom-script-makeoptions.jpg">
+		<img class="  lazyload" alt="Make an options object" title="Make an options object" width="600" data-src="../../../../Images/TestingAndOptimization/ProxyGeoTool/ProxyGeomScripting/proxygeom-script-makeoptions.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class=" caption">
+	<p>点击查看大图。</p>
+</div><pre class="prettyprint"><code>使用此对象为代理几何体工具提供设置。许多详细的设置是在另一个对象中提供的，你将该对象传递给 &#42;&#42;网格体代理设置（Mesh Proxy Settings）&#42;&#42; 输入。要获取其中一个对象，请重复上面的操作：从 &#42;&#42;网格体代理设置（Mesh Proxy Settings）&#42;&#42; 输入中向左拖动，然后选择 &#42;&#42;进行网格体代理设置（Make MeshProxySettings）&#42;&#42;。  </code></pre>
+<div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/TestingAndOptimization/ProxyGeoTool/ProxyGeomScripting/proxygeom-script-makemeshsettings.png" ><span><picture>
+		<source data-srcset="./../../../../Images/TestingAndOptimization/ProxyGeoTool/ProxyGeomScripting/proxygeom-script-makemeshsettings.jpg">
+		<img class="  lazyload" alt="创建一个网格体设置对象" title="Make a mesh settings object" height="500" data-src="../../../../Images/TestingAndOptimization/ProxyGeoTool/ProxyGeomScripting/proxygeom-script-makemeshsettings.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class=" caption">
+	<p>点击查看大图。</p>
+</div></li></ul><p>例如，以下代码片段捕获关卡视口和世界大纲视图中当前选中的所有Actor，将它们合并到代理网格体中，将结果保存到使用特定名称和位置的资源，并用新生成的代理资源的单个实例替代关卡中原来的静态网格体Actor。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/TestingAndOptimization/ProxyGeoTool/ProxyGeomScripting/proxygeom-scripting-example.png" ><span><picture>
+		<source data-srcset="./../../../../Images/TestingAndOptimization/ProxyGeoTool/ProxyGeomScripting/proxygeom-scripting-example.jpg">
+		<img class="  lazyload" alt="代理几何体蓝图示例" title="Proxy Geometry Blueprint example" width="700" data-src="../../../../Images/TestingAndOptimization/ProxyGeoTool/ProxyGeomScripting/proxygeom-scripting-example.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p><em>点击查看大图。</em></p>
+</div>
+
+    </div>
+</div><!--
+category:paramliteral
+id:paramliteral
+content:param
+active:paramliteral
+-->
+<div class="button_content BlueprintOrCPPSelect pythonimplementation ">
+    <div class="container">
+        <p>代理几何体工具通过 <code>unreal.EditorLevelLibrary.create&#95;proxy&#95;mesh&#95;actor()</code> 函数公开。你需要将此函数传递到以下参数：
+</p><ul ><li class="Default"><p>包含要合并的所有静态网格体Actor的数组。注意，这些必须是静态网格体Actor，不是包含静态网格体组件的Actor。
+</p></li><li class="Default"><p><code>unreal.EditorScriptingCreateProxyMeshActorOptions</code> 对象，其中包含代理几何体工具使用的设置。此对象公开代理几何体工具的UI中显示的大多数设置。你需要创建其中一个对象并设置它的属性。
+</p></li></ul><p>例如，以下代码片段捕获关卡中的所有静态网格体Actor，将它们合并到代理网格体中，将结果保存到名为代理（Proxy）的资源，并用该代理资源的单个实例取代关卡中原来的静态网格体Actor。
+</p><pre class="prettyprint"><code>import unreal
+actors = unreal.EditorLevelLibrary.get&#95;selected&#95;level&#95;actors()
+merge&#95;options = unreal.EditorScriptingCreateProxyMeshActorOptions()
+merge&#95;options.base&#95;package&#95;name = "/Game/Proxy"
+merge&#95;options.destroy&#95;source&#95;actors = False
+merge&#95;options.new&#95;actor&#95;label = "Proxy"
+merge&#95;options.spawn&#95;merged&#95;actor = True
+merge&#95;options.mesh&#95;proxy&#95;settings.set&#95;editor&#95;property("allow&#95;adjacency", False)
+merge&#95;options.mesh&#95;proxy&#95;settings.set&#95;editor&#95;property("allow&#95;distance&#95;field", False)
+merge&#95;options.mesh&#95;proxy&#95;settings.set&#95;editor&#95;property("allow&#95;vertex&#95;colors", False)
+merge&#95;options.mesh&#95;proxy&#95;settings.set&#95;editor&#95;property("calculate&#95;correct&#95;lod&#95;model", True)
+merge&#95;options.mesh&#95;proxy&#95;settings.set&#95;editor&#95;property("compute&#95;light&#95;map&#95;resolution", True)
+merge&#95;options.mesh&#95;proxy&#95;settings.set&#95;editor&#95;property("create&#95;collision", False)
+merge&#95;options.mesh&#95;proxy&#95;settings.set&#95;editor&#95;property("generate&#95;lightmap&#95;u&#95;vs", True)
+merge&#95;options.mesh&#95;proxy&#95;settings.set&#95;editor&#95;property("merge&#95;distance", 1.0)
+merge&#95;options.mesh&#95;proxy&#95;settings.set&#95;editor&#95;property("voxel&#95;size", 0.1)
+merged&#95;actor = unreal.EditorLevelLibrary.create&#95;proxy&#95;mesh&#95;actor(actors, merge&#95;options)</code></pre>
+
+
+    </div>
+</div>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../SiteIndex/index.html?tags=Optimization">Optimization</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../SiteIndex/index.html?tags=Proxy%20Geometry%20Tool">Proxy Geometry Tool</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/TestingAndOptimization/ProxyGeoTool/ProxyGeomScripting/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:41:21 GMT -->
+</html>

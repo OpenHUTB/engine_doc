@@ -1,0 +1,1180 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:18:59 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>影视级景深方法 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Rendering/PostProcessEffects/DepthOfField/CinematicDOFMethods" />
+<meta name="intsourcechangelist" content="15587894" />
+<meta name="title" content="影视级景深方法" />
+<meta name="description" content="以下景深方法具有影视级视觉效果，十分接近使用延迟渲染路径的桌面及主机平台上照片和电影的效果。" />
+<meta name="availability" content="Public" />
+<meta name="version" content="4.23" />
+<meta name="parent" content="RenderingAndGraphics/PostProcessEffects/DepthOfField" />
+<meta name="order" content="1" />
+<meta name="type" content="overview" />
+<meta name="keywords" content="Post Process" />
+<meta name="keywords" content="Depth of Field" />
+<meta name="topic-image" content="DOF_Cine_Topic.png" />
+<meta name="crumbs" content="%ROOT%,RenderingAndGraphics,RenderingAndGraphics/PostProcessEffects,RenderingAndGraphics/PostProcessEffects/DepthOfField" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="影视级景深方法" />
+	<meta property="og:description" content="以下景深方法具有影视级视觉效果，十分接近使用延迟渲染路径的桌面及主机平台上照片和电影的效果。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">设计视觉、渲染和图形效果</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">后期处理特效</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">景深</a>
+
+<span class="separator">></span> <span id="page">影视级景深方法</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">影视级景深方法</h1>
+							</div>	
+							<h2 >以下景深方法具有影视级视觉效果，十分接近使用延迟渲染路径的桌面及主机平台上照片和电影的效果。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																																			</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																																				<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#过场动画">过场动画</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#对焦拍摄对象">对焦拍摄对象</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#孔径">孔径</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#焦距">焦距</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#对焦距离">对焦距离</a></p>
+	</li>					</ul>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#程序化光圈模拟">程序化光圈模拟</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#光圈叶片数量">光圈叶片数量</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#孔径和最大孔径">孔径和最大孔径</a></p>
+	</li>					</ul>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#影视级景深设置">影视级景深设置</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#影视级摄像机">影视级摄像机</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#后期处理体积和摄像机actor">后期处理体积和摄像机Actor</a></p>
+	</li>					</ul>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#对优化有用的控制台变量">对优化有用的控制台变量</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#散景景深方式（旧版）">散景景深方式（旧版）</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#散景景深的自适应景深">散景景深的自适应景深</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#散景景深设置">散景景深设置</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#外部资源">外部资源</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>以下景深方法具有影视级视觉效果，十分接近使用延迟着色渲染器和群集前向渲染器的桌面及主机平台上照片和电影的效果。
+</p><h2 id="过场动画">过场动画</h2>
+<p>类似于圆圈景深和散景景深，"影视级"景深的效果跟真实摄像机不相上下，你可以在锐化<a id="content_link"filter-data="tag_rendering" href="../../../HDRDisplayOutput/index.html" ><span>高动态范围</span></a> (HDR)内容中看到圆形散景（离焦区域）。此方法使用程序化散景模拟技术，具有动态分辨率稳定性和阿尔法通道支持，在桌面和主机上开发的项目还具有更快速、可扩展和性能优化等特性。
+</p><!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/DOF_CINE_Disabled.jpg">
+		<img class="  lazyload" alt="Depth of Field Disabled" width="750" data-src="../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/DOF_CINE_Disabled.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/DOF_CINE_Enabled.jpg">
+		<img class="  lazyload" alt="Cinematic Depth of Field" width="750" data-src="../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/DOF_CINE_Enabled.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div><h3 id="对焦拍摄对象">对焦拍摄对象</h3>
+<p>实现美学意义上宜人景深效果的关键在于对焦拍摄对象。对于特定拍摄情形，影响景深设置的核心因素有三个：
+</p><ul ><li class="Default"><p>确定镜头要使用的 <strong>焦距（Focal Length）</strong>。
+</p></li><li class="Default"><p>选择合适的 <strong>孔径（Aperture）</strong>（F值）。
+</p></li><li class="Default"><p>选择拍摄对象与摄像机之间的 <strong>对象距离（Distance to your Subject）</strong>。
+</p></li></ul><p>为了理解调整这些设置时会产生怎样的效果，我们来分析一下构成摄像机和拍摄场景的各个要素：
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/CamerElementsDiagram.jpg">
+		<img class="  lazyload" alt="CamerElementsDiagram.png" title="CamerElementsDiagram.png" width="1000" data-src="../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/CamerElementsDiagram.jpg" />
+</picture>
+
+</p><ol ><li class="Default"><p>场景中的各个点
+1.红点：未对焦
+</p><p>1.蓝点：正好对焦
+</p><p>1.绿点：未完全对焦
+</p></li><li class="Default"><p>到拍摄对象的对焦距离（1. ii）
+</p></li><li class="Default"><p>摄像机镜头
+</p></li><li class="Default"><p>镜头光圈（F值）
+</p></li><li class="Default"><p>镜头焦距
+</p></li><li class="Default"><p>胶片背板/图像传感器
+</p></li><li class="Default"><p>最终图像结果
+</p></li></ol><div class="note">
+	<p>注意：右侧的渲染图像已通过摄像机镜头反转。红色是后景的一部分，离焦程度较大，绿色是前景的一部分，略微离焦。</p>
+</div><p>上面的几个点（1）分别代表摄像机在既定 <strong>对焦距离（Focus Distance）</strong> （2）下采集的对象，即本例中的蓝色对象。<strong>孔径（Aperture）</strong> （4）定义如何呈现前景和后景中离焦的模糊对象，最后，镜头的 <strong>焦距（Focal Length）</strong> （5）用于控制视野或图像大小。
+</p><h4 id="孔径">孔径</h4>
+<p><strong>孔径（Aperture）</strong> 根据 <strong>光圈（Diaphragm）</strong> 直径（由F值控制）确定前景和后景的锐化和虚化程度。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/CameraElements_ApertureDiagram.jpg">
+		<img class="  lazyload" alt="CameraElements_ApertureDiagram.png" title="CameraElements372029427ApertureDiagram.png" width="1000" data-src="../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/CameraElements_ApertureDiagram.jpg" />
+</picture>
+
+</p><ol ><li class="Default"><p>摄像机镜头
+</p></li><li class="Default"><p>镜头的孔径光圈（以F值计）
+</p></li></ol><p>上图演示了阻挡光线通过 <strong>镜头（Lens）</strong> （1）的 <strong>光圈（Diaphragm）</strong> （2）。孔径（或F值）大小确定可通过镜头的光线数量，进而根据拍摄焦距控制前景和后景虚化程度。
+</p><p>孔径由两个因素确定：<strong>F值（F-stop）</strong> 和 <strong>光圈（Diaphragm）</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/CameraApertureParts1.jpg">
+		<img class="  lazyload" alt="CameraApertureParts1.png" width="1000" data-src="../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/CameraApertureParts1.jpg" />
+</picture>
+
+</p><ol ><li class="Default"><p><strong>孔径（Aperture）</strong> 是光线可通过的开口直径。焦距除以 <strong>F值（F-stop）</strong> 就是孔径。
+</p></li><li class="Default"><p>**光圈（Diaphragm）是由用于阻挡光线的多个叶片构成的机械结构。它根据提供的F值开关叶片。
+</p></li></ol><p>镜头的孔径由光圈直径确定，随着F值增加，孔径减小，从而控制景深效果的深浅。请参阅<a id="content_link" href="#对焦距离" ><span>对焦距离</span></a>中对该效果的图解。
+</p><p>为了演示孔径的工作原理，请拖动滑块来改变F值，分别为1.4、2.8和5.6。F值越小，景深越浅，后景和前景就越模糊。F值越大，景深越深，后景和前景锐化程度就越高。
+</p><div class="note">
+	<p>注意，此处只改变了F值，对焦距离和焦距保持不变，分别为7米和75毫米。</p>
+</div><!--
+id:paramliteral
+max:paramliteral
+ext:paramliteral
+caption:paramliteral
+image_list:param
+-->
+<div class="slider_container" id="DOFApertureDiagram">
+    <div id="DOFApertureDiagram_Image"></div>
+    <div class="slider"></div>
+	    <div id="images" class="hidden">
+        <p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/CameraElement_Aperture_1_4.jpg">
+		<img class="  lazyload" alt="CameraElement_Aperture_1_4.png" width="1000" data-src="../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/CameraElement_Aperture_1_4.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/CameraElement_Aperture_2_8.jpg">
+		<img class="  lazyload" alt="CameraElement_Aperture_2_8.png" width="1000" data-src="../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/CameraElement_Aperture_2_8.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/CameraElement_Aperture_5_6.jpg">
+		<img class="  lazyload" alt="CameraElement_Aperture_5_6.png" width="1000" data-src="../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/CameraElement_Aperture_5_6.jpg" />
+</picture>
+</p>
+    </div>
+</div><div class="caption">
+	<p>拖动滑块来改变孔径F值。</p>
+</div><div class="note">
+	<p>通常，当你调整真实摄像机的孔径设置时，必须同时调整曝光设置才能让胶片背板/图像传感器收到相同的光强度。但是，虚幻引擎4中的摄像机并不是真实摄像机，所以调整F值和光圈并不会控制光强度。</p>
+</div><h4 id="焦距">焦距</h4>
+<p><strong>焦距（Focal Length）</strong> 是指从镜头中心到 <strong>胶片背板（Filmback）</strong>（或图像传感器）的距离（以毫米计）。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/CameraElements_FocalLengthDiagram.jpg">
+		<img class="  lazyload" alt="CameraElements_FocalLengthDiagram.png" title="CameraElements372029427FocalLengthDiagram.png" width="1000" data-src="../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/CameraElements_FocalLengthDiagram.jpg" />
+</picture>
+
+</p><ol ><li class="Default"><p>摄像机镜头
+</p></li><li class="Default"><p>焦距
+</p></li></ol><p>为了演示焦距的工作原理，请拖动滑块来改变镜头焦距，分别为50毫米、75毫米和100毫米。请注意它如何有效地改变拍摄视野(FOV)；随着焦距增大，视野会变小。可以把焦距想象成类似于用摄像机放大，只是这样做的时候，后景和前景的离焦区域变得更加明显。下例中，当焦距在50mm到100mm之间变化时可以看到这种情况；这个镜头在整个前景中大部分都是对焦的，但当使用100mm焦距时，更容易发现后景离焦更多，前景也有最小的模糊量。
+</p><div class="note">
+	<p>注意，此处的图解和示例只更改了镜头焦距；对焦距离和F值保持不变，分别为7米和f/2.8。</p>
+</div><!--
+id:paramliteral
+max:paramliteral
+ext:paramliteral
+caption:paramliteral
+image_list:param
+-->
+<div class="slider_container" id="FocalLengthImageSeq">
+    <div id="FocalLengthImageSeq_Image"></div>
+    <div class="slider"></div>
+	    <div id="images" class="hidden">
+        <p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/CameraElements_FocalLength_50mm.jpg">
+		<img class="  lazyload" alt="CameraElements_FocalLength_50mm.png" width="1000" data-src="../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/CameraElements_FocalLength_50mm.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/CameraElements_FocalLength_75mm.jpg">
+		<img class="  lazyload" alt="CameraElements_FocalLength_75mm.png" width="1000" data-src="../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/CameraElements_FocalLength_75mm.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/CameraElements_FocalLength_100mm.jpg">
+		<img class="  lazyload" alt="CameraElements_FocalLength_100mm.png" width="1000" data-src="../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/CameraElements_FocalLength_100mm.jpg" />
+</picture>
+</p>
+    </div>
+</div><h4 id="对焦距离">对焦距离</h4>
+<p><strong>对焦距离（Focus Distance）</strong> 是指从摄像机镜头中心到对焦的拍摄对象的距离，二者形成一个聚焦平面。摄像机离拍摄对象越近，位于焦点外的后景区域就越大。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/CameraElements_FocusDistanceDiagram-1.jpg">
+		<img class="  lazyload" alt="CameraElements_FocusDistanceDiagram-1.png" title="CameraElements372029427FocusDistanceDiagram-1.png" width="1000" data-src="../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/CameraElements_FocusDistanceDiagram-1.jpg" />
+</picture>
+
+</p><ol ><li class="Default"><p>场景中的各个焦点
+</p><ol ><li class="Default"><p>红点：未对焦
+</p></li><li class="Default"><p>蓝点：正好对焦
+</p></li><li class="Default"><p>绿点：未完全对焦
+</p></li></ol></li><li class="Default"><p>到对象(1b)的对焦距离
+</p></li><li class="Default"><p>摄像机镜头
+</p></li></ol><p>上图展示了组成场景的各个不同对象（1）：后景、拍摄对象和前景。从镜头（3）到聚焦对象（2）的距离（即本例中的蓝点）就是对焦距离。后景和前景中区域的虚化程度取决于摄像机的F值和焦距设置。
+</p><p>使用 <strong>视口（Viewport）</strong> 中的 <strong>显示（Show）</strong> 下拉菜单，选择 <strong>高级（Advanced）</strong> > <strong>景深图层（Depth of Field Layers）</strong>，可以可视化景深图层。在本例中，绿色代表前景对象，黑色代表聚焦对象的区域，蓝色代表后景对象。<br /></p><!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/1_DepthOfFieldVisualization_2.jpg">
+		<img class="  lazyload" alt="Rendered Scene" width="1000" data-src="../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/1_DepthOfFieldVisualization_2.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/1_DepthOfFieldVisualization_1.jpg">
+		<img class="  lazyload" alt="Depth of Field Layers Visualization" width="1000" data-src="../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/1_DepthOfFieldVisualization_1.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div><p>为了演示对焦距离的工作原理，请拖动滑块来改变对焦距离，分别为4米、7米和10米。调整对焦距离也会改变场景的聚焦平面（紫色虚线），它用于指示拍摄的聚焦区域位置。图中的蓝色参考点使用角色作为这里的聚焦对象，这样，当摄像机将拍摄焦点（上面的黑色/灰色区域）移动到场景的不同部分时，前景和后景中的对象也会移动。最初，对焦距离为4米时，前景中的警车正好处于对焦区域，而后景中的角色处于离焦区域。图中的蓝色参考点在胶片背板前交叉形成焦点，说明了这一点。当对焦距离为7米时，角色正好处于对焦区域，而后景和前景对象处于离焦区域。当对焦距离为10米时，路障正好处于对焦区域，而前景中的角色和警车处于离焦区域。图中的蓝色参考点说明了这一点，因为交叉点超出胶片背板。通过这样改变对焦距离，景深效果会增强或减弱，具体取决于对象位于前景还是后景中。
+</p><div class="note">
+	<p>注意，此处只改变了对焦距离，F值和焦距保持不变，分别为f/1.4和75毫米。</p>
+</div><!--
+id:paramliteral
+max:paramliteral
+ext:paramliteral
+caption:paramliteral
+image_list:param
+-->
+<div class="slider_container" id="FocalLengthSlider">
+    <div id="FocalLengthSlider_Image"></div>
+    <div class="slider"></div>
+	    <div id="images" class="hidden">
+        <p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/FocusDistance_4m-2.jpg">
+		<img class="  lazyload" alt="FocusDistance_4m-2.png" width="1000" data-src="../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/FocusDistance_4m-2.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/FocusDistance_7m-2.jpg">
+		<img class="  lazyload" alt="FocusDistance_7m-2.png" width="1000" data-src="../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/FocusDistance_7m-2.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/FocusDistance_10m-3.jpg">
+		<img class="  lazyload" alt="FocusDistance_10m-3.png" width="1000" data-src="../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/FocusDistance_10m-3.jpg" />
+</picture>
+</p>
+    </div>
+</div><h3 id="程序化光圈模拟">程序化光圈模拟</h3>
+<p>景深的作用是突出场景中对焦对象的重要性。但离焦区域同样很重要。通过调整光圈叶片的数量和曲度，你可以从美学意义上控制散景（离焦区域）形状，从而让虚幻引擎4的景深模拟镜头光圈。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/DoFShot3.jpg">
+		<img class="  lazyload" alt="DoFShot3.png" width="1000" data-src="../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/DoFShot3.jpg" />
+</picture>
+
+</p><p>出于性能考虑，当引擎可扩展性（Engine Scalability）设置为Epic和影视级（Cinematic）时才支持光圈模拟。低质量设置会导致回退到同等面积的圆形散景形状，以确保实现自动曝光功能之类的行为，反之会禁用光圈叶片模拟。
+</p><h4 id="光圈叶片数量">光圈叶片数量</h4>
+<p><strong>光圈</strong>（虹膜）是由叶片组成的一种机制，通过调整叶片可以从美学上体现散景形状的效果。使用的叶片数量偏少会产生多边形光圈，反之，使用的叶片数量较多则可以改善光圈曲度，让离焦散景显得更加圆滑，呈现更自然的效果。
+</p><!--
+id:paramliteral
+max:paramliteral
+ext:paramliteral
+caption:paramliteral
+image_list:param
+-->
+<div class="slider_container" id="NumberDiaphragmBlades-1">
+    <div id="NumberDiaphragmBlades-1_Image"></div>
+    <div class="slider"></div>
+	    <div id="images" class="hidden">
+        <p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/Blades_4-2.jpg">
+		<img class="  lazyload" alt="Blades_4-2.png" width="1000" data-src="../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/Blades_4-2.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/Blades_5-2.jpg">
+		<img class="  lazyload" alt="Blades_5-2.png" width="1000" data-src="../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/Blades_5-2.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/Blades_8-2.jpg">
+		<img class="  lazyload" alt="Blades_8-2.png" width="1000" data-src="../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/Blades_8-2.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/Blades_16-2.jpg">
+		<img class="  lazyload" alt="Blades_16-2.png" width="1000" data-src="../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/Blades_16-2.jpg" />
+</picture>
+</p>
+    </div>
+</div><p>当<a id="content_link" href="http://www.linktomaxaperturesectionofpage.com/" ><span>最大孔径</span></a>增大时（最小F值减小），光圈叶片的数量会直接影响散景的形状。
+</p><!--
+id:paramliteral
+max:paramliteral
+ext:paramliteral
+caption:paramliteral
+image_list:param
+-->
+<div class="slider_container" id="NumberofDiaphragmBlades-2">
+    <div id="NumberofDiaphragmBlades-2_Image"></div>
+    <div class="slider"></div>
+	    <div id="images" class="hidden">
+        <p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/Diaphragm_4_Zoomed-1.jpg">
+		<img class="  lazyload" alt="Diaphragm_4_Zoomed-1.png" data-src="../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/Diaphragm_4_Zoomed-1.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/Diaphragm_5_Zoomed-1.jpg">
+		<img class="  lazyload" alt="Diaphragm_5_Zoomed-1.png" data-src="../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/Diaphragm_5_Zoomed-1.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/Diaphragm_8_Zoomed-2.jpg">
+		<img class="  lazyload" alt="Diaphragm_8_Zoomed-2.png" data-src="../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/Diaphragm_8_Zoomed-2.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/Diaphragm_16_Zoomed-3.jpg">
+		<img class="  lazyload" alt="Diaphragm_16_Zoomed-3.png" data-src="../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/Diaphragm_16_Zoomed-3.jpg" />
+</picture>
+</p>
+    </div>
+</div><h4 id="孔径和最大孔径">孔径和最大孔径</h4>
+<p><strong>孔径（Aperture）</strong> 是镜头的开口大小，由 <strong>光圈（Diaphragm）</strong> 直径（以 F值计）控制。允许通过镜头的光线数量由孔径大小进行控制。调整孔径大小可以设置对焦平面，从而调整聚焦区域外区域的对焦或不对焦。
+</p><p>下图展示了孔径大小（F值）、最大孔径（最小F值）与景深效果之间的关系。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/ApertureRange.jpg">
+		<img class="  lazyload" alt="ApertureRange.png" title="ApertureRange.png" width="1000" data-src="../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/ApertureRange.jpg" />
+</picture>
+
+</p><p>大孔径（小F值）的对焦区域较浅，导致前景和后景的离焦效果更强烈。小孔径（大F值）的对焦区域更宽，因此可将更多对象囊括在前景和后景中。
+</p><!--
+id:paramliteral
+max:paramliteral
+ext:paramliteral
+caption:paramliteral
+image_list:param
+-->
+<div class="slider_container" id="ApertureComparison">
+    <div id="ApertureComparison_Image"></div>
+    <div class="slider"></div>
+	    <div class="caption">
+        <b><p>孔径F值：1.4、2.0、2.8、4.0、5.6、8.0</p></b>
+    </div>
+	    <div id="images" class="hidden">
+        <p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/ApertureStop_1_4.jpg">
+		<img class="  lazyload" alt="ApertureStop_1_4.png" data-src="../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/ApertureStop_1_4.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/ApertureStop_2_0.jpg">
+		<img class="  lazyload" alt="ApertureStop_2_0.png" data-src="../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/ApertureStop_2_0.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/ApertureStop_2_8.jpg">
+		<img class="  lazyload" alt="ApertureStop_2_8.png" data-src="../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/ApertureStop_2_8.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/ApertureStop_4_0.jpg">
+		<img class="  lazyload" alt="ApertureStop_4_0.png" data-src="../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/ApertureStop_4_0.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/ApertureStop_5_6.jpg">
+		<img class="  lazyload" alt="ApertureStop_5_6.png" data-src="../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/ApertureStop_5_6.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/ApertureStop_8_0.jpg">
+		<img class="  lazyload" alt="ApertureStop_8_0.png" data-src="../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/ApertureStop_8_0.jpg" />
+</picture>
+</p>
+    </div>
+</div><p>孔径的最小尺寸并无限制，但最大只能达到镜头的最大尺寸大小。<strong>最大孔径（Maximum Aperture）</strong>（以F值计）可确定镜头的大小。同时，它利用限制孔径可打开的大小，确定了组成光圈的叶片的曲度；限制孔径的大小会缩小有效对焦区域，从而限制离焦区域的范围。
+</p><!--
+id:paramliteral
+max:paramliteral
+ext:paramliteral
+caption:paramliteral
+image_list:param
+-->
+<div class="slider_container" id="MaxApertureExample">
+    <div id="MaxApertureExample_Image"></div>
+    <div class="slider"></div>
+	    <div class="caption">
+        <b><p>最大孔径值不同的5个光圈叶片</p></b>
+    </div>
+	    <div id="images" class="hidden">
+        <p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/MaxApertureAndBokeh_1_4.jpg">
+		<img class="  lazyload" alt="MaxApertureAndBokeh_1_4.png" data-src="../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/MaxApertureAndBokeh_1_4.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/MaxApertureAndBokeh_2_0.jpg">
+		<img class="  lazyload" alt="MaxApertureAndBokeh_2_0.png" data-src="../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/MaxApertureAndBokeh_2_0.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/MaxApertureAndBokeh_2_8.jpg">
+		<img class="  lazyload" alt="MaxApertureAndBokeh_2_8.png" data-src="../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/MaxApertureAndBokeh_2_8.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/MaxApertureAndBokeh_4_0.jpg">
+		<img class="  lazyload" alt="MaxApertureAndBokeh_4_0.png" data-src="../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/MaxApertureAndBokeh_4_0.jpg" />
+</picture>
+</p>
+    </div>
+</div><p>在本例中，<strong>光圈叶片数量（Number of Diaphragm Blades）</strong>设置为5。孔径值越小，散景形状中的光圈叶片显得越明显。孔径值越大（F值=最小F值），散景形状就会变得越圆滑。
+</p><p>在本例中，Cine Camera Actor的各值设置如下：
+</p><ul ><li class="Default"><p><strong>最小F值（Min F-Stop）</strong>：1.4
+</p></li><li class="Default"><p><strong>最大F值（Max F-Stop）</strong>：4.0
+</p></li><li class="Default"><p><strong>光圈叶片数（Diaphragm Blade Count）</strong>：5
+</p></li><li class="Default"><p><strong>当前孔径（Current Aperture）</strong>：1.4 - 4.0
+</p></li></ul><p>在设置为这些值的情况下，F值只能接受 <strong>1.4</strong> 和 <strong>4.0</strong> 之间的值。由于F值越大（孔径越小），景深效果越宽，所以散景形状中的光圈叶片越明显。
+</p><div class="note">
+	<p>注意，孔径并不能控制光强度。该选择已确定，所以你不必像使用物理摄像机一样频繁地调整曝光值。</p>
+</div><h3 id="影视级景深设置">影视级景深设置</h3>
+<h4 id="影视级摄像机">影视级摄像机</h4>
+<p>以下设置仅适用于<a id="content_link"filter-data="tag_sequencer" href="../../../../AnimatingObjects/Sequencer/HowTo/CineCameraActors/index.html" ><span>影视级摄像机Actor</span></a>。请注意，你还可以访问摄像机（Camera）和景深（Depth of Field）设置。
+</p><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>属性 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>说明 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="2" align="">
+			<p><strong>胶片背板设置（Filmback Settings）</strong></p>
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>传感器宽度（Sensor Width）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>设置胶片背板或数字传感器的水平尺寸（以毫米计）。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="2" align="">
+			<p><div class="tablesection">
+	<p> 镜头设置 </p>
+</div></p>
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>最小焦距（Min Focal Length）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>设置镜头的最小焦距（以毫米计）。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>最大焦距（Max Focal Length）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>设置镜头的最大焦距（以毫米计）。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>最小F值（Min FStop）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>镜头的最大孔径。例如，f/2.8镜头的最大孔径为2.8。此设置还可以确定光圈叶片的曲度。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>最大F值（Max FStop）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>镜头的最小孔径。例如，f/8.0镜头的最大孔径为8.0。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>光圈叶片数（Diaphragm Blade Count）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>组成光圈机制的叶片数量。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="2" align="">
+			<p><div class="tablesection">
+	<p> 对焦设置 </p>
+</div></p>
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>对焦方式（Focus Method）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>选择要使用的摄像机焦距： <br /></p><ul ><li class="Default"><p><strong>无（None）：</strong> 完全禁用景深。
+</p></li><li class="Default"><p><strong>手动（Manual）：</strong>允许指定或动画化精确的对焦距离。<br /></p></li><li class="Default"><p><strong>追踪（Tracking）：</strong>将焦点锁定为镜头中的特定对象。
+</p></li></ul>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>手动对焦距离（Manual Focus Distance）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>设置手动控制的对焦距离。只有当 <strong>对焦方式（Focus Method）</strong> 设置为 <strong>手动（Manual）</strong> 时才能使用此选项。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>绘制调试聚焦平面（Draw Debug Focus Plane）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>启用后可在当前聚焦深度绘制一个半透明平面。这样就能以可视化方式来跟踪拍摄的焦点。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>调试对焦平面颜色（Debug Focus Plane Color）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>启用后可设置 <strong>绘制调试对焦平面（Draw Debug Focus Plane）</strong> 的颜色。**</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>平滑对焦变化（Smooth Focus Changes）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>启用后可使用插值来消除对焦距离的变化。如果禁用，对焦变化将在瞬间完成。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>对焦平滑插值速度（Focus Smoothing Interp Speed）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>控制平滑处理对焦距离时的插值速度。若未启用 <strong>平滑对焦变化（Smooth Focus Changes）</strong>，则忽略此选项。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>对焦偏差（Focus Offset）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>此设置可以额外增加对焦深度偏差，可用于在选定的对焦方式需要调整时进行手动调整。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>当前焦距（Current Focal Length）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>控制摄像机的当前焦距，以便控制视野（FOV）和缩放。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>当前孔径（Current Aperture）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>基于F值设置当前孔径大小。注意，此设置仅接受 <strong>最小F值（Min FStop）</strong> 到 <strong>最大F值（Max FStop）</strong> 范围内的值。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>当前对焦距离（Current Focal Distance）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>显示 <strong>对焦设置（Focus Settings）</strong> 使用的一个只读值。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>当前水平视野（Current Horizontal FOV）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>显示 <strong>当前焦距（Current Focal Length）</strong> 和 <strong>胶片背板设置（Filmback Settings）</strong> 使用的一个只读值。</p>
+			</td>
+	
+</tr></tbody>
+</table><h4 id="后期处理体积和摄像机actor">后期处理体积和摄像机Actor</h4>
+<p>以下设置在<a id="content_link"filter-data="tag_sequencer" href="../../../../AnimatingObjects/Sequencer/HowTo/CineCameraActors/index.html" ><span>过场动画摄像机</span></a>、<a id="content_link" href="../../../../Basics/Actors/CameraActors/index.html" ><span>摄像机</span></a>和<a id="content_link"filter-data="tag_rendering" href="../../index.html" ><span>后期处理体积</span></a>中可用。
+</p><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>属性 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>说明 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><div class="tablesection">
+	<p> 摄像机设置 </p>
+</div></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>孔径（F值）（Aperture (F-stop)）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>定义摄像机镜头的开口大小。一般镜头的孔径为1/f-stop到f/1.2（开口更大）。孔径越大，景深效果越差。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>最大孔径（最小F值）（Maximum Aperture (minimum f-stop)）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>定义摄像机镜头的最大开口大小，用以控制光圈曲度。将该值设置为0可得到直叶片。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>光圈叶片数（Number of Diaphragm Blades）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>定义镜头中光圈叶片的数量。可使用4到16之间的值。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><div class="tablesection">
+	<p> 景深设置 </p>
+</div></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>对焦距离（Focal Distance）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>景深效果锐化的距离。该值以虚幻单位（厘米）衡量。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>50%景深虚化半径（Depth Blur km for 50%）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>定义以景深虚化半径的一半对像素进行虚化处理的距离。该设置在低成本模拟大气散射时特别有效。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>景深虚化半径（Depth Blur Radius）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>半径像素为1080p，可根据与摄像机的距离进行应用，从而模拟大气散射。</p>
+			</td>
+	
+</tr></tbody>
+</table><h3 id="对优化有用的控制台变量">对优化有用的控制台变量</h3>
+<p>景深的问题在于当内容不同以及它的使用在艺术上的重要程度不同，它的值就会不同。为此，景深实现提供了许多可根据平台进行自定义的控制台变量，以便开发人员更好地控制分配的绩效预算。 
+</p><p>下面是可用于绑定影视级景深性能的部分控制台变量。
+</p><ul ><li class="Default"><p><strong>r.DOF.Kernel.MaxBackgroundRadius：</strong>水平屏幕空间中后景虚化半径的最大大小。
+</p></li><li class="Default"><p><strong>r.DOF.Kernel.MaxForegroundRadius：</strong>水平屏幕空间中前景虚化半径的最大大小。
+</p></li><li class="Default"><p><strong>r.DOF.Scatter.MaxSpriteRatio：</strong>作为sprite的散射像素块的最大比例。可用于控制景深的散射上边界。
+</p></li></ul><div class="note">
+	<p>注意，这些是比较容易上手的变量，其他控制台变量可以在 <strong>r.DOF.</strong> 下找到。</p>
+</div><h2 id="散景景深方式（旧版）">散景景深方式（旧版）</h2>
+<div class="warning">
+	<p>对于延迟渲染器和桌面前向渲染器，虚幻引擎4.21已弃用该景深方法。在虚幻引擎4.23版中，散景景深已被从引擎和源代码中移除。如果使用4.22或4.21版，散景景深已被延迟桌面渲染器和前向渲染路径弃用。</p>
+</div><p><strong>散景</strong> 景深是指当对象未对焦时，照片或电影中可看到的形状的名称。此方法使用用户制定的纹理为每个像素渲染一个纹理块，从而定义用于重现摄像机镜头效果的形状。
+</p><p>该实现仅使用一半分辨率来执行这一密集效果。它凭借使用自适应景深（Adaptive Depth of Field），在不太关注效果的区域尽量节省渲染性能。散景景深比虚幻引擎4中的其他景深方式成本更高，这使其成为电影制片和作品展示的首选方式，因为在这些情形下，赏心悦目的视觉效果往往比性能更加重要。
+</p><!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/DOF_Bokeh_Disabled.jpg">
+		<img class="  lazyload" alt="Depth of Field Disabled" data-src="../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/DOF_Bokeh_Disabled.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/DOF_Bokeh_Enabled.jpg">
+		<img class="  lazyload" alt="Bokeh Depth of Field" data-src="../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/DOF_Bokeh_Enabled.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div><h3 id="散景景深的自适应景深">散景景深的自适应景深</h3>
+<p>当使用散景景深时，出于性能考虑，它默认以四分之一的分辨率（每个方向均采用一半分辨率）进行渲染。这种向下采样实际上很难被发现，大多数情况下都是完全可以接受的；但是，在某些情况下也可能产生瑕疵或意外的结果。自适应景深（Adaptive Depth of Field）可以解决可能产生的这些瑕疵。
+</p><!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/dof_adaptive_0.jpg">
+		<img class="  lazyload" alt="Adaptive DOF without Downsampling" data-src="../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/dof_adaptive_0.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/dof_adaptive_1.jpg">
+		<img class="  lazyload" alt="Adaptive DOF with Downsampling" data-src="../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/dof_adaptive_1.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div><p>如果只使用向下采样景深技术，后景中虚化的角色会出现锯齿。同时，前景中角色的犄角周围也会出现瑕疵。自适应景深可消除这些瑕疵，让后景角色的外观显示更加平滑。
+</p><p>通过在关卡视口（Level Viewport）中的 <strong>显示（Show）</strong> > <strong>可视化（Visualize）</strong> 下使用 <strong>自适应景深（Adaptive Depth of Field）</strong> 来显示标记，可让自适应景深可视化。一旦启用，将显示一个覆层以提示使用了向下采样效果（绿色）的区域以及使用全分辨率效果的区域（红色）。常规场景颜色显示在未应用虚化效果的位置。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/dof_adaptive_visualize.jpg">
+		<img class="  lazyload" alt="dof_adaptive_visualize.png" title="dof372029427adaptive372029427visualize.png" data-src="../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/dof_adaptive_visualize.jpg" />
+</picture>
+
+</p><p>通常，你会希望自适应景深全部显示为绿色。可视化中显示的红色区域越大，场景中每一帧的渲染成本就越高。
+</p><!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/dof_adaptive_good.jpg">
+		<img class="  lazyload" alt="Adaptive DOF mostly optimized" data-src="../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/dof_adaptive_good.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/dof_adaptive_bad.jpg">
+		<img class="  lazyload" alt="Adaptive DOF unoptimized " data-src="../../../../../Images/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/dof_adaptive_bad.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div><h3 id="散景景深设置">散景景深设置</h3>
+<p>以下是过场动画摄像机（Cine Camera）、摄像机（Camera）和后期处理体积（Post Process Volumes）的可用设置，可在"景深（Depth of Field）"部分的"镜头（Lens）"选项卡中找到。
+</p><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>属性</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>说明</strong></p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>对焦距离（Focal Distance）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>景深效果锐化的距离。该值以虚幻单位（厘米）衡量。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>近过渡区（Near Transition Region）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>从对焦区域较近一边到摄像机之间的距离（以虚幻单位计）。当使用散景或高斯景深时，场景将从对焦状态过渡到虚化状态。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>远过渡区（Far Transition Region）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>从对焦区域较远一边到摄像机之间的距离（以虚幻单位计）。当使用散景或高斯景深时，场景将从对焦状态过渡到虚化状态。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>比例（Scale）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>基于散景的虚化的整体比例因数。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>最大散景尺寸（Max Bokeh Size）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>基于散景景深的最大模糊尺寸（以视图宽度的百分比计）。
+</p><div class="note">
+	<p>注意，性能随该大小而变化。</p>
+</div>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>形状纹理（Shape Texture）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>当对象失焦时，定义散景形状的纹理。
+</p><div class="note">
+	<p>注意，这些体积不能与其他后处理体积混合。</p>
+</div>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>遮挡（Occlusion）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>控制模糊几何体常规轮廓和不透明度的延伸量。将数值设置为0.18即可获得十分自然的遮挡效果。将数值设为0.4可解决图层颜色泄露问题。数值太小（小于0.18）通常会弱化虚化效果，当物体十分靠近摄像机时很有效。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>颜色阈值（Color Threshold）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>控制该阈值，使自适应景深基于颜色切换使用全分辨率。值越小，使用全分辨率处理的场景部分越多。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>尺寸阈值（Size Threshold）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>控制该阈值，使自适应景深基于尺寸切换使用全分辨率。值越大，使用全分辨率处理的场景部分越多。</p>
+			</td>
+	
+</tr></tbody>
+</table><h2 id="外部资源">外部资源</h2>
+<ul ><li class="Default"><p><a id="content_link" href="https://epicgames.box.com/s/s86j70iamxvsuu6j35pilypficznec04" ><span>SIGGRAPH 2018 - "散景的一生"，作者Guillaume Abadie</span></a>（PowerPoint演示 ~150 mb）
+</p></li><li class="Default"><p><a id="content_link" href="https://en.wikipedia.org/wiki/Diaphragm_(optics" ><span>光圈（光学）</span></a>)
+</p></li><li class="Default"><p><a id="content_link" href="https://en.wikipedia.org/wiki/Aperture" ><span>孔径</span></a>
+</p></li><li class="Default"><p><a id="content_link" href="https://en.wikipedia.org/wiki/F-number" ><span>F值</span></a>
+</p></li><li class="Default"><p><a id="content_link" href="https://photography.tutsplus.com/articles/understanding-the-factors-that-affect-depth-of-field--photo-6844" ><span>了解影响景深的因素</span></a>
+</p></li></ul>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Post%20Process">Post Process</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Depth%20of%20Field">Depth of Field</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/RenderingAndGraphics/PostProcessEffects/DepthOfField/CinematicDOFMethods/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:19:15 GMT -->
+</html>

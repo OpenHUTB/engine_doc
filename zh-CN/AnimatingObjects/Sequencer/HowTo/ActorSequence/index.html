@@ -1,0 +1,464 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/AnimatingObjects/Sequencer/HowTo/ActorSequence/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:31:27 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var finishButton = finishButtonTemplate;
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/AnimatingObjects/Sequencer/HowTo/ActorSequence/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>在蓝图中使用嵌入的 Sequencer 动画 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+		    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+		    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/AnimatingObjects/Sequencer/HowTo/ActorSequence/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/AnimatingObjects/Sequencer/HowTo/ActorSequence/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/AnimatingObjects/Sequencer/HowTo/ActorSequence/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/AnimatingObjects/Sequencer/HowTo/ActorSequence/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Sequencer/HowTo/ActorSequence" />
+<meta name="intsourcechangelist" content="14241652" />
+<meta name="availability" content="Public" />
+<meta name="title" content="在蓝图中使用嵌入的 Sequencer 动画" />
+<meta name="description" content="说明如何使用 Actor 序列组件在 Actor 蓝图中嵌入序列。" />
+<meta name="type" content="how-to" />
+<meta name="type" content="how-to" />
+<meta name="skilllevel" content="Advanced" />
+<meta name="version" content="4.16" />
+<meta name="parent" content="AnimatingObjects/Sequencer/HowTo" />
+<meta name="order" content="1" />
+<meta name="keywords" content="Sequencer" />
+<meta name="topic-image" content="ActorSequenceTopicCompact.png" />
+<meta name="related" content="AnimatingObjects/Sequencer/Overview" />
+<meta name="related" content="AnimatingObjects/Sequencer/ReferenceEditor" />
+<meta name="related" content="ProgrammingAndScripting/Blueprints" />
+<meta name="crumbs" content="%ROOT%,AnimatingObjects,AnimatingObjects/Sequencer,AnimatingObjects/Sequencer/HowTo" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="在蓝图中使用嵌入的 Sequencer 动画" />
+	<meta property="og:description" content="说明如何使用 Actor 序列组件在 Actor 蓝图中嵌入序列。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">为角色和对象添加动画</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">Sequencer 编辑器</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">Sequencer - 操作指南</a>
+
+<span class="separator">></span> <span id="page">在蓝图中使用嵌入的 Sequencer 动画</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">在蓝图中使用嵌入的 Sequencer 动画</h1>
+							</div>	
+							<h2 >说明如何使用 Actor 序列组件在 Actor 蓝图中嵌入序列。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Advanced"><a id="skill_link" href="../../../../SiteIndex/index.html?skills=Advanced">Advanced</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																														<div id="seeAlso">
+	<div style="position:relative;">
+		<div id="title">参见</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<p>
+						<a id="related_link" href="../../Overview/index.html" title="Sequencer是虚幻引擎4的多轨迹编辑器，用于实时创建和预览过场动画序列。">Sequencer概述</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../ReferenceEditor/index.html" title="Sequencer编辑器的UI和控制引用页面。">Sequencer编辑器引用</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../../../ProgrammingAndScripting/Blueprints/index.html" title="关于使用蓝图可视化脚本系统制作游戏的介绍。">蓝图可视化脚本</a>
+					</p>
+				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																														<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#步骤">步骤</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#最终结果">最终结果</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<div class="warning">
+	<p>这是尚处于开发阶段的实验性功能。一些方面可能无法正常使用，或会在未来版本中被修改。</p>
+</div><p>使用并创建 <a id="content_link"filter-data="tag_sequencer" href="../../Overview/index.html" ><span>序列</span></a> 时，有时可能需要在其他地方或实例中重复使用序列的功能。 
+借助 <strong>Actor 序列插件</strong> 和 <strong>Actor 序列组件</strong> 便可将序列直接嵌入 Actor <a id="content_link"filter-data="tag_blueprints" href="../../../../ProgrammingAndScripting/Blueprints/index.html" ><span>蓝图</span></a>。 
+将动画绑定到蓝图实例并自动触发或通过蓝图的 <strong>事件图表</strong> 触发，即可重复使用序列。 
+此外还可为世界场景中的任意 Actor 添加 Actor 序列组件，将动画添加到 Actor 的单一实例。 
+</p><p>在此指南中，我们将创建一个带嵌入序列的蓝图，随时间设置聚光源颜色的动画并对其进行变更。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/ActorSequence/EndResult.jpg">
+		<img class="  lazyload" alt="EndResult.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/ActorSequence/EndResult.jpg" />
+</picture>
+
+</p><p>蓝图即可放置在让任意关卡中或进行复制，嵌入的序列则会在调用时自动播放。 
+</p><a name="steps" ></a><h2 id="步骤">步骤</h2>
+<div class="note">
+	<p>在此指南中，我们使用的是启用了 <strong>Starter Content</strong> 的 <strong>Blueprint Third Person Template</strong> 项目。 </p>
+</div><ol ><li class="Default"><p>项目打开后，从 <strong>Edit</strong> 菜单中选择 <strong>Plugins</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/ActorSequence/ActorSequence01.jpg">
+		<img class="  lazyload" alt="ActorSequence01.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/ActorSequence/ActorSequence01.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>从 <strong>Plugins</strong> 菜单的 <strong>Built-in</strong> 下启用 <strong>Actor Sequence Editor</strong> 选项，并在弹出提示后重启编辑器。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/ActorSequence/ActorSequence02.jpg">
+		<img class="  lazyload" alt="ActorSequence02.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/ActorSequence/ActorSequence02.jpg" />
+</picture>
+
+</p><div class="note">
+	<p>启用 Actor 序列编辑器时可能出现 <strong>Experimental</strong> 确认对话窗口，点击 <strong>Yes</strong> 继续。 </p>
+</div></li><li class="Default"><p>创建一个 <strong>Actor</strong> 类的新 <strong>蓝图</strong>，将其命名为 <strong>Light_BP</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/ActorSequence/ActorSequence03.jpg">
+		<img class="  lazyload" alt="ActorSequence03.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/ActorSequence/ActorSequence03.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>Light_BP</strong> 中点击 <strong>Add Component</strong> 并添加一个 <strong>Spot Light</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/ActorSequence/ActorSequence04.jpg">
+		<img class="  lazyload" alt="ActorSequence04.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/ActorSequence/ActorSequence04.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>Spot Light</strong> 的 <strong>Details</strong> 面板中将 <strong>Y</strong> 轴的 <strong>Rotation</strong> 值改为 <strong>-60</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/ActorSequence/ActorSequence05.jpg">
+		<img class="  lazyload" alt="ActorSequence05.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/ActorSequence/ActorSequence05.jpg" />
+</picture>
+
+</p><p>这将使光线在视口中旋转，角度稍微朝下。 
+</p></li><li class="Default"><p>添加另一个 <strong>Static Mesh</strong> 类型的 <strong>组件</strong>，然后在 <strong>Details</strong> 面板中将网格体设为 <strong>Floor_400x400</strong>，<strong>Location</strong> 设为 <strong>-180 (X), -180 (Y), -100 (Z)</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/ActorSequence/ActorSequence06.jpg">
+		<img class="  lazyload" alt="ActorSequence06.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/ActorSequence/ActorSequence06.jpg" />
+</picture>
+
+</p><p>我们将用这个地板网格体使光线在地面上反射，并看到 Sequencer 驱动参数变化的效果。 
+</p></li><li class="Default"><p>添加另一个 <strong>Actor Sequence</strong> 类型的 <strong>组件</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/ActorSequence/ActorSequence07.jpg">
+		<img class="  lazyload" alt="ActorSequence07.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/ActorSequence/ActorSequence07.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>Actor Sequence</strong> 的 <strong>Details</strong> 面板中，设置 <strong>Loop Indefinitely</strong>、<strong>Random Start Time</strong> 和 <strong>Auto Play</strong>，然后点击 <strong>Open in Tab</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/ActorSequence/ActorSequence08.jpg">
+		<img class="  lazyload" alt="ActorSequence08.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/ActorSequence/ActorSequence08.jpg" />
+</picture>
+
+</p><p>点击 <strong>Open in Tab</strong> 后，<strong>Sequencer 编辑器</strong> 将在蓝图中打开。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/ActorSequence/SequencerWindow.jpg">
+		<img class="  lazyload" alt="SequencerWindow.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/ActorSequence/SequencerWindow.jpg" />
+</picture>
+
+</p><p>在此例中将自动触发并播放序列，也可从 <strong>事件图表</strong> 中进行调用播放。 
+</p></li><li class="Default"><p>在 <strong>Sequencer</strong> 标签中，点击 <strong>Add</strong>，然后在 <strong>Component</strong> 下选择 <strong>SpotLight</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/ActorSequence/ActorSequence09.jpg">
+		<img class="  lazyload" alt="ActorSequence09.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/ActorSequence/ActorSequence09.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>SpotLight</strong> 轨迹上点击 <strong>Track</strong> 按钮并选择 <strong>Transform</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/ActorSequence/ActorSequence10.jpg">
+		<img class="  lazyload" alt="ActorSequence10.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/ActorSequence/ActorSequence10.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>再次点击 <strong>SpotLight</strong> 轨迹的 <strong>Track</strong> 按钮并添加 <strong>Light Color</strong> 轨迹。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/ActorSequence/ActorSequence11.jpg">
+		<img class="  lazyload" alt="ActorSequence11.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/ActorSequence/ActorSequence11.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>Transform</strong> 轨迹的 <strong>Rotation</strong> 下，点击 <strong>Z</strong> 轴值的 <strong>+</strong> 图表在第 <strong>0</strong> 帧处添加一个 <strong>0</strong> 键。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/ActorSequence/ActorSequence12.jpg">
+		<img class="  lazyload" alt="ActorSequence12.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/ActorSequence/ActorSequence12.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>选中添加的键，然后按下 <strong>4</strong> 键将内插类型改为 <strong>线性</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/ActorSequence/ActorSequence13.jpg">
+		<img class="  lazyload" alt="ActorSequence13.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/ActorSequence/ActorSequence13.jpg" />
+</picture>
+
+</p><p>可通过数字键修改内插类型，也可右键点击关键帧选择内插方法。 
+</p></li><li class="Default"><p>在 <strong>2.00</strong> 处添加一个键，将 <strong>Rotation</strong> 的 <strong>Z</strong> 轴值设为 <strong>-180.0</strong>，并在键上按下 <strong>4</strong> 将内插改为 <strong>线性</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/ActorSequence/ActorSequence14.jpg">
+		<img class="  lazyload" alt="ActorSequence14.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/ActorSequence/ActorSequence14.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>4.00</strong> 处添加一个键，将 <strong>Rotation</strong> 的 <strong>Z</strong> 轴值设为 <strong>-360.0</strong>，并在键上按下 <strong>4</strong> 将内插改为 <strong>线性</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/ActorSequence/ActorSequence15.jpg">
+		<img class="  lazyload" alt="ActorSequence15.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/ActorSequence/ActorSequence15.jpg" />
+</picture>
+
+</p><p>也可将红色 <strong>结束标记</strong> 移回 <strong>4.00</strong>，使序列在其开始处结束。 
+</p></li><li class="Default"><p>在 <strong>Light Color</strong> 轨迹上点击 <strong>+</strong> 按钮在第 <strong>0</strong> 帧处添加一个键。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/ActorSequence/ActorSequence16.jpg">
+		<img class="  lazyload" alt="ActorSequence16.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/ActorSequence/ActorSequence16.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>为 <strong>Red</strong> 在 <strong>1.00</strong> 处添加一个键，值设为 <strong>0.0</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/ActorSequence/ActorSequence17.jpg">
+		<img class="  lazyload" alt="ActorSequence17.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/ActorSequence/ActorSequence17.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>为 <strong>Green</strong> 在 <strong>2.00</strong> 处添加一个键，值设为 <strong>0.0</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/ActorSequence/ActorSequence18.jpg">
+		<img class="  lazyload" alt="ActorSequence18.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/ActorSequence/ActorSequence18.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>为 <strong>Blue</strong> 在 <strong>3.00</strong> 处添加一个键，值设为 <strong>0.0</strong>；<strong>Red</strong> 和 <strong>Green</strong> 的值则设为 <strong>1.0</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/ActorSequence/ActorSequence19.jpg">
+		<img class="  lazyload" alt="ActorSequence19.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/ActorSequence/ActorSequence19.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>为 <strong>Blue</strong> 在 <strong>4.00</strong> 处添加一个键，值设为 <strong>1.0</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/ActorSequence/ActorSequence20.jpg">
+		<img class="  lazyload" alt="ActorSequence20.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/ActorSequence/ActorSequence20.jpg" />
+</picture>
+
+</p><p>这会使光线从白色变为各种颜色，然后在序列末尾重新变为白色。 
+</p></li><li class="Default"><p>在 <strong>Components</strong> 窗口中，选择并 <strong>删除</strong> <strong>StaticMesh</strong> 地面。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/ActorSequence/ActorSequence21.jpg">
+		<img class="  lazyload" alt="ActorSequence21.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/ActorSequence/ActorSequence21.jpg" />
+</picture>
+
+</p><p>光照设置完成后，我们便不再需要这个网格体作为一种在视口中预览光照的方式。 
+</p></li><li class="Default"><p>在主关卡编辑器视口中，选择地面，然后长按 <strong>Alt</strong> 拖起一个地面的副本，创建出封闭关卡的屋顶。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/ActorSequence/ActorSequence22.jpg">
+		<img class="  lazyload" alt="ActorSequence22.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/ActorSequence/ActorSequence22.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>Content Browser</strong> 中，在关卡中拖动并放置 <strong>Light_BP</strong> 实例（如有需要可以按下 <strong>E</strong> 并进行旋转）。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/ActorSequence/ActorSequence23.jpg">
+		<img class="  lazyload" alt="ActorSequence23.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/ActorSequence/ActorSequence23.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>从 <strong>Build</strong> 下拉菜单中选择 <strong>Build Lighting Only</strong> 重新构建关卡中的光照。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/ActorSequence/ActorSequence24.jpg">
+		<img class="  lazyload" alt="ActorSequence24.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/ActorSequence/ActorSequence24.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>点击 <strong>Play</strong> 按钮在编辑器中进行游戏。
+</p></li></ol><a name="endresult" ></a><h2 id="最终结果">最终结果</h2>
+<p>在关卡中进行游戏时，您将看到播放嵌入的序列时放置的光照会开始旋转并变换色彩。 
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_0_s5rq7elv_20
+{
+	margin: 0px;
+	width: 100%;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_0_s5rq7elv_20:after
+{
+	content: "";
+	padding-top: 56.25%;
+	display: block;
+}
+</style> 
+<div id="player_0_s5rq7elv_20"> 
+	<div id="playerContainer_0_s5rq7elv_20" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/0_s5rq7elv/embed.html"></iframe>
+	</div>
+</div>
+<p>因为序列嵌入在 Actor 蓝图中，它并不存在依赖性，因此可在任意关卡中播放，或毫无障碍地进行复制。 
+</p><p>在我们的实例中序列已设为 <strong>Auto Play</strong>，然而您也可以使用 <strong>事件图表</strong> 编写脚本，设定序列播放的时机。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/ActorSequence/EventGraphPlayScript.jpg">
+		<img class="  lazyload" alt="EventGraphPlayScript.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/ActorSequence/EventGraphPlayScript.jpg" />
+</picture>
+
+</p><p>上图中，我们已根据 <strong>Event BeginPlay</strong> 允许 Actor 从 <strong>Player Controller</strong> 获取输入。 
+<strong>P</strong> 键按下时，我们接收 <strong>Actor 序列组件</strong> 并获得 <strong>Sequence Player</strong>（它将调用函数 <strong>Play</strong> 开始播放序列）。 
+如果不希望序列在关卡加载时自动播放，可使用任意方法调用 Play 函数。 
+</p>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Sequencer">Sequencer</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/AnimatingObjects/Sequencer/HowTo/ActorSequence/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:31:38 GMT -->
+</html>

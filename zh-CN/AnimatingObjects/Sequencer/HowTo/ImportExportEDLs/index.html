@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/AnimatingObjects/Sequencer/HowTo/ImportExportEDLs/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:31:58 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var finishButton = finishButtonTemplate;
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/AnimatingObjects/Sequencer/HowTo/ImportExportEDLs/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>导入和导出编辑决策表（EDL） | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+		    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+		    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/AnimatingObjects/Sequencer/HowTo/ImportExportEDLs/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/AnimatingObjects/Sequencer/HowTo/ImportExportEDLs/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/AnimatingObjects/Sequencer/HowTo/ImportExportEDLs/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/AnimatingObjects/Sequencer/HowTo/ImportExportEDLs/" hreflang="ko" />
+
+	<meta name="intsourcechangelist" content="14644200" />
+<meta name="redirect" content="Engine/Sequencer/HowTo/ImportExportEDLs" />
+<meta name="availability" content="Public" />
+<meta name="title" content="导入和导出编辑决策表（EDL）" />
+<meta name="description" content="演示如何导入和导出EDL以用于外部视频编辑软件应用程序。" />
+<meta name="version" content="4.13" />
+<meta name="skilllevel" content="Advanced" />
+<meta name="parent" content="AnimatingObjects/Sequencer/HowTo" />
+<meta name="order" content="1" />
+<meta name="related" content="AnimatingObjects/Sequencer/Overview" />
+<meta name="related" content="AnimatingObjects/Sequencer/ReferenceEditor" />
+<meta name="keywords" content="Sequencer" />
+<meta name="type" content="how-to" />
+<meta name="crumbs" content="%ROOT%,AnimatingObjects,AnimatingObjects/Sequencer,AnimatingObjects/Sequencer/HowTo" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="导入和导出编辑决策表（EDL）" />
+	<meta property="og:description" content="演示如何导入和导出EDL以用于外部视频编辑软件应用程序。 " />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">为角色和对象添加动画</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">Sequencer 编辑器</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">Sequencer - 操作指南</a>
+
+<span class="separator">></span> <span id="page">导入和导出编辑决策表（EDL）</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">导入和导出编辑决策表（EDL）</h1>
+							</div>	
+							<h2 >演示如何导入和导出EDL以用于外部视频编辑软件应用程序。 </h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Advanced"><a id="skill_link" href="../../../../SiteIndex/index.html?skills=Advanced">Advanced</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																														<div id="seeAlso">
+	<div style="position:relative;">
+		<div id="title">参见</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<p>
+						<a id="related_link" href="../../Overview/index.html" title="Sequencer是虚幻引擎4的多轨迹编辑器，用于实时创建和预览过场动画序列。">Sequencer概述</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../ReferenceEditor/index.html" title="Sequencer编辑器的UI和控制引用页面。">Sequencer编辑器引用</a>
+					</p>
+				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																														<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#步骤">步骤</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#最终结果">最终结果</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>虚幻引擎4（UE4）中的序列器不仅允许你渲染和导出整个过场动画，还可以导出分割成每一个镜头的过场动画以及一个 <strong>编辑决策表（Edit Decision List）</strong>(<strong>EDL</strong>)，这是一个适用于大多数视频编辑应用程序（例如Premiere、Avid或Final Cut）的文件。
+</p><p>EDL包含一个由卷盘和时间码数据构成的有序列表，该列表反映了每个视频片段可在何处获得以生成最终剪辑。 
+在本指南中，我们将导出一个过场动画和EDL文件，将其导入一个外部程序（如Premiere）中，对其进行编辑，并将编辑后的过场动画连同这些更改一起重新导入UE4。 
+</p><h2 id="步骤">步骤</h2>
+<div class="note">
+	<p>对于本指南，我们使用的是 <strong>蓝图第三人称模板（Blueprint Third Person Template）</strong>，同时创建了一个示例过场动画；但是，你可以使用自己的项目和过场动画序列。 
+我们还使用Adobe Premiere Pro CS6作为我们的外部编辑软件；但是，你可以使用任何支持EDL导入的软件。 </p>
+</div><ol ><li class="Default"><p>确保要导出的过场动画包括含有你的镜头的 <strong>镜头轨迹（Shot Track）</strong>，然后单击 <strong>渲染影片（Render Movie）</strong> 按钮。
+</p></li><li class="Default"><p>将 <strong>输出格式（Output Format）</strong> 设置为 <strong>视频序列（Video Sequence）</strong>，使用 <strong>{shot}</strong> 标记选择 <strong>输出目录（Output Directory）</strong> 和 <strong>文件名格式（Filename Format）</strong>，然后启用 <strong>写入编辑决策表（Write Edit Decision List）</strong>。 
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_c2J89J3b8WA_29
+{
+	margin: 0px;
+	width: 640px;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_c2J89J3b8WA_29:after
+{
+	content: "";
+	padding-top: 360px;
+	display: block;
+}
+</style> 
+<div>
+<div id="player_c2J89J3b8WA_29"><div style="position:absolute;display:block;width:100%;height:100%;"><iframe class="embedded_video" id="c2J89J3b8WA" width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/c2J89J3b8WA?rel=0&amp;modestbranding=1&amp;showinfo=0" frameborder="0" allowfullscreen></iframe></div></div>
+</div>
+<p>在这里，我们将显示要导出的示例过场动画（以及EDL），然后单击 <strong>渲染影片（Render Movie）</strong> 按钮，以打开设置对话框窗口。在设置窗口中，我们将创建一个作为该过场动画导出目标的新文件夹，并在 <strong>{shot}</strong> 标记前面加上该过场动画的名称。通过使用 <strong>{shot}</strong> 标记，我们的每个镜头将作为单独的视频文件同整个过场动画一起导出。
+</p><div class="note">
+	<p>你必须将 <strong>输出格式（Output Format）</strong> 设置为 <strong>视频序列（Video Sequence）</strong> 才能使其生效，因为它不适用于单独的帧。 </p>
+</div></li><li class="Default"><p>将上一步导出的 <strong>EDL</strong> 文件导入到你的外部视频编辑软件中。 
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_LN0OeRF0G8A_107
+{
+	margin: 0px;
+	width: 640px;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_LN0OeRF0G8A_107:after
+{
+	content: "";
+	padding-top: 360px;
+	display: block;
+}
+</style> 
+<div>
+<div id="player_LN0OeRF0G8A_107"><div style="position:absolute;display:block;width:100%;height:100%;"><iframe class="embedded_video" id="LN0OeRF0G8A" width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/LN0OeRF0G8A?rel=0&amp;modestbranding=1&amp;showinfo=0" frameborder="0" allowfullscreen></iframe></div></div>
+</div>
+<p>在Premiere Pro中，你可以在窗口左下角单击右键，选择 <strong>导入（Import）</strong>，然后指向该EDL文件。 
+</p></li><li class="Default"><p>将EDL中的数据链接到外部视频编辑软件中的导出媒体文件。 
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_iUJenhTwFRk_144
+{
+	margin: 0px;
+	width: 640px;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_iUJenhTwFRk_144:after
+{
+	content: "";
+	padding-top: 360px;
+	display: block;
+}
+</style> 
+<div>
+<div id="player_iUJenhTwFRk_144"><div style="position:absolute;display:block;width:100%;height:100%;"><iframe class="embedded_video" id="iUJenhTwFRk" width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/iUJenhTwFRk?rel=0&amp;modestbranding=1&amp;showinfo=0" frameborder="0" allowfullscreen></iframe></div></div>
+</div>
+<p>在Premiere Pro中，你可以右键单击媒体文件夹，选择 <strong>链接媒体（Link Media） </strong>，然后将每个文件指向对应的媒体文件。 
+</p></li><li class="Default"><p>在外部视频编辑软件中根据需要修改镜头，然后 <strong>导出（Export）</strong> 为 <strong>EDL</strong>。 
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_AH3Fcy9v8tQ_177
+{
+	margin: 0px;
+	width: 640px;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_AH3Fcy9v8tQ_177:after
+{
+	content: "";
+	padding-top: 360px;
+	display: block;
+}
+</style> 
+<div>
+<div id="player_AH3Fcy9v8tQ_177"><div style="position:absolute;display:block;width:100%;height:100%;"><iframe class="embedded_video" id="AH3Fcy9v8tQ" width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/AH3Fcy9v8tQ?rel=0&amp;modestbranding=1&amp;showinfo=0" frameborder="0" allowfullscreen></iframe></div></div>
+</div>
+<p>对于我们的示例场景，我们将调整镜头的长度，并重新排列它们在序列中的位置。 
+</p></li><li class="Default"><p>回到UE4中的序列，右键单击 <strong>镜头轨迹（Shot Track）</strong> 和 <strong>导入EDL（Import EDL）</strong>。 
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_uI-wIYvMEiQ_214
+{
+	margin: 0px;
+	width: 640px;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_uI-wIYvMEiQ_214:after
+{
+	content: "";
+	padding-top: 360px;
+	display: block;
+}
+</style> 
+<div>
+<div id="player_uI-wIYvMEiQ_214"><div style="position:absolute;display:block;width:100%;height:100%;"><iframe class="embedded_video" id="uI-wIYvMEiQ" width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/uI-wIYvMEiQ?rel=0&amp;modestbranding=1&amp;showinfo=0" frameborder="0" allowfullscreen></iframe></div></div>
+</div>
+<p>我们在外部所做的更改现在反映在UE4中的序列中。
+</p></li></ol><h2 id="最终结果">最终结果</h2>
+<p>Sequencer中的导入/导出EDL选项使你能够灵活地决定要在何处进行编辑。 
+你可以在Sequencer中进行大部分的设置，然后将序列传递到外部应用程序的编辑器（如Premiere）来执行最后的修饰，编辑器可以随后将其传回给你以在Sequencer进行调整。 
+通过将序列导出为EDL并在外部进行处理，你能够在渲染最终过场之前向场景添加后期制作效果（或后期效果）。 
+</p><p>另外，在渲染序列并导出EDL时，你可以向每个镜头自动添加 <strong>帧柄（Frame Handles）</strong>，并定义要包含在其中的帧数。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Sequencer/HowTo/ImportExportEDLs/HandleFrames.jpg">
+		<img class="  lazyload" alt="HandleFrames.png" data-src="../../../../../Images/AnimatingObjects/Sequencer/HowTo/ImportExportEDLs/HandleFrames.jpg" />
+</picture>
+
+</p><p>这些额外的帧填充每个镜头并由EDL切进切出，EDL可用于在外部视频编辑包中调整镜头之间的切换。 
+</p>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Sequencer">Sequencer</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/AnimatingObjects/Sequencer/HowTo/ImportExportEDLs/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:32:00 GMT -->
+</html>

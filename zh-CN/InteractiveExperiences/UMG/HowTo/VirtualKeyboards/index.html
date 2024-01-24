@@ -1,0 +1,539 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/InteractiveExperiences/UMG/HowTo/VirtualKeyboards/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:20:12 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var finishButton = finishButtonTemplate;
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/InteractiveExperiences/UMG/HowTo/VirtualKeyboards/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>创建虚拟键盘交互 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+		    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+		    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/InteractiveExperiences/UMG/HowTo/VirtualKeyboards/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/InteractiveExperiences/UMG/HowTo/VirtualKeyboards/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/InteractiveExperiences/UMG/HowTo/VirtualKeyboards/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/InteractiveExperiences/UMG/HowTo/VirtualKeyboards/" hreflang="ko" />
+
+	<meta name="redirect" content="RenderingAndGraphics/UMG/HowTo/VirtualKeyboards" />
+<meta name="redirect" content="Engine/UMG/HowTo/VirtualKeyboards" />
+<meta name="intsourcechangelist" content="14237003" />
+<meta name="availability" content="Public" />
+<meta name="title" content="创建虚拟键盘交互" />
+<meta name="description" content="说明如何使用UMG创建3D虚拟键盘以及与3D虚拟键盘的交互。" />
+<meta name="type" content="how-to" />
+<meta name="version" content="4.15" />
+<meta name="parent" content="InteractiveExperiences/UMG/HowTo" />
+<meta name="order" content="4" />
+<meta name="keywords" content="UMG UI Designer" />
+<meta name="skilllevel" content="Advanced" />
+<meta name="course" content="your-first-hour-with-umg?lang=zh-CN|UMG入门|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fclass-not-launched%2Fyour-first-hour-with-umg%2FClass-ImageDesktop---1200x675-1200x675-735cc45bfbdaf5ac3ea8eff1ed9dad69a95418d5.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fclass-not-launched%2Fyour-first-hour-with-umg%2F127-Your-First-Hour-with-UMG%402x-1000x1000-02bf280e8a64904345e724062a7d9258ea826820.png?resize=1&amp;w=300" />
+<meta name="course" content="interactive-material-swaps-using-blueprints?lang=zh-CN|蓝图：可交互材质切换|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Finteractive-material-swaps-using-blueprints%2F406---Hero2-1920x1080-ce26b6199cf620364149d2d934c73ae30e983110.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Finteractive-material-swaps-using-blueprints%2FInteractive-Material-Swaps-Using-Blueprints-1000x1000-21158a5fe67365e3bf5db49712b52482382f15ac.png?resize=1&amp;w=300" />
+<meta name="course" content="making-a-blueprint-product-configurator?lang=zh-CN|企业级蓝图开发|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fblueprint-for-enterprise%2F301-Blueprints-%281200X675%29-1200x675-d140b8a0b13b05c0619e35e1076b4c82e4a4b855.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fblueprint-for-enterprise%2FBlueprint-for-Enterprise-1000x1000-13caa11b8e5c5e91506a8dd63b39d247318c3208.png?resize=1&amp;w=300" />
+<meta name="crumbs" content="%ROOT%,InteractiveExperiences,InteractiveExperiences/UMG,InteractiveExperiences/UMG/HowTo" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="创建虚拟键盘交互" />
+	<meta property="og:description" content="说明如何使用UMG创建3D虚拟键盘以及与3D虚拟键盘的交互。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">创建交互体验</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">UMG UI设计器</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">UMG UI 设计器 - 操作指南</a>
+
+<span class="separator">></span> <span id="page">创建虚拟键盘交互</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">创建虚拟键盘交互</h1>
+							</div>	
+							<h2 >说明如何使用UMG创建3D虚拟键盘以及与3D虚拟键盘的交互。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Advanced"><a id="skill_link" href="../../../../SiteIndex/index.html?skills=Advanced">Advanced</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																																				<div id="courses">
+	<div style="position:relative;">
+		<div id="title">相关课程</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<div name="your-first-hour-with-umg?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/your-first-hour-with-umg?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/class-not-launched/your-first-hour-with-umg/Class-ImageDesktop---1200x675-1200x675-735cc45bfbdaf5ac3ea8eff1ed9dad?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/class-not-launched/your-first-hour-with-umg/127-Your-First-Hour-with-UMG%402x-1000x1000-02bf280e8a64904345e724062a7d9258ea826820.8ebfe4b.delay?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="your-first-hour-with-umg?lang=zh-CN_title">
+				UMG入门
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="interactive-material-swaps-using-blueprints?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/interactive-material-swaps-using-blueprints?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/interactive-material-swaps-using-blueprints/406---Hero2-1920x1080-ce26b6199cf620364149d2d934c73ae30e983110.8314f8?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/interactive-material-swaps-using-blueprints/Interactive-Material-Swaps-Using-Blueprints-1000x1000-21158a5fe67365e3bf5db49712b52482382f15ac.8?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="interactive-material-swaps-using-blueprints?lang=zh-CN_title">
+				蓝图：可交互材质切换
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="making-a-blueprint-product-configurator?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/making-a-blueprint-product-configurator?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/blueprint-for-enterprise/301-Blueprints-(1200X675)-1200x675-d140b8a0b13b05c0619e35e1076b4c82e4a4b855.8344f86.dela?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/blueprint-for-enterprise/Blueprint-for-Enterprise-1000x1000-13caa11b8e5c5e91506a8dd63b39d247318c3208.836fe4b.dela?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="making-a-blueprint-product-configurator?lang=zh-CN_title">
+				企业级蓝图开发
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																								<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#1-角色设置">1 - 角色设置</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#2-控件蓝图设置">2 - 控件蓝图设置</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#3-设置actor">3 - 设置Actor</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#4-编写键盘actor脚本">4 - 编写键盘Actor脚本</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#最终结果">最终结果</a></p>
+	</li>					</ul>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>可结合<a id="content_link"filter-data="tag_umg_ui_designer" href="../../UserGuide/WidgetInteraction/index.html" ><span>控件交互</span></a>组件和<a id="content_link" href="../../../../Basics/Components/Widget/index.html" ><span>控件</span></a>组件创建3D键盘或虚拟键盘，以便玩家输入特定字符。 
+控件交互组件将识别被点击的"按钮"，并将字符发送到Actor中执行显示的控件组件。
+</p><p>在此指南中，我们将创建一个可进行交互并提供文本框输入的键盘。作为本操作说明的一部分，我们将确哪些控件可聚焦，哪些不能聚焦。 
+这对玩家要输入数字的文本框十分重要，因为按下其他键时不能失去玩家聚焦。 
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_0_npmcje20_2
+{
+	margin: 0px;
+	width: 640px;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_0_npmcje20_2:after
+{
+	content: "";
+	padding-top: 360px;
+	display: block;
+}
+</style> 
+<div id="player_0_npmcje20_2"> 
+	<div id="playerContainer_0_npmcje20_2" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/0_npmcje20/embed.html"></iframe>
+	</div>
+</div>
+<p><em>阅读完此指南后，您将设置好一个可在 3D 游戏中进行交互的小键盘和显示。</em>
+</p><div class="note">
+	<p>为便于本指南说明，我们将使用 <strong>蓝图第一人称</strong> 模板项目。</p>
+</div><h2 id="1-角色设置">1 - 角色设置</h2>
+<p>首先需要用控件交互组件设置角色，并创建资源来显示UI。
+</p><ol ><li class="Default"><p>在 <strong>Content</strong> > <strong>FirstPersonBP</strong> > <strong>Blueprints</strong> 文件夹中，打开 <strong>FirstPersonCharacter</strong> 蓝图。
+</p></li><li class="Default"><p>添加附加到 <strong>球体</strong> 的 <strong>WidgetInteraction</strong> 组件。在 <strong>细节（Details）</strong> 面板中，将 <strong>位置（Location）</strong> 归零，并勾选 <strong>显示调试（Show Debug）</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/UMG/HowTo/VirtualKeyboards/keypad01.1.jpg">
+		<img class="  lazyload" alt="keypad01.1.png" data-src="../../../../../Images/InteractiveExperiences/UMG/HowTo/VirtualKeyboards/keypad01.1.jpg" />
+</picture>
+
+</p><p>控件交互组件的朝向是玩家将枪指向的方向，在游戏中由调试标记代表。
+</p></li><li class="Default"><p>在 <strong>事件图表表</strong> 中添加一个 <strong>鼠标右键（Right Mouse Button）</strong> 事件并拖入 <strong>控件交互（Widget Interaction）</strong> 组件。
+</p></li><li class="Default"><p>从 <strong>控件交互（Widget Interaction）</strong> 拖出引线，添加 <strong>按下指针按键（Press Pointer Key）</strong> 和 <strong>松开指针按键（Release Pointer Key）</strong> 节点。将这两个键设置为 <strong>鼠标左键（Left Mouse Button）</strong>。将鼠标右键（Right Mouse Button）的 <strong>按下（Pressed）</strong> 和 <strong>松开（Released）</strong> 引脚分别连接到相应的指针按键节点。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/UMG/HowTo/VirtualKeyboards/Keypad02.jpg">
+		<img class="  lazyload" alt="Keypad02.jpg" data-src="../../../../../Images/InteractiveExperiences/UMG/HowTo/VirtualKeyboards/Keypad02.jpg" />
+</picture>
+
+</p><p>控件通过鼠标左键单击或触控功能按钮响应鼠标/触控交互，我们可使用 <strong>按下指针按键（Press Pointer Key）</strong> 函数来模拟这个操作。在示例中，我们使用 <strong>鼠标右键（Right Mouse Button）</strong> 来模拟鼠标左键单击，但也可以使用游戏手柄按钮按键和运动控制器扳机来触发按下指针按键（Press Pointer Key）函数。
+</p></li><li class="Default"><p>在 <strong>内容浏览器</strong> 中，根据 名为 <strong>Keypad</strong> 和 <strong>KeypadDisplay</strong> 的 <strong>Actor</strong> 创建两个 <strong>蓝图类</strong>。然后添加两个 <strong>控件蓝图</strong>：<strong>KeypadWB</strong> 和 <strong>KeypadDisplayWB</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/UMG/HowTo/VirtualKeyboards/Keypad03.jpg">
+		<img class="  lazyload" alt="Keypad03.jpg" data-src="../../../../../Images/InteractiveExperiences/UMG/HowTo/VirtualKeyboards/Keypad03.jpg" />
+</picture>
+
+</p></li></ol><p>现在我们的角色可以在场景中与控件互动了。接下来设置交互式控件。
+</p><h2 id="2-控件蓝图设置">2 - 控件蓝图设置</h2>
+<p>在此步中，我们将创建互动式 UI 控件的布局，并对按键点击发生的情况编辑脚本。
+</p><ol ><li class="Default"><p>打开 <strong>KeypadDisplayWB</strong> 蓝图，删除 <strong>画布面板（Canvas Panel）</strong>。在层级中，添加拥有 <strong>文本框（TextBox）</strong> 的 <strong>缩放框（Size Box）</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/UMG/HowTo/VirtualKeyboards/keypad04a.1.jpg">
+		<img class="  lazyload" alt="keypad04a.1.png" data-src="../../../../../Images/InteractiveExperiences/UMG/HowTo/VirtualKeyboards/keypad04a.1.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>将 <strong>缩放框（Size Box）</strong> 的预览设置为 <strong>适应屏幕（Desired on Screen）</strong>，并将 <strong>宽度（Width）</strong> 和 <strong>高度（Height）</strong> 重设为 <strong>100x50</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/UMG/HowTo/VirtualKeyboards/Keypad04.jpg">
+		<img class="  lazyload" alt="Keypad04.png" data-src="../../../../../Images/InteractiveExperiences/UMG/HowTo/VirtualKeyboards/Keypad04.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>将 <strong>文本框（TextBox）</strong> 的 <strong>提示文本（Hint Text）</strong> 设置为 <strong>1212</strong>，并将 <strong>字体大小（Font Size）</strong> 调整为 <strong>28</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/UMG/HowTo/VirtualKeyboards/keypad05.1.jpg">
+		<img class="  lazyload" alt="keypad05.1.png" data-src="../../../../../Images/InteractiveExperiences/UMG/HowTo/VirtualKeyboards/keypad05.1.jpg" />
+</picture>
+
+</p><p>在此例中，玩家必须使用小键盘输入文本 1212 才能完成成功输入，可根据需要使用任意数值。
+</p></li><li class="Default"><p><strong>编译</strong> 并 <strong>保存</strong> <strong>KeypadDisplayWB</strong> 蓝图。 
+</p></li><li class="Default"><p>打开 <strong>KeypadWB</strong> 蓝图，删除 <strong>画布面板（Canvas Panel）</strong>。设置拥有3个按钮的 <strong>层级</strong>，每个按钮的文本分别为 <strong>0</strong>、<strong>1</strong> 和 <strong>2</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/UMG/HowTo/VirtualKeyboards/Keypad06.jpg">
+		<img class="  lazyload" alt="Keypad06.png" data-src="../../../../../Images/InteractiveExperiences/UMG/HowTo/VirtualKeyboards/Keypad06.jpg" />
+</picture>
+
+</p><p>可能还需要在层级中的每个按钮上按 <strong>F2</strong> 修改器名称，反应实际的按键。
+</p></li><li class="Default"><p>添加第二个 <strong>水平框</strong>，其包含两个带文本的 <strong>按钮</strong>，一个设为 <strong>Del</strong>，另一个设为 <strong>Ent</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/UMG/HowTo/VirtualKeyboards/Keypad07.jpg">
+		<img class="  lazyload" alt="Keypad07.png" data-src="../../../../../Images/InteractiveExperiences/UMG/HowTo/VirtualKeyboards/Keypad07.jpg" />
+</picture>
+
+</p><p>键盘上只有三个数字键，以及两个用来删除（<strong>Del</strong>）或输入（<strong>Ent</strong>）的键。
+</p></li><li class="Default"><p>按住 <strong>Ctrl</strong> 并选择每个按钮，取消勾选 <strong>可聚焦（Is Focusable）</strong>（设为 <strong>False</strong>）。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/UMG/HowTo/VirtualKeyboards/Keypad08.jpg">
+		<img class="  lazyload" alt="Keypad08.png" data-src="../../../../../Images/InteractiveExperiences/UMG/HowTo/VirtualKeyboards/Keypad08.jpg" />
+</picture>
+
+</p><p>为保证设置正常工作，需确保进行交互的其他控件不会从键盘显示（Keypad Display）控件处移开聚焦。如果这些选项设为true，那么点按某个按钮时，聚焦就会从键盘显示（Keypad Display）控件转移到该按钮上。这就使我们无法将按键和值传递给键盘显示（Keypad Display）控件。
+</p></li><li class="Default"><p>在 <strong>事件图表</strong> 上，为每个按钮添加 <strong>OnClicked</strong> 事件。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/UMG/HowTo/VirtualKeyboards/Keypad09.jpg">
+		<img class="  lazyload" alt="Keypad09.png" data-src="../../../../../Images/InteractiveExperiences/UMG/HowTo/VirtualKeyboards/Keypad09.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>创建两个 <strong>变量</strong>，一个是 <strong>字符串</strong> 类型，名为 <strong>CharToSend</strong>；另一个是 <strong>控件交互组件</strong> 类型，名为 <strong>WidgetInteraction</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/UMG/HowTo/VirtualKeyboards/Keypad10.jpg">
+		<img class="  lazyload" alt="Keypad10.png" data-src="../../../../../Images/InteractiveExperiences/UMG/HowTo/VirtualKeyboards/Keypad10.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>按住 <strong>Alt</strong> 并对每个 <strong>OnClicked</strong> 事件拖入 <strong>CharToSend</strong>。将变量值设置为之前设置的按钮文本值：<strong>0</strong>、<strong>1</strong> 和 **2*。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/UMG/HowTo/VirtualKeyboards/Keypad11.jpg">
+		<img class="  lazyload" alt="Keypad11.png" data-src="../../../../../Images/InteractiveExperiences/UMG/HowTo/VirtualKeyboards/Keypad11.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>按住 <strong>Ctrl</strong> 并拖入 <strong>WidgetInteraction</strong>。从引脚拖出引线并添加 <strong>发送键字符（Send Key Char）</strong> 节点。将它连接到 <strong>CharToSend</strong> 变量和 <strong>OnClicked</strong> 事件。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/UMG/HowTo/VirtualKeyboards/Keypad12.jpg">
+		<img class="  lazyload" alt="Keypad12.png" data-src="../../../../../Images/InteractiveExperiences/UMG/HowTo/VirtualKeyboards/Keypad12.jpg" />
+</picture>
+
+</p><p>我们使用 <strong>发送键字符（Send Key Char）</strong> 函数的原因是在Slate中按键不会直接发送到文本框。举例而言，如果我们按A键，Slate函数不会识别按键操作，因此不会发送A。相反，Slate函数会聆听Send Char，因此低级系统运行代码可以确定在按下A键时是否按住了Shift，或者按A时是否开启了Caps Lock。
+</p></li><li class="Default"><p>从 <strong>Del</strong> OnClicked事件拖出引线，使用 <strong>按下和松开键（Press and Release Key）</strong> 并将这个键设置为 <strong>退格键</strong>。将 <strong>WidgetInteraction</strong> 变量连接到按下和松开键（Press and Release Key）目标。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/UMG/HowTo/VirtualKeyboards/Keypad13.jpg">
+		<img class="  lazyload" alt="Keypad13.png" data-src="../../../../../Images/InteractiveExperiences/UMG/HowTo/VirtualKeyboards/Keypad13.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>创建一个名为**EnterPressed<strong> 的 </strong>事件调度器<strong>，并从 </strong>OnClicked(Ent)** 调用它。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/UMG/HowTo/VirtualKeyboards/Keypad14.jpg">
+		<img class="  lazyload" alt="Keypad14.png" data-src="../../../../../Images/InteractiveExperiences/UMG/HowTo/VirtualKeyboards/Keypad14.jpg" />
+</picture>
+
+</p></li><li class="Default"><p><strong>编译</strong> 并 <strong>保存</strong> <strong>KeypadWB</strong> 蓝图。
+</p></li></ol><p>我们的控件蓝图现已设为显示Keypad和Keypad Display。 
+</p><h2 id="3-设置actor">3 - 设置Actor</h2>
+<p>接下来需要设置Keypad和Keypad Display Actor，然后再开始编写Keypad Actor的脚本。 
+</p><ol ><li class="Default"><p>打开 <strong>KeypadDisplay</strong> 蓝图并添加 <strong>控件（Widget）</strong> 组件（需要将类设为 <strong>KeypadDisplayWB</strong> 并勾选 <strong>按所需大小绘制（Draw at Desired Size）</strong>）。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/UMG/HowTo/VirtualKeyboards/keypad15.1.jpg">
+		<img class="  lazyload" alt="keypad15.1.png" data-src="../../../../../Images/InteractiveExperiences/UMG/HowTo/VirtualKeyboards/keypad15.1.jpg" />
+</picture>
+
+</p><p>"按所需大小绘制（Draw at Desired Size）"可以方便快捷地让渲染目标自动匹配控件蓝图中的理想大小。
+</p></li><li class="Default"><p><strong>编译</strong> 并 <strong>保存</strong> <strong>KeypadDisplay</strong> 蓝图。 
+</p></li><li class="Default"><p>打开 <strong>Keypad</strong> 蓝图并添加 <strong>控件（Widget）</strong> 组件（需要将类设置为 <strong>KeypadWB</strong> 并勾选 <strong>按所需大小绘制（Draw at Desired Size）</strong>）。取消勾选此控件组件的 <strong>窗口可聚焦（Window Focusable）</strong> 选项。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/UMG/HowTo/VirtualKeyboards/keypad16.1.jpg">
+		<img class="  lazyload" alt="keypad16.1.png" data-src="../../../../../Images/InteractiveExperiences/UMG/HowTo/VirtualKeyboards/keypad16.1.jpg" />
+</picture>
+
+</p><p>我们不希望此组件将聚焦从Keypad Display控件移开，因此需要取消勾选此项。
+</p></li><li class="Default"><p>添加 <strong>WidgetInteraction</strong> 组件并取消选中 <strong>启用命中测试（Enable Hit Testing）</strong>（设置为false）。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/UMG/HowTo/VirtualKeyboards/keypad17.1.jpg">
+		<img class="  lazyload" alt="keypad17.1.png" data-src="../../../../../Images/InteractiveExperiences/UMG/HowTo/VirtualKeyboards/keypad17.1.jpg" />
+</picture>
+
+</p></li></ol><p>该控件互动组件意味着我们无需引用玩家角色中的WidgetInteraction组件。这让我们能够禁用命中测试，因为不希望生成任何悬停效果。 
+</p><p>WidgetInteraction组件创建时，它们的 <strong>虚拟用户索引（Virtual User Index）</strong> 默认设置为"0"，而且它们都使用此虚拟用户索引ID进行通信。由于玩家角色中的WidgetInteraction组件的"虚拟用户索引（Virtual User Index）"也为"0"，这与引用它的效果相同。
+</p><h2 id="4-编写键盘actor脚本">4 - 编写键盘Actor脚本</h2>
+<p>在最后一部分中，我们将控件蓝图作为 <strong>控件</strong> 组件添加给Actor，并定义玩家单击 <strong>Enter</strong> 按钮时发生的事件。我们还设置了一个游戏中测试，如果代码正确，将在屏幕上输出 <strong>Success</strong>；如果代码不正确，将在屏幕上输出 <strong>Wrong Code</strong>。
+</p><ol ><li class="Default"><p>在 <strong>Keypad</strong> 蓝图 <strong>事件图表</strong> 中，从 <strong>事件开始播放（Event Begin Play）</strong> 拖出引线，并添加 <strong>转换为KeypadWB（Cast to KeypadWB）</strong> 节点。然后，添加一个 <strong>控件</strong> 组件，拖出引线以添加 <strong>获取用户控件对象（Get User Widget Object）</strong>。将返回值连接到转换 <strong>对象</strong> 引脚。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/UMG/HowTo/VirtualKeyboards/Keypad18.jpg">
+		<img class="  lazyload" alt="Keypad18.png" data-src="../../../../../Images/InteractiveExperiences/UMG/HowTo/VirtualKeyboards/Keypad18.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>从 <strong>作为KeypadWB（As Keypad WB）</strong> 引脚拖出引线，添加 <strong>设置控件交互（Set Widget Interaction）</strong> 节点，添加 <strong>控件交互（Widget Interaction）</strong> 组件，将它连接到设置控件交互（Set Widget Interaction）。 
+</p></li><li class="Default"><p>从 <strong>作为KeypadWB（As Keypad WB）</strong> 引脚拖出引线，调用 <strong>分配按下Enter（Assign Enter Pressed）</strong> 节点，此操作将创建 <strong>按下Enter（Enter Pressed）</strong> 自定义事件。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/UMG/HowTo/VirtualKeyboards/Keypad19.jpg">
+		<img class="  lazyload" alt="Keypad19.png" data-src="../../../../../Images/InteractiveExperiences/UMG/HowTo/VirtualKeyboards/Keypad19.jpg" />
+</picture>
+
+</p><p>现在选择Enter按钮时将会调用这个自定义事件。我们可以用来检查是否输入了正确代码。
+</p></li><li class="Default"><p>创建 <strong>键盘显示对象引用（Keypad Display Object Reference）</strong> 变量并命名为 <strong>TargetDisplay</strong>。选中 <strong>实例可编辑（Instance Editable）</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/UMG/HowTo/VirtualKeyboards/keypad20.1.jpg">
+		<img class="  lazyload" alt="keypad20.1.png" data-src="../../../../../Images/InteractiveExperiences/UMG/HowTo/VirtualKeyboards/keypad20.1.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>创建 <strong>文本（Text）</strong> 变量，命名为 <strong>GoalText</strong>。<strong>编译</strong> 蓝图并将 <strong>默认值（Default Value）</strong> 设为 <strong>1212</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/UMG/HowTo/VirtualKeyboards/keypad21.1.jpg">
+		<img class="  lazyload" alt="keypad21.1.png" data-src="../../../../../Images/InteractiveExperiences/UMG/HowTo/VirtualKeyboards/keypad21.1.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>按住 <strong>Ctrl</strong> 键并拖入 <strong>TargetDisplay</strong>，将其与 <strong>控件（Widget）</strong> 和 <strong>用户控件对象（User Widget Object）</strong> 相连。然后添加 <strong>转换为KeypadDisplayWB（Cast to KeypadDisplayWB）</strong> 节点，并将返回值连接到 <strong>对象（Object）</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/UMG/HowTo/VirtualKeyboards/Keypad22.jpg">
+		<img class="  lazyload" alt="Keypad22.png" data-src="../../../../../Images/InteractiveExperiences/UMG/HowTo/VirtualKeyboards/Keypad22.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>从 <strong>作为KeypadDisplayWB（As KeypadDisplayWB）</strong> 引脚拖出引线，将其与 <strong>可编辑文本框（Editable Text Box）</strong> 和 <strong>GetText(Text Box)</strong> 相连。从返回值拖出引线，添加 <strong>等于（Equals）</strong> 节点。拖入 <strong>目标文本（Goal Text）</strong> 并将它连接到 <strong>等于（Equals）</strong> 节点。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/UMG/HowTo/VirtualKeyboards/Keypad23.jpg">
+		<img class="  lazyload" alt="Keypad23.png" data-src="../../../../../Images/InteractiveExperiences/UMG/HowTo/VirtualKeyboards/Keypad23.jpg" />
+</picture>
+
+</p><p>如果重命名文本框，需要搜索新名称以找到组件。 
+</p></li><li class="Default"><p>添加有两个 <strong>打印字符串</strong> 的 <strong>分支</strong>。将字符串文本设为 <strong>成功（Success）</strong>（True），将另一个设为 <strong>错误代码（Wrong Code）</strong>（False）。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/UMG/HowTo/VirtualKeyboards/Keypad24.jpg">
+		<img class="  lazyload" alt="Keypad24.png" data-src="../../../../../Images/InteractiveExperiences/UMG/HowTo/VirtualKeyboards/Keypad24.jpg" />
+</picture>
+
+</p></li><li class="Default"><p><strong>编译</strong> 并 <strong>保存</strong> <strong>Keypad</strong> 蓝图。 
+</p></li><li class="Default"><p>在视口中，将 <strong>Keypad</strong> 和 <strong>KeypadDisplay</strong> 蓝图拖到关卡中，并根据需要旋转/安置它们。
+</p></li><li class="Default"><p>在 <strong>Keypad</strong> Actor 的 <strong>细节（Details）</strong> 面板中，将 <strong>目标显示（Target Display）</strong> 变量设置为关卡中的 <strong>KeypadDisplay</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/UMG/HowTo/VirtualKeyboards/keypad25.1.jpg">
+		<img class="  lazyload" alt="keypad25.1.png" data-src="../../../../../Images/InteractiveExperiences/UMG/HowTo/VirtualKeyboards/keypad25.1.jpg" />
+</picture>
+
+</p></li><li class="Default"><p><strong>保存</strong> 视口，选择"运行"与控件进行互动。
+</p></li></ol><h3 id="最终结果">最终结果</h3>
+<p>接近键盘显示，将指针瞄准显示，单击右键聚焦。现在可以查看按钮，并在按钮上单击右键发出 <strong>Send Key Char</strong> 命令，并将值传递到显示。 
+此例中我们使用鼠标右键和关卡中的控件进行交互，也可切换使用游戏手柄或运动控制器的按键。
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_0_npmcje20_32
+{
+	margin: 0px;
+	width: 640px;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_0_npmcje20_32:after
+{
+	content: "";
+	padding-top: 360px;
+	display: block;
+}
+</style> 
+<div id="player_0_npmcje20_32"> 
+	<div id="playerContainer_0_npmcje20_32" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/0_npmcje20/embed.html"></iframe>
+	</div>
+</div>
+<p>此例在正确代码是否被输入时仅在屏幕上显示内容，也可替换为一些事件的触发，如开门、生成敌人或其他形式的游戏性事件。
+</p>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=UMG%20UI%20Designer">UMG UI Designer</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/InteractiveExperiences/UMG/HowTo/VirtualKeyboards/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:20:21 GMT -->
+</html>

@@ -1,0 +1,586 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/BlendSpace/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:26:28 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var finishButton = finishButtonTemplate;
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/BlendSpace/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>基于运动的混合 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+		    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+		    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/BlendSpace/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/BlendSpace/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/BlendSpace/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/BlendSpace/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Animation/AnimHowTo/BlendSpace" />
+<meta name="intsourcechangelist" content="14237003" />
+<meta name="availability" content="Public" />
+<meta name="title" content="基于运动的混合" />
+<meta name="description" content="用于混合角色的行走和慢跑动画的混合空间示例。" />
+<meta name="version" content="4.14" />
+<meta name="skilllevel" content="Intermediate" />
+<meta name="type" content="how-to" />
+<meta name="parent" content="AnimatingObjects/SkeletalMeshAnimation/AnimHowTo" />
+<meta name="order" content="1" />
+<meta name="keywords" content="Animation" />
+<meta name="keywords" content="Blend Space" />
+<meta name="topic-image" content="BlendSpaceTopicCompact.png" />
+<meta name="related" content="AnimatingObjects/SkeletalMeshAnimation/Blendspaces" />
+<meta name="related" content="AnimatingObjects/SkeletalMeshAnimation/AimOffset" />
+<meta name="related" content="AnimatingObjects/SkeletalMeshAnimation/StateMachines" />
+<meta name="related" content="AnimatingObjects/SkeletalMeshAnimation/Skeleton" />
+<meta name="crumbs" content="%ROOT%,AnimatingObjects,AnimatingObjects/SkeletalMeshAnimation,AnimatingObjects/SkeletalMeshAnimation/AnimHowTo" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="基于运动的混合" />
+	<meta property="og:description" content="用于混合角色的行走和慢跑动画的混合空间示例。 " />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">为角色和对象添加动画</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">骨架网格体动画系统</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">动画操作指南</a>
+
+<span class="separator">></span> <span id="page">基于运动的混合</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">基于运动的混合</h1>
+							</div>	
+							<h2 >用于混合角色的行走和慢跑动画的混合空间示例。 </h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Intermediate"><a id="skill_link" href="../../../../SiteIndex/index.html?skills=Intermediate">Intermediate</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																														<div id="seeAlso">
+	<div style="position:relative;">
+		<div id="title">参见</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<p>
+						<a id="related_link" href="../../Blendspaces/index.html" title="混合空间是允许根据多个输入的值混合任意数量动画的资源。">混合空间</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../AimOffset/index.html" title="瞄准偏移是一种资源，它存储了一系列可混合的姿势，以帮助角色瞄准武器。">瞄准偏移</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../StateMachines/index.html" title="状态机允许将骨骼动画拆分成各种状态，可以完全控制如何从一个状态混合到另一个状态。">状态机</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../Skeleton/index.html" title="骨架资源的总览，以及其如何应用到UE4动画的说明。">骨架资源</a>
+					</p>
+				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																														<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#步骤">步骤</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#最终结果">最终结果</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p><a id="content_link"filter-data="tag_blend_space tag_animation_blending tag_animation" href="../../Blendspaces/index.html" ><span>混合空间</span></a>就是能在 <strong>动画图（AnimGraph）</strong> 中采样的特殊资源，基于两个输入值实现动画混合。 
+可利用动画蓝图中的一个可用标准<a id="content_link"filter-data="tag_animation tag_blending" href="../../NodeReference/Blend/index.html" ><span>混合节点</span></a>对基于单输入的两个动画进行简易混合。 
+混合空间可基于多个值（目前仅限两个）实现多个动画间更为复杂的混合。
+</p><p>在本操作指南中，我们将使用一个混合空间，根据角色的运动速度和运动方向来混合行走和慢跑动画。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/BlendSpace/EndResultImage.jpg">
+		<img class="  lazyload" alt="EndResultImage.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/BlendSpace/EndResultImage.jpg" />
+</picture>
+
+</p><h2 id="步骤">步骤</h2>
+<div class="note">
+	<p>在本指南中，我们使用 <strong>蓝图第三人称模板（Blueprint Third Person Template）</strong> 项目，并在项目中添加了 <strong>动画初学者包（Animation Starter Pack）</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/BlendSpace/AnimationAssetPack.jpg">
+		<img class="  lazyload" alt="AnimationAssetPack.png" width="800" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/BlendSpace/AnimationAssetPack.jpg" />
+</picture>
+
+</p><p>您可以从Epic启动程序通过 <strong>商城</strong> 免费下载动画初学者包。 </p>
+</div><ol ><li class="Default"><p>在 <strong>Content/ThirdPersonBP/Blueprints</strong> 文件夹中的项目中，打开 <strong>ThirdPersonGameMode</strong> 并将 <strong>默认Pawn类（Default Pawn Class）</strong> 设置为 <strong>Ue4ASP_Character</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/BlendSpace/BlendSpace1.jpg">
+		<img class="  lazyload" alt="BlendSpace1.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/BlendSpace/BlendSpace1.jpg" />
+</picture>
+
+</p><p>这样我们就可以在"动画初学者包"项目中使用之前创建的可播放角色。 
+</p></li><li class="Default"><p>在关卡中，选择 <strong>ThirdPersonCharacter</strong> 并从关卡中将其删除。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/BlendSpace/BlendSpace2.jpg">
+		<img class="  lazyload" alt="BlendSpace2.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/BlendSpace/BlendSpace2.jpg" />
+</picture>
+
+</p><p>我们需要从关卡中删除该角色，以便产生上一步的角色。 
+</p></li><li class="Default"><p>在 <strong>Content/AnimStarterPack/UE4_Mannequin/Mesh</strong> 文件夹中，右键单击 <strong>UE4_Mannequin</strong> 并在 <strong>创建（Create）</strong> 下面，选择 <strong>混合空间（Blend Space）</strong> 并指定名称。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/BlendSpace/BlendSpace3.jpg">
+		<img class="  lazyload" alt="BlendSpace3.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/BlendSpace/BlendSpace3.jpg" />
+</picture>
+
+</p><p>混合空间资源需要引用一个骨架资源，这里我们使用快捷键从这个骨架资源创建混合空间，并将它命名为 <strong>MyBlendSpace</strong>。
+</p></li><li class="Default"><p>在该混合空间中，在 <strong>资源细节（Asset Details）</strong> 面板的 <strong>轴设置（Axis Settings）</strong> 中，添加以下值： 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/BlendSpace/BlendSpace4.jpg">
+		<img class="  lazyload" alt="BlendSpace4.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/BlendSpace/BlendSpace4.jpg" />
+</picture>
+
+</p><p>水平轴将确定我们移动的 <strong>方向（Direction）</strong>，单位为度： 
+</p><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>水平轴设置 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>值</p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>名称（Name）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>方向（Direction）</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>最小轴值（Minimum Axis Value）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>-180</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>最大轴值（Maximum Axis Value）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>180</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>网格分区数量（Number of Grid Divisions）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>4</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>插值时间（Interpolation Time）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>0</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>插值类型（Interpolation Type）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>平均插值（Averaged Interpolation）</p>
+			</td>
+	
+</tr></tbody>
+</table><p>垂直轴将确定角色的移动 <strong>速度（Speed）</strong>： 
+</p><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>垂直轴设置 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>值</p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>名称（Name）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>速度（Speed）</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>最小轴值（Minimum Axis Value）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>0</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>最大轴值（Maximum Axis Value）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>250</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>网格分区数量（Number of Grid Divisions）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>4</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>插值时间（Interpolation Time）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>0</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>插值类型（Interpolation Type）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>平均插值（Averaged Interpolation）</p>
+			</td>
+	
+</tr></tbody>
+</table></li><li class="Default"><p>在 <strong>资源浏览器（Asset Browser）</strong> 中，将 <strong>Walk_Fwd_Rifle_Ironsights</strong> 动画拖到网格上的中下方位置。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/BlendSpace/BlendSpace5.jpg">
+		<img class="  lazyload" alt="BlendSpace5.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/BlendSpace/BlendSpace5.jpg" />
+</picture>
+
+</p><p>这将成为进入这个混合空间时的起始位置。 
+</p></li><li class="Default"><p>将 <strong>Walk_Lt_Rifle_Ironsights</strong> 动画拖到下面的位置 <strong>1</strong>，将 <strong>Walk_Rt_Rifle_Ironsights</strong> 动画拖到位置 <strong>2</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/BlendSpace/BlendSpace6.jpg">
+		<img class="  lazyload" alt="BlendSpace6.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/BlendSpace/BlendSpace6.jpg" />
+</picture>
+
+</p><p>这里放置的是左右移动时要使用的动画。 
+</p></li><li class="Default"><p>将 <strong>Walk_Bwd_Rifle_Ironsights</strong> 动画拖到下面的位置 <strong>1</strong> 和 <strong>2</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/BlendSpace/BlendSpace7.jpg">
+		<img class="  lazyload" alt="BlendSpace7.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/BlendSpace/BlendSpace7.jpg" />
+</picture>
+
+</p><p>这里放置的是向后移动时要使用的动画。 
+</p></li><li class="Default"><p>从 <strong>资源浏览器（Asset Browser）</strong>，将 <strong>Jog_Fwd_Rifle</strong> 动画拖到网格上的中上方位置。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/BlendSpace/BlendSpace8.jpg">
+		<img class="  lazyload" alt="BlendSpace8.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/BlendSpace/BlendSpace8.jpg" />
+</picture>
+
+</p><p>这样，在速度达到最大值250且不是左右移动时，我们可以使用另一个动画，向前慢跑。 
+</p></li><li class="Default"><p>将 <strong>Jog_Lt_Rifle</strong> 动画拖到下面的位置 <strong>1</strong>，将 <strong>Jog_Rt_Rifle</strong> 动画拖到位置 <strong>2</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/BlendSpace/BlendSpace9.jpg">
+		<img class="  lazyload" alt="BlendSpace9.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/BlendSpace/BlendSpace9.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>将 <strong>Jog_Bwd_Rifle</strong> 动画拖到下面的位置 <strong>1</strong> 和 <strong>2</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/BlendSpace/BlendSpace10.jpg">
+		<img class="  lazyload" alt="BlendSpace10.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/BlendSpace/BlendSpace10.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>Content/AnimStarterPack</strong> 文件夹中，打开 <strong>UE4ASP_HeroTPP_AnimBlueprint</strong>，然后在 <strong>我的蓝图（My Blueprint）</strong> 面板中，<strong>双击</strong> <strong>运动</strong> 图形。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/BlendSpace/BlendSpace11.jpg">
+		<img class="  lazyload" alt="BlendSpace11.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/BlendSpace/BlendSpace11.jpg" />
+</picture>
+
+</p></li><li class="Default"><p><strong>双击</strong> <strong>慢跑</strong> 状态打开其图形。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/BlendSpace/BlendSpace12.jpg">
+		<img class="  lazyload" alt="BlendSpace12.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/BlendSpace/BlendSpace12.jpg" />
+</picture>
+
+</p><p>该<a id="content_link"filter-data="tag_animation_assets" href="../../StateMachines/index.html" ><span>状态机（State Machine）</span></a>已经包含了一个慢跑状态，而该状态又包含一个不同慢跑动画的混合空间。 
+</p></li><li class="Default"><p>从 <strong>资源浏览器（Asset Browser）</strong>，将 <strong>MyBlendSpace</strong> 资源拖到图形，并按以下所示更换 <strong>BS_Jog</strong> 混合空间。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/BlendSpace/BlendSpace13.jpg">
+		<img class="  lazyload" alt="BlendSpace13.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/BlendSpace/BlendSpace13.jpg" />
+</picture>
+
+</p><p>默认混合空间不包括行走状态，而我们的混合空间则包括行走状态，因此用我们的混合空间替换默认混合空间！ 
+</p></li><li class="Default"><p>在 <strong>Content/AnimStarterPack</strong> 文件夹汇总，打开 <strong>Ue4ASP_Character</strong>。 
+</p></li><li class="Default"><p>在图形中找到标记为 <strong>下蹲（Crouch）</strong> 的部分，将其删除以移除警告错误。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/BlendSpace/BlendSpace14.jpg">
+		<img class="  lazyload" alt="BlendSpace14.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/BlendSpace/BlendSpace14.jpg" />
+</picture>
+
+</p><p>默认情况下，动画初学者包为下蹲创建了绑定，而我们的项目则没有。在该示例中，我们将移除下蹲行走的能力。 
+</p></li><li class="Default"><p>在图形中单击右键，并添加 <strong>左Shift</strong> 键事件，然后将 <strong>CharacterMovement</strong> 从 <strong>组件（Components）</strong> 选项卡拖到图形。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/BlendSpace/BlendSpace15.jpg">
+		<img class="  lazyload" alt="BlendSpace15.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/BlendSpace/BlendSpace15.jpg" />
+</picture>
+
+</p><p>当我们按住左Shift按钮时，会从行走切换到慢跑。 
+</p></li><li class="Default"><p>从 <strong>角色运动（CharacterMovement）</strong> 节点拖出引线，并将 <strong>按下（Pressed）</strong> 和 <strong>松开（Released）</strong> 的**设置最大行走速度（Set Max Walk Speed）<strong> 分别设置为值 </strong>250<strong> 和 </strong>100**。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/BlendSpace/BlendSpace17.jpg">
+		<img class="  lazyload" alt="BlendSpace17.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/BlendSpace/BlendSpace17.jpg" />
+</picture>
+
+</p><p>我们根据是否按下左Shift键来更改运动速度，继而在游戏中更改角色的运动速度。 
+</p></li><li class="Default"><p>单击 <strong>角色运动（CharacterMovement）</strong> 组装件，然后在 <strong>细节（Details）</strong> 面板中，将 <strong>最大行走速度（Max Walk Speed）</strong> 设置为 <strong>100</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/BlendSpace/BlendSpace20.jpg">
+		<img class="  lazyload" alt="BlendSpace20.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/BlendSpace/BlendSpace20.jpg" />
+</picture>
+
+</p><p>我们需要更新角色的默认运动速度，以使他们开始行走。 
+</p></li><li class="Default"><p>在 <strong>组件（Components）</strong> 选项卡中单击 <strong>胶囊组件（CapsuleComponent）</strong>，并在 <strong>细节（Details）</strong> 面板中，选中 <strong>在游戏中隐藏（Hidden in Game）</strong> 选项。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/BlendSpace/BlendSpace18.jpg">
+		<img class="  lazyload" alt="BlendSpace18.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/BlendSpace/BlendSpace18.jpg" />
+</picture>
+
+</p><p>这会关闭游戏中的碰撞胶囊体调试显示。 
+</p></li><li class="Default"><p>单击 <strong>编译（Compile）</strong>，然后单击工具栏编辑器按钮中的 <strong>播放（Play）</strong>。
+</p></li></ol><h2 id="最终结果">最终结果</h2>
+<!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_0_w0tct4kb_26
+{
+	margin: 0px;
+	width: 100%;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_0_w0tct4kb_26:after
+{
+	content: "";
+	padding-top: 56.25%;
+	display: block;
+}
+</style> 
+<div id="player_0_w0tct4kb_26"> 
+	<div id="playerContainer_0_w0tct4kb_26" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/0_w0tct4kb/embed.html"></iframe>
+	</div>
+</div>
+<p>在编辑器中运行时，使用 <strong>WASD</strong> 四处移动，此时角色在默认情况下将会行走，在改变方向时会在不同行走动画之间混合。 
+在站立时，按住 <strong>左Shift</strong> 键并使用 WASD 将使角色从行走/瞄准动画混合到低姿/瞄准慢跑动画，从而使角色变为"快跑"。 
+</p>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Animation">Animation</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Blend%20Space">Blend Space</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/BlendSpace/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:26:36 GMT -->
+</html>

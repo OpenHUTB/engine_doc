@@ -1,0 +1,478 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/Actors/Spawning/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:21:37 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/Actors/Spawning/" />');
+				var udnCSS = '../../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>生成 Actors | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/Actors/Spawning/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/Actors/Spawning/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/Actors/Spawning/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/Actors/Spawning/" hreflang="ko" />
+
+	<meta name="redirect" content="Programming/UnrealArchitecture/Actors/Spawning" />
+<meta name="intsourcechangelist" content="3108692" />
+<meta name="availability" content="Public" />
+<meta name="title" content="生成 Actors" />
+<meta name="description" content="在游戏代码中生成新的Actors替代物体的方法。" />
+<meta name="version" content="4.9" />
+<meta name="crumbs" content="%ROOT%,ProgrammingAndScripting,ProgrammingAndScripting/ProgrammingWithCPP,ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture,ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/Actors" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="生成 Actors" />
+	<meta property="og:description" content="在游戏代码中生成新的Actors替代物体的方法。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../../index.html">编程和脚本编写</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">编程指南</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">游戏逻辑编程</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">Actors</a>
+
+<span class="separator">></span> <span id="page">生成 Actors</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">生成 Actors</h1>
+							</div>	
+							<h2 >在游戏代码中生成新的Actors替代物体的方法。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																																			</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																																				<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#spawnactor方法">SpawnActor 方法</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#用法">用法</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#生成函数的模板">生成函数的模板</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#生成t实例,返回t指针">生成T实例, 返回T指针</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#使用变换生成t实例，返回t指针">使用变换生成T实例，返回T指针</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#生成类实例,返回t指针">生成类实例, 返回T 指针</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#使用变换生成类实例，返回t指针">使用变换生成类实例，返回T指针</a></p>
+	</li>					</ul>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<a name="spawnactormethod" ></a><h2 id="spawnactor方法">SpawnActor 方法</h2>
+<p>创建一个新的 <strong>Actor</strong> 示例的过程称为 <strong>生成</strong> 。生成 Actors 的过程是使用 <code>UWorld::SpawnActor()</code>  函数完成的。该函数创建指定类的一个新实例 
+并返回到那个新创建的 <em>Actor</em> 的指针。<code>UWorld::SpawnActor()</code>  仅用于创建在继承于 Actor<br />的类的实例。
+</p><pre class="prettyprint"><code>AActor&#42; UWorld::SpawnActor
+(
+    UClass&#42;         Class,
+    FName           InName,
+    FVector const&#42;  Location,
+    FRotator const&#42; Rotation,
+    AActor&#42;         Template,
+    bool            bNoCollisionFail,
+    bool            bRemoteOwned,
+    AActor&#42;         Owner,
+    APawn&#42;          Instigator,
+    bool            bNoFail,
+    ULevel&#42;         OverrideLevel,
+    bool            bDeferConstruction
+)</code></pre>
+<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>参数 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>描述 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><code>Class</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>一个 <code>UClass</code> ，指出了要生成的 Actor 的类。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><code>InName</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>可选的。<code>FName</code> ，用作为新生成的 Actor 的 <code>名称</code> 。如果没有指定值，那么则将使用 <em>[Class]_[Number]</em> 的形式自动生成所产生的 Actor 的名称。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><code>Location</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>可选的。一个 <code>FVector</code> ，提供了生成的 Actor 的初始位置。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><code>Rotation</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>可选的。一个 ``FVector`` ，提供了生成的 Actor 的初始旋转度。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><code>Template</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>可选的。一个 <code>AActor</code> ，用作为生成新 Actor 时使用的模板。所生成的 Actor 将使用模板 Actor 的属性值进行初始化。如果没有指定模板 Actor ，那么将使用类默认对象(CDO)来初始化所生成的 Actor 。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><code>bNoCollisionFail</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>可选的。一个  <code>bool</code> 值，决定生成  Actor 时是否执行碰撞测试。如果为 <code>true</code> ，那么无论根组件或模板 Actor 的碰撞设置为什么，在生成 Actor 时都不执行碰撞测试。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><code>bRemoteOwned</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>可选的。<code>布尔值</code> 。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><code>Owner</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>可选的。拥有所生成的 Actor 的 <code>AActor</code> 。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><code>Instigator</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>可选的。<code>APawn</code> ，导致所生成的 Actor 施加伤害的挑衅者。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><code>bNoFail</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>可选的。一个布尔值，决定了如果某些条件不满足，生成Actor是否失败。如果为 <code>true</code> ，那么生成过程将会失败，因为所生成的类是 <code>bStatic=true</code> ，或者因为模板 Actor 和正在生成的 Actor 的类不一样。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><code>OverrideLevel</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>可选的。在其中生成 Actor 的 <code>ULevel</code> ，也就是 Actor 的外部容器。如果没有指定关卡，那么则使用使用 <code>Owner</code> 的 <code>Outer（外部容器）</code> 。如果没有指定  <code>Owner</code> ，则使用永久性关卡。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><code>bDeferConstruction</code></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>可选的。一个布尔值，决定是否运行构建脚本。如果为 <code>true</code> ，那么将不会在生成的 Actor 上运行构建脚本。仅当正在从 <a id="content_link"filter-data="tag_blueprints" href="../../../../Blueprints/index.html" ><span>蓝图</span></a> 中生成 Actor 时适用。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="2" align="">
+			<p><div class="tablesection">
+	<p>返回值</p>
+</div></p>
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="2" align="">
+			<p>生成的 Actor 是以 <code>AActor</code> 指针的形式呈现。返回值必须类型转换为 <code>Class</code> 参数指定的衍生类型。</p>
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+</tr></tbody>
+</table><a name="usage" ></a><h3 id="用法">用法</h3>
+<pre class="prettyprint"><code>AKAsset&#42; SpawnedActor1 = (AKAsset&#42;) GetWorld()-&gt;SpawnActor(AKAsset::StaticClass(), NAME&#95;None, &amp;Location);</code></pre>
+<a name="spawnfunctiontemplates" ></a><h2 id="生成函数的模板">生成函数的模板</h2>
+<p>为了使得生成 Actors 的过程更加方便，我们提供了几个常用的函数模板。这些函数使得创建 Actor 变得更加简单，因为它们仅需要 
+少量的参数，并允许指定返回的 Actor 的类型。
+</p><a name="spawntinstance,returntpointer" ></a><h3 id="生成t实例,返回t指针">生成T实例, 返回T指针</h3>
+<p>这个函数模板在相同的位置处、以相同的旋转度生成该模板类 <code>T</code> 的实例，作为执行生成操作的 Actor 的根组件，并返回 
+到和那个模板类一样类型的实例的指针，也就是 <code>T&#42;</code> 。您可以指定拥有者 Actor 、挑衅的 Pawn ，及指定如果生成的 Actor 会侵占或碰撞 
+另一个世界中已经存在的 Actor 生成操作是否失败。
+</p><pre class="prettyprint"><code>/&#42;&#42; Spawns and returns class T, respects default rotation and translation of root component. &#42;/
+template&lt; class T &gt;
+T&#42; SpawnActor
+(
+    AActor&#42; Owner=NULL,
+    APawn&#42; Instigator=NULL,
+    bool bNoCollisionFail=false
+)
+{
+    return (T&#42;)(GetWorld()-&gt;SpawnActor(T::StaticClass(), NAME&#95;None, NULL, NULL, NULL, bNoCollisionFail, false, Owner, Instigator));
+}</code></pre>
+<a name="usage" ></a><h4 id="用法_1">用法</h4>
+<pre class="prettyprint"><code>MyHUD = SpawnActor&lt;AHUD&gt;(this, Instigator);</code></pre>
+<a name="spawntinstancewithtransform,returntpointer" ></a><h3 id="使用变换生成t实例，返回t指针">使用变换生成T实例，返回T指针</h3>
+<p>该函数模板在指定 <code>位置</code> 处使用指定的 <code>旋转度`生成模板类  </code>T<code> 的实例，并返回和那个模板类类型一样的实例的指针， 
+也就是  </code>T*` 。除了位置和旋转度外，还可以指定拥有者 Actor 、挑衅的 Pawn ，及指定如果生成的 Actor 会侵占或碰撞 
+另一个世界中已经存在的 Actor 生成操作是否失败。
+</p><pre class="prettyprint"><code>/&#42;&#42; Spawns and returns class T, forcibly sets world position. &#42;/
+template&lt; class T &gt;
+T&#42; SpawnActor
+(
+    FVector const&amp; Location,
+    FRotator const&amp; Rotation,
+    AActor&#42; Owner=NULL,
+    APawn&#42; Instigator=NULL,
+    bool bNoCollisionFail=false
+)
+{
+    return (T&#42;)(GetWorld()-&gt;SpawnActor(T::StaticClass(), NAME&#95;None, &amp;Location, &amp;Rotation, NULL, bNoCollisionFail, false, Owner, Instigator));
+}</code></pre>
+<a name="usage" ></a><h4 id="用法_2">用法</h4>
+<pre class="prettyprint"><code>Controller = SpawnActor&lt;AController&gt;(GetLocation(), GetRotation(), NULL, Instigator, true);</code></pre>
+<a name="spawnclassinstancewithtransform,returntpointer" ></a><h3 id="生成类实例,返回t指针">生成类实例, 返回T 指针</h3>
+<p>这个函数模板在相同的位置处、以相同的旋转度生成指定 <code>Class（类）</code> 的实例，作为执行生成操作的 Actor 的根组件，并返回 
+到和那个模板类一样类型的实例的指针，也就是 <code>T&#42;</code> 。这要求指定的 <code>Class（类）</code> 必须是模板类  <code>T</code> 的子类。除了类外，您还可以指定 
+拥有者 Actor 、挑衅的 Pawn ，及指定如果生成的 Actor 会侵占或碰撞另一个世界中已经存在的 Actor 生成操作 
+是否失败。
+</p><pre class="prettyprint"><code>/&#42;&#42; Spawns given class and returns class T pointer, respects default rotation and translation of root component. &#42;/
+template&lt; class T &gt;
+T&#42; SpawnActor
+(
+    UClass&#42; Class,
+    AActor&#42; Owner=NULL,
+    APawn&#42; Instigator=NULL,
+    bool bNoCollisionFail=false
+)
+{
+    return (Class != NULL) ? Cast&lt;T&gt;(GetWorld()-&gt;SpawnActor(Class, NAME&#95;None, NULL, NULL, NULL, bNoCollisionFail, false, Owner, Instigator)) : NULL;
+}</code></pre>
+<a name="usage" ></a><h4 id="用法_3">用法</h4>
+<pre class="prettyprint"><code>MyHUD = SpawnActor&lt;AHUD&gt;(NewHUDClass, this, Instigator);</code></pre>
+<a name="spawnclassinstancewithtransform,returntpointer" ></a><h3 id="使用变换生成类实例，返回t指针">使用变换生成类实例，返回T指针</h3>
+<p>该函数模板在指定 <code>位置</code> 处使用指定的 <code>旋转度`生成指定类  </code>类<code> 的实例，并返回和那个模板类类型一样的实例的指针， 
+也就是  </code>T*` 。这要求指定的 `Class（类）` 必须是模板类  `T` 的子类。除了类、位置及旋转度外，还可以指定拥有者 Actor 、挑衅的的 Pawn ， 
+及指定如果生成的 Actor 会侵占或碰撞另一个世界中已经存在的 Actor 生成操作
+</p><pre class="prettyprint"><code>/&#42;&#42; Spawns given class and returns class T pointer, forcibly sets world position. &#42;/
+template&lt; class T &gt;
+T&#42; SpawnActor
+(
+    UClass&#42; Class,
+    FVector const&amp; Location,
+    FRotator const&amp; Rotation,
+    AActor&#42; Owner=NULL,
+    APawn&#42; Instigator=NULL,
+    bool bNoCollisionFail=false
+)
+{
+    return (Class != NULL) ? Cast&lt;T&gt;(GetWorld()-&gt;SpawnActor(Class, NAME&#95;None, &amp;Location, &amp;Rotation, NULL, bNoCollisionFail, false, Owner, Instigator)) : NULL;
+}</code></pre>
+<a name="usage" ></a><h4 id="用法_4">用法</h4>
+<pre class="prettyprint"><code>APawn&#42; ResultPawn = SpawnActor&lt;APawn&gt;(DefaultPawnClass, StartLocation, StartRotation, NULL, Instigator);</code></pre>
+
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/Actors/Spawning/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:21:37 GMT -->
+</html>

@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/ProgrammingAndScripting/Blueprints/UserGuide/BlueprintComms/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:12:21 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/ProgrammingAndScripting/Blueprints/UserGuide/BlueprintComms/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>直接蓝图通信 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/ProgrammingAndScripting/Blueprints/UserGuide/BlueprintComms/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/ProgrammingAndScripting/Blueprints/UserGuide/BlueprintComms/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/ProgrammingAndScripting/Blueprints/UserGuide/BlueprintComms/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/ProgrammingAndScripting/Blueprints/UserGuide/BlueprintComms/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Blueprints/UserGuide/BlueprintComms" />
+<meta name="intsourcechangelist" content="11969652" />
+<meta name="availability" content="Public" />
+<meta name="title" content="直接蓝图通信" />
+<meta name="description" content="如何从一个蓝图中使用另一个蓝图的函数、事件和变量。" />
+<meta name="related" content="ProgrammingAndScripting/Blueprints/UserGuide/BlueprintCommsUsage" />
+<meta name="related" content="ProgrammingAndScripting/Blueprints/BP_HowTo/DirectBlueprintComs" />
+<meta name="related" content="ProgrammingAndScripting/Blueprints/UserGuide/Variables" />
+<meta name="related" content="ProgrammingAndScripting/Blueprints/UserGuide/Functions" />
+<meta name="version" content="4.9" />
+<meta name="keywords" content="Blueprints" />
+<meta name="topic-image" content="ProgrammingAndScripting/Blueprints/UserGuide/direct_comm_topic.png" />
+<meta name="course" content="blueprints---essential-concepts?lang=zh-CN|蓝图：基础概念|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fblueprints---essential-concepts%2FBPEssentialsThumbnail_1920x1080-1920x1080-2fcdde875f1d79ade1c295fe4fef53c4b8c5ecde.PNG?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fblueprints---essential-concepts%2FBlueprint--Essential-Concepts-1000x1000-9f372ce55de42ce9596dffd6c931839e44fcc873.png?resize=1&amp;w=300" />
+<meta name="course" content="interactive-material-swaps-using-blueprints?lang=zh-CN|蓝图：可交互材质切换|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Finteractive-material-swaps-using-blueprints%2F406---Hero2-1920x1080-ce26b6199cf620364149d2d934c73ae30e983110.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Finteractive-material-swaps-using-blueprints%2FInteractive-Material-Swaps-Using-Blueprints-1000x1000-21158a5fe67365e3bf5db49712b52482382f15ac.png?resize=1&amp;w=300" />
+<meta name="course" content="making-a-blueprint-product-configurator?lang=zh-CN|企业级蓝图开发|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fblueprint-for-enterprise%2F301-Blueprints-%281200X675%29-1200x675-d140b8a0b13b05c0619e35e1076b4c82e4a4b855.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fblueprint-for-enterprise%2FBlueprint-for-Enterprise-1000x1000-13caa11b8e5c5e91506a8dd63b39d247318c3208.png?resize=1&amp;w=300" />
+<meta name="crumbs" content="%ROOT%,ProgrammingAndScripting,ProgrammingAndScripting/Blueprints,ProgrammingAndScripting/Blueprints/UserGuide" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="直接蓝图通信" />
+	<meta property="og:description" content="如何从一个蓝图中使用另一个蓝图的函数、事件和变量。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">编程和脚本编写</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">蓝图可视化脚本</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">专用节点群组</a>
+
+<span class="separator">></span> <span id="page">直接蓝图通信</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">直接蓝图通信</h1>
+							</div>	
+							<h2 >如何从一个蓝图中使用另一个蓝图的函数、事件和变量。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																																			</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																		<div id="seeAlso">
+	<div style="position:relative;">
+		<div id="title">参见</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<p>
+						<a id="related_link" href="../BlueprintCommsUsage.html" title="蓝图通信不同用法的总览。">蓝图通信用法</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../BP_HowTo/DirectBlueprintComs.html" title="从蓝图之间直接传递信息的展示。">直接蓝图通信</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../Variables/index.html" title="保存值或参考世界场景中的对象或Actor的属性。">蓝图变量</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../Functions/index.html" title="可以从另一个图表执行或调用的节点图表。">函数</a>
+					</p>
+				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																		<div id="courses">
+	<div style="position:relative;">
+		<div id="title">相关课程</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<div name="blueprints---essential-concepts?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/blueprints---essential-concepts?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/blueprints---essential-concepts/BPEssentialsThumbnail_1920x1080-1920x1080-2fcdde875f1d79ade1c295fe4fef53c4b8c5ecd?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/blueprints---essential-concepts/Blueprint--Essential-Concepts-1000x1000-9f372ce55de42ce9596dffd6c931839e44fcc873?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="blueprints---essential-concepts?lang=zh-CN_title">
+				蓝图：基础概念
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="interactive-material-swaps-using-blueprints?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/interactive-material-swaps-using-blueprints?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/interactive-material-swaps-using-blueprints/406---Hero2-1920x1080-ce26b6199cf620364149d2d934c73ae30e983110.8314f8?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/interactive-material-swaps-using-blueprints/Interactive-Material-Swaps-Using-Blueprints-1000x1000-21158a5fe67365e3bf5db49712b52482382f15ac.8?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="interactive-material-swaps-using-blueprints?lang=zh-CN_title">
+				蓝图：可交互材质切换
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="making-a-blueprint-product-configurator?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/making-a-blueprint-product-configurator?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/blueprint-for-enterprise/301-Blueprints-(1200X675)-1200x675-d140b8a0b13b05c0619e35e1076b4c82e4a4b855.8344f86.dela?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/blueprint-for-enterprise/Blueprint-for-Enterprise-1000x1000-13caa11b8e5c5e91506a8dd63b39d247318c3208.836fe4b.dela?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="making-a-blueprint-product-configurator?lang=zh-CN_title">
+				企业级蓝图开发
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																								<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#一般工作流程">一般工作流程</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#函数和直接蓝图通信">函数和直接蓝图通信</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#故障排除">故障排除</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p><strong>直接蓝图通信（Direct Blueprint Communication）</strong> 是最常见的蓝图通信方法，而且当您有两个蓝图并且想要它们在某个时刻彼此交流时，它可以提供良好的效果。这种交流总是一对一的；这意味着一个蓝图（"工作蓝图（Working Blueprint）"）请求访问另一个蓝图（"目标蓝图（Target Blueprint）"）。直接蓝图通信（Direct Blueprint Communication）最简单的使用方法是通过公开的对象<a id="content_link"filter-data="tag_data_types tag_blueprints" href="../Variables/index.html" ><span><strong>变量（Variable）</strong></span></a>获得对目标蓝图的参考，然后指定要访问该蓝图的哪个实例。
+</p><h2 id="一般工作流程">一般工作流程</h2>
+<p>为了使用直接蓝图通信（Direct Blueprint Communication），您需要做的第一件事是识别将要通信的蓝图。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/BlueprintComms/SelectedBlueprints.jpg">
+		<img class="  lazyload" alt="SelectedBlueprints.png" width="640" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/BlueprintComms/SelectedBlueprints.jpg" />
+</picture>
+
+</p><div class="caption">
+	<p>在上图中，我们有一个角色蓝图和我们希望角色能够关闭的吊灯蓝图。 </p>
+</div><p>在这个实例中，工作蓝图是我们的角色蓝图，而我们的目标蓝图则是吊灯蓝图。通过直接蓝图通信，我们可以假定，当玩家角色按下按钮时，锁定吊灯蓝图为目标并关闭吊灯。为此，我们需要在角色蓝图中创建一个公开展示的变量，并以吊灯蓝图为目标。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/BlueprintComms/TargetVariable.jpg">
+		<img class="  lazyload" alt="TargetVariable.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/BlueprintComms/TargetVariable.jpg" />
+</picture>
+
+</p><div class="caption">
+	<p>在上文的角色蓝图中，我们已经创建了蓝图吊灯类型的一个变量，我们还将它设置为 <strong>可编辑（Editable）</strong>，这将允许我们设置希望在关卡中影响的光源实例。  </p>
+</div><div class="note">
+	<p>请注意您公开了哪些变量、函数和事件。请勿公开变量，除非其他人可以安全地访问和更改它们。作为最佳实践指南，公开其他蓝图需要的内容以及您希望关卡设计师能够更改的内容即可，而非公开所有内容。</p>
+</div><p>在我们选择了角色蓝图的关卡中，我们可以看到能够从 <strong>细节（Details）</strong> 面板中设置的新变量。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/BlueprintComms/NewVariableCreated.jpg">
+		<img class="  lazyload" alt="NewVariableCreated.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/BlueprintComms/NewVariableCreated.jpg" />
+</picture>
+
+</p><p>默认情况下，该变量设置为 <strong>无（None）</strong>，并且必须设置为定义您想要影响的吊灯实例，因为您的关卡可能有多个吊灯，并且您需要定义想要与哪个吊灯通信。您可以单击下拉菜单（或滴眼管图标）从关卡中进行选择并指定要与哪个实例通信。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/BlueprintComms/SelectInstance.jpg">
+		<img class="  lazyload" alt="SelectInstance.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/BlueprintComms/SelectInstance.jpg" />
+</picture>
+
+</p><div class="caption">
+	<p>由于我们的关卡中只有一个吊灯，所以仅显示一个，如果我们有更多的吊灯，则它们会在下拉列表中列示。</p>
+</div><p>一旦定义了您要直接与之通信的实例，您就能从您的角色蓝图访问该光源的功能、变量或其他设置。 
+</p><div class="note">
+	<p>有关更详细的演练，请参阅直接蓝图通信的蓝图教程。 </p>
+</div><h2 id="函数和直接蓝图通信">函数和直接蓝图通信</h2>
+<p>当您在蓝图中使用<a id="content_link"filter-data="tag_blueprints" href="../Functions/index.html" ><span><strong>函数（Functions）</strong></span></a>时，您仍然可以通过指定目标蓝图类型作为该函数的参数来使用直接蓝图通信（Direct Blueprint Communication）。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/BlueprintComms/FunctionTarget.jpg">
+		<img class="  lazyload" alt="FunctionTarget.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/BlueprintComms/FunctionTarget.jpg" />
+</picture>
+
+</p><div class="caption">
+	<p>上文中我们已创建了 <strong>ToggleLight</strong> 函数，并将一个 <strong>输入（Input）</strong> 引脚设置为我们的蓝图吊灯。 </p>
+</div><p>在函数中使用目标蓝图时，仍然需要指出要与目标的哪个实例通信。这可以使用公开的变量（如下所示）来完成，也可以在调用此函数时从外部提供。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/BlueprintComms/ToggleLight.jpg">
+		<img class="  lazyload" alt="ToggleLight.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/BlueprintComms/ToggleLight.jpg" />
+</picture>
+
+</p><div class="caption">
+	<p>在上图中，当您按下 <strong>F</strong> 时，它将调用 <strong>ToggleLight</strong> 函数，并将我们的公开变量锁定为目标。 </p>
+</div><h2 id="故障排除">故障排除</h2>
+<p>当变量中完全没有指定实例时，会出现一个常见错误。当您从工作蓝图中调用脚本时，如果您在从目标蓝图中获取脚本上遇到困难，请确保指定了要使用的蓝图实例。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/BlueprintComms/NoneSettings.jpg">
+		<img class="  lazyload" alt="NoneSettings.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/BlueprintComms/NoneSettings.jpg" />
+</picture>
+
+</p><p>相反，如果您根据函数调用的结果设置了变量，您应该会在日志中看到一个警告，提醒您的变量发生了"无访问对象（Access None）"异常。如果打开了消息日志（Message Log）窗口，它应该提供一个指向导致问题的节点的可单击链接。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/BlueprintComms/ErrorMessage.jpg">
+		<img class="  lazyload" alt="ErrorMessage.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/UserGuide/BlueprintComms/ErrorMessage.jpg" />
+</picture>
+
+</p><div class="caption">
+	<p>上文中调用了一个函数，但是没有指定目标蓝图的实例，这导致了 <strong>未访问任何对象（Accessed None）</strong> 错误。该错误指出了导致问题的脚本以及发生错误的蓝图。单击其中一个将打开导致问题的蓝图。 </p>
+</div>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Blueprints">Blueprints</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/ProgrammingAndScripting/Blueprints/UserGuide/BlueprintComms/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:12:25 GMT -->
+</html>

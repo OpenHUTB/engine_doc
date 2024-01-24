@@ -1,0 +1,475 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/BuildingWorlds/LightingAndShadows/SunPositioner/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:09:19 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "../../../../Images/BuildingWorlds/LightingAndShadows/SunPositioner/sunpos-hero.png";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/BuildingWorlds/LightingAndShadows/SunPositioner/" />');
+				var udnCSS = '../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>地理位置准确的太阳定位 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/BuildingWorlds/LightingAndShadows/SunPositioner/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/BuildingWorlds/LightingAndShadows/SunPositioner/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/BuildingWorlds/LightingAndShadows/SunPositioner/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/BuildingWorlds/LightingAndShadows/SunPositioner/" hreflang="ko" />
+
+	<meta name="redirect" content="RenderingAndGraphics/LightingAndShadows/SunPositioner" />
+<meta name="redirect" content="Engine/Rendering/LightingAndShadows/SunPositioner" />
+<meta name="intsourcechangelist" content="18413618" />
+<meta name="availability" content="Public" />
+<meta name="title" content="地理位置准确的太阳定位" />
+<meta name="description" content="通过指定关卡在地球上的位置、日期和时间，控制太阳的位置。" />
+<meta name="type" content="" />
+<meta name="version" content="4.21" />
+<meta name="parent" content="BuildingWorlds/LightingAndShadows" />
+<meta name="order" content="" />
+<meta name="keywords" content="Lighting" />
+<meta name="keywords" content="Beta" />
+<meta name="keywords" content="sun positioning" />
+<meta name="topic-image" content="sunpos-topic.png" />
+<meta name="hero-image" content="sunpos-hero.png" />
+<meta name="course" content="lighting-essential-concepts-and-effects?lang=zh-CN|光照基础概念和效果|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Flighting-essential-concepts-and-effects%2FLightingEssentials_Topic_1920x1080-1920x1080-3e04dcaf168d9a530720df1573b417807ae00784.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Flighting-essential-concepts-and-effects%2FLighting-Essential-Concepts-and-Effects-1000x1000-14831d7f280345717b0bdd66be9422b40ffb91bd.png?resize=1&amp;w=300" />
+<meta name="course" content="introducing-global-illumination?lang=zh-CN|全局光照入门|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fintroducing-global-illumination%2F105_GlobalIllum%281200x675%29-1200x675-97270dbdc7595455b4c9acf0e83bf01da8efbfd4.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fintroducing-global-illumination%2FIntroducing-Global-Illumination-1000x1000-af5267ea2a6721b1cc73af7825d226aedbbaf5ce.png?resize=1&amp;w=300" />
+<meta name="crumbs" content="%ROOT%,BuildingWorlds,BuildingWorlds/LightingAndShadows" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="地理位置准确的太阳定位" />
+	<meta property="og:description" content="通过指定关卡在地球上的位置、日期和时间，控制太阳的位置。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">构建虚拟世界</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">照亮环境</a>
+
+<span class="separator">></span> <span id="page">地理位置准确的太阳定位</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+					<div id="banner" class="beta">
+	<div id="message">
+		学习使用此<span>测试</span>功能，但在用它发布产品时请谨慎行事。
+	</div>
+	<div id="bannerDescription">
+		测试功能主要供您学习如何使用、规划工作流程和创建测试内容之用。<strong>在实际生产中使用这些功能必须谨慎</strong>，因为我们仍在努力完善以使它们的性能、稳定性和平台支持达到发布水准。我们支持资源的向后兼容，这些功能的API也是稳定的。
+	</div>
+</div>
+															<div class="hero  background">
+						<div class="imgContainer"><img src="../../../../Images/BuildingWorlds/LightingAndShadows/SunPositioner/sunpos-hero.png" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">地理位置准确的太阳定位</h1>
+							</div>	
+							<h2 >通过指定关卡在地球上的位置、日期和时间，控制太阳的位置。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																																			</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																								<div id="courses">
+	<div style="position:relative;">
+		<div id="title">相关课程</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<div name="lighting-essential-concepts-and-effects?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/lighting-essential-concepts-and-effects?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/lighting-essential-concepts-and-effects/LightingEssentials_Topic_1920x1080-1920x1080-3e04dcaf168d9a530720df1573b417807ae00784.4884f86.delaye?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/lighting-essential-concepts-and-effects/Lighting-Essential-Concepts-and-Effects-1000x1000-14831d7f280345717b0bdd66be9422b40ffb91bd.489fe4b.d?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="lighting-essential-concepts-and-effects?lang=zh-CN_title">
+				光照基础概念和效果
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="introducing-global-illumination?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/introducing-global-illumination?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/introducing-global-illumination/105_GlobalIllum(1200x675)-1200x675-97270dbdc7595455b4c9acf0e83bf01da8efbfd4.48b4f?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/introducing-global-illumination/Introducing-Global-Illumination-1000x1000-af5267ea2a6721b1cc73af7825d226aedbbaf5c?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="introducing-global-illumination?lang=zh-CN_title">
+				全局光照入门
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																								<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#入门指南">入门指南</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#在运行时修改设置">在运行时修改设置</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>在某些情况下，太阳在天空中的位置并不是根据美学效果而选择的。相反，它是一个关键的设计因素。
+</p><p>在大型架构与构造项目中往往也是如此，而且在任何需要生成逼真的渲染图来反映真实的阳光和阴影模式时，也可能如此。
+</p><p>在这些情况下，你需要能够根据与用于控制太阳在地球真实天空中的位置的相同数学方程，将太阳精确地放置在虚幻引擎关卡中。这些复杂的方程包含许多设置，包括观察者在地球上的地理位置、日期和时间。
+</p><p> <strong>太阳位置计算器（Sun Position Calculator）</strong> 插件可以在虚幻引擎中求解这些数学方程。你可以定义纬度、经度、基点、日期和时间。然后，太阳位置计算器与虚幻引擎中的默认天空球协同工作，将日轮放置在天空球中，并确定关卡中主定向光源的方向。
+</p><h2 id="入门指南">入门指南</h2>
+<div class="note">
+	<p> <strong>先决条件</strong>：太阳定位器使用默认的 <strong>BP_SkySphere</strong>，你可以看到在虚幻编辑器中创建的大多数新关卡中已经设置了它。你必须确保你的关卡包含一个 <strong>BP_SkySphere</strong> 实例。</p>
+</div><p>开始操作：
+</p><ol ><li class="Default"><p>从主菜单选择 <strong>编辑（Edit）> 插件（Plugins）</strong>。
+</p></li><li class="Default"><p>在 <strong>杂项（Misc）</strong> 类目下找到 <strong>太阳位置计算器（Sun Position Calculator）</strong> 插件，并选中其 <strong>启用（Enabled）</strong> 复选框。<br /><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/SunPositioner/sunpos-enble.jpg">
+		<img class="  lazyload" alt="Enable the Sun Position Calculator" title="Enable the Sun Position Calculator" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/SunPositioner/sunpos-enble.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>单击 <strong>立即重启（Restart Now）</strong> 以应用更改并重新打开虚幻编辑器。<br /><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/SunPositioner/sunpos-3-restart.jpg">
+		<img class="  lazyload" alt="Restart Now" title="Restart Now" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/SunPositioner/sunpos-3-restart.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>内容浏览器（Content Browser）</strong> 中，打开 <strong>源（Sources）</strong> 面板。<br /><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/SunPositioner/sunpos-4-sources.jpg">
+		<img class="  lazyload" alt="Sources" title="Sources" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/SunPositioner/sunpos-4-sources.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>内容浏览器（Content Browser）</strong> 的右下方打开 <strong>查看选项（View Options）</strong> 菜单，并启用 <strong>显示引擎内容（Show Engine Content）</strong> 和 <strong>显示插件内容（Show Plugin Content）</strong>。<br /><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/SunPositioner/sunpos-5-viewoptions.jpg">
+		<img class="  lazyload" alt="Show Engine and Plugin Content" title="Show Engine and Plugin Content" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/SunPositioner/sunpos-5-viewoptions.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>太阳位置内容（SunPosition Content）</strong> 文件夹中找到 <strong>BP_SunPosition</strong> 资产，并将其拖至视口中。<br /><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/SunPositioner/sunpos-6-dragdrop.jpg">
+		<img class="  lazyload" alt="Drag and drop the BP_SunPosition" title="Drag and drop the BP372029427SunPosition" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/SunPositioner/sunpos-6-dragdrop.jpg" />
+</picture>
+
+它由一个看起来像指南针的基点的小工具表示。（该小工具只出现在虚幻编辑器中，运行项目时不出现。）
+</p></li><li class="Default"><p>在视口中选择该小工具，或者在 <strong>世界大纲视图（World Outliner）</strong> 中选择 <strong>BP_SunPosition</strong> Actor。<br /><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/SunPositioner/sunpos-7-select.jpg">
+		<img class="  lazyload" alt="Select the BP_SunPosition" title="Select the BP372029427SunPosition" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/SunPositioner/sunpos-7-select.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>细节（Details）</strong> 面板中，设置控制太阳位置的场景属性。<br /><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/SunPositioner/sunpos-8-details.jpg">
+		<img class="  lazyload" alt="Set the location, date, and time" title="Set the location, date, and time" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/SunPositioner/sunpos-8-details.jpg" />
+</picture>
+<br /></p><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>设置 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>说明 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>纬度（Latitude）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>对赤道以南的坐标使用负值，对赤道以北的坐标使用正值。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>经度（Longitude）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>对子午线以西的坐标使用负值，对子午线以东的坐标使用正值。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>时区（Time Zone）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>设置该值以指示场景与世界协调时（UTC）或格林威治标准时间（GMT）偏差的小时数。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>北偏移（North Offset）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>控制关卡中的对象与指南针的基点之间的关联。改变该控件还将旋转 <strong>BP_SunPosition</strong> 小工具在关卡中的可视位置。调整该值，直到该小工具上显示的基点相对于关卡中的对象正确定向为止。
+</p><div class="note">
+	<p>不要使用旋转工具在关卡视口中旋转该小工具本身。仅使用该北偏移（North Offset）设置来控制基点。</p>
+</div>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>日期（Date）</strong> 和 <strong>时间（Time）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>设置想要模拟的一年中的时间和一天中的时间。</p>
+			</td>
+	
+</tr></tbody>
+</table></li></ol><p>当你更改了这些属性的值时，应该会在虚幻编辑器中看到太阳在天空中移动，阴影也发生了改变。
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_0_r690x14f_34
+{
+	margin: 0px;
+	width: 100%;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_0_r690x14f_34:after
+{
+	content: "";
+	padding-top: 56.25%;
+	display: block;
+}
+</style> 
+<div id="player_0_r690x14f_34"> 
+	<div id="playerContainer_0_r690x14f_34" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/0_r690x14f/embed.html"></iframe>
+	</div>
+</div>
+<h2 id="在运行时修改设置">在运行时修改设置</h2>
+<p>你可以在运行时更改 <strong>BP_SunPosition</strong> Actor的设置。这允许你基于UI空间或其他Gameplay事件驱动太阳的位置和光线角度。
+</p><ol ><li class="Default"><p>为了能够在运行时改变阳光的角度，你需要将关卡中的定向光源设置为可移动（Movable）。在 <strong>世界大纲视图（World Outliner）</strong> 或关卡视口中选择定向光源，在 <strong>细节（Details）</strong>面板中找到 <strong>移动性（Mobility）</strong> 设置，并将其设置为 <strong>可移动（Movable）</strong>。<br /><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/SunPositioner/sunpos-runtime-1-movable.jpg">
+		<img class="  lazyload" alt="Light Mobility" title="Light Mobility" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/SunPositioner/sunpos-runtime-1-movable.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>当你想要在运行时修改蓝图脚本中的一个值时，需要一个指向关卡中包含的 <strong>BP_SunPosition</strong> Actor 的对象引用。你可以使用 <strong>获取类的所有Actor（Get All Actors of Class）</strong> 节点来动态检索它，如下所示：<br /><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/SunPositioner/sunpos-runtime-2-getvariable.jpg">
+		<img class="  lazyload" alt="Get a reference to the BP_SunPosition Actor" title="Get a reference to the BP372029427SunPosition Actor" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/SunPositioner/sunpos-runtime-2-getvariable.jpg" />
+</picture>
+<br /></p><div class="note">
+	<p>由于 <strong>获取类的所有Actor（Get All Actors of Class）</strong> 开销较高，所以最好只执行一次（例如在加载关卡或构造控件时），并将结果保存到变量中，而不是每次需要获取或设置值时都执行一次。</p>
+</div></li><li class="Default"><p>有了对象引用后，从其输出端口向右拖动，展开 <strong>变量（Variables）</strong> 类别以找到 <strong>获取（Get）</strong> 和 <strong>设置（Set）</strong> 节点的列表，你可以使用该列表来检索和设置在虚幻编辑器的 <strong>细节（Details）</strong> 面板中公开的相同值。<br /><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/SunPositioner/sunpos-runtime-3-getsetapi.jpg">
+		<img class="  lazyload" alt="Get and Set API for the BP_SunPosition Actor" title="Get and Set API for the BP372029427SunPosition Actor" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/SunPositioner/sunpos-runtime-3-getsetapi.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>将所需的值设置为新的值。完成后，从 <strong>BP_SunPosition</strong> 变量的输出端口向右拖动，并调用其 <strong>更新太阳（Update Sun）</strong> 节点。<br /><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/SunPositioner/sunpos-runtime-4-updatesun.jpg">
+		<img class="  lazyload" alt="Update Sun function" title="Update Sun function" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/SunPositioner/sunpos-runtime-4-updatesun.jpg" />
+</picture>
+
+</p></li></ol><p>例如，下面来自控件蓝图的一个片段设置了一个UI滑条，该滑条可将小时更改为早上6点到晚上10点之间的任意值。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/BuildingWorlds/LightingAndShadows/SunPositioner/sunpos-runtime-example.png" ><span><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/SunPositioner/sunpos-runtime-example.jpg">
+		<img class="  lazyload" alt="Example of changing the sun position at runtime" title="Example of changing the sun position at runtime" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/SunPositioner/sunpos-runtime-example.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>单击显示全图。</p>
+</div><p>在操作中，该滑动条是这样的：
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_0_bfhjwypf_69
+{
+	margin: 0px;
+	width: 100%;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_0_bfhjwypf_69:after
+{
+	content: "";
+	padding-top: 56.25%;
+	display: block;
+}
+</style> 
+<div id="player_0_bfhjwypf_69"> 
+	<div id="playerContainer_0_bfhjwypf_69" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/0_bfhjwypf/embed.html"></iframe>
+	</div>
+</div>
+
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../SiteIndex/index.html?tags=Lighting">Lighting</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../SiteIndex/index.html?tags=Beta">Beta</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../SiteIndex/index.html?tags=sun%20positioning">sun positioning</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/BuildingWorlds/LightingAndShadows/SunPositioner/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:09:25 GMT -->
+</html>

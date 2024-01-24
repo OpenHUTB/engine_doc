@@ -1,0 +1,801 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/Resources/Showcases/BlueprintExamples/SecurityDoor/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:47:59 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/Resources/Showcases/BlueprintExamples/SecurityDoor/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>监控摄像头、警报和门 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/Resources/Showcases/BlueprintExamples/SecurityDoor/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/Resources/Showcases/BlueprintExamples/SecurityDoor/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/Resources/Showcases/BlueprintExamples/SecurityDoor/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/Resources/Showcases/BlueprintExamples/SecurityDoor/" hreflang="ko" />
+
+	<meta name="intsourcechangelist" content="16146891" />
+<meta name="availability" content="Public" />
+<meta name="title" content="监控摄像头、警报和门" />
+<meta name="description" content="安全门蓝图概览。" />
+<meta name="related" content="ProgrammingAndScripting/Blueprints/Overview" />
+<meta name="related" content="ProgrammingAndScripting/Blueprints/UserGuide/Variables" />
+<meta name="related" content="AnimatingObjects/SkeletalMeshAnimation/AnimBlueprints/EventGraph" />
+<meta name="related" content="ProgrammingAndScripting/Blueprints/UserGuide/UserConstructionScript" />
+<meta name="related" content="ProgrammingAndScripting/Blueprints/UserGuide/Components" />
+<meta name="related" content="ProgrammingAndScripting/Blueprints/UserGuide/Timelines" />
+<meta name="related" content="InteractiveExperiences/Framework/Pawn" />
+<meta name="version" content="4.9" />
+<meta name="crumbs" content="%ROOT%,Resources,Resources/Showcases,Resources/Showcases/BlueprintExamples" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="监控摄像头、警报和门" />
+	<meta property="og:description" content="安全门蓝图概览。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">示例与教学</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">引擎特性示例</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">蓝图</a>
+
+<span class="separator">></span> <span id="page">监控摄像头、警报和门</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">监控摄像头、警报和门</h1>
+							</div>	
+							<h2 >安全门蓝图概览。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																																			</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																		<div id="seeAlso">
+	<div style="position:relative;">
+		<div id="title">参见</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<p>
+						<a id="related_link" href="../../../../ProgrammingAndScripting/Blueprints/Overview/index.html" title="蓝图总览页面包含蓝图剖析和可用的不同蓝图类型。">蓝图总览</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../../../ProgrammingAndScripting/Blueprints/UserGuide/Variables/index.html" title="保存值或参考世界场景中的对象或Actor的属性。">蓝图变量</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../../../AnimatingObjects/SkeletalMeshAnimation/AnimBlueprints/EventGraph/index.html" title="基于事件的图表，用于更新动画蓝图和计算动画图表中使用的值。">事件图表</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../../../ProgrammingAndScripting/Blueprints/UserGuide/UserConstructionScript/index.html" title="当创建一个蓝图实例来执行初始化动作时执行该构造脚本。">构造脚本</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../../../ProgrammingAndScripting/Blueprints/UserGuide/Components/index.html" title="简述在蓝图中的组件窗口内使用组件。">组件窗口</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../../../ProgrammingAndScripting/Blueprints/UserGuide/Timelines/index.html" title="概述虚幻引擎中时间轴">时间轴</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../../../InteractiveExperiences/Framework/Pawn/index.html" title="Pawn是玩家在场景中的具化对象。">Pawn</a>
+					</p>
+				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																														<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#摄像偷蓝图">摄像偷蓝图</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#蓝图设置">蓝图设置</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#可编辑变量">可编辑变量</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#警报蓝图">警报蓝图</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#蓝图设置_1">蓝图设置</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#可编辑变量_1">可编辑变量</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#门蓝图">门蓝图</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#蓝图设置_2">蓝图设置</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#可编辑变量_2">可编辑变量</a></p>
+	</li>					</ul>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p><picture>
+		<source data-srcset="./../../../../../Images/Resources/Showcases/BlueprintExamples/SecurityDoor/SecurityCameraAndDoorHeader.jpg">
+		<img class="  lazyload" alt="SecurityCameraAndDoorHeader.png" width="600" data-src="../../../../../Images/Resources/Showcases/BlueprintExamples/SecurityDoor/SecurityCameraAndDoorHeader.jpg" />
+</picture>
+
+</p><p>在关卡中随处可见的监控摄像头蓝图用于在运行模式下与玩家进行交互。在游戏进程中，它们将按搜索模式前后移动。当绿色搜索锥体与Pawn重叠时，指示灯将变成红色并且摄像头开始跟随玩家移动。它将持续跟踪玩家，直至玩家走出跟踪范围。然后在几秒之后，它将返回到搜索模式。
+</p><p>该蓝图还负责处理场景采集，稍后将在安全屏幕蓝图中使用。 
+</p><p>该蓝图中特别重要的是<a id="content_link"filter-data="tag_blueprints" href="../../../../ProgrammingAndScripting/Blueprints/UserGuide/Types/Interface/index.html" ><span>蓝图接口</span></a>的使用。蓝图接口的工作方式与导管相似，允许一个蓝图与其他多个蓝图共享功能。任何实现给定接口的蓝图都将自动继承接口的所有功能。通过这种方式，你可以创建复杂的蓝图网络，所有这些蓝图都可配合工作，共同实现给定目标。
+</p><p>在本示例中，安全警报接口充当数据导管，具体而言，无论警报是否触发，我们都可以将功能共享给警报信号灯和安全门蓝图。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/Resources/Showcases/BlueprintExamples/SecurityDoor/InterfaceConceptDiagramNew.jpg">
+		<img class="  lazyload" alt="InterfaceConceptDiagramNew.jpg" data-src="../../../../../Images/Resources/Showcases/BlueprintExamples/SecurityDoor/InterfaceConceptDiagramNew.jpg" />
+</picture>
+</p><h2 id="摄像偷蓝图">摄像偷蓝图</h2>
+<p>摄像头蓝图是警报系统的中心，因为该蓝图可以与玩家交互并鸣响警报。除了实现用于蓝图通信的接口外，摄像头还使用<a id="content_link" href="../../../../ProgrammingAndScripting/Blueprints/UserGuide/Timelines/index.html" ><span>时间轴</span></a> 节点。这是一个为处理动画而构建的特殊节点。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/Resources/Showcases/BlueprintExamples/SecurityDoor/Timeline_Camera.jpg">
+		<img class="  lazyload" alt="Timeline_Camera.png" data-src="../../../../../Images/Resources/Showcases/BlueprintExamples/SecurityDoor/Timeline_Camera.jpg" />
+</picture>
+
+</p><p>时间轴可以包含任意数量的动画轨迹，它们的数据可以作为输出发送，用于驱动任意数量的效果。在这种情况下，时间轴用于驱动摄像头前后移动时的扫描旋转。
+</p><h3 id="蓝图设置">蓝图设置</h3>
+<p>此蓝图的组件列表、构造脚本和事件图表执行下列任务：
+</p><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>蓝图部分 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>用途 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>组件列表（Components List）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><picture>
+		<source data-srcset="./../../../../../Images/Resources/Showcases/BlueprintExamples/SecurityDoor/CameraCS.jpg">
+		<img class="  lazyload" alt="CameraCS.png" data-src="../../../../../Images/Resources/Showcases/BlueprintExamples/SecurityDoor/CameraCS.jpg" />
+</picture>
+</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>构造脚本（Construction Script）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>构造脚本执行下列任务：
+</p><ul ><li class="Default"><p>设置用于记录到渲染目标纹理的场景捕获。
+</p></li><li class="Default"><p>使用来自可编辑变量的传入值设置摄像头的聚光源。
+</p></li><li class="Default"><p>设置摄像头的默认旋转角度。
+</p></li><li class="Default"><p>为摄像头的视锥设置<a id="content_link"filter-data="tag_materials" href="../../../../RenderingAndGraphics/Materials/MaterialInstances/index.html" ><span>动态材质实例（MID）</span></a>。
+</p></li></ul>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>事件图表（Event Graph）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>当Pawn进入视锥时，事件图表执行下列任务：
+</p><ul ><li class="Default"><p>触发警报。
+</p></li><li class="Default"><p>更改视锥和光源的颜色。
+</p></li><li class="Default"><p>开始跟踪玩家的移动。
+</p></li></ul><p>当Pawn离开视锥时：
+</p><ul ><li class="Default"><p>略微延迟后解除警报。
+</p></li><li class="Default"><p>返回到标准的前后扫描状态。
+</p></li><li class="Default"><p>每帧（tick）更新摄像头的旋转。
+</p></li><li class="Default"><p>通过接口传递警报的当前状态。
+</p></li></ul>
+			</td>
+	
+</tr></tbody>
+</table><div class="lightbox">
+	<p><picture>
+		<source data-srcset="./../../../../../Images/Resources/Showcases/BlueprintExamples/SecurityDoor/CameraEG.jpg">
+		<img class="  lazyload" alt="CameraEG.png" width="920" data-src="../../../../../Images/Resources/Showcases/BlueprintExamples/SecurityDoor/CameraEG.jpg" />
+</picture>
+</p>
+</div><h3 id="可编辑变量">可编辑变量</h3>
+<p>摄像头具有下列公开属性：
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/Resources/Showcases/BlueprintExamples/SecurityDoor/CameraProperties.jpg">
+		<img class="  lazyload" alt="CameraProperties.png" data-src="../../../../../Images/Resources/Showcases/BlueprintExamples/SecurityDoor/CameraProperties.jpg" />
+</picture>
+
+</p><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>属性 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>用途 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="2" align="">
+			<p><div class="tablesection">
+	<p>扫描</p>
+</div></p>
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>摄像头最大偏航角（Camera Max Yaw）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>从一边到另一边扫描的最大角度。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>摄像头俯仰角（Camera Pitch）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>设置摄像头的俯仰角。此变量会激活一个3D部件，可在视口中操纵。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="2" align="">
+			<p><div class="tablesection">
+	<p>聚光源</p>
+</div></p>
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>光源衰减（Light Attenuation）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>设置聚光源组件的衰减半径。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>聚光源亮度（Spotlight Brightness）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>设置聚光源组件的亮度数值。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>警报开启时的光源颜色（Light Color Alarm On）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>警报激活时聚光源的颜色。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>警报关闭时的光源颜色（Light Color Alarm Off）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>警报取消激活时聚光源的颜色。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="2" align="">
+			<p><div class="tablesection">
+	<p>定向</p>
+</div></p>
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>测试材质警报设置（Test Material Alarm Settings）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>切换用于测试的警报状态以及调整警报颜色。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="2" align="">
+			<p><div class="tablesection">
+	<p>蓝图接口</p>
+</div></p>
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>触发警报的蓝图数组（Blueprint To Trigger Alarm Array）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>此数组包含需要接收关于警报是否已触发的更新的所有对象的列表。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="2" align="">
+			<p><div class="tablesection">
+	<p>渲染目标</p>
+</div></p>
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>场景捕获纹理（Scene Capture Texture）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>包含将用于安全摄像头监视器的渲染目标纹理。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>场景捕获可视距离（Scene Capture View Distance）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>设置场景采集组件的最大可视距离。降低此值可提高性能。</p>
+			</td>
+	
+</tr></tbody>
+</table><h2 id="警报蓝图">警报蓝图</h2>
+<p><picture>
+		<source data-srcset="./../../../../../Images/Resources/Showcases/BlueprintExamples/SecurityDoor/AlarmImage.jpg">
+		<img class="  lazyload" alt="AlarmImage.png" data-src="../../../../../Images/Resources/Showcases/BlueprintExamples/SecurityDoor/AlarmImage.jpg" />
+</picture>
+
+</p><p>警报蓝图可作为玩家已走到安全摄像头前从而已触发警报的可视提示。激活时，它看起来从绿色变为红色，而且信号灯开始旋转。它将保持此状态，直至警报取消激活。
+</p><p>打开和关闭警报的方式是从安全警报<a id="content_link"filter-data="tag_blueprints" href="../../../../ProgrammingAndScripting/Blueprints/UserGuide/Types/Interface/index.html" ><span>蓝图接口</span></a> 接收消息，该接口由摄像头、门和警报实现。 
+</p><h3 id="蓝图设置_1">蓝图设置</h3>
+<p>此蓝图的组件列表、构造脚本和事件图表执行下列任务：
+</p><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>蓝图部分 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>用途 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>组件列表（Components List）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><picture>
+		<source data-srcset="./../../../../../Images/Resources/Showcases/BlueprintExamples/SecurityDoor/AlarmCS.jpg">
+		<img class="  lazyload" alt="AlarmCS.png" data-src="../../../../../Images/Resources/Showcases/BlueprintExamples/SecurityDoor/AlarmCS.jpg" />
+</picture>
+<strong>组件列表</strong> 包括一个基本网格体和两个光源：一个用于警报的光源（聚光源）和一个用于中性状态（OffLight）的光源。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>构造脚本（Construction Script）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>构造脚本执行下列任务：
+</p><ul ><li class="Default"><p>从公开的用户输入设置光源颜色。
+</p></li><li class="Default"><p>为警报网格体创建和应用<a id="content_link"filter-data="tag_materials" href="../../../../RenderingAndGraphics/Materials/MaterialInstances/index.html" ><span>动态材质实例（MID）</span></a>。
+</p></li><li class="Default"><p>如果用户正在测试警报，它将更改光源和材质设置，以显示警报被触发时的样子。
+</p></li></ul>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>事件图表（Event Graph）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>事件图表执行下列任务：
+当我们从警报接口接收到信号时：
+</p><ul ><li class="Default"><p>解析信号是否为打开或关闭警报的信号。
+</p></li><li class="Default"><p>如果打开警报，则打开聚光源，关闭Off Light并更改材质颜色。然后打开门（Gate）使聚光源开始旋转。
+</p></li><li class="Default"><p>如果关闭警报，则关闭聚光源，打开Off Light并将材质颜色变更回原始状态。关闭使聚光源旋转的门（Gate）。
+</p></li></ul>
+			</td>
+	
+</tr></tbody>
+</table><div class="lightbox">
+	<p><picture>
+		<source data-srcset="./../../../../../Images/Resources/Showcases/BlueprintExamples/SecurityDoor/AlarmGraph.jpg">
+		<img class="  lazyload" alt="AlarmGraph.png" width="920" data-src="../../../../../Images/Resources/Showcases/BlueprintExamples/SecurityDoor/AlarmGraph.jpg" />
+</picture>
+</p>
+</div><h3 id="可编辑变量_1">可编辑变量</h3>
+<p>警报具有下列公开属性：
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/Resources/Showcases/BlueprintExamples/SecurityDoor/AlarmProperties.jpg">
+		<img class="  lazyload" alt="AlarmProperties.png" data-src="../../../../../Images/Resources/Showcases/BlueprintExamples/SecurityDoor/AlarmProperties.jpg" />
+</picture>
+
+</p><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>属性 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>用途 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>灯旋转速度（Light Rotation Speed）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>警报信号灯旋转的速度。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>测试警报材质设置（Test Alarm Material Settings）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>此布尔值强制警报处于触发状态以进行测试。请注意，如果未处于运行模式下，信号灯不会旋转。</p>
+			</td>
+	
+</tr></tbody>
+</table><h2 id="门蓝图">门蓝图</h2>
+<p><picture>
+		<source data-srcset="./../../../../../Images/Resources/Showcases/BlueprintExamples/SecurityDoor/Door.jpg">
+		<img class="  lazyload" alt="Door.png" data-src="../../../../../Images/Resources/Showcases/BlueprintExamples/SecurityDoor/Door.jpg" />
+</picture>
+
+</p><p>针对门的设置如下：只要警报未触发，它将保持打开状态。警报触发时将播放此类动画：门将猛然关闭，而且除非警报结束，否则它们将不会重新打开。需要注意的是，制作门动画时需要用到时间轴。事实上，要分别使用2个时间轴，一个用于打开门，另外一个用于关闭门。这样门就能以不同的速度打开和关闭。 
+</p><p>实际上，门运动的触发方式是从安全警报<a id="content_link"filter-data="tag_blueprints" href="../../../../ProgrammingAndScripting/Blueprints/UserGuide/Types/Interface/index.html" ><span>蓝图接口</span></a> 接收信号，该接口由摄像头、门和警报实现。 
+</p><p>有关门设置的另外一个有趣的地方是门时间轴不直接使门动起来。相反，每个时间轴都输出单个浮点值，然后这些浮点值将用于在两个向量位置之间插值——一个"打开"位置和一个"关闭"位置。
+</p><h3 id="蓝图设置_2">蓝图设置</h3>
+<p>此蓝图的组件列表、构造脚本和事件图表执行下列任务：
+</p><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>蓝图部分 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>用途 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>组件列表（Components List）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><picture>
+		<source data-srcset="./../../../../../Images/Resources/Showcases/BlueprintExamples/SecurityDoor/DoorCL.jpg">
+		<img class="  lazyload" alt="DoorCL.png" data-src="../../../../../Images/Resources/Showcases/BlueprintExamples/SecurityDoor/DoorCL.jpg" />
+</picture>
+</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>构造脚本（Construction Script）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>构造脚本执行下列任务：
+</p><ul ><li class="Default"><p>设置触发框体积的位置和大小。
+</p></li><li class="Default"><p>设置每扇门的位置和大小。
+</p></li></ul>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>事件图表（Event Graph）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>当我们从警报接口接收到信号时，事件图表执行下列任务：
+</p><ul ><li class="Default"><p>确认是否为打开或关闭警报的信号。
+</p></li><li class="Default"><p>如果警报已切换到开启状态，我们检查门的当前状态，如果它们尚未打开，则打开它们。
+</p></li><li class="Default"><p>如果警报已切换到关闭状态，我们检查门的当前状态，如果它们尚未关闭，则关闭它们。
+</p></li></ul>
+			</td>
+	
+</tr></tbody>
+</table><h3 id="可编辑变量_2">可编辑变量</h3>
+<p>门具有下列公开属性：
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/Resources/Showcases/BlueprintExamples/SecurityDoor/DoorProperties.jpg">
+		<img class="  lazyload" alt="DoorProperties.png" data-src="../../../../../Images/Resources/Showcases/BlueprintExamples/SecurityDoor/DoorProperties.jpg" />
+</picture>
+
+</p><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>属性 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>用途 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>门打开宽度（Door Open Width）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>设置门打开的结束位置。然后此值将镜像给相对的另一扇门。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>左门大小（Door Left Size）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>设置左门的大小。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>右门大小（Door Right Size）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>设置右门的大小。</p>
+			</td>
+	
+</tr></tbody>
+</table>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/Resources/Showcases/BlueprintExamples/SecurityDoor/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:48:04 GMT -->
+</html>

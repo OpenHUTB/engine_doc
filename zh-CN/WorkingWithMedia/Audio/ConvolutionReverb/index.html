@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/WorkingWithMedia/Audio/ConvolutionReverb/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:38:43 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "../../../../Images/WorkingWithMedia/Audio/ConvolutionReverb/ConvolutionBanner.png";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/WorkingWithMedia/Audio/ConvolutionReverb/" />');
+				var udnCSS = '../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>卷积混响 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/WorkingWithMedia/Audio/ConvolutionReverb/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/WorkingWithMedia/Audio/ConvolutionReverb/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/WorkingWithMedia/Audio/ConvolutionReverb/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/WorkingWithMedia/Audio/ConvolutionReverb/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Audio/ConvolutionReverb" />
+<meta name="intsourcechangelist" content="13299313" />
+<meta name="availability" content="public" />
+<meta name="title" content="卷积混响" />
+<meta name="description" content="在物理空间中使用音频样本模拟混响的概述" />
+<meta name="parent" content="WorkingWithMedia/Audio" />
+<meta name="type" content="overview" />
+<meta name="hero-image" content="ConvolutionBanner.png" />
+<meta name="keywords" content="beta" />
+<meta name="keywords" content="convolution reverb" />
+<meta name="keywords" content="audio" />
+<meta name="keywords" content="impulse responses" />
+<meta name="keywords" content="capture reallife audio" />
+<meta name="keywords" content="simulated reverberation" />
+<meta name="version" content="4.25" />
+<meta name="crumbs" content="%ROOT%,WorkingWithMedia,WorkingWithMedia/Audio" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="卷积混响" />
+	<meta property="og:description" content="在物理空间中使用音频样本模拟混响的概述" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">使用媒体</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">音频和声音</a>
+
+<span class="separator">></span> <span id="page">卷积混响</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+					<div id="banner" class="beta">
+	<div id="message">
+		学习使用此<span>测试</span>功能，但在用它发布产品时请谨慎行事。
+	</div>
+	<div id="bannerDescription">
+		测试功能主要供您学习如何使用、规划工作流程和创建测试内容之用。<strong>在实际生产中使用这些功能必须谨慎</strong>，因为我们仍在努力完善以使它们的性能、稳定性和平台支持达到发布水准。我们支持资源的向后兼容，这些功能的API也是稳定的。
+	</div>
+</div>
+															<div class="hero  background">
+						<div class="imgContainer"><img src="../../../../Images/WorkingWithMedia/Audio/ConvolutionReverb/ConvolutionBanner.png" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">卷积混响</h1>
+							</div>	
+							<h2 >在物理空间中使用音频样本模拟混响的概述</h2>
+							<div id="access">
+								<div class="accessContainer">
+																																			</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																																				<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#概念背景">概念背景</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#卷积运算">卷积运算</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#音频中的卷积">音频中的卷积</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#计算考量">计算考量</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#如何使用卷积混响">如何使用卷积混响</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p><strong>卷积混响</strong> 是一种令人振奋的技术，音效设计人员可以利用它采集任何物理位置（例如洞穴、教堂、办公室或走廊）的 <strong>脉冲响应（IR）</strong>，并实时处理音频。让音频获得近似于实地播放的效果。实际上，IR <em>采集</em> 的是真实位置的混响，从而在环境音频处理中实现更高水平的真实感和沉浸感。
+</p><p>除了采集真实混响之外，还可以从其他声源中获取IR：算法混响输出、拟音、话外音（例如吹气或呼吸）、接触式麦克风等。可以像处理其他声音一样对IR进行编辑和处理，例如过滤、衰减、倒转、剪切，编辑等。卷积混响功能从而获得了全新的实验维度。
+</p><p>卷积混响提供了一种可替代传统算法混响技术的数据驱动型替代方案，结合延迟缓冲、滤波器和各种其他DSP拓扑来模拟混响。 
+</p><h2 id="概念背景">概念背景</h2>
+<h3 id="卷积运算">卷积运算</h3>
+<p><strong>卷积</strong> 是一种数学运算，与其他数学运算一样：加法、减法、积分、点乘积或交叉乘积等。点乘积和交叉乘积可以视为不同的向量（或信号）相乘方式。同理，卷积是向量变换的第三种方式。与交叉乘积一样，卷积两个信号会生成第三个信号。
+</p><p>在不过度涉及复杂数学运算的情况下，要将卷积概念化，最简单的方法是将输出信号 <strong><em>y(t)</em></strong> 的每个样本视为时间移位输入信号 <strong><em>x(t)</em></strong> 的权重 <strong><em> g(t)</em></strong> 之和。这样可以将卷积视为一种模糊运算符。 
+</p><h3 id="音频中的卷积">音频中的卷积</h3>
+<p>卷积在各大领域广泛应用，包括统计、机器学习、图形渲染。在音频中，卷积是一种通过IR处理音频信号的方法。IR将代表过于复杂而无法建模的真实世界系统。
+</p><p>如果输入音频信号是 <em>f(t)</em>，且我们的权重 <em>g(t)</em> 是代表需要建模的复杂系统的IR，则输出 <em>x(t)</em> 就是音频信号通过该系统馈送的值。 
+</p><h3 id="计算考量">计算考量</h3>
+<p>从根本上讲，卷积是一项开销高昂的数学运算。将输入信号 <em>f(t)</em> 中的每个元素与卷积信号 <em> g(t)</em> 中的每个元素相乘，然后相加，生成输出信号 <em>x(t)</em> 中的每个元素。对于代表大型混响空间的大型IR而言，开销将非常高。对于实时情景而言，直接执行卷积运算的开销通常太过高昂。 
+</p><p>好在可以利用对称性显著加快卷积：在 <em>时域</em> 中卷积两个信号与在 <em>频域</em> 中进行信号乘积相同。信号的频域可利用 <strong>快速傅里叶变换（FFT）</strong> 生成。顾名思义，FFT的速度很快。对输入信号和IR执行此步骤，可以在CPU上实时计算卷积混响。不过要注意，较之于传统算法混响，这种方式的开销通常更高。 
+</p><p>借助更强的CPU性能和卷积运算硬件加速，卷积混响已成为游戏音频中操作性更佳的选择。因此，卷积混响已成为次时代音频技术。
+</p><h2 id="如何使用卷积混响">如何使用卷积混响</h2>
+<p>启用 <strong>合成和DSP效果（Synthesis and DSP Effects）</strong> 插件（<strong>编辑（Edit）>插件（Plugins）>音频（Audio）>合成和DSP效果（Synthesis and DSP Effects）</strong>）。该插件包含大量可选的合成和DSP功能。
+</p><p><picture>
+		<source data-srcset="./../../../../Images/WorkingWithMedia/Audio/ConvolutionReverb/Synthesis_DSP.jpg">
+		<img class="  lazyload" alt="Synthesis_DSP.png" data-src="../../../../Images/WorkingWithMedia/Audio/ConvolutionReverb/Synthesis_DSP.jpg" />
+</picture>
+
+</p><p>启用插件后，在内容浏览器中右键点击导入的声波，然后选择 <strong>创建脉冲响应（Create Impulse Response）</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/WorkingWithMedia/Audio/ConvolutionReverb/CreateImpulseResponse.png" ><span><picture>
+		<source data-srcset="./../../../../Images/WorkingWithMedia/Audio/ConvolutionReverb/CreateImpulseResponse.jpg">
+		<img class="  lazyload" alt="CreateImpulseResponse.png" width="400" data-src="../../../../Images/WorkingWithMedia/Audio/ConvolutionReverb/CreateImpulseResponse.jpg" />
+</picture>
+</span></a></span></p>
+</div><p><div class="caption">
+	<p>点击图片放大。</p>
+</div>
+</p><p>此操作将根据所选声波创建脉冲响应。这样，任何声波都可以成为卷积混响算法的IR（可以用任何声音进行卷积）。这将创建新资产，命名后带有 <strong>_IR</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../Images/WorkingWithMedia/Audio/ConvolutionReverb/Asset_IR.jpg">
+		<img class="  lazyload" alt="Asset_IR.png" data-src="../../../../Images/WorkingWithMedia/Audio/ConvolutionReverb/Asset_IR.jpg" />
+</picture>
+
+</p><div class="note">
+	<p>IR的导入过程和声波文件的导入过程一样。</p>
+</div><p>此资产包含卷积混响效果将使用的一些数据，以及可以对每个脉冲响应设置的规格化值。要为单个音频脉冲响应资产设置音量规格化值，请打开音频脉冲响应（Audio Impulse Response）的 <strong>细节（Details）</strong> 面板。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/WorkingWithMedia/Audio/ConvolutionReverb/AudioImpulse.png" ><span><picture>
+		<source data-srcset="./../../../../Images/WorkingWithMedia/Audio/ConvolutionReverb/AudioImpulse.jpg">
+		<img class="  lazyload" alt="AudioImpulse.png" width="400" data-src="../../../../Images/WorkingWithMedia/Audio/ConvolutionReverb/AudioImpulse.jpg" />
+</picture>
+</span></a></span></p>
+</div><p><div class="caption">
+	<p>点击图片放大。</p>
+</div>
+</p><p><strong>标准化音量分贝（Normalization Volume Db）</strong> 是应用于主动使用此脉冲响应的卷积效果的分贝衰减。此方法可轻松在各种脉冲响应之间实现同等响度。
+</p><p>要使用卷积混响效果，请在内容浏览器中创建实例。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/WorkingWithMedia/Audio/ConvolutionReverb/ConvolutionEffect.png" ><span><picture>
+		<source data-srcset="./../../../../Images/WorkingWithMedia/Audio/ConvolutionReverb/ConvolutionEffect.jpg">
+		<img class="  lazyload" alt="ConvolutionEffect.png" width="400" data-src="../../../../Images/WorkingWithMedia/Audio/ConvolutionReverb/ConvolutionEffect.jpg" />
+</picture>
+</span></a></span></p>
+</div><p><div class="caption">
+	<p>点击图片放大。</p>
+</div>
+</p><ol ><li class="Default"><p>打开卷积混响效果的 <strong>细节（Details）</strong> 面板，并将脉冲响应资产设置为要使用的资产。
+</p></li></ol><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/WorkingWithMedia/Audio/ConvolutionReverb/AudioImpulseResponse.png" ><span><picture>
+		<source data-srcset="./../../../../Images/WorkingWithMedia/Audio/ConvolutionReverb/AudioImpulseResponse.jpg">
+		<img class="  lazyload" alt="AudioImpulseResponse.png" width="400" data-src="../../../../Images/WorkingWithMedia/Audio/ConvolutionReverb/AudioImpulseResponse.jpg" />
+</picture>
+</span></a></span></p>
+</div><p><div class="caption">
+	<p>点击图片放大。</p>
+</div>
+</p><p>其他参数包括：
+</p><ul ><li class="Default"><p><strong>环绕后声道渗入Db：</strong>卷积效果输出分贝发送到环绕声环境中后声道的量。-60.0或以下的值将视为无声。 
+</p></li><li class="Default"><p><strong>反转后声道渗入相位：</strong>是否反转环绕声环境中发送到后声道的音频相位。
+</p></li><li class="Default"><p><strong>环绕后声道翻转：</strong>是否在发送到后声道之前翻转效果的左右声道。
+</p></li></ul><p>高级参数包括：
+</p><ul ><li class="Default"><p><strong>块大小：</strong>设置内部处理块大小，这可能会影响运行时性能。 
+</p></li><li class="Default"><p><strong>启用硬件加速：</strong>如果目标平台上存在硬件加速，则启用硬件加速。
+</p></li></ul><p>要将其用于副路混合效果，请将其作为副路混合效果添加到副路混合效果链中的副路混合中。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/WorkingWithMedia/Audio/ConvolutionReverb/SubmixEffect.png" ><span><picture>
+		<source data-srcset="./../../../../Images/WorkingWithMedia/Audio/ConvolutionReverb/SubmixEffect.jpg">
+		<img class="  lazyload" alt="SubmixEffect.png" width="400" data-src="../../../../Images/WorkingWithMedia/Audio/ConvolutionReverb/SubmixEffect.jpg" />
+</picture>
+</span></a></span></p>
+</div><p><div class="caption">
+	<p>点击图片放大。</p>
+</div>
+</p><p>如果将此副路混合设为要使用的主混响副路混合，则可以自动将混响音频发送到副路混合。也可以手动将音频作为副路混合发送效果发送到此副路混合。
+</p>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../SiteIndex/index.html?tags=beta">beta</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../SiteIndex/index.html?tags=convolution%20reverb">convolution reverb</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../SiteIndex/index.html?tags=audio">audio</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../SiteIndex/index.html?tags=impulse%20responses">impulse responses</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../SiteIndex/index.html?tags=capture%20reallife%20audio">capture reallife audio</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../SiteIndex/index.html?tags=simulated%20reverberation">simulated reverberation</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/WorkingWithMedia/Audio/ConvolutionReverb/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:38:49 GMT -->
+</html>

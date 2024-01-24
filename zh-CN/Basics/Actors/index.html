@@ -1,0 +1,809 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/Basics/Actors/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 10:15:59 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "../../../Images/Basics/Actors/actorBanner.png";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/Basics/Actors/" />');
+				var udnCSS = '../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>Actor和几何体 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/Basics/Actors/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/Basics/Actors/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/Basics/Actors/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/Basics/Actors/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Actors" />
+<meta name="intsourcechangelist" content="16599297" />
+<meta name="availability" content="Public" />
+<meta name="title" content="Actor和几何体" />
+<meta name="description" content="介绍Actor的定义以及如何在关卡中应用它们，包括Actor的放置及控制技巧。" />
+<meta name="navigation" content="topic" />
+<meta name="parent" content="Basics" />
+<meta name="order" content="11" />
+<meta name="type" content="landing" />
+<meta name="topic-image" content="Basics/Actors/Placement/actorplacement_topic.png" />
+<meta name="hero-image" content="actorBanner.png" />
+<meta name="crumbs" content="%ROOT%,Basics" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="Actor和几何体" />
+	<meta property="og:description" content="介绍Actor的定义以及如何在关卡中应用它们，包括Actor的放置及控制技巧。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../index.html">理解基础概念</a>
+
+<span class="separator">></span> <span id="page">Actor和几何体</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  background">
+						<div class="imgContainer"><img src="../../../Images/Basics/Actors/actorBanner.png" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">Actor和几何体</h1>
+							</div>	
+							<h2 >介绍Actor的定义以及如何在关卡中应用它们，包括Actor的放置及控制技巧。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																																			</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																																				<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#使用actor">使用Actor</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#actor类型">Actor类型</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<div class="include_wrapper" data-path="Basics/Glossary/A">
+<p>所有可以放入关卡的对象都是 <strong>Actor</strong>，比如摄像机、静态网格体、玩家起始位置。Actor支持三维变换，例如平移、旋转和缩放。你可以通过游戏逻辑代码（C++或蓝图）创建（生成）或销毁Actor。
+</p><p>在C++中，AActor是所有Actor的基类。</p>
+</div>
+<p>无论你在关卡中使用何种类型的Actor——光源、静态网格体、粒子发射器，或其它Actor——你都需要了解一些基础知识，才能创建并操作它们。
+</p><p>这涉及到几部分操作：放置Actor、选择Actor、调整Actor位置、修改Actor。换句话说，在创建关卡时，你要做的就是在地图中四处摆放Actor，修改它们的属性，从而创建场景。
+</p><h2 id="使用actor">使用Actor</h2>
+    <div class="topicContainer" >
+<!--
+image:param
+title:param
+description:param
+path:param
+-->
+<div class="topics item">
+    <a id="topic_link" href="Placement/index.html">
+        		<div class="img_container">
+            <p><picture>
+		<source data-srcset="./../../../Images/Basics/Actors/Placement/actorplacement_topic.jpg">
+		<img class="  lazyload" alt="actorplacement_topic.png" data-src="../../../Images/Basics/Actors/Placement/actorplacement_topic.jpg" />
+</picture>
+
+</p>
+			        </div>
+		        <div class="info">
+            <div class="content">
+				<div class="subject">
+					<div class="text ">
+						放置Actor
+					</div>
+				</div>
+                <div class="description">
+                    <p>显示如何在关卡中放置Actor，例如道具、光源、摄像机等。
+</p>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+
+</div>
+
+<div class="topicContainer" >
+<!--
+image:param
+title:param
+description:param
+path:param
+-->
+<div class="topics item">
+    <a id="topic_link" href="Mobility/index.html">
+        		<div class="img_container">
+            <p><picture>
+		<source data-srcset="./../../../Images/placeholder_topic.jpg">
+		<img class="  lazyload" alt="placeholder_topic.png" data-src="../../../Images/placeholder_topic.jpg" />
+</picture>
+
+</p>
+			        </div>
+		        <div class="info">
+            <div class="content">
+				<div class="subject">
+					<div class="text ">
+						Actor移动性
+					</div>
+				</div>
+                <div class="description">
+                    <p>用于控制Actor能否在游戏逻辑中以某种方式移动或改变的设置。
+</p>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+
+</div>
+
+<div class="topicContainer" >
+<!--
+image:param
+title:param
+description:param
+path:param
+-->
+<div class="topics item">
+    <a id="topic_link" href="Selection/index.html">
+        		<div class="img_container">
+            <p><picture>
+		<source data-srcset="./../../../Images/Basics/Actors/Selection/actorselection_topic.jpg">
+		<img class="  lazyload" alt="actorselection_topic.png" data-src="../../../Images/Basics/Actors/Selection/actorselection_topic.jpg" />
+</picture>
+
+</p>
+			        </div>
+		        <div class="info">
+            <div class="content">
+				<div class="subject">
+					<div class="text ">
+						选择Actor
+					</div>
+				</div>
+                <div class="description">
+                    <p>概述用于在关卡编辑器视口中选择Actor的方法
+</p>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+
+</div>
+
+<div class="topicContainer" filter-data="tag_actors">
+<!--
+image:param
+title:param
+description:param
+path:param
+-->
+<div class="topics item">
+    <a id="topic_link" href="Transform/index.html">
+        		<div class="img_container">
+            <p><picture>
+		<source data-srcset="./../../../Images/Basics/Actors/Transform/actortransform_topic.jpg">
+		<img class="  lazyload" alt="actortransform_topic.png" data-src="../../../Images/Basics/Actors/Transform/actortransform_topic.jpg" />
+</picture>
+
+</p>
+			        </div>
+		        <div class="info">
+            <div class="content">
+				<div class="subject">
+					<div class="text ">
+						变换Actor
+					</div>
+				</div>
+                <div class="description">
+                    <p>修改放置在关卡中的Actor的定位、旋转和缩放。
+</p>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+
+</div>
+
+<div class="topicContainer" >
+<!--
+image:param
+title:param
+description:param
+path:param
+-->
+<div class="topics item">
+    <a id="topic_link" href="Grouping/index.html">
+        		<div class="img_container">
+            <p><picture>
+		<source data-srcset="./../../../Images/Basics/Actors/Grouping/actorgrouping_topic.jpg">
+		<img class="  lazyload" alt="actorgrouping_topic.png" data-src="../../../Images/Basics/Actors/Grouping/actorgrouping_topic.jpg" />
+</picture>
+
+</p>
+			        </div>
+		        <div class="info">
+            <div class="content">
+				<div class="subject">
+					<div class="text ">
+						Actor分组
+					</div>
+				</div>
+                <div class="description">
+                    <p>指导如何在虚幻编辑器中创建和使用Actor组。
+</p>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+
+</div>
+
+<div class="topicContainer" filter-data="tag_static_mesh tag_hlod">
+<!--
+image:param
+title:param
+description:param
+path:param
+-->
+<div class="topics item">
+    <a id="topic_link" href="Merging/index.html">
+        		<div class="img_container">
+            <p><picture>
+		<source data-srcset="./../../../Images/placeholder_topic.jpg">
+		<img class="  lazyload" alt="placeholder_topic.png" data-src="../../../Images/placeholder_topic.jpg" />
+</picture>
+
+</p>
+			        </div>
+		        <div class="info">
+            <div class="content">
+				<div class="subject">
+					<div class="text ">
+						Actor合并
+					</div>
+				</div>
+                <div class="description">
+                    <p>Actor合并工具的总览。此工具可在UE4中将多个静态网格体组合为单个网格体。
+</p>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+
+</div>
+
+
+<h2 id="actor类型">Actor类型</h2>
+<div class="topicContainer">
+	<!--
+image:param
+title:param
+description:param
+path:param
+-->
+<div class="topics item">
+    <a id="topic_link" href="Types/index.html">
+        		<div class="img_container">
+            <p><picture>
+		<source data-srcset="./../../../Images/placeholder_topic.jpg">
+		<img class="  lazyload" alt="placeholder_topic.png" data-src="../../../Images/placeholder_topic.jpg" />
+</picture>
+
+</p>
+			        </div>
+		        <div class="info">
+            <div class="content">
+				<div class="subject">
+					<div class="text ">
+						
+常见的Actor类型
+					</div>
+				</div>
+                <div class="description">
+                    <p>本文列出了关卡中的一些常见Actor类型及其用途。
+</p>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+
+</div>    <div class="topicContainer" filter-data="tag_beta">
+<!--
+image:param
+title:param
+description:param
+path:param
+-->
+<div class="topics item">
+    <a id="topic_link" href="3DText/index.html">
+        		<div class="img_container">
+            <p><picture>
+		<source data-srcset="./../../../Images/Basics/Actors/3DText/text3d-topic.jpg">
+		<img class="  lazyload" alt="text3d-topic.png" data-src="../../../Images/Basics/Actors/3DText/text3d-topic.jpg" />
+</picture>
+
+</p>
+			        </div>
+		        <div class="info">
+            <div class="content">
+				<div class="subject">
+					<div class="text ">
+						3D文本
+					</div>
+				</div>
+                <div class="description">
+                    <p>本文介绍如何在虚幻编辑器中放置3D文本并用它创建动态图形。
+</p>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+
+</div>
+
+<div class="topicContainer" >
+<!--
+image:param
+title:param
+description:param
+path:param
+-->
+<div class="topics item">
+    <a id="topic_link" href="Brushes/index.html">
+        		<div class="img_container">
+            <p><picture>
+		<source data-srcset="./../../../Images/Basics/Actors/Brushes/Brushes_topic.jpg">
+		<img class="  lazyload" alt="Brushes_topic.png" data-src="../../../Images/Basics/Actors/Brushes/Brushes_topic.jpg" />
+</picture>
+
+</p>
+			        </div>
+		        <div class="info">
+            <div class="content">
+				<div class="subject">
+					<div class="text ">
+						几何体笔刷Actor
+					</div>
+				</div>
+                <div class="description">
+                    <p>使用笔刷在虚幻编辑器中创建关卡几何体的指南。
+</p>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+
+</div>
+
+<div class="topicContainer" >
+<!--
+image:param
+title:param
+description:param
+path:param
+-->
+<div class="topics item">
+    <a id="topic_link" href="StaticMeshActor/index.html">
+        		<div class="img_container">
+            <p><picture>
+		<source data-srcset="./../../../Images/placeholder_topic.jpg">
+		<img class="  lazyload" alt="placeholder_topic.png" data-src="../../../Images/placeholder_topic.jpg" />
+</picture>
+
+</p>
+			        </div>
+		        <div class="info">
+            <div class="content">
+				<div class="subject">
+					<div class="text ">
+						静态网格体Actor
+					</div>
+				</div>
+                <div class="description">
+                    <p>本文介绍如何放置和使用静态网格体Actor在环境中创建世界场景几何体。
+</p>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+
+</div>
+
+<div class="topicContainer" >
+<!--
+image:param
+title:param
+description:param
+path:param
+-->
+<div class="topics item">
+    <a id="topic_link" href="SkeletalMeshActors/index.html">
+        		<div class="img_container">
+            <p><picture>
+		<source data-srcset="./../../../Images/placeholder_topic.jpg">
+		<img class="  lazyload" alt="placeholder_topic.png" data-src="../../../Images/placeholder_topic.jpg" />
+</picture>
+
+</p>
+			        </div>
+		        <div class="info">
+            <div class="content">
+				<div class="subject">
+					<div class="text ">
+						骨骼网格体 Actor
+					</div>
+				</div>
+                <div class="description">
+                    <p>骨骼网格体Actor的创建和用法
+</p>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+
+</div>
+
+<div class="topicContainer" >
+<!--
+image:param
+title:param
+description:param
+path:param
+-->
+<div class="topics item">
+    <a id="topic_link" href="CameraActors/index.html">
+        		<div class="img_container">
+            <p><picture>
+		<source data-srcset="./../../../Images/placeholder_topic.jpg">
+		<img class="  lazyload" alt="placeholder_topic.png" data-src="../../../Images/placeholder_topic.jpg" />
+</picture>
+
+</p>
+			        </div>
+		        <div class="info">
+            <div class="content">
+				<div class="subject">
+					<div class="text ">
+						摄像机 Actor
+					</div>
+				</div>
+                <div class="description">
+                    <p>介绍摄像机Actor在编辑器中的放置和使用方法。
+</p>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+
+</div>
+
+<div class="topicContainer" >
+<!--
+image:param
+title:param
+description:param
+path:param
+-->
+<div class="topics item">
+    <a id="topic_link" href="PlayerStart/index.html">
+        		<div class="img_container">
+            <p><picture>
+		<source data-srcset="./../../../Images/placeholder_topic.jpg">
+		<img class="  lazyload" alt="placeholder_topic.png" data-src="../../../Images/placeholder_topic.jpg" />
+</picture>
+
+</p>
+			        </div>
+		        <div class="info">
+            <div class="content">
+				<div class="subject">
+					<div class="text ">
+						玩家出生点
+					</div>
+				</div>
+                <div class="description">
+                    <p>玩家出生点使用指南。
+</p>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+
+</div>
+
+<div class="topicContainer" >
+<!--
+image:param
+title:param
+description:param
+path:param
+-->
+<div class="topics item">
+    <a id="topic_link" href="DecalActor/index.html">
+        		<div class="img_container">
+            <p><picture>
+		<source data-srcset="./../../../Images/Basics/Actors/DecalActor/decal_topic.jpg">
+		<img class="  lazyload" alt="decal_topic.png" data-src="../../../Images/Basics/Actors/DecalActor/decal_topic.jpg" />
+</picture>
+
+</p>
+			        </div>
+		        <div class="info">
+            <div class="content">
+				<div class="subject">
+					<div class="text ">
+						贴花Actor用户指南
+					</div>
+				</div>
+                <div class="description">
+                    <p>介绍如何使用延迟贴花Actor。
+</p>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+
+</div>
+
+<div class="topicContainer" filter-data="tag_actors tag_trigger">
+<!--
+image:param
+title:param
+description:param
+path:param
+-->
+<div class="topics item">
+    <a id="topic_link" href="Triggers/index.html">
+        		<div class="img_container">
+            <p><picture>
+		<source data-srcset="./../../../Images/placeholder_topic.jpg">
+		<img class="  lazyload" alt="placeholder_topic.png" data-src="../../../Images/placeholder_topic.jpg" />
+</picture>
+
+</p>
+			        </div>
+		        <div class="info">
+            <div class="content">
+				<div class="subject">
+					<div class="text ">
+						触发器Actor
+					</div>
+				</div>
+                <div class="description">
+                    <p>可被激活并且触发关卡事件的Actor。
+</p>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+
+</div>
+
+<div class="topicContainer" filter-data="tag_volumes tag_collision">
+<!--
+image:param
+title:param
+description:param
+path:param
+-->
+<div class="topics item">
+    <a id="topic_link" href="Volumes/index.html">
+        		<div class="img_container">
+            <p><picture>
+		<source data-srcset="./../../../Images/placeholder_topic.jpg">
+		<img class="  lazyload" alt="placeholder_topic.png" data-src="../../../Images/placeholder_topic.jpg" />
+</picture>
+
+</p>
+			        </div>
+		        <div class="info">
+            <div class="content">
+				<div class="subject">
+					<div class="text ">
+						体积参考
+					</div>
+				</div>
+                <div class="description">
+                    <p>本文介绍如何放置和使用体积，以便强化行为并设置关卡。
+</p>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+
+</div>
+
+<div class="topicContainer" >
+<!--
+image:param
+title:param
+description:param
+path:param
+-->
+<div class="topics item">
+    <a id="topic_link" href="TargetPoint/index.html">
+        		<div class="img_container">
+            <p><picture>
+		<source data-srcset="./../../../Images/placeholder_topic.jpg">
+		<img class="  lazyload" alt="placeholder_topic.png" data-src="../../../Images/placeholder_topic.jpg" />
+</picture>
+
+</p>
+			        </div>
+		        <div class="info">
+            <div class="content">
+				<div class="subject">
+					<div class="text ">
+						目标点Actor
+					</div>
+				</div>
+                <div class="description">
+                    <p>目标点 Actor 的创建和使用指南。
+</p>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+
+</div>
+
+
+
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/Basics/Actors/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 10:16:04 GMT -->
+</html>

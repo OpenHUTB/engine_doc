@@ -1,0 +1,484 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/AnimatingObjects/Matinee/HowTo/MHT_7/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:36:08 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/AnimatingObjects/Matinee/HowTo/MHT_7/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>播放动画和音效 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/AnimatingObjects/Matinee/HowTo/MHT_7/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/AnimatingObjects/Matinee/HowTo/MHT_7/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/AnimatingObjects/Matinee/HowTo/MHT_7/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/AnimatingObjects/Matinee/HowTo/MHT_7/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Matinee/HowTo/MHT_7" />
+<meta name="intsourcechangelist" content="14030299" />
+<meta name="availability" content="Public" />
+<meta name="title" content="播放动画和音效" />
+<meta name="description" content="在 Matinee 中实现骨骼网格体跳上平台的动画，并应用音效。" />
+<meta name="version" content="4.24" />
+<meta name="skilllevel" content="Intermediate" />
+<meta name="banner" content="在虚幻引擎4.24中，无法再通过过场动画（Cinematics）菜单和细节面板访问Matinee编辑器。" />
+<meta name="banner-description" content="这是为4.25将Matinee从UE4中彻底移除做准备。你现在仍然可以使用[从Matinee到Sequencer转化工具](AnimatingObjects/Sequencer\HowTo\MatineeConversionTool)将Matinee Actor转换为Sequencer资源。" />
+<meta name="crumbs" content="%ROOT%,AnimatingObjects,AnimatingObjects/Matinee,AnimatingObjects/Matinee/HowTo" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="播放动画和音效" />
+	<meta property="og:description" content="在 Matinee 中实现骨骼网格体跳上平台的动画，并应用音效。 " />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">为角色和对象添加动画</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">Matinee和过场动画</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">Matinee 指导</a>
+
+<span class="separator">></span> <span id="page">播放动画和音效</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+					<div id="banner" class="deprecated">
+	<div id="message">
+		<span>在虚幻引擎4.24中，无法再通过过场动画（Cinematics）菜单和细节面板访问Matinee编辑器。</span>
+	</div>
+			<div id="bannerDescription">
+		这是为4.25将Matinee从UE4中彻底移除做准备。你现在仍然可以使用<a id="content_link"filter-data="tag_matinee tag_sequencer tag_conversion" href="../../../Sequencer/HowTo/MatineeConversionTool/index.html" ><span>从Matinee到Sequencer转化工具</span></a>将Matinee Actor转换为Sequencer资源。
+	</div>
+		</div>
+															<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">播放动画和音效</h1>
+							</div>	
+							<h2 >在 Matinee 中实现骨骼网格体跳上平台的动画，并应用音效。 </h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Intermediate"><a id="skill_link" href="../../../../SiteIndex/index.html?skills=Intermediate">Intermediate</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																																				<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#添加matineeactor和道具">添加 Matinee Actor 和道具</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#为matinee添加actor并添加轨迹">为 Matinee 添加 Actor 并添加轨迹</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#添加运动和动画">添加运动和动画</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#添加音效并完成matinee">添加音效并完成 Matinee</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>在下列步骤中，我们将为一个 <strong>骨骼网格体</strong> 应用动画和移动，实现角色跳上平台的动作。此外还将使用 <strong>Sound Track</strong> 添加背景音乐和音效。
+</p><div class="include_wrapper" data-path="AnimatingObjects/Matinee/HowTo/MHT_1">
+<h2 id="创建项目">创建项目</h2>
+<p>在这部分中，我们将设置项目。 
+</p><ol ><li class="Default"><p>在 <strong>虚幻项目浏览器（Unreal Project Browser）</strong> 窗口中创建一个 <strong>新项目（New Project）</strong>，然后使用 <strong>蓝图第三人称（Blueprint Third Person）</strong> 模板。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_1/MatineeHowTo.jpg">
+		<img class="  lazyload" alt="MatineeHowTo.jpg" width="640" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_1/MatineeHowTo.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>启用 <strong>包括初学者内容包（Include starter content）</strong> 选项。 
+</p></li><li class="Default"><p>命名项目。 
+</p></li><li class="Default"><p>上述步骤完成后点击 <strong>创建项目（Create Project）</strong> 新建项目。
+</p></li></ol>
+</div>
+<h2 id="添加matineeactor和道具">添加 Matinee Actor 和道具</h2>
+<p>在这步中，我们将添加 <strong>Matinee Actor</strong>，一个 <strong>骨骼网格体 Actor</strong>，并创建一个供角色跳跃的平台。
+</p><ol ><li class="Default"><p>在 <strong>工具栏</strong> 菜单中选择 <strong>Matinee</strong> 并点击 <strong>Add Matinee</strong> 按钮。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_1/MHT1_AddMatinee.jpg">
+		<img class="  lazyload" alt="MHT1_AddMatinee.png" width="720" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_1/MHT1_AddMatinee.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>如出现 Matinee 撤销警告提示，点击 <strong>继续</strong> 按钮。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_1/MHT1_MatineeWarning.jpg">
+		<img class="  lazyload" alt="MHT1_MatineeWarning.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_1/MHT1_MatineeWarning.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>Matinee Editor 窗口将打开。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_1/MHT1_MatineeOpen.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_1/MHT1_MatineeOpen.jpg">
+		<img class="  lazyload" alt="MHT1_MatineeOpen.png" width="640" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_1/MHT1_MatineeOpen.jpg" />
+</picture>
+</span></a></span></p>
+</div><p><em>点击查看全图。</em>
+</p></li><li class="Default"><p>最小化 Matinee，然后在 Content Browser 的 <strong>Game/Character</strong> 文件夹下，将 <strong>SK_Mannequin</strong> 资源拖放进关卡。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_7/GrayIntoLvl.jpg">
+		<img class="  lazyload" alt="GrayIntoLvl.jpg" width="720" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_7/GrayIntoLvl.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>SK_Mannequin</strong> 的 Details 面板中，在 <strong>Transform</strong> 中将 <strong>Location</strong> 的 <strong>X、Y、Z</strong> 轴数值分别设为 <strong>-610.0</strong>、<strong>-690.0</strong>、和 <strong>125.0</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_7/MHT7_HeroDetails.jpg">
+		<img class="  lazyload" alt="MHT7_HeroDetails.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_7/MHT7_HeroDetails.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在关卡中，抓住模板文本上的小型方块笔刷，将其移动到 <strong>骨骼网格体</strong> 前面。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_7/DragBoxMannequin.jpg">
+		<img class="  lazyload" alt="DragBoxMannequin.jpg" width="720" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_7/DragBoxMannequin.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在方块笔刷的 <strong>Details</strong> 面板中的 <strong>Brush Settings</strong> 下，将 <strong>X</strong> 和 <strong>Y</strong> 轴数值设为 <strong>250.0</strong>，将 <strong>Z</strong> 轴数值设为 <strong>1400.0</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_7/MHT7_BoxDetails.jpg">
+		<img class="  lazyload" alt="MHT7_BoxDetails.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_7/MHT7_BoxDetails.jpg" />
+</picture>
+
+</p><p><em>方块的外观和下图相似：</em>
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_7/BoxHeightGray.jpg">
+		<img class="  lazyload" alt="BoxHeightGray.jpg" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_7/BoxHeightGray.jpg" />
+</picture>
+
+</p></li></ol><h2 id="为matinee添加actor并添加轨迹">为 Matinee 添加 Actor 并添加轨迹</h2>
+<p>在这步中，我们将添加 <strong>SK_Mannequin</strong> 到 <strong>Matinee</strong>，并添加用于序列的轨迹。
+</p><ol ><li class="Default"><p>从 World Outliner 选择 <strong>MatineActor</strong>，然后点击 <strong>Open Matinee</strong> 按钮。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_7/MHT7_OpenMatineeActor.jpg">
+		<img class="  lazyload" alt="MHT7_OpenMatineeActor.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_7/MHT7_OpenMatineeActor.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>最小化 Matinee，选择 <strong>SK_Mannequin</strong> 并重新打开 Matinee，然后在 Tracks 窗口中 <strong>单击右键</strong> 并选择 <strong>Add New Skeletal Group</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_7/NewSkelGroupGray.jpg">
+		<img class="  lazyload" alt="NewSkelGroupGray.jpg" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_7/NewSkelGroupGray.jpg" />
+</picture>
+
+</p><p><em>为新群组命名，在此例中我们命名为 <strong>SK_Mannequin</strong>。</em>
+</p></li><li class="Default"><p>在 <strong>Group Name</strong> 上 <strong>单击右键</strong>，从菜单中选择 <strong>Add New Sound Track</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_7/MHT7_AddNewSoundTrack.jpg">
+		<img class="  lazyload" alt="MHT7_AddNewSoundTrack.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_7/MHT7_AddNewSoundTrack.jpg" />
+</picture>
+
+</p></li><li class="Default"><p><strong>重复以上步骤</strong> 添加另一个 <strong>Sound Track</strong>，使关卡中存在两个 Sound Track。 
+</p></li><li class="Default"><p>选取 <strong>5.00</strong> 处的结束标记并将其移动至 <strong>12.00</strong>，增加 Matinee 长度。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_7/MHT7_MoveEndMarker.jpg">
+		<img class="  lazyload" alt="MHT7_MoveEndMarker.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_7/MHT7_MoveEndMarker.jpg" />
+</picture>
+
+</p></li></ol><h2 id="添加运动和动画">添加运动和动画</h2>
+<p>在这步中，我们将为角色设置运动和动画，使其跳到方块上方。
+</p><ol ><li class="Default"><p>打开 Matinee，点击运动轨迹，然后将 <strong>时间条</strong> 移至 <strong>3.00</strong> 处，再按下 <strong>Enter</strong> 键添加一个关键帧。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_7/MHT7_MovementKey2.jpg">
+		<img class="  lazyload" alt="MHT7_MovementKey2.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_7/MHT7_MovementKey2.jpg" />
+</picture>
+
+</p></li><li class="Default"><p><strong>重复以上步骤</strong>，在 <strong>4.50</strong>、<strong>6.00</strong>、<strong>7.00</strong> 和 <strong>8.00</strong> 处添加关键帧。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_7/MHT7_MovementKeysAdded.jpg">
+		<img class="  lazyload" alt="MHT7_MovementKeysAdded.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_7/MHT7_MovementKeysAdded.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>点击运动轨迹上的第二个关键帧，最小化 Matinee，然后在 SK_Mannequin 的 Details 面板中将 <strong>Location</strong> 的 <strong>Z</strong> 轴数值设为 <strong>135</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_7/MHT7_MoveDetailsKey2.jpg">
+		<img class="  lazyload" alt="MHT7_MoveDetailsKey2.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_7/MHT7_MoveDetailsKey2.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>返回 Matinee，点击运动轨迹上的第三个关键帧，最小化 Matinee，然后将 <strong>Location</strong> 的 <strong>Y</strong> 轴数值设为 <strong>-674</strong>、<strong>Z</strong> 轴数值设为 <strong>385</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_7/MHT7_MoveDetailsKey3.jpg">
+		<img class="  lazyload" alt="MHT7_MoveDetailsKey3.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_7/MHT7_MoveDetailsKey3.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>返回 Matinee，点击运动轨迹上的第四个关键帧，最小化 Matinee，然后将 <strong>Location</strong> 的 <strong>Y</strong> 轴数值设为 <strong>-622.53</strong>、<strong>Z</strong> 轴数值设为 <strong>804.640</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_7/MHT7_MoveDetailsKey4.jpg">
+		<img class="  lazyload" alt="MHT7_MoveDetailsKey4.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_7/MHT7_MoveDetailsKey4.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>返回 Matinee，点击运动轨迹上的第五个关键帧，最小化 Matinee，然后将 <strong>Location</strong> 的 <strong>Y</strong> 轴数值设为 <strong>-561.0</strong>、<strong>Z</strong> 轴数值设为 <strong>872.0</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_7/MHT7_MoveDetailsKey5.jpg">
+		<img class="  lazyload" alt="MHT7_MoveDetailsKey5.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_7/MHT7_MoveDetailsKey5.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>返回 Matinee，点击运动轨迹上的第六个关键帧，最小化 Matinee，然后将 <strong>Location</strong> 的 <strong>Y</strong> 轴数值设为 <strong>-502.0</strong>、<strong>Z</strong> 轴数值设为 <strong>847.0</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_7/MHT7_MoveDetailsKey6.jpg">
+		<img class="  lazyload" alt="MHT7_MoveDetailsKey6.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_7/MHT7_MoveDetailsKey6.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在关卡视口中选中 <strong>运动</strong> 轨迹中最后的关键帧，<strong>SK_Mannequin</strong> Actor 应站立在平台顶部上。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_7/IdleOnTop.jpg">
+		<img class="  lazyload" alt="IdleOnTop.jpg" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_7/IdleOnTop.jpg" />
+</picture>
+
+</p><p><em>如 Actor 未站立在平台顶部上，你可以通过移动它们（并在上图黄色小框中调整对齐大小）来实现。</em>
+</p></li><li class="Default"><p>将 <strong>时间条（Time Bar）</strong> 移回至 <strong>0.00</strong>，选择动画轨迹并按下 <strong>回车（Enter）</strong> 键添加关键帧，然后从出现的菜单中选择 <strong>Idle</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_7/MHT7_AnimKey1.jpg">
+		<img class="  lazyload" alt="MHT7_AnimKey1.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_7/MHT7_AnimKey1.jpg" />
+</picture>
+
+</p><p><em>从关卡视口中观察，<strong>SK_Mannequin</strong> Actor 将保持 <strong>待机（Idle）</strong> 动作，因为我们已指定开始 <strong>Matinee</strong> 的动画。</em> 
+</p></li><li class="Default"><p>将 <strong>时间条</strong> 移至 <strong>2.50</strong> 处并按下 <strong>Enter</strong> 键，然后从菜单中选择 <strong>Jump_Start</strong>。 
+</p></li><li class="Default"><p>在 <strong>2.50</strong> 处的 <strong>Jump_Start</strong> 关键帧上 <strong>单击右键</strong>，选择 <strong>Set Play Rate</strong> 将值设为 <strong>0.23</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_7/MHT7_JumpAnimAdded.jpg">
+		<img class="  lazyload" alt="MHT7_JumpAnimAdded.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_7/MHT7_JumpAnimAdded.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>将时间条移至 <strong>4.50</strong> 处并按下 <strong>Enter</strong> 键，然后再次从菜单中选择 <strong>Jump_Start</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_7/MHT7_AnimKey3.jpg">
+		<img class="  lazyload" alt="MHT7_AnimKey3.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_7/MHT7_AnimKey3.jpg" />
+</picture>
+
+</p><p><em>我们本可以添加 <strong>Jump_Loop</strong> 动画，然而角色在持续向上运动，因此使用 <strong>Jump_Start</strong> 的动画帧效果更佳。</em>
+</p></li><li class="Default"><p>在 <strong>4.50</strong> 处的 <strong>Jump_Start</strong> 关键帧上 <strong>单击右键</strong>，选择 <strong>Set Start Offset</strong> 将值设为 <strong>5</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_7/MHT7_AnimKey4.jpg">
+		<img class="  lazyload" alt="MHT7_AnimKey4.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_7/MHT7_AnimKey4.jpg" />
+</picture>
+
+</p><p><em>通过此操作可使该动画从第 5 帧开始，而非从第 0 帧开始。</em>
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_7/JumpStart.jpg">
+		<img class="  lazyload" alt="JumpStart.jpg" width="720" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_7/JumpStart.jpg" />
+</picture>
+
+</p><p><em>还可以看到角色的动作已经发生变化，并未使用角色下蹲的普通 Jump_Start 动作。</em>
+</p></li><li class="Default"><p>将时间条移至 <strong>8.00</strong> 处并按下 <strong>Enter</strong> 键，然后从菜单中选择 <strong>Jump_End</strong>。 
+</p></li><li class="Default"><p>将时间条移至 <strong>8.30</strong> 处并按下 <strong>Enter</strong> 键，然后从菜单中选择 <strong>Idle</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_7/MHT7_AnimKey6.jpg">
+		<img class="  lazyload" alt="MHT7_AnimKey6.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_7/MHT7_AnimKey6.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>8.30</strong> 处的 <strong>Idle</strong> 关键帧上 <strong>单击右键</strong>，选择 <strong>Set Time</strong> 将值设为 <strong>8.20</strong>。 
+</p></li><li class="Default"><p>在移至 <strong>8.20</strong> 的 <strong>Idle</strong> 关键帧上 <strong>单击右键</strong> 并选择 <strong>Set Looping</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_7/MHT7_AnimKey7.jpg">
+		<img class="  lazyload" alt="MHT7_AnimKey7.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_7/MHT7_AnimKey7.jpg" />
+</picture>
+
+</p><p><em>序列后部颜色较深的部分表明动画设为循环。</em>
+</p></li></ol><h2 id="添加音效并完成matinee">添加音效并完成 Matinee</h2>
+<p>在这步中，我们将使用 sound tracks 添加音效并完成序列。
+</p><ol ><li class="Default"><p>最小化 Matinee 窗口，然后在 Content Browser 的 <strong>Game/Audio</strong> 文件夹中点击 <strong>Explosion01</strong> 资源。 
+</p></li><li class="Default"><p>返回 Matinee 窗口，将时间条移至 <strong>2.50</strong> 标记处，然后按下 <strong>Enter</strong> 键。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_7/MHT7_Sound1.jpg">
+		<img class="  lazyload" alt="MHT7_Sound1.png" width="780" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_7/MHT7_Sound1.jpg" />
+</picture>
+
+</p><p><em>如需添加一个音效资源到 <strong>Sound Track</strong>，必须在 <strong>Content Browser</strong> 中选择一个 <strong>Sound Wave</strong> 或 <strong>Sound Cue</strong> 资源。</em>
+</p></li><li class="Default"><p>在新添加音效资源的关键帧上 <strong>单击右键</strong>，选择 <strong>Set Sound Volume</strong> 将值设为 <strong>1.5</strong>。 
+</p></li><li class="Default"><p><strong>重复以上步骤</strong>，<strong>单击右键</strong>，选择 <strong>Set Sound Pitch</strong> 将值设为 <strong>0.5</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_7/MHT7_Sound2.jpg">
+		<img class="  lazyload" alt="MHT7_Sound2.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_7/MHT7_Sound2.jpg" />
+</picture>
+
+</p><p><em>可以看到该音效的音量已增加到 1.5，而轨迹中条上的基音已降低到 0.5。</em>
+</p></li><li class="Default"><p>点击另一个 <strong>Sound Track</strong>，然后在 <strong>Content Browser</strong> 的 <strong>Game/Audio</strong> 文件夹中选择 <strong>Start_Music_Cue</strong> 资源。 
+</p></li><li class="Default"><p>返回 Matinee 窗口，将时间条移回 <strong>0.00</strong> 标记处，然后按下 <strong>Enter</strong> 键添加音乐。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_7/MHT7_Sound3.jpg">
+		<img class="  lazyload" alt="MHT7_Sound3.png" width="780" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_7/MHT7_Sound3.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 Sound Track 音乐的 <strong>Details</strong> 面板中，勾选 <strong>Continue Sound on Matinee End</strong> 复选框。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_7/MHT7_Sound4.jpg">
+		<img class="  lazyload" alt="MHT7_Sound4.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_7/MHT7_Sound4.jpg" />
+</picture>
+
+</p><p><em>此操作可使音乐在 12 秒的 <strong>Matinee</strong> 序列结束后继续播放（否则音乐将会戛然而止）。</em> 
+</p></li><li class="Default"><p>关闭 Matinee，在 <strong>World Outliner</strong> 中选择 <strong>Matinee Actor</strong>。 
+</p></li><li class="Default"><p>在 <strong>Details</strong> 面板中的 Play 下，勾选 <strong>Play on Level Load</strong> 复选框。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_7/MHT7_MatineeFinished.jpg">
+		<img class="  lazyload" alt="MHT7_MatineeFinished.png" data-src="../../../../../Images/AnimatingObjects/Matinee/HowTo/MHT_7/MHT7_MatineeFinished.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在主工具栏中点击 <strong>Play</strong> 按钮即可在编辑器中进行游戏。<br /></p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_-FAd67U7fmo_947
+{
+	margin: 0px;
+	width: 640px;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_-FAd67U7fmo_947:after
+{
+	content: "";
+	padding-top: 360px;
+	display: block;
+}
+</style> 
+<div>
+<div id="player_-FAd67U7fmo_947"><div style="position:absolute;display:block;width:100%;height:100%;"><iframe class="embedded_video" id="-FAd67U7fmo" width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/-FAd67U7fmo?rel=0&amp;modestbranding=1&amp;showinfo=0" frameborder="0" allowfullscreen></iframe></div></div>
+</div>
+<p><em>现在可以看到 <strong>SK_Mannequin</strong> Actor 伴随着爆炸声和音乐跳上方块顶部。</em>
+</p><p><em>可将多个摄像机角度、视野、后期处理效果、或慢动作轨迹应用到 <strong>导演轨迹</strong> 中，使其效果更佳、独一无二。</em>
+</p></li></ol>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/AnimatingObjects/Matinee/HowTo/MHT_7/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:36:18 GMT -->
+</html>

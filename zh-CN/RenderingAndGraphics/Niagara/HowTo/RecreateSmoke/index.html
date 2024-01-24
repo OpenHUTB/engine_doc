@@ -1,0 +1,722 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/RenderingAndGraphics/Niagara/HowTo/RecreateSmoke/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:03:25 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSmoke/Smoke_Hero.png";
+				var finishButton = finishButtonTemplate;
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/RenderingAndGraphics/Niagara/HowTo/RecreateSmoke/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>在Niagara中重建初学者内容包中的烟雾效果 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+		    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+		    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/RenderingAndGraphics/Niagara/HowTo/RecreateSmoke/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/RenderingAndGraphics/Niagara/HowTo/RecreateSmoke/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/RenderingAndGraphics/Niagara/HowTo/RecreateSmoke/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/RenderingAndGraphics/Niagara/HowTo/RecreateSmoke/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Niagara/HowTo/RecreateSmoke" />
+<meta name="intsourcechangelist" content="15384940" />
+<meta name="availability" content="Public" />
+<meta name="title" content="在Niagara中重建初学者内容包中的烟雾效果" />
+<meta name="description" content="本教程将介绍使用Niagara重建初学者内容包中的烟雾效果的方法。" />
+<meta name="type" content="how-to" />
+<meta name="skilllevel" content="Intermediate" />
+<meta name="version" content="4.25" />
+<meta name="parent" content="RenderingAndGraphics/Niagara/HowTo" />
+<meta name="order" content="7" />
+<meta name="keywords" content="Niagara" />
+<meta name="keywords" content="Vfx" />
+<meta name="keywords" content="Effects" />
+<meta name="keywords" content="Visual Effects" />
+<meta name="keywords" content="Particle Effects" />
+<meta name="pre-req" content="Basics/InstallingUnrealEngine/index.html" />
+<meta name="pre-req" content="Basics/Projects/Browser/index.html" />
+<meta name="pre-req" content="Engine/Niagara/HowTo/EnableNiagara" />
+<meta name="pre-req" content="Engine/Niagara/HowTo/SpriteEffect" />
+<meta name="topic-image" content="Smoke_Topic.png" />
+<meta name="hero-image" content="Smoke_Hero.png" />
+<meta name="crumbs" content="%ROOT%,RenderingAndGraphics,RenderingAndGraphics/Niagara,RenderingAndGraphics/Niagara/HowTo" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="在Niagara中重建初学者内容包中的烟雾效果" />
+	<meta property="og:description" content="本教程将介绍使用Niagara重建初学者内容包中的烟雾效果的方法。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">设计视觉、渲染和图形效果</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">Niagara视觉效果</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">Niagara - 使用指南</a>
+
+<span class="separator">></span> <span id="page">在Niagara中重建初学者内容包中的烟雾效果</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  background">
+						<div class="imgContainer"><img src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSmoke/Smoke_Hero.png" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">在Niagara中重建初学者内容包中的烟雾效果</h1>
+							</div>	
+							<h2 >本教程将介绍使用Niagara重建初学者内容包中的烟雾效果的方法。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Intermediate"><a id="skill_link" href="../../../../SiteIndex/index.html?skills=Intermediate">Intermediate</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																																																<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#创建系统和发射器">创建系统和发射器</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#编辑发射器更新设置">编辑发射器更新设置</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#编辑粒子生成设置">编辑粒子生成设置</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#编辑粒子更新设置">编辑粒子更新设置</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#最终结果">最终结果</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>虚幻引擎4（UE4）的初学者内容包中有一个由Cascade创建的烟雾粒子效果。在本指南中，你将学习如何在Niagara中重建Cascade中的烟雾效果。此示例将帮助你从Cascade过渡到Niagara。
+</p><div class="note">
+	<p><strong>先决条件步骤：</strong>
+</p><p>本教程将使用 <strong>M_smoke_subUV</strong> 材质，其包含初学者内容包中。如尚未将初学者内容添加到项目，请务必进行添加。本教程同时使用<a id="content_link"filter-data="tag_niagara tag_vfx tag_effects tag_visual_effects tag_particle_effects" href="../SpriteEffect/index.html" ><span>在Niagara中创建Sprite粒子效果</span></a>教程中创建FX_Smoke发射器。</p>
+</div><h2 id="创建系统和发射器">创建系统和发射器</h2>
+<p>与在Cascade中不同，Niagara发射器和系统是独立的。当前推荐的工作流程是从现有发射器或发射器模板创建系统。但是，由于你要复制现有发射器，因此过程会稍有不同。
+</p><ol ><li class="Default"><p>在项目的内容文件夹中，为本教程创建新文件夹。
+</p></li><li class="Default"><p>复制<a id="content_link"filter-data="tag_niagara tag_vfx tag_effects tag_visual_effects tag_particle_effects" href="../SpriteEffect/index.html" ><span>在Niagara中创建Sprite粒子效果</span></a>教程中创建的 <strong>FX_Smoke</strong> 发射器。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSmoke/Smoke_DuplicateEmitter.png" title="Duplicate FX372029427Smoke Emitter"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSmoke/Smoke_DuplicateEmitter.jpg">
+		<img class="  lazyload" alt="复制FX_Smoke发射器" title="Duplicate FX372029427Smoke Emitter" width="500" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSmoke/Smoke_DuplicateEmitter.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>将此复制发射器拖放到你在步骤1中创建的文件夹中。在弹出的上下文菜单中，选择 <strong>移动（Move）</strong>。
+</p></li><li class="Default"><p>将复制的发射器重命名为 <strong>FX_DarkSmoke</strong>，将其与<a id="content_link"filter-data="tag_niagara tag_vfx tag_effects tag_visual_effects tag_particle_effects" href="../SpriteEffect/index.html" ><span>在Niagara中创建Sprite粒子效果</span></a>指南中创建的烟雾效果区别开来。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSmoke/Smoke_RenameEmitter.jpg">
+		<img class="  lazyload" alt="重命名复制的发射器" title="Rename the Duplicate Emitter" width="200" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSmoke/Smoke_RenameEmitter.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>右键点击新烟雾发射器，然后选择 <strong>创建Niagara系统（Create Niagara System）</strong>。
+</p></li></ol><p>   <picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSmoke/Smoke_CreateSystemFromEmitter.jpg">
+		<img class="  lazyload" alt="从发射器创建系统" title="Create System From Emitter" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSmoke/Smoke_CreateSystemFromEmitter.jpg" />
+</picture>
+
+   <div class="note">
+	
+</div>
+</p><ol ><li class="Default"><p>将系统命名为 <strong>DarkSmoke</strong>。这是为了与<a id="content_link"filter-data="tag_niagara tag_vfx tag_effects tag_visual_effects tag_particle_effects" href="../SpriteEffect/index.html" ><span>在Niagara中创建Sprite粒子效果</span></a>教程中创建的烟雾效果区分开。
+</p></li></ol><p>   <picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSmoke/Smoke_NameSystem.jpg">
+		<img class="  lazyload" alt="重命名系统" title="Rename System" width="200" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSmoke/Smoke_NameSystem.jpg" />
+</picture>
+
+</p><ol ><li class="Default"><p>双击 <strong>FX_DarkSmoke</strong> 以便在Niagara系统中将其打开。在编辑完发射器的设置后，你还需要保存Darksmoke系统。
+</p></li><li class="Default"><p>将DarkSmoke系统拖到关卡中，这样你便可以预览项目场景上下文中的更改。<br /></p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSmoke/Smoke_DragSystemIntoLevel.png" title="Drag the System into Level"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSmoke/Smoke_DragSystemIntoLevel.jpg">
+		<img class="  lazyload" alt="将系统拖到关卡中" title="Drag the System into Level" width="500" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSmoke/Smoke_DragSystemIntoLevel.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><div class="note">
+	<p>制作粒子效果时，最好将系统拖到关卡中。这样便可查看每一项更改并在上下文中进行编辑。你对系统所做的任何更改都将自动传播到关卡中的系统实例。</p>
+</div></li></ol><h2 id="编辑发射器更新设置">编辑发射器更新设置</h2>
+<p>首先，你将在 <strong>发射器更新（Emitter Update）</strong> 组中编辑模块。这些是将应用于发射器本身并更新每一帧的行为。
+</p><ol ><li class="Default"><p>In the <strong>System Overview</strong>, click the <strong>Emitter Update</strong> group to open it in the <strong>Selection</strong> panel.
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSmoke/SystemOverview_OpenEmitterUpdate.png" title="Open Emitter Update Group"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSmoke/SystemOverview_OpenEmitterUpdate.jpg">
+		<img class="  lazyload" alt="设置生命周期模式" title="Open Emitter Update Group" width="700" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSmoke/SystemOverview_OpenEmitterUpdate.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>展开 <strong>发射器状态（Emitter State）</strong> 模块。此模块控制此发射器的时间和可延展性。由于你使用了简单Sprite迸发模板，因此 <strong>生命周期模式（Life Cycle Mode）</strong> 设置为 <strong>自身（Self）</strong>。通常，该模式用于为此特定发射器完全定制发射器生命周期逻辑，但此效果并不需要它。单击下拉列表，并将 <strong>生命周期模式（Life Cycle Mode）</strong> 设置为 <strong>系统（System）</strong>。此操作将使系统能够计算生命周期设置，而这通常可以优化性能。在默认情况下，系统以5秒的间隔无限循环。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSmoke/Smoke_SetLifeCycleMode.png" title="Set Life Cycle Mode"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSmoke/Smoke_SetLifeCycleMode.jpg">
+		<img class="  lazyload" alt="设置生命周期模式" title="Set Life Cycle Mode" width="500" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSmoke/Smoke_SetLifeCycleMode.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>打开 <strong>生成率（Spawn Rate）</strong> 模块。将 <strong>生成率（Spawn Rate）</strong> 改为 <strong>25</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSmoke/Smoke_SpawnRate.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSmoke/Smoke_SpawnRate.jpg">
+		<img class="  lazyload" alt="设置生成率" width="500" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSmoke/Smoke_SpawnRate.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li></ol><h2 id="编辑粒子生成设置">编辑粒子生成设置</h2>
+<p>下一步，你将编辑粒子生成组中的模块。这些是粒子首次生成时将应用于粒子的行为。
+</p><ol ><li class="Default"><p>在系统概览（System Overview）中，点击 <strong>粒子生成（Particle Spawn）</strong> 组以在选择（Selection）面板中打开。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSmoke/SystemOverview_OpenParticleSpawn.png" title="Open Particle Spawn Group"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSmoke/SystemOverview_OpenParticleSpawn.jpg">
+		<img class="  lazyload" alt="打开粒子生成组" title="Open Particle Spawn Group" width="700" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSmoke/SystemOverview_OpenParticleSpawn.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>打开 <strong>初始化粒子（Initialize Particle）</strong> 模块。在 <strong>点属性（Point Attributes）</strong> 下，展开 <strong>生命周期（Lifetime）</strong>。生命周期参数确定了粒子在消失之前将显示多久。将 <strong>最小值（Minimum）</strong> 和 <strong>最大值（Maximum）</strong> 值更改如下。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSmoke/Smoke_InitParticleLifetime.png" title="Set Particle Lifetime"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSmoke/Smoke_InitParticleLifetime.jpg">
+		<img class="  lazyload" alt="设置粒子生命周期" title="Set Particle Lifetime" width="500" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSmoke/Smoke_InitParticleLifetime.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>参数 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>值 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>最小值（Minimum）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>3.0</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>最大值（Maximum）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>5.0</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr></tbody>
+</table></li><li class="Default"><p>展开 <strong>颜色（Color）</strong>。将RGB值改为下列值：
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSmoke/Smoke_InitParticleColor.png" title="Set Initial Color"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSmoke/Smoke_InitParticleColor.jpg">
+		<img class="  lazyload" alt="设置初始颜色" title="Set Initial Color" width="500" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSmoke/Smoke_InitParticleColor.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>参数 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>值 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>红色（Red）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>.208</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>绿色（Green）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>.208</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>蓝色（Blue）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>.208</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr></tbody>
+</table></li><li class="Default"><p>在 <strong>Sprite属性（Sprite Attributes）</strong> 下，展开 <strong>Sprite大小（Sprite Size）</strong>。将 <strong>最小值</strong> 和 <strong>最大值</strong> 改为下列值：
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSmoke/Smoke_InitParticleSpriteSize.png" title="Set Sprite Size"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSmoke/Smoke_InitParticleSpriteSize.jpg">
+		<img class="  lazyload" alt="设置Sprite大小" title="Set Sprite Size" width="500" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSmoke/Smoke_InitParticleSpriteSize.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>参数 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>值 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>最小值（Minimum）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>50</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>最大值（Maximum）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>90</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr></tbody>
+</table></li><li class="Default"><p>打开 <strong>添加速度（Add Velocity）</strong> 模块。将 <strong>速度（Velocity）</strong> 的最小值和最大值改为下列值：
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSmoke/Smoke_AddVelocityModule.png" title="Set Velocity"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSmoke/Smoke_AddVelocityModule.jpg">
+		<img class="  lazyload" alt="设置速度" title="Set Velocity" width="500" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSmoke/Smoke_AddVelocityModule.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>参数 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>值 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>最小值（Minimum）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>X：12，Y：0，Z：5</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>最大值（Maximum）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>X：32，Y：0，Z：7</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr></tbody>
+</table></li><li class="Default"><p>打开 <strong>球体位置（Sphere Location）</strong> 模块。将 <strong>球体半径（Sphere Radius）</strong> 值改为 <strong>30</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSmoke/Smoke_SphereLocationModule.png" title="Set Sphere Radius"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSmoke/Smoke_SphereLocationModule.jpg">
+		<img class="  lazyload" alt="设置球体半径" title="Set Sphere Radius" width="500" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSmoke/Smoke_SphereLocationModule.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li></ol><h2 id="编辑粒子更新设置">编辑粒子更新设置</h2>
+<p>现在，你将在 <strong>粒子更新（Particle Update）</strong> 组中编辑模块。这些行为将应用于发射器的粒子并更新每一帧。
+</p><ol ><li class="Default"><p>在 <strong>系统概览（System Overview）</strong> 中，点击 <strong>粒子更新（Particle Update）</strong> 组以在选择（Selection）面板中打开。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSmoke/SystemOverview_OpenParticleUpdate.png" title="Open Particle Update Group"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSmoke/SystemOverview_OpenParticleUpdate.jpg">
+		<img class="  lazyload" alt="打开粒子更新组" title="Open Particle Update Group" width="700" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSmoke/SystemOverview_OpenParticleUpdate.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>打开 <strong>加速力（Acceleration Force）</strong> 模块。将 <strong>加速（Acceleration）</strong>Z<strong> 值设为 </strong>20**。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSmoke/Smoke_AccelerationForceModule.png" title="Set Acceleration"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSmoke/Smoke_AccelerationForceModule.jpg">
+		<img class="  lazyload" alt="设置加速" title="Set Acceleration" width="500" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSmoke/Smoke_AccelerationForceModule.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>打开 <strong>缩放颜色（Scale Color）</strong> 模块。通过右键点击 <strong>Scale Alpha（@@@）</strong> 曲线并选择 <strong>将键添加到曲线（Add Key to Curve）</strong> 来向该曲线添加第三个键。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSmoke/Smoke_AddKeyToCurve.png" title="Add Key to Curve"><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSmoke/Smoke_AddKeyToCurve.jpg">
+		<img class="  lazyload" alt="添加曲线键" title="Add Key to Curve" width="500" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSmoke/Smoke_AddKeyToCurve.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>将三个键设为下列值。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSmoke/Smoke_ScaleColorModule.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSmoke/Smoke_ScaleColorModule.jpg">
+		<img class="  lazyload" alt="Set Alpha Curve Keys" width="500" data-src="../../../../../Images/RenderingAndGraphics/Niagara/HowTo/RecreateSmoke/Smoke_ScaleColorModule.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>键编号 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>时间 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>值 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>1</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>.08</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>.3</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>2</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>.16</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>1.0</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>3</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>.68</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>.3</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			
+			</td>
+	
+</tr></tbody>
+</table></li></ol><h2 id="最终结果">最终结果</h2>
+<p>完成这些步骤后，关卡中的烟雾系统将生成类似于以下视频中的烟雾效果。在视频中，你可以在右侧看到级联粒子系统，并在左侧看到Niagara等效系统。
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_1_h25j3mlr_21
+{
+	margin: 0px;
+	width: 75%;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_1_h25j3mlr_21:after
+{
+	content: "";
+	padding-top: 56.25%;
+	display: block;
+}
+</style> 
+<div id="player_1_h25j3mlr_21"> 
+	<div id="playerContainer_1_h25j3mlr_21" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/1_h25j3mlr/embed.html"></iframe>
+	</div>
+</div>
+
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Niagara">Niagara</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Vfx">Vfx</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Effects">Effects</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Visual%20Effects">Visual Effects</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Particle%20Effects">Particle Effects</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/RenderingAndGraphics/Niagara/HowTo/RecreateSmoke/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:03:40 GMT -->
+</html>

@@ -1,0 +1,821 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/BuildingWorlds/LightingAndShadows/DistanceFieldAmbientOcclusion/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 10:55:02 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/BuildingWorlds/LightingAndShadows/DistanceFieldAmbientOcclusion/" />');
+				var udnCSS = '../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>距离场环境光遮蔽 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/BuildingWorlds/LightingAndShadows/DistanceFieldAmbientOcclusion/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/BuildingWorlds/LightingAndShadows/DistanceFieldAmbientOcclusion/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/BuildingWorlds/LightingAndShadows/DistanceFieldAmbientOcclusion/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/BuildingWorlds/LightingAndShadows/DistanceFieldAmbientOcclusion/" hreflang="ko" />
+
+	<meta name="redirect" content="RenderingAndGraphics/LightingAndShadows/DistanceFieldAmbientOcclusion" />
+<meta name="redirect" content="Engine/Rendering/LightingAndShadows/DistanceFieldAmbientOcclusion" />
+<meta name="intsourcechangelist" content="18413618" />
+<meta name="availability" content="Public" />
+<meta name="title" content="距离场环境光遮蔽" />
+<meta name="description" content="概述使用网格体距离场创建天空光照动态环境光遮蔽。" />
+<meta name="type" content="Overview" />
+<meta name="skilllevel" content="Intermediate" />
+<meta name="version" content="4.18" />
+<meta name="parent" content="BuildingWorlds/LightingAndShadows/MeshDistanceFields" />
+<meta name="related" content="BuildingWorlds/LightingAndShadows/MeshDistanceFields" />
+<meta name="related" content="BuildingWorlds/LightingAndShadows/RayTracedDistanceFieldShadowing" />
+<meta name="related" content="BuildingWorlds/LightingAndShadows/MeshDistanceFields/Reference" />
+<meta name="related" content="BuildingWorlds/LightingAndShadows/MeshDistanceFields/HowTo/DFHT_2" />
+<meta name="order" content="2" />
+<meta name="keywords" content="Lighting" />
+<meta name="keywords" content="Distance Fields" />
+<meta name="keywords" content="Getting Started" />
+<meta name="topic-image" content="DistanceFieldAmbientOcclusion_Topic.png" />
+<meta name="social-image" content="BuildingWorlds/LightingAndShadows/MeshDistanceFields/HowTo/DFHT_2/DFAOBanner.png" />
+<meta name="course" content="lighting-essential-concepts-and-effects?lang=zh-CN|光照基础概念和效果|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Flighting-essential-concepts-and-effects%2FLightingEssentials_Topic_1920x1080-1920x1080-3e04dcaf168d9a530720df1573b417807ae00784.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Flighting-essential-concepts-and-effects%2FLighting-Essential-Concepts-and-Effects-1000x1000-14831d7f280345717b0bdd66be9422b40ffb91bd.png?resize=1&amp;w=300" />
+<meta name="course" content="introducing-global-illumination?lang=zh-CN|全局光照入门|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fintroducing-global-illumination%2F105_GlobalIllum%281200x675%29-1200x675-97270dbdc7595455b4c9acf0e83bf01da8efbfd4.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fintroducing-global-illumination%2FIntroducing-Global-Illumination-1000x1000-af5267ea2a6721b1cc73af7825d226aedbbaf5ce.png?resize=1&amp;w=300" />
+<meta name="crumbs" content="%ROOT%,BuildingWorlds,BuildingWorlds/LightingAndShadows,BuildingWorlds/LightingAndShadows/MeshDistanceFields" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="距离场环境光遮蔽" />
+	<meta property="og:description" content="概述使用网格体距离场创建天空光照动态环境光遮蔽。" />
+		<meta property="og:image" content="https://docs.unrealengine.com/4.26/Images/BuildingWorlds/LightingAndShadows/MeshDistanceFields/HowTo/DFHT_2/DFAOBanner.png" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">构建虚拟世界</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">照亮环境</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../MeshDistanceFields/index.html">网格体距离场</a>
+
+<span class="separator">></span> <span id="page">距离场环境光遮蔽</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">距离场环境光遮蔽</h1>
+							</div>	
+							<h2 >概述使用网格体距离场创建天空光照动态环境光遮蔽。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Intermediate"><a id="skill_link" href="../../../SiteIndex/index.html?skills=Intermediate">Intermediate</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																		<div id="seeAlso">
+	<div style="position:relative;">
+		<div id="title">参见</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<p>
+						<a id="related_link" href="../MeshDistanceFields/index.html" title="概述网格体距离场以及你在开发游戏时可以用到的相关功能。">网格体距离场</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../RayTracedDistanceFieldShadowing/index.html" title="关于使用网格体距离场创建动态柔和区域阴影的概述。">距离场柔和阴影</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../MeshDistanceFields/Reference/index.html" title="关于项目设置、光照组件、静态网格体编辑器和单个Actor中可用的所有网格体距离场设置的参考页面。">网格体距离场设置</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../MeshDistanceFields/HowTo/DFHT_2/index.html" title="如何在虚幻引擎4中设置并使用距离场环境光遮蔽。">使用距离场环境光遮蔽</a>
+					</p>
+				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																		<div id="courses">
+	<div style="position:relative;">
+		<div id="title">相关课程</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<div name="lighting-essential-concepts-and-effects?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/lighting-essential-concepts-and-effects?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/lighting-essential-concepts-and-effects/LightingEssentials_Topic_1920x1080-1920x1080-3e04dcaf168d9a530720df1573b417807ae00784.4884f86.delaye?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/lighting-essential-concepts-and-effects/Lighting-Essential-Concepts-and-Effects-1000x1000-14831d7f280345717b0bdd66be9422b40ffb91bd.489fe4b.d?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="lighting-essential-concepts-and-effects?lang=zh-CN_title">
+				光照基础概念和效果
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="introducing-global-illumination?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/introducing-global-illumination?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/introducing-global-illumination/105_GlobalIllum(1200x675)-1200x675-97270dbdc7595455b4c9acf0e83bf01da8efbfd4.48b4f?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/introducing-global-illumination/Introducing-Global-Illumination-1000x1000-af5267ea2a6721b1cc73af7825d226aedbbaf5c?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="introducing-global-illumination?lang=zh-CN_title">
+				全局光照入门
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																								<div class="fullwidth raw">
+	<p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/DistanceFieldAmbientOcclusion/DistanceFieldAmbientOcclusion_Header.jpg">
+		<img class="  lazyload" alt="DistanceFieldAmbientOcclusion_Header.jpg" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/DistanceFieldAmbientOcclusion/DistanceFieldAmbientOcclusion_Header.jpg" />
+</picture>
+</p>
+</div><div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#场景设置">场景设置</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#天空光照">天空光照</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#场景代表">场景代表</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#质量">质量</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#遮蔽结果">遮蔽结果</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#性能">性能</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#限制">限制</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#提示和技巧">提示和技巧</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>使用有向距离场体积能获得可移动天空光照的阴影；该有向距离场体积在各刚性网格体周围预计算，以产生中等范围的环境光遮蔽。
+在虚幻引擎4（UE4）中，这被称为 <strong>距离场环境光遮蔽（Distance Field Ambient Occlusion）</strong>（DFAO）。其支持动态场景变化；刚性网格体可移动或隐藏，并会影响遮蔽。
+与<a id="content_link" href="../../../RenderingAndGraphics/PostProcessEffects/AmbientOcclusion/index.html" ><span>屏幕空间环境光遮蔽</span></a>不同，遮蔽在场景空间遮挡物中进行计算，因此出屏丢失数据不会导致瑕疵。
+</p><p>此动态环境光遮蔽解决方案存在部分扩散限制，以便支持动态场景修改，因此并不适用于所有项目。
+具体而言，其仅支持轻微非等分缩放（挤压）。此外，映射到每个对象上的体积纹理较小，因此大型静态网格体产生的效果较差。
+</p><h2 id="场景设置">场景设置</h2>
+<div class="warning">
+	<p>使用此功能需要首先启用 <strong>渲染（Rendering）</strong> 部分中 <strong>项目设置（Project Settings）</strong> 下的 *生成网格体距离场（Generate Mesh Distance Fields）**。请参见<a id="content_link" href="../MeshDistanceFields/index.html#启用距离场" ><span>网格体距离场</span></a>页面了解详情。</p>
+</div><p>启用距离场环境光遮蔽需将 <strong>天空光照（Sky Light）</strong> 拖入场景，并将其移动性设为 <strong>可移动（Movable）</strong>
+</p><div class="note">
+	<p>如需了解详细步骤教程，请浏览<a id="content_link"filter-data="tag_lighting" href="../MeshDistanceFields/HowTo/DFHT_2/index.html" ><span>距离场环境光遮蔽</span></a>指南进行学习。</p>
+</div><h2 id="天空光照">天空光照</h2>
+<p>利用 <strong>天空光照</strong> 组件可调整 <strong>距离场环境光遮蔽（Distance Field Ambient Occlusion）</strong> 下列出的各项设置。以下为部分可调整设置的对比：
+</p><h3 id="遮蔽对比度">遮蔽对比度</h3>
+<!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/MeshDistanceFields/HowTo/DFHT_2/1_Contrast_0.jpg">
+		<img class="  lazyload" alt="遮蔽 | 对比度：0 " width="650" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/MeshDistanceFields/HowTo/DFHT_2/1_Contrast_0.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/MeshDistanceFields/HowTo/DFHT_2/1_Contrast_1.jpg">
+		<img class="  lazyload" alt="遮蔽 | 对比度：1 " width="650" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/MeshDistanceFields/HowTo/DFHT_2/1_Contrast_1.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div><h3 id="最小遮蔽">最小遮蔽</h3>
+<!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/MeshDistanceFields/HowTo/DFHT_2/1_MinOccl_0.jpg">
+		<img class="  lazyload" alt="最小遮蔽：0" width="650" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/MeshDistanceFields/HowTo/DFHT_2/1_MinOccl_0.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/MeshDistanceFields/HowTo/DFHT_2/1_MinOccl_1.jpg">
+		<img class="  lazyload" alt="最小遮蔽：1" width="650" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/MeshDistanceFields/HowTo/DFHT_2/1_MinOccl_1.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div><h3 id="遮蔽色调">遮蔽色调</h3>
+<!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/MeshDistanceFields/HowTo/DFHT_2/1_OccTint_0.jpg">
+		<img class="  lazyload" alt="遮蔽色调：| 黑色" width="650" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/MeshDistanceFields/HowTo/DFHT_2/1_OccTint_0.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/MeshDistanceFields/HowTo/DFHT_2/1_OccTint_1.jpg">
+		<img class="  lazyload" alt="遮蔽色调：| 红色" width="650" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/MeshDistanceFields/HowTo/DFHT_2/1_OccTint_1.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div><div class="note">
+	<p>关于天空光照设置的更多信息和示例，请参阅<a id="content_link" href="../MeshDistanceFields/Reference/index.html#天空光照" ><span>网格体距离场参考</span></a>页面。</p>
+</div><h2 id="场景代表">场景代表</h2>
+<p>利用距离场环境光遮蔽的视图模式可忽略其他正在发生的光照，便于你查看关卡中的DFAO效果。 
+</p><p>选择 <strong>显示（Show）</strong> > <strong>可视化（Visualize）</strong> > <strong>距离场环境光遮蔽（Distance Fields Ambient Occlusion）</strong>，即可使用关卡视口查看模式来显示将代表场景环境光遮蔽的距离场。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/BuildingWorlds/LightingAndShadows/DistanceFieldAmbientOcclusion/DFAOVisualize.png" ><span><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/DistanceFieldAmbientOcclusion/DFAOVisualize.jpg">
+		<img class="  lazyload" alt="DFAOVisualize.png" width="400" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/DistanceFieldAmbientOcclusion/DFAOVisualize.jpg" />
+</picture>
+</span></a></span></p>
+</div><p>在此查看模式中，唯一有效果的<a id="content_link" href="../MeshDistanceFields/Reference/index.html#遮蔽最大距离" ><span>天空光照设置</span></a>便是 <strong>遮蔽最大距离（Occlusion Max Distance）</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/DistanceFieldAmbientOcclusion/DFAOView.jpg">
+		<img class="  lazyload" alt="DFAOView.png" width="750" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/DistanceFieldAmbientOcclusion/DFAOView.jpg" />
+</picture>
+
+</p><h2 id="质量">质量</h2>
+<p>距离场环境光遮蔽的质量由其显示的网格体距离场的分辨率所决定。
+环境光遮蔽的阴影十分柔和，因此即使表面未正确显示，离表面较远的遮蔽也会十分精确。
+这在天空遮蔽中通常不易察觉。使网格体较大的细节在网格体距离场中正确显示才能获得较好结果。
+使用<a id="content_link" href="../MeshDistanceFields/index.html#场景表达" ><span>网格体距离场显示</span></a>来查看质量。
+</p><div class="note">
+	<p>请参见<a id="content_link" href="../MeshDistanceFields/index.html#质量" ><span>距离场</span></a>页面，详细了解网格体距离场质量。</p>
+</div><h2 id="遮蔽结果">遮蔽结果</h2>
+<h3 id="漫反射">漫反射</h3>
+<p>距离场环境光遮蔽会生成一个环境法线（最少遮蔽的方向），用于修改漫反射天空光照计算（以及遮蔽因子）。
+</p><!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/DistanceFieldAmbientOcclusion/Original2.jpg">
+		<img class="  lazyload" alt="无距离场环境光遮蔽" width="850" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/DistanceFieldAmbientOcclusion/Original2.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/DistanceFieldAmbientOcclusion/DistanceFieldAO2.jpg">
+		<img class="  lazyload" alt="距离场环境光遮蔽" width="850" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/DistanceFieldAmbientOcclusion/DistanceFieldAO2.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div><div class="caption">
+	
+</div><p>此示例是《堡垒之夜》中正午的场景。在《堡垒之夜》中，玩家可以随时推倒任何墙壁、地板或天花板并重新建造，因此光照必须随之进行更新。
+距离场环境光遮蔽支持在关卡中动态修改这些类型。
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_FmbrnbpHT9E_104
+{
+	margin: 0px;
+	width: 71.5%;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_FmbrnbpHT9E_104:after
+{
+	content: "";
+	padding-top: 56.25%;
+	display: block;
+}
+</style> 
+<div>
+<div id="player_FmbrnbpHT9E_104"><div style="position:absolute;display:block;width:100%;height:100%;"><iframe class="embedded_video" id="FmbrnbpHT9E" width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/FmbrnbpHT9E?rel=0&amp;modestbranding=1&amp;showinfo=0&amp;loop=1&amp;controls=0" frameborder="0" allowfullscreen></iframe></div></div>
+</div>
+<p>此示例来自《堡垒之夜》的关卡，编辑器中的资产有些被隐藏，有些被移动，而环境光遮蔽正进行实时更新。 
+</p><h3 id="高光">高光</h3>
+<p>距离场环境光遮蔽同样提供天空光照中的近似高光遮蔽。定向遮蔽椎体和反射椎体（尺寸取决于材质的粗糙度）相交即可进行计算。
+</p><!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/DistanceFieldAmbientOcclusion/0Original.jpg">
+		<img class="  lazyload" alt="无高光遮蔽" width="850" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/DistanceFieldAmbientOcclusion/0Original.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/DistanceFieldAmbientOcclusion/0SpecularOcclusion.jpg">
+		<img class="  lazyload" alt="高光遮蔽" width="850" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/DistanceFieldAmbientOcclusion/0SpecularOcclusion.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div><div class="caption">
+	
+</div><div class="caption">
+	<p>管道上的高光遮蔽。</p>
+</div><p>非定向环境光遮蔽默认应用至高光。你可以使用 <strong>r.AOSpecularOcclusionMode</strong> 将反射椎体和DFAO产生的未遮蔽椎体相交，便能获得比默认方式更加精确的遮蔽结果。注意：此操作会导致DFAO采样瑕疵。
+</p><h3 id="植被">植被</h3>
+<p>针对使用<a id="content_link" href="../MeshDistanceFields/index.html#植被工具设置" ><span>植被工具</span></a>绘制的Actor时，必须首先启用工具设置中的 <strong>影响距离场光照（Affect Distance Field Lighting）</strong> 选项。
+</p><p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/MeshDistanceFields/FoliageToolSettings.jpg">
+		<img class="  lazyload" alt="FoliageToolSettings.png" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/MeshDistanceFields/FoliageToolSettings.jpg" />
+</picture>
+
+</p><p>即使距离场环境光遮蔽在表面运行，其仍会处理由小树叶组成的片状植被。在 <strong>静态网格体编辑器（Static Mesh Editor）</strong> 的 <strong>构建设置（Build Settings）</strong> 中，
+启用植被类型资产的 <strong>生成两面距离场（Two-Sided Distance Field Generation）</strong> 可获得最佳结果。这将使已计算的遮蔽更加柔和。 
+</p><div class="tip">
+	<p>在天空光照选项中增加 <strong>最小遮蔽（Min Occlusion）</strong> 来防止资产内部完全变黑。</p>
+</div><p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/MeshDistanceFields/BuildSettings_TwoSided.jpg">
+		<img class="  lazyload" alt="BuildSettings_TwoSided.png" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/MeshDistanceFields/BuildSettings_TwoSided.jpg" />
+</picture>
+
+</p><p>在此示例中，DFAO已启用并正在使用"两面距离场生成"：
+</p><!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/DistanceFieldAmbientOcclusion/NoDFAO2.jpg">
+		<img class="  lazyload" alt="仅屏幕空间环境光遮蔽" width="850" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/DistanceFieldAmbientOcclusion/NoDFAO2.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/DistanceFieldAmbientOcclusion/DFAO2.jpg">
+		<img class="  lazyload" alt="有距离场环境光遮蔽的植被" width="850" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/DistanceFieldAmbientOcclusion/DFAO2.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div><div class="caption">
+	
+</div><p>对于使用LOD（细节级别）的植被资产，距离场环境光遮蔽可能会产生过度遮蔽的问题。
+<a id="content_link"filter-data="tag_lighting tag_distance_fields" href="../MeshDistanceFields/index.html" ><span>网格体距离场</span></a>在远距离仍准确，而LOD关卡却使用较少三角形数量且可能会缩小到生成的网格体距离场中时，便会出现以上问题。
+</p><p>在这些LOD上使用 <strong>场景位置偏移（World Position Offset）</strong>，将顶点拉出距离场即可解决此问题。摄像机的少量偏移通常就足以解决瑕疵。
+对于公告板来说，使用<a id="content_link" href="../../../RenderingAndGraphics/RenderToTextureTools/4/index.html" ><span>像素深度偏移</span></a>功能可创建有效深度值，
+更好地显示原始3D三角形网格体。GDC演示"男孩和他的风筝"中便使用了此技术，在高可视距离中使用距离场。
+</p><!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/DistanceFieldAmbientOcclusion/0Billboard.jpg">
+		<img class="  lazyload" alt="无像素深度偏移" width="850" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/DistanceFieldAmbientOcclusion/0Billboard.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/DistanceFieldAmbientOcclusion/0BillboardWithPixelDepthOffset.jpg">
+		<img class="  lazyload" alt="像素深度偏移" width="850" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/DistanceFieldAmbientOcclusion/0BillboardWithPixelDepthOffset.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div><div class="caption">
+	
+</div><div class="caption">
+	<p>距离树公告板显示了过度遮蔽。使用"像素深度偏移"和"天空光照最小遮蔽"来减少过度遮蔽。</p>
+</div><h3 id="地形">地形</h3>
+<p>地形使用高度场进行自身显示，而非使用网格体距离场。此操作使用近似椎体交叉。该交叉根据高度场计算得出，
+使像素可在无距离场代表的情况下获得遮蔽。但其中无自投影或距离场阴影。相反，地形应将带级联阴影贴图（CSM）的 <strong>远景阴影（Far 
+Shadows）</strong> 用于远距离的投影。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/MeshDistanceFields/Landscape.jpg">
+		<img class="  lazyload" alt="Landscape.png" width="700" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/MeshDistanceFields/Landscape.jpg" />
+</picture>
+
+<div class="caption">
+	<p> 使用DFAO可视化视图模式显示地形遮蔽。 </p>
+</div>
+</p><h2 id="性能">性能</h2>
+<p>距离场环境光遮蔽的开销主要是GPU耗时和显卡内存。DFAO已经过优化，可在中配PC、PlayStation 4和Xbox One上运行。目前其开销更加稳定，
+几乎不变（稍稍取决于对象密度）。
+</p><p>若摄像机静止且表面几乎是平面，与早期实现进行比较时，DFAO的速度为1.6倍之多。在有植被和快速移动摄像机的复杂场景中，
+最新的优化速度要快5.5倍。PlayStation 4上运行完整游戏场景距离场环境光遮蔽的用时为3.7毫秒。
+</p><h3 id="优化">优化</h3>
+<p>以下为已加入DFAO的部分优化项目，可使其运行更高效，同时提升其效果。 
+</p><h4 id="总体提升">总体提升</h4>
+<p>使用PlayStation 4进行测试后，虚幻引擎4.16中DFAO的部分提升结果如下： 
+</p><div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>优化 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>原耗时（毫秒） </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>新耗时（毫秒） </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>节约时间（毫秒） </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>变更剔除算法，生成各对象的交叉画面贴图的列表，而非反向进行。各贴图/对象交叉获得自身椎体追踪线程组，因此波阵面更小，排列也更好。</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>3.63</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>3.48</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>0.15</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>内循环中的缓慢指令被替换为快速近似值</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>3.25</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>3.09</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>0.16</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>将变换从场景空间内循环移出至本地空间（采样位置基于空间位置和方向构建）。</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>3.09</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>3.04</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>0.05</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>计算ClearUAV的着色器。</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>3.04</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>2.62</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>0.42</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div><h4 id="流畅采样">流畅采样</h4>
+<p>使用DFAO的流畅采样前使用的是自适应采用，意味着扁平表面与所做的工作比植被等多表面的密集场景更少，
+也意味着干净环境中会出现许多污点。
+</p><p>流畅采样需要更长的历史过滤，可能会出现"重影"（或移动对象的拖影），移除阴影投射物后尤为如此。而在虚幻引擎4.16和之后的版本中，
+利用距离场临时过滤保存信任值，便可消除重影。其用于在上采样时追踪遮蔽的泄漏，然后将泄漏值通过历史更快地清空。总之，
+在摄像机或动态物体快速移动时，此操作可减少重影的发生。 
+</p><p>在下例中，环境光遮蔽当前的计算速度足以消除自适应采样，因此遮蔽将更为流畅。
+</p><!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/DistanceFieldAmbientOcclusion/DFAO_Scene_OldMethod.jpg">
+		<img class="  lazyload" alt="自适应采样" width="590" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/DistanceFieldAmbientOcclusion/DFAO_Scene_OldMethod.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/DistanceFieldAmbientOcclusion/DFAO_Scene_NewMethod.jpg">
+		<img class="  lazyload" alt="流畅采样" width="590" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/DistanceFieldAmbientOcclusion/DFAO_Scene_NewMethod.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div><div class="caption">
+	<p>场景视图</p>
+</div><!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/DistanceFieldAmbientOcclusion/DFAO_View_OldMethod.jpg">
+		<img class="  lazyload" alt="自适应采样" width="590" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/DistanceFieldAmbientOcclusion/DFAO_View_OldMethod.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/DistanceFieldAmbientOcclusion/DFAO_View_NewMethod.jpg">
+		<img class="  lazyload" alt="流畅采样" width="590" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/DistanceFieldAmbientOcclusion/DFAO_View_NewMethod.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div><div class="caption">
+	<p>DFAO可视化</p>
+</div><h4 id="全局距离场">全局距离场</h4>
+<div class="include_wrapper" data-path="BuildingWorlds/LightingAndShadows/MeshDistanceFields">
+<p>全局距离场是分辨率较低的距离场，跟随摄像机的同时，在关卡中使用有向距离场遮蔽。这会创建逐对象网格体距离场的缓存，然后将它们合成到围绕摄像机的若干体积纹理中，称为裁剪图。由于只有新的可见区域或受到场景修改影响的可见区域才需要更新，合成过程不会有太多消耗。</p>
+</div>
+<p>裁剪图被分为四个切片，围绕在仅在需要时更新的摄像机周围。
+摄像机移动显示新切片或固定不动的物体导致其影响边界被修改时会发生此情况。它的平均维护开销接近于零，但在最坏的情况下，
+进行瞬移等行为时的更新开销将更高。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/DistanceFieldAmbientOcclusion/DF_ClipMap.jpg">
+		<img class="  lazyload" alt="DF_ClipMap.png" width="750" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/DistanceFieldAmbientOcclusion/DF_ClipMap.jpg" />
+</picture>
+
+<div class="caption">
+	<p> 裁剪图纹素尺寸的裁剪图显示，每个裁剪图均由不同颜色代表。 </p>
+</div>
+</p><div class="include_wrapper" data-path="BuildingWorlds/LightingAndShadows/MeshDistanceFields">
+<p>对象距离场的分辨率较低意味着它可用于所有物体，但是在计算天空遮蔽的锥体轨迹时，它们在阴影点附近采样，而全局距离场是在更远的地方采样。 
+</p><p>你可以单击 <strong>显示（Show）</strong> > <strong>可视化（Visualize）</strong> > <strong>全局距离场（Global Distance Field）</strong>将全局距离场显示在视口中。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/BuildingWorlds/LightingAndShadows/MeshDistanceFields/EnableGDFViewMode.png" ><span><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/MeshDistanceFields/EnableGDFViewMode.jpg">
+		<img class="  lazyload" alt="EnableGDFViewMode.png" title="EnableGDFViewMode.png" width="250" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/MeshDistanceFields/EnableGDFViewMode.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><p>下面是逐对象网格体距离场可视化与全局距离场可视化的比较图，根据摄像机视图和距离将其合并到裁剪图。
+</p><!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/MeshDistanceFields/ODFVisualization.jpg">
+		<img class="  lazyload" alt="网格体距离场可视化" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/MeshDistanceFields/ODFVisualization.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/MeshDistanceFields/GDFVisualization.jpg">
+		<img class="  lazyload" alt="全局距离场可视化" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/MeshDistanceFields/GDFVisualization.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div>
+</div>
+<p>全局距离场的分辨率低于其对象距离场分辨率，会造成表面附近的距离场不精确。椎体踪迹产生时，对象距离场用于遮蔽椎体的起始处，
+而将全局距离场用于踪迹的剩余部分。得到精确自遮蔽和有效长距离踪迹后，可获得更好的结果。有效最大对象影响距离大幅降低，因此天空遮蔽可获得5倍的性能提升。 
+</p><h2 id="限制">限制</h2>
+<p><strong>技术限制（Limitations of the technique）</strong>
+</p><ul ><li class="Default"><p>仅生成环境光遮蔽，其与天空遮蔽不同（因其遮蔽距离受限）。
+</p></li><li class="Default"><p>阴影仅从刚性网格体处投射。针对骨骼网格体时，在间接光照区域使用<a id="content_link"filter-data="tag_lighting" href="../CapsuleShadows/index.html" ><span>胶囊体阴影</span></a>。
+</p></li></ul><p><strong>当前版本的限制（会在之后进行改善）</strong>
+</p><ul ><li class="Default"><p>工作是跨多帧进行的，生成新采样时遮蔽会出现细微变化，因此动态场景修改引发的环境光遮蔽更新会出现些许延迟。已在虚幻引擎4.6及之后版本中修复此问题：利用距离场临时过滤器保存信任值，该值用于在上采样时追踪遮蔽的泄漏，然后将泄漏值通过历史更快地清空。摄像机移动时，此操作可减少重影的发生。
+</p></li><li class="Default"><p>体积纹理将被映射到每个网格体，因此较大物体的距离场分辨率较低，环境光遮蔽质量较差。
+</p></li></ul><p>请参见<a id="content_link" href="../MeshDistanceFields/index.html#局限性" ><span>距离场</span></a>页面，了解距离场的更多详情。
+</p><h2 id="提示和技巧">提示和技巧</h2>
+<h3 id="简易反射光照">简易反射光照</h3>
+<p>在天空光照上取消勾选 <strong>下半球为纯色（Lower Hemisphere is Solid Color）</strong> 并在立方体贴图上绘制底色，可获得与太阳反射光照相似的效果，不会产生额外开销。
+这将使灯光泄露到室内，因其并不遵循定向光源的投影，在室外场景中较为有效。
+</p>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../SiteIndex/index.html?tags=Lighting">Lighting</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../SiteIndex/index.html?tags=Distance%20Fields">Distance Fields</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../SiteIndex/index.html?tags=Getting%20Started">Getting Started</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/BuildingWorlds/LightingAndShadows/DistanceFieldAmbientOcclusion/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 10:55:12 GMT -->
+</html>

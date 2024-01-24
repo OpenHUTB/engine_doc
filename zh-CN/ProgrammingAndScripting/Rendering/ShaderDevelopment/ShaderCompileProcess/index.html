@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/ProgrammingAndScripting/Rendering/ShaderDevelopment/ShaderCompileProcess/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 10:22:39 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/ProgrammingAndScripting/Rendering/ShaderDevelopment/ShaderCompileProcess/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>调试着色器编译过程 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/ProgrammingAndScripting/Rendering/ShaderDevelopment/ShaderCompileProcess/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/ProgrammingAndScripting/Rendering/ShaderDevelopment/ShaderCompileProcess/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/ProgrammingAndScripting/Rendering/ShaderDevelopment/ShaderCompileProcess/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/ProgrammingAndScripting/Rendering/ShaderDevelopment/ShaderCompileProcess/" hreflang="ko" />
+
+	<meta name="redirect" content="Programming/Rendering/ShaderDevelopment/ShaderCompileProcess" />
+<meta name="intsourcechangelist" content="13597526" />
+<meta name="availability" content="Public" />
+<meta name="title" content="调试着色器编译过程" />
+<meta name="description" content="概述调试着色器编译过程。" />
+<meta name="type" content="Overview" />
+<meta name="version" content="4.25" />
+<meta name="parent" content="ProgrammingAndScripting/Rendering/ShaderDevelopment" />
+<meta name="order" content="" />
+<meta name="keywords" content="Rendering" />
+<meta name="keywords" content="Graphics" />
+<meta name="keywords" content="Debug" />
+<meta name="related" content="ProgrammingAndScripting/Rendering/ShaderDevelopment" />
+<meta name="related" content="ProgrammingAndScripting/Rendering/ShaderDevelopment/HLSLCrossCompiler" />
+<meta name="crumbs" content="%ROOT%,ProgrammingAndScripting,ProgrammingAndScripting/Rendering,ProgrammingAndScripting/Rendering/ShaderDevelopment" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="调试着色器编译过程" />
+	<meta property="og:description" content="概述调试着色器编译过程。 " />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">编程和脚本编写</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">图形编程</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">着色器开发</a>
+
+<span class="separator">></span> <span id="page">调试着色器编译过程</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">调试着色器编译过程</h1>
+							</div>	
+							<h2 >概述调试着色器编译过程。 </h2>
+							<div id="access">
+								<div class="accessContainer">
+																																			</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																		<div id="seeAlso">
+	<div style="position:relative;">
+		<div id="title">参见</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<p>
+						<a id="related_link" href="../index.html" title="面向编写着色器的图形程序员的信息。">着色器开发</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../HLSLCrossCompiler/index.html" title="有关用来将 HLSL 转换为 GLSL 的 HLSLCC 工具的信息。">HLSL 交叉编译器</a>
+					</p>
+				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																														<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#启用中间着色器的转储">启用中间着色器的转储</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#在调试模式下构建shadercompileworker">在调试模式下构建ShaderCompileWorker</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#生成中间文件">生成中间文件</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#转储着色器的文件夹结构">转储着色器的文件夹结构</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#使用shadercompileworker进行调试">使用ShaderCompileWorker进行调试</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>在开发期间，你最好掌握虚幻引擎在向平台的着色器编译器发送什么内容。本页所包含的信息将使你能够调试与之相关的任何问题。
+</p><h2 id="启用中间着色器的转储">启用中间着色器的转储</h2>
+<p>若要开始对引擎安装进行调试，你需要在 <code>Engine/Config</code> 文件夹中找到 <strong>ConsoleVariables.ini</strong> 配置文件，然后在其中启用部分预定义控制台变量。在 <strong>[Startup]</strong> 分段下，会发现以下控制台变量列表，这些变量应如下所示： 
+</p><pre class="prettyprint"><code>&#91;Startup&#93;
+
+; 取消注释以获得有关着色器编译的详细日志以及发生错误后的重试机会
+r.ShaderDevelopmentMode=1
+; 取消注释以在保存文件夹中转储着色器
+; 警告：将此变量保持开启一段时间，会让硬盘充满许多小文件和文件夹
+r.DumpShaderDebugInfo=1
+; 启用此变量后，SCW崩溃将输出当前工作程序中的作业列表
+r.ShaderCompiler.DumpQueuedJobs=1
+; 启用此变量后，转储着色器时，将生成一个与ShaderCompilerWorker -direct模式一起使用的额外文件
+r.DumpShaderDebugWorkerCommandLine=1
+; 启用此变量后，着色器编译器的警告将在所有着色器加载时发送到日志中（从DDC或者着色器编译任务发送）。
+r.ShaderCompiler.EmitWarningsOnLoad=1</code></pre>
+<div class="note">
+	<p>删除每个控制台变量紧接的 <strong>;</strong>（分号）以启用其功能，从而使其如以上示例代码所示。</p>
+</div><h2 id="在调试模式下构建shadercompileworker">在调试模式下构建ShaderCompileWorker</h2>
+<p>默认情况下，<a id="content_link" href="../../../../ProductionPipelines/BuildTools/UnrealBuildTool/index.html" ><span>UnrealBuildTool</span></a> (UBT)为工具生成项目，它们始终在 <strong>开发（Development）</strong> 模式下进行编译。出于调试目的，你需要在 <strong>调试（Debug）</strong> 模式下构建引擎和项目，此模式包含用于调试项目代码的符号。
+</p><p>若要在调试模式下构建项目，请执行以下操作： 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Rendering/ShaderDevelopment/ShaderCompileProcess/BuildConfiguration_SCW.jpg">
+		<img class="  lazyload" alt="BuildConfiguration_SCW.png" data-src="../../../../../Images/ProgrammingAndScripting/Rendering/ShaderDevelopment/ShaderCompileProcess/BuildConfiguration_SCW.jpg" />
+</picture>
+
+</p><ol ><li class="Default"><p>使用 <strong>配置管理器（Configuration Manager）</strong> 更改Visual Studio中的解决方案属性，你可从 <strong>构建（Build）</strong> 菜单打开此管理器。
+</p></li><li class="Default"><p>将 <strong>ShaderCompileWorker</strong> (SCW)下拉框设为 <strong>Debug_Program</strong>。
+</p></li></ol><div class="note">
+	<p>有关此类目标的更多信息，请参见<a id="content_link" href="../../../../ProductionPipelines/DevelopmentSetup/BuildConfigurations/index.html" ><span>构建配置参考</span></a>页面。</p>
+</div><h2 id="生成中间文件">生成中间文件</h2>
+<p>若要调试着色器，你首先需要生成想要实际调试的文件。这需要启用用于转储中间着色器的控制台变量，从而允许后续编译转储生成的文件。 
+</p><div class="note">
+	<p>请参见<a id="content_link" href="https://docs.unrealengine.com/en-US/ProgrammingAndScripting/Rendering/ShaderDevelopment/ShaderCompileProcess/#enablingdumpingofintermediateshaders" ><span>启用中间着色器的转储</span></a>章节，以了解启用相关控制台变量的方式。</p>
+</div><p>通过在 <code>Engine/Shaders</code> 文件夹中的 <strong>Common.usf</strong> 文件中添加一个空格或做一些无关紧要的更改，强制重新编译所有着色器。然后重新运行编辑器。此操作将触发所有着色器的重新编译，并将所有中间文件转储到项目的 <code>Saved/ShaderDebugInfo</code> 文件夹中。
+</p><p>如果你在调试某个材质，你可以进行任何更改，或者做一些无关紧要的更改，例如移动节点，以便触发更改。使用工具栏中的 <strong>保存（Save）</strong> 或 <strong>应用（Apply）</strong> 功能来保存或应用材质的更改，从而再次转储着色器文件。
+</p><h2 id="转储着色器的文件夹结构">转储着色器的文件夹结构</h2>
+<p>转储着色器所生成的文件夹路径包含了相关信息。让我们来看看转储着色器路径示例并分析其各个部分：
+</p><blockquote>
+  <p>D:\UE4\Samples\Games\TappyChicken\Saved\ShaderDebugInfo\PCD3D_SM5\M_Egg\LocalVF\BPPSFNoLMPolicy\BasePassPixelShader.usf
+  </p>
+</blockquote><p>首先是项目的根路径。在本例中，它指向名为Tappy Chicken的项目。
+</p><blockquote>
+  <p><strong>D:\UE4\Samples\Games\TappyChicken\ </strong>
+  </p>
+</blockquote><p>路径的下一个部分表示着色器转储后的保存路径。
+</p><blockquote>
+  <p>D:\UE4\Samples\Games\TappyChicken\ <strong>Saved\ShaderDebugInfo</strong>\
+  </p>
+</blockquote><p>对于每个着色器格式和/或平台，路径都将创建一个子文件夹。此路径将为 <em>PC D3D着色器模型5</em> 创建一个子文件夹。
+</p><blockquote>
+  <p>D:\UE4\Samples\Games\TappyChicken\Saved\ShaderDebugInfo\ <strong>PCD3D_SM5</strong>\
+  </p>
+</blockquote><p>每个材质都将有一个文件夹，且路径将创建一个名为 <em>Global</em> 的特殊文件夹。这里看到的调试着色器用于 <strong>M_Egg</strong> 材质。
+</p><blockquote>
+  <p>D:\UE4\Samples\Games\TappyChicken\Saved\ShaderDebugInfo\PCD3D_SM5\ <strong>M_Egg</strong>\
+  </p>
+</blockquote><p>着色器在按顶点工厂排序的贴图中进行分组，此类顶点工厂通常对应于网格体/组件类型。此路径指向 <em>LocalVF</em>，它表示 <strong>本地顶点工厂（Local Vertex Factory）</strong>。
+</p><blockquote>
+  <p>D:\UE4\Samples\Games\TappyChicken\Saved\ShaderDebugInfo\PCD3D_SM5\M_Egg\ <strong>LocalVF</strong>\
+  </p>
+</blockquote><p>路径的最后一个部分表示用于材质的各种功能集合。 
+</p><blockquote>
+  <p>D:\UE4\Samples\Games\TappyChicken\Saved\ShaderDebugInfo\PCD3D_SM5\M_Egg\LocalVF\ <strong>BPPSFNoLMPolicy</strong>\
+  </p>
+</blockquote><div class="note">
+	<p>由于 <strong>ConsoleVariables.ini</strong> 文件中设置了控制台变量 <strong>r.DumpShaderDebugShortNames=1</strong>，因此名称已经过压缩，以便缩短文件长度。 
+</p><p>例如，如果之前未启用此控制台变量，则路径将为： 
+</p><blockquote>
+  <p>D:\UE4\Samples\Games\TappyChicken\Saved\ShaderDebugInfo\PCD3D_SM5\M_Egg\FLocalVertexFactory\TBasePassPSFNoLightMapPolicy\</p>
+</blockquote>
+</div><p>着色器转储文件夹包含生成的批处理文件、文本文件和usf文件。 
+</p><ul ><li class="Default"><p>usf文件是转至平台编译器的最终着色器代码，编译器在预处理器之后运行。 
+</p></li><li class="Default"><p>批处理文件用于调用平台编译器以查看中间代码。 
+</p></li><li class="Default"><p>名为 <strong>DirectCompile.txt</strong> 的文本文件包含使用ShaderCompileWorker进行调试的命令行。
+</p></li></ul><h2 id="使用shadercompileworker进行调试">使用ShaderCompileWorker进行调试</h2>
+<p>ShaderCompileWorker可以使用以下命令行，以便调试对平台编译器的调用：
+</p><pre class="prettyprint"><code>PathToGeneratedUsfFile -directcompile -format=ShaderFormat -ShaderType -entry=EntryPoint {plus platform specific switches}</code></pre>
+<ul ><li class="Default"><p><em>PathToGeneratedUsfFile</em> 是ShaderDebugInfo文件夹中的最终usf文件。
+</p></li><li class="Default"><p><em>ShaderFormat</em> 是你需要调试的着色器平台格式（在本例中为PCD3D_SM5）。
+</p></li><li class="Default"><p><em>ShaderType</em> 可以是vs/ps/gs/hs/ds/cs，它们分别对应下列其中一种着色器类型：
+</p><div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>文件夹名称缩写 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>着色器类型 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>vs</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>顶点着色器（Vertex Shader）</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>ps</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>像素着色器（Pixel Shader）</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>gs</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>几何体着色器（Geometry Shader）</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>hs</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>凸包着色器（Hull Shader）</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>ds</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>域着色器（Domain Shader）</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>cs</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>计算着色器（Computer Shader）</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div></li><li class="Default"><p><em>EntryPoint</em> 是此着色器在usf文件中的进入点的函数名。
+</p></li></ul><p>例如： 
+</p><blockquote>
+  <p>D:\UE4\Samples\Games\TappyChicken\Saved\ShaderDebugInfo\PCD3D_SM5\M_Egg\LocalVF\BPPSFNoLMPolicy\BasePassPixelShader.usf <strong>-format</strong>=PCD3D_SM5 <strong>-ps -entry</strong>=Main<br /></p>
+</blockquote><p>如果你在 <code>D3D11ShaderCompiler.cpp</code> 上的 <code>CompileD3D11Shader()</code>函数中添加了断点，则请用此命令行运行SCW以开始了解引擎调用平台编译器的方式。
+</p><div class="tip">
+	<p>如果你在 <strong>ConsoleVariables.ini</strong> 文件中启用了控制台变量 <strong>r.DumpShaderDebugWorkerCommandLine=1</strong>，而此变量可在生成的usf文件旁转储名为 <strong>DirectCompile.txt</strong> 的文件，则你可直接复制此命令行。</p>
+</div>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Rendering">Rendering</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Graphics">Graphics</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Debug">Debug</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/ProgrammingAndScripting/Rendering/ShaderDevelopment/ShaderCompileProcess/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 10:22:42 GMT -->
+</html>

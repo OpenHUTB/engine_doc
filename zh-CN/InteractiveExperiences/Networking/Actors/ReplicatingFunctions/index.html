@@ -1,0 +1,487 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/InteractiveExperiences/Networking/Actors/ReplicatingFunctions/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:16:29 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var finishButton = finishButtonTemplate;
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/InteractiveExperiences/Networking/Actors/ReplicatingFunctions/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>在蓝图中使用远程调用函数 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+		    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+		    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/InteractiveExperiences/Networking/Actors/ReplicatingFunctions/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/InteractiveExperiences/Networking/Actors/ReplicatingFunctions/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/InteractiveExperiences/Networking/Actors/ReplicatingFunctions/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/InteractiveExperiences/Networking/Actors/ReplicatingFunctions/" hreflang="ko" />
+
+	<meta name="redirect" content="Gameplay/Networking/Actors/ReplicatingFunctions" />
+<meta name="redirect" content="Gameplay/HowTo/Networking/ReplicateFunction/Blueprints" />
+<meta name="intsourcechangelist" content="14417591" />
+<meta name="availability" content="Public" />
+<meta name="title" content="在蓝图中使用远程调用函数" />
+<meta name="parent" content="InteractiveExperiences/Networking/Actors" />
+<meta name="order" content="3" />
+<meta name="description" content="在多人游戏中使用蓝图复制函数的指南。" />
+<meta name="related" content="ProgrammingAndScripting/Blueprints" />
+<meta name="related" content="Resources/ContentExamples/Networking" />
+<meta name="version" content="4.25" />
+<meta name="skilllevel" content="Advanced" />
+<meta name="type" content="how-to" />
+<meta name="keywords" content="how-to" />
+<meta name="keywords" content="Blueprint" />
+<meta name="keywords" content="network" />
+<meta name="keywords" content="multiplayer" />
+<meta name="keywords" content="Gameplay" />
+<meta name="crumbs" content="%ROOT%,InteractiveExperiences,InteractiveExperiences/Networking,InteractiveExperiences/Networking/Actors" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="在蓝图中使用远程调用函数" />
+	<meta property="og:description" content="在多人游戏中使用蓝图复制函数的指南。 " />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">创建交互体验</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">联网和多人游戏</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">Actor 的复制</a>
+
+<span class="separator">></span> <span id="page">在蓝图中使用远程调用函数</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">在蓝图中使用远程调用函数</h1>
+							</div>	
+							<h2 >在多人游戏中使用蓝图复制函数的指南。 </h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Advanced"><a id="skill_link" href="../../../../SiteIndex/index.html?skills=Advanced">Advanced</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																														<div id="seeAlso">
+	<div style="position:relative;">
+		<div id="title">参见</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<p>
+						<a id="related_link" href="../../../../ProgrammingAndScripting/Blueprints/index.html" title="关于使用蓝图可视化脚本系统制作游戏的介绍。">蓝图可视化脚本</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../../../Resources/ContentExamples/Networking/index.html" title="介绍"网络功能内容示例地图"中的示例。">联网内容示例</a>
+					</p>
+				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																														<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#multicast广播">Multicast 广播</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#runonserver（在服务器上运行）">Run On Server （在服务器上运行）</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#runonowningclient（在所有权的客户端上运行）">Run On Owning Client （在所有权的客户端上运行）</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>本页将向你展示如何设置和使用不同形式的 <strong>Replicated Functions</strong>。 
+</p><p>远程调用函数主要包括 3 种类型： <strong>Multicast 广播</strong>、 <strong>Run on Server 在服务端执行</strong> 和 <strong>Run on owning Client 在客户端执行</strong>。广播函数在服务器上调用和执行，然后自动转发给客户端。 在服务端执行的函数由客户端调用，然后仅在服务器上执行。 在客户端执行的函数由服务器调用，然后仅在自有客户端上执行。
+</p><h2 id="multicast广播">Multicast 广播</h2>
+<div class="note">
+	<p>在此示例中，我们使用的是 <strong>带有初学者内容包的第三人称模板</strong>。</p>
+</div><p> 以下步骤说明了如何设置 <strong>Multicast</strong> 广播函数。 
+</p><ol ><li class="Default"><p>单击 <strong>Play</strong> 旁边的向下箭头并将 <strong>Number of Players</strong> 更改为 <strong>4</strong> 以增加玩家数量。 
+</p><div class="raw">
+	<p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingFunctions/HowTo2.jpg">
+		<img class="  lazyload" alt="HowTo2.png" data-src="../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingFunctions/HowTo2.jpg" />
+</picture>
+</p>
+</div><div class="tip">
+	<p>还可以在 <strong>Advanced Settings</strong> 选项中更改为多玩家生成的窗口的大小。 </p>
+</div></li><li class="Default"><p>在**Content Browser<strong> 中， </strong>Content/ThirdPersonBP/Blueprints<strong> 下的打开 </strong>ThirdPersonCharacter** 蓝图。 
+</p></li><li class="Default"><p>在图表中 <strong>右键</strong>，并添加一个 <strong>Space Bar</strong> 按键事件和一个 <strong>Spawn Actor from Class</strong> 节点。 
+</p></li><li class="Default"><p><strong>右键</strong> 并添加一个 <strong>Get Actor Transform</strong> 节点，然后与设置为 <strong>Blueprint_Effect_Fire</strong> 的 <strong>Class</strong> 连接，如下所示。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingFunctions/HowTo3.jpg">
+		<img class="  lazyload" alt="HowTo3.png" data-src="../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingFunctions/HowTo3.jpg" />
+</picture>
+
+</p><p>按下时，将在玩家角色位置生成喷火效果。 
+</p></li><li class="Default"><p><strong>编译</strong> 并 <strong>保存</strong>，关闭蓝图，然后单击 <strong>运行</strong> 按钮在编辑器中开始游戏。 
+</p></li><li class="Default"><p>在游戏中，定位服务器所在的窗口，然后按 <strong>Space Bar</strong> 跳转。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingFunctions/HowTo4.jpg">
+		<img class="  lazyload" alt="HowTo4.png" data-src="../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingFunctions/HowTo4.jpg" />
+</picture>
+
+</p><p>你将会发现，只有服务器窗口才会生成喷火效果，其他玩家看不到生成的效果。 
+试图与其他玩家一起跳转时，他们都只能在本地生成喷火效果，彼此并不知道已经生成喷火效果。 
+此外，我们未将喷火效果附加给人物，所以只有在按 <strong>Space Bar</strong> 时，人物所在的位置才会喷火。 
+</p><div class="tip">
+	<p>你可以按 <strong>Shift + F1</strong> 获取鼠标控制权，并在多人测试时在多个游戏窗口中跳转。 </p>
+</div></li><li class="Default"><p>在 <strong>ThirdPersonCharacter</strong> 蓝图中，对于 <strong>Space Bar</strong> 节点 <strong>点击右键</strong>，然后断开连接。 
+</p></li><li class="Default"><p><strong>右键</strong> 并搜索，然后添加 <strong>Custom Event</strong> 并调用 <strong>MulticastSpawn</strong> 事件。 
+</p></li><li class="Default"><p>单击自定义事件，然后在 <strong>Details</strong> 面板中将 <strong>Replicates</strong> 下拉菜单设置为 <strong>Multicast</strong>，并按如下所示连接。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingFunctions/HowTo5.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingFunctions/HowTo5.jpg">
+		<img class="  lazyload" alt="HowTo5.png" width="800" data-src="../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingFunctions/HowTo5.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><p>最后几步之后就会出现上述设置自定义事件来使用 <strong>Multicast</strong> 复制函数的情况。 
+</p></li><li class="Default"><p>从 <strong>Space Bar</strong> 按键事件连出来，搜索并添加调用函数**MulticastSpawn**。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingFunctions/HowTo6.jpg">
+		<img class="  lazyload" alt="HowTo6.png" data-src="../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingFunctions/HowTo6.jpg" />
+</picture>
+
+</p><div class="note">
+	<p>如果未找到创建的自定义事件，则单击 <strong>编译</strong> 按钮并再次搜索。 </p>
+</div></li><li class="Default"><p><strong>编译</strong> 并 <strong>保存</strong>，关闭蓝图，然后单击 <strong>运行</strong> 按钮在编辑器中开始游戏。 
+</p></li><li class="Default"><p>在游戏中，定位服务器所在的窗口，然后按 <strong>Space Bar</strong> 跳转。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingFunctions/HowTo7.jpg">
+		<img class="  lazyload" alt="HowTo7.png" data-src="../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingFunctions/HowTo7.jpg" />
+</picture>
+
+</p><p>你现在应该可以看到，当你与服务器上的玩家一起按跳转时，服务器和所有客户端上都将生成喷火效果。试图与其他玩家一起跳转仍只能在本地喷火，因为我们并未告知服务器客户端已生成该效果。接下来的 Run on Server 部分将向你展示如何将其设置。
+</p></li></ol><h2 id="runonserver（在服务器上运行）">Run On Server （在服务器上运行）</h2>
+<div class="note">
+	<p>在此示例中，我们继续以上 <strong>Multicast Replication</strong> 示例。</p>
+</div><p> 以下步骤展示了如何设置 <strong>Run on Server</strong> 复制函数。 
+</p><ol ><li class="Default"><p>在 <strong>Content/ThirdPersonBP/Blueprints</strong> 下的 <strong>Content Browser</strong> 中，打开 <strong>ThirdPersonCharacter</strong> 蓝图。 
+</p></li><li class="Default"><p>选择 <strong>MulticastSpawn</strong> 自定义事件，然后将 <strong>Replicates</strong> 下拉选项更改为 <strong>Run on Server</strong>。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingFunctions/HowTo8.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingFunctions/HowTo8.jpg">
+		<img class="  lazyload" alt="HowTo8.png" width="800" data-src="../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingFunctions/HowTo8.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><p>为了保持一致，我们还将 <strong>Graph Node</strong> 的名称更新为了 <strong>Run On Server</strong>。 
+</p></li><li class="Default"><p><strong>编译</strong> 并 <strong>保存</strong>，关闭蓝图，然后单击 <strong>运行</strong> 按钮在编辑器中开始游戏。 
+</p></li><li class="Default"><p>在游戏中，定位非服务器的任何游戏窗口，然后按 <strong>Space Bar</strong> 跳转。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingFunctions/HowTo9.jpg">
+		<img class="  lazyload" alt="HowTo9.png" data-src="../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingFunctions/HowTo9.jpg" />
+</picture>
+
+</p><p>注意，喷火效果只在服务器上生成，无论哪个玩家跳转，其他玩家都看不到，只有服务器端才能看到。尽管我们说过该脚本应在服务器上执行，而事实也是如此，但我们需确保该效果已设置为复制，以便其传递给所有客户端和服务器。 
+</p></li><li class="Default"><p>在 <strong>Content/StarterContent/Blueprints</strong> 文件夹中，打开 <strong>Blueprint_Effect_Fire</strong> 蓝图。 
+</p></li><li class="Default"><p>从主工具栏中选择 <strong>Class Defaults</strong> 后，在 <strong>Details</strong> 面板中，选中 <strong>Replicates</strong> 复选框。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingFunctions/HowTo10.jpg">
+		<img class="  lazyload" alt="HowTo10.png" data-src="../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingFunctions/HowTo10.jpg" />
+</picture>
+
+</p></li><li class="Default"><p><strong>编译</strong> 并 <strong>保存</strong>，关闭蓝图，然后单击 <strong>运行</strong> 按钮在编辑器中开始游戏。 
+</p></li><li class="Default"><p>在游戏中，定位非服务器的任何游戏窗口，然后按 <strong>Space Bar</strong> 跳转。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingFunctions/HowTo11.jpg">
+		<img class="  lazyload" alt="HowTo11.png" data-src="../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingFunctions/HowTo11.jpg" />
+</picture>
+
+</p><p>我们已经向服务器发送消息，以在服务器运行部分脚本来生成 Actor，由于此 Actor 已设置为复制，因此我们可以在所有客户端上看到它。
+</p></li></ol><h2 id="runonowningclient（在所有权的客户端上运行）">Run On Owning Client （在所有权的客户端上运行）</h2>
+<p><em>在此示例中，我们继续以上 <strong>Multicast Replication</strong> 示例。</em>
+</p><p>在此示例中，我们要做到是创建一个发生服务器事件时仅在特定客户端上更新的变量。 
+</p><p> 以下步骤展示了如何设置 <strong>Run on owning Client</strong> 复制函数。 
+</p><ol ><li class="Default"><p>在 <strong>Content/ThirdPersonBP/Blueprints</strong> 文件夹中，打开 <strong>ThirdPersonCharacter</strong> 蓝图。 
+</p></li><li class="Default"><p>在 <strong>MyBlueprint</strong> 窗口中，创建新变量并将其命名为 <strong>Inventory</strong>，然后单击 <strong>Compile</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingFunctions/Inventory.jpg">
+		<img class="  lazyload" alt="Inventory.png" data-src="../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingFunctions/Inventory.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在此变量的 <strong>Details</strong> 面板中，将其设置为 <strong>String</strong>、<strong>Editable</strong> 和 <strong>Replicated</strong>，然后为 <strong>Default Value</strong> 输入 <strong>Empty</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingFunctions/HowTo12.jpg">
+		<img class="  lazyload" alt="HowTo12.png" data-src="../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingFunctions/HowTo12.jpg" />
+</picture>
+
+</p><p>将此变量设置为 <strong>Replicated</strong> 可确保其通过网络复制到所连接的机器上。我们将使用此变量模拟人物在多人游戏中进入触发卷时收集道具，退出触发卷时删除道具。 
+</p></li><li class="Default"><p>添加一个与 <strong>Print String</strong> 连接的 <strong>P</strong> 按键事件，然后按住 <strong>Control</strong> 并拖入 <strong>Inventory</strong> 变量，并按所示方式连接。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingFunctions/HowTo13.jpg">
+		<img class="  lazyload" alt="HowTo13.png" data-src="../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingFunctions/HowTo13.jpg" />
+</picture>
+
+</p></li><li class="Default"><p><strong>Compile</strong> 并 <strong>Save</strong>，然后关闭 <strong>ThirdPersonCharacter</strong> 蓝图。 
+</p></li><li class="Default"><p>在 <strong>放置Actor（Place Actors）</strong> 的 <strong>基础（Basic）</strong> 选项卡中，将 <strong>盒体触发器（Box Trigger）</strong> 拖入你的关卡。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingFunctions/HowTo14.jpg">
+		<img class="  lazyload" alt="HowTo14.png" data-src="../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingFunctions/HowTo14.jpg" />
+</picture>
+
+</p><p>当玩家人物进入触发器时，我们将更新创建的变量，但仅在进入触发器盒的客户端上更新。 
+</p></li><li class="Default"><p>在 <strong>Rendering</strong> 下 <strong>Box Trigger</strong> 的 <strong>Details</strong> 面板中，取消选中 <strong>Actor Hidden In Game</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingFunctions/UnHideBox.jpg">
+		<img class="  lazyload" alt="UnHideBox.png" data-src="../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingFunctions/UnHideBox.jpg" />
+</picture>
+
+</p><p>在编辑器中玩游戏时，这可让我们在关卡中看到此盒，使得测试更加轻松。 
+</p></li><li class="Default"><p>单击 <strong>Box Trigger</strong> 将其选中，然后从主工具栏打开**Level Blueprint**。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingFunctions/HowTo15.jpg">
+		<img class="  lazyload" alt="HowTo15.png" data-src="../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingFunctions/HowTo15.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在图表中 <strong>右键</strong> ，然后搜索 <strong>Begin Overlap</strong> 并选择 <strong>Add On Actor Begin Overlap</strong> 事件。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingFunctions/HowTo16.jpg">
+		<img class="  lazyload" alt="HowTo16.png" data-src="../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingFunctions/HowTo16.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>重复上一步，但搜索并添加 <strong>Add On Actor End Overlap</strong> 事件。 
+</p></li><li class="Default"><p>将每个节点连接到 <strong>Switch Has Authority</strong> 节点。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingFunctions/HowTo17.jpg">
+		<img class="  lazyload" alt="HowTo17.png" data-src="../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingFunctions/HowTo17.jpg" />
+</picture>
+
+</p><p>Switch Has Authority 节点用于检查当前正在运行的脚本正在从何处执行，然后基于脚本是在网络授权者（通常为服务器）还是远程机器（客户端）上运行将其分成两个不同的方向。 
+</p><p>通常，你会对只希望在服务器上发生的事情使用授权者（这些通常为游戏关键性事件，例如调整玩家的生命值或赠送奖励或掠夺物品，因为你不想让客户端确定这些更改何时发生，以防作弊）。 
+</p><p>在此示例中，我们将更新文本变量，此变量也完全可以是包含玩家生命值的变量，或所收集道具的变量。 
+</p></li><li class="Default"><p>在图表中 <strong>右键</strong> 并添加一个称作 <strong>Add Item</strong> 的 <strong>Custom Event</strong> 节点。 
+</p></li><li class="Default"><p>将 Replicates 选项设置为 <strong>Run on owning Client</strong>，并添加称作 <strong>Character</strong> 的输入，将其设置为 <strong>Actor</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingFunctions/HowTo18.jpg">
+		<img class="  lazyload" alt="HowTo18.png" data-src="../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingFunctions/HowTo18.jpg" />
+</picture>
+
+</p><div class="note">
+	<p>创建节点后，如果你看到错误警告，请单击 <strong>Compile</strong> 按钮删除错误。 </p>
+</div></li><li class="Default"><p>创建另一个称作 <strong>Remove Item</strong> 的 <strong>Custom Event</strong>，其设置与 <strong>Add Item</strong> 事件的设置相同。 
+</p></li><li class="Default"><p>如下所示，从两个重叠事件连出来，接 <strong>Add Item</strong> 和 Remove Item 节点。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingFunctions/HowTo19.jpg">
+		<img class="  lazyload" alt="HowTo19.png" data-src="../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingFunctions/HowTo19.jpg" />
+</picture>
+
+</p><p>这里我们指的是，当重叠触发器时，如果重叠发生在服务器上，在服务器上运行 <strong>Add Item</strong> 事件，并将它复制到自有客户端（即重叠触发器的人物所在的客户端）。"它"是指 <strong>Add Item</strong> 启动并仅在服务器上执行但复制到客户端时所调用的脚本。当人物退出触发器盒时 — 这也由服务器决定，在服务器上运行 <strong>Remove Item</strong> 事件，并将其复制到自有客户端。 
+</p></li><li class="Default"><p>从 <strong>Add Item</strong> 事件连出来，添加 <strong>Print String</strong> （文本设置为 <strong>Item Added</strong> ），然后拖开 <strong>Character</strong> 和 <strong>Cast To ThirdPersonCharacter</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingFunctions/HowTo20.jpg">
+		<img class="  lazyload" alt="HowTo20.png" data-src="../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingFunctions/HowTo20.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>从 <strong>As Third Person Character</strong> 针连出来，搜索并添加 <strong>Set Inventory</strong> 节点，将文本设置为 <strong>Has the Item</strong>。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingFunctions/HowTo21.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingFunctions/HowTo21.jpg">
+		<img class="  lazyload" alt="HowTo21.png" width="800" data-src="../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingFunctions/HowTo21.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><p>此处，我们选取的是在服务器上执行并复制到客户端的事件，此事件将在屏幕上显示"item added"，然后将自有客户端的 <strong>Inventory</strong> 文本变量设置为"Has the item"。 
+</p></li><li class="Default"><p>在 <strong>Add Item</strong> 事件之后复制三个节点，并将其连接到 <strong>Remove Item</strong> 事件。 
+</p></li><li class="Default"><p>将 <strong>Print String</strong> 更改为 <strong>Item Removed</strong>，将 <strong>Inventory</strong> 文本变量更改为 <strong>Empty</strong>。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingFunctions/HowTo22.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingFunctions/HowTo22.jpg">
+		<img class="  lazyload" alt="HowTo22.png" width="800" data-src="../../../../../Images/InteractiveExperiences/Networking/Actors/ReplicatingFunctions/HowTo22.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><p>现在，当人物退出触发器时，文本变量将在服务器上更新并复制到自有客户端。 
+</p></li><li class="Default"><p><strong>编译</strong> 并 <strong>保存</strong>，然后关闭 <strong>Level Blueprint</strong> 并在编辑器中开始游戏。 
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_KiBrcLbXbYQ_878
+{
+	margin: 0px;
+	width: 640px;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_KiBrcLbXbYQ_878:after
+{
+	content: "";
+	padding-top: 360px;
+	display: block;
+}
+</style> 
+<div>
+<div id="player_KiBrcLbXbYQ_878"><div style="position:absolute;display:block;width:100%;height:100%;"><iframe class="embedded_video" id="KiBrcLbXbYQ" width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/KiBrcLbXbYQ?rel=0&amp;modestbranding=1&amp;showinfo=0" frameborder="0" allowfullscreen></iframe></div></div>
+</div>
+<p>在以上视频中，当游戏启动时，按 P 可将文本变量打印到屏幕上，可对每个角色显示 "empty"。但是，当其中一个角色退出触发器盒时，将显示文本 "item added"。当人物按 P 时，文本将更改为 "has the item"，但其他人物仍显示 "empty"。当人物退出触发器盒时，将显示文本 "item removed"，再次按 P 时，文本将更改回 "empty"。 
+</p><p>此示例说明了如何在服务器上运行事件并将这些事件复制到单个客户端。
+</p></li></ol>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=how-to">how-to</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Blueprint">Blueprint</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=network">network</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=multiplayer">multiplayer</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Gameplay">Gameplay</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/InteractiveExperiences/Networking/Actors/ReplicatingFunctions/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:16:40 GMT -->
+</html>

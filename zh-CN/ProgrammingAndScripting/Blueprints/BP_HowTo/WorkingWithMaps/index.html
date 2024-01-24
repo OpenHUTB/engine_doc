@@ -1,0 +1,1183 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:23:55 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var finishButton = finishButtonTemplate;
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>使用Map | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+		    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+		    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Blueprints/BP_HowTo/WorkingWithMaps" />
+<meta name="intsourcechangelist" content="14485335" />
+<meta name="availability" content="Public" />
+<meta name="title" content="使用Map" />
+<meta name="description" content="学习在蓝图中使用Map的方法。" />
+<meta name="type" content="how-to" />
+<meta name="version" content="4.15" />
+<meta name="parent" content="ProgrammingAndScripting/Blueprints/Scripting" />
+<meta name="skilllevel" content="Advanced" />
+<meta name="order" content="13" />
+<meta name="related" content="ProgrammingAndScripting/Blueprints/UserGuide/Maps/MapNodes" />
+<meta name="related" content="ProgrammingAndScripting/Blueprints/UserGuide/Maps" />
+<meta name="related" content="ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/TMap" />
+<meta name="course" content="blueprints---essential-concepts?lang=zh-CN|蓝图：基础概念|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fblueprints---essential-concepts%2FBPEssentialsThumbnail_1920x1080-1920x1080-2fcdde875f1d79ade1c295fe4fef53c4b8c5ecde.PNG?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fblueprints---essential-concepts%2FBlueprint--Essential-Concepts-1000x1000-9f372ce55de42ce9596dffd6c931839e44fcc873.png?resize=1&amp;w=300" />
+<meta name="course" content="interactive-material-swaps-using-blueprints?lang=zh-CN|蓝图：可交互材质切换|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Finteractive-material-swaps-using-blueprints%2F406---Hero2-1920x1080-ce26b6199cf620364149d2d934c73ae30e983110.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Finteractive-material-swaps-using-blueprints%2FInteractive-Material-Swaps-Using-Blueprints-1000x1000-21158a5fe67365e3bf5db49712b52482382f15ac.png?resize=1&amp;w=300" />
+<meta name="course" content="making-a-blueprint-product-configurator?lang=zh-CN|企业级蓝图开发|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fblueprint-for-enterprise%2F301-Blueprints-%281200X675%29-1200x675-d140b8a0b13b05c0619e35e1076b4c82e4a4b855.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fblueprint-for-enterprise%2FBlueprint-for-Enterprise-1000x1000-13caa11b8e5c5e91506a8dd63b39d247318c3208.png?resize=1&amp;w=300" />
+<meta name="crumbs" content="%ROOT%,ProgrammingAndScripting,ProgrammingAndScripting/Blueprints,ProgrammingAndScripting/Blueprints/Scripting" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="使用Map" />
+	<meta property="og:description" content="学习在蓝图中使用Map的方法。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">编程和脚本编写</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">蓝图可视化脚本</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../Scripting/index.html">脚本编写基础</a>
+
+<span class="separator">></span> <span id="page">使用Map</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">使用Map</h1>
+							</div>	
+							<h2 >学习在蓝图中使用Map的方法。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Advanced"><a id="skill_link" href="../../../../SiteIndex/index.html?skills=Advanced">Advanced</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																														<div id="seeAlso">
+	<div style="position:relative;">
+		<div id="title">参见</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<p>
+						<a id="related_link" href="../../UserGuide/Maps/MapNodes/index.html" title="使用蓝图 Map 时节点接口的总览。">蓝图 Map 节点</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../UserGuide/Maps/index.html" title="在蓝图中创建和编辑高级容器类 Map 容器，包括此容器的属性总览。">蓝图 Map</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../../ProgrammingWithCPP/UnrealArchitecture/TMap/index.html" title="TMap主要由两个类型定义（一个键类型和一个值类型），以关联对的形式存储在映射中。">TMap</a>
+					</p>
+				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																		<div id="courses">
+	<div style="position:relative;">
+		<div id="title">相关课程</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<div name="blueprints---essential-concepts?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/blueprints---essential-concepts?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/blueprints---essential-concepts/BPEssentialsThumbnail_1920x1080-1920x1080-2fcdde875f1d79ade1c295fe4fef53c4b8c5ecd?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/blueprints---essential-concepts/Blueprint--Essential-Concepts-1000x1000-9f372ce55de42ce9596dffd6c931839e44fcc873?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="blueprints---essential-concepts?lang=zh-CN_title">
+				蓝图：基础概念
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="interactive-material-swaps-using-blueprints?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/interactive-material-swaps-using-blueprints?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/interactive-material-swaps-using-blueprints/406---Hero2-1920x1080-ce26b6199cf620364149d2d934c73ae30e983110.8314f8?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/interactive-material-swaps-using-blueprints/Interactive-Material-Swaps-Using-Blueprints-1000x1000-21158a5fe67365e3bf5db49712b52482382f15ac.8?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="interactive-material-swaps-using-blueprints?lang=zh-CN_title">
+				蓝图：可交互材质切换
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="making-a-blueprint-product-configurator?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/making-a-blueprint-product-configurator?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/blueprint-for-enterprise/301-Blueprints-(1200X675)-1200x675-d140b8a0b13b05c0619e35e1076b4c82e4a4b855.8344f86.dela?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/blueprint-for-enterprise/Blueprint-for-Enterprise-1000x1000-13caa11b8e5c5e91506a8dd63b39d247318c3208.836fe4b.dela?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="making-a-blueprint-product-configurator?lang=zh-CN_title">
+				企业级蓝图开发
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																								<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#1.必需设置">1.必需设置</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#阶段成果">阶段成果</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#2.创建和显示蓝图map">2.创建和显示蓝图Map</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#编写逻辑脚本">编写逻辑脚本</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#分段结果">分段结果</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#3.向map添加键和值">3.向Map添加键和值</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#编写逻辑脚本_1">编写逻辑脚本</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#显示map的键">显示Map的键</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#完成脚本">完成脚本</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#最终结果">最终结果</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<div class="imagetable">
+	<p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/workingWithMaps_topicBanner.jpg">
+		<img class="  lazyload" alt="workingWithMaps_topicBanner.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/workingWithMaps_topicBanner.jpg" />
+</picture>
+</p>
+</div><p><strong>蓝图Map</strong> 继<a id="content_link"filter-data="tag_arrays_and_structures tag_blueprints" href="../../UserGuide/Arrays/index.html" ><span>蓝图阵列</span></a>后如此流行事出有因。其支持使用相关键对值进行高效查找和检索。完成本指南的学习，便能拥有在蓝图脚本环境中创建和编辑Map、查询和显示项目，以及在虚幻引擎4（UE4）中对蓝图Map执行基本操作的部分经验。
+</p><h2 id="1.必需设置">1.必需设置</h2>
+<p>开始使用蓝图Map前，需设置项目以显示容器中的内容。<br /></p><ol ><li class="Default"><p>选择 <strong>游戏（Games）</strong> > <strong>第一人称（First Person）</strong> 模板，新建一个项目，并且使用以下设置：
+</p><ul ><li class="Default"><p>选择 <strong>蓝图（Blueprint）</strong>
+</p></li><li class="Default"><p>选择 <strong>最高质量（Maximum Quality）</strong>
+</p></li><li class="Default"><p>选择 <strong>桌面/游戏机（Desktop/Console）</strong> 
+</p></li><li class="Default"><p>选择 <strong>含初学者内容（With Starter Content）</strong>
+</p></li></ul></li><li class="Default"><p>将项目命名为 <strong>ExampleMapProject</strong>。
+</p></li><li class="Default"><p>从项目的 <strong>内容浏览器</strong> 中双击 <strong>Blueprint</strong> 文件夹。
+</p></li></ol><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step1_2.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step1_2.jpg">
+		<img class="  lazyload" alt="Step1_2.png" width="900" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step1_2.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><ol ><li class="Default"><p>在 <strong>内容浏览器</strong> 中，点击 <strong>新增</strong> 按钮，然后选择 <strong>蓝图类</strong>，其位于 <strong>创建基本资源（Create Basic Asset）</strong> 弹出菜单下。<br /></p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step1_3.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step1_3.jpg">
+		<img class="  lazyload" alt="Step1_3.png" width="900" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step1_3.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>打开 <strong>选取父类（Pick Parent Class）</strong> 菜单后，点击 <strong>所有类</strong> 箭头，搜索 <strong>TextRender Actor</strong> 蓝图类。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step1_4.jpg">
+		<img class="  lazyload" alt="Step1_4.png" title="Step13720294274.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step1_4.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>搜索栏</strong> 中输入 <strong>TextRenderActor</strong>，选择 <strong>TextRenderActor</strong> 蓝图类，然后点击 <strong>选择</strong> 按钮。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step1_5.jpg">
+		<img class="  lazyload" alt="Step1_5.png" title="Step13720294275.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step1_5.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>现在，在项目的 <strong>内容浏览器</strong> 中可找到新的 <strong>TextRender Actor</strong>。将此新的Actor命名为 <strong>DisplayMap</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step1_6.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step1_6.jpg">
+		<img class="  lazyload" alt="Step1_6.png" width="900" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step1_6.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>现在，将 <strong>DisplayMap</strong> TextRender Actor拖入虚幻编辑器的 <strong>视角（3D）视口（Perspective (3D) Viewport）</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step1_7.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step1_7.jpg">
+		<img class="  lazyload" alt="Step1_7.png" width="900" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step1_7.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>选择 <strong>DisplayMap</strong> TextRender Actor后，点击 <strong>+添加组件</strong> 按钮（位于 <strong>细节</strong> 面板中），并在 <strong>搜索栏</strong> 中输入 <strong>Box Collision</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step1_8.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step1_8.jpg">
+		<img class="  lazyload" alt="Step1_8.png" width="300" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step1_8.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>将 <strong>盒体碰撞组件（Box Collision Component）</strong> 添加到TextRender Actor后，将新组件命名为 <strong>Trigger Box</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step1_9.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step1_9.jpg">
+		<img class="  lazyload" alt="Step1_9.png" width="400" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step1_9.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>现在选择TextRender组件，在 <strong>细节</strong> 面板中查看Actor的 <strong>变换</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step1_10.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step1_10.jpg">
+		<img class="  lazyload" alt="Step1_10.png" width="400" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step1_10.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>更新 <strong>显示Map</strong> Actor的 <strong>变换</strong>，以反映以下值：
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step1_11.jpg">
+		<img class="  lazyload" alt="Step1_11.png" title="Step137202942711.png" width="400" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step1_11.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>现在，将 <strong>显示Map</strong> Actor的 <strong>水平对齐</strong> 改为 <strong>居中</strong> 对齐（而非 <strong>水平对齐</strong> 默认值 <strong>左</strong> 对齐）。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step1_12.jpg">
+		<img class="  lazyload" alt="Step1_12.png" title="Step137202942712.png" width="500" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step1_12.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>目前，<strong>触发框</strong> 组件已 <strong>在游戏中隐藏</strong>。取消勾选 <strong>在游戏中隐藏</strong> 复选框（位于 <strong>细节</strong> 面板的 <strong>渲染</strong> 菜单中），即可在游戏中查看 <strong>盒体碰撞（Box Collision）</strong> 组件。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step1_13.jpg">
+		<img class="  lazyload" alt="Step1_13.png" title="Step137202942713.png" width="500" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step1_13.jpg" />
+</picture>
+
+</p><div class="note">
+	<p>在游戏中查看 <strong>盒体碰撞</strong> 组件是利用底层逻辑驱动触发事件，以调试潜在问题的好办法。</p>
+</div></li><li class="Default"><p>如进入PIE（在编辑器中运行）模式，可发现发射物会对 <strong>显示Map</strong> 碰撞盒体产生碰撞响应。目前仅需要 <strong>显示Map</strong> 碰撞盒体触发事件，以显示Map容器的内容。为此，前往 <strong>碰撞</strong> 菜单（位于 <strong>细节</strong> 面板中），点击 <strong>碰撞预设</strong> 下拉列表框，然后选择 <strong>自定义……</strong> 选项。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step1_14.jpg">
+		<img class="  lazyload" alt="Step1_14.png" title="Step137202942714.png" width="500" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step1_14.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>最后更新 <strong>碰撞预设</strong> 反映以下值：
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step1_15.jpg">
+		<img class="  lazyload" alt="Step1_15.png" title="Step137202942715.png" width="500" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step1_15.jpg" />
+</picture>
+
+</p></li></ol><h3 id="阶段成果">阶段成果</h3>
+<div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step1_EndResult.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step1_EndResult.jpg">
+		<img class="  lazyload" alt="Step1_EndResult.png" width="900" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step1_EndResult.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><p>现在已新建项目，同时设置新的TextRender Actor，其将显示你在下一步中创建、编辑和显示的蓝图Map容器的内容。
+</p><h2 id="2.创建和显示蓝图map">2.创建和显示蓝图Map</h2>
+<p>已在新建项目中设置 <strong>TextRender</strong> Actor，现可创建蓝图Map容器，其中内容将在游戏内显示。
+</p><ol ><li class="Default"><p>在项目的 <strong>内容浏览器</strong> 中，双击 <strong>DisplayMap</strong> TextRender Actor，打开其蓝图 <strong>事件图表</strong>。
+<span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_1.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_1.jpg">
+		<img class="  lazyload" alt="Step2_1.png" width="400" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_1.jpg" />
+</picture>
+</span></a></span>
+</p></li><li class="Default"><p>如屏幕显示如下，点击 <strong>打开完整蓝图编辑器（Open Full Blueprint Editor）</strong> 链接开始操作。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_2.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_2.jpg">
+		<img class="  lazyload" alt="Step2_2.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_2.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>应可看到 <strong>DisplayMap</strong> TextRender Actor蓝图 <strong>事件图表</strong>，可在其中添加蓝图Map及其显示逻辑。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_3.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_3.jpg">
+		<img class="  lazyload" alt="Step2_3.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_3.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><div class="note">
+	<p>如屏幕未入之前所示那样显示，点击 <strong>事件图表</strong> 选项卡，打开Actor的蓝图事件图表编辑器。
+</p><p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_3Note.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_3Note.jpg">
+		<img class="  lazyload" alt="Step2_3Note.png" width="300" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_3Note.jpg" />
+</picture>
+</span></a></span></p>
+</div></li><li class="Default"><p>现在应创建蓝图Map容器，需将部分之后显示的键-值对保存其中。要新建蓝图Map，点击 <strong>+新增</strong> 按钮（位于 <strong>我的蓝图</strong> 面板中），并从下拉列表中选择 <strong>变量</strong>。<br /><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_4.jpg">
+		<img class="  lazyload" alt="Step2_4.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_4.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>将该新变量命名为 <code>Instruction Map</code>。<br /><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_5.jpg">
+		<img class="  lazyload" alt="Step2_5.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_5.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>点击变量命名旁的变量 <strong>引脚类型（pin type）</strong> 按钮。<br /><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_6.jpg">
+		<img class="  lazyload" alt="Step2_6.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_6.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>现在选择下拉列表中的 <strong>整数</strong> 变量类型。<br /><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_7.jpg">
+		<img class="  lazyload" alt="Step2_7.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_7.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>点击变量的 <strong>容器类型</strong> 按钮，其位于 <strong>细节</strong> 面板中 <strong>变量类型</strong> 下拉列表旁。<br /><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_8.jpg">
+		<img class="  lazyload" alt="Step2_8.png" width="400" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_8.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>现在选择下拉列表中的 <strong>Map</strong> 容器类型。<br /><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_9.jpg">
+		<img class="  lazyload" alt="Step2_9.png" width="400" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_9.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>是时候定义Map的键-值属性类型了。键目前是 <strong>帧数</strong> 类型，为理想属性类型。然而该值类型并非 <strong>字符串</strong> 变量类型。要将值从 <strong>整数</strong> 改为 <strong>字符串</strong> ，点击值属性类型下拉列表。<br /><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_10.jpg">
+		<img class="  lazyload" alt="Step2_10.png" width="400" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_10.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在下拉列表中选择 <strong>字符串</strong>。<br /><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_11.jpg">
+		<img class="  lazyload" alt="Step2_11.png" width="450" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_11.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>现在已拥有由 <strong>整数</strong> 类型和 <strong>字符串</strong> 类型组成的键-值对（各自）。同时蓝图图表将进行提示：需编译蓝图，才可定义要存储在容器内的项目。点击 <strong>编译</strong> 按钮开始操作。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_12.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_12.jpg">
+		<img class="  lazyload" alt="Step2_12.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_12.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><div class="note">
+	<p>编译蓝图会将替换容器的 <strong>默认值</strong> 消息换为其他界面，以便使用键-值对填充容器，其中Map的键为整数，值为字符串。</p>
+</div></li><li class="Default"><p>如尚未完成该步骤，请点击 <strong>保存</strong> 按钮，保存目前所有工作。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_13.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_13.jpg">
+		<img class="  lazyload" alt="Step2_13.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_13.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>点击 <strong>+</strong>（添加元素）按钮（位于 <strong>细节</strong> 面板的 <strong>默认值</strong> 菜单中），将新键-值对添加到新定义的 <strong>指令Map（Instruction Map）</strong> 容器中。
+</p><p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_14.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_14.jpg">
+		<img class="  lazyload" alt="Step2_14.png" width="400" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_14.jpg" />
+</picture>
+</span></a></span>
+</p></li><li class="Default"><p>定义容器的新键-值对，将键定义为 <code>1</code>，并将值定义为 <code>使用WASD运行（WASD to run）</code>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_15.jpg">
+		<img class="  lazyload" alt="Step2_15.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_15.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>重复以上两个步骤，确保使用以下键-值对填充 <strong>指令Map</strong> 容器： 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_16.jpg">
+		<img class="  lazyload" alt="Step2_16.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_16.jpg" />
+</picture>
+
+</p></li></ol><h3 id="编写逻辑脚本">编写逻辑脚本</h3>
+<p>在显示新建蓝图Map的内容前，需编写必要逻辑。
+</p><ol ><li class="Default"><p>现已定义容器，继续将 <strong>指令Map</strong> 变量拖入蓝图事件图表。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_17.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_17.jpg">
+		<img class="  lazyload" alt="Step2_17.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_17.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>在 <strong>指令Map</strong> 下拉列表中选择 <strong>获取（Get）</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_18.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_18.jpg">
+		<img class="  lazyload" alt="Step2_18.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_18.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>从 <strong>Instruction Map</strong> 节点连出引线，并从 <strong>Map实用程序（Map Utilities）</strong> 界面添加 <strong>Find</strong> 节点。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_19.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_19.jpg">
+		<img class="  lazyload" alt="Step2_19.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_19.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><div class="note">
+	<p>有多种方法会可获取Map中的值。对于本教程的此章节，将继续并增加整数键显示 <strong>指令Map</strong> 中包含的相关值。</p>
+</div></li><li class="Default"><p>牢记之前事项，点击 <strong>+添加新增（Add New）</strong> 按钮，在下拉列表中选择 <strong>变量</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_20.jpg">
+		<img class="  lazyload" alt="Step2_20.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_20.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>确保将新变量的类型设为 <strong>整数</strong> 类型，并命名为 <code>Key</code>。右键点击引脚类型，将它改为单个值，而非Map类型（如有必要）。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_21.jpg">
+		<img class="  lazyload" alt="Step2_21.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_21.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>声明并定义新的 <strong>整数</strong> 变量后，将 <strong>键</strong> 拖入蓝图事件图表中，并在下拉列表中选择 <strong>获取</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_22.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_22.jpg">
+		<img class="  lazyload" alt="Step2_22.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_22.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>从 <strong>Key</strong> 节点连出引线，搜索并添加 <strong>IncrementInt</strong> 节点。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_23.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_23.jpg">
+		<img class="  lazyload" alt="Step2_23.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_23.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>现将 <strong>IncrementInt</strong> 节点连接至 <strong>Find</strong> 节点。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_24.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_24.jpg">
+		<img class="  lazyload" alt="Step2_24.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_24.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><div class="note">
+	<p>本教程中将使用时间函数来增量 <strong>Key</strong> 变量。</p>
+</div></li><li class="Default"><p>从 <strong>Event Tick</strong> 节点连出引线，搜索并添加 <strong>Delay</strong> 节点。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_25.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_25.jpg">
+		<img class="  lazyload" alt="Step2_25.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_25.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>将延时时长设为 <strong>2</strong> 秒，然后将 <strong>Delay</strong> 节点连接至 <strong>IncrementInt</strong> 节点。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_26.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_26.jpg">
+		<img class="  lazyload" alt="Step2_26.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_26.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>然后从 <strong>Event BeginPlay</strong> 节点连出引线，搜索并连接至 <strong>Branch</strong> 节点。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_27.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_27.jpg">
+		<img class="  lazyload" alt="Step2_27.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_27.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>将 <strong>IncrementInt</strong> 节点连接至 <strong>Branch</strong> 节点。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_28.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_28.jpg">
+		<img class="  lazyload" alt="Step2_28.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_28.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>现在将属于 <strong>Find</strong> 节点的 <strong>布尔</strong> 返回值连接到 <strong>Branch</strong> 节点的 <strong>条件</strong> 引脚。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_29.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_29.jpg">
+		<img class="  lazyload" alt="Step2_29.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_29.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><div class="note">
+	<p>如 <strong>Find</strong> 节点成功定位Map中的项目，则该节点将返回true。否则，<strong>Find</strong> 节点返回false时，Map中将不包含使用提供键的项目。</p>
+</div></li><li class="Default"><p>从 <strong>Branch</strong> 节点的 <strong>True</strong> 引脚连出引线，搜索并连接到 <strong>Set Text(TextRender) </strong>节点。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_30.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_30.jpg">
+		<img class="  lazyload" alt="Step2_30.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_30.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><div class="note">
+	<p>逻辑的此分支意味着，如容器中存在有效键-值对，则显示容器的相关值。</p>
+</div></li><li class="Default"><p>要在游戏中显示容器的值，将 <strong>Find</strong> 节点的返回 <strong>值</strong> 引脚连接到 <strong>Set Text</strong> 节点的 <strong>值</strong> 引脚。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_31.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_31.jpg">
+		<img class="  lazyload" alt="Step2_31.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_31.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>现在从 <strong>Branch</strong> 节点的 <strong>False</strong> 引脚连出引线，搜索并连接 <strong>Set Text(TextRender)</strong> 节点。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_32.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_32.jpg">
+		<img class="  lazyload" alt="Step2_32.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_32.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><div class="note">
+	<p>逻辑的此分支意味着，如容器中无有效键-值对，则显示其他内容。</p>
+</div></li><li class="Default"><p>从 <strong>Branch</strong> 节点的 <strong>值</strong> 引脚连出引线，搜索并连接到 <strong>ToText(string)</strong> 节点。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_33.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_33.jpg">
+		<img class="  lazyload" alt="Step2_33.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_33.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>现在定义要读取的字符串：<code>Now, shoot the blocks!</code>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_34.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_34.jpg">
+		<img class="  lazyload" alt="Step2_34.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_34.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>检查完成的脚本后，点击 <strong>编译</strong> 按钮，之后返回编辑器的 <strong>视口</strong> 界面。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_35.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_35.jpg">
+		<img class="  lazyload" alt="Step2_35.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_35.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>在编辑器的 <strong>视口</strong> 界面中，点击 <strong>运行</strong> 按钮查看新实现的脚本。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_36.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_36.jpg">
+		<img class="  lazyload" alt="Step2_36.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step2_36.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li></ol><h3 id="分段结果">分段结果</h3>
+<!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_0_e9unh49o_31
+{
+	margin: 0px;
+	width: 100%;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_0_e9unh49o_31:after
+{
+	content: "";
+	padding-top: 56.25%;
+	display: block;
+}
+</style> 
+<div id="player_0_e9unh49o_31"> 
+	<div id="playerContainer_0_e9unh49o_31" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/0_e9unh49o/embed.html"></iframe>
+	</div>
+</div>
+<p>本指南目前的章节中，已定义新的蓝图Map、键-值对已填充到容器中，并已使用 <strong>TextRender</strong> Actor蓝图事件图表中创建的部分基本逻辑显示了值。如要学习更高级的操作方式，请继续下一步骤，可学习向Map <strong>添加</strong> 键-值对，以后续显示Map的值。
+</p><h2 id="3.向map添加键和值">3.向Map添加键和值</h2>
+<p>现在应该已具有了 <strong>TextRender</strong> Actor，其将显示在上一步中定义的蓝图Map的相关值。在此步中将可学习向Map <strong>添加</strong> 键-值对的方法，以后续显示Map的键和相关值。
+</p><ol ><li class="Default"><p>在项目的 <strong>内容浏览器</strong> 中，双击 <strong>显示Map</strong> TextRender Actor，打开其蓝图 <strong>事件图表</strong>。
+<span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_1.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_1.jpg">
+		<img class="  lazyload" alt="Step3_1.png" width="400" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_1.jpg" />
+</picture>
+</span></a></span>
+</p></li><li class="Default"><p>现在应能看到 <strong>显示Map</strong> TextRender Actor蓝图 <strong>事件图表</strong>，可在其中添加新的蓝图Map，同时可向其中 <strong>添加</strong> 新的键值对，最终将Map的键-值对和相关值显示到 <strong>视口</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_2.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_2.jpg">
+		<img class="  lazyload" alt="Step3_2.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_2.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>在本教程的此步骤中，需新建之后 <strong>添加</strong> 运算的蓝图Map容器。右键点击 <strong>指令Map</strong> 变量，并在下拉列表中选择 <strong>复制</strong>，以新建蓝图Map变量，并将其命名为 <code>Weapon Inventory Map</code>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_3.jpg">
+		<img class="  lazyload" alt="Step3_3.png" width="400" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_3.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>确保新的Map容器匹配以下属性，其中键为字符串，值为整数：
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_4.jpg">
+		<img class="  lazyload" alt="Step3_4.png" width="350" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_4.jpg" />
+</picture>
+
+</p><div class="note">
+	<p>为讲解需要进行说明：当前创建的是武器物品栏蓝图Map容器，其中键是武器名称，值是武器可用弹药量。</p>
+</div></li><li class="Default"><p>如选择新的蓝图Map，应可看到内容为 <code>Please compile the blueprint</code> 的 <strong>默认值</strong> 消息。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_5.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_5.jpg">
+		<img class="  lazyload" alt="Step3_5.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_5.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>点击 <strong>编译</strong> 按钮。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_6.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_6.jpg">
+		<img class="  lazyload" alt="Step3_6.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_6.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>编译蓝图后，应可看到 <strong>默认值</strong> 消息消失，为默认的空白Map让出空间。点击 <strong>+</strong>（添加元素）按钮，添加一个键值对。
+</p><p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_7.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_7.jpg">
+		<img class="  lazyload" alt="Step3_7.png" width="400" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_7.jpg" />
+</picture>
+</span></a></span>
+</p><p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_7a.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_7a.jpg">
+		<img class="  lazyload" alt="Step3_7a.png" width="400" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_7a.jpg" />
+</picture>
+</span></a></span>
+</p></li><li class="Default"><p>编辑器的编译结果窗口此时还会发出以下警告：
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_8.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_8.jpg">
+		<img class="  lazyload" alt="Step3_8.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_8.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><div class="note">
+	<p>UE4发送此警告是由于正在复制 <strong>指令Map</strong>，该蓝图Map具备整数-字符串的键-值属性，以创建 <strong>武器物品栏Map（Weapon Inventory Map）</strong>，其也是具备整数-字符串的键-值属性的蓝图Map。在复制过程中，引擎会解析属于 <strong>指令Map</strong> 的键-值对，尝试将其复制到 <strong>武器物品栏Map</strong> 的键-值对中，此并非理想行为。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_8Note.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_8Note.jpg">
+		<img class="  lazyload" alt="Step3_8Note.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_8Note.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div>
+</div></li><li class="Default"><p>用以下键-值对填充新 <strong>武器物品栏Map</strong> 容器：
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_9.jpg">
+		<img class="  lazyload" alt="Step3_9.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_9.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>现在点击 <strong>编译</strong> 按钮。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_10.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_10.jpg">
+		<img class="  lazyload" alt="Step3_10.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_10.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>用正确类型的键-值对填充 <strong>武器物品栏Map</strong>，满足新蓝图Map的键值属性要求后，警告应该会消失。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_11.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_11.jpg">
+		<img class="  lazyload" alt="Step3_11.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_11.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>向现有蓝图事件图添加新逻辑前，将 <strong>武器物品栏Map</strong> 变量拖入蓝图中，然后在下拉菜单中选择 <strong>获取（Get）</strong> 变量。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_12.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_12.jpg">
+		<img class="  lazyload" alt="Step3_12.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_12.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li></ol><h3 id="编写逻辑脚本_1">编写逻辑脚本</h3>
+<ol ><li class="Default"><p>要开始构建新逻辑，从 <strong>Map实用程序</strong> 界面中 <strong>Weapon Inventory Map</strong> 节点连出引线并添加 <strong>Keys</strong> 节点。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_13.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_13.jpg">
+		<img class="  lazyload" alt="Step3_13.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_13.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><div class="note">
+	<p><strong>Keys</strong> 节点将输出 <strong>武器物品栏Map</strong> 中显示的所有键的阵列。</p>
+</div></li><li class="Default"><p>从 <strong>Keys</strong> 节点的 <strong>阵列</strong> 输出引脚连出引线，搜索并添加 <strong>ForEachLoop</strong> 节点。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_14.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_14.jpg">
+		<img class="  lazyload" alt="Step3_14.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_14.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>现在，从 <strong>ForEachLoop</strong> 节点的 <strong>阵列元素（Array Element）</strong> 引脚连出引线，搜索并添加 <strong>Print String</strong> 节点。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_15.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_15.jpg">
+		<img class="  lazyload" alt="Step3_15.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_15.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>右键点击蓝图图表，打开 <strong>快捷菜单</strong>，在其中搜索并添加 <strong>Event ActorBeginOverlap</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_16.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_16.jpg">
+		<img class="  lazyload" alt="Step3_16.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_16.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>从 <strong>Event ActorBeginOverlap</strong> 节点的 <strong>Other Actor</strong> 引脚连出引线，搜索并添加 <strong>Cast To FirstPersonProjectile</strong> 节点。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_17.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_17.jpg">
+		<img class="  lazyload" alt="Step3_17.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_17.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>现在将 <strong>Cast To FirstPersonProjectile</strong> 节点连接至 <strong>Keys</strong> 节点。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_18.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_18.jpg">
+		<img class="  lazyload" alt="Step3_18.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_18.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li></ol><h2 id="显示map的键">显示Map的键</h2>
+<p>现在如进入PIE模式，将可向 <strong>显示Map</strong> TextRender Actor的碰撞盒体中射出发射物，其中将能显示包含在 <strong>武器物品栏Map</strong> 中的键阵列。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_DisplayingKeys.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_DisplayingKeys.jpg">
+		<img class="  lazyload" alt="Step3_DisplayingKeys.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_DisplayingKeys.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><h2 id="完成脚本">完成脚本</h2>
+<ol ><li class="Default"><p>现在应向容器中添加新键-值对。为此，将 <strong>Weapon Inventory Map</strong> 变量拖入蓝图。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_19.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_19.jpg">
+		<img class="  lazyload" alt="Step3_19.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_19.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>从 <strong>Weapon Inventory Map</strong> 变量连出引线，并从 <strong>Map实用程序</strong> 界面添加 <strong>Add</strong> 节点。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_20.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_20.jpg">
+		<img class="  lazyload" alt="Step3_20.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_20.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>现在定义要添加的键-值对，将 <code>Weapon 6</code> 定义为键、<code>60</code> 为值。
+</p><p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_21.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_21.jpg">
+		<img class="  lazyload" alt="Step3_21.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_21.jpg" />
+</picture>
+</span></a></span>
+</p></li><li class="Default"><p>从 <strong>Add</strong> 节点的输出引脚，搜索并添加 <strong>Branch</strong> 节点。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_22.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_22.jpg">
+		<img class="  lazyload" alt="Step3_22.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_22.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>在可设置额外显示逻辑，显示添加的键前，需将 <strong>Weapon Inventory Map</strong> 变量拖入蓝图。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_23.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_23.jpg">
+		<img class="  lazyload" alt="Step3_23.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_23.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>现在从 <strong>Weapon Inventory Map</strong> 变量连出引线，并从 <strong>Map实用程序 界面添加 </strong>Keys** 节点。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_24.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_24.jpg">
+		<img class="  lazyload" alt="Step3_24.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_24.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>从 <strong>Keys</strong> 节点的 <strong>阵列</strong> 输出引脚连出引线，搜索并添加 <strong>ForEachLoop</strong> 节点。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_25.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_25.jpg">
+		<img class="  lazyload" alt="Step3_25.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_25.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>现在，从 <strong>ForEachLoop</strong> 节点的 <strong>阵列元素</strong> 引脚连出引线，搜索并添加 <strong>Print String</strong> 节点。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_26.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_26.jpg">
+		<img class="  lazyload" alt="Step3_26.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_26.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>点击 <strong>文本颜色</strong> 框打开 <strong>取色器</strong> 菜单。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_27.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_27.jpg">
+		<img class="  lazyload" alt="Step3_27.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_27.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>将颜色设置为以下值：
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_28.jpg">
+		<img class="  lazyload" alt="Step3_28.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_28.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在可设置更多显示逻辑，显示额外值前，同样需将 <strong>Weapon Inventory Map</strong> 变量拖入蓝图。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_29.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_29.jpg">
+		<img class="  lazyload" alt="Step3_29.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_29.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>现在从 <strong>Weapon Inventory Map</strong> 变量连出引线，并从 <strong>Map实用程序</strong> 界面添加 <strong>Values</strong> 节点。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_30.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_30.jpg">
+		<img class="  lazyload" alt="Step3_30.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_30.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>从属于 <strong>Values</strong> 节点的 <strong>阵列</strong> 输出引脚连出引线，搜索并添加 <strong>ForEachLoop</strong> 节点。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_31.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_31.jpg">
+		<img class="  lazyload" alt="Step3_31.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_31.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>现在从 <strong>ForEachLoop</strong> 节点的 <strong>执行输出</strong> 引脚连出引线，搜索并添加 <strong>Print String</strong> 节点。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_32.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_32.jpg">
+		<img class="  lazyload" alt="Step3_32.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_32.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>从 <strong>ForEachLoop</strong> 节点的 <strong>阵列元素</strong> 引脚连出引线，将其连接至 <strong>Print String</strong> 节点的 <strong>输入字符串（In String）</strong> 引脚。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_33.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_33.jpg">
+		<img class="  lazyload" alt="Step3_33.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_33.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>点击 <strong>文本颜色</strong> 框打开 <strong>取色器</strong> 菜单。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_34.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_34.jpg">
+		<img class="  lazyload" alt="Step3_34.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_34.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>将颜色设置为以下值：
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_35.jpg">
+		<img class="  lazyload" alt="Step3_35.png" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_35.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>将 <strong>Branch</strong> 节点的 <strong>True</strong> 引脚连接到 <strong>Keys</strong> 节点。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_36.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_36.jpg">
+		<img class="  lazyload" alt="Step3_36.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_36.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>现在将 <strong>Branch</strong> 节点的 <strong>False</strong> 引脚连接到 <strong>Values</strong> 节点。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_37.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_37.jpg">
+		<img class="  lazyload" alt="Step3_37.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_37.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>要完成脚本的逻辑，将 <strong>Cast To FirstPersonProjectile</strong> 节点的 <strong>Cast Failed</strong> 引脚连接到 <strong>Add</strong> 节点。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_38.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_38.jpg">
+		<img class="  lazyload" alt="Step3_38.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_38.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>脚本检查完成后，点击 <strong>编译</strong> 按钮。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_39.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_39.jpg">
+		<img class="  lazyload" alt="Step3_39.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_39.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>最后点击 <strong>保存</strong> 按钮，然后返回编辑器的 <strong>视口</strong> 界面。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_40.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_40.jpg">
+		<img class="  lazyload" alt="Step3_40.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_40.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>在编辑器的 <strong>视口</strong> 界面中，点击 <strong>运行</strong> 按钮查看当前运行的更新脚本。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_41.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_41.jpg">
+		<img class="  lazyload" alt="Step3_41.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/Step3_41.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li></ol><h2 id="最终结果">最终结果</h2>
+<!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_0_pl3k5nwo_71
+{
+	margin: 0px;
+	width: 100%;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_0_pl3k5nwo_71:after
+{
+	content: "";
+	padding-top: 56.25%;
+	display: block;
+}
+</style> 
+<div id="player_0_pl3k5nwo_71"> 
+	<div id="playerContainer_0_pl3k5nwo_71" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/0_pl3k5nwo/embed.html"></iframe>
+	</div>
+</div>
+<p>正如视频中所见，最初向 <strong>显示Map</strong> TextRender Actor的碰撞盒体中射出 <strong>第一人称发射物</strong> 时，可看到初始的五个键被打印到 <strong>视口</strong> 中。之后，穿过碰撞盒体时，可看到新键被添加之后又被打印。退出碰撞盒体后，继续发射另一枚 <strong>第一人称发射物</strong>，以确认新添加的键。最后二次穿过碰撞盒体时，将看到所有的值已被打印。
+</p>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/ProgrammingAndScripting/Blueprints/BP_HowTo/WorkingWithMaps/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:24:55 GMT -->
+</html>

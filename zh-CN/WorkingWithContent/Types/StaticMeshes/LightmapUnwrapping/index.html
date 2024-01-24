@@ -1,0 +1,884 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:58:33 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>展开光照图的UV | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Content/Types/StaticMeshes/LightmapUnwrapping" />
+<meta name="intsourcechangelist" content="15924808" />
+<meta name="availability" content="Public" />
+<meta name="title" content="展开光照图的UV" />
+<meta name="description" content="正确设置静态网格体UV的技巧和指南。" />
+<meta name="version" content="4.20" />
+<meta name="parent" content="WorkingWithContent/Types/StaticMeshes" />
+<meta name="keywords" content="Static Mesh" />
+<meta name="keywords" content="Lightmap" />
+<meta name="related" content="RenderingAndGraphics/Lightmass" />
+<meta name="related" content="WorkingWithContent/Types/StaticMeshes/AutoGeneratedLightmaps" />
+<meta name="crumbs" content="%ROOT%,WorkingWithContent,WorkingWithContent/Types,WorkingWithContent/Types/StaticMeshes" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="展开光照图的UV" />
+	<meta property="og:description" content="正确设置静态网格体UV的技巧和指南。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">管理内容</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">内容资产类型</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">静态网格体</a>
+
+<span class="separator">></span> <span id="page">展开光照图的UV</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">展开光照图的UV</h1>
+							</div>	
+							<h2 >正确设置静态网格体UV的技巧和指南。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																																			</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																		<div id="seeAlso">
+	<div style="position:relative;">
+		<div id="title">参见</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<p>
+						<a id="related_link" href="../../../../RenderingAndGraphics/Lightmass/index.html" title="概述Lightmass的全部特性和设置。">CPU Lightmass全局光照</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../AutoGeneratedLightmaps/index.html" title="概述如何在虚幻引擎4中生成你自己的光照贴图UV。">生成光照贴图UV</a>
+					</p>
+				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																														<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#创建光照贴图">创建光照贴图</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#自动生成光照贴图uv">自动生成光照贴图UV</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#自定义光照贴图uv">自定义光照贴图UV</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#纹理uv和光照贴图uv">纹理UV和光照贴图UV</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#连续uv和填充">连续UV和填充</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#光照贴图uv范例">光照贴图UV范例</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#简单物体">简单物体</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#复杂物体">复杂物体</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#有机物体">有机物体</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#光照贴图分辨率的重要性">光照贴图分辨率的重要性</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#检查光照贴图和设置">检查光照贴图和设置</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#静态网格体编辑器">静态网格体编辑器</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#启用uv覆层">启用UV覆层</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#设置光照贴图坐标索引">设置光照贴图坐标索引</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#设置光照贴图分辨率">设置光照贴图分辨率</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#故障排除和优化">故障排除和优化</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#错误着色">错误着色</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#重叠光照贴图uv">重叠光照贴图UV</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#包裹uv">包裹UV</a></p>
+	</li>					</ul>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#统计数据窗口">统计数据窗口</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#光照构建信息">光照构建信息</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#静态网格体光照信息">静态网格体光照信息</a></p>
+	</li>					</ul>
+	</li>					</ul>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/UVUnwraps_FB.jpg">
+		<img class="  lazyload" alt="UVUnwraps_FB.png" title="UVUnwraps372029427FB.png" data-src="../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/UVUnwraps_FB.jpg" />
+</picture>
+</p><p>创建游戏资源时，经常需要设置纹理的UV分布。若项目计划使用烘焙光照（静态或静止），还需设置存储光照信息的UV通道。这种被称为 **光照贴图UV**与纹理UV类似，其由每个静态网格体特有的UV分布图表（或UV岛状区）组成，只是此类特殊UV用于存储烘焙光照和阴影信息。与纹理UV不同，光照贴图上需要有模型所有面的专属空间，且不可有重叠面，还要确保UV图表之间足够填充（或间距），以避免瑕疵。因此，光照贴图是环境艺术创作富有挑战性的领域之一。
+</p><div class="note">
+	<p>仅在使用烘焙（或预计算）光照来光照静态网格体时，才需要光照贴图。若游戏或项目只使用动态光照，则无需设置所有静态网格体的光照贴图。</p>
+</div><h2 id="创建光照贴图">创建光照贴图</h2>
+<p>创建光照贴图共两种：
+</p><ul ><li class="Default"><p>使用虚幻引擎4的光照贴图自动生成工具
+</p></li><li class="Default"><p>使用UV编辑工具创建自定义光照贴图
+</p></li></ul><h3 id="自动生成光照贴图uv">自动生成光照贴图UV</h3>
+<p>创建自定义光照贴图可能比较耗时，特别是项目需要成千上万的资源时，将会相当耗时。自动生成光照贴图是一种快速打包光照贴图UV的方法，无需手动设置和正确填充，从而节省大量时间。Epic工作流程中已集成该操作进程。<br /></p><p>导入资源时，FBX导入选项（FBX Import Options）窗口中将自动生成光照贴图UV（禁用时除外）。<br /></p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/ImportOptionsGenerateLM.jpg">
+		<img class="  lazyload" alt="ImportOptionsGenerateLM.png" data-src="../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/ImportOptionsGenerateLM.jpg" />
+</picture>
+
+</p><p>将基于纹理布局的UV（UV通道0）自动生成光照贴图。生成的光照贴图UV会重新打包岛状区，以便正确满足良好光照贴图的要求：无重叠或包裹岛状区；岛状区间有足够填充，以基于目标光照贴图分辨率限制瑕疵。<br /></p><p>生成静态网格体的光照贴图UV后，可利用 <strong>细节</strong> 面板的 <strong>生成选项（Build Settings）</strong> 中静态网格体编辑器的光照贴图生成（Lightmap Generation）设置，对其进行调整。但光照贴图UV生成后，便无需修改此类设置。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/StaticMeshEditorGenerateLMSettings.jpg">
+		<img class="  lazyload" alt="StaticMeshEditorGenerateLMSettings.png" title="StaticMeshEditorGenerateLMSettings.png" data-src="../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/StaticMeshEditorGenerateLMSettings.jpg" />
+</picture>
+
+</p><p>可随时使用此类设置来生成光照贴图UV或重新打包现有UV。此工具使用重新打包算法，并基于 <strong>源光照贴图索引</strong>（或UV通道）生成光照贴图，然后将其存储在 <strong>目标光照映射贴图索引</strong> 指定的新目录中。此算法利用指定源光照贴图索引重新打包UV图表，但操作时不会对图表进行剪切或分割。创建光照贴图UV时请牢记此要点，并利用建模软件或UV编辑软件进行少许前期工作，只需导入UE4前分割UV图表，便能获得良好结果。
+</p><div class="note">
+	<p>欲了解更多信息，参见<a id="content_link" href="../AutoGeneratedLightmaps/index.html" ><span>生成光照贴图UV</span></a>。</p>
+</div><h3 id="自定义光照贴图uv">自定义光照贴图UV</h3>
+<p>现在，只需少量工作便可获得良好结果，因此对于导入到UE4中的多数静态网格体而言，将可使用<a id="content_link" href="../AutoGeneratedLightmaps/index.html" ><span>自动生成光照贴图UV</span></a>。在无法充分使用自动生成UV时，则需要在建模软件或UV编辑工具中创建展开的自定义光照贴图。
+</p><p>比起其他资源，自定义光照贴图更需要注意细节，因此根据UV编辑工具的功能和要创建的资源类型的不同，自定义光照贴图将是理想选择。如下图中Autodesk 3ds Max的UV编辑工具，多数工具都有一系列功能，可以合理且轻松地对UV图表进行平整、重塑、连接和拆分。此类选项在UE4的光照贴图生成中不可用。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/DCC_UEEditingTools.jpg">
+		<img class="  lazyload" alt="DCC_UEEditingTools.png" title="DCC372029427UEEditingTools.png" data-src="../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/DCC_UEEditingTools.jpg" />
+</picture>
+
+</p><div class="caption">
+	<p>Autodesk 3ds Max的UV编辑工具。</p>
+</div><p>本页后期内容将讲解展开UV获得指定结果的基础知识，此操作进程可与自动生成光照贴图结合。如要跳转到之后内容，参见本页的<a id="content_link" href="#连续uv和填充" ><span>连续UV和填充</span></a>章节。
+</p><h2 id="纹理uv和光照贴图uv">纹理UV和光照贴图UV</h2>
+<p>设置纹理UV通常需使用不同方法来分布UV图表以获得最好的效果，而非使用处理光照贴图UV的方法。光照贴图必须平铺放置，同时不可有重叠区域，每个UV图表间还需有足够填充，确保不会漏光。设置纹理UV只受纹理映射之此类UV图表的方式影响，因此无需此类规定。纹理可平铺或分配到几何体的各部分，因此其可以接受重叠甚至包裹的岛状区。  
+</p><p>以下方建筑立面为例，其共有四面，各面所映射的纹理相同。创建单个纹理，各面的UV图表均互相叠加，而非使用各面的UV空间。此操作可促使映射到所有面的单个纹理的空间得到有效地利用，而无需因纹素密度较小使用较高分辨率。
+</p><p>放置光照贴图时（右图），所有面都显示为自身的UV空间，因此可生成正确光照烘焙。某些部分已进行分割，与且其他图表间拥有足够填充，以确保减少瑕疵或漏光。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/TextureUVLayout.jpg">
+		<img class="  lazyload" alt="TextureUVLayout.png" data-src="../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/TextureUVLayout.jpg" />
+</picture>
+
+</p><div class="caption">
+	<p>纹理UV布局</p>
+</div><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/LightmapUVLayout.jpg">
+		<img class="  lazyload" alt="LightmapUVLayout.png" data-src="../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/LightmapUVLayout.jpg" />
+</picture>
+](LightmapUVLayout.png " Lightmap UV Layout")
+</p><div class="caption">
+	<p>光照贴图UV布局</p>
+</div><h2 id="连续uv和填充">连续UV和填充</h2>
+<p>使用几何体连续（或连接）分组是设置光照贴图UV的一种方法。要产生平滑的光照效果，建议将各面合理连接来代表几何体。
+</p><p>例如，下方UV图表将几何体的所有正面和侧面连接到单个UV图表中，而顶部被分隔为单独的岛状区。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/LightmapUV_Padding.jpg">
+		<img class="  lazyload" alt="LightmapUV_Padding.jpg" title="LightmapUV372029427Padding.jpg" data-src="../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/LightmapUV_Padding.jpg" />
+</picture>
+
+</p><div class="caption">
+	<p>静态网格体几何体的UV图表。</p>
+</div><p>展开后需在UV图表间设置最小数量的填充，以防止光源和阴影泄漏瑕疵。由于DXT纹理压缩在4x4的纹素块上进行操作，因此通常需要至少4个纹素来避免所有泄漏瑕疵。
+</p><p>若正在设置填充的自定义光照贴图，使用以下公式来决定网格的正确纹素间距：
+</p><pre class="prettyprint"><code>1 / Target Lightmap Texture Resolution = Texel Grid Spacing</code></pre>
+<p>上述范例的公式使用 <strong>64</strong> 的分辨率：
+</p><pre class="prettyprint"><code>1 / 62 = 0.0161290323</code></pre>
+<div class="note">
+	<p>UE4使用像素来进行填充，意味着尝试找到对齐网格来手动对齐UV图表和网格时，需要每面减去一个像素。使用自动生成光照贴图UV将使用适当填充进行打包。</p>
+</div><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/LightmapUV_Padding_1.jpg">
+		<img class="  lazyload" alt="LightmapUV_Padding_1.jpg" title="LightmapUV372029427Padding3720294271.jpg" data-src="../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/LightmapUV_Padding_1.jpg" />
+</picture>
+
+</p><div class="caption">
+	<p>1.多余UV填充
+1.必要UV填充</p>
+</div><p><a id="content_link" href="../../../../RenderingAndGraphics/Lightmass/index.html" ><span>Lightmass</span></a>已在光照贴图边缘进行填充，防止在结合关卡的光照贴图纹理图谱时泄漏光源和阴影。因此光照贴图UV的边缘无需额外填充这会导致不必要填充和UV空间浪费。
+</p><p>要有效利用UV空间，需将部分UV强制堆叠，，并对其进行缩放以匹配UV空间。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/LightmapUV_Padding_2.jpg">
+		<img class="  lazyload" alt="LightmapUV_Padding_2.jpg" title="LightmapUV372029427Padding3720294272.jpg" data-src="../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/LightmapUV_Padding_2.jpg" />
+</picture>
+
+</p><div class="caption">
+	<p>（从左至右）虚幻引擎中的纯光照视图；有纹理的静态网格体；纹理UV布局，光照贴图UV布局。</p>
+</div><p>对于光照结果，最为重要的是要得到干净、无中断的连续表面，其次才是处理1:1缩放的问题。比例为1:7的光照贴图拥有有两倍的覆盖范围，即使岛状区比例不一致，也可产生较好结果。过薄但保持1:1比例的区域无法得到良好结果，因此无法正确进行光照。从该范例中还可得到另一要点：负向内切口已被分割（红色高亮区域），以防止其共享连续UV图表的光照和阴影信息，而平滑的光照结果对连续UV图表非常重要。
+</p><h2 id="光照贴图uv范例">光照贴图UV范例</h2>
+<p>以下范例示例将探讨简单、复杂和有机结构几何体的自定义光照贴图UV布局。从中可了解得到和保持平滑光照结果的方法。
+</p><h4 id="简单物体">简单物体</h4>
+<p>此建筑立面代表简单的模块，该范例良好展示连续几何体展开时将反映出自身低多边形几何体。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/TextureUVLayout.jpg">
+		<img class="  lazyload" alt="TextureUVLayout.png" data-src="../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/TextureUVLayout.jpg" />
+</picture>
+
+</p><div class="caption">
+	<p>纹理UV布局</p>
+</div><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/LightmapUVLayout.jpg">
+		<img class="  lazyload" alt="LightmapUVLayout.png" data-src="../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/LightmapUVLayout.jpg" />
+</picture>
+
+</p><div class="caption">
+	<p>光照贴图UV布局</p>
+</div><p>使用连续面便于最大化UV空间中的覆盖范围，可以较低光照贴图分辨率更好地烘焙光源，获得近乎完美的光照贴图。请注意：分割UV图表未导致接缝和细小黑线。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/UVLayout_Simple_Result.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/UVLayout_Simple_Result.jpg">
+		<img class="  lazyload" alt="UVLayout_Simple_Result.png" title="UVLayout372029427Simple372029427Result.png" width="350" data-src="../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/UVLayout_Simple_Result.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><h4 id="复杂物体">复杂物体</h4>
+<p>对于不遵循连续UV任何经典规则的物体（如拥有众多几何体或负空间但元素极少）而言，，需分割UV图表并添加更多填充来防止瑕疵。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/image19-1.jpg" title="Static Mesh and Lightmap UV Layout "><span><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/image19-1.jpg">
+		<img class="  lazyload" alt="image19-1.jpg" data-src="../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/image19-1.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>静态网格体和光照贴图UV布局</p>
+</div><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/UVLayout_Complex_Result1.png" title=" Light Bake Result"><span><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/UVLayout_Complex_Result1.jpg">
+		<img class="  lazyload" alt="UVLayout_Complex_Result1.png" data-src="../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/UVLayout_Complex_Result1.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>光照烘焙结果</p>
+</div><p>栏杆光照贴图显示了将栏杆固定在一起的垂直构件的变形（右侧中间图片）。此类构件的两侧和中间部分被强制接合在一起。尽管在UV中发生了变形，其仍有足够覆盖来生成良好结果。
+</p><p>栏杆上圆形构件的内部已被分割为正面和背面，形成各自的连续岛状区。玩家可见看到的那面拥有内和外两面，因此四分之三的区域都可拥有有平滑光照。栏杆的背面在光卡中较难可见，因此是其自身岛状区。而要获得良好结果，最重要的是专注于大部分玩家可见区域。
+</p><p>有时，复杂几何体可能并非光照贴图UV的理想工作资源。除中型资源外，其还有增加复杂性的诸多负空间。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/image16.jpg" title="Static Mesh and Lightmap UV Layout "><span><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/image16.jpg">
+		<img class="  lazyload" alt="image16.jpg" data-src="../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/image16.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>静态网格体和光照贴图UV布局</p>
+</div><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/image25.jpg" title=" Light Bake Result"><span><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/image25.jpg">
+		<img class="  lazyload" alt="image25.jpg" data-src="../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/image25.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>光照烘焙结果</p>
+</div><p>单独元素过多时，由于需要填充，可能会浪费大量UV空间。在这种情况下，只能使用较高光照贴图分辨率来确保维持质量。经过了解，此范例计划利用结合合理UV图表来使用较高光照贴图分辨率，而也能得知其仍然不够完美。其中会出现些许泄漏，但尚不足以破坏光照结果。
+</p><div class="tip">
+	<p>根据内存预算，可使用较高光照贴图分辨率来减少瑕疵，但建议尽量使用尽可能低的分辨率来获得良好性能和优化。此外请牢记：，具有有趣的漫反射和法线纹理的好材质可隐藏部分光照贴图问题。</p>
+</div><h4 id="有机物体">有机物体</h4>
+<p>对于有众多圆形形状的几何体或设计更有机的几何体而言，建议设为平面并根据需要松弛UV。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/image17.jpg" title="Static Mesh Lightmap UV Layout "><span><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/image17.jpg">
+		<img class="  lazyload" alt="image17.jpg" data-src="../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/image17.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>静态网格体光照贴图UV布局</p>
+</div><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/UVLayout_Organic_Result1.png" title=" Baked Lighting Result"><span><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/UVLayout_Organic_Result1.jpg">
+		<img class="  lazyload" alt="UVLayout_Organic_Result1.png" data-src="../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/UVLayout_Organic_Result1.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>烘焙光照效果</p>
+</div><p>对于有机形状，需了解拆分几何体的合理方法，如在自然操作的位置分割UV图表。进行此操作时的最大问题是分割任何边缘都会破坏光照结果的平滑性。因此在该喷泉范例中，将喷泉顶部拆分为上下两部分，将中间作为其自身，而将底座视为其自身的岛状区，可良好减少光照烘焙中的可见接缝。在有深凹或裂缝的位置分割光照贴图UV。
+</p><div class="tip">
+	<p>中心柱的UV图表与其网格体不同，其被拉直，以便更有效地利用UV空间。对于光照贴图UV而言，此UV图表非常理想，可生成良好且平滑的光照结果。</p>
+</div><h2 id="光照贴图分辨率的重要性">光照贴图分辨率的重要性</h2>
+<p>有效的光照贴图将尽可能有效地填充UV空间的大部分区域，以使用最低分辨率来获得良好光照结果。在UV图表间保持足够填充的同时，使用UV空间最大化覆盖范围，可缓和多数光照贴图造成的问题。
+</p><p>编译桌面平台时项目，可用内存预算通常较高，因此可使用较高分辨率。然而对于主机和移动平台，则需严格控制内存预算。通常会牺牲部分光照贴图分辨率，以维持预算。
+</p><div class="tip">
+	<p>根据几何体及其复杂性，可将网格体拆分成较小构件，以便所有构件都可拥有覆盖范围良好的专属光照贴图，并在进行此操作时使用较低光照贴图分辨率。</p>
+</div><h2 id="检查光照贴图和设置">检查光照贴图和设置</h2>
+<h2 id="静态网格体编辑器">静态网格体编辑器</h2>
+<p>利用静态网格编辑器可进行检查附加到静态网格体上的UV，<a id="content_link" href="../AutoGeneratedLightmaps/index.html" ><span>生成光照贴图UV</span></a>，设置此网格的光照贴图纹理分辨率等操作。
+</p><h4 id="启用uv覆层">启用UV覆层</h4>
+<p>使用工具栏中的 <strong>UV</strong> 下拉菜单选择要显示的UV通道。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/SMEditor_EnablingUVView.jpg">
+		<img class="  lazyload" alt="SMEditor_EnablingUVView.png" title="SMEditor372029427EnablingUVView.png" data-src="../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/SMEditor_EnablingUVView.jpg" />
+</picture>
+
+</p><p>选中后UV通道将在静态网格编辑器视口中显示覆层。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/SMEditor_UVOverlay.jpg">
+		<img class="  lazyload" alt="SMEditor_UVOverlay.png" title="SMEditor372029427UVOverlay.png" data-src="../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/SMEditor_UVOverlay.jpg" />
+</picture>
+
+</p><p>当前显示的UV通道表明在覆层之上。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/SMEditor_UVOverlayText.jpg">
+		<img class="  lazyload" alt="SMEditor_UVOverlayText.png" title="SMEditor372029427UVOverlayText.png" data-src="../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/SMEditor_UVOverlayText.jpg" />
+</picture>
+
+</p><h4 id="设置光照贴图坐标索引">设置光照贴图坐标索引</h4>
+<p><strong>光照贴图坐标索引</strong> 指定<a id="content_link" href="../../../../RenderingAndGraphics/Lightmass/index.html" ><span>光照贴图</span></a>在光照构建期间生成光照贴图纹理时，此静态网格体应使用的UV通道。 
+</p><p>在静态网格编辑器的 <strong>常规（General）</strong> <strong>设置（Settings）</strong> 部分找到 <strong>光照贴图坐标索引（Lightmap Coordinate Index）</strong> 。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/SMEditor_LightmapCoordinateIndex.jpg">
+		<img class="  lazyload" alt="SMEditor_LightmapCoordinateIndex.png" title="SMEditor372029427LightmapCoordinateIndex.png" data-src="../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/SMEditor_LightmapCoordinateIndex.jpg" />
+</picture>
+
+</p><div class="warning">
+	<p>导入当前具有光照贴图通道（UV通道1）的静态网格体或在导入期间生成光照贴图时，UE4会尝试将UV通道分配到适当位置。若在导入无光照贴图UV的静态网格体后生成光照贴图UV，则需为光照贴图坐标索引手动分配正确的UV通道。</p>
+</div><h4 id="设置光照贴图分辨率">设置光照贴图分辨率</h4>
+<p>利用 <strong>光照贴图分辨率</strong> 可在光照构建期间设置<a id="content_link" href="../../../../RenderingAndGraphics/Lightmass/index.html" ><span>光照贴图</span></a>生成的烘焙光照和阴影纹理的默认纹理分辨率。此分辨率将用于此静态网格体放置在关卡中的所有实例。
+</p><p>在静态网格编辑器的 <strong>常规设置</strong> 部分下找到 <strong>光照贴图分辨率（Lightmap Resolution）</strong> 设置。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/SMEditor_LightmapResolution.jpg">
+		<img class="  lazyload" alt="SMEditor_LightmapResolution.png" title="SMEditor372029427LightmapResolution.png" data-src="../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/SMEditor_LightmapResolution.jpg" />
+</picture>
+
+</p><p>通过启用 <strong>覆盖光照贴图分辨率（Overridden Light Map Res）</strong> 并插入分辨率大小，还可覆盖任何关卡中静态网格体的光照贴图分辨率。此设置会覆盖此静态网格体特定实例。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/StaticMeshDetails_OverrideLM.jpg">
+		<img class="  lazyload" alt="StaticMeshDetails_OverrideLM.png" title="StaticMeshDetails372029427OverrideLM.png" data-src="../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/StaticMeshDetails_OverrideLM.jpg" />
+</picture>
+
+</p><div class="warning">
+	<p>将 <strong>光照贴图分辨率</strong> 或 <strong>覆盖光照贴图分辨率</strong> 设为低于<a id="content_link" href="../AutoGeneratedLightmaps/index.html" ><span>生成的光照贴图UV</span></a>所用 <strong>最小光照贴图分辨率</strong> 的值，构建光照后引发接缝和潜在漏光。此静态网格体最低分辨率不应低于 <strong>最小光照贴图分辨率</strong>，以确保UV图表之间保持足够的填充。</p>
+</div><h3 id="关卡视口">关卡视口</h3>
+<p>利用 <strong>关卡视口（Level viewport）</strong> 可使用不同视图模式来检查光照构建和相对于其他静态网格体的光照贴图分辨率密度。此类视图模式可帮助检查最终结果，以及排除光照贴图和光照构建问题。 
+</p><h4 id="使用光照贴图密度视图模式">使用光照贴图密度视图模式</h4>
+<p>利用 <strong>光照贴图密度</strong> 视图模式可基于"理想"（或最大）密度设置，使用与关卡中其他静态网格体Actor相关的方格网格，来显示指定光照贴图分辨率的密度。最重要的是在使用烘焙光照时，在整个场景中保持均匀密度以获得一致光照。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/ViewMode_LightmapDensity.jpg">
+		<img class="  lazyload" alt="ViewMode_LightmapDensity.png" title="ViewMode372029427LightmapDensity.png" data-src="../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/ViewMode_LightmapDensity.jpg" />
+</picture>
+
+</p><div class="caption">
+	<p>Epic的Infiltrator中一个场景，展示了光照贴图密度视图模式。</p>
+</div><p>通过使用关卡视口选择 <strong>视图模式（View Modes）> 优化视图模式（Optimization Viewmodes）> 光照贴图密度（Lightmap Density）</strong> 即可启用此视图。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/ViewMode_EnableLightmapDensity.jpg">
+		<img class="  lazyload" alt="ViewMode_EnableLightmapDensity.png" title="ViewMode372029427EnableLightmapDensity.png" data-src="../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/ViewMode_EnableLightmapDensity.jpg" />
+</picture>
+
+</p><p>启用后颜色网格将基于场景中所有静态网格体当前的光照贴图分辨率，对其进行覆盖。 
+</p><p>下列密度颜色表明关卡的理想光照贴图分辨率与关卡中的静态网格体所设光照图分辨率之间的关系。 <br /></p><div class="imagetable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/TexelDensity_1.jpg">
+		<img class="  lazyload" alt="TexelDensity_1.jpg" data-src="../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/TexelDensity_1.jpg" />
+</picture>
+ </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/TexelDensity_2.jpg">
+		<img class="  lazyload" alt="TexelDensity_2.jpg" data-src="../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/TexelDensity_2.jpg" />
+</picture>
+ </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/TexelDensity_3.jpg">
+		<img class="  lazyload" alt="TexelDensity_3.jpg" data-src="../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/TexelDensity_3.jpg" />
+</picture>
+ </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>低于理想纹素密度</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>理想纹素密度</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>最大或大于理想纹素密度</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div><div class="note">
+	<p>注意：在 <strong>光照贴图密度</strong> 视图模式下，移动性设为 <strong>可移动</strong> 的静态网格体无需光照贴图UV或进行优化，因此会显示为棕色。</p>
+</div><p>初始时的默认密度是平均值。根据游戏纹理预算，可能需将颜色范围调整得更严格或更宽松，以便项目使用此视图模式。使用 <strong>构建（Build）> 光照信息（Lighting Info）</strong> 下主工具栏中的  <strong>光照贴图密度渲染选项（Lightmap Density Rendering Options）</strong> 进行设置。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/EditorBuildOptions_LightmapDensity-1.jpg">
+		<img class="  lazyload" alt="EditorBuildOptions_LightmapDensity-1.png" title="EditorBuildOptions372029427LightmapDensity-1.png" data-src="../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/EditorBuildOptions_LightmapDensity-1.jpg" />
+</picture>
+ 
+</p><div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>属性</p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>说明</p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>理想密度</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>设置场景物体的理想纹素密度。理想纹素密度显示为绿色。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>最大密度</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>设置最大密度，此时场景的纹素密度会过于密集。此纹素密度显示为红色。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>色阶缩放（Color Scale）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>使用纹素密度视图模式时缩放场景颜色。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>灰阶缩放（Grayscale Scale）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>根据 <strong>理想</strong> 和 <strong>最大</strong> 密度值缩放场景灰阶因子的亮度。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>渲染灰阶（Render Grayscale）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>启用光照贴图密度视图模式的灰阶功能。</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div><h4 id="纯光照视图模式">纯光照视图模式</h4>
+<p>在无材质纹理信息的情况下，利用 <strong>纯光照</strong> 视图模式来检查场景中的光照十分有用。查看光照构建效果时此模式也极其有用。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/ViewMode_LightingOnly.jpg">
+		<img class="  lazyload" alt="ViewMode_LightingOnly.png" title="ViewMode372029427LightingOnly.png" data-src="../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/ViewMode_LightingOnly.jpg" />
+</picture>
+
+</p><div class="tip">
+	<p>使用此视图模式和<a id="content_link" href="#错误着色" ><span>错误着色</span></a>可将场景中因重叠或打包UV而导致的光照贴图错误可视化。</p>
+</div><h3 id="场景设置">场景设置</h3>
+<p><strong>场景设置</strong> 面板包含目前加载关卡的专属设置，其内含光照贴图的其他专属设置，如选择是否压缩来节约内存、设置存储光照贴图的打包纹理图谱的最大尺寸，及获取为此关卡生成的打包光照贴图纹理。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/WorldSetting_LightmapOptions.jpg">
+		<img class="  lazyload" alt="WorldSetting_LightmapOptions.png" data-src="../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/WorldSetting_LightmapOptions.jpg" />
+</picture>
+
+</p><h4 id="压缩光照贴图">压缩光照贴图</h4>
+<p>默认情况下，UE4已将压缩生成的光照贴图纹理进行压缩优化。未勾选 <strong>压缩光照贴图（Compress Lightmaps）</strong> 时，打包光照贴图纹理图谱将不使用压缩。此操作会极大增加（四倍）内存的使用率，但可减少压缩算法导致的瑕疵。
+</p><div class="tip">
+	<p>针对不使用法线贴图的表面，压缩瑕疵对于打包到纹理图谱中的较小光照贴图是可见的。利用良好的纹理和法线贴图，可提高烘焙光照结果。对于要提高光照贴图分辨率的问题光照贴图UV，需重新处理UV图表，以在UV空间中额外覆盖范围，以便改进此类压缩瑕疵。</p>
+</div><h5 id="直接光照区域">直接光照区域</h5>
+<p>高对比度直接光照区域中的压缩瑕疵较易发现。禁用压缩后光照贴图结果将更加平滑且无斑点，但此操作开销更高。
+</p><!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/CompressedLightmaps_DirectlyLit_1.jpg">
+		<img class="  lazyload" alt="Compress Lightmaps:Enabled | Lightmap Resolution:64" data-src="../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/CompressedLightmaps_DirectlyLit_1.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/CompressedLightmaps_DirectlyLit_2.jpg">
+		<img class="  lazyload" alt="Compress Lightmaps:Disabled | Lightmap Resolution:64" data-src="../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/CompressedLightmaps_DirectlyLit_2.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div><h5 id="间接光照区域">间接光照区域</h5>
+<p>间接光照区域中的压缩瑕疵不太明显。压缩被禁用时结果会更平滑，而应用纹理和法线贴图时后会变得不太明显。
+</p><!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/CompressedLightmaps_IndirectlyLit_1.jpg">
+		<img class="  lazyload" alt="Compress Lightmaps:Enabled | Lightmap Resolution:64" data-src="../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/CompressedLightmaps_IndirectlyLit_1.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/CompressedLightmaps_IndirectlyLit_2.jpg">
+		<img class="  lazyload" alt="Compress Lightmaps:Disabled | Lightmap Resolution:64" data-src="../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/CompressedLightmaps_IndirectlyLit_2.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div><h5 id="提高光照贴图分辨率的直接光照区域">提高光照贴图分辨率的直接光照区域</h5>
+<p>墙壁底部（地板立柱之间的中央）的装饰网格体光照贴图分辨率已被提高，以展示类似效果，可通过直接提高光照贴图分辨率达到该效果，而无需禁用压缩。将最初光照贴图分辨率提高一倍，可消除多数瑕疵，并且这样微小的变动几乎不会占用纹理内存。
+</p><!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/CompressedLightmaps_DirectlyLitIncreasedLMRes_1.jpg">
+		<img class="  lazyload" alt="Compress Lightmaps:Enabled | Lightmap Resolution:64" data-src="../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/CompressedLightmaps_DirectlyLitIncreasedLMRes_1.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/CompressedLightmaps_DirectlyLitIncreasedLMRes_2.jpg">
+		<img class="  lazyload" alt="Compress Lightmaps:Enabled | Lightmap Resolution:128" data-src="../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/CompressedLightmaps_DirectlyLitIncreasedLMRes_2.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div><h4 id="打包光源和阴影贴图纹理大小">打包光源和阴影贴图纹理大小</h4>
+<p>为单个Actor生成关卡的光照贴图时，其将被打包并存储到多个纹理图谱中。逐Actor加载单独光照贴图纹理十分抵低效，而持续进行加载和卸载将增加GPU的工作负担。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/WorldSettings_PackedLightmap.jpg">
+		<img class="  lazyload" alt="WorldSettings_PackedLightmap.png" title="WorldSettings372029427PackedLightmap.png" data-src="../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/WorldSettings_PackedLightmap.jpg" />
+</picture>
+
+</p><p>关卡中使用的静态网格体Actor数量及其光照贴图分辨率将决定要使用的纹理图谱数量。较大光照贴图分辨率会增加其在图谱中使用的空间量。将 <strong>打包光源和阴影贴图纹理大小</strong> 设为2的幂值（512、1024、2048或4096），即可调整纹理图谱的大小。<br /></p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/WorldSettings_PackedLMResolution.jpg">
+		<img class="  lazyload" alt="WorldSettings_PackedLMResolution.png" title="WorldSettings372029427PackedLMResolution.png" data-src="../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/WorldSettings_PackedLMResolution.jpg" />
+</picture>
+
+</p><h2 id="故障排除和优化">故障排除和优化</h2>
+<h3 id="错误着色">错误着色</h3>
+<p>通过在发生错误的光照贴图中覆盖颜色，<strong>错误着色</strong> 可在 <strong>贴图检测</strong> 下的 <strong>消息日志</strong> 中显示光照构建后发生的错误。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/EnableErrorColoring.jpg">
+		<img class="  lazyload" alt="EnableErrorColoring.png" title="EnableErrorColoring.png" data-src="../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/EnableErrorColoring.jpg" />
+</picture>
+
+</p><p>启用 <strong>使用错误着色</strong> 后，须将 <strong>光照质量</strong> 设为 <strong>中等（Medium）</strong> 或 <strong>预览（Preview）</strong> 以可视化结果。<br /></p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/ErrorColoring_LightingQualitySettings.jpg">
+		<img class="  lazyload" alt="ErrorColoring_LightingQualitySettings.png" title="ErrorColoring372029427LightingQualitySettings.png" data-src="../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/ErrorColoring_LightingQualitySettings.jpg" />
+</picture>
+
+</p><div class="tip">
+	<p>使用 <strong>纯光照</strong> 视图模式更易找到此类问题。</p>
+</div><h4 id="重叠光照贴图uv">重叠光照贴图UV</h4>
+<p>重叠光照贴图UV（Overlapping Lightmap UV）警告表明在光照贴图的UV空间中，UV图表正与几何体的其他部分发生重叠。所有UV用于光照贴图时，须在UV中拥有自身空间。错误着色会覆盖此类UV图表的橙色。请注意：纹理UV无需遵守该规则。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/ErrorColoring_OverlappingUVs.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/ErrorColoring_OverlappingUVs.jpg">
+		<img class="  lazyload" alt="ErrorColoring_OverlappingUVs.png" title="ErrorColoring372029427OverlappingUVs.png" width="400" data-src="../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/ErrorColoring_OverlappingUVs.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/ErrorColoring_OverlappingUVsExample_2.jpg">
+		<img class="  lazyload" alt="Overlapping UVs | Light and Shadow Artifacts" data-src="../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/ErrorColoring_OverlappingUVsExample_2.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/ErrorColoring_OverlappingUVsExample_1.jpg">
+		<img class="  lazyload" alt="Overlapping UVs | Error Color Overlay" data-src="../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/ErrorColoring_OverlappingUVsExample_1.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div><h4 id="包裹uv">包裹UV</h4>
+<p><strong>包裹UV（Wrapping UV）</strong> 警告表明UV图表位于0-1 UV空间之外。错误着色覆盖此类UV图表的绿色。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/ErrorColoring_WrappingUVs.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/ErrorColoring_WrappingUVs.jpg">
+		<img class="  lazyload" alt="ErrorColoring_WrappingUVs.png" title="ErrorColoring372029427WrappingUVs.png" width="400" data-src="../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/ErrorColoring_WrappingUVs.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/ErrorColoring_WrappingUVsExample_2.jpg">
+		<img class="  lazyload" alt="Wrapping UVs | Light and Shadow Artifacts" data-src="../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/ErrorColoring_WrappingUVsExample_2.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/ErrorColoring_WrappingUVsExample_1.jpg">
+		<img class="  lazyload" alt="Wrapping UVs | Error Color Overlay" data-src="../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/ErrorColoring_WrappingUVsExample_1.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div><h3 id="统计数据窗口">统计数据窗口</h3>
+<p><strong>统计数据（Statistics）</strong> 窗口包含当前加载关卡中光照、纹理和基元的众多有用数据。此处诸多数据都需要光照构建方能有效。
+</p><p>要打开统计数据窗口，使用文件菜单选择 <strong>编辑> 统计数据（Edit > Statistics）</strong>。<br /></p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/StatisticsWindow.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/StatisticsWindow.jpg">
+		<img class="  lazyload" alt="StatisticsWindow.png" title="StatisticsWindow.png" data-src="../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/StatisticsWindow.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><p>使用左上角的下拉菜单选择要显示的数据类型。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/StatisticsWindowOptions.jpg">
+		<img class="  lazyload" alt="StatisticsWindowOptions.png" title="StatisticsWindowOptions.png" data-src="../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/StatisticsWindowOptions.jpg" />
+</picture>
+
+</p><h3 id="光照构建信息">光照构建信息</h3>
+<p><strong>光照构建信息</strong> 显示当前加载关卡中的Actor排序列表，以及其计算每个Actor光照的方法。利用此列表可追踪计算光照所需时间较长的问题网格体。例如，高光照贴图分辨率或场景中与Actor交互的光源数量较多会增加光照计算时间。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/StatisticsWindow_1.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/StatisticsWindow_1.jpg">
+		<img class="  lazyload" alt="StatisticsWindow_1.png" title="StatisticsWindow3720294271.png" data-src="../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/StatisticsWindow_1.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><h4 id="静态网格体光照信息">静态网格体光照信息</h4>
+<p><strong>静态网格体光照信息</strong> 显示了当前加载关卡中的Actor排序列表及其光照贴图信息。利用此列表可快速识别Actor的光照贴图分辨率及其要使用的纹理内存。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/StatisticsWindow_2.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/StatisticsWindow_2.jpg">
+		<img class="  lazyload" alt="StatisticsWindow_2.png" title="StatisticsWindow3720294272.png" data-src="../../../../../Images/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/StatisticsWindow_2.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Static%20Mesh">Static Mesh</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Lightmap">Lightmap</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/WorkingWithContent/Types/StaticMeshes/LightmapUnwrapping/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:58:55 GMT -->
+</html>

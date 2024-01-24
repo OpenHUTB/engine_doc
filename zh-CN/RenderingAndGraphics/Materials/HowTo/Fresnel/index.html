@@ -1,0 +1,793 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/RenderingAndGraphics/Materials/HowTo/Fresnel/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:15:11 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/RenderingAndGraphics/Materials/HowTo/Fresnel/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>在材质中使用菲涅尔效果 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/RenderingAndGraphics/Materials/HowTo/Fresnel/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/RenderingAndGraphics/Materials/HowTo/Fresnel/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/RenderingAndGraphics/Materials/HowTo/Fresnel/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/RenderingAndGraphics/Materials/HowTo/Fresnel/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Rendering/Materials/HowTo/Fresnel" />
+<meta name="intsourcechangelist" content="15217808" />
+<meta name="availability" content="Public" />
+<meta name="title" content="在材质中使用菲涅尔效果" />
+<meta name="description" content="使用菲涅尔材质节点的指南。" />
+<meta name="related" content="RenderingAndGraphics/Materials/Functions/Reference/VectorOps" />
+<meta name="related" content="RenderingAndGraphics/Materials/Editor/Interface" />
+<meta name="related" content="RenderingAndGraphics/Materials/ExpressionReference/Utility" />
+<meta name="version" content="4.9" />
+<meta name="skilllevel" content="Advanced" />
+<meta name="keywords" content="Materials" />
+<meta name="course" content="creating-pbr-materials?lang=zh-CN|创建PBR材质|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fcreating-pbr-materials%2FHighresScreenshot00006-1920x1050-2c0180460478cd00327494c6e5717e227be4926d.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fcreating-pbr-materials%2FCreating-PBR-Materials-1000x1000-0d34ec4bfc3eeb466ce5a981a867921f72464e77.png?resize=1&amp;w=300" />
+<meta name="course" content="getting-to-know-materials-for-design-visualization?lang=zh-CN|了解可视化设计中的材质|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fgetting-to-know-materials-for-design-visualization%2FIntro_to_Materials_003-1919x1079-f32638266c469a6fa2b9b2f3515e5766e8177b22.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fgetting-to-know-materials-for-design-visualization%2FGetting-to-Know-Materials-for-Design-Visualization-1000x1000-8cd1670f84e0111e39d4a3faa1e7a6ba29a30bfe.png?resize=1&amp;w=300" />
+<meta name="course" content="materials---exploring-essential-concepts?lang=zh-CN|材质：基础概念|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials---exploring-essential-concepts%2FMaterialEssentialConcepts-1920x1080-1920x1080-2414bb5cf0b0c3bd7ac4b993e725d2acedd45334.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials---exploring-essential-concepts%2FMaterials--Exploring-Essential-Concepts-1000x1000-9546cdc254e6659ce73211b5955ab9d886921256.png?resize=1&amp;w=300" />
+<meta name="course" content="materials---understanding-the-production-workflow?lang=zh-CN|材质：制作工作流|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials---understanding-the-production-workflow%2FMaterialWorkflow_ThumbnailFull-1920x1080-1920x1080-638fea6d7e3b7b299a4f433096336ce1caf662d0.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials---understanding-the-production-workflow%2F104-Materials-Production-Workflow%402x-1000x1000-ae1ba588a367d239fbe513da38bb793360c9eecf.png?resize=1&amp;w=300" />
+<meta name="course" content="materials-master-learning?lang=zh-CN|材质大师课程|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials-master-learning%2FMaterialMaster_1920x1080-1920x1080-212f85045980310d6985557f84d0217e6423b709.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials-master-learning%2FMaterials-Master-Learning-1000x1000-56fd0b66f6e798313f79737126d9215cbd4a3ff9.png?resize=1&amp;w=300" />
+<meta name="crumbs" content="%ROOT%,RenderingAndGraphics,RenderingAndGraphics/Materials,RenderingAndGraphics/Materials/HowTo" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="在材质中使用菲涅尔效果" />
+	<meta property="og:description" content="使用菲涅尔材质节点的指南。 " />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">设计视觉、渲染和图形效果</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">材质 </a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">材质 - 操作指南</a>
+
+<span class="separator">></span> <span id="page">在材质中使用菲涅尔效果</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">在材质中使用菲涅尔效果</h1>
+							</div>	
+							<h2 >使用菲涅尔材质节点的指南。 </h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Advanced"><a id="skill_link" href="../../../../SiteIndex/index.html?skills=Advanced">Advanced</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																		<div id="seeAlso">
+	<div style="position:relative;">
+		<div id="title">参见</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<p>
+						<a id="related_link" href="../../Functions/Reference/VectorOps/index.html" title="这些函数用来处理矢量数学运算，例如计算菲涅耳效果。">矢量操作</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../Editor/Interface/index.html" title="材质编辑器UI的使用指南。">材质编辑器UI</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../ExpressionReference/Utility/index.html" title="对一个或多个输入执行各种实用运算的表达式。">实用表达式</a>
+					</p>
+				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																		<div id="courses">
+	<div style="position:relative;">
+		<div id="title">相关课程</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<div name="creating-pbr-materials?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/creating-pbr-materials?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_443/Unreal%20Engine/onlinelearning-courses/creating-pbr-materials/HighresScreenshot00006-1920x1050-2c0180460478cd00327494c6e5717e227be4926d4f86.png?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_443/Unreal%20Engine/onlinelearning-courses/creating-pbr-materials/Creating-PBR-Materials-1000x1000-0d34ec4bfc3eeb466ce5a981a867921f72464e77fe4b.png?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="creating-pbr-materials?lang=zh-CN_title">
+				创建PBR材质
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="getting-to-know-materials-for-design-visualization?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/getting-to-know-materials-for-design-visualization?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/getting-to-know-materials-for-design-visualizat/Intro_to_Materials_003-1919x1079-f32638266c469a6fa2b9b2f3515e5766?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/getting-to-know-materials-for-design-visualizat/Getting-to-Know-Materials-for-Design-Visualization-1000x1000-8cd1670f84e0111e39d4a3faa1e7a6b?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="getting-to-know-materials-for-design-visualization?lang=zh-CN_title">
+				了解可视化设计中的材质
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="materials---exploring-essential-concepts?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/materials---exploring-essential-concepts?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/materials---exploring-essential-concepts/MaterialEssentialConcepts-1920x1080-1920x1080-2414bb5cf0b0c3bd7ac4b993e725d2acedd45334.42c4f86.dela?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/materials---exploring-essential-concepts/Materials--Exploring-Essential-Concepts-1000x1000-9546cdc254e6659ce73211b5955ab9d886921256.42dfe4b?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="materials---exploring-essential-concepts?lang=zh-CN_title">
+				材质：基础概念
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="materials---understanding-the-production-workflow?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/materials---understanding-the-production-workflow?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/materials---understanding-the-production-workfl/MaterialWorkflow_ThumbnailFull-1920x1080-1920x1080-638fea6d7e3b7b299a4f433096336ce1caf662d0?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/materials---understanding-the-production-workfl/104-Materials-Production-Workflow%402x-1000x1000-ae1ba588a367d239fbe513da38bb793360c9eecf.42ff?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="materials---understanding-the-production-workflow?lang=zh-CN_title">
+				材质：制作工作流
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="materials-master-learning?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/materials-master-learning?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/materials-master-learning/MaterialMaster_1920x1080-1920x1080-212f85045980310d6985557f84d0217e6423b709.4314f86.del?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/materials-master-learning/Materials-Master-Learning-1000x1000-56fd0b66f6e798313f79737126d9215cbd4a3ff9.433fe4b.de?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="materials-master-learning?lang=zh-CN_title">
+				材质大师课程
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																								<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#菲涅尔">菲涅尔</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#菲涅尔节点详解">菲涅尔节点详解</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#菲涅尔工具">菲涅尔工具</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#菲涅尔矢量运算">菲涅尔矢量运算</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#如何在材质中使用菲涅尔">如何在材质中使用菲涅尔</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#菲涅尔与法线贴图">菲涅尔与法线贴图</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#菲涅尔的其他用途">菲涅尔的其他用途</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#结论">结论</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Fresnel/FN_Fresnel_Sample.jpg">
+		<img class="  lazyload" alt="FN_Fresnel_Sample.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Fresnel/FN_Fresnel_Sample.jpg" />
+</picture>
+
+</p><p>创建影片或过场动画时，使用者通常需要一种更好的方式来凸显人物的轮廓。这种光照技术通常被称为"边缘光照"，
+它牵涉到添加额外光线，以便将人物轮廓从背景中区分开来。虽然此技术会让影片增色不少，
+但是向3D场景添加更多光照同时也意味着复杂性的增大，情况可能难以掌控。虚幻引擎4特别就此提供了一个解决方案，使美术师能使用角色材质来模拟相同的基础效果。
+如此一来，美术师便能更好地掌控效果的观感，甚至通过一些技巧来提高性能（例如将灯光添加到无光照的对象）。 
+</p><h2 id="菲涅尔">菲涅尔</h2>
+<p><strong>菲涅尔</strong> 是指光照基于观察者的角度来形成不同强度反射的现象。
+举例而言，站在一个水池边直视池底将无法看到水中存在的大量反射。
+而开始移动头部，让水面与视平线趋于平行时，便能看到越来越多的反射。 
+</p><p>在UE4中，菲涅尔材质表达式节点将根据表面法线和相机方向的点乘积来计算衰减。
+当表面法线正对相机时，输出值为0，这意味着不应出现菲涅尔效果。
+而表面法线与相机垂直时，输出值为1，这意味着将产生完整的菲涅尔效果。
+之后，结果被限制在[0,1]的范围中，确保中央不会出现负片效果。下图将演示此概念。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Fresnel/FN_Caculation_Example.jpg">
+		<img class="  lazyload" alt="FN_Caculation_Example.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Fresnel/FN_Caculation_Example.jpg" />
+</picture>
+
+</p><p>球体中央（即0所处的位置）并没有菲涅尔效果，原因是相机正对表面法线。
+当表面法线越来越趋于和相机垂直时（越来越靠近数字1），菲涅尔效果便会越来越明显，
+这就是我们所需要的效果。 
+</p><h2 id="菲涅尔节点详解">菲涅尔节点详解</h2>
+<p>搜索菲涅尔材质表达式时，您会发现在 <strong>工具（Utility）</strong> 和 <strong>矢量运算（Vector Ops）</strong> 中各有一个菲涅尔。
+虽然这两个材质表达式的名称和作用都相同，但其在在设置使用方面却存在差异。
+</p><h3 id="菲涅尔工具">菲涅尔工具</h3>
+<p>该指南讲述的是 <strong>工具（Utility）</strong> 下的菲涅尔，它的设置和用法更为简单。
+<strong>强烈建议</strong> 先行使用此版本，对节点函数拥有较深的理解之后再使用另一个版本。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Fresnel/FN_Fresnel_Node.jpg">
+		<img class="  lazyload" alt="FN_Fresnel_Node.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Fresnel/FN_Fresnel_Node.jpg" />
+</picture>
+
+</p><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>属性 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>描述</p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>ExponentIn</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>此属性控制菲涅尔效果的衰减。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>BaseReflectFrctionIn</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>指定从正面观察表面时镜面反射的小数。将值设为1后将禁用菲涅尔。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Normal</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>可在此处输入法线，影响菲涅尔效果的渲染方式。无法通过提供法线贴图或矢量3输入来对此进行设置。</p>
+			</td>
+	
+</tr></tbody>
+</table><p>可使用2个选项来调整菲涅尔材质表达式的值。
+</p><ul ><li class="Default"><p>在材质图表中选择菲涅尔材质表达式，然后通过 <strong>细节</strong> 面板来输入值。
+<picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Fresnel/FN_Change_Via_Details.jpg">
+		<img class="  lazyload" alt="FN_Change_Via_Details.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Fresnel/FN_Change_Via_Details.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在材质图表中添加常量（Constant）或标量（Scalar）节点，然后将其连接到各自的输入。 
+<picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Fresnel/FN_Change_In_Graph.jpg">
+		<img class="  lazyload" alt="FN_Change_In_Graph.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Fresnel/FN_Change_In_Graph.jpg" />
+</picture>
+
+</p></li></ul><div class="tip">
+	<p>使用法线贴图时务必添加 <strong>变换（Transform）</strong> 表达式节点。这将使法线贴图从切线空间变换到场景空间。如未执行此变换，法线贴图便可能无法以预期方式影响菲涅尔。 </p>
+</div><h3 id="菲涅尔矢量运算">菲涅尔矢量运算</h3>
+<p><strong>矢量运算（Vector Ops）</strong> 下的菲涅尔是一个可高度自定义的版本。使用者可通过它来影响菲涅尔渲染方式的诸多不同方面。
+但此功能也存在缺陷，设置错误便可能造成瑕疵，或导致菲涅尔渲染出错。
+建议只在 <strong>工具（Utility）</strong> 下的菲涅尔无法达到理想效果时再选择使用此节点。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Fresnel/FN_Fresnel_Node_VO.jpg">
+		<img class="  lazyload" alt="FN_Fresnel_Node_VO.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Fresnel/FN_Fresnel_Node_VO.jpg" />
+</picture>
+
+</p><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>属性 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>描述</p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>法线矢量（V3）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>可在此处输入法线，影响菲涅尔效果的渲染方式。无法通过提供法线贴图或矢量3输入来对此进行设置。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>相机矢量（V3）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>可借助此属性来影响用于确定相机和表面法线之间的点乘积的相机。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>颠倒菲涅尔（B）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>此属性用于颠倒菲涅尔的效果。只希望在中央或边缘处应用菲涅尔效果时，此属性将十分实用。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>强度（S）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>此属性用于控制菲涅尔效果的强度。输入较大的值将缩小其所影响的区域。设置较小的值将使菲涅尔影响较大的区域。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>使用低开销对比（B）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>此属性使菲涅尔效果用开销较低的方法来计算明暗对比。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>低开销对比暗度（S）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>此属性用于控制菲涅尔的暗度。此项仅在启用 <strong>使用低开销对比</strong> 后生效。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>低开销对比亮度（S）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>此属性用于控制菲涅尔效果的亮度。此项仅在启用 <strong>使用低开销对比</strong> 后生效。</p>
+			</td>
+	
+</tr></tbody>
+</table><h2 id="如何在材质中使用菲涅尔">如何在材质中使用菲涅尔</h2>
+<p>按以下步骤创建使用菲涅尔的材质。 
+</p><ol ><li class="Default"><p>我们将在此例中新建一个材质，但实际上您可以将此概念应用到任何现有材质。 
+如需新建材质，请在 <strong>内容浏览器</strong> 中 <strong>点击右键</strong>，然后从"创建基础资源（Create Basic Asset）"列表中选择"材质（Material）"。 
+创建材质后，将其命名为 <strong>Fresnel_Material</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Fresnel/FN_Creat_New_Material.jpg">
+		<img class="  lazyload" alt="FN_Creat_New_Material.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Fresnel/FN_Creat_New_Material.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>使用 <strong>鼠标左键</strong> <strong>双击</strong> 此材质，将其在 <strong>内容浏览器</strong> 中打开。 
+材质打开后，在 <strong>控制板（Palette）</strong> 搜索菜单中进行搜索，找到所需的材质表达式节点。
+如需将材质表达式节点放入材质图表，首先用 <strong>鼠标左键</strong> 选中要放置的节点，然后继续按住 <strong>鼠标左键</strong> 将该节点拖入材质图表。 
+本教程需要以下类型和数量的节点。 
+</p><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>节点名 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>数量</p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>矢量参数节点</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>2</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>标量节点</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>2</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>菲涅尔节点</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>1</p>
+			</td>
+	
+</tr></tbody>
+</table><p>完成后，您的材质图表应类似于下图。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Fresnel/FN_Adding_Nodes.jpg">
+		<img class="  lazyload" alt="FN_Adding_Nodes.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Fresnel/FN_Adding_Nodes.jpg" />
+</picture>
+
+</p><div class="note">
+	<p>搜索菲涅尔效果材质表达式时将找到两种不同的可选类型。本指南只使用 <strong>工具（Utility）</strong> 下的菲涅尔。</p>
+</div></li><li class="Default"><p>将需要的材质表达式节点添加到材质图表中后，便可以将它们连接起来并指定参数基础值。 
+在此例中，我们将使用下列参数名称和默认值。 
+</p><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>名称 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>值 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Base_Color</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>0.5、0.5、0.5</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Roughness</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>0.5</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Fresnel_Color</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>1.0、0.0、0.0</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Fresnel_Exp</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>0.8</p>
+			</td>
+	
+</tr></tbody>
+</table><p>操作完成之后，您的材质图表应与下图类似。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Fresnel/FN_Completed_Materail.jpg">
+		<img class="  lazyload" alt="FN_Completed_Materail.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Fresnel/FN_Completed_Materail.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>将所有内容连接起来后，必须 <strong>应用</strong> 并 <strong>保存</strong> 材质。保存材质后即可关闭材质编辑器。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Fresnel/FN_Apply_Save.jpg">
+		<img class="  lazyload" alt="FN_Apply_Save.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Fresnel/FN_Apply_Save.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>材质编译、保存并关闭后，在 <strong>内容浏览器</strong> 中找到它并进行 <strong>右键点击</strong>。 
+从弹出的菜单中选择 <strong>创建材质实例（Create Material Instance）</strong> 选项。执行此操作将新建一个材质实例。 
+操作完成后，您的 <strong>内容浏览器</strong> 应与下图类似。<br /><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Fresnel/FN_Create_New_Material_Instance.jpg">
+		<img class="  lazyload" alt="FN_Create_New_Material_Instance.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Fresnel/FN_Create_New_Material_Instance.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>内容浏览器</strong> 中，使用 <strong>鼠标左键</strong> <strong>双击</strong> 新建的材质实例将其打开。 
+打开材质实例后，即可开始调整材质实例参数，但首先需要点击参数名称旁的灰色框，将要编辑的参数启用。 
+执行此操作后，即可对此参数进行编辑。举例而言，启用 <strong>Fresnel_Exp</strong> 参数后即可增强/减弱表面上菲涅尔的效果。 
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_HE-OJQCUusY_301
+{
+	margin: 0px;
+	width: 640px;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_HE-OJQCUusY_301:after
+{
+	content: "";
+	padding-top: 360px;
+	display: block;
+}
+</style> 
+<div>
+<div id="player_HE-OJQCUusY_301"><div style="position:absolute;display:block;width:100%;height:100%;"><iframe class="embedded_video" id="HE-OJQCUusY" width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/HE-OJQCUusY?rel=0&amp;modestbranding=1&amp;showinfo=0" frameborder="0" allowfullscreen></iframe></div></div>
+</div></li></ol><div class="tip">
+	<p>请注意：对 <strong>Fresnel_Exp</strong> 输入的值越大，菲涅尔效果便离边缘越近；数值越小，则效果越靠近中央。
+下例展示了不同 <strong>Fresnel_Exp</strong> 值形成的菲涅尔效果。
+如下例所示，值增大后，菲涅尔效果便越来越靠近网格体边缘。
+<picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Fresnel/FN_Different_Fresnel_Exp_Values.jpg">
+		<img class="  lazyload" alt="FN_Different_Fresnel_Exp_Values.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Fresnel/FN_Different_Fresnel_Exp_Values.jpg" />
+</picture>
+</p>
+</div><h2 id="菲涅尔与法线贴图">菲涅尔与法线贴图</h2>
+<p>将法线贴图输入菲涅尔的"法线（Normal）"输入，之后便能以诸多有趣的方式来对表面产生影响。
+其原理是法线贴图将影响表面法线。正如之前所述，菲涅尔会检查表面法线是否与相机垂直。
+如果与相机垂直，则会产生菲涅尔效果。在光滑球体上时，这意味着菲涅尔效果只会在对象边缘上产生。
+但使用法线贴图时，我们将把表面法线改为不平滑，
+使菲涅尔效果出现在表面法线平滑的区域上。 
+</p><p>请查看下图的进行参考，其显示了表面法线对菲涅尔产生的影响。
+左侧（图1）是使用平面法线时菲涅尔节点的输出。现在来看看右侧（图2）。
+在此图中，一张法线贴图已被输入，这使表面法线产生了极大变化。
+表面法线已不再平整，所以显示出了更强的菲涅尔效果。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Fresnel/FN_Effect_On_Surface_Normal.jpg">
+		<img class="  lazyload" alt="FN_Effect_On_Surface_Normal.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Fresnel/FN_Effect_On_Surface_Normal.jpg" />
+</picture>
+
+</p><p>下图展示了不同法线贴图如何以不同方式对菲涅尔产生影响。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Fresnel/FN_Fresnel_&_Normal_Map.jpg">
+		<img class="  lazyload" alt="FN_Fresnel_&_Normal_Map.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Fresnel/FN_Fresnel_%26_Normal_Map.jpg" />
+</picture>
+
+</p><p>用于创建以上图片的材质正是我们之前创建的材质，但其已进行如下修改。 
+</p><ul ><li class="Default"><p>材质 <strong>混合模式</strong> 从 <strong>不透明（Opaque）</strong> 更改为 <strong>半透明（Translucent）</strong>。
+</p></li><li class="Default"><p>连接到 <strong>自发光颜色（Emissive Color）</strong> 输入的菲涅尔最终输出也连接到 <strong>半透明（Opacity）</strong> 输入。
+</p></li><li class="Default"><p>已添加新的2D纹理采样器（2D Texture Sampler）并将其连接到 <strong>法线（Normal）</strong> 输入。初学者内容包中的 <strong>Tech_Hex_Tile_N</strong> 将用作法线纹理。
+</p></li><li class="Default"><p>已添加一个新的标量参数，其与 <strong>纹理坐标（Texture Coordinates）</strong> 表达式相乘，在法线贴图上实现基础统一平铺。
+</p></li></ul><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Fresnel/FN_Adding_Normal_Map.jpg">
+		<img class="  lazyload" alt="FN_Adding_Normal_Map.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Fresnel/FN_Adding_Normal_Map.jpg" />
+</picture>
+
+</p><p>菲涅尔材质表达式也可以通过法线贴图提供，此贴图能够影响菲涅尔效果的渲染方式。举例而言，
+如果希望使用菲涅尔在材质上显示能量护盾之类的效果，但在护盾激活前仍需要正常显示材质，此时法线贴图将极为实用。
+如需使用以上材质来达到此效果，需进行以下操作。
+</p><ol ><li class="Default"><p>首先将 <strong>半透明光照模式（Translucency Lighting Mode）</strong> 从 <strong>体积无方向（Volumetric Non Directional）</strong> 改为 <strong>表面半透明体积（Surface Translucency Volume）</strong>，对其进行更新。
+</p></li><li class="Default"><p>将 <strong>底色（Base Color）</strong> 和 <strong>粗糙度（Roughness）</strong> 改为使用初学者内容包中的 <strong>T_Brick_Clay_New_D</strong> 纹理。 
+</p></li><li class="Default"><p>接下来修改"法线（Normal）"输入，使其同样使用初学者内容包中的T_Brick_Clay_New_N。 
+</p></li><li class="Default"><p>在控制板中搜索 <strong>变换（Transform）</strong> 表达式节点并将其添加到材质图表中。确保将其设为从切线空间变换到场景空间。 
+</p></li><li class="Default"><p>将旧法线贴图纹理节点连接到"变换（Transform）"节点的输入，并将其输出连接到菲涅尔节点的"法线（Normal）"输入。操作完成后，材质应与下图类似。
+</p></li></ol><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Fresnel/FN_Fresnel_Normal_Input.jpg">
+		<img class="  lazyload" alt="FN_Fresnel_Normal_Input.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Fresnel/FN_Fresnel_Normal_Input.jpg" />
+</picture>
+<br /></p><p>注意砖块看上去没有菲涅尔效果。
+还可以进一步操作，添加 <strong>乘法（Multiply）</strong> 和 <strong>常量（Constant）</strong> 表达式节点，用于控制菲涅尔效果的强度。
+以下是将这些节点添加到上述材质后的情况。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Fresnel/FN_Controal_Fresnel_Effect.jpg">
+		<img class="  lazyload" alt="FN_Controal_Fresnel_Effect.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Fresnel/FN_Controal_Fresnel_Effect.jpg" />
+</picture>
+
+</p><p>调整添加的 <strong>常量（Constant）</strong> 即可控制菲涅尔对表面的影响。
+将值设为0将关闭此效果，而设为其他值则会使效果逐渐呈现，如下例所示。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Fresnel/FN_Effect_Amount.jpg">
+		<img class="  lazyload" alt="FN_Effect_Amount.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Fresnel/FN_Effect_Amount.jpg" />
+</picture>
+
+</p><h2 id="菲涅尔的其他用途">菲涅尔的其他用途</h2>
+<p>菲涅尔的工作原理决定了，其不仅能够实现边缘光照，还可以进行其他操作。
+以下是使用菲涅尔节点来进行其他操作一些实例。 
+</p><ul ><li class="Default"><p><strong>输入混合</strong> 可使用菲涅尔作为"插值（LERP）"的透明度（alpha）输入，以控制插值各输入组合在一起的方式。 
+<picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Fresnel/FN_Lerp_Blending.jpg">
+		<img class="  lazyload" alt="FN_Lerp_Blending.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Fresnel/FN_Lerp_Blending.jpg" />
+</picture>
+
+</p></li></ul><h2 id="结论">结论</h2>
+<p>为材质添加菲涅尔是一种很好的工作方式，能更好地凸显人物轮廓，或显示能量护盾之类的效果。
+菲涅尔以观察角度和表面法线为基础。如果需要为菲涅尔增加一些有趣的细节，请尝试使用拥有一些随机噪点的法线贴图。
+另外还请牢记，可以使用菲涅尔材质表达式在两个不同输入之间进行混合，便于实现火焰或烟雾等视效。
+</p>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Materials">Materials</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/RenderingAndGraphics/Materials/HowTo/Fresnel/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:15:17 GMT -->
+</html>

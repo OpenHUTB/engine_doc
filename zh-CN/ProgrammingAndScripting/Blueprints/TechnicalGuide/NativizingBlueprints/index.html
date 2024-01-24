@@ -1,0 +1,556 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/ProgrammingAndScripting/Blueprints/TechnicalGuide/NativizingBlueprints/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:12:35 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/ProgrammingAndScripting/Blueprints/TechnicalGuide/NativizingBlueprints/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>原生化蓝图 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/ProgrammingAndScripting/Blueprints/TechnicalGuide/NativizingBlueprints/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/ProgrammingAndScripting/Blueprints/TechnicalGuide/NativizingBlueprints/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/ProgrammingAndScripting/Blueprints/TechnicalGuide/NativizingBlueprints/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/ProgrammingAndScripting/Blueprints/TechnicalGuide/NativizingBlueprints/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Blueprints/TechnicalGuide/NativizingBlueprints" />
+<meta name="intsourcechangelist" content="14518119" />
+<meta name="availability" content="Public" />
+<meta name="title" content="原生化蓝图" />
+<meta name="description" content="面向程序员的技术指南，介绍如何将Gameplay元素公开到蓝图。" />
+<meta name="version" content="4.15" />
+<meta name="parent" content="ProgrammingAndScripting/Blueprints/TechnicalGuide" />
+<meta name="type" content="overview" />
+<meta name="keywords" content="Blueprints" />
+<meta name="skilllevel" content="Intermediate" />
+<meta name="related" content="ProgrammingAndScripting/Blueprints/TechnicalGuide/NativizingBlueprints/Advanced" />
+<meta name="social-image" content="social_bp_nativization.png" />
+<meta name="topic-image" content="NativizingBlueprints_topic.png" />
+<meta name="course" content="blueprints---essential-concepts?lang=zh-CN|蓝图：基础概念|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fblueprints---essential-concepts%2FBPEssentialsThumbnail_1920x1080-1920x1080-2fcdde875f1d79ade1c295fe4fef53c4b8c5ecde.PNG?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fblueprints---essential-concepts%2FBlueprint--Essential-Concepts-1000x1000-9f372ce55de42ce9596dffd6c931839e44fcc873.png?resize=1&amp;w=300" />
+<meta name="course" content="interactive-material-swaps-using-blueprints?lang=zh-CN|蓝图：可交互材质切换|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Finteractive-material-swaps-using-blueprints%2F406---Hero2-1920x1080-ce26b6199cf620364149d2d934c73ae30e983110.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Finteractive-material-swaps-using-blueprints%2FInteractive-Material-Swaps-Using-Blueprints-1000x1000-21158a5fe67365e3bf5db49712b52482382f15ac.png?resize=1&amp;w=300" />
+<meta name="course" content="making-a-blueprint-product-configurator?lang=zh-CN|企业级蓝图开发|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fblueprint-for-enterprise%2F301-Blueprints-%281200X675%29-1200x675-d140b8a0b13b05c0619e35e1076b4c82e4a4b855.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fblueprint-for-enterprise%2FBlueprint-for-Enterprise-1000x1000-13caa11b8e5c5e91506a8dd63b39d247318c3208.png?resize=1&amp;w=300" />
+<meta name="crumbs" content="%ROOT%,ProgrammingAndScripting,ProgrammingAndScripting/Blueprints,ProgrammingAndScripting/Blueprints/TechnicalGuide" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="原生化蓝图" />
+	<meta property="og:description" content="面向程序员的技术指南，介绍如何将Gameplay元素公开到蓝图。" />
+		<meta property="og:image" content="https://docs.unrealengine.com/4.26/Images/ProgrammingAndScripting/Blueprints/TechnicalGuide/NativizingBlueprints/social_bp_nativization.png" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">编程和脚本编写</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">蓝图可视化脚本</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">蓝图技术指南</a>
+
+<span class="separator">></span> <span id="page">原生化蓝图</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">原生化蓝图</h1>
+							</div>	
+							<h2 >面向程序员的技术指南，介绍如何将Gameplay元素公开到蓝图。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Intermediate"><a id="skill_link" href="../../../../SiteIndex/index.html?skills=Intermediate">Intermediate</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																		<div id="seeAlso">
+	<div style="position:relative;">
+		<div id="title">参见</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<p>
+						<a id="related_link" href="Advanced/index.html" title="程序员将游戏进程元素展示给蓝图的技术指南。">高级蓝图原生化</a>
+					</p>
+				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																		<div id="courses">
+	<div style="position:relative;">
+		<div id="title">相关课程</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<div name="blueprints---essential-concepts?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/blueprints---essential-concepts?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/blueprints---essential-concepts/BPEssentialsThumbnail_1920x1080-1920x1080-2fcdde875f1d79ade1c295fe4fef53c4b8c5ecd?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/blueprints---essential-concepts/Blueprint--Essential-Concepts-1000x1000-9f372ce55de42ce9596dffd6c931839e44fcc873?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="blueprints---essential-concepts?lang=zh-CN_title">
+				蓝图：基础概念
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="interactive-material-swaps-using-blueprints?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/interactive-material-swaps-using-blueprints?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/interactive-material-swaps-using-blueprints/406---Hero2-1920x1080-ce26b6199cf620364149d2d934c73ae30e983110.8314f8?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/interactive-material-swaps-using-blueprints/Interactive-Material-Swaps-Using-Blueprints-1000x1000-21158a5fe67365e3bf5db49712b52482382f15ac.8?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="interactive-material-swaps-using-blueprints?lang=zh-CN_title">
+				蓝图：可交互材质切换
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="making-a-blueprint-product-configurator?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/making-a-blueprint-product-configurator?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/blueprint-for-enterprise/301-Blueprints-(1200X675)-1200x675-d140b8a0b13b05c0619e35e1076b4c82e4a4b855.8344f86.dela?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/blueprint-for-enterprise/Blueprint-for-Enterprise-1000x1000-13caa11b8e5c5e91506a8dd63b39d247318c3208.836fe4b.dela?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="making-a-blueprint-product-configurator?lang=zh-CN_title">
+				企业级蓝图开发
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																								<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#减少vm开销">减少VM开销</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#启用蓝图原生化">启用蓝图原生化</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#包含原生化">包含原生化</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#从转换中排除蓝图">从转换中排除蓝图</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#排他原生化">排他原生化</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#选择要原生化的蓝图">选择要原生化的蓝图</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#查找原生化代码">查找原生化代码</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#其他资源">其他资源</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>当团队用蓝图脚本编写Gameplay时，他们不必编写或编译原生C++代码即可创建新的UClass。因此，蓝图非常适用于 
+没有原生C++程序员技术专业知识的游戏团队。非程序员完全可以使用蓝图的原因是蓝图节点 
+在虚拟机（VM）中运行，让它们能够调用C++函数。但弊端是，依赖VM将蓝图转换为原生C++代码需要付出一些代价， 
+将蓝图代码转换为原生C++函数可能会拖慢每一帧的游戏性能。 
+</p><p>如果在VM中运行蓝图的成本可以忽略，则VM开销就在可接受的范围内；但是，有时你会希望游戏运行速度尽可能快 
+（尤其是要交付到硬件能力有限的设备时）。这正是虚幻引擎蓝图原生化工具发挥作用的地方。 
+</p><div class="note">
+	<p>Epic在开发最新的VR游戏<a id="content_link" href="https://www.epicgames.com/roborecall/en-US/home" ><span>《Robo Recall》</span></a>时成功使用了蓝图原生化。</p>
+</div><h2 id="减少vm开销">减少VM开销</h2>
+<p>蓝图原生化的主要目的是根据项目蓝图生成原生C++代码，从而降低项目运行时版本中的虚拟机开销。一般来说， 
+所有蓝图类都会被新生成的原生C++类所取代，然后在<a id="content_link" href="../../../../SharingAndReleasing/Deployment/Cooking/index.html" ><span>烘焙过程</span></a>中将这些C++类编译到项目中。 
+虽然你能够用文本编辑器阅读转换后的C++代码，但你会注意到，该代码并没有设计为可重用（或者生成为"读者友好型"）。
+</p><!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/TechnicalGuide/NativizingBlueprints/Blueprint.jpg">
+		<img class="  lazyload" alt="蓝图" width="1200" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/TechnicalGuide/NativizingBlueprints/Blueprint.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/TechnicalGuide/NativizingBlueprints/NativizedBlueprint.jpg">
+		<img class="  lazyload" alt="原生化蓝图" width="1200" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/TechnicalGuide/NativizingBlueprints/NativizedBlueprint.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div><p><em>这里，我们对比的是玩家角色蓝图及其原生化代码。</em>
+</p><p>本页将向你介绍如何开始原生化项目蓝图，对于仅使用蓝图的项目，这应该是非常简单的任务。首先，你需要知道 
+在哪里查找禁用和启用蓝图原生化所需的用户界面（UI）。
+</p><h2 id="启用蓝图原生化">启用蓝图原生化</h2>
+<p>首次创建项目时，蓝图原生化默认是禁用的。要找到蓝图原生化设置，从虚幻编辑器打开 <strong>项目设置（Project Settings）</strong> 菜单，然后从左侧栏选择 
+<strong>打包（Packaging）</strong>。从 <strong>项目——打包（Project - Packaging）</strong> 菜单内部，你应能够看到 <strong>蓝图（Blueprints）</strong> 下拉菜单。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/TechnicalGuide/NativizingBlueprints/BPNativization_DisabledUI.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/TechnicalGuide/NativizingBlueprints/BPNativization_DisabledUI.jpg">
+		<img class="  lazyload" alt="BPNativization_DisabledUI.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/TechnicalGuide/NativizingBlueprints/BPNativization_DisabledUI.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><p>开发期间你可以随时选择禁用蓝图原生化，方法是从 <strong>蓝图原生化方法（Blueprint Nativization Method）</strong> 下拉列表中选择 <strong>禁用（Disable）</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/TechnicalGuide/NativizingBlueprints/BPNativization_DisabledUI1.jpg">
+		<img class="  lazyload" alt="BPNativization_DisabledUI1.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/TechnicalGuide/NativizingBlueprints/BPNativization_DisabledUI1.jpg" />
+</picture>
+
+</p><p>如你所见，该下拉列表中有两个额外选项可供你使用：分别是
+</p><ul ><li class="Default"><p><strong>包含（Inclusive）</strong> 原生化
+</p></li><li class="Default"><p><strong>排他（Exclusive）</strong> 原生化
+</p></li></ul><h2 id="包含原生化">包含原生化</h2>
+<p>当你选择 <strong>包含（Inclusive）</strong> 原生化时，你选择的是原生化项目中支持的所有蓝图类。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/TechnicalGuide/NativizingBlueprints/BPNativization_InclusiveUI.jpg">
+		<img class="  lazyload" alt="BPNativization_InclusiveUI.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/TechnicalGuide/NativizingBlueprints/BPNativization_InclusiveUI.jpg" />
+</picture>
+
+</p><p>选择 <strong>包含（Inclusive）</strong> 原生化方法后，在<a id="content_link" href="../../../../Basics/Projects/Packaging/index.html" ><span>打包过程</span></a>中注意务必要注意的是， 
+虚幻自动化工具（UAT）将对以下支持的蓝图资源进行原生化：
+</p><ul ><li class="Default"><p>蓝图类
+</p></li><li class="Default"><p>蓝图函数库
+</p></li><li class="Default"><p>蓝图接口
+</p></li><li class="Default"><p>动画蓝图 
+</p></li><li class="Default"><p>小部件蓝图
+</p></li><li class="Default"><p>用户定义的结构
+</p></li><li class="Default"><p>用户定义的枚举值
+</p></li></ul><div class="note">
+	<p>目前，关卡蓝图和蓝图宏不受蓝图原生化工具的支持，不会转换为原生C++代码。 </p>
+</div><h3 id="从转换中排除蓝图">从转换中排除蓝图</h3>
+<p>蓝图原生化工具将蓝图节点转换为原生C++代码，产生的可执行文件使用更多机器指令、 
+依赖项和嵌入式元数据来支持转换。 
+</p><div class="warning">
+	<p>因此，务必注意如果选择 <strong>包含（Inclusive）</strong> 蓝图原生化方法， 
+可执行文件大小将增长到你的目标平台无法接受的大小。</p>
+</div><p>你可以指定要从转换过程中排除的蓝图来缓解可执行文件大小激增的情况。要从转换中排除蓝图， 
+打开项目的`DefaultEditor.ini`文件，创建包含以下列配置属性的<code>&#91;BlueprintNativizationSettings&#93;</code>标头：
+</p><ul ><li class="Default"><p>要排除特定类型的蓝图资源，设置`ExcludedBlueprintTypes`配置属性。<br />例如，`+ExcludedBlueprintTypes=/Script/UMGEditor.WidgetBlueprint`不会转换任何小部件蓝图资源。
+</p></li><li class="Default"><p>要排除特定蓝图资源，设置`ExcludedAssets`配置属性。<br />例如，`+ExcludedAssets=/Engine/Tutorial/SubEditors/TutorialAssets/Character/TutorialCharacter`不会转换 **教程角色** 蓝图资源。
+</p></li></ul><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/TechnicalGuide/NativizingBlueprints/DefaultEngineINI.jpg">
+		<img class="  lazyload" alt="DefaultEngineINI.png" width="900" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/TechnicalGuide/NativizingBlueprints/DefaultEngineINI.jpg" />
+</picture>
+
+</p><p>请注意，仅当蓝图资源作为打包过程的一部分进行烘焙时，才会在打包过程中原生化。因此，如果你没有指定要烘焙的任何蓝图资源或贴图，虚幻引擎 
+将烘焙 <strong>Content</strong> 目录中的所有内容。如果选择 <strong>包含（Inclusive）</strong> 方法后，你注意到未使用的蓝图被原生化，或许应选择 
+<strong>排他（Exclusive）</strong> 蓝图原生化方法。
+</p><h2 id="排他原生化">排他原生化</h2>
+<p>如果要向硬件资源有限的设备交付更大的项目，我们建议你选择 <strong>排他（Exclusive）</strong> 蓝图原生化方法。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/TechnicalGuide/NativizingBlueprints/BPNativization_ExclusiveUI.jpg">
+		<img class="  lazyload" alt="BPNativization_ExclusiveUI.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/TechnicalGuide/NativizingBlueprints/BPNativization_ExclusiveUI.jpg" />
+</picture>
+
+</p><p>虽然 <strong>包含（Inclusive）</strong> 方法适用于较小项目，即不会因为可执行文件大小激增而超过目标硬件容纳该应用的容量，但选择 
+使用 <strong>排他（Exclusive）</strong> 蓝图原生化方法也有一些优势。部分优势包括：
+</p><ul ><li class="Default"><p>限制可执行文件的最终大小。
+</p></li><li class="Default"><p>有效防止转换未使用蓝图资源。
+</p></li><li class="Default"><p>能够显式选择要转换的蓝图资源。
+</p></li></ul><p>一般来说，如果你的蓝图较为占用计算资源，则建议选择排他（Exclusive）蓝图原生化方法；包括（但不限于）：
+</p><ul ><li class="Default"><p>有大量节点的蓝图。
+</p></li><li class="Default"><p>需要优化循环的蓝图。
+</p></li><li class="Default"><p>执行复杂数学运算的蓝图。
+</p></li></ul><h3 id="选择要原生化的蓝图">选择要原生化的蓝图</h3>
+<div class="note">
+	<p>如果你还没有包含蓝图资源的项目，请使用一个可用的项目模板创建一个新项目。为便于说明， 
+我们将使用 <strong>第三人称（Third Person）</strong> 项目模板。</p>
+</div><p>执行以下步骤选择想要使用 <strong>排他（Exclusive）</strong> 蓝图原生化方法进行原生化的蓝图资源。 
+</p><ol ><li class="Default"><p>首先，打开 <strong>编辑（Edit）</strong> 菜单，并选择 <strong>项目设置...（Project Settings...）</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/TechnicalGuide/NativizingBlueprints/BPNativization_ExclusiveStep_1.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/TechnicalGuide/NativizingBlueprints/BPNativization_ExclusiveStep_1.jpg">
+		<img class="  lazyload" alt="BPNativization_ExclusiveStep_1.png" width="900" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/TechnicalGuide/NativizingBlueprints/BPNativization_ExclusiveStep_1.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>打开 <strong>项目设置（Project Settings）</strong> 菜单，单击 <strong>打包（Packaging）</strong>，打开 <strong>项目设置——打包（Project Settings - Packaging）</strong> 菜单。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/TechnicalGuide/NativizingBlueprints/BPNativization_ExclusiveStep_2.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/TechnicalGuide/NativizingBlueprints/BPNativization_ExclusiveStep_2.jpg">
+		<img class="  lazyload" alt="BPNativization_ExclusiveStep_2.png" width="900" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/TechnicalGuide/NativizingBlueprints/BPNativization_ExclusiveStep_2.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>从 <strong>蓝图（Blueprints）</strong> 子菜单，单击 <strong>蓝图原生化菜单（Blueprint Nativization Menu）</strong> 下拉列表。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/TechnicalGuide/NativizingBlueprints/BPNativization_ExclusiveStep_3.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/TechnicalGuide/NativizingBlueprints/BPNativization_ExclusiveStep_3.jpg">
+		<img class="  lazyload" alt="BPNativization_ExclusiveStep_3.png" width="900" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/TechnicalGuide/NativizingBlueprints/BPNativization_ExclusiveStep_3.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>选择 <strong>排他（Exclusive）</strong> 选项以选择排他蓝图原生化方法。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/TechnicalGuide/NativizingBlueprints/BPNativization_ExclusiveStep_4.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/TechnicalGuide/NativizingBlueprints/BPNativization_ExclusiveStep_4.jpg">
+		<img class="  lazyload" alt="BPNativization_ExclusiveStep_4.png" width="900" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/TechnicalGuide/NativizingBlueprints/BPNativization_ExclusiveStep_4.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>继续选择子菜单底部的展开箭头，显示空数组。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/TechnicalGuide/NativizingBlueprints/BPNativization_ExclusiveStep_5.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/TechnicalGuide/NativizingBlueprints/BPNativization_ExclusiveStep_5.jpg">
+		<img class="  lazyload" alt="BPNativization_ExclusiveStep_5.png" width="900" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/TechnicalGuide/NativizingBlueprints/BPNativization_ExclusiveStep_5.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><p>该数组将包含你显式选择进行原生化的蓝图资源列表。
+<picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/TechnicalGuide/NativizingBlueprints/BPNativization_ExclusiveStep_5Note.jpg">
+		<img class="  lazyload" alt="BPNativization_ExclusiveStep_5Note.png" width="600" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/TechnicalGuide/NativizingBlueprints/BPNativization_ExclusiveStep_5Note.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>退出 <strong>项目设置（Project Properties）</strong> 菜单后，导航到包含你的蓝图资源的文件夹。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/TechnicalGuide/NativizingBlueprints/BPNativization_ExclusiveStep_6.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/TechnicalGuide/NativizingBlueprints/BPNativization_ExclusiveStep_6.jpg">
+		<img class="  lazyload" alt="BPNativization_ExclusiveStep_6.png" width="900" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/TechnicalGuide/NativizingBlueprints/BPNativization_ExclusiveStep_6.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>现在，打开你想要原生化的蓝图资源。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/TechnicalGuide/NativizingBlueprints/BPNativization_ExclusiveStep_7.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/TechnicalGuide/NativizingBlueprints/BPNativization_ExclusiveStep_7.jpg">
+		<img class="  lazyload" alt="BPNativization_ExclusiveStep_7.png" width="900" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/TechnicalGuide/NativizingBlueprints/BPNativization_ExclusiveStep_7.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>在 <strong>蓝图编辑器</strong> 打开后，单击 <strong>类设置（Class Settings）</strong> 按钮。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/TechnicalGuide/NativizingBlueprints/BPNativization_ExclusiveStep_8.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/TechnicalGuide/NativizingBlueprints/BPNativization_ExclusiveStep_8.jpg">
+		<img class="  lazyload" alt="BPNativization_ExclusiveStep_8.png" width="900" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/TechnicalGuide/NativizingBlueprints/BPNativization_ExclusiveStep_8.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>要将该蓝图资源标记为需要原生化，单击 <strong>细节（Details）</strong> 面板 <strong>打包（Packaging）</strong> 子菜单中的 <strong>原生化（Nativize）</strong> 复选框。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/TechnicalGuide/NativizingBlueprints/BPNativization_ExclusiveStep_9.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/TechnicalGuide/NativizingBlueprints/BPNativization_ExclusiveStep_9.jpg">
+		<img class="  lazyload" alt="BPNativization_ExclusiveStep_9.png" width="900" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/TechnicalGuide/NativizingBlueprints/BPNativization_ExclusiveStep_9.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>确保先单击 <strong>保存（Save）</strong> 按钮，再关闭该资源的 <strong>蓝图编辑器</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/TechnicalGuide/NativizingBlueprints/BPNativization_ExclusiveStep_10.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/TechnicalGuide/NativizingBlueprints/BPNativization_ExclusiveStep_10.jpg">
+		<img class="  lazyload" alt="BPNativization_ExclusiveStep_10.png" width="900" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/TechnicalGuide/NativizingBlueprints/BPNativization_ExclusiveStep_10.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>要核实你选择进行排他原生化的蓝图资源，打开 <strong>项目设置（Project Settings）</strong> 菜单以查看你已标记为需要原生化的蓝图资源列表的数组。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/ProgrammingAndScripting/Blueprints/TechnicalGuide/NativizingBlueprints/BPNativization_ExclusiveStep_11.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/ProgrammingAndScripting/Blueprints/TechnicalGuide/NativizingBlueprints/BPNativization_ExclusiveStep_11.jpg">
+		<img class="  lazyload" alt="BPNativization_ExclusiveStep_11.png" width="900" data-src="../../../../../Images/ProgrammingAndScripting/Blueprints/TechnicalGuide/NativizingBlueprints/BPNativization_ExclusiveStep_11.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li></ol><p>到这里，你已准备好使用 <strong>排他（Exclusive）</strong> 蓝图原生化方法烘焙和打包项目了。
+</p><div class="note">
+	<p>请注意，为了构建你选择进行原生化的蓝图，所有受支持的依赖项也会标记为需要原生化。 </p>
+</div><h2 id="查找原生化代码">查找原生化代码</h2>
+<p>你可以在 <code>&#91;ProjectDirectory&#93;\Intermediate\Plugins\NativizedAssets</code> 中找到原生化代码
+</p><h2 id="其他资源">其他资源</h2>
+<p>在以下功能亮点视频中，你可以找到包含蓝图原生化的更多信息。
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_Ut_CRt7o8PA_62
+{
+	margin: 0px;
+	width: 100%;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_Ut_CRt7o8PA_62:after
+{
+	content: "";
+	padding-top: 56.25%;
+	display: block;
+}
+</style> 
+<div>
+<div id="player_Ut_CRt7o8PA_62"><div style="position:absolute;display:block;width:100%;height:100%;"><iframe class="embedded_video" id="Ut_CRt7o8PA" width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/Ut_CRt7o8PA?rel=0&amp;modestbranding=1&amp;showinfo=0&amp;loop=1&amp;controls=0" frameborder="0" allowfullscreen></iframe></div></div>
+</div>
+
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Blueprints">Blueprints</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/ProgrammingAndScripting/Blueprints/TechnicalGuide/NativizingBlueprints/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:12:47 GMT -->
+</html>

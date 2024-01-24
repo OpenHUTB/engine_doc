@@ -1,0 +1,687 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/SharingAndReleasing/XRDevelopment/VR/DevelopVR/MonoFarFieldRendering/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:45:29 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/SharingAndReleasing/XRDevelopment/VR/DevelopVR/MonoFarFieldRendering/" />');
+				var udnCSS = '../../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>单视场远场渲染 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/SharingAndReleasing/XRDevelopment/VR/DevelopVR/MonoFarFieldRendering/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/SharingAndReleasing/XRDevelopment/VR/DevelopVR/MonoFarFieldRendering/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/SharingAndReleasing/XRDevelopment/VR/DevelopVR/MonoFarFieldRendering/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/SharingAndReleasing/XRDevelopment/VR/DevelopVR/MonoFarFieldRendering/" hreflang="ko" />
+
+	<meta name="redirect" content="SharingAndReleasing/VR/DevelopVR/MonoFarFieldRendering" />
+<meta name="redirect" content="Platforms/VR/DevelopVR/MonoFarFieldRendering" />
+<meta name="intsourcechangelist" content="14241652" />
+<meta name="availability" content="Public" />
+<meta name="title" content="单视场远场渲染" />
+<meta name="description" content="了解虚幻引擎 4 中 VR 移动应用程序的高级渲染功能（单视场远场渲染）。" />
+<meta name="type" content="overview" />
+<meta name="version" content="4.16" />
+<meta name="parent" content="SharingAndReleasing/XRDevelopment/VR/DevelopVR" />
+<meta name="keywords" content="VR" />
+<meta name="keywords" content="Rendering" />
+<meta name="keywords" content="Performance and Profiling" />
+<meta name="keywords" content="Landing Page" />
+<meta name="keywords" content="deprecated" />
+<meta name="topic-image" content="hybMonRend_topicImage.png" />
+<meta name="related" content="SharingAndReleasing/XRDevelopment/VR/DevelopVR/Profiling/Considerations" />
+<meta name="related" content="SharingAndReleasing/XRDevelopment/VR/DevelopVR/Profiling/Overview" />
+<meta name="related" content="TestingAndOptimization/PerformanceAndProfiling/GPU" />
+<meta name="related" content="TestingAndOptimization/PerformanceAndProfiling/StatCommands" />
+<meta name="related" content="SharingAndReleasing/XRDevelopment/VR/DevelopVR/Profiling" />
+<meta name="related" content="TestingAndOptimization/PerformanceAndProfiling" />
+<meta name="related" content="RenderingAndGraphics" />
+<meta name="crumbs" content="%ROOT%,SharingAndReleasing,SharingAndReleasing/XRDevelopment,SharingAndReleasing/XRDevelopment/VR,SharingAndReleasing/XRDevelopment/VR/DevelopVR" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="单视场远场渲染" />
+	<meta property="og:description" content="了解虚幻引擎 4 中 VR 移动应用程序的高级渲染功能（单视场远场渲染）。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../../index.html">项目分享及发布</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">XR开发</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">虚拟现实开发</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">虚幻引擎VR开发</a>
+
+<span class="separator">></span> <span id="page">单视场远场渲染</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+					<div id="banner" class="deprecated">
+	<div id="message">
+		此功能已<span>废弃</span>，不应继续使用
+	</div>
+	<div id="bannerDescription">
+		已废弃的功能随时可能被移除。它们有时会被新功能或系统取代，但并非总是如此。请根据情况更新您的项目。
+	</div>
+</div>
+															<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">单视场远场渲染</h1>
+							</div>	
+							<h2 >了解虚幻引擎 4 中 VR 移动应用程序的高级渲染功能（单视场远场渲染）。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																																			</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																		<div id="seeAlso">
+	<div style="position:relative;">
+		<div id="title">参见</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<p>
+						<a id="related_link" href="../Profiling/Considerations/index.html" title="从分析工具解译数据的注意事项。">VR 分析解译与注意事项</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../Profiling/Overview/index.html" title="总览 UE4 虚拟现实项目性能与分析的核心原则。">VR 性能测试</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../../../../TestingAndOptimization/PerformanceAndProfiling/GPU/index.html" title="如何优化您游戏的GPU需求。">GPU分析</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../../../../TestingAndOptimization/PerformanceAndProfiling/StatCommands/index.html" title="专门针对显示游戏统计的控制台命令。">Stat命令</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../Profiling/index.html" title="在 UE4 中分析虚拟现实项目的工具和方法">VR 性能和分析</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../../../../TestingAndOptimization/PerformanceAndProfiling/index.html" title="如何查找性能问题，及找到后如何解决它们。">性能及分析</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../../../../RenderingAndGraphics/index.html" title="介绍渲染相关的子系统，包括光照阴影、材质纹理、视觉特效以及后期处理。">设计视觉、渲染和图形效果</a>
+					</p>
+				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																														<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#启用单视场远场渲染">启用单视场远场渲染</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#添加单视场摄像机">添加单视场摄像机</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#立体摄像机视锥对称">立体摄像机视锥对称</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#分离平面属性">分离平面属性</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#性能注意事项">性能注意事项</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#优化性能">优化性能</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#更新分离平面距离">更新分离平面距离</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#更新单视场渲染模式">更新单视场渲染模式</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#强制较远的物体以单视场进行渲染">强制较远的物体以单视场进行渲染</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#立体视觉">立体视觉</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#平衡双眼视差">平衡双眼视差</a></p>
+	</li>					</ul>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<div class="warning">
+	<p>在虚幻引擎4.22中，单视场远场（Monoscopic Far Field）渲染已被移除。</p>
+</div><p>贡献者：Oculus
+</p><p><strong>单视场远场（Monoscopic Far Field）</strong> 渲染（或更准确地称为"混合单视场渲染"）是虚幻引擎 4（UE4）中内置的一个 VR 移动应用程序高级渲染功能。整体而言，单视场远场渲染可改善包含大量远景内容的关卡的性能。单视场远场渲染能改善远景关卡性能的原因是只对双眼渲染一次远景物体。我们已在 Epic 进行测试，以此法渲染远景物体将使 VR 移动应用程序获得极大的性能提升。
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_0_x0899kg2_7
+{
+	margin: 0px;
+	width: 640px;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_0_x0899kg2_7:after
+{
+	content: "";
+	padding-top: 360px;
+	display: block;
+}
+</style> 
+<div id="player_0_x0899kg2_7"> 
+	<div id="playerContainer_0_x0899kg2_7" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/0_x0899kg2/embed.html"></iframe>
+	</div>
+</div>
+<p>虚幻引擎 4.16 版本发布后，GearVR 设备上已启用多视图和单视场远场渲染，因此要确保场景的立体近场渲染部分已优化。
+</p><h2 id="启用单视场远场渲染">启用单视场远场渲染</h2>
+<div class="note">
+	<p>在 UE4 中启用单视场远场渲染之前，必须将 Mobile HDR 禁用。</p>
+</div><p>创建新项目时，单视场远场渲染默认禁用。如需访问单视场远场渲染设置，从虚幻编辑器中打开 <strong>Project Settings</strong> 菜单，然后从侧边栏中选择 <strong>Rendering</strong>。即可在 <strong>Project-Description</strong> 菜单中看到 <strong>VR</strong> 下拉菜单。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../../Images/SharingAndReleasing/XRDevelopment/VR/DevelopVR/MonoFarFieldRendering/uncheckedUI.png" ><span><picture>
+		<source data-srcset="./../../../../../../Images/SharingAndReleasing/XRDevelopment/VR/DevelopVR/MonoFarFieldRendering/uncheckedUI.jpg">
+		<img class="  lazyload" alt="uncheckedUI.png" width="600" data-src="../../../../../../Images/SharingAndReleasing/XRDevelopment/VR/DevelopVR/MonoFarFieldRendering/uncheckedUI.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看全图。</p>
+</div><p>选择 <strong>Monoscopic Far Field</strong> 渲染标签旁边的勾选框即可启用单视场远场渲染。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/SharingAndReleasing/XRDevelopment/VR/DevelopVR/MonoFarFieldRendering/checkedUI.jpg">
+		<img class="  lazyload" alt="checkedUI.png" data-src="../../../../../../Images/SharingAndReleasing/XRDevelopment/VR/DevelopVR/MonoFarFieldRendering/checkedUI.jpg" />
+</picture>
+
+</p><p>启用 <strong>Monoscopic Far Field</strong> 设置后将弹出重启 UE4 的提示。准备妥善后，即可重启 UE4，将 <strong>Monoscopic Far Field</strong> 渲染设置应用到项目。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/SharingAndReleasing/XRDevelopment/VR/DevelopVR/MonoFarFieldRendering/restartWarning.jpg">
+		<img class="  lazyload" alt="restartWarning.png" data-src="../../../../../../Images/SharingAndReleasing/XRDevelopment/VR/DevelopVR/MonoFarFieldRendering/restartWarning.jpg" />
+</picture>
+
+</p><h3 id="添加单视场摄像机">添加单视场摄像机</h3>
+<p>禁用单视场远景渲染后，项目中拥有两个立体摄像机，双眼各一个。
+</p><!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../../../../Images/SharingAndReleasing/XRDevelopment/VR/DevelopVR/MonoFarFieldRendering/Disabled.jpg">
+		<img class="  lazyload" alt="禁用" data-src="../../../../../../Images/SharingAndReleasing/XRDevelopment/VR/DevelopVR/MonoFarFieldRendering/Disabled.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../../../../Images/SharingAndReleasing/XRDevelopment/VR/DevelopVR/MonoFarFieldRendering/Enabled.jpg">
+		<img class="  lazyload" alt="启用" data-src="../../../../../../Images/SharingAndReleasing/XRDevelopment/VR/DevelopVR/MonoFarFieldRendering/Enabled.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div><p>启用单视场远景渲染后，UE4 将在现有的立体摄像机之间加入第三个摄像机。新摄像机为单视场摄像机，将启用混合单视场（与立体）渲染流程。
+</p><h3 id="立体摄像机视锥对称">立体摄像机视锥对称</h3>
+<p>根据设备平台的不同，立体摄像机视锥的平面几何体可能有所不同。对 GearVR 设备而言，立体和单视场摄像机视锥为对称；而对 Rift 设备而言，立体和单视场摄像机视锥为不对称。请参考以下图表，查看 GearVR 和 Rift 设备之间的摄像机视锥差异。
+</p><div class="imagetable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p><picture>
+		<source data-srcset="./../../../../../../Images/SharingAndReleasing/XRDevelopment/VR/DevelopVR/MonoFarFieldRendering/FrustaGeometryGear.jpg">
+		<img class="  lazyload" alt="FrustaGeometryGear.png" width="542" data-src="../../../../../../Images/SharingAndReleasing/XRDevelopment/VR/DevelopVR/MonoFarFieldRendering/FrustaGeometryGear.jpg" />
+</picture>
+ </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p><picture>
+		<source data-srcset="./../../../../../../Images/SharingAndReleasing/XRDevelopment/VR/DevelopVR/MonoFarFieldRendering/FrustaGeometryRift.jpg">
+		<img class="  lazyload" alt="FrustaGeometryRift.png" width="542" data-src="../../../../../../Images/SharingAndReleasing/XRDevelopment/VR/DevelopVR/MonoFarFieldRendering/FrustaGeometryRift.jpg" />
+</picture>
+ </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>GearVR（对称视锥）</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>Rift（不对称视锥）</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div><p>如左图所示，GearVR 立体摄像机拥有对称视锥，意味着单视场摄像机和立体摄像机共用相同的投影矩阵。而在 Rift 设备上立体摄像机为不对称（向内的角度小于向外的角度），意味着单视场摄像机的视锥是左右视锥的组合，使单视场渲染目标在边缘上大于立体渲染目标。
+</p><h3 id="分离平面属性">分离平面属性</h3>
+<p>UE4 构建单视场摄像机时，渲染器将添加一个分离（剔除）平面。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/SharingAndReleasing/XRDevelopment/VR/DevelopVR/MonoFarFieldRendering/AddingSplitPlane.jpg">
+		<img class="  lazyload" alt="AddingSplitPlane.png" data-src="../../../../../../Images/SharingAndReleasing/XRDevelopment/VR/DevelopVR/MonoFarFieldRendering/AddingSplitPlane.jpg" />
+</picture>
+
+</p><div class="caption">
+	<p>绿色的分离面将作为单视场摄像机的近平面。</p>
+</div><p>应用到分离平面的以下属性将被添加到用户的项目中：
+</p><ul ><li class="Default"><p>分离平面与项目的 Z 轴平行。
+</p></li><li class="Default"><p>分离平面的默认 <strong>单视场剔除距离（Mono Culling Distance）</strong> 被设为 <code>750.0</code> 厘米（7.5 米）。
+</p></li><li class="Default"><p>平面远侧的物体由单视场摄像机渲染。
+</p></li><li class="Default"><p>跨剔除平面的物体由两个摄像机渲染（单视场和立体）。
+</p></li></ul><p>在下图中，着色（绿色）区域代表分离平面的远侧，这个区域中的物体在单视场摄像机的深度缓冲中进行渲染。在分离平面近侧的物体则在立体摄像机的深度缓冲中进行渲染。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/SharingAndReleasing/XRDevelopment/VR/DevelopVR/MonoFarFieldRendering/MonoRenderArea.jpg">
+		<img class="  lazyload" alt="MonoRenderArea.png" data-src="../../../../../../Images/SharingAndReleasing/XRDevelopment/VR/DevelopVR/MonoFarFieldRendering/MonoRenderArea.jpg" />
+</picture>
+
+</p><p>下图展示了实际操作中分离平面的对比：
+</p><div class="imagetable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p><picture>
+		<source data-srcset="./../../../../../../Images/SharingAndReleasing/XRDevelopment/VR/DevelopVR/MonoFarFieldRendering/StereoBuffer_banner.jpg">
+		<img class="  lazyload" alt="StereoBuffer_banner.png" width="542" data-src="../../../../../../Images/SharingAndReleasing/XRDevelopment/VR/DevelopVR/MonoFarFieldRendering/StereoBuffer_banner.jpg" />
+</picture>
+ </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p><picture>
+		<source data-srcset="./../../../../../../Images/SharingAndReleasing/XRDevelopment/VR/DevelopVR/MonoFarFieldRendering/MonoBuffer_banner.jpg">
+		<img class="  lazyload" alt="MonoBuffer_banner.png" width="542" data-src="../../../../../../Images/SharingAndReleasing/XRDevelopment/VR/DevelopVR/MonoFarFieldRendering/MonoBuffer_banner.jpg" />
+</picture>
+ </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>立体深度缓冲</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>单视场深度缓冲</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div><h2 id="性能注意事项">性能注意事项</h2>
+<p>迄今为止，您已学习到 UE4 采用了深度缓冲渲染技术来区分立体或单视场摄像机绘制的内容。从高层次来看，UE4 移动前向渲染器被修改为使用深度缓冲，决定立体像素的深度是否小于单视场像素。和基于物体的渲染技术进行对比，使用基于像素的分离（剔除）平面能够带来性能优势。然而物体穿过分离平面时，他们必须进行单视场和立体绘制（即使物体的像素足以进行单视场绘制）。这些额外的绘制调用通常会生成不必要的带宽，增加 GPU 和 CPU 顶点开销。
+</p><p>下图很好地展示了对性能产生的影响：悬崖的边界球与分离平面发生碰撞，从而导致立体近场摄像机渲染悬崖（但悬崖的像素只应被单视场远场摄像机渲染）。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/SharingAndReleasing/XRDevelopment/VR/DevelopVR/MonoFarFieldRendering/StereoNoCull.jpg">
+		<img class="  lazyload" alt="StereoNoCull.png" data-src="../../../../../../Images/SharingAndReleasing/XRDevelopment/VR/DevelopVR/MonoFarFieldRendering/StereoNoCull.jpg" />
+</picture>
+
+</p><h2 id="优化性能">优化性能</h2>
+<p>如需评估项目的想能，请参考 <strong>Rendering Hardware Interface (RHI)</strong> 生成的数据输出。如需查看 RHI 生成的数据，执行以下步骤：
+</p><ol ><li class="Default"><p>点击编辑器中的 <strong>Viewport Options</strong> 按钮。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../../Images/SharingAndReleasing/XRDevelopment/VR/DevelopVR/MonoFarFieldRendering/RHIStat_Step1.png" ><span><picture>
+		<source data-srcset="./../../../../../../Images/SharingAndReleasing/XRDevelopment/VR/DevelopVR/MonoFarFieldRendering/RHIStat_Step1.jpg">
+		<img class="  lazyload" alt="RHIStat_Step1.png" width="600" data-src="../../../../../../Images/SharingAndReleasing/XRDevelopment/VR/DevelopVR/MonoFarFieldRendering/RHIStat_Step1.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看全图。</p>
+</div></li><li class="Default"><p>将鼠标悬停在 <strong>Stat</strong> 选项上，打开 Statistics 菜单。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../../Images/SharingAndReleasing/XRDevelopment/VR/DevelopVR/MonoFarFieldRendering/RHIStat_Step2.png" ><span><picture>
+		<source data-srcset="./../../../../../../Images/SharingAndReleasing/XRDevelopment/VR/DevelopVR/MonoFarFieldRendering/RHIStat_Step2.jpg">
+		<img class="  lazyload" alt="RHIStat_Step2.png" width="600" data-src="../../../../../../Images/SharingAndReleasing/XRDevelopment/VR/DevelopVR/MonoFarFieldRendering/RHIStat_Step2.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看全图。</p>
+</div></li><li class="Default"><p>导航至 <strong>Stat > Advanced</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../../Images/SharingAndReleasing/XRDevelopment/VR/DevelopVR/MonoFarFieldRendering/RHIStat_Step3.png" ><span><picture>
+		<source data-srcset="./../../../../../../Images/SharingAndReleasing/XRDevelopment/VR/DevelopVR/MonoFarFieldRendering/RHIStat_Step3.jpg">
+		<img class="  lazyload" alt="RHIStat_Step3.png" width="600" data-src="../../../../../../Images/SharingAndReleasing/XRDevelopment/VR/DevelopVR/MonoFarFieldRendering/RHIStat_Step3.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看全图。</p>
+</div></li><li class="Default"><p>最后，选择 <strong>RHI</strong> 选项显示项目的 RHI <a id="content_link" href="../../../../../TestingAndOptimization/PerformanceAndProfiling/StatCommands/index.html" ><span>数据</span></a>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../../Images/SharingAndReleasing/XRDevelopment/VR/DevelopVR/MonoFarFieldRendering/RHIStat_Step4.png" ><span><picture>
+		<source data-srcset="./../../../../../../Images/SharingAndReleasing/XRDevelopment/VR/DevelopVR/MonoFarFieldRendering/RHIStat_Step4.jpg">
+		<img class="  lazyload" alt="RHIStat_Step4.png" width="600" data-src="../../../../../../Images/SharingAndReleasing/XRDevelopment/VR/DevelopVR/MonoFarFieldRendering/RHIStat_Step4.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看全图。</p>
+</div></li></ol><h4 id="最终结果">最终结果</h4>
+<p>此时你将看到项目的 RHI <a id="content_link" href="../../../../../TestingAndOptimization/PerformanceAndProfiling/StatCommands/index.html" ><span>数据</span></a>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../../Images/SharingAndReleasing/XRDevelopment/VR/DevelopVR/MonoFarFieldRendering/RHIStat_Profiling.png" ><span><picture>
+		<source data-srcset="./../../../../../../Images/SharingAndReleasing/XRDevelopment/VR/DevelopVR/MonoFarFieldRendering/RHIStat_Profiling.jpg">
+		<img class="  lazyload" alt="RHIStat_Profiling.png" width="600" data-src="../../../../../../Images/SharingAndReleasing/XRDevelopment/VR/DevelopVR/MonoFarFieldRendering/RHIStat_Profiling.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看全图。</p>
+</div><p>如果确认项目的 RHI 配置文件不可接受，可通过一些策略优化项目的性能：
+</p><ul ><li class="Default"><p><strong>更新分离平面距离</strong>。在某些场景中用户需要修改分离平面距离，适应较大（或较小）的渲染区域。
+</p></li><li class="Default"><p><strong>更新单视场渲染模式</strong>。修改单视场渲染模式即可确定特定物体是否需要强制以单视场渲染。
+</p></li><li class="Default"><p><strong>强制较远的物体以单视场进行渲染</strong>。无可避免的是，在一些情况下需要强制特定物体（如天空盒或背景网格体）以单视场进行渲染。
+</p></li></ul><h3 id="更新分离平面距离">更新分离平面距离</h3>
+<p>如果需要更新分离平面的距离，在编辑器中打开项目的 <strong>World Settings</strong>，找到 <strong>VR</strong> 菜单，并将 <strong>Mono Culling Distance</strong> 更新到所需要的距离。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/SharingAndReleasing/XRDevelopment/VR/DevelopVR/MonoFarFieldRendering/MonoCullingDistance.jpg">
+		<img class="  lazyload" alt="MonoCullingDistance.png" data-src="../../../../../../Images/SharingAndReleasing/XRDevelopment/VR/DevelopVR/MonoFarFieldRendering/MonoCullingDistance.jpg" />
+</picture>
+
+</p><h3 id="更新单视场渲染模式">更新单视场渲染模式</h3>
+<p>启用单视场渲染后，您可能需要更新项目的单视场渲染模式。以不同模式渲染场景有助于调试项目中的潜在性能问题。在编辑器的命令控制台中输入 <code>vr.MonoscopicFarFieldMode &#91;0-4&#93;</code> 即可更新应用程序的单视场渲染模式。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/SharingAndReleasing/XRDevelopment/VR/DevelopVR/MonoFarFieldRendering/UpdateMonoMode_console.jpg">
+		<img class="  lazyload" alt="UpdateMonoMode_console.png" data-src="../../../../../../Images/SharingAndReleasing/XRDevelopment/VR/DevelopVR/MonoFarFieldRendering/UpdateMonoMode_console.jpg" />
+</picture>
+
+</p><p><code>vr.MonoscopicFarFieldMode</code> 默认设为 <code>1</code>。如果需要修改默认值，请参考下表。
+</p><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>值 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>模式 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>0</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>禁用（混合）单视场远场渲染。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>1</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>启用（混合）单视场远场渲染。单视场远场渲染启用后，此模式将默认设置。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>2</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>只启用立体近场渲染。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>3</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>启用立体近场渲染，同时也禁用远场像素深度测试（Far Field Pixel Depth Test）。从根本上来说，此选项将禁用分离（剔除）平面。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>4</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>只启用单视场远场渲染。</p>
+			</td>
+	
+</tr></tbody>
+</table><h3 id="强制较远的物体以单视场进行渲染">强制较远的物体以单视场进行渲染</h3>
+<p>假设您在使用以下场景。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/SharingAndReleasing/XRDevelopment/VR/DevelopVR/MonoFarFieldRendering/DebugScene.jpg">
+		<img class="  lazyload" alt="DebugScene.png" data-src="../../../../../../Images/SharingAndReleasing/XRDevelopment/VR/DevelopVR/MonoFarFieldRendering/DebugScene.jpg" />
+</picture>
+
+</p><p>现在您输入 <code>vr.MonoscopicFarFieldMode 3</code> 控制台命令，启用立体远场渲染，同时禁用分离平面。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/SharingAndReleasing/XRDevelopment/VR/DevelopVR/MonoFarFieldRendering/StereoNoCull.jpg">
+		<img class="  lazyload" alt="StereoNoCull.png" data-src="../../../../../../Images/SharingAndReleasing/XRDevelopment/VR/DevelopVR/MonoFarFieldRendering/StereoNoCull.jpg" />
+</picture>
+
+</p><div class="caption">
+	<p>虽然您希望悬崖被剔除，但立体摄像机仍会将悬崖模型渲染出来，对性能造成负面影响。</p>
+</div><p>如您（在观察场景后）决定强制悬崖网格体在单视场远场模式中进行渲染，使用 <strong>蓝图编辑器</strong> 打开模型，并在 <strong>Details</strong> 面板中的 <strong>Rendering</strong> 菜单下选择 <strong>Render in Mono</strong> 选项。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../../Images/SharingAndReleasing/XRDevelopment/VR/DevelopVR/MonoFarFieldRendering/ForceRenderMono.png" ><span><picture>
+		<source data-srcset="./../../../../../../Images/SharingAndReleasing/XRDevelopment/VR/DevelopVR/MonoFarFieldRendering/ForceRenderMono.jpg">
+		<img class="  lazyload" alt="ForceRenderMono.png" width="600" data-src="../../../../../../Images/SharingAndReleasing/XRDevelopment/VR/DevelopVR/MonoFarFieldRendering/ForceRenderMono.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看全图。</p>
+</div><div class="tip">
+	<p>将 <strong>Render in Mono</strong> 设为 true 后，如已连接头戴显示器（HMD），且项目已启用 <strong>Monoscopic Far Field</strong> 渲染，悬崖组件则只会由单视场近场摄像机进行渲染。</p>
+</div><h2 id="立体视觉">立体视觉</h2>
+<p>混合单视场渲染背后的灵感则是立体视觉的视觉过程。根据 <a id="content_link" href="https://www.aao.org/eye-health/ask-ophthalmologist-q/stereopsis" ><span>美国眼科学院</span></a> 的说法，立体视觉与深度感同义。人查看物体时，每只眼睛查看物体的角度稍有不同，每只眼睛将图像传回大脑，大脑则将两张图像"合成"为一张图像。从每个眼睛传回的不同画面形成双眼视差，大脑则将其用于提取深度信息。 
+</p><div class="note">
+	<p>物体越远，大脑提取物体深度信息的难度越大。</p>
+</div><h3 id="平衡双眼视差">平衡双眼视差</h3>
+<p>为平衡大脑从远距离物体上提取深度信息的难度，UE4 移动前向渲染器经修改后执行以下操作（按顺序）：
+</p><ol ><li class="Default"><p>用立体摄像机渲染不透明物体。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/SharingAndReleasing/XRDevelopment/VR/DevelopVR/MonoFarFieldRendering/Stereo.jpg">
+		<img class="  lazyload" alt="Stereo.png" data-src="../../../../../../Images/SharingAndReleasing/XRDevelopment/VR/DevelopVR/MonoFarFieldRendering/Stereo.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>移动并组合输出，创建单视场遮蔽遮罩，提前填充单视场深度缓存。
+</p></li><li class="Default"><p>用单视场摄像机渲染不透明物体。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/SharingAndReleasing/XRDevelopment/VR/DevelopVR/MonoFarFieldRendering/MonoOnly.jpg">
+		<img class="  lazyload" alt="MonoOnly.png" data-src="../../../../../../Images/SharingAndReleasing/XRDevelopment/VR/DevelopVR/MonoFarFieldRendering/MonoOnly.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>将单视场摄像机的结果合成到立体深度缓冲中。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/SharingAndReleasing/XRDevelopment/VR/DevelopVR/MonoFarFieldRendering/MonoStereo.jpg">
+		<img class="  lazyload" alt="MonoStereo.png" data-src="../../../../../../Images/SharingAndReleasing/XRDevelopment/VR/DevelopVR/MonoFarFieldRendering/MonoStereo.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>渲染所有透明物体，并用立体摄像机执行所有后期处理。
+</p></li></ol>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../../SiteIndex/index.html?tags=VR">VR</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../../SiteIndex/index.html?tags=Rendering">Rendering</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../../SiteIndex/index.html?tags=Performance%20and%20Profiling">Performance and Profiling</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../../SiteIndex/index.html?tags=Landing%20Page">Landing Page</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../../SiteIndex/index.html?tags=deprecated">deprecated</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/SharingAndReleasing/XRDevelopment/VR/DevelopVR/MonoFarFieldRendering/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 11:45:42 GMT -->
+</html>

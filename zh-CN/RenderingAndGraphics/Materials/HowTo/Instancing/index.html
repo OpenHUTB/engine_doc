@@ -1,0 +1,771 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/RenderingAndGraphics/Materials/HowTo/Instancing/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:15:24 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/RenderingAndGraphics/Materials/HowTo/Instancing/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>材质实例的创建和使用 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/RenderingAndGraphics/Materials/HowTo/Instancing/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/RenderingAndGraphics/Materials/HowTo/Instancing/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/RenderingAndGraphics/Materials/HowTo/Instancing/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/RenderingAndGraphics/Materials/HowTo/Instancing/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Rendering/Materials/HowTo/Instancing" />
+<meta name="intsourcechangelist" content="14237003" />
+<meta name="availability" content="Public" />
+<meta name="title" content="材质实例的创建和使用" />
+<meta name="description" content="关于如何设置并使用材质实例的指南" />
+<meta name="related" content="RenderingAndGraphics/Materials/MaterialInstances" />
+<meta name="related" content="RenderingAndGraphics/Materials/Editor/Interface" />
+<meta name="related" content="RenderingAndGraphics/Materials/MaterialInputs" />
+<meta name="related" content="RenderingAndGraphics/Materials/Editor" />
+<meta name="related" content="RenderingAndGraphics/Materials/IntroductionToMaterials" />
+<meta name="related" content="RenderingAndGraphics/Materials/MaterialProperties" />
+<meta name="version" content="4.25" />
+<meta name="skilllevel" content="Intermediate" />
+<meta name="keywords" content="Materials" />
+<meta name="course" content="creating-pbr-materials?lang=zh-CN|创建PBR材质|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fcreating-pbr-materials%2FHighresScreenshot00006-1920x1050-2c0180460478cd00327494c6e5717e227be4926d.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fcreating-pbr-materials%2FCreating-PBR-Materials-1000x1000-0d34ec4bfc3eeb466ce5a981a867921f72464e77.png?resize=1&amp;w=300" />
+<meta name="course" content="getting-to-know-materials-for-design-visualization?lang=zh-CN|了解可视化设计中的材质|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fgetting-to-know-materials-for-design-visualization%2FIntro_to_Materials_003-1919x1079-f32638266c469a6fa2b9b2f3515e5766e8177b22.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fgetting-to-know-materials-for-design-visualization%2FGetting-to-Know-Materials-for-Design-Visualization-1000x1000-8cd1670f84e0111e39d4a3faa1e7a6ba29a30bfe.png?resize=1&amp;w=300" />
+<meta name="course" content="materials---exploring-essential-concepts?lang=zh-CN|材质：基础概念|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials---exploring-essential-concepts%2FMaterialEssentialConcepts-1920x1080-1920x1080-2414bb5cf0b0c3bd7ac4b993e725d2acedd45334.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials---exploring-essential-concepts%2FMaterials--Exploring-Essential-Concepts-1000x1000-9546cdc254e6659ce73211b5955ab9d886921256.png?resize=1&amp;w=300" />
+<meta name="course" content="materials---understanding-the-production-workflow?lang=zh-CN|材质：制作工作流|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials---understanding-the-production-workflow%2FMaterialWorkflow_ThumbnailFull-1920x1080-1920x1080-638fea6d7e3b7b299a4f433096336ce1caf662d0.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials---understanding-the-production-workflow%2F104-Materials-Production-Workflow%402x-1000x1000-ae1ba588a367d239fbe513da38bb793360c9eecf.png?resize=1&amp;w=300" />
+<meta name="course" content="materials-master-learning?lang=zh-CN|材质大师课程|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials-master-learning%2FMaterialMaster_1920x1080-1920x1080-212f85045980310d6985557f84d0217e6423b709.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fmaterials-master-learning%2FMaterials-Master-Learning-1000x1000-56fd0b66f6e798313f79737126d9215cbd4a3ff9.png?resize=1&amp;w=300" />
+<meta name="crumbs" content="%ROOT%,RenderingAndGraphics,RenderingAndGraphics/Materials,RenderingAndGraphics/Materials/HowTo" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="材质实例的创建和使用" />
+	<meta property="og:description" content="关于如何设置并使用材质实例的指南 " />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">设计视觉、渲染和图形效果</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">材质 </a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">材质 - 操作指南</a>
+
+<span class="separator">></span> <span id="page">材质实例的创建和使用</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">材质实例的创建和使用</h1>
+							</div>	
+							<h2 >关于如何设置并使用材质实例的指南 </h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Intermediate"><a id="skill_link" href="../../../../SiteIndex/index.html?skills=Intermediate">Intermediate</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																		<div id="seeAlso">
+	<div style="position:relative;">
+		<div id="title">参见</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<p>
+						<a id="related_link" href="../../MaterialInstances/index.html" title="分层材质关系，这些关系允许修改属性，以改变子材质的行为和外观，而不必重新编译着色器。">实例化材质</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../Editor/Interface/index.html" title="材质编辑器UI的使用指南。">材质编辑器UI</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../MaterialInputs/index.html" title="深入了解材质上可用的各种输入，及其使用方式。">材质输入</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../Editor/index.html" title="指导如何使用材质编辑器创建着色器。">材质编辑器参考</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../IntroductionToMaterials/index.html" title="有关 UE4 材质及其工作方式的介绍文档。">基本材质概念</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../MaterialProperties/index.html" title="关于UE4材质及其工作原理的介绍文档。">材质属性</a>
+					</p>
+				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																		<div id="courses">
+	<div style="position:relative;">
+		<div id="title">相关课程</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<div name="creating-pbr-materials?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/creating-pbr-materials?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_443/Unreal%20Engine/onlinelearning-courses/creating-pbr-materials/HighresScreenshot00006-1920x1050-2c0180460478cd00327494c6e5717e227be4926d4f86.png?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_443/Unreal%20Engine/onlinelearning-courses/creating-pbr-materials/Creating-PBR-Materials-1000x1000-0d34ec4bfc3eeb466ce5a981a867921f72464e77fe4b.png?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="creating-pbr-materials?lang=zh-CN_title">
+				创建PBR材质
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="getting-to-know-materials-for-design-visualization?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/getting-to-know-materials-for-design-visualization?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/getting-to-know-materials-for-design-visualizat/Intro_to_Materials_003-1919x1079-f32638266c469a6fa2b9b2f3515e5766?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/getting-to-know-materials-for-design-visualizat/Getting-to-Know-Materials-for-Design-Visualization-1000x1000-8cd1670f84e0111e39d4a3faa1e7a6b?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="getting-to-know-materials-for-design-visualization?lang=zh-CN_title">
+				了解可视化设计中的材质
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="materials---exploring-essential-concepts?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/materials---exploring-essential-concepts?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/materials---exploring-essential-concepts/MaterialEssentialConcepts-1920x1080-1920x1080-2414bb5cf0b0c3bd7ac4b993e725d2acedd45334.42c4f86.dela?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/materials---exploring-essential-concepts/Materials--Exploring-Essential-Concepts-1000x1000-9546cdc254e6659ce73211b5955ab9d886921256.42dfe4b?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="materials---exploring-essential-concepts?lang=zh-CN_title">
+				材质：基础概念
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="materials---understanding-the-production-workflow?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/materials---understanding-the-production-workflow?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/materials---understanding-the-production-workfl/MaterialWorkflow_ThumbnailFull-1920x1080-1920x1080-638fea6d7e3b7b299a4f433096336ce1caf662d0?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/materials---understanding-the-production-workfl/104-Materials-Production-Workflow%402x-1000x1000-ae1ba588a367d239fbe513da38bb793360c9eecf.42ff?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="materials---understanding-the-production-workflow?lang=zh-CN_title">
+				材质：制作工作流
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="materials-master-learning?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/materials-master-learning?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/materials-master-learning/MaterialMaster_1920x1080-1920x1080-212f85045980310d6985557f84d0217e6423b709.4314f86.del?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/materials-master-learning/Materials-Master-Learning-1000x1000-56fd0b66f6e798313f79737126d9215cbd4a3ff9.433fe4b.de?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="materials-master-learning?lang=zh-CN_title">
+				材质大师课程
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																								<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#材质实例化">材质实例化</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#材质参数">材质参数</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#在材质控制版中添加参数节点">在材质控制版中添加参数节点</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#转换节点">转换节点</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#创建材质实例">创建材质实例</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#材质实例操作">材质实例操作</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#更改材质实例的父材质">更改材质实例的父材质</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#结论">结论</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>在虚幻引擎4中，标准材质的创建、设置和调整过程往往十分耗时。
+为了加速并简化这个过程，虚幻引擎4提供了一种特殊类型的材质，称之为 <strong>材质实例（Material Instance）</strong>。 
+在下述指南中，你将学习如何在项目中设置和使用材质实例。
+</p><h2 id="材质实例化">材质实例化</h2>
+<p>材质实例化是指创建一个 <em>父材质</em>，然后将它作为基类，派生出效果各异的 <em>子材质</em>。为了实现这种灵活性，材质实例化使用了名为 <em>继承</em> 的概念：这意味着父材质的属性会被赋予子材质。此处有一个材质继承的具体示例。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Instancing/Material_Instancing_Explanation.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Instancing/Material_Instancing_Explanation.jpg">
+		<img class="  lazyload" alt="Material_Instancing_Explanation.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Instancing/Material_Instancing_Explanation.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>编号</p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>说明</p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>1：</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>此为父材质，你在右边看到的两个材质实例从它继承了属性。注意，父材质中使用了四种纹理。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>2：</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>这是材质实例中设置父材质的位置。更改此处的材质会导致材质实例的工作方式发生改变。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>3：</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>通过更改这些纹理，你可以更改材质实例的整个外观效果。注意，这里有四个纹理输入，而这四个输入之所以在此处，是因为材质实例从左边的父材质继承了该功能。</p>
+			</td>
+	
+</tr></tbody>
+</table><h2 id="材质参数">材质参数</h2>
+<p>如果要更改材质实例的参数，你必须在材质图表（Material Graph）中使用另一种名为 <strong>参数节点（Parameter Node）</strong> 的不同节点。
+ <strong>参数节点（Parameter Node）</strong> 在外观和工作方式上都与普通的材质表达式（Material Expression）节点相似，但是两者的关键区别在于，参数节点（Parameter Node）用于告诉材质实例如何工作。
+使用材质参数是让材质与材质实例交互的唯一方法。
+</p><p>有两种方法可以在 <strong>材质图表</strong> 中添加材质节点。
+</p><h3 id="在材质控制版中添加参数节点">在材质控制版中添加参数节点</h3>
+<p>如果你在 <strong>材质控制板</strong> 中搜索"参数（parameter）"，你会找到所有可用的 <strong>参数（Parameter）</strong> 节点。然后可以将这些节点从控制板中拖入材质图表。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Instancing/Materails_Instances_Search_For_Pram_Nodes.jpg">
+		<img class="  lazyload" alt="Materails_Instances_Search_For_Pram_Nodes.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Instancing/Materails_Instances_Search_For_Pram_Nodes.jpg" />
+</picture>
+
+</p><h3 id="转换节点">转换节点</h3>
+<p>在材质图表中，你可以右键单击某个节点，然后选择 <strong>转换为参数（Convert To Parameter）</strong>： 
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_0_wgbamavm_14
+{
+	margin: 0px;
+	width: 640px;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_0_wgbamavm_14:after
+{
+	content: "";
+	padding-top: 360px;
+	display: block;
+}
+</style> 
+<div id="player_0_wgbamavm_14"> 
+	<div id="playerContainer_0_wgbamavm_14" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/0_wgbamavm/embed.html"></iframe>
+	</div>
+</div>
+<div class="note">
+	<p>并非每个材质节点都适用于上述操作。如果你在节点上 <strong>右键单击</strong> 时看到 <strong>转换为参数（Convert To Parameter）</strong> 选项，则表示该节点可以转换为参数节点。</p>
+</div><h2 id="创建材质实例">创建材质实例</h2>
+<p>我们将使用上述方法创建一个材质实例。
+</p><ol ><li class="Default"><p>我们首先要新建一个材质。右键点击 <strong>内容浏览器（Content Browser）</strong>，然后选择 <strong>创建基本资源（Create Basic Assets）</strong> > <strong>材质（Material）</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Instancing/Materails_Instances_Creat_New_Material.jpg">
+		<img class="  lazyload" alt="Materails_Instances_Creat_New_Material.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Instancing/Materails_Instances_Creat_New_Material.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>将材质命名为 <strong>Material_Master</strong>
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Instancing/Materails_Instances_Named_Material.jpg">
+		<img class="  lazyload" alt="Materails_Instances_Named_Material.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Instancing/Materails_Instances_Named_Material.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>既然材质现已命名，那么在 <strong>内容浏览器（Content Browser）</strong> 中找到它，然后双击打开它。打开后，在面板中搜索以下材质表达式节点，并添加到材质图表中。
+</p><ul ><li class="Default"><p><strong>常量3向量（Constant 3 Vector）</strong>
+</p></li><li class="Default"><p><strong>常量节点（Constant Node）</strong>
+</p></li><li class="Default"><p><strong>标量参数（Scalar Parameter）</strong>
+</p></li></ul><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_COw7Q7o1sHo_93
+{
+	margin: 0px;
+	width: 640px;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_COw7Q7o1sHo_93:after
+{
+	content: "";
+	padding-top: 360px;
+	display: block;
+}
+</style> 
+<div>
+<div id="player_COw7Q7o1sHo_93"><div style="position:absolute;display:block;width:100%;height:100%;"><iframe class="embedded_video" id="COw7Q7o1sHo" width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/COw7Q7o1sHo?rel=0&amp;modestbranding=1&amp;showinfo=0" frameborder="0" allowfullscreen></iframe></div></div>
+</div></li><li class="Default"><p>放置好材质表达式后，需要将它们连到主材质的各个引脚上。在这个示例中，我们将用到以下引脚。
+</p><ul ><li class="Default"><p><strong>底色（Base Color）</strong>
+</p></li><li class="Default"><p><strong>金属感（Metallic）</strong>
+</p></li><li class="Default"><p><strong>粗糙度（Roughness）</strong>
+</p></li></ul><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_aN3QPYokHf4_149
+{
+	margin: 0px;
+	width: 640px;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_aN3QPYokHf4_149:after
+{
+	content: "";
+	padding-top: 360px;
+	display: block;
+}
+</style> 
+<div>
+<div id="player_aN3QPYokHf4_149"><div style="position:absolute;display:block;width:100%;height:100%;"><iframe class="embedded_video" id="aN3QPYokHf4" width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/aN3QPYokHf4?rel=0&amp;modestbranding=1&amp;showinfo=0" frameborder="0" allowfullscreen></iframe></div></div>
+</div></li><li class="Default"><p>连上所有节点后，需要接着将一些材质节点转换为参数节点（Parameter Node），以便它们可以在材质实例中使用。为此，右键单击要转换的材质节点，然后在快捷菜单钟选择 <strong>转换为参数（Convert to Parameter）</strong>。
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_-tIO2lmJhVw_201
+{
+	margin: 0px;
+	width: 640px;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_-tIO2lmJhVw_201:after
+{
+	content: "";
+	padding-top: 360px;
+	display: block;
+}
+</style> 
+<div>
+<div id="player_-tIO2lmJhVw_201"><div style="position:absolute;display:block;width:100%;height:100%;"><iframe class="embedded_video" id="-tIO2lmJhVw" width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/-tIO2lmJhVw?rel=0&amp;modestbranding=1&amp;showinfo=0" frameborder="0" allowfullscreen></iframe></div></div>
+</div></li><li class="Default"><p>我们已经将节点转换为参数节点，现在对它们进行标记，这样当我们在材质实例中使用它们时，就可以知道每个节点将执行什么功能。若要为参数节点指定名称，请使用 <strong>鼠标左键</strong> 在材质图表中选择该参数节点，然后在 <strong>参数名称（Parameter Name）</strong> 分段下键入要用作 <strong>参数名称（Parameter Name）</strong> 的名称。此例中，我们将使用以下名称。 
+</p><ul ><li class="Default"><p><strong>底色（Base Color） </strong>
+</p></li><li class="Default"><p><strong>金属感（Metallic） </strong>
+</p></li><li class="Default"><p><strong>粗糙度（Roughness） </strong>
+</p></li></ul><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_tE8_Dju0ee0_234
+{
+	margin: 0px;
+	width: 640px;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_tE8_Dju0ee0_234:after
+{
+	content: "";
+	padding-top: 360px;
+	display: block;
+}
+</style> 
+<div>
+<div id="player_tE8_Dju0ee0_234"><div style="position:absolute;display:block;width:100%;height:100%;"><iframe class="embedded_video" id="tE8_Dju0ee0" width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/tE8_Dju0ee0?rel=0&amp;modestbranding=1&amp;showinfo=0" frameborder="0" allowfullscreen></iframe></div></div>
+</div>
+<div class="tip">
+	<p>确保为节点选择的名称与节点的实际功能非常接近。通过这种方式，你不必在材质和材质实例之间来回切换，就可以看到节点的实际工作情况。 </p>
+</div></li><li class="Default"><p>创建节点后，请确保通过按 <strong>应用（Apply）</strong> 按钮编译材质。如果编译正确，<strong>应用（Apply）</strong> 按钮应该呈现灰色，如下所示。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Instancing/Materails_Instances_Complied.jpg">
+		<img class="  lazyload" alt="Materails_Instances_Complied.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Instancing/Materails_Instances_Complied.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>既然材质已经编译完毕，是时候用它创建一个材质实例了。在 <strong>内容浏览器（Content Browser）</strong> 中，右键单击该材质，然后选择 <strong>创建材质实例（Create Material Instance）</strong> 选项。
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_PwsuXdGpe7M_320
+{
+	margin: 0px;
+	width: 640px;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_PwsuXdGpe7M_320:after
+{
+	content: "";
+	padding-top: 360px;
+	display: block;
+}
+</style> 
+<div>
+<div id="player_PwsuXdGpe7M_320"><div style="position:absolute;display:block;width:100%;height:100%;"><iframe class="embedded_video" id="PwsuXdGpe7M" width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/PwsuXdGpe7M?rel=0&amp;modestbranding=1&amp;showinfo=0" frameborder="0" allowfullscreen></iframe></div></div>
+</div>
+<div class="tip">
+	<p>材质实例的名称派生自它所继承的材质。你可以在创建时重新命名材质实例，或者选择该材质并按下键盘上的 <strong>F2</strong>，然后输入你想要的名称。</p>
+</div></li><li class="Default"><p>在 <strong>内容浏览器（Content Browser）</strong> 中，双击新建的材质实例打开它。你应当会看到如下所示的内容。<br /></p><p><img class="  lazyload" alt="Materails_Instances_Instance_Editor.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Instancing/Materails_Instances_Instance_Editor.png" />
+
+</p></li><li class="Default"><p>一旦打开了 <strong>材质实例编辑器（Material Instance Editor）</strong>，你就可以开始调整参数了。若要调整参数，你需要单击参数名称左侧的复选框来启用它。一旦启用了某个参数后，它的名称将不再呈现灰色，并且复选标记将被放置在名称左侧的框中。
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_aJ4fJ2buAVo_376
+{
+	margin: 0px;
+	width: 640px;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_aJ4fJ2buAVo_376:after
+{
+	content: "";
+	padding-top: 360px;
+	display: block;
+}
+</style> 
+<div>
+<div id="player_aJ4fJ2buAVo_376"><div style="position:absolute;display:block;width:100%;height:100%;"><iframe class="embedded_video" id="aJ4fJ2buAVo" width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/aJ4fJ2buAVo?rel=0&amp;modestbranding=1&amp;showinfo=0" frameborder="0" allowfullscreen></iframe></div></div>
+</div></li><li class="Default"><p>由于参数现已启用，因此你可以调整其中任何一个参数并实时查看结果，而无需重新编译材质。
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_OKvC9e4FddU_406
+{
+	margin: 0px;
+	width: 640px;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_OKvC9e4FddU_406:after
+{
+	content: "";
+	padding-top: 360px;
+	display: block;
+}
+</style> 
+<div>
+<div id="player_OKvC9e4FddU_406"><div style="position:absolute;display:block;width:100%;height:100%;"><iframe class="embedded_video" id="OKvC9e4FddU" width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/OKvC9e4FddU?rel=0&amp;modestbranding=1&amp;showinfo=0" frameborder="0" allowfullscreen></iframe></div></div>
+</div></li></ol><div class="note">
+	<p>在材质内部为参数设置的名称反映了你在材质实例内部看到的名称。这就是为何选择与参数实际作用相对应的名称非常重要的原因。
+<picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Instancing/Materails_Instances_Names_Relation.jpg">
+		<img class="  lazyload" alt="Materails_Instances_Names_Relation.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Instancing/Materails_Instances_Names_Relation.jpg" />
+</picture>
+</p>
+</div><h2 id="材质实例操作">材质实例操作</h2>
+<p>当你需要许多外观不同但仍然拥有相似控制选项的材质时，或者需要在游戏中以特定方式控制某种材质时，材质实例系统的重要性就显现出来了。
+在下面的示例中，我们将根据在前面步骤中创建的父材质，创建三个不同的实例化材质。
+我们将演示父材质的改动将如何影响子材质。
+</p><ol ><li class="Default"><p>首先，我们将使用上文中创建的父材质 <strong>Material_Master</strong>，创建更多的材质实例。 
+在 <strong>内容浏览器（Content Browser）</strong> 中，鼠标右键单击 <strong>Material_Master</strong>，然后在菜单中选择 <strong>创建新的材质实例（Create New Material Instance）</strong>。 
+重复此操作，直到你总共有三个材质实例。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Instancing/Materails_Instances_Create_3_New_MI.jpg">
+		<img class="  lazyload" alt="Materails_Instances_Create_3_New_MI.png" width="800" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Instancing/Materails_Instances_Create_3_New_MI.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>打开这三个额外创建的材质实例，开始调整它们的参数。
+如要打开某个材质实例，请在 <strong>内容浏览器（Content Browser）</strong> 中双击它。 
+你现在可以设置 <strong>颜色（Color）</strong>、<strong>粗糙度（Roughness）</strong> 和 <strong>金属感（Metallic）</strong> 值来满足你的需要。 
+此例中，我们将使用 <strong>红色（Red）</strong>、<strong>绿色（Green）</strong> 和 <strong>蓝色（Blue）</strong> 作为颜色。 
+你可以在下面这张图中看到本示例中用到的所有参数。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Instancing/Materails_Instances_Fill_In_Instances.png" ><span><img class="  lazyload" alt="Materails_Instances_Fill_In_Instances.png" width="920" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Instancing/Materails_Instances_Fill_In_Instances.png" />
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>我们现在可以把它们应用于世界场景中的对象。 
+此例中，我们将把材质实例应用于某些基本网格体，这些网格体位于 <strong>初学者内容包（Starter Content）</strong> 的 <strong>形状（Shapes）</strong> 文件夹中。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Instancing/Materails_Instances_Applied_Instanaces.png" ><span><img class="  lazyload" alt="Materails_Instances_Applied_Instanaces.png" width="920" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Instancing/Materails_Instances_Applied_Instanaces.png" />
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>现在，为了查看材质实例系统的全部功能，请打开 <strong>Master_Material</strong>。
+选中其中一个 <strong>标量参数节点（Scalar Parameter Nodes）</strong>，按下键盘上的 <strong>CRTL+ W</strong> 键复制该节点。
+复制该节点后，将其重命名为 <strong>高光（Specular）</strong>，并将默认值设置为 <strong>0.5</strong>。
+将标量参数节点的输出连接到 <strong>高光（Specular）</strong> 输入引脚，然后编译材质。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Instancing/Materails_Instances_Add_New_Param.png" ><span><img class="  lazyload" alt="Materails_Instances_Add_New_Param.png" width="920" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Instancing/Materails_Instances_Add_New_Param.png" />
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>一旦材质编译完成，你可以关闭 <strong>Master_Material</strong>，然后打开 <strong>红色材质实例（Red Material Instance）</strong>。 
+打开后注意看，选项中现在多了一个 <strong>高光（Specular）</strong> 输入。
+检查 <strong>蓝色（Blue）</strong> 和 <strong>绿色（Green）</strong> 材质实例。它们现在都多了一个 <strong>高光（Specular）</strong> 输入。 
+这就是材质实例的作用所在：你对父材质所做的任何改动，最终都会反映在它们的子材质中。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Instancing/Materails_Instances_New_Options.png" ><span><img class="  lazyload" alt="Materails_Instances_New_Options.png" width="920" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Instancing/Materails_Instances_New_Options.png" />
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li></ol><h2 id="更改材质实例的父材质">更改材质实例的父材质</h2>
+<p>你可以快速更改某个材质实例的父材质，只需在材质实例编辑器中更改父材质就行了。 
+打开材质实例，然后在 <strong>细节（Details）</strong> 面板的 <strong>常规（General）</strong> 分段下，将 <strong>父材质（Parent）</strong> 分类中的材质改为你希望用的新材质。
+根据新材质所包含的选项，材质实例编辑器会相应更改，以反映新的父材质的选项。
+下面这张图片展示了使用 <strong>父材质（Parent）</strong> 属性所创建的材质实例。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Instancing/Material_Instancing_Change_Parent.jpg">
+		<img class="  lazyload" alt="Material_Instancing_Change_Parent.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Instancing/Material_Instancing_Change_Parent.jpg" />
+</picture>
+
+</p><p>这里是同一材质实例，但这次更换了父材质。 
+注意纹理输入变少了，并且新增了一些数值输入。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/RenderingAndGraphics/Materials/HowTo/Instancing/Material_Instancing_Change_Parent_Results.jpg">
+		<img class="  lazyload" alt="Material_Instancing_Change_Parent_Results.png" data-src="../../../../../Images/RenderingAndGraphics/Materials/HowTo/Instancing/Material_Instancing_Change_Parent_Results.jpg" />
+</picture>
+
+</p><h2 id="结论">结论</h2>
+<p>材质实例化（Material Instancing）是一项强大的功能，可以用于项目的方方面面。 
+例如，它可以用于为武器和道具增添一些变化，或者帮助美术师更好地挖掘现有材质的潜能。 
+材质实例有助于简化并统一材质在项目中的创建和使用方式。
+</p>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Materials">Materials</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/RenderingAndGraphics/Materials/HowTo/Instancing/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:15:29 GMT -->
+</html>

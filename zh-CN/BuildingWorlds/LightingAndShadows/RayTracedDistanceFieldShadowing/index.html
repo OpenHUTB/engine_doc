@@ -1,0 +1,792 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/BuildingWorlds/LightingAndShadows/RayTracedDistanceFieldShadowing/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 10:54:55 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "../../../../Images/BuildingWorlds/LightingAndShadows/RayTracedDistanceFieldShadowing/DistanceFieldShadowing_Header.jpg";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/BuildingWorlds/LightingAndShadows/RayTracedDistanceFieldShadowing/" />');
+				var udnCSS = '../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>距离场柔和阴影 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/BuildingWorlds/LightingAndShadows/RayTracedDistanceFieldShadowing/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/BuildingWorlds/LightingAndShadows/RayTracedDistanceFieldShadowing/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/BuildingWorlds/LightingAndShadows/RayTracedDistanceFieldShadowing/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/BuildingWorlds/LightingAndShadows/RayTracedDistanceFieldShadowing/" hreflang="ko" />
+
+	<meta name="redirect" content="RenderingAndGraphics/LightingAndShadows/RayTracedDistanceFieldShadowing" />
+<meta name="redirect" content="Engine/Rendering/LightingAndShadows/RayTracedDistanceFieldShadowing" />
+<meta name="intsourcechangelist" content="18413618" />
+<meta name="availability" content="Public" />
+<meta name="title" content="距离场柔和阴影" />
+<meta name="description" content="关于使用网格体距离场创建动态柔和区域阴影的概述。" />
+<meta name="type" content="Overview" />
+<meta name="skilllevel" content="Intermediate" />
+<meta name="version" content="4.18" />
+<meta name="parent" content="BuildingWorlds/LightingAndShadows/MeshDistanceFields" />
+<meta name="related" content="BuildingWorlds/LightingAndShadows/MeshDistanceFields" />
+<meta name="related" content="BuildingWorlds/LightingAndShadows/DistanceFieldAmbientOcclusion" />
+<meta name="related" content="BuildingWorlds/LightingAndShadows/MeshDistanceFields/Reference" />
+<meta name="related" content="BuildingWorlds/LightingAndShadows/MeshDistanceFields/HowTo/DFHT_2" />
+<meta name="order" content="1" />
+<meta name="keywords" content="Lighting" />
+<meta name="keywords" content="Distance Fields" />
+<meta name="keywords" content="Getting Started" />
+<meta name="topic-image" content="DistanceFieldShadowing_Topic.jpg" />
+<meta name="social-image" content="DirectionalLightAreaShadows.jpg" />
+<meta name="hero-image" content="DistanceFieldShadowing_Header.jpg" />
+<meta name="course" content="lighting-essential-concepts-and-effects?lang=zh-CN|光照基础概念和效果|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Flighting-essential-concepts-and-effects%2FLightingEssentials_Topic_1920x1080-1920x1080-3e04dcaf168d9a530720df1573b417807ae00784.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Flighting-essential-concepts-and-effects%2FLighting-Essential-Concepts-and-Effects-1000x1000-14831d7f280345717b0bdd66be9422b40ffb91bd.png?resize=1&amp;w=300" />
+<meta name="course" content="introducing-global-illumination?lang=zh-CN|全局光照入门|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fintroducing-global-illumination%2F105_GlobalIllum%281200x675%29-1200x675-97270dbdc7595455b4c9acf0e83bf01da8efbfd4.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fintroducing-global-illumination%2FIntroducing-Global-Illumination-1000x1000-af5267ea2a6721b1cc73af7825d226aedbbaf5ce.png?resize=1&amp;w=300" />
+<meta name="crumbs" content="%ROOT%,BuildingWorlds,BuildingWorlds/LightingAndShadows,BuildingWorlds/LightingAndShadows/MeshDistanceFields" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="距离场柔和阴影" />
+	<meta property="og:description" content="关于使用网格体距离场创建动态柔和区域阴影的概述。" />
+		<meta property="og:image" content="https://docs.unrealengine.com/4.26/Images/BuildingWorlds/LightingAndShadows/RayTracedDistanceFieldShadowing/DirectionalLightAreaShadows.jpg" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">构建虚拟世界</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">照亮环境</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../MeshDistanceFields/index.html">网格体距离场</a>
+
+<span class="separator">></span> <span id="page">距离场柔和阴影</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  background">
+						<div class="imgContainer"><img src="../../../../Images/BuildingWorlds/LightingAndShadows/RayTracedDistanceFieldShadowing/DistanceFieldShadowing_Header.jpg" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">距离场柔和阴影</h1>
+							</div>	
+							<h2 >关于使用网格体距离场创建动态柔和区域阴影的概述。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Intermediate"><a id="skill_link" href="../../../SiteIndex/index.html?skills=Intermediate">Intermediate</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																		<div id="seeAlso">
+	<div style="position:relative;">
+		<div id="title">参见</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<p>
+						<a id="related_link" href="../MeshDistanceFields/index.html" title="概述网格体距离场以及你在开发游戏时可以用到的相关功能。">网格体距离场</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../DistanceFieldAmbientOcclusion/index.html" title="概述使用网格体距离场创建天空光照动态环境光遮蔽。">距离场环境光遮蔽</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../MeshDistanceFields/Reference/index.html" title="关于项目设置、光照组件、静态网格体编辑器和单个Actor中可用的所有网格体距离场设置的参考页面。">网格体距离场设置</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../MeshDistanceFields/HowTo/DFHT_2/index.html" title="如何在虚幻引擎4中设置并使用距离场环境光遮蔽。">使用距离场环境光遮蔽</a>
+					</p>
+				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																		<div id="courses">
+	<div style="position:relative;">
+		<div id="title">相关课程</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<div name="lighting-essential-concepts-and-effects?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/lighting-essential-concepts-and-effects?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/lighting-essential-concepts-and-effects/LightingEssentials_Topic_1920x1080-1920x1080-3e04dcaf168d9a530720df1573b417807ae00784.4884f86.delaye?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/lighting-essential-concepts-and-effects/Lighting-Essential-Concepts-and-Effects-1000x1000-14831d7f280345717b0bdd66be9422b40ffb91bd.489fe4b.d?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="lighting-essential-concepts-and-effects?lang=zh-CN_title">
+				光照基础概念和效果
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="introducing-global-illumination?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/introducing-global-illumination?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/introducing-global-illumination/105_GlobalIllum(1200x675)-1200x675-97270dbdc7595455b4c9acf0e83bf01da8efbfd4.48b4f?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/introducing-global-illumination/Introducing-Global-Illumination-1000x1000-af5267ea2a6721b1cc73af7825d226aedbbaf5c?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="introducing-global-illumination?lang=zh-CN_title">
+				全局光照入门
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																								<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#场景设置">场景设置</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#区域阴影设置">区域阴影设置</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#点光源和聚光源半径">点光源和聚光源半径</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#定向光源角度">定向光源角度</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#网格体距离场质量">网格体距离场质量</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#性能">性能</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#优化">优化</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#局限性">局限性</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>可移动光源产生的阴影是使用每个刚性网格体的对象距离场，计算来自动态光源的有效区域阴影而得出的。在虚幻引擎4（UE4）中，有一个 
+<strong>距离场阴影</strong>（DFS）。为了计算阴影，从要着色点朝着每个光源，通过有向距离场（SDF）跟踪光线。
+使用到遮挡物的最近距离估算椎体追踪，所耗成本与光线追踪相同。它让球形光源形状能
+实现高质量区域阴影。
+</p><h2 id="场景设置">场景设置</h2>
+<div class="note">
+	<p>该功能要求你在 <strong>项目设置（Project Settings）</strong> 的 <strong>渲染（Rendering）</strong> 分段中启用 <strong>生成网格体距离场（Generate Mesh Distance Fields）</strong>。有关更多信息，请参阅<a id="content_link"filter-data="tag_lighting tag_distance_fields" href="../MeshDistanceFields/index.html" ><span>网格体距离场</span></a>页面。</p>
+</div><p>要启用距离场阴影，首先将 <strong>光源（Light）</strong> 拖到场景中，将其"移动性"（Mobility）设置为 <strong>可移动（Movable）</strong>，然后在光源的 <strong>细节（Details）</strong> 面板中
+启用 <strong>距离场阴影</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/RayTracedDistanceFieldShadowing/DirectionalLightDFSettings1.jpg">
+		<img class="  lazyload" alt="DirectionalLightDFSettings1.png" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/RayTracedDistanceFieldShadowing/DirectionalLightDFSettings1.jpg" />
+</picture>
+
+</p><div class="note">
+	<p>有关逐步介绍指南，请访问<a id="content_link"filter-data="tag_lighting" href="../MeshDistanceFields/HowTo/DFHT_1/index.html" ><span>使用距离场阴影</span></a>使用指南，以了解更多信息。</p>
+</div><h3 id="区域阴影设置">区域阴影设置</h3>
+<p>每个光源类型都可以使用距离场阴影来创建柔和区域阴影。这些阴影模拟真实世界的阴影，在接近于基部的地方保留明显的接触阴影，
+随着距离的增加，柔化处理延伸阴影
+</p><!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/RayTracedDistanceFieldShadowing/ShadowMap.jpg">
+		<img class="  lazyload" alt="传统阴影贴图" width="500" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/RayTracedDistanceFieldShadowing/ShadowMap.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/RayTracedDistanceFieldShadowing/DistanceFieldShadowPointLight.jpg">
+		<img class="  lazyload" alt="距离场阴影" width="500" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/RayTracedDistanceFieldShadowing/DistanceFieldShadowPointLight.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div><div class="note">
+	<p>有关光源设置的更多信息以及更多示例，请参阅<a id="content_link" href="../MeshDistanceFields/Reference/index.html#光源组件" ><span>网格体距离场参考</span></a>页面。</p>
+</div><h3 id="点光源和聚光源半径">点光源和聚光源半径</h3>
+<p>对于点光源和聚光源，使用 <strong>源半径（Source Radius）</strong> 来确定一个光源上的阴影半影范围。区域阴影使用清晰接触阴影计算，
+接触阴影随着距离的延长而变得柔和。在点光源和聚光源上，表示为黄色球体。
+</p><p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/RayTracedDistanceFieldShadowing/LightSourceVis.jpg">
+		<img class="  lazyload" alt="LightSourceVis.jpg" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/RayTracedDistanceFieldShadowing/LightSourceVis.jpg" />
+</picture>
+
+</p><div class="caption">
+	<p>编辑器用黄色线条绘制光源形状。</p>
+</div><div class="note">
+	<p>光源半径不应与场景相交，否则会导致照明瑕疵。</p>
+</div><!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/RayTracedDistanceFieldShadowing/SourceRadius_0.jpg">
+		<img class="  lazyload" alt="光源半径：| 0 " width="1000" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/RayTracedDistanceFieldShadowing/SourceRadius_0.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/RayTracedDistanceFieldShadowing/SourceRadius_100.jpg">
+		<img class="  lazyload" alt="光源半径：| 50 " width="1000" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/RayTracedDistanceFieldShadowing/SourceRadius_100.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div><p>距离场阴影来自于一个点光源，该光源使用光源半径
+柔化门道、长椅和钢琴对周围几何体产生的阴影投射。
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_-xai0iBffUc_75
+{
+	margin: 0px;
+	width: 100%;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_-xai0iBffUc_75:after
+{
+	content: "";
+	padding-top: 56.25%;
+	display: block;
+}
+</style> 
+<div>
+<div id="player_-xai0iBffUc_75"><div style="position:absolute;display:block;width:100%;height:100%;"><iframe class="embedded_video" id="-xai0iBffUc" width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/-xai0iBffUc?rel=0&amp;modestbranding=1&amp;showinfo=0&amp;loop=1&amp;controls=0" frameborder="0" allowfullscreen></iframe></div></div>
+</div>
+<div class="caption">
+	<p>演示点光源在场景中移动，从各个阴影投射网格体投射区域阴影。 </p>
+</div><div class="note">
+	<p>有关点光源和聚光源设置的更多信息，请参阅<a id="content_link"filter-data="tag_lighting tag_getting_started tag_distance_fields" href="../MeshDistanceFields/Reference/index.html" ><span>网格体距离场参考</span></a>页面。</p>
+</div><h3 id="定向光源角度">定向光源角度</h3>
+<p>对于定向光源，使用 <strong>光源角度（Light Source Angle）</strong> 来确定一个光源上的阴影半影范围。距离场阴影几乎没有
+自交问题，因此能避免远处漏光和过度偏差问题，而传统阴影映射则很难避免。
+</p><!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/RayTracedDistanceFieldShadowing/DF_LSA_1.jpg">
+		<img class="  lazyload" alt="光源角度：| 1 " width="1000" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/RayTracedDistanceFieldShadowing/DF_LSA_1.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/RayTracedDistanceFieldShadowing/DF_LSA_3.jpg">
+		<img class="  lazyload" alt="光源角度：| 3 " width="1000" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/RayTracedDistanceFieldShadowing/DF_LSA_3.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div><div class="caption">
+	
+</div><div class="caption">
+	<p>距离场阴影来自定向光源，为了实现更柔和的阴影调整了其光源角度。 </p>
+</div><p>在大多数情况下，使用级联阴影贴图（CSM）提供定向光源的动态阴影。这要求将场景中的网格体渲染到
+多个级联阴影贴图中（用于实现阴影的细节层次）。由于要渲染到阴影贴图中的
+网格体和三角形数量较多，阴影计算成本随着阴影距离增大而增加。
+</p><p>距离场阴影在远处的性能更优异，它只针对可见像素完成阴影工作。级联阴影贴图可以用于对摄像机附近的区域计算阴影， 
+而RTDF阴影对更远的区域计算阴影，最远达到设置的 <strong>距离场阴影距离（Distance Field Shadow Distance）</strong>。
+</p><!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/RayTracedDistanceFieldShadowing/CSM2.jpg">
+		<img class="  lazyload" alt="仅级联阴影贴图" width="1000" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/RayTracedDistanceFieldShadowing/CSM2.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/RayTracedDistanceFieldShadowing/RTDF2.jpg">
+		<img class="  lazyload" alt="级联阴影贴图和距离场阴影" width="1000" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/RayTracedDistanceFieldShadowing/RTDF2.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div><p>启用距离场阴影后，超过 <strong>级联阴影贴图距离（Cascaded Shadow Map Distance）</strong> 设置值的区域将使用
+距离场计算阴影。在使用CSM和RTDF阴影的对比中，CSM阴影设置为1,000 CM（厘米），允许在 
+摄像机附近呈现清晰的阴影，并添加大量细节。在超过1,000 CM的阴影距离处，使用RTDF阴影，允许对 
+最远不超过1.2 KM（千米）的对象计算阴影。这样，远处的树木也可以投射阴影，而如果使用级联阴影贴图，则需要极高的计算成本。
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_4249b94KtyA_146
+{
+	margin: 0px;
+	width: 100%;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_4249b94KtyA_146:after
+{
+	content: "";
+	padding-top: 56.25%;
+	display: block;
+}
+</style> 
+<div>
+<div id="player_4249b94KtyA_146"><div style="position:absolute;display:block;width:100%;height:100%;"><iframe class="embedded_video" id="4249b94KtyA" width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/4249b94KtyA?rel=0&amp;modestbranding=1&amp;showinfo=0&amp;loop=1&amp;controls=0" frameborder="0" allowfullscreen></iframe></div></div>
+</div>
+<div class="caption">
+	<p>演示定向光源使用距离场阴影在一天内随时间变化的效果。</p>
+</div><div class="note">
+	<p>有关定向光源设置的更多信息，请参阅<a id="content_link"filter-data="tag_lighting tag_getting_started tag_distance_fields" href="../MeshDistanceFields/Reference/index.html" ><span>网格体距离场参考</span></a>页面。</p>
+</div><div class="include_wrapper" data-path="BuildingWorlds/LightingAndShadows/MeshDistanceFields">
+<h3 id="场景表达">场景表达</h3>
+<p>每个创建的关卡都由所放置Actor的所有这些网格体距离场组成。网格体距离场是离线生成的，使用了将效果保存在体积纹理中的三角形光线追踪。因此，网格体距离场是无法在运行时生成的。这种方法会计算所有方向上的有向距离场，找到距离最近的表面，然后将该信息保存起来。
+</p><p>你可以使用视口将代表场景的网格体距离场可视化，只需依次选择 <strong>显示（Show）</strong> > <strong>可视化（Visualize）</strong> > <strong>网格体距离场（Mesh Distance Fields）</strong>。
+</p><div class="imagetable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/BuildingWorlds/LightingAndShadows/MeshDistanceFields/EnableMDFViewMode.png" ><span><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/MeshDistanceFields/EnableMDFViewMode.jpg">
+		<img class="  lazyload" alt="EnableMDFViewMode.png" width="400" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/MeshDistanceFields/EnableMDFViewMode.jpg" />
+</picture>
+</span></a></span></p>
+</div>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/BuildingWorlds/LightingAndShadows/MeshDistanceFields/VisualizeMeshDistanceFields.jpg" ><span><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/MeshDistanceFields/VisualizeMeshDistanceFields.jpg">
+		<img class="  lazyload" alt="VisualizeMeshDistanceFields.jpg" width="750" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/MeshDistanceFields/VisualizeMeshDistanceFields.jpg" />
+</picture>
+</span></a></span></p>
+</div>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>启用可视化的菜单</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>网格体距离场可视化</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div><p><em>点击查看大图。</em>
+</p><p>如果看到较白而不是较灰的区域，意味着需要通过多个步骤才能找到网格体表面的交点。与相对简单的网格体相比，掠射角光线需要更多的步骤才能和平面相交。</p>
+</div>
+<h3 id="网格体距离场质量">网格体距离场质量</h3>
+<p>距离场阴影保真度对阴影准确度有非常大的影响，超过了<a id="content_link"filter-data="tag_lighting tag_distance_fields tag_getting_started" href="../DistanceFieldAmbientOcclusion/index.html" ><span>距离场环境光遮蔽</span></a>。 
+增大的网格体距离场分辨率将提高静态网格体的阴影投射。使用网格体距离场可视化可以检查质量。
+</p><div class="imagetable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/RayTracedDistanceFieldShadowing/DFQuality1a.jpg">
+		<img class="  lazyload" alt="距离场分辨率：| 1 " width="310" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/RayTracedDistanceFieldShadowing/DFQuality1a.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/RayTracedDistanceFieldShadowing/DFQuality1b.jpg">
+		<img class="  lazyload" alt="距离场分辨率：| 5 " width="310" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/RayTracedDistanceFieldShadowing/DFQuality1b.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/RayTracedDistanceFieldShadowing/DFQuality2a.jpg">
+		<img class="  lazyload" alt="距离场分辨率：| 1 " width="310" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/RayTracedDistanceFieldShadowing/DFQuality2a.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/RayTracedDistanceFieldShadowing/DFQuality2b.jpg">
+		<img class="  lazyload" alt="距离场分辨率：| 5 " width="310" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/RayTracedDistanceFieldShadowing/DFQuality2b.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>启用距离场阴影的场景视图</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>网格体距离场可视化</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div><p>网格体距离场阴影通过深度感知放大采样以半分辨率进行计算。<strong>临时抗锯齿（Temporal Anti-Aliasing）</strong>（TAA）非常有助于降低使用半分辨率时
+可能出现的闪烁现象，但有时仍可能会出现锯齿边缘。
+</p><div class="note">
+	<p>有关网格体距离场质量的更多信息，请参阅<a id="content_link"filter-data="tag_lighting tag_distance_fields" href="../MeshDistanceFields/index.html" ><span>网格体距离场</span></a>页面。</p>
+</div><h2 id="性能">性能</h2>
+<p>以下GPU时间是在Radeon 7870、分辨率为1920x1080的完整游戏场景中测得的：
+</p><div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>测试 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>级联/立方体贴图阴影成本（毫秒）</p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>距离场阴影成本（毫秒）</p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>提速百分比（%）</p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>定向光源，距离10k个单位，3个级联阴影贴图</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>3.1</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>2.3</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>25%</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>定向光源，距离30k个单位，6个级联阴影贴图</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>4.9</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>2.8</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>43%</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>1个点光源，大半径</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>1.8</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>1.3</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>30%</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>5个点光源，小半径</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>3.2</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>1.8</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>45%</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="4" align="">
+			
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+	<td rowspan="1" >
+			
+			</td>
+	
+</tr></tbody>
+</table>
+</div><h3 id="优化">优化</h3>
+<p>下面是优化距离场阴影时可以使用或应该考虑的要点：
+</p><ul ><li class="Default"><p>在定向光源上，<strong>光源角度（Light Source Angle）</strong> 越大，成本越高，因为每个要计算阴影的点都需要考虑更多的对象。 
+</p></li><li class="Default"><p><strong>距离场阴影距离（Distance Field Shadow Distance）</strong> 的值越大，剔除效率越低。 
+</p></li><li class="Default"><p>启用了 <strong>双面距离场生成（Two-Sided Distance Field Generation）</strong>（在 <strong>构建设置（Build Settings）</strong> 中启用）的网格体的阴影需要耗用更多成本，因为产生的阴影永远不会完全不透明。
+</p></li></ul><p>在虚幻引擎4.16中，可以启用以下优化：
+</p><div class="include_wrapper" data-path="BuildingWorlds/LightingAndShadows/MeshDistanceFields">
+<ul ><li class="Default"><p>在 <strong>项目设置（Project Settings）</strong> > <strong>渲染（Rendering）</strong> 中启用已选选项。 
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../Images/BuildingWorlds/LightingAndShadows/MeshDistanceFields/ProjectSettings.png" ><span><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/LightingAndShadows/MeshDistanceFields/ProjectSettings.jpg">
+		<img class="  lazyload" alt="ProjectSettings.png" width="500" data-src="../../../../Images/BuildingWorlds/LightingAndShadows/MeshDistanceFields/ProjectSettings.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div><ul ><li class="Default"><p><strong>压缩网格体距离场（Compress Mesh Distance Fields）</strong> 启用后，可以保存在内存中压缩的距离场体积纹理。这会减少距离场占用的内存量，但如果使用关卡流送，当流送切入这些关卡时，会在游戏中造成卡顿。
+</p></li><li class="Default"><p><strong>八位网格体距离场（Eight Bit Mesh Distance Fields）</strong> 启用后，能够以8位定点格式代替默认的16位浮点格式保存距离场体积纹理。它占用的内存量仅为之前的一半，却可以减少较大或较薄网格体中的某些瑕疵。
+</p></li></ul></li><li class="Default"><p>全局距离场主要缓存移动性设置为静态或固定的静态图元。整个全局距离场主要继承了静态缓存，因此当修改可移动图元时，只需要将附近的其他可移动图元重新合成到全局距离场中。
+</p></li></ul>
+</div>
+<h2 id="局限性">局限性</h2>
+<div class="note">
+	<p>距离场阴影与网格体距离场方法有着一样的常规限制。有关这些限制的更多信息，
+请参阅<a id="content_link"filter-data="tag_lighting tag_distance_fields" href="../MeshDistanceFields/index.html" ><span>网格体距离场</span></a>页面。</p>
+</div>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../SiteIndex/index.html?tags=Lighting">Lighting</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../SiteIndex/index.html?tags=Distance%20Fields">Distance Fields</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../SiteIndex/index.html?tags=Getting%20Started">Getting Started</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/BuildingWorlds/LightingAndShadows/RayTracedDistanceFieldShadowing/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 10:55:02 GMT -->
+</html>

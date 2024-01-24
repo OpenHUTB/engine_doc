@@ -1,0 +1,557 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/SharingAndReleasing/Patching/GeneralPatching/HowToCreatePatch/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:42:39 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var finishButton = finishButtonTemplate;
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/SharingAndReleasing/Patching/GeneralPatching/HowToCreatePatch/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>如何创建补丁（与平台无关） | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/instructional.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/SharingAndReleasing/Patching/GeneralPatching/HowToCreatePatch/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/SharingAndReleasing/Patching/GeneralPatching/HowToCreatePatch/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/SharingAndReleasing/Patching/GeneralPatching/HowToCreatePatch/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/SharingAndReleasing/Patching/GeneralPatching/HowToCreatePatch/" hreflang="ko" />
+
+	<meta name="redirect" content="SharingAndReleasing/Deployment/HowToCreatePatch" />
+<meta name="redirect" content="Platforms/Deployment/HowToCreatePatch" />
+<meta name="redirect" content="Engine/Deployment/HowToCreatePatch" />
+<meta name="intsourcechangelist" content="6492012" />
+<meta name="availability" content="Public" />
+<meta name="title" content="如何创建补丁（与平台无关）" />
+<meta name="description" content="本页面介绍如何为现有项目创建补丁。" />
+<meta name="type" content="quick start" />
+<meta name="version" content="4.20" />
+<meta name="parent" content="SharingAndReleasing/Patching/GeneralPatching" />
+<meta name="keywords" content="patching" />
+<meta name="order" content="7" />
+<meta name="crumbs" content="%ROOT%,SharingAndReleasing,SharingAndReleasing/Patching,SharingAndReleasing/Patching/GeneralPatching" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="如何创建补丁（与平台无关）" />
+	<meta property="og:description" content="本页面介绍如何为现有项目创建补丁。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">项目分享及发布</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">补丁和DLC</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">通用修补信息</a>
+
+<span class="separator">></span> <span id="page">如何创建补丁（与平台无关）</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">如何创建补丁（与平台无关）</h1>
+							</div>	
+							<h2 >本页面介绍如何为现有项目创建补丁。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																																			</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>												<div class="tip" id="notice" style="display:none;">
+欢迎回来！要回到您上次离开的地方吗？
+<div class="button-container">
+<a href="javascript:void();" id="goButton" class="btn btn-lrg btn-default action">前往</a>
+<a href="javascript:void();" id="cancelButton" class="btn btn-lrg btn-default">取消</a>
+</div>
+</div>																																				<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#如何使用项目启动器创建补丁">如何使用项目启动器创建补丁</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#创建启动配置文件以测试补丁">创建启动配置文件以测试补丁</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#定制启动配置文件">定制启动配置文件</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#启动补丁的测试版本">启动补丁的测试版本</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#创建并定制用于发布补丁的启动配置文件">创建并定制用于发布补丁的启动配置文件</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#如何使用命令行创建补丁">如何使用命令行创建补丁</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#安装补丁">安装补丁</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p><picture>
+		<source data-srcset="./../../../../../Images/SharingAndReleasing/Patching/GeneralPatching/HowToCreatePatch/Patch_HeroImage.jpg">
+		<img class="  lazyload" alt="Patch_HeroImage.png" data-src="../../../../../Images/SharingAndReleasing/Patching/GeneralPatching/HowToCreatePatch/Patch_HeroImage.jpg" />
+</picture>
+
+</p><p>在打补丁的过程中，引擎会将所有后期烘焙内容与最初发布的已烘培内容进行比较，并据此确定补丁中包含的内容。最小的内容块是单个包（如.ulevel或.uasset），因此如果包中有任何更改，那么整个包都将被包含在补丁中。获取用户补丁包的PAK(.pak)文件的方法将取决于您的发布平台，但是这个过程允许您创建一个较小的PAK文件，其中只包含更新的内容。
+</p><p>您可以使用版本化的发布内容来修补先前发布的项目。需要记住以下几点：
+</p><ul ><li class="Default"><p>发布时锁定序列化代码路径。
+</p></li><li class="Default"><p>保留已发布的烘焙内容，因为UnrealPak工具使用它来确定补丁包文件中应该包含哪些内容。
+</p></li><li class="Default"><p>运行时，挂载这两个PAK文件，补丁文件具有更高的优先级，因此首先加载其中的任何内容。
+</p></li></ul><p>有几种方法可以修补在虚幻引擎4(UE4)中创建的项目。这里使用的方法与平台无关，这意味着它在技术上可以用于任何平台。然而，您只会对两个平台有意使用这种方法，那就是Windows和Xbox One。其他平台有特定的修补方法。您可以在目标开发平台的相关文档中找到这些平台的修补方法文档。
+</p><div class="note">
+	<p>这种方法最终会使用大量的数据存储空间，因为这种方法保存所有旧文件，并且只将游戏指向存在的最新文件。特定于平台的方法使用的空间通常会更少。</p>
+</div><h2 id="如何使用项目启动器创建补丁">如何使用项目启动器创建补丁</h2>
+<p>在本例中，我们将为示例射击游戏创建一个补丁。该补丁将更改武器容量和弹匣大小。如果您按照本文所述操作，并希望将该示例用作学习工具，而不是使用实际的发布版本，请按以下步骤操作：
+</p><ol ><li class="Default"><p>下载样本 <strong>射击游戏（Shooter Game）</strong>。导航到 <strong>Epic Launcher</strong> 中的 <strong>学习（Learn）</strong> 选项卡，并一直向下滚动到 <strong>游戏（Games）</strong> 部分。单击 <strong>射击游戏（Shooter Game）</strong> 图标，并按照说明下载。
+</p></li><li class="Default"><p>遵循我们文档中的<a id="content_link" href="../../../../Basics/Projects/Packaging/index.html" ><span>打包项目</span></a>页面上的说明，使用下载的射击游戏项目。这将为示例游戏提供一个发行版本构建。
+</p></li></ol><p>要更改示例，请遵循以下步骤。
+</p><ol ><li class="Default"><p>在工具栏中，单击 <strong>蓝图（Blueprint）</strong> 图标，选择 <strong>打开蓝图类（Open Blueprint Class）</strong>，然后在搜索字段中键入 <strong>WeapGun</strong> 的前几个字母。当WeapGun显示在列表中时，单击以打开该类。
+</p></li><li class="Default"><p>找到并展开 <strong>配置（Config）</strong> 部分。更改以下值。<br /></p><div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>参数 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>初始值 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>更改的值 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>最大弹药量（Max Ammo）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>250</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>50</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>每弹夹弹药量（Ammo Per Clip）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>500</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>100</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div></li><li class="Default"><p>单击 <strong>保存（Save）</strong> 按钮，并关闭WeapGun类。
+</p></li></ol><h3 id="创建启动配置文件以测试补丁">创建启动配置文件以测试补丁</h3>
+<p>现在我们已经有了一个基础构建，我们将在项目启动器中为补丁创建一个启动配置文件。您可能想要创建一个启动配置文件，用于创建补丁的测试版本，并创建另一个启动概要文件，用于实际的补丁发布。
+</p><ol ><li class="Default"><p>单击 <strong>Windows > 项目启动器（Project Launcher）</strong>，打开 <strong>项目启动器（Project Launcher）</strong>。<br /><picture>
+		<source data-srcset="./../../../../../Images/SharingAndReleasing/Patching/GeneralPatching/HowToCreatePatch/OpenProjectLauncher.jpg">
+		<img class="  lazyload" alt="OpenProjectLauncher.png" width="200" data-src="../../../../../Images/SharingAndReleasing/Patching/GeneralPatching/HowToCreatePatch/OpenProjectLauncher.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>使用 <strong>加</strong> 号(<strong>+</strong>)按钮创建新的 <strong>自定义启动配置文件（Custom Launch Profile）</strong>。这第一个启动配置文件专门用于您补丁的测试版本。键入 <strong>名称（Name）</strong> 和用于阐明的 <strong>说明（Description）</strong>。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/SharingAndReleasing/Patching/GeneralPatching/HowToCreatePatch/ProjectLauncherWindow.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/SharingAndReleasing/Patching/GeneralPatching/HowToCreatePatch/ProjectLauncherWindow.jpg">
+		<img class="  lazyload" alt="ProjectLauncherWindow.png" width="600" data-src="../../../../../Images/SharingAndReleasing/Patching/GeneralPatching/HowToCreatePatch/ProjectLauncherWindow.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>单击显示全图。</p>
+</div></li><li class="Default"><p>在项目启动器中有许多设置，您可以为启动配置文件自定义这些设置。您可以通过单击 <strong>高级设置（Advanced Settings）</strong> 下拉菜单进一步定制每个设置。您还可以单击 <strong>烘焙（Cook）</strong>、<strong>打包（Package）</strong> 或 <strong>部署（Deploy）</strong> 部分中的顶部下拉菜单，您的选择可以更改可用选项。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/SharingAndReleasing/Patching/GeneralPatching/HowToCreatePatch/ProjectLauncher-Advanced-Config.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/SharingAndReleasing/Patching/GeneralPatching/HowToCreatePatch/ProjectLauncher-Advanced-Config.jpg">
+		<img class="  lazyload" alt="ProjectLauncher-Advanced-Config.png" width="600" data-src="../../../../../Images/SharingAndReleasing/Patching/GeneralPatching/HowToCreatePatch/ProjectLauncher-Advanced-Config.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>单击显示全图。</p>
+</div><div class="simpletable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>启动配置文件部分名称 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>高级设置的说明 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>项目（Project）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>您可以浏览到要使用的特定项目，或者使用 <strong>任何项目（Any Project）</strong> 来修补当前项目。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>构建（Build）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>选项为 <strong>调试游戏（DebugGame）</strong>、<strong>开发（Development）</strong> 和 <strong>发布（Shipping）</strong>。单击 <strong>高级设置（Advanced Settings）</strong> 下拉菜单以构建虚幻自动工具(UAT)，作为补丁流程的一部分。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>烘焙（Cook）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>单击下拉菜单选择 <strong>常规烘焙（Cook by the Book）</strong> 或 <strong>动态烘焙（Cook on the Fly）</strong>。也可选择 <strong>不烘焙（Do Not Cook）</strong>。可以单击 <strong>高级设置（Advanced Settings）</strong> 下拉菜单来选择 <strong>仅烘焙修改后内容（Only Cook Modified Content）</strong>。当您选择 <strong>常规烘焙（Cook by the Book）</strong> 时，显示 <strong>高级设置（Advanced Settings）</strong> 和 <strong>版本（Release）/DLC/修补（Patching）</strong> 的其他选项。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>打包（Package）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>选项为 <strong>打包并存储于本地（Package and Store Locally）</strong>、<strong>打包并存储于元库中（Package and Store in Repository）</strong>，或 <strong>不打包（Do Not Package）</strong>。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>存档（Archive）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>如果要存档构建，请选中本节中的方框。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>部署（Deploy）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>选项包括 <strong>复制到设备（Copy to Device）</strong>、<strong>复制元库（Copy Repository）</strong>、<strong>文件服务器（File Server）</strong> 或 <strong>不部署（Do Not Deploy）</strong>。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>启动（Launch）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>选项为 <strong>使用默认角色（Using Default Role）</strong>、<strong>使用自定义角色（Using Custom Roles）</strong> 和 <strong>不启动（Do Not Launch）</strong>。</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div></li></ol><h3 id="定制启动配置文件">定制启动配置文件</h3>
+<p>按照以下步骤定制新的启动配置文件。
+</p><ol ><li class="Default"><p>在 <strong>项目（Project）</strong> 部分中，单击下拉菜单浏览到您的项目。<br /></p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/SharingAndReleasing/Patching/GeneralPatching/HowToCreatePatch/CustomizeProfileSettings_1.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/SharingAndReleasing/Patching/GeneralPatching/HowToCreatePatch/CustomizeProfileSettings_1.jpg">
+		<img class="  lazyload" alt="CustomizeProfileSettings_1.png" width="600" data-src="../../../../../Images/SharingAndReleasing/Patching/GeneralPatching/HowToCreatePatch/CustomizeProfileSettings_1.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>单击显示全图。</p>
+</div></li><li class="Default"><p>在 <strong>构建（Build）</strong> 部分中，单击下拉菜单并选择 <strong>发布（Shipping）</strong>。如果您需要构建虚幻自动工具(UAT)作为补丁流程的一部分，因为您在构建机器上创建补丁，那么可以选择展开 <strong>高级设置（Advanced Settings）</strong>。<br /></p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/SharingAndReleasing/Patching/GeneralPatching/HowToCreatePatch/CustomizeProfileSettings_2.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/SharingAndReleasing/Patching/GeneralPatching/HowToCreatePatch/CustomizeProfileSettings_2.jpg">
+		<img class="  lazyload" alt="CustomizeProfileSettings_2.png" width="600" data-src="../../../../../Images/SharingAndReleasing/Patching/GeneralPatching/HowToCreatePatch/CustomizeProfileSettings_2.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>单击显示全图。</p>
+</div></li><li class="Default"><p>在 <strong>烘焙（Cook）</strong> 部分中，单击下拉菜单并选择 <strong>常规（By the Book）</strong>。这为您提供了 <strong>已烘焙的平台（Cooked Platforms）</strong>、<strong>已烘焙的文化（Cooked Cultures）</strong> 和 <strong>已烘焙的贴图（Cooked Maps）</strong> 的选项。为您的项目选中烘焙（Cook）设置。<br /></p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/SharingAndReleasing/Patching/GeneralPatching/HowToCreatePatch/CustomizeProfileSettings_3.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/SharingAndReleasing/Patching/GeneralPatching/HowToCreatePatch/CustomizeProfileSettings_3.jpg">
+		<img class="  lazyload" alt="CustomizeProfileSettings_3.png" width="600" data-src="../../../../../Images/SharingAndReleasing/Patching/GeneralPatching/HowToCreatePatch/CustomizeProfileSettings_3.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>单击显示全图。</p>
+</div><div class="tip">
+	<p>烘焙（Cook）设置确定您的项目中哪些内容是为该补丁烘焙的，然后将这些内容与原始包文件进行比较。</p>
+</div></li><li class="Default"><p>单击箭头展开 <strong>版本/DLC/修补设置（Release/DLC/Patching Settings）</strong>。<br /></p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/SharingAndReleasing/Patching/GeneralPatching/HowToCreatePatch/CustomizeProfileSettings_7.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/SharingAndReleasing/Patching/GeneralPatching/HowToCreatePatch/CustomizeProfileSettings_7.jpg">
+		<img class="  lazyload" alt="CustomizeProfileSettings_7.png" width="600" data-src="../../../../../Images/SharingAndReleasing/Patching/GeneralPatching/HowToCreatePatch/CustomizeProfileSettings_7.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>单击显示全图。</p>
+</div></li><li class="Default"><p>在 <strong>基于此版本发行（Release version this is based on）</strong>，键入发布版本。然后选中 <strong>生成补丁（Generate Patch）</strong> 的方框。<br /></p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/SharingAndReleasing/Patching/GeneralPatching/HowToCreatePatch/CustomizeProfileSettings_8.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/SharingAndReleasing/Patching/GeneralPatching/HowToCreatePatch/CustomizeProfileSettings_8.jpg">
+		<img class="  lazyload" alt="CustomizeProfileSettings_8.png" width="600" data-src="../../../../../Images/SharingAndReleasing/Patching/GeneralPatching/HowToCreatePatch/CustomizeProfileSettings_8.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>单击显示全图。</p>
+</div></li><li class="Default"><p>单击箭头展开 <strong>高级设置（Advanced Settings）</strong>。请确保选中以下框，以及特定项目的分发方法所需的任何其他方框。
+</p><ul ><li class="Default"><p><strong>压缩内容（Compress Content）</strong>
+</p></li><li class="Default"><p><strong>保存没有版本的程序包（Save Packages Without Versions）</strong>
+</p></li><li class="Default"><p><strong>将所有内容保存在单个文件（UnrealPak）中（Store all content in a single file (UnrealPak)）</strong>
+</p></li></ul><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/SharingAndReleasing/Patching/GeneralPatching/HowToCreatePatch/CustomizeProfileSettings_9.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/SharingAndReleasing/Patching/GeneralPatching/HowToCreatePatch/CustomizeProfileSettings_9.jpg">
+		<img class="  lazyload" alt="CustomizeProfileSettings_9.png" width="600" data-src="../../../../../Images/SharingAndReleasing/Patching/GeneralPatching/HowToCreatePatch/CustomizeProfileSettings_9.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>单击显示全图。</p>
+</div></li><li class="Default"><p>同样在 <strong>高级设置（Advanced Settings）</strong> 中，单击 <strong>烘焙器构建配置（Cooker Build Configuration）</strong>，并选择 <strong>发布（Shipping）</strong>。<br /></p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/SharingAndReleasing/Patching/GeneralPatching/HowToCreatePatch/CustomizeProfileSettings_10.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/SharingAndReleasing/Patching/GeneralPatching/HowToCreatePatch/CustomizeProfileSettings_10.jpg">
+		<img class="  lazyload" alt="CustomizeProfileSettings_10.png" width="600" data-src="../../../../../Images/SharingAndReleasing/Patching/GeneralPatching/HowToCreatePatch/CustomizeProfileSettings_10.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>单击显示全图。</p>
+</div></li><li class="Default"><p>在 <strong>打包（Package）</strong> 部分中，单击下拉菜单并选择 <strong>打包并存储于本地（Package and Store Locally）</strong>。默认输入本地目录；如果您想要更改它，请单击 <strong>浏览（Browse）</strong> 并选择要存储包的目录。<br /></p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/SharingAndReleasing/Patching/GeneralPatching/HowToCreatePatch/CustomizeProfileSettings_11.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/SharingAndReleasing/Patching/GeneralPatching/HowToCreatePatch/CustomizeProfileSettings_11.jpg">
+		<img class="  lazyload" alt="CustomizeProfileSettings_11.png" width="600" data-src="../../../../../Images/SharingAndReleasing/Patching/GeneralPatching/HowToCreatePatch/CustomizeProfileSettings_11.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>单击显示全图。</p>
+</div></li><li class="Default"><p>在 <strong>部署（Deploy）</strong> 部分中，单击下拉菜单并选择 <strong>不部署（Do Not Deploy）</strong>。<br /></p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/SharingAndReleasing/Patching/GeneralPatching/HowToCreatePatch/CustomizeProfileSettings_12.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/SharingAndReleasing/Patching/GeneralPatching/HowToCreatePatch/CustomizeProfileSettings_12.jpg">
+		<img class="  lazyload" alt="CustomizeProfileSettings_12.png" width="600" data-src="../../../../../Images/SharingAndReleasing/Patching/GeneralPatching/HowToCreatePatch/CustomizeProfileSettings_12.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>单击显示全图。</p>
+</div><div class="note">
+	<p>选择 <strong>不部署（Do Not Deploy）</strong> 以测试补丁。当您测试了补丁并准备构建一个发布版本时，请遵循本节中的步骤并选择一个不同的部署方法。</p>
+</div></li></ol><h3 id="启动补丁的测试版本">启动补丁的测试版本</h3>
+<ol ><li class="Default"><p>使用右上角的 <strong>返回（Back）</strong> 按钮导航回主配置文件窗口。<br /></p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/SharingAndReleasing/Patching/GeneralPatching/HowToCreatePatch/LaunchTestPatch_1.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/SharingAndReleasing/Patching/GeneralPatching/HowToCreatePatch/LaunchTestPatch_1.jpg">
+		<img class="  lazyload" alt="LaunchTestPatch_1.png" width="600" data-src="../../../../../Images/SharingAndReleasing/Patching/GeneralPatching/HowToCreatePatch/LaunchTestPatch_1.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>单击显示全图。</p>
+</div></li><li class="Default"><p>单击 <strong>补丁（Patching）</strong> 配置文件旁的启动图标。<br /></p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/SharingAndReleasing/Patching/GeneralPatching/HowToCreatePatch/LaunchTestPatch_2.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/SharingAndReleasing/Patching/GeneralPatching/HowToCreatePatch/LaunchTestPatch_2.jpg">
+		<img class="  lazyload" alt="LaunchTestPatch_2.png" width="600" data-src="../../../../../Images/SharingAndReleasing/Patching/GeneralPatching/HowToCreatePatch/LaunchTestPatch_2.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>单击显示全图。</p>
+</div></li><li class="Default"><p>项目启动器将经历构建、烘焙和打包过程。这可能需要一些时间，具体取决于项目的复杂性。<br /></p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/SharingAndReleasing/Patching/GeneralPatching/HowToCreatePatch/LaunchTestPatch_3.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/SharingAndReleasing/Patching/GeneralPatching/HowToCreatePatch/LaunchTestPatch_3.jpg">
+		<img class="  lazyload" alt="LaunchTestPatch_3.png" width="600" data-src="../../../../../Images/SharingAndReleasing/Patching/GeneralPatching/HowToCreatePatch/LaunchTestPatch_3.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>单击显示全图。</p>
+</div></li><li class="Default"><p>一旦操作完成，关闭窗口或单击 <strong>完成（Done）</strong>。<br /></p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/SharingAndReleasing/Patching/GeneralPatching/HowToCreatePatch/LaunchTestPatch_4.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/SharingAndReleasing/Patching/GeneralPatching/HowToCreatePatch/LaunchTestPatch_4.jpg">
+		<img class="  lazyload" alt="LaunchTestPatch_4.png" width="600" data-src="../../../../../Images/SharingAndReleasing/Patching/GeneralPatching/HowToCreatePatch/LaunchTestPatch_4.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>单击显示全图。</p>
+</div></li></ol><h3 id="创建并定制用于发布补丁的启动配置文件">创建并定制用于发布补丁的启动配置文件</h3>
+<ol ><li class="Default"><p>使用 <strong>加号</strong>(<strong>+</strong>)按钮创建新的自定义启动配置文件（Custom Launch Profile）。该配置文件是为您的补丁发布的，因此键入 <strong>名称（Name）</strong> 和 <strong>说明（Description）</strong> 以清晰传达。
+</p></li><li class="Default"><p>遵循<a id="content_link" href="#" ><span>定制启动配置文件</span></a>部分中的步骤1-11。必要时，如果您的测试版本与您想要发布的版本有显著不同，请更改自定义设置。
+</p></li><li class="Default"><p>在 <strong>部署（Deploy）</strong> 部分中，单击下拉菜单并选择要使用的部署选项。
+</p></li><li class="Default"><p>完成了发布启动配置文件的制作后，遵循<a id="content_link" href="#" ><span>启动补丁的测试版本</span></a>部分中的步骤。
+</p></li></ol><h2 id="如何使用命令行创建补丁">如何使用命令行创建补丁</h2>
+<p>若要为项目创建与平台无关的补丁，项目启动器不是唯一的选项。您还可以使用UAT命令行指令创建补丁。
+</p><p>首先，您需要创建一个基础构建。这可能是您的发布构建。创建此构建时，您需要使用命令行参数<code>-Createreleaseversion=&lt;releasenumber&gt;</code>。这将创建您项目的1.0版本。
+</p><p>示例：
+</p><pre class="prettyprint"><code>BuildCookRun &lt;normalbuildcookrunarguments&gt; -build -cook -stage -pak -createreleaseversion=1.0</code></pre>
+<div class="note">
+	<p>这将在<code>&lt;ProjectPath&gt;\Releases\1.0\</code>目录中保存一个构建，生成补丁时需要这个目录。</p>
+</div><p>一旦有了已编号的基础构建，就可以创建基于之前构建的补丁。创建此补丁时，您需要使用命令行参数<code>-basedonreleaseversion=&lt;releasenumber&gt;</code>。
+</p><p>示例：
+</p><pre class="prettyprint"><code>BuildCookRun &lt;normalbuildcookrunarguments&gt; -build -cook -stage -pak -generatepatch -basedonreleaseversion=1.0</code></pre>
+<h2 id="安装补丁">安装补丁</h2>
+<p>与平台无关的修补流程在以下目录中创建一个PAK文件：<code>&#91;ProjectName&#93;\Saved\StagedBuilds&#91;PlatformName&#93;&#91;ProjectName&#93;\Content\Paks</code>。根据创建项目的平台，PAK文件包含应该分发给用户的新内容或更改内容。例如，在Windows上，您可以创建一个安装程序以将该PAK文件复制到该用户的‘[项目名称]\Releases[版本号][平台名称]'文件夹中，位于原始内容PAK文件旁。
+</p><p>当补丁PAK文件位于`FPakPlatformFile::GetPakFolders`中设置的设备上的任何PAK搜索目录中时，将自动挂载该文件。要对补丁进行优先级排序，挂载系统使用文件名末尾的`<em>p`来确定它的优先级高于其他PAK文件。它可以重命名，但您需要在文件名末尾包含`</em>p.pak`。
+</p><p>如果您从同一个发布版本构建两个补丁，那么它们都是完整的补丁，因此您应该在安装第二个补丁时移除第一个补丁。
+</p>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=patching">patching</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/SharingAndReleasing/Patching/GeneralPatching/HowToCreatePatch/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:42:50 GMT -->
+</html>

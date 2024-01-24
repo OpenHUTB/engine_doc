@@ -1,0 +1,641 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/WorkingWithContent/Types/StaticMeshes/HowTo/Defeaturing/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:02:23 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Defeaturing/defeaturing-banner.png";
+				var finishButton = finishButtonTemplate;
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/WorkingWithContent/Types/StaticMeshes/HowTo/Defeaturing/" />');
+				var udnCSS = '../../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>通过特征清除简化静态网格体 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+		    <script  src="../../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+		    <script  src="../../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/WorkingWithContent/Types/StaticMeshes/HowTo/Defeaturing/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/WorkingWithContent/Types/StaticMeshes/HowTo/Defeaturing/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/WorkingWithContent/Types/StaticMeshes/HowTo/Defeaturing/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/WorkingWithContent/Types/StaticMeshes/HowTo/Defeaturing/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Content/Types/StaticMeshes/HowTo/Defeaturing" />
+<meta name="intsourcechangelist" content="14116676" />
+<meta name="availability" content="Public" />
+<meta name="title" content="通过特征清除简化静态网格体" />
+<meta name="description" content="介绍如何通过移除静态网格体几何体中的小孔和凸起来提高渲染性能。" />
+<meta name="type" content="how-to" />
+<meta name="skilllevel" content="Intermediate" />
+<meta name="version" content="4.23" />
+<meta name="parent" content="WorkingWithContent/Types/StaticMeshes/HowTo" />
+<meta name="related" content="WorkingWithContent/Types/StaticMeshes/HowTo/ModifyStaticMeshGeometry" />
+<meta name="related" content="Basics/Levels/HowTo/Jacketing" />
+<meta name="order" content="7" />
+<meta name="keywords" content="how to" />
+<meta name="keywords" content="Datasmith" />
+<meta name="keywords" content="intermediate" />
+<meta name="hero-image" content="defeaturing-banner.png" />
+<meta name="crumbs" content="%ROOT%,WorkingWithContent,WorkingWithContent/Types,WorkingWithContent/Types/StaticMeshes,WorkingWithContent/Types/StaticMeshes/HowTo" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="通过特征清除简化静态网格体" />
+	<meta property="og:description" content="介绍如何通过移除静态网格体几何体中的小孔和凸起来提高渲染性能。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../../index.html">管理内容</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">内容资产类型</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">静态网格体</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">静态网格模型操作说明</a>
+
+<span class="separator">></span> <span id="page">通过特征清除简化静态网格体</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  background">
+						<div class="imgContainer"><img src="../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Defeaturing/defeaturing-banner.png" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">通过特征清除简化静态网格体</h1>
+							</div>	
+							<h2 >介绍如何通过移除静态网格体几何体中的小孔和凸起来提高渲染性能。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Intermediate"><a id="skill_link" href="../../../../../SiteIndex/index.html?skills=Intermediate">Intermediate</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																														<div id="seeAlso">
+	<div style="position:relative;">
+		<div id="title">参见</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<p>
+						<a id="related_link" href="../ModifyStaticMeshGeometry/index.html" title="对使用静态网格编辑器的编辑模式功能按钮修改静态网格体资源几何体的方法进行讲解。">修改静态网格体几何体</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../../../../Basics/Levels/HowTo/Jacketing/index.html" title="介绍如何移除和简化被关卡对象完全遮挡的几何体，以便提升渲染性能。">查找和删除完全遮挡的网格体</a>
+					</p>
+				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																														<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#可移除特征">可移除特征</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#通孔">通孔</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#盲孔">盲孔</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#凸起">凸起</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#项目设置">项目设置</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#在静态网格体编辑器中执行特征清除">在静态网格体编辑器中执行特征清除</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#在编辑器脚本中执行特征清除">在编辑器脚本中执行特征清除</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>特征清除是一种通过去除凸起和孔洞来简化网格体的方法。它可以通过减少网格体包含的顶点和三角形的数量来提高渲染性能。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Defeaturing/defeaturing-banner.jpg">
+		<img class="  lazyload" alt="defeaturing-banner.png" data-src="../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Defeaturing/defeaturing-banner.jpg" />
+</picture>
+
+</p><p>特征清除对于来自计算机辅助设计（CAD）应用程序的几何体特别有用。为物理制造目的而设计和建模部件和总成时，它们通常带有一些对于制造中实际对象而言非常重要但对于实时渲染而言则不是必需的小特征。
+</p><p>例如，这个来自燃油泵总成的部件包含20,000个三角形。如果去除一些孔洞，那么这个数字会削减几乎一半。在这种情况下，总成中的其他部件将覆盖修改过的区域，因此在上下文中看到的渲染结果不会有明显变化。
+</p><div class="imagetable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Defeaturing/defeaturing-fuel-pump-before.png" title="Before: 20,617 triangles"><span><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Defeaturing/defeaturing-fuel-pump-before.jpg">
+		<img class="  lazyload" alt="defeaturing-fuel-pump-before.png" width="450" data-src="../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Defeaturing/defeaturing-fuel-pump-before.jpg" />
+</picture>
+</span></a></span></p>
+</div>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Defeaturing/defeaturing-fuel-pump-after.png" title="After: 11,553 triangles"><span><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Defeaturing/defeaturing-fuel-pump-after.jpg">
+		<img class="  lazyload" alt="defeaturing-fuel-pump-after.png" width="450" data-src="../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Defeaturing/defeaturing-fuel-pump-after.jpg" />
+</picture>
+</span></a></span></p>
+</div>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>之前：20,617个三角形</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>之后：11,553三角形</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div><p>此外，如果你计划创建 <strong>细节层级（LOD）</strong>，以便在网格体占用较少屏幕空间时进一步简化网格体，那么从特征清除网格体创建LOD可以帮助使网格体的简化不那么明显。例如，对于曲轴总成的这个小部件，在不太详细的LOD级别上，小孔看起来参差不齐。利用特征清除在创建LOD之前去除小孔，网格体在较小的尺寸时看起来整洁得多。
+</p><div class="imagetable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Defeaturing/defeaturing-crankshaft-lod-0.png" title="Original mesh"><span><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Defeaturing/defeaturing-crankshaft-lod-0.jpg">
+		<img class="  lazyload" alt="defeaturing-crankshaft-lod-0.png" width="300" data-src="../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Defeaturing/defeaturing-crankshaft-lod-0.jpg" />
+</picture>
+</span></a></span></p>
+</div>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Defeaturing/defeaturing-crankshaft-lod-2.png" title="LOD 2"><span><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Defeaturing/defeaturing-crankshaft-lod-2.jpg">
+		<img class="  lazyload" alt="defeaturing-crankshaft-lod-2.png" width="300" data-src="../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Defeaturing/defeaturing-crankshaft-lod-2.jpg" />
+</picture>
+</span></a></span></p>
+</div>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Defeaturing/defeaturing-crankshaft-lod-2-processed.png" title="Defeatured, then LODed"><span><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Defeaturing/defeaturing-crankshaft-lod-2-processed.jpg">
+		<img class="  lazyload" alt="defeaturing-crankshaft-lod-2-processed.png" width="300" data-src="../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Defeaturing/defeaturing-crankshaft-lod-2-processed.jpg" />
+</picture>
+</span></a></span></p>
+</div>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>原始网格体</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>LOD 2</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>清除特征，然后创建LOD</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div><p>虚幻编辑器能够清除从Datasmith或FBX导入的任何静态网格体资源的特征。<br /></p><h2 id="可移除特征">可移除特征</h2>
+<p>下面几节将介绍特征清除工具可以删除的特征类型，以及你可以提供的用于控制你希望删除之特征大小的测量值。
+</p><h3 id="通孔">通孔</h3>
+<p>通孔是表面上完全穿过物体并从另一侧穿出的孔洞。
+</p><p>你可以通过指定通孔的最大直径来限制通孔的大小。
+</p><div class="imagetable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Defeaturing/defeaturing-through-holes-before.png" title="Before removing through holes"><span><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Defeaturing/defeaturing-through-holes-before.jpg">
+		<img class="  lazyload" alt="defeaturing-through-holes-before.png" width="450" data-src="../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Defeaturing/defeaturing-through-holes-before.jpg" />
+</picture>
+</span></a></span></p>
+</div>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Defeaturing/defeaturing-through-holes-after.png" title="After removing through holes"><span><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Defeaturing/defeaturing-through-holes-after.jpg">
+		<img class="  lazyload" alt="defeaturing-through-holes-after.png" width="450" data-src="../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Defeaturing/defeaturing-through-holes-after.jpg" />
+</picture>
+</span></a></span></p>
+</div>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>移除通孔之前</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>移除通孔之后</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div><h3 id="盲孔">盲孔</h3>
+<p>盲孔是表面上未完全穿过物体的孔洞。与通孔不同，盲孔具有与表面相隔一定距离的底部。
+</p><p>你可以通过指定孔的最大直径和孔在表面以下的最大深度来限制要移除的盲孔的大小。只有比这 <em>两个</em> 尺寸都小的孔才会被删除。
+</p><div class="imagetable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Defeaturing/defeaturing-blind-holes-before.png" title="Before removing blind holes"><span><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Defeaturing/defeaturing-blind-holes-before.jpg">
+		<img class="  lazyload" alt="defeaturing-blind-holes-before.png" width="450" data-src="../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Defeaturing/defeaturing-blind-holes-before.jpg" />
+</picture>
+</span></a></span></p>
+</div>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Defeaturing/defeaturing-blind-holes-after.png" title="After removing blind holes"><span><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Defeaturing/defeaturing-blind-holes-after.jpg">
+		<img class="  lazyload" alt="defeaturing-blind-holes-after.png" width="450" data-src="../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Defeaturing/defeaturing-blind-holes-after.jpg" />
+</picture>
+</span></a></span></p>
+</div>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>移除盲孔之前</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>移除盲孔之后</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div><h3 id="凸起">凸起</h3>
+<p>凸起是高出周围表面的隆起处。
+</p><p>你可以通过指定凸起的最大直径和凸起超出表面的最大高度来限制要移除的凸起的大小。只有比这*两个*尺寸都小的凸起才会被删除。
+</p><div class="imagetable">
+	<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Defeaturing/defeaturing-protrusion-before.png" title="Before removing protrusions"><span><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Defeaturing/defeaturing-protrusion-before.jpg">
+		<img class="  lazyload" alt="defeaturing-protrusion-before.png" width="450" data-src="../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Defeaturing/defeaturing-protrusion-before.jpg" />
+</picture>
+</span></a></span></p>
+</div>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Defeaturing/defeaturing-protrusion-after.png" title="After removing protrusions"><span><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Defeaturing/defeaturing-protrusion-after.jpg">
+		<img class="  lazyload" alt="defeaturing-protrusion-after.png" width="450" data-src="../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Defeaturing/defeaturing-protrusion-after.jpg" />
+</picture>
+</span></a></span></p>
+</div>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p>移除凸起之前</p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>移除凸起之后</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div><h2 id="项目设置">项目设置</h2>
+<p>要使用特征清楚，必须为项目启用 <strong>多边形编辑（Polygon Editing）</strong> 插件。
+</p><div class="tip">
+	<p>如果使用了 <strong>建筑、工程与施工</strong> 类别下的样板项目，可能会默认启用此插件。</p>
+</div><div class="note">
+	<p><strong>多边形编辑</strong> 插件只支持64位Windows。除此之外，特征清除只能通过使用Epic Games启动程序安装的虚幻引擎的预构建二进制分发文件获取。</p>
+</div><h2 id="在静态网格体编辑器中执行特征清除">在静态网格体编辑器中执行特征清除</h2>
+<ol ><li class="Default"><p>在静态网格体编辑器中打开要修改的静态网格体。<br />你可以在 <strong>内容浏览器（Content Browser）</strong> 中双击该资源，或者右键单击它并选择 <strong>编辑（Edit）</strong>。 
+</p></li><li class="Default"><p>打开 <strong>网格体编辑（Mesh Editing）</strong> 工具栏。<br /><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Defeaturing/defeaturing-open-editing-toolbar.jpg">
+		<img class="  lazyload" alt="Open the Mesh Editing Toolbar" title="Open the Mesh Editing Toolbar" data-src="../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Defeaturing/defeaturing-open-editing-toolbar.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>单击 <strong>特征清除（Defeaturing）</strong> 图标。 <br /><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Defeaturing/defeaturing-in-toolbar.jpg">
+		<img class="  lazyload" alt="Defeaturing" title="Defeaturing" data-src="../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Defeaturing/defeaturing-in-toolbar.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>你将看到一个设置对话框，你可以在其中配置要移除的特征：<br /><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Defeaturing/defeaturing_settings.jpg">
+		<img class="  lazyload" alt="Defeaturing settings" title="Defeaturing settings" data-src="../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Defeaturing/defeaturing_settings.jpg" />
+</picture>
+<br />对于要从静态网格体中移除的各种类型的特征，选中相应的选项并设置该类型特征的最大尺寸。 
+</p><div class="note">
+	<p>确保为从默认值中选择的每种类型的特性增加最大尺寸。</p>
+</div></li><li class="Default"><p>点击 <strong>继续（Proceed）</strong> 启动特征清除操作并修改静态网格体。<br /><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Defeaturing/defeaturing_settings_proceed.jpg">
+		<img class="  lazyload" alt="Proceed" title="Proceed" data-src="../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Defeaturing/defeaturing_settings_proceed.jpg" />
+</picture>
+
+</p></li></ol><h2 id="在编辑器脚本中执行特征清除">在编辑器脚本中执行特征清除</h2>
+<p>你可以在蓝图和Python中移除孔、盲孔和凸起。
+</p><div class="note">
+	<p> <strong>先决条件：</strong> 如果你尚未进行此操作，则需要安装 <strong>编辑器脚本工具插件（Editor Scripting Utilities Plugin）</strong>。有关详情，请参阅<a id="content_link"filter-data="tag_blueprints tag_python tag_scripting" href="../../../../../ProductionPipelines/ScriptingAndAutomation/index.html" ><span>脚本化和自动化编辑器</span></a>。</p>
+</div><div class="togglesection">
+	<div class="normaltitle">
+	<p>选择实现方法：</p>
+</div><div class="toggleButtons">
+	<!--
+category:paramliteral
+id:paramliteral
+label:paramliteral
+active:paramliteral
+-->
+<div class="btn btn-default btn-toggle BlueprintOrCPPSelect blueprintimplementation active_button" onclick="setSelector('BlueprintOrCPPSelect', 'blueprintimplementation');">
+    <p>Blueprints</p>
+</div><!--
+category:paramliteral
+id:paramliteral
+label:paramliteral
+active:paramliteral
+-->
+<div class="btn btn-default btn-toggle BlueprintOrCPPSelect pythonimplementation " onclick="setSelector('BlueprintOrCPPSelect', 'pythonimplementation');">
+    <p>Python</p>
+</div>
+</div>
+</div><!--
+category:paramliteral
+id:paramliteral
+content:param
+active:paramliteral
+-->
+<div class="button_content BlueprintOrCPPSelect blueprintimplementation active_button_content">
+    <div class="container">
+        <p>你可以使用 <strong>网格体处理（Mesh Processing）> 网格体特征清除（Defeature Mesh）</strong> 节点在蓝图中的静态网格体资源上运行特征清除工具。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Defeaturing/defeature_mesh_bp.jpg">
+		<img class="  lazyload" alt="Defeature Mesh node" title="Defeature Mesh node" data-src="../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Defeaturing/defeature_mesh_bp.jpg" />
+</picture>
+
+</p><div class="note">
+	<p>若要使用此节点，你的蓝图类必须派生自仅用于编辑器的类，例如 <strong>PlacedEditorUtilityBase</strong> 类。有关详情，请参阅<a id="content_link"filter-data="tag_blueprints tag_blueprint_utilities tag_scripting tag_editor" href="../../../../../ProductionPipelines/ScriptingAndAutomation/Blueprints/index.html" ><span>使用蓝图脚本化编辑器</span></a>。</p>
+</div><p>你需要为这个节点提供以下输入：
+</p><ul ><li class="Default"><p>对要修改的静态网格体资源的引用。首先必须加载此资源，加载操作通常通过调用 <strong>编辑器脚本（Editor Scripting）> 资源（Asset）> 加载资源（Load Asset）</strong> 节点来完成。
+</p></li><li class="Default"><p>要在静态网格体上修改的LOD的索引。使用0，除非你只想移除特定LOD的特征。
+</p></li><li class="Default"><p>一个 <strong>网格体特征清除参数对象（MeshDefeaturingParameterObject）</strong>，它控制应从静态网格体中移除的特征类型，以及要移除的特征的最大尺寸。<br />若要设置这些对象之一，请执行以下操作：
+</p><p>1.单击 <strong>我的蓝图（My Blueprint）</strong> 面板中的 <strong>+ 变量（+ Variable）</strong> 按钮，向蓝图添加一个新变量。<br /></p><pre class="prettyprint"><code>!&#91;添加变量&#93;(defeaturing-add-variable.png "添加变量")</code></pre>
+<p>2.将变量的类型设置为对一个 *网格体特征清除参数对象（Mesh Defeaturing Parameter Object）** 的引用。<br /></p><pre class="prettyprint"><code>!&#91;网格体特征清除参数对象&#93;(defeaturing-add-parameter-object.png "网格体特征清除参数对象")</code></pre>
+<p>3.按住 <strong>Control</strong> 并将变量拖放到蓝图图表中，以创建获取该变量值的新节点。 
+</p><pre class="prettyprint"><code>!&#91;拖动并放置&#93;(defeaturing-drag-variable.png "拖动并放置")</code></pre>
+<p>4.从新变量节点的输出端口拖动，并从 <strong>变量（Variables）</strong> 列表中选择需要修改的设置的 <strong>设置（Set）</strong> 节点。<br /></p><pre class="prettyprint"><code>!&#91;特征清除参数API&#93;(defeaturing-parameter-api.png "特征清除参数API")</code></pre></li></ul><p>例如，以下脚本将从静态网格体资源中移除所有宽度小于5cm的孔洞：
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Defeaturing/defeature_example_bp.png" ><span><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Defeaturing/defeature_example_bp.jpg">
+		<img class="  lazyload" alt="Defeaturing example" title="Defeaturing example" data-src="../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Defeaturing/defeature_example_bp.jpg" />
+</picture>
+</span></a></span> 
+<em>点击查看大图。</em></p>
+</div>
+
+    </div>
+</div><!--
+category:paramliteral
+id:paramliteral
+content:param
+active:paramliteral
+-->
+<div class="button_content BlueprintOrCPPSelect pythonimplementation ">
+    <div class="container">
+        <p>你可以通过调用"unreal.EditorMeshProcessing.defeature_mesh()"函数在静态网格体资源上运行特征清除工具。
+</p><p>你将需要传递此函数：
+</p><ul ><li class="Default"><p>要修改的静态网格体资源。首先必须加载该资源，加载操作通常通过调用"unreal.EditorAssetLibrary.load_asset()"来完成。
+</p></li><li class="Default"><p>要在静态网格体上修改的LOD的索引。使用0，除非你只想移除特定LOD的特征。
+</p></li><li class="Default"><p>你创建的"unreal.MeshDefeaturingParameterObject"。使用配置参数设置此对象，这些配置参数控制应从静态网格体中移除的特征类型，以及要移除的特征的最大尺寸。
+</p></li></ul><p>例如，以下脚本将移除静态网格体中所有小于"unreal.MeshDefeaturingParameterObject"中所设尺寸的通孔、盲孔和凸起。
+</p><pre class="prettyprint"><code>import unreal
+asset&#95;name = "/Game/Unreal&#95;Sportbike/Geometries/0x25f0e0b7Unreal&#95;Sportbike&#95;geom&#95;3180.Accumulator&#95;case"
+def defeature&#95;mesh(mesh&#95;name):
+    # Load the Asset
+    mesh&#95;asset = unreal.EditorAssetLibrary.load&#95;asset(mesh&#95;name)
+    # Create a parameter object
+    options = unreal.MeshDefeaturingParameterObject()
+    # Set up its properties
+    options.fill&#95;blind&#95;holes = True
+    options.filled&#95;hole&#95;max&#95;diameter = 10
+    options.filled&#95;hole&#95;max&#95;depth = 5
+    options.fill&#95;through&#95;holes = True
+    options.through&#95;hole&#95;max&#95;diameter = 10
+    options.remove&#95;protrusions = True
+    options.protrusion&#95;max&#95;diameter = 10
+    options.protrusion&#95;max&#95;height = 5
+    # Run the defeaturing
+    unreal.MeshProcessingLibrary.defeature&#95;mesh(mesh&#95;asset, 0, options)
+    # Save the Asset
+    unreal.EditorAssetLibrary.save&#95;loaded&#95;asset(mesh&#95;asset)
+defeature&#95;mesh(asset&#95;name)</code></pre>
+
+
+    </div>
+</div>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../../SiteIndex/index.html?tags=how%20to">how to</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../../SiteIndex/index.html?tags=Datasmith">Datasmith</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../../SiteIndex/index.html?tags=intermediate">intermediate</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/WorkingWithContent/Types/StaticMeshes/HowTo/Defeaturing/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:02:36 GMT -->
+</html>

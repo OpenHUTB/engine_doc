@@ -1,0 +1,456 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/WorkingWithContent/Importing/FBX/HowTo/ImportingSkeletalLODs/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:03:52 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var finishButton = finishButtonTemplate;
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/WorkingWithContent/Importing/FBX/HowTo/ImportingSkeletalLODs/" />');
+				var udnCSS = '../../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>如何导入骨骼网格体 LOD | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+		    <script  src="../../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+		    <script  src="../../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/WorkingWithContent/Importing/FBX/HowTo/ImportingSkeletalLODs/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/WorkingWithContent/Importing/FBX/HowTo/ImportingSkeletalLODs/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/WorkingWithContent/Importing/FBX/HowTo/ImportingSkeletalLODs/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/WorkingWithContent/Importing/FBX/HowTo/ImportingSkeletalLODs/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Content/Importing/FBX/HowTo/ImportingSkeletalLODs" />
+<meta name="intsourcechangelist" content="10478738" />
+<meta name="availability" content="Public" />
+<meta name="title" content="如何导入骨骼网格体 LOD" />
+<meta name="description" content="学习导入骨骼网格体 LOD。" />
+<meta name="related" content="WorkingWithContent/Importing/FBX/BestPractices" />
+<meta name="related" content="WorkingWithContent/Importing/FBX/ImportOptions" />
+<meta name="related" content="WorkingWithContent/Importing/FBX/SkeletalMeshes" />
+<meta name="related" content="AnimatingObjects/SkeletalMeshAnimation/Persona" />
+<meta name="related" content="WorkingWithContent/Importing/FBX/FbxErrors" />
+<meta name="skilllevel" content="Advanced" />
+<meta name="parent" content="WorkingWithContent/Importing/FBX/HowTo" />
+<meta name="type" content="how-to" />
+<meta name="version" content="4.8" />
+<meta name="order" content="3" />
+<meta name="keywords" content="Skeletal Mesh" />
+<meta name="keywords" content="import" />
+<meta name="crumbs" content="%ROOT%,WorkingWithContent,WorkingWithContent/Importing,WorkingWithContent/Importing/FBX,WorkingWithContent/Importing/FBX/HowTo" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="如何导入骨骼网格体 LOD" />
+	<meta property="og:description" content="学习导入骨骼网格体 LOD。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../../index.html">管理内容</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">导入内容</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">FBX内容通道</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">FBX Import How-Tos</a>
+
+<span class="separator">></span> <span id="page">如何导入骨骼网格体 LOD</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">如何导入骨骼网格体 LOD</h1>
+							</div>	
+							<h2 >学习导入骨骼网格体 LOD。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Advanced"><a id="skill_link" href="../../../../../SiteIndex/index.html?skills=Advanced">Advanced</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																														<div id="seeAlso">
+	<div style="position:relative;">
+		<div id="title">参见</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<p>
+						<a id="related_link" href="../../BestPractices/index.html" title="在虚幻引擎4中使用FBX内容通道时可使用的技巧和最佳实践。">FBX最佳实践</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../ImportOptions/index.html" title="FBX导入选项对话框中可用选项的说明。">FBX导入选项参考</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../SkeletalMeshes/index.html" title="使用FBX内容通道设置、导出和导入骨架网格体。">骨架网格体管道</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../../../../AnimatingObjects/SkeletalMeshAnimation/Persona/index.html" title="用于预览和编辑AnimBlueprint、AnimationSequence和其他动画资源的编辑器。">动画编辑器</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../FbxErrors/index.html" title="">FBX 导入错误</a>
+					</p>
+				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																														<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#目标">目标</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#目的">目的</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#设置骨骼网格体lod">设置骨骼网格体 LOD</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#导出骨骼网格体lod">导出骨骼网格体 LOD</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#导入骨骼网格体lod">导入骨骼网格体 LOD</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>可从外部 3D 建模程序（如 <strong>3DS Max</strong>、<strong>Maya</strong> 或 <strong>Blender</strong>）将骨骼网格体细节级别（LOD）导入虚幻引擎。我们在此使用 3DS Max 和 Maya 进行演示，实际上您可将骨骼网格体 LOD 从任何带保存功能的 3D 建模程序中导入虚幻引擎。
+</p><div class="include_wrapper" data-path="WorkingWithContent/Importing/HowTo/ContentBrowserImport">
+<div class="note">
+	<p>开始之前：须拥有可使用的3D建模程序。</p>
+</div>
+</div>
+<h2 id="目标">目标</h2>
+<p>此指南的要点是为您展示如何从外部 3D 建模程序导入骨骼网格体 LOD。
+</p><h2 id="目的">目的</h2>
+<p>完成此指南的阅读后，您将了解：
+</p><ul ><li class="Default"><p>如何从外部 3D 建模程序设置骨骼网格体 LOD。
+</p></li><li class="Default"><p>如何从外部 3D 建模程序导出骨骼网格体 LOD。
+</p></li><li class="Default"><p>如何将骨骼网格体 LOD 从外部 3D 建模程序导入虚幻编辑器。
+</p></li></ul><div class="include_wrapper" data-path="WorkingWithContent/Importing/FBX">
+<div class="warning">
+	<p>UE4 FBX导入通道使用 <strong>FBX 2018</strong>。在导出时使用其他版本可能导致不兼容。</p>
+</div>
+</div>
+<div class="togglesection">
+	<div class="normaltitle">
+	<p>选择3D美术工具</p>
+</div><div class="toggleButtons">
+	<!--
+category:paramliteral
+id:paramliteral
+label:paramliteral
+active:paramliteral
+-->
+<div class="btn btn-default btn-toggle DCC maya active_button" onclick="setSelector('DCC', 'maya');">
+    <p>Autodesk Maya</p>
+</div><!--
+category:paramliteral
+id:paramliteral
+label:paramliteral
+active:paramliteral
+-->
+<div class="btn btn-default btn-toggle DCC max " onclick="setSelector('DCC', 'max');">
+    <p>Autodesk 3ds Max</p>
+</div>
+</div>
+</div><h2 id="设置骨骼网格体lod">设置骨骼网格体 LOD</h2>
+<!--
+category:paramliteral
+id:paramliteral
+content:param
+active:paramliteral
+-->
+<div class="button_content DCC maya active_button_content">
+    <div class="container">
+        <div class="include_wrapper" data-path="WorkingWithContent/Importing/FBX/SkeletalMeshes">
+<ol ><li class="Default"><p>从基础LOD到最低级LOD的顺序，依次选择所有网格体（基础和LOD）。按顺序选择非常重要，这样就可以按照复杂性以正确的顺序添加它们。然后从 <em>编辑（Edit）</em> 菜单中选择 <em>细节层级（Level of Detail） > 分组（Group）</em> 命令。<br /></p><p><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Importing/FBX/SkeletalMeshes/maya_lod_group.jpg">
+		<img class="  lazyload" alt="maya_lod_group.jpg" width="316" data-src="../../../../../../Images/WorkingWithContent/Importing/FBX/SkeletalMeshes/maya_lod_group.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>现在所有的网格体都应该分组到了LOD组下。<br /></p><p><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Importing/FBX/SkeletalMeshes/maya_lod_contents.jpg">
+		<img class="  lazyload" alt="maya_lod_contents.jpg" width="213" data-src="../../../../../../Images/WorkingWithContent/Importing/FBX/SkeletalMeshes/maya_lod_contents.jpg" />
+</picture>
+
+</p></li></ol>
+</div>
+
+    </div>
+</div><!--
+category:paramliteral
+id:paramliteral
+content:param
+active:paramliteral
+-->
+<div class="button_content DCC max ">
+    <div class="container">
+        <div class="include_wrapper" data-path="WorkingWithContent/Importing/FBX/SkeletalMeshes">
+<ol ><li class="Default"><p>选中所有网格物体（基础网格物体和LOD——顺序不重要），然后从 <em>分组（Group）</em> 菜单中选择 <em>分组（Group）</em> 命令。<br /></p><p><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Importing/FBX/SkeletalMeshes/max_lod_group.jpg">
+		<img class="  lazyload" alt="max_lod_group.jpg" width="141" data-src="../../../../../../Images/WorkingWithContent/Importing/FBX/SkeletalMeshes/max_lod_group.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在打开的对话框中输入新组的名称，单击<picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Importing/FBX/SkeletalMeshes/max_lod_ok_button.jpg">
+		<img class="  lazyload" alt="max_lod_ok_button.jpg" data-src="../../../../../../Images/WorkingWithContent/Importing/FBX/SkeletalMeshes/max_lod_ok_button.jpg" />
+</picture>
+按钮来创建组。<br /></p><p><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Importing/FBX/SkeletalMeshes/max_lod_group_name.jpg">
+		<img class="  lazyload" alt="max_lod_group_name.jpg" width="306" data-src="../../../../../../Images/WorkingWithContent/Importing/FBX/SkeletalMeshes/max_lod_group_name.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>单击<picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Importing/FBX/SkeletalMeshes/max_utilities_button.jpg">
+		<img class="  lazyload" alt="max_utilities_button.jpg" data-src="../../../../../../Images/WorkingWithContent/Importing/FBX/SkeletalMeshes/max_utilities_button.jpg" />
+</picture>
+按钮来查看 <em>实用程序（Utilities）</em> 面板，然后选择 <em>细节层级（Level of Detail）</em> 实用程序。<strong>注意：</strong>你可能需要单击<picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Importing/FBX/SkeletalMeshes/max_utility_more_button.jpg">
+		<img class="  lazyload" alt="max_utility_more_button.jpg" data-src="../../../../../../Images/WorkingWithContent/Importing/FBX/SkeletalMeshes/max_utility_more_button.jpg" />
+</picture>
+，从列表中将其选中。<br /></p><p><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Importing/FBX/SkeletalMeshes/max_lod_utility.jpg">
+		<img class="  lazyload" alt="max_lod_utility.jpg" width="170" data-src="../../../../../../Images/WorkingWithContent/Importing/FBX/SkeletalMeshes/max_lod_utility.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>选择组后，单击<picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Importing/FBX/SkeletalMeshes/max_lod_create_button.jpg">
+		<img class="  lazyload" alt="max_lod_create_button.jpg" data-src="../../../../../../Images/WorkingWithContent/Importing/FBX/SkeletalMeshes/max_lod_create_button.jpg" />
+</picture>
+按钮来创建一套新LOD，并将所选组中的网格体添加到其中。这些网格体将根据复杂程度自动排序。<br /></p><p><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Importing/FBX/SkeletalMeshes/max_lod_contents.jpg">
+		<img class="  lazyload" alt="max_lod_contents.jpg" width="146" data-src="../../../../../../Images/WorkingWithContent/Importing/FBX/SkeletalMeshes/max_lod_contents.jpg" />
+</picture>
+
+</p></li></ol>
+</div>
+
+    </div>
+</div><div class="note">
+	<p><strong>多部位骨骼网格体</strong> LOD 的设置和全网格体 LOD 的设置几乎相同，唯一的不同是包含 LOD 的每个部位均会创建 LOD 群组。这些 LOD 群组的设置过程与上述过程相同。</p>
+</div><h2 id="导出骨骼网格体lod">导出骨骼网格体 LOD</h2>
+<ol ><li class="Default"><p>选择要导出的LOD群组和关节。 
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Importing/FBX/HowTo/ImportingSkeletalLODs/LOG_joint_selection.jpg">
+		<img class="  lazyload" alt="LOG_joint_selection.png" data-src="../../../../../../Images/WorkingWithContent/Importing/FBX/HowTo/ImportingSkeletalLODs/LOG_joint_selection.jpg" />
+</picture>
+
+</p><p>按照与基本网格体相同的导出步骤操作（具体请参见<a id="content_link" href="../../SkeletalMeshes/index.html#从3d应用程序中导出网格体" ><span>从3D应用程序中导出网格体</span></a>部分）。
+</p></li><li class="Default"><p>选择包含要导出的LOD集以及骨骼的网格体群组。 
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Importing/FBX/HowTo/ImportingSkeletalLODs/LOD_meshset_bones_selection.jpg">
+		<img class="  lazyload" alt="LOD_meshset_bones_selection.png" data-src="../../../../../../Images/WorkingWithContent/Importing/FBX/HowTo/ImportingSkeletalLODs/LOD_meshset_bones_selection.jpg" />
+</picture>
+
+</p><p>按照与基本网格体相同的导出步骤操作（具体请参见<a id="content_link" href="../../SkeletalMeshes/index.html#从3d应用程序中导出网格体" ><span>从3D应用程序中导出网格体</span></a>部分）。
+</p></li></ol><h2 id="导入骨骼网格体lod">导入骨骼网格体 LOD</h2>
+<p>可通过 <strong>Persona</strong> 中 <strong>LOD Settings</strong> 下的 <strong>Mesh Details</strong> 面板导入 <strong>骨骼网格体 LOD</strong>。
+</p><div class="note">
+	<p>Persona 是 UE4 中的动画编辑工具集。在 <a id="content_link"filter-data="tag_animation tag_skeleton_asset tag_animation_blueprint tag_skeletal_mesh tag_animation_tools" href="../../../../../AnimatingObjects/SkeletalMeshAnimation/Persona/index.html" ><span>动画编辑器</span></a> 中可查看更多内容。</p>
+</div><ol ><li class="Default"><p>如需将 <strong>LOD</strong> 应用至骨骼网格体，双击 <strong>内容浏览器</strong> 中的动画资源即可打开 <strong>Persona</strong>（操作示意图如下）。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Importing/FBX/HowTo/ImportingSkeletalLODs/OpeningPersona.jpg">
+		<img class="  lazyload" alt="OpeningPersona.png" data-src="../../../../../../Images/WorkingWithContent/Importing/FBX/HowTo/ImportingSkeletalLODs/OpeningPersona.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>Mesh Details</strong> 面板中向下滚动，找到 <strong>LOD Settings</strong> 部分并点击 <strong>LOD Import</strong> 选项。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Importing/FBX/HowTo/ImportingSkeletalLODs/LOD_Import.jpg">
+		<img class="  lazyload" alt="LOD_Import.png" data-src="../../../../../../Images/WorkingWithContent/Importing/FBX/HowTo/ImportingSkeletalLODs/LOD_Import.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在文件浏览器中找到并选择需要导入的 FBX 文件。
+</p><!--
+category:paramliteral
+id:paramliteral
+content:param
+active:paramliteral
+-->
+<div class="button_content OS windows ">
+    <div class="container">
+        <p><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Importing/FBX/HowTo/ImportingSkeletalLODs/ImportLOD1_Windows.jpg">
+		<img class="  lazyload" alt="ImportLOD1_Windows.png" data-src="../../../../../../Images/WorkingWithContent/Importing/FBX/HowTo/ImportingSkeletalLODs/ImportLOD1_Windows.jpg" />
+</picture>
+</p>
+    </div>
+</div><!--
+category:paramliteral
+id:paramliteral
+content:param
+active:paramliteral
+-->
+<div class="button_content OS mac ">
+    <div class="container">
+        <p><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Importing/FBX/HowTo/ImportingSkeletalLODs/ImportLOD1_Mac.jpg">
+		<img class="  lazyload" alt="ImportLOD1_Mac.png" data-src="../../../../../../Images/WorkingWithContent/Importing/FBX/HowTo/ImportingSkeletalLODs/ImportLOD1_Mac.jpg" />
+</picture>
+</p>
+    </div>
+</div></li><li class="Default"><p>导入的 LOD 现在已添加到 <strong>Mesh Details</strong> 面板。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Importing/FBX/HowTo/ImportingSkeletalLODs/LOD_Added.jpg">
+		<img class="  lazyload" alt="LOD_Added.png" data-src="../../../../../../Images/WorkingWithContent/Importing/FBX/HowTo/ImportingSkeletalLODs/LOD_Added.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>每个 LOD 下的 <strong>Display Factor</strong> 设置说明 LOD 何时使用。下图中，玩家位置靠近 <strong>骨骼网格体</strong> 时使用 LOD0，玩家位置远离 <strong>骨骼网格体</strong> 时使用 LOD1。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Importing/FBX/HowTo/ImportingSkeletalLODs/LODs_Set.jpg">
+		<img class="  lazyload" alt="LODs_Set.png" data-src="../../../../../../Images/WorkingWithContent/Importing/FBX/HowTo/ImportingSkeletalLODs/LODs_Set.jpg" />
+</picture>
+
+</p><div class="note">
+	<p>玩家位置远离 <strong>骨骼网格体</strong> 时，使用较小的 <strong>Display Factor</strong> 数值告知虚幻引擎使用 LOD。玩家位置靠近 <strong>骨骼网格体</strong> 时，使用较大的 <strong>Display Factor</strong> 数值告知虚幻引擎使用 LOD。</p>
+</div></li></ol><p>这便是该教程的全部内容，您已从中学习到：
+</p><p>&#x2713;    如何从外部 3D 建模程序设置骨骼网格体 LOD。<br />&#x2713;    如何从外部 3D 建模程序导出骨骼网格体 LOD。<br />&#x2713;    如何将骨骼网格体 LOD 从外部 3D 建模程序导入虚幻编辑器。  </p>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../../SiteIndex/index.html?tags=Skeletal%20Mesh">Skeletal Mesh</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../../SiteIndex/index.html?tags=import">import</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/WorkingWithContent/Importing/FBX/HowTo/ImportingSkeletalLODs/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:03:56 GMT -->
+</html>

@@ -1,0 +1,657 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/AnimatingObjects/SkeletalMeshAnimation/AnimPose/PoseDriverNode/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:30:27 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/AnimatingObjects/SkeletalMeshAnimation/AnimPose/PoseDriverNode/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>动作驱动器 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/AnimatingObjects/SkeletalMeshAnimation/AnimPose/PoseDriverNode/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/AnimatingObjects/SkeletalMeshAnimation/AnimPose/PoseDriverNode/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/AnimatingObjects/SkeletalMeshAnimation/AnimPose/PoseDriverNode/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/AnimatingObjects/SkeletalMeshAnimation/AnimPose/PoseDriverNode/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Animation/AnimPose/PoseDriverNode" />
+<meta name="intsourcechangelist" content="14241652" />
+<meta name="availability" content="Public" />
+<meta name="title" content="动作驱动器" />
+<meta name="description" content="描述如何使用动作驱动器基于骨骼运动驱动动作资源或曲线值。" />
+<meta name="type" content="Reference" />
+<meta name="version" content="4.16" />
+<meta name="parent" content="AnimatingObjects/SkeletalMeshAnimation/AnimPose" />
+<meta name="order" content="1" />
+<meta name="topic-image" content="PoseDriveTopic.png" />
+<meta name="related" content="AnimatingObjects/SkeletalMeshAnimation\AnimHowTo\CreatePoseAsset" />
+<meta name="related" content="AnimatingObjects/SkeletalMeshAnimation\Persona\AnimCurves" />
+<meta name="related" content="AnimatingObjects/SkeletalMeshAnimation\Sequences\Curves" />
+<meta name="related" content="AnimatingObjects/SkeletalMeshAnimation\AnimBlueprints" />
+<meta name="related" content="AnimatingObjects/SkeletalMeshAnimation\NodeReference\SkeletalControls" />
+<meta name="keywords" content="Animation" />
+<meta name="keywords" content="Animation Blueprint" />
+<meta name="keywords" content="Animation Blending" />
+<meta name="keywords" content="Pose Assets" />
+<meta name="crumbs" content="%ROOT%,AnimatingObjects,AnimatingObjects/SkeletalMeshAnimation,AnimatingObjects/SkeletalMeshAnimation/AnimPose" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="动作驱动器" />
+	<meta property="og:description" content="描述如何使用动作驱动器基于骨骼运动驱动动作资源或曲线值。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">为角色和对象添加动画</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">骨架网格体动画系统</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">动画姿势资源</a>
+
+<span class="separator">></span> <span id="page">动作驱动器</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">动作驱动器</h1>
+							</div>	
+							<h2 >描述如何使用动作驱动器基于骨骼运动驱动动作资源或曲线值。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																																			</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																		<div id="seeAlso">
+	<div style="position:relative;">
+		<div id="title">参见</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<p>
+						<a id="related_link" href="../../AnimHowTo/CreatePoseAsset/index.html" title="如何使用动画编辑器生成单帧姿势资源。">创建姿势资源</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../Persona/AnimCurves/index.html" title="说明动画曲线窗口中的可用操作">动画曲线</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../Sequences/Curves/index.html" title="用于在整个动画播放过程中驱动变形目标和材质的曲线系统。">动画曲线</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../AnimBlueprints/index.html" title="动画蓝图是可视化脚本，可用于创建和控制复杂动画行为。">动画蓝图</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../NodeReference/SkeletalControls/index.html" title="启用直接操纵、并将解算器应用到目标骨架骨骼的动画节点">骨架控制</a>
+					</p>
+				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																														<div class="warning">
+	<p>动画蓝图的AnimGraph中的Pose Driver节点目前处于试验阶段，某些功能可能无法按预期运行。</p>
+</div><div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#添加posedriver">添加Pose Driver</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#动作目标">动作目标</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#posedriver属性">Pose Driver属性</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#设置和相关性">设置和相关性</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#其他示例和资源">其他示例和资源</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>除了使用<a id="content_link"filter-data="tag_animation tag_animation_blueprint tag_animation_blending tag_pose_assets" href="../PoseBlenderNode/index.html" ><span>动作混合器</span></a>通过<a id="content_link"filter-data="tag_animation tag_animation_blueprint tag_blueprints tag_state_machine tag_animation_assets" href="../../AnimBlueprints/index.html" ><span>动画蓝图</span></a>播放 <strong>动作资源（Pose Assets）</strong>， 
+你还可以使用动画蓝图的<a id="content_link"filter-data="tag_animation tag_animation_blueprint tag_blueprints" href="../../AnimBlueprints/AnimGraph/index.html" ><span>AnimGraph</span></a>中的 <strong>Pose Driver</strong> 节点在运行时直接驱动动作资源。 
+Pose Driver节点允许骨骼基于一套"范例动作"驱动动画的不同部分，或者基于骨骼的运动驱动曲线值。 
+此节点的一个用途是创建动作空间变形工具，基于骨骼的朝向或平移驱动修正混合形状。 
+</p><p>在以下视频中，锁骨动作用于根据臂骨的运动移动肩部。 
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_0_ot8dpqms_8
+{
+	margin: 0px;
+	width: 100%;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_0_ot8dpqms_8:after
+{
+	content: "";
+	padding-top: 56.25%;
+	display: block;
+}
+</style> 
+<div id="player_0_ot8dpqms_8"> 
+	<div id="playerContainer_0_ot8dpqms_8" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/0_ot8dpqms/embed.html"></iframe>
+	</div>
+</div>
+<p>我们添加Pose Driver节点并指定了包含要控制的动作的动作资源。 
+然后，将 <strong>源骨骼（Source Bone）</strong> 设置为 <strong>锁骨（clav）</strong> 骨骼，以根据 <strong>驱动源（Drive Source）</strong> （设置为 <strong>旋转（Rotate）</strong>）， 
+更新驱动正在使用的动作的 <strong>动作目标（Pose Targets）</strong>。
+当动画播放并且锁骨骨骼旋转时，在 <strong>动作目标（Pose Targets）</strong> 部分，会为每个动作显示一个条形，以指示对最终动作的效果。 
+</p><div class="note">
+	<p>Pose Driver节点使用 <strong>RBF（径向基函数）</strong>，该RBF根据目标骨骼的朝向插入驱动值。</p>
+</div><h2 id="添加posedriver">添加Pose Driver</h2>
+<p>要将Pose Driver节点添加到 <strong>动画蓝图</strong>，请执行以下步骤： 
+</p><ol ><li class="Default"><p>在 <strong>AnimGraph</strong> 中，右键单击图表并搜索 <strong>Pose Driver</strong> 节点。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimPose/PoseDriverNode/ContextPoseDriverNode.jpg">
+		<img class="  lazyload" alt="ContextPoseDriverNode.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimPose/PoseDriverNode/ContextPoseDriverNode.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>添加节点后，指定要接收的 <strong>Source Pose</strong>，并将 <strong>Out Pose</strong> 连接到 <strong>Final Animation Pose</strong> 或其他节点以进行混合。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimPose/PoseDriverNode/CompletePoseDriver.jpg">
+		<img class="  lazyload" alt="CompletePoseDriver.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimPose/PoseDriverNode/CompletePoseDriver.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>细节（Details）</strong> 面板中，定义要评估的骨骼并驱动Pose Asset动作或曲线。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimPose/PoseDriverNode/BlankDetails.jpg">
+		<img class="  lazyload" alt="BlankDetails.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimPose/PoseDriverNode/BlankDetails.jpg" />
+</picture>
+
+</p></li></ol><h2 id="动作目标">动作目标</h2>
+<p>在动作目标（Pose Target）中，使用Pose Driver节点指定Pose Asset或曲线中要驱动的动作。 
+</p><p>分配Pose Asset后，单击 <strong>工具（Tools）</strong> 按钮并选择 <strong>从PoseAsset中全部复制（Copy All from PoseAsset）</strong>，将每个动作添加到动作目标窗口。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimPose/PoseDriverNode/CopyPoses.jpg">
+		<img class="  lazyload" alt="CopyPoses.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimPose/PoseDriverNode/CopyPoses.jpg" />
+</picture>
+
+</p><p>添加后，将使用相应的动作更新窗口。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimPose/PoseDriverNode/PoseTargetsOptions.jpg">
+		<img class="  lazyload" alt="PoseTargetsOptions.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimPose/PoseDriverNode/PoseTargetsOptions.jpg" />
+</picture>
+
+</p><div class="tip">
+	<p>要选择每个动作，请在 <strong>动作目标（Pose Target）</strong> 窗口中单击它，或单击视口中的目标线。 </p>
+</div><h3 id="基于曲线的动作目标">基于曲线的动作目标</h3>
+<p>动作目标也可以由<a id="content_link" href="../../Sequences/Curves/index.html" ><span>动画曲线</span></a>（变形目标和材质曲线）而不是动作资源来驱动。 
+</p><p>要使用曲线数据而不是动作资源，请按照以下步骤操作： 
+</p><ol ><li class="Default"><p>在 <strong>Pose Driver</strong> 节点的 <strong>细节（Details）</strong> 面板的 <strong>Pose Driver</strong> 部分下，将 <strong>Drive Output</strong> 更改为 <strong>Drive Curves</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimPose/PoseDriverNode/DriveOutputSetting.jpg">
+		<img class="  lazyload" alt="DriveOutputSetting.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimPose/PoseDriverNode/DriveOutputSetting.jpg" />
+</picture>
+
+</p></li><li class="Default"><p><strong>编译</strong> <strong>动画蓝图</strong>。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimPose/PoseDriverNode/CompileButton.jpg">
+		<img class="  lazyload" alt="CompileButton.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimPose/PoseDriverNode/CompileButton.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>单击 <strong>添加目标（Add Target）</strong> 按钮添加要驱动的曲线数。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimPose/PoseDriverNode/AddTarget.jpg">
+		<img class="  lazyload" alt="AddTarget.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimPose/PoseDriverNode/AddTarget.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在每条曲线的 <strong>驱动（Drive）</strong> 选项中，选择所需的曲线，选中 <strong>曲线（Curve）</strong> 复选框并在图表中定义其值。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimPose/PoseDriverNode/CurveSetupComplete.jpg">
+		<img class="  lazyload" alt="CurveSetupComplete.png" data-src="../../../../../Images/AnimatingObjects/SkeletalMeshAnimation/AnimPose/PoseDriverNode/CurveSetupComplete.jpg" />
+</picture>
+
+</p></li></ol><h2 id="posedriver属性">Pose Driver属性</h2>
+<p>在 <strong>细节（Details）</strong> 面板中的 <strong>Pose Driver</strong> 属性部分，可以定义将用于驱动 <strong>动作目标（Pose Target）</strong> 中参数的 <strong>源骨骼（Source Bones）</strong>。 
+你可以指定多个源骨骼或指定 <strong>仅驱动选定骨骼（Only Drive Selected Bones）</strong>，定义在读取源骨骼变换时使用的 <strong>Eval Space Bone</strong> 并设置RBF解算器使用的 <strong>RBF Parameters</strong> 以及 <strong>Drive Source</strong> 和 <strong>Drive Output</strong>。 
+</p><p>以下是Pose Driver部分中的属性： 
+</p><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>选项 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>说明 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>源骨骼（Source Bones）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>基于此骨骼的朝向驱动参数。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>仅驱动选定骨骼（Only Drive Selected Bones）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>是否应该使用 <strong>仅驱动骨骼（Only Drive Bones）</strong> 阵列过滤要驱动的骨骼。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>仅驱动骨骼（Only Drive Bones）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>Pose Driver节点仅修改阵列中指定的骨骼。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Eval空间骨骼（Eval Space Bone）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>读取源骨骼变换时使用的另一个可选骨骼空间。如果未指定，将使用源骨骼的局部空间（例如，相对于父骨骼）。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>RBFParams</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<div class="include_wrapper" data-path="AnimatingObjects/SkeletalMeshAnimation\AnimPose\PoseDriverNode">
+<table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>选项 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>说明 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>半径（Radius）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>按目标缩放因子缩放的每个目标的默认半径。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>函数（Function）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>定义要使用的<a id="content_link"filter-data="tag_animation tag_animation_features" href="../../NonLinearBlends/index.html" ><span>混合模式</span></a>的类型。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>距离方法（Distance Method）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>将距离测量设置为：<strong>摇摆角度（Swing Angle）</strong>、<strong>四元数（Quaternion）</strong> 或 <strong>欧氏距离（Euclidean）</strong>。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>扭曲轴（Twist Axis）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>Distance Method</strong> 设置为 <strong>Swing Angle</strong> 时使用的轴。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>权重阈值（Weight Threshold）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>如果重量小于此阈值，则不返回目标的贡献。</p>
+			</td>
+	
+</tr></tbody>
+</table>
+</div>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>驱动源（Drive Source）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>应该读取转换的哪个部分：<strong>朝向（Rotation）</strong> 或 <strong>平移（Translation）</strong>。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>驱动输出（Drive Output）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>是否驱动动作或曲线。</p>
+			</td>
+	
+</tr></tbody>
+</table><h2 id="设置和相关性">设置和相关性</h2>
+<p>在 <strong>细节（Details）</strong> 面板的 <strong>设置（Settings）</strong> 部分，可以定义要评估的 <strong>动作资源（Pose Asset）</strong> 以及是否使用<a id="content_link"filter-data="tag_animation_sequence tag_animation_notify" href="../../SyncGroups/index.html" ><span>同步组</span></a>。 
+在 <strong>相关性（Relevancy）</strong> 部分中，可以确定相关动画节点是否忽略此节点。 
+</p><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>选项 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>说明 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>动作源（Pose Source）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>用作动作数据源的 <strong>动作资源（Pose Asset）</strong>。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>同步组名称（Sync Group Name）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>要引用的同步组的名称。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>同步组角色（Sync Group Role）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>组内的成员资格类型。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>忽略相关性测试（Ignore for Relevancy Test）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>如果为true，则查找状态中最高权重动画的相关动画节点将忽略此节点。</p>
+			</td>
+	
+</tr></tbody>
+</table><h2 id="其他示例和资源">其他示例和资源</h2>
+<p>以下是一些Pose Driver节点和设置的其他示例。 
+</p><p>下面是锁骨、下臂和上臂的视图，它们驱动校准的混合形状，当肩部通过曲线旋转时，该混合形状使周围区域变形。 
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_0_lq8wte6n_168
+{
+	margin: 0px;
+	width: 100%;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_0_lq8wte6n_168:after
+{
+	content: "";
+	padding-top: 56.25%;
+	display: block;
+}
+</style> 
+<div id="player_0_lq8wte6n_168"> 
+	<div id="playerContainer_0_lq8wte6n_168" style="position:absolute;top:0;left: 0;right: 0;bottom:0;border:solid thin black;">
+		<iframe width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen="" src="https://dev.epicgames.com/community/api/cms/videos/0_lq8wte6n/embed.html"></iframe>
+	</div>
+</div>
+<p>有关配置和使用Pose Driver节点的其他示例，请观看以下直播。 
+</p><!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_h2egrj1pXzw_196
+{
+	margin: 0px;
+	width: 100%;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_h2egrj1pXzw_196:after
+{
+	content: "";
+	padding-top: 56.25%;
+	display: block;
+}
+</style> 
+<div>
+<div id="player_h2egrj1pXzw_196"><div style="position:absolute;display:block;width:100%;height:100%;"><iframe class="embedded_video" id="h2egrj1pXzw" width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/h2egrj1pXzw?rel=0&amp;modestbranding=1&amp;showinfo=0&amp;loop=1&amp;controls=0" frameborder="0" allowfullscreen></iframe></div></div>
+</div>
+
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Animation">Animation</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Animation%20Blueprint">Animation Blueprint</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Animation%20Blending">Animation Blending</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=Pose%20Assets">Pose Assets</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/AnimatingObjects/SkeletalMeshAnimation/AnimPose/PoseDriverNode/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:30:31 GMT -->
+</html>

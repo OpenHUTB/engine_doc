@@ -1,0 +1,576 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/Basics/Levels/HowTo/Jacketing/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 10:49:59 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "../../../../../Images/Basics/Levels/HowTo/Jacketing/jacketing-banner.png";
+				var finishButton = finishButtonTemplate;
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/Basics/Levels/HowTo/Jacketing/" />');
+				var udnCSS = '../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>查找和删除完全遮挡的网格体 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+		    <script  src="../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+		    <script  src="../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/Basics/Levels/HowTo/Jacketing/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/Basics/Levels/HowTo/Jacketing/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/Basics/Levels/HowTo/Jacketing/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/Basics/Levels/HowTo/Jacketing/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Levels/HowTo/Jacketing" />
+<meta name="intsourcechangelist" content="17032373" />
+<meta name="availability" content="Public" />
+<meta name="title" content="查找和删除完全遮挡的网格体" />
+<meta name="description" content="介绍如何移除和简化被关卡对象完全遮挡的几何体，以便提升渲染性能。" />
+<meta name="type" content="how-to" />
+<meta name="skilllevel" content="Intermediate" />
+<meta name="version" content="4.23" />
+<meta name="parent" content="Basics/Levels" />
+<meta name="related" content="WorkingWithContent/Types/StaticMeshes/HowTo/ModifyStaticMeshGeometry" />
+<meta name="related" content="WorkingWithContent/Types/StaticMeshes/HowTo/Defeaturing" />
+<meta name="order" content="5" />
+<meta name="keywords" content="how to" />
+<meta name="keywords" content="intermediate" />
+<meta name="hero-image" content="jacketing-banner.png" />
+<meta name="crumbs" content="%ROOT%,Basics,Basics/Levels" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="查找和删除完全遮挡的网格体" />
+	<meta property="og:description" content="介绍如何移除和简化被关卡对象完全遮挡的几何体，以便提升渲染性能。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">理解基础概念</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">关卡</a>
+
+<span class="separator">></span> <span id="page">查找和删除完全遮挡的网格体</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  background">
+						<div class="imgContainer"><img src="../../../../../Images/Basics/Levels/HowTo/Jacketing/jacketing-banner.png" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">查找和删除完全遮挡的网格体</h1>
+							</div>	
+							<h2 >介绍如何移除和简化被关卡对象完全遮挡的几何体，以便提升渲染性能。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Intermediate"><a id="skill_link" href="../../../../SiteIndex/index.html?skills=Intermediate">Intermediate</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																														<div id="seeAlso">
+	<div style="position:relative;">
+		<div id="title">参见</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<p>
+						<a id="related_link" href="../../../../WorkingWithContent/Types/StaticMeshes/HowTo/ModifyStaticMeshGeometry/index.html" title="对使用静态网格编辑器的编辑模式功能按钮修改静态网格体资源几何体的方法进行讲解。">修改静态网格体几何体</a>
+					</p>
+				</li>
+								<li>
+					<p>
+						<a id="related_link" href="../../../../WorkingWithContent/Types/StaticMeshes/HowTo/Defeaturing/index.html" title="介绍如何通过移除静态网格体几何体中的小孔和凸起来提高渲染性能。">通过特征清除简化静态网格体</a>
+					</p>
+				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																														<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#外壳开孔">外壳开孔</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#目标">目标</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#关卡目标">关卡目标</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#网格体目标">网格体目标</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#项目设置">项目设置</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#关卡视口中的包壳工具">关卡视口中的包壳工具</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#编辑器脚本中的包壳">编辑器脚本中的包壳</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>想要提升实时3D应用的渲染性能，一种常用手段是降低每帧需要绘制的对象数量。通常，摄像机不会同时拍摄到3D场景中的所有对象。所有被遮挡的对象（因为被其他对象遮挡而无法出现在摄像机视图中的对象），都可以不用被渲染，且不会对最终画面产生影响，同时还能提升性能。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/Basics/Levels/HowTo/Jacketing/jacketing-banner.jpg">
+		<img class="  lazyload" alt="jacketing-banner.png" data-src="../../../../../Images/Basics/Levels/HowTo/Jacketing/jacketing-banner.jpg" />
+</picture>
+
+</p><p>虚幻引擎提供了多种内置方法来移除被遮挡的网格体，例如剔除摄像机视锥体之外的网格体或摄像机远处的网格体。然而，在某些情况下，比如某个网格体位于另一个网格体的边框中时，虚幻引擎可能无法在运行时高效识别哪些网格体是被遮挡的。这类情况在CAD数据中很常见——这些数据通常包含许多组装零件，其中的很多细小零件都隐藏在外壳中。如果这些零件在渲染时不会显示，那么可以隐藏它们，以便提升渲染性能。假如你将一辆完整的汽车模型导入虚幻引擎，并且用户无法查看汽车外壳内的细节，那么就没有理由花费资源渲染车身内的零件。
+</p><p>例如，下图中的引擎包含542个零件（静态网格体Actor）。然而，其中321个完全位于外壳内，永远不会被摄像机拍摄到。在关卡中移除这类被遮挡物有助于加快渲染剩余的几何体，并且不会影响外观。
+</p><!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../../../Images/Basics/Levels/HowTo/Jacketing/jacketing-engine-default.jpg">
+		<img class="  lazyload" alt="Complete engine, 542 Actors" data-src="../../../../../Images/Basics/Levels/HowTo/Jacketing/jacketing-engine-default.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../../../Images/Basics/Levels/HowTo/Jacketing/jacketing-engine-occluded.jpg">
+		<img class="  lazyload" alt="321 fully occluded Actors" data-src="../../../../../Images/Basics/Levels/HowTo/Jacketing/jacketing-engine-occluded.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div><p>对于这类情况，虚幻编辑器提供了一个流程，可以扫描关卡中静态网格体Actor并确定哪些会被完全遮挡——换句话说，哪些Actor是完全看不到的。一旦找到这些Actor，就可以在图层中隔离它们，或将它们从关卡中删除，或者简化它们的几何体以删除内部细节。
+</p><p>这个过程有时被称为 <em>包壳（jacketing）</em>。
+</p><h2 id="外壳开孔">外壳开孔</h2>
+<p>不过，模型外壳通常不是完全封闭的。这些外壳可能包含缝隙或开孔，尽管用户无法通过它们看清内部细节。例如，在这个引擎中，链条穿过了外壳上的开孔：
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/Basics/Levels/HowTo/Jacketing/jacketing-gaps.jpg">
+		<img class="  lazyload" alt="Gaps in the occluding meshes" title="Gaps in the occluding meshes" data-src="../../../../../Images/Basics/Levels/HowTo/Jacketing/jacketing-gaps.jpg" />
+</picture>
+
+</p><p>这种情况下，你可能仍希望隐藏内部细节。因此，在计算哪些网格体会被遮挡时，包壳算法会填补这些缝隙（比如假设这些缝隙被网格体遮挡）。这样，你仍可以剔除外壳内的零件并获得性能提升——即便外壳不是完全封闭的。
+</p><p>你可以设置希望忽略的开孔尺寸上限（小于该尺寸的开孔都会被视为封闭的）。
+</p><div class="note">
+	<p>为了安全起见，你可能会把开孔的阈值设置为一个非常大的值。然而，这个阈值也用于网格体的目标模式（见下文），以便计算静态网格体中的哪些三角形可以被安全删除。如果你将阈值设得过高，则几何体内部的三角形可能无法被充分简化。请将阈值设置得尽可能接近开孔的实际大小。</p>
+</div><h2 id="目标">目标</h2>
+<p>你可以将包壳操作的结果应用于以下两种目标：<a id="content_link" href="#关卡目标" ><span>关卡中的静态网格体Actor</span></a>，或<a id="content_link" href="#网格体目标" ><span>静态网格体资产中的几何体</span></a>。
+</p><h3 id="关卡目标">关卡目标</h3>
+<p>对关卡目标使用包壳工具时，工具会对选定的一组静态网格体Actor进行遮挡测试。它会从各个角度分析这些Actor的几何体，确定哪些Actor完全无法看到。稍后，它会列出所有被遮挡的Actor。接着，你可以选择如何处理它们。
+</p><p>在虚幻编辑器UI中，你可以：
+</p><ul ><li class="Default"><p>用一个新的组件标签 <strong>包壳隐藏（Jacketing Hidden）</strong> 来标记被遮挡的Actor。<br /><picture>
+		<source data-srcset="./../../../../../Images/Basics/Levels/HowTo/Jacketing/jacketing-tag.jpg">
+		<img class="  lazyload" alt="Jacketing Hidden tag" title="Jacketing Hidden tag" data-src="../../../../../Images/Basics/Levels/HowTo/Jacketing/jacketing-tag.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>将被遮挡的Actor放在名为 <strong>包壳（Jacketing）</strong> 的新图层种。
+</p></li><li class="Default"><p>通过关闭 <strong>隐藏在游戏中的Actor（Actor Hidden in Game）</strong> 设置来隐藏被遮挡的Actor。
+</p></li><li class="Default"><p>在关卡中移除被遮挡的Actor。
+</p></li></ul><p>如果你在蓝图或Python脚本中以关卡目标模式运行该工具，它只返回被遮挡的Actor列表，以便你的脚本确定要采取的操作。
+</p><p>如果你有许多小部件，每个部件都由一个单独的静态网格体Actor表示，并且位于具有相对简单的几何体或外壳中，则关卡目标模式是一个不错的选择。
+</p><div class="note">
+	<p>在关卡目标模式中，包壳工具从不修改任何静态网格体资源。它只运行遮挡测试并确定完全遮挡的Actor。</p>
+</div><h3 id="网格体目标">网格体目标</h3>
+<p>当你在网格体目标（Mesh Target）模式下使用包壳工具时，它会以三角形为基本单位来处理遮挡。在执行遮挡测试后，它会删除静态网格体资产中的所有被遮挡三角形。这能有效地将遮挡网格体删减成一个空壳，删除其内部细节。
+</p><p>当你的外壳或遮挡物拥有复杂的内表面时，或者有多个Actor（几何体相互重叠）时，这是个合适的方案。重叠区域内的所有几何体都会被充分简化。
+</p><p>为避免减损外观品质，包壳工具采用的识别方法相对保守，只会在确保无误的情况下移除三角形。所有可见三角形都会保持原样不变。包壳工具不会对三角形进行二次三角划分或简化。它只会删除不必要的三角形。
+</p><p>例如在下图中，模型内部有一些复杂的几何体，它们在外部始终看不到。用网格体目标模式运行包壳工具后，所有内部细节会被删除。注意，外壳内表面也被移除了，只留一个有外表面的单面几何体。
+</p><!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../../../Images/Basics/Levels/HowTo/Jacketing/jacketing-mesh-before.jpg">
+		<img class="  lazyload" alt="包含大量内部细节的零件" data-src="../../../../../Images/Basics/Levels/HowTo/Jacketing/jacketing-mesh-before.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../../../Images/Basics/Levels/HowTo/Jacketing/jacketing-mesh-after.jpg">
+		<img class="  lazyload" alt="&quot;包壳&quot;后的效果" data-src="../../../../../Images/Basics/Levels/HowTo/Jacketing/jacketing-mesh-after.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div><p>你可以在 <strong>输出日志（Output Log）</strong> 面板中查看包壳工具的结果，包括该工具能够删除的三角形数量：
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/Basics/Levels/HowTo/Jacketing/jacketing-results.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/Basics/Levels/HowTo/Jacketing/jacketing-results.jpg">
+		<img class="  lazyload" alt="&quot;包壳&quot;后的效果" title="Jacketing results" data-src="../../../../../Images/Basics/Levels/HowTo/Jacketing/jacketing-results.jpg" />
+</picture>
+</span></a></span><br /><em>点击查看大图。</em></p>
+</div><div class="warning">
+	<p>在网格体目标模式下，包壳工具会修改你的静态网格体资产。如果这些资产在关卡其他地方也有，或者在项目其他关卡中也有，那么这些实例都会被更新成新的效果。</p>
+</div><h2 id="项目设置">项目设置</h2>
+<p>要使用包壳工具，你必须启用 <strong>多边形编辑（Polygon Editing）</strong> 插件。
+</p><div class="tip">
+	<p>如果你使用了 <strong>建筑、工程与施工</strong> 类型的模板项目，该插件可能会默认启用。</p>
+</div><div class="note">
+	<p><strong>多边形编辑</strong> 插件只支持64位Windows。</p>
+</div><h2 id="关卡视口中的包壳工具">关卡视口中的包壳工具</h2>
+<p>要在关卡视口中应用包壳工具，请执行以下操作：
+</p><ol ><li class="Default"><p>在关卡中选择要在遮挡测试中考虑的静态网格体Actor。你需要选择构成外部外壳的网格体，以及任何内部的网格体。
+</p></li><li class="Default"><p>在视口或 <strong>世界大纲视图（World Outliner）</strong> 中右键点击所有选中的Actor，选择 <strong>包壳（Jacketing）</strong>。
+<picture>
+		<source data-srcset="./../../../../../Images/Basics/Levels/HowTo/Jacketing/jacketing-right-click.jpg">
+		<img class="  lazyload" alt="情境菜单中的包壳" title="Jacketing in the context menu" data-src="../../../../../Images/Basics/Levels/HowTo/Jacketing/jacketing-right-click.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>移除被遮挡网格体（Remove occluded meshes）</strong> 窗口中，设置遮挡测试的敏感水平以及你要影响的目标。
+<picture>
+		<source data-srcset="./../../../../../Images/Basics/Levels/HowTo/Jacketing/jacketing-settings.jpg">
+		<img class="  lazyload" alt="包壳设置" title="Jacketing settings" data-src="../../../../../Images/Basics/Levels/HowTo/Jacketing/jacketing-settings.jpg" />
+</picture>
+<br /></p><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p><strong>设置（Setting）</strong> </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p><strong>说明（Description）</strong> </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>体素精度（Voxel precision）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>控制遮挡测试的灵敏度。对于较小的模型，降低此值，以实现更高的精度。
+</p><div class="note">
+	<p>这个设置直接影响碰撞测试的时间和内存需求。从一个相对较大的值开始，然后降低值，直到达到所需的保真度。</p>
+</div>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>开孔最大直径（Gap max diameter）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>设置遮挡测试将考虑填充的遮挡体积中的开孔的最大大小。
+</p><div class="note">
+	<p>请勿将此值设置地过低。详情请参阅上面的<a id="content_link" href="#" ><span>开孔</span></a>部分。</p>
+</div>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>操作关卡（Action Level）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>决定工具将使用 <strong>关卡（Level）</strong> 目标还是 <strong>网格体（Mesh）</strong> 目标。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>操作类型（Action Type）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>如果你选择影响关卡目标，还可以使用 <strong>操作类型（Action Type）</strong> 下拉列表来确定应该如何处理包壳工具确定为完全被遮挡的Actor集。详情请参阅上文的<a id="content_link" href="#关卡目标" ><span>关卡目标</span></a>。</p>
+			</td>
+	
+</tr></tbody>
+</table></li><li class="Default"><p>点击 <strong>继续（Proceed）</strong> 开始遮挡测试。
+<picture>
+		<source data-srcset="./../../../../../Images/Basics/Levels/HowTo/Jacketing/jacketing-proceed.jpg">
+		<img class="  lazyload" alt="继续" title="Proceed" data-src="../../../../../Images/Basics/Levels/HowTo/Jacketing/jacketing-proceed.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>如果你选择了"网格体目标（Mesh Target）"模式，修改后的网格体将被标记为"已修改"。如果要保留更改效果，请在关闭虚幻编辑器前保存它们。
+</p></li></ol><h2 id="编辑器脚本中的包壳">编辑器脚本中的包壳</h2>
+<p>你可以在蓝图和Python中执行关卡视口（以及世界大纲视图）提供的相同包壳操作。
+</p><div class="note">
+	<p><strong>先决条件：</strong> 如果你尚未进行此操作，则需要安装 <strong>编辑器脚本工具插件（Editor Scripting Utilities Plugin）</strong>。有关详情，请参阅<a id="content_link"filter-data="tag_blueprints tag_python tag_scripting" href="../../../../ProductionPipelines/ScriptingAndAutomation/index.html" ><span>脚本化和自动化编辑器</span></a>。</p>
+</div><div class="togglesection">
+	<div class="normaltitle">
+	<p>选择实现方法：</p>
+</div><div class="toggleButtons">
+	<!--
+category:paramliteral
+id:paramliteral
+label:paramliteral
+active:paramliteral
+-->
+<div class="btn btn-default btn-toggle BlueprintOrCPPSelect blueprintimplementation active_button" onclick="setSelector('BlueprintOrCPPSelect', 'blueprintimplementation');">
+    <p>Blueprints</p>
+</div><!--
+category:paramliteral
+id:paramliteral
+label:paramliteral
+active:paramliteral
+-->
+<div class="btn btn-default btn-toggle BlueprintOrCPPSelect pythonimplementation " onclick="setSelector('BlueprintOrCPPSelect', 'pythonimplementation');">
+    <p>Python</p>
+</div>
+</div>
+</div><!--
+category:paramliteral
+id:paramliteral
+content:param
+active:paramliteral
+-->
+<div class="button_content BlueprintOrCPPSelect blueprintimplementation active_button_content">
+    <div class="container">
+        <div class="note">
+	<p>要使用这些节点，你的蓝图类必须派生自仅编辑器类，例如 <strong>PlacedEditorUtilityBase</strong> 类。有关详情，请参阅<a id="content_link"filter-data="tag_blueprints tag_blueprint_utilities tag_scripting tag_editor" href="../../../../ProductionPipelines/ScriptingAndAutomation/Blueprints/index.html" ><span>使用蓝图脚本化编辑器</span></a>。</p>
+</div><p>你需要使用的主要蓝图节点是 <strong>网格体处理（Mesh Processing）> 网格体Actor（Mesh Actor）> 简化装配件（Simplify Assembly）</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/Basics/Levels/HowTo/Jacketing/jacketing-simplify-assembly-bp.jpg">
+		<img class="  lazyload" alt="简化装配件（Simplify Assembly）节点" title="Simplify Assembly node" data-src="../../../../../Images/Basics/Levels/HowTo/Jacketing/jacketing-simplify-assembly-bp.jpg" />
+</picture>
+
+</p><p>你需要为这个节点提供两个输入：
+</p><ul ><li class="Default"><p>包含当前关卡中你希望在遮挡测试期间考虑的所有Actor的数组。
+</p></li><li class="Default"><p>为遮挡测试设置参数的 <strong>JacketingOptions</strong> 对象。要设置这些对象之一，请执行以下操作：
+</p><ol ><li class="Default"><p>点击 <strong>我的蓝图（My Blueprint）</strong> 面板中的 <strong>+ 变量（+ Variable）</strong> 按钮，为蓝图添加一个新变量。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/Basics/Levels/HowTo/Jacketing/jacketing-add-variable.jpg">
+		<img class="  lazyload" alt="添加变量" title="添加变量" data-src="../../../../../Images/Basics/Levels/HowTo/Jacketing/jacketing-add-variable.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>将变量的类型设置为对一个 *网格体特征清除参数对象（Mesh Defeaturing Parameter Object）** 的引用。<br /></p><p><picture>
+		<source data-srcset="./../../../../../Images/Basics/Levels/HowTo/Jacketing/jacketing-object-reference.jpg">
+		<img class="  lazyload" alt="包壳选项对象引用" title="Jacketing Options object reference" data-src="../../../../../Images/Basics/Levels/HowTo/Jacketing/jacketing-object-reference.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>按住 <strong>Control</strong> 并将变量拖放到蓝图图表中，以创建获取该变量值的新节点。 
+</p><p><picture>
+		<source data-srcset="./../../../../../Images/Basics/Levels/HowTo/Jacketing/jacketing-drag-drop.jpg">
+		<img class="  lazyload" alt="拖动并放置变量" title="拖动并放置变量" data-src="../../../../../Images/Basics/Levels/HowTo/Jacketing/jacketing-drag-drop.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>从新变量节点的输出端口拖动，并从 <strong>变量（Variables）</strong> 列表中选择需要修改的设置的 <strong>设置（Set）</strong> 节点。<br /></p><p><picture>
+		<source data-srcset="./../../../../../Images/Basics/Levels/HowTo/Jacketing/jacketing-options-api.jpg">
+		<img class="  lazyload" alt="Drag right for the Jacketing Options API" title="Drag right for the Jacketing Options API" data-src="../../../../../Images/Basics/Levels/HowTo/Jacketing/jacketing-options-api.jpg" />
+</picture>
+
+</p></li></ol></li></ul><p>如果你将 <strong>JacketingOptions</strong> 设置为使用关卡目标模式，则 <strong>在网格体Actor上应用包壳（Apply Jacketing on Mesh Actors）</strong> 节点将返回一个数组，其中包含从所有角度都无法看到的所有静态网格体Actor。然后，你可以遍历这个列表来处理Actor。
+</p><p>例如，下面的蓝图图表收集了关卡中的所有静态网格体Actor，使用关卡目标运行包壳遮挡测试，并在视口和世界大纲视图中选择这些Actor。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../Images/Basics/Levels/HowTo/Jacketing/jacketing-example.png" ><span><picture>
+		<source data-srcset="./../../../../../Images/Basics/Levels/HowTo/Jacketing/jacketing-example.jpg">
+		<img class="  lazyload" alt="Jacketing example" title="Jacketing example" data-src="../../../../../Images/Basics/Levels/HowTo/Jacketing/jacketing-example.jpg" />
+</picture>
+</span></a></span><br /><em>点击查看大图。</em></p>
+</div>
+
+    </div>
+</div><!--
+category:paramliteral
+id:paramliteral
+content:param
+active:paramliteral
+-->
+<div class="button_content BlueprintOrCPPSelect pythonimplementation ">
+    <div class="container">
+        <p>你可以通过调用"unreal.MeshProcessingLibrary.apply_jacketing_on_mesh_actors()"函数在当前关卡的任何一组静态网格体Actor上运行遮挡测试和包壳流程。你将需要向此函数传递两个参数：
+</p><ul ><li class="Default"><p>包含当前关卡中你希望在遮挡测试期间考虑的所有Actor的数组。
+</p></li><li class="Default"><p>为遮挡测试设置参数的 <strong>unreal.JacketingOptions</strong> 对象。通过调用"unreal.JacketingOptions()"创建该对象的新实例，然后设置要调整的属性。
+</p></li></ul><p>如果将 <code>unreal.JacketingOptions.target</code> 设置为 <code>unreal.JacketingTarget.LEVEL</code>，此函数返回它认为完全被遮挡的所有网格体的数组。你可以处理这个列表，对它们执行任何操作。
+</p><pre class="prettyprint"><code># 获取关卡中的Actor列表 -- 在本例中是
+# 用户已在视口中选择的那些Actor。
+actors = unreal.EditorLevelLibrary.get&#95;selected&#95;level&#95;actors()
+
+# 创建一个新对象来保存包壳选项。
+options = unreal.JacketingOptions()
+
+# 设置体素网格的分辨率（以厘米为单位）。
+options.accuracy = 0.2
+
+# 设置可以考虑填充的最大开孔，单位为厘米。
+options.merge&#95;distance = 3
+
+# 要采取操作的目标：unreal.JacketingTarget.LEVEL 或 unreal.JacketingTarget.MESH
+options.target = unreal.JacketingTarget.LEVEL
+
+# 执行包壳操作。
+# 作用于关卡目标会使函数返回被遮挡的Actor列表。
+occluded = unreal.MeshProcessingLibrary.apply&#95;jacketing&#95;on&#95;mesh&#95;actors(actors, options)
+
+# 对被遮挡的Actor执行一些操作。
+# 例如，这个循环只是简单地从关卡上删除每个被遮挡的Actor。
+for a in occluded:
+a.destroy&#95;actor()</code></pre>
+<p>如果将"unreal.JacketingOptions.target"属性设置为"unreal.JacketingTarget.MESH"，则函数不返回值。它只会删除它认为从外部不可见的任何三角形。
+</p><p>例如：
+</p><pre class="prettyprint"><code># 获取关卡中的Actor列表 -- 在本例中是
+# 用户已在视口中选择的那些Actor。
+actors = unreal.EditorLevelLibrary.get&#95;selected&#95;level&#95;actors()
+
+# 创建一个新对象来保存包壳选项。
+options = unreal.JacketingOptions()
+
+# 设置体素网格的分辨率（以厘米为单位）。
+options.accuracy = 0.2
+
+# 设置可以考虑填充的最大开孔，单位为厘米。
+options.merge&#95;distance = 3
+
+# 要采取操作的目标：unreal.JacketingTarget.LEVEL 或 unreal.JacketingTarget.MESH
+options.target = unreal.JacketingTarget.MESH
+
+# 执行包壳操作。
+# 作用于网格体目标会使函数将更改直接应用到
+# 从外部不可见的静态网格体资源的几何体。</code></pre>
+<p> unreal.MeshProcessingLibrary.apply_jacketing_on_mesh_actors(actors, options)</p>
+
+    </div>
+</div>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=how%20to">how to</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../../SiteIndex/index.html?tags=intermediate">intermediate</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/Basics/Levels/HowTo/Jacketing/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 10:50:07 GMT -->
+</html>

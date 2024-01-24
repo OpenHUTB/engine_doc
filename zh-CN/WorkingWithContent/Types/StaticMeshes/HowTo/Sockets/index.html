@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/WorkingWithContent/Types/StaticMeshes/HowTo/Sockets/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:01:50 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/WorkingWithContent/Types/StaticMeshes/HowTo/Sockets/" />');
+				var udnCSS = '../../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>为静态网格物体设置 Socket 并使用 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/WorkingWithContent/Types/StaticMeshes/HowTo/Sockets/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/WorkingWithContent/Types/StaticMeshes/HowTo/Sockets/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/WorkingWithContent/Types/StaticMeshes/HowTo/Sockets/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/WorkingWithContent/Types/StaticMeshes/HowTo/Sockets/" hreflang="ko" />
+
+	<meta name="redirect" content="Engine/Content/Types/StaticMeshes/HowTo/Sockets" />
+<meta name="intsourcechangelist" content="10927180" />
+<meta name="availability" content="Public" />
+<meta name="title" content="为静态网格物体设置 Socket 并使用" />
+<meta name="description" content="如何设置和使用 Socket" />
+<meta name="skilllevel" content="Beginner" />
+<meta name="version" content="4.24" />
+<meta name="crumbs" content="%ROOT%,WorkingWithContent,WorkingWithContent/Types,WorkingWithContent/Types/StaticMeshes,WorkingWithContent/Types/StaticMeshes/HowTo" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="为静态网格物体设置 Socket 并使用" />
+	<meta property="og:description" content="如何设置和使用 Socket" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../../index.html">管理内容</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">内容资产类型</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">静态网格体</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">静态网格模型操作说明</a>
+
+<span class="separator">></span> <span id="page">为静态网格物体设置 Socket 并使用</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">为静态网格物体设置 Socket 并使用</h1>
+							</div>	
+							<h2 >如何设置和使用 Socket</h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Beginner"><a id="skill_link" href="../../../../../SiteIndex/index.html?skills=Beginner">Beginner</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																																				<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#设置">设置</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#创建第一个socket">创建第一个 Socket</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#将对象附加到静态网格物体">将对象附加到静态网格物体</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#分离">分离</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#创建有实心门的门口">创建有实心门的门口</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#创建新的socket">创建新的 Socket</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#将门附加到框">将门附加到框</a></p>
+	</li>					</ul>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>在 UE4 中制作场景时，有时您可能需要将某些东西附加到静态网格物体。您可以在 <strong>World Outliner</strong> 中向静态网格物体生成一个对象，但您还必须将其置于与网格物体相关的准确位置，这样做单调乏味。不过，就像您可以通过使用 Socket 将对象附加到骨骼网格物体一样，您也可以使用 Socket 将对象附加到静态网格物体。其操作非常简单，就像您在静态网格物体编辑器中创建 Socket、将其置于与网格物体相关的位置，然后将光、粒子效果甚至其他静态网格物体附加到网格物体那样。本操作指南将向您展示如何为静态网格物体创建 Socket，以及如何在场景中使用它。
+</p><h2 id="设置">设置</h2>
+<p>您可能已经拥有要处理的场景和静态网格物体。如果您已经有了上述条件，可以忽略此步骤。如果还没有，请从启动程序启动 UE4，然后创建一个新项目。务必选择一个保存路径并为您的项目命名。另外，选择一个要使用的模板。我们选择了蓝图的第一人称模板，但是您可以使用任意模板。
+</p><p> 另外还要确保启用了 <strong>Starter Content</strong>。如果未启用该选项，您将无法使用本教学指南的后续步骤中要用到的资源，那就很难跟着继续操作下去了。
+</p><h2 id="创建第一个socket">创建第一个 Socket</h2>
+<p>打开项目后，在 <strong>Content Browser(内容浏览器)</strong> 中找到 <strong>Starter Content</strong> 文件夹。然后浏览至 <strong>Props</strong> 文件夹，找到其中名为 <strong>SM_DoorFrame</strong> 的静态网格物体。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Sockets/ContentBrowserWithStarterContent.jpg">
+		<img class="  lazyload" alt="ContentBrowserWithStarterContent.png" width="462" data-src="../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Sockets/ContentBrowserWithStarterContent.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Sockets/DoorFrameInContentBrowser.jpg">
+		<img class="  lazyload" alt="DoorFrameInContentBrowser.png" width="462" data-src="../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Sockets/DoorFrameInContentBrowser.jpg" />
+</picture>
+
+</p><p>找到 <strong>SM_DoorFrame</strong> 后，在静态网格物体编辑器中打开资源，方法是 <strong>double-clicking(双击)</strong> 该资源或 <strong>right-clicking(右键单击)</strong> 该资源并从出现的弹出窗口中选择 <strong>Edit</strong>。完成后，您将可以看到类似以下画面。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Sockets/DoorFrameInEditor.jpg">
+		<img class="  lazyload" alt="DoorFrameInEditor.png" data-src="../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Sockets/DoorFrameInEditor.jpg" />
+</picture>
+
+</p><p>现在，我们已经在静态网格物体编辑器中打开了网格物体，我们将创建一个 Socket，这样我们便可将火焰粒子置于门口中间，以创建某种死亡之拱。开始前，我们需要创建 Socket。要执行此操作，请单击编辑器顶部的 <strong>Window</strong> 下拉菜单，然后选择 <strong>Socket Manager</strong>。此时将出现 Socket Manager 窗口。您将可以看到类似以下右侧显示的画面：
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Sockets/WindowMenu.jpg">
+		<img class="  lazyload" alt="WindowMenu.png" height="450" data-src="../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Sockets/WindowMenu.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Sockets/CreateSocketButton.jpg">
+		<img class="  lazyload" alt="CreateSocketButton.png" height="450" data-src="../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Sockets/CreateSocketButton.jpg" />
+</picture>
+
+</p><p>打开 <strong>Socket Manager</strong> 窗口后，单击以绿色高亮显示的 <strong>Create Socket</strong> 按钮。单击此按钮后，将创建一个新 Socket 并要求您为其命名。在此示例中，我们将 Socket 命名为 <strong>Fire</strong>。单击 <strong>Create Socket</strong> 按钮后，您的 <strong>Socket Manager</strong> 窗口看上去应该类似于以下画面：
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Sockets/NewSocket.jpg">
+		<img class="  lazyload" alt="NewSocket.png" data-src="../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Sockets/NewSocket.jpg" />
+</picture>
+
+</p><p>如果您在视口中查看此网格物体，您应该会看到一个 3D 小组件和一个转换小组件。如果没有，请单击工具栏中的 <strong>Sockets</strong> 按钮使 Socket 可见。   (<picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Sockets/SocketsButton.jpg">
+		<img class="  lazyload" alt="SocketsButton.png" data-src="../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Sockets/SocketsButton.jpg" />
+</picture>
+)
+</p><p>看到 Socket 后，它并非位于所需的位置。默认情况下，创建新的 Socket 时，它将位于静态网格物体所在的原始位置，这里即位于网格物体的底部正中间。我们需要 Socket 位于门口中间，这样玩家在穿过门时必须穿过火。您可以使用视口中的转换小组件手动移动该 Socket，您也可以更改其相对位置、旋转和从 <strong>Socket Manager</strong> 面板内缩放。为了达到预期效果，请将相对位置的 <strong>Z</strong> 值从 0 到 115 之间更改。之后，您将可以看到类似以下画面。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Sockets/FireSocket.jpg">
+		<img class="  lazyload" alt="FireSocket.png" data-src="../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Sockets/FireSocket.jpg" />
+</picture>
+
+</p><h2 id="将对象附加到静态网格物体">将对象附加到静态网格物体</h2>
+<p>现在我们在静态网格物体上已经有了要附加的 Socket，接下来我们将在场景中将对象附加到静态网格物体。单击静态网格物体编辑器内工具栏中的 <strong>Save</strong> 按钮，然后返回场景编辑器。找到 <strong>Content Browser</strong> 中的 <strong>SM_DoorFrame</strong>，然后将其副本拖入场景中。完成后，转到 <strong>Starter Content</strong> 文件夹中的 <strong>Particles</strong> 文件夹，然后找到名为 <strong>P_Fire</strong> 的资源。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Sockets/FireParticle.jpg">
+		<img class="  lazyload" alt="FireParticle.png" data-src="../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Sockets/FireParticle.jpg" />
+</picture>
+
+</p><p>找到 <strong>P_Fire</strong> 后，也将其副本拖入场景中。这将充当玩家要穿过的火，即我们要附加到 <strong>SM_DoorFrame</strong> 的对象。拖入 <strong>P_Fire</strong> 的一个实例后，<strong>right-click(右键单击)</strong> 视口中的粒子。您将看到一个类似于以下画面的菜单：
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Sockets/ContextMenuForFire.jpg">
+		<img class="  lazyload" alt="ContextMenuForFire.png" data-src="../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Sockets/ContextMenuForFire.jpg" />
+</picture>
+
+</p><p>在弹出菜单中，选择 <strong>Attach To</strong>，在出现的搜索框内，开始键入 <strong>Door Frame</strong>。此时应会出现 <strong>SM_DoorFrame</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Sockets/FireAttachToFrame.jpg">
+		<img class="  lazyload" alt="FireAttachToFrame.png" data-src="../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Sockets/FireAttachToFrame.jpg" />
+</picture>
+
+</p><p>选择 <strong>SM_DoorFrame</strong> 后，系统将询问您要将对象附加到的位置。列表包括 <strong>None</strong> 和您为静态网格物体创建的每个 Socket。选择 <strong>Fire</strong>，<strong>P_Fire</strong> 粒子效果将会神奇地附加到静态网格物体上 Socket 所在的位置。该粒子效果现已附加到静态网格物体。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Sockets/ChooseSocket.jpg">
+		<img class="  lazyload" alt="ChooseSocket.png" data-src="../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Sockets/ChooseSocket.jpg" />
+</picture>
+
+<picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Sockets/FireInFrameComplete.jpg">
+		<img class="  lazyload" alt="FireInFrameComplete.png" data-src="../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Sockets/FireInFrameComplete.jpg" />
+</picture>
+
+</p><p>注意，即使您通过 Socket 将粒子效果附加到了静态网格物体，您仍可以从静态网格物体中单独移动、旋转、缩放粒子效果，但对静态网格物体做出的任何转换也会影响其附加的任何对象。
+</p><h2 id="分离">分离</h2>
+<p>分离对象和附加对象一样简单，您可以随时执行此操作。<strong>right-click(右键单击)</strong> 您要从中分离的对象，从出现的弹出菜单中选择 <strong>Detach</strong>。该对象已不再附加到另一对象。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Sockets/Detach.jpg">
+		<img class="  lazyload" alt="Detach.png" data-src="../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Sockets/Detach.jpg" />
+</picture>
+
+</p><h2 id="创建有实心门的门口">创建有实心门的门口</h2>
+<p>您已经使用 Socket 创建末日之拱，接下来我们将使用 Socket 创建一些实用的东西。在 <strong>Starter Content</strong> 中的 <strong>Props</strong> 文件夹中，找到 <strong>SM_DoorFrame</strong>，再将其一个副本拖入场景中。然后，找到 <strong>SM_Door</strong>，也将其副本拖入场景中。现在，我们可以使用已有的 Socket 将门附加到门框，但是有一个问题。在将一个对象附加到另一个对象时，对象会在其原始位置附加到 Socket。静态网格物体 <strong>SM_Door</strong> 在其底角存在源，因此将门附加到 <strong>Fire</strong> Socket 会使门浮到空中，并且穿过门口的角落。要修复此问题，我们要创建另一个 Socket。
+</p><h3 id="创建新的socket">创建新的 Socket</h3>
+<p>在 <strong>Content Browser</strong> 中找到 <strong>SM_DoorFrame</strong>，然后 <strong>double-clicking(双击)</strong> 资源，在静态网格物体编辑器中将其打开。如果 <strong>Socket Manager</strong> 面板仍处于打开状态，则单击 <strong>Add Socket</strong> 按钮。如果没有，您可以从编辑器顶部的 <strong>Window</strong> 下拉菜单中选择 <strong>Socket Manager</strong> 重新打开 <strong>Socket Manager</strong> 面板。完成后，直接单击 <strong>Add Socket</strong> 按钮。
+</p><p>创建 Socket 后，将提示您为其命名。在此示例中，我们将 Socket 命名为 <strong>Door</strong>，以便我们稍后知晓这是我们要将门网格物体要附加到的 Socket。再次创建 Socket 后，则会在网格物体的源位置创建，这里指的是门框中间的底部位置。门网格物体的源位置是底角，这是我们要将 <strong>Door</strong> Socket 要移到的位置。您可以使用 3D 小组件手动移动 Socket，或者您可以更改其相对位置、旋转或从 <strong>Socket Manager</strong> 面板内缩放来移动。对于此示例，将 Socket 相对位置的 <strong>Y</strong> 值更改为 45 可实现预期效果。将 Socket 移到底角后，您的门框网格物体看起来应类似于以下显示的画面。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Sockets/DoorSocket.jpg">
+		<img class="  lazyload" alt="DoorSocket.png" data-src="../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Sockets/DoorSocket.jpg" />
+</picture>
+
+</p><p>如果您未看到 Socket，请确保高亮显示 <picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Sockets/SocketsButton.jpg">
+		<img class="  lazyload" alt="SocketsButton.png" data-src="../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Sockets/SocketsButton.jpg" />
+</picture>
+，以使 Socket 可见。
+</p><h3 id="将门附加到框">将门附加到框</h3>
+<p>我们已经有了将门附加到框的 Socket，请直接保存门框网格物体，然后返回场景编辑器。选择位于场景内的门的实例，<strong>right-click(右键单击)</strong> 调出弹出菜单。从弹出菜单中，选择 <strong>Attach</strong> 并搜索 <strong>SM_DoorFrame</strong>。找到您要将门附加到的门框的实例，然后 <strong>left-clicking(左键单击)</strong> 它将其选中。当询问您要附加到哪个 Socket 时，请选择 <strong>Door</strong>。完成后，您将可以看到类似以下画面。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Sockets/DoorSocketComplete.jpg">
+		<img class="  lazyload" alt="DoorSocketComplete.png" data-src="../../../../../../Images/WorkingWithContent/Types/StaticMeshes/HowTo/Sockets/DoorSocketComplete.jpg" />
+</picture>
+
+</p><p>默认情况下，<strong>SM_Door</strong> 不设置碰撞。如果您现在玩该场景，那么玩家会穿过实心门，这不是非常有用。继续在静态网格物体编辑器内为门设置简易盒体碰撞，以使玩家无法在门关闭时穿过门。如果您不知道怎么做，您可以 <a id="content_link" href="../SettingCollision/index.html" title="如何设置碰撞"><span>在此</span></a> 阅读说明 。
+</p><p>由于门是实心门，玩家无法穿过，因此您可以使用蓝图设置门的脚本行为，使其可以打开和关闭。这不在本教学指南系列的范围内，但是现在您必须通过要使用的门来阻止玩家，并将其附加到门框上，您可以 <a id="content_link" href="../../../../../ProgrammingAndScripting/Blueprints/UserGuide/Timelines/Examples/OpeningDoors/index.html" ><span>在此</span></a> 了解如何获取开门和关门的脚本行为。
+</p>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/WorkingWithContent/Types/StaticMeshes/HowTo/Sockets/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:01:56 GMT -->
+</html>

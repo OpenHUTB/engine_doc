@@ -1,0 +1,2525 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/3/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:20:42 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var finishButton = finishButtonTemplate;
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/3/" />');
+				var udnCSS = '../../../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>3 - 实现发射物 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../../Include/Javascript/instructional.js" type="text/javascript"></script>
+	    <script  src="../../../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/3/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/3/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/3/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/3/" hreflang="ko" />
+
+	<meta name="redirect" content="ProgrammingAndScripting/Tutorials/FirstPersonShooter/3" />
+<meta name="redirect" content="Programming/Tutorials/FirstPersonShooter/3" />
+<meta name="intsourcechangelist" content="18509816" />
+<meta name="availability" content="Public" />
+<meta name="title" content="3 - 实现发射物" />
+<meta name="description" content="如何实现第一人称射击游戏中的发射物。" />
+<meta name="type" content="quick start" />
+<meta name="prereq" content="ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/1" />
+<meta name="prereq" content="ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/2" />
+<meta name="related" content="ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter" />
+<meta name="skilllevel" content="Beginner" />
+<meta name="version" content="4.25" />
+<meta name="crumbs" content="%ROOT%,ProgrammingAndScripting,ProgrammingAndScripting/ProgrammingWithCPP,ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials,ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="3 - 实现发射物" />
+	<meta property="og:description" content="如何实现第一人称射击游戏中的发射物。" />
+		<meta property="og:image" content="" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../../../index.html">编程和脚本编写</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../../index.html">编程指南</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">C++ 编程教程</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">第一人称射击游戏教程</a>
+
+<span class="separator">></span> <span id="page">3 - 实现发射物</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">3 - 实现发射物</h1>
+							</div>	
+							<h2 >如何实现第一人称射击游戏中的发射物。</h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Beginner"><a id="skill_link" href="../../../../../SiteIndex/index.html?skills=Beginner">Beginner</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>												<div class="tip" id="notice" style="display:none;">
+欢迎回来！要回到您上次离开的地方吗？
+<div class="button-container">
+<a href="javascript:void();" id="goButton" class="btn btn-lrg btn-default action">前往</a>
+<a href="javascript:void();" id="cancelButton" class="btn btn-lrg btn-default">取消</a>
+</div>
+</div>																		<div id="seeAlso">
+	<div style="position:relative;">
+		<div id="title">参见</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<p>
+						<a id="related_link" href="../index.html" title="学习如何实现第一人称射击游戏中的机制。">第一人称射击游戏教程</a>
+					</p>
+				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																								<div class="prereq">
+    <div class="normaltitle">
+        前置主题
+    </div>
+    <p style="margin-bottom:8px;">
+        为了理解并使用本文中的内容，请确保您已掌握以下主题：
+    </p>
+    <ul style="margin-bottom:0.5em;">
+                <li>
+            <p>
+                <a href="../1/index.html" title="如何建立第一人称射击游戏项目。">1 - 建立项目</a>
+            </p>
+        </li>
+                <li>
+            <p>
+                <a href="../2/index.html" title="如何实现第一人称射击角色。">2 - 实现你的角色</a>
+            </p>
+        </li>
+            </ul>
+</div>
+																		<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#目标">目标</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#目的">目的</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#步骤">步骤</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#3.1-将发射物添加到游戏">3.1 - 将发射物添加到游戏</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#添加射击操作映射">添加射击操作映射</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#添加发射物类">添加发射物类</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#添加usphere组件">添加USphere组件</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#添加发射物移动组件">添加发射物移动组件</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#设置发射物的初始速度">设置发射物的初始速度</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#绑定发射输入操作">绑定发射输入操作</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#定义发射物的生成位置">定义发射物的生成位置</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#编译并检查代码">编译并检查代码</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#3.2-实现射击">3.2 - 实现射击</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#实现发射函数">实现发射函数</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#导入发射物网格体">导入发射物网格体</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#添加发射物网格体">添加发射物网格体</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#添加发射物的材质">添加发射物的材质</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#3.3-设置发射物的碰撞和生命周期">3.3 - 设置发射物的碰撞和生命周期</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#限制发射物的生命周期">限制发射物的生命周期</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#编辑发射物的碰撞设置">编辑发射物的碰撞设置</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#使用新碰撞通道的设置">使用新碰撞通道的设置</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#3.4-让发射物与世界交互">3.4 - 让发射物与世界交互</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#使发射物对碰撞做出响应">使发射物对碰撞做出响应</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#测试发射物碰撞">测试发射物碰撞</a></p>
+	</li>					</ul>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#3.5-将十字准星添加到视口">3.5 - 将十字准星添加到视口</a></p>
+			<ul>
+							<li id="">
+	<p><a id="toc_link" href="#导入十字准星资产">导入十字准星资产</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#添加新的hud类">添加新的HUD类</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#扩展cpphud类到蓝图">扩展CPP HUD类到蓝图</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#设置默认的hud类">设置默认的HUD类</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#验证你的hud">验证你的HUD</a></p>
+	</li>							<li id="">
+	<p><a id="toc_link" href="#已完成分段代码">已完成分段代码</a></p>
+	</li>					</ul>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/3/CrosshairsInGame.jpg">
+		<img class="  lazyload" alt="CrosshairsInGame.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/3/CrosshairsInGame.jpg" />
+</picture>
+
+</p><div class="caption">
+	<p>这就是你将在本分段结束时看到的内容。</p>
+</div><h2 id="目标">目标</h2>
+<p>本分段旨在向你展示如何实现第一人称射击游戏的发射物。
+</p><h2 id="目的">目的</h2>
+<p>完成本教程的此分段，你能够：
+</p><ul ><li class="Default"><p>将发射物添加到游戏
+</p></li><li class="Default"><p>实现射击
+</p></li><li class="Default"><p>设置发射物碰撞和生命周期
+</p></li><li class="Default"><p>使发射物与世界交互
+</p></li><li class="Default"><p>将十字准星添加到视口
+</p></li></ul><h2 id="步骤">步骤</h2>
+<ul ><li class="Default"><p>3.1 - 将发射物添加到游戏
+</p></li><li class="Default"><p>3.2 - 实现射击
+</p></li><li class="Default"><p>3.3 - 设置发射物碰撞和生命周期
+</p></li><li class="Default"><p>3.4 - 让发射物与世界交互
+</p></li><li class="Default"><p>3.5 - 将十字准星添加到视口
+</p></li></ul><h2 id="3.1-将发射物添加到游戏">3.1 - 将发射物添加到游戏</h2>
+<p>你已经设置好角色，现在可以实现武器发射物了。你将通过编程实现简单的手榴弹状发射物，它将从屏幕中心射击并飞行，直到与世界中的物体碰撞。在此步骤中，你将添加输入并为发射物创建新的代码类。
+</p><h3 id="添加射击操作映射">添加射击操作映射</h3>
+<ol ><li class="Default"><p>在 <strong>编辑（Edit）</strong> 菜单中，点击 <strong>项目设置（Project Settings）</strong>。
+</p></li><li class="Default"><p>在 <strong>项目设置（Project Settings）</strong> 选项卡左侧的 <strong>引擎（Engine）</strong> 标题栏下，点击 <strong>输入（Input）</strong>。
+</p></li><li class="Default"><p>在 <strong>绑定（Bindings）</strong> 中，点击 <strong>操作映射（Action Mappings）</strong> 旁边的+号。
+</p></li><li class="Default"><p>点击 <strong>操作映射（Action Mappings）</strong> 左侧的 <strong>箭头</strong>。
+</p></li><li class="Default"><p>在显示的文本输入框中输入"Fire"，然后点击文本框左侧的箭头，展开操作绑定选项。
+</p></li><li class="Default"><p>在下拉菜单中，从 <strong>鼠标（Mouse）</strong> 下拉列表中选择 <strong>鼠标左键（Left Mouse Button）</strong>。
+</p></li><li class="Default"><p>现在输入设置界面应如下图所示：
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/3/ActionMapping.jpg">
+		<img class="  lazyload" alt="ActionMapping.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/3/ActionMapping.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>关闭 <strong>项目设置（Project Settings）</strong> 菜单。
+</p></li></ol><h3 id="添加发射物类">添加发射物类</h3>
+<ol ><li class="Default"><p>在文件（File）菜单中，选择 <strong>新建C++类...（New C++ Class...）</strong>，以选择新的父类。
+</p></li><li class="Default"><p>以上操作将打开 <strong>选择父类（Choose Parent Class）</strong> 菜单。向下滚动，选择 <strong>Actor</strong> 作为父类，然后点击 <strong>下一步（Next）</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/3/AddProjectileClass.jpg">
+		<img class="  lazyload" alt="AddProjectileClass.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/3/AddProjectileClass.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>将新类命名为"FPSProjectile"，然后点击 <strong>创建类（Create Class）</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/3/CreateProjectileClass.jpg">
+		<img class="  lazyload" alt="CreateProjectileClass.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/3/CreateProjectileClass.jpg" />
+</picture>
+
+</p></li></ol><h3 id="添加usphere组件">添加USphere组件</h3>
+<ol ><li class="Default"><p>在 <strong>解决方案浏览器（Solution Explorer）</strong> 中找到 <code>FPSProjectile</code> 类头文件，并打开 <code>FPSProjectile.h</code>。
+</p></li><li class="Default"><p>添加<a id="content_link" href="https://docs.unrealengine.com/en-US/API/Runtime/Engine/Components/USphereComponent/index.html" ><span>SphereComponent</span></a>头文件：
+</p><pre class="prettyprint"><code>#include "Components/SphereComponent.h"</code></pre></li><li class="Default"><p>在 <code>FPSProjectile</code> 接口中添加 <code>USphereComponent</code> 的引用。
+</p><pre class="prettyprint"><code>// 球体碰撞组件。
+UPROPERTY(VisibleDefaultsOnly, Category = Projectile)
+USphereComponent&#42; CollisionComponent;</code></pre></li><li class="Default"><p>现在 <code>FPSProjectile.h</code> 的内容应如下图所示：
+</p><pre class="prettyprint"><code>//版权所有Epic Games, Inc。保留所有权利。
+
+#pragma once
+
+#include "CoreMinimal.h"
+#include "GameFramework/Actor.h"
+#include "Components/SphereComponent.h"
+#include "FPSProjectile.generated.h"
+
+UCLASS()
+class FPSPROJECT&#95;API AFPSProjectile : public AActor
+{
+    GENERATED&#95;BODY()
+
+public: 
+    // 为此Actor的属性设置默认值
+    AFPSProjectile();
+
+protected:
+    // 当游戏开始或重生（Spawn）时被调用
+    virtual void BeginPlay() override;
+
+public:
+    // 每一帧都被调用
+    virtual void Tick( float DeltaTime ) override;
+
+    // 球体碰撞组件
+    UPROPERTY(VisibleDefaultsOnly, Category = Projectile)
+    USphereComponent&#42; CollisionComponent;
+};</code></pre></li><li class="Default"><p>在 <strong>解决方案浏览器（Solution Explorer）</strong> 中找到 <code>FPSProjectile</code> 类CPP文件，并打开 <code>FPSProjectile.cpp</code>。
+</p></li><li class="Default"><p>将以下代码添加到 <code>FPSProjectile.cpp</code> 中的 <code>AFPSProjectile</code> 构造函数中（在 <code>PrimaryActorTick.bcanEverTick</code> 之后）：
+</p><pre class="prettyprint"><code>if(!RootComponent)
+{
+RootComponent = CreateDefaultSubobject&lt;USceneComponent&gt;(TEXT("ProjectileSceneComponent"));
+}
+if(!CollisionComponent)
+{
+// 用球体进行简单的碰撞展示。
+CollisionComponent = CreateDefaultSubobject&lt;USphereComponent&gt;(TEXT("SphereComponent"));
+// 设置球体的碰撞半径。
+CollisionComponent-&gt;InitSphereRadius(15.0f);
+// 将根组件设置为碰撞组件。
+RootComponent = CollisionComponent;
+}</code></pre>
+<div class="note">
+	<p>你把 <code>CollisionComponent</code> 设为 <code>RootComponent</code>，模拟器将驱动此组件。</p>
+</div></li><li class="Default"><p>现在 <code>FPSProjectile.cpp</code> 的内容应如下图所示：
+</p><pre class="prettyprint"><code>//版权所有Epic Games, Inc。保留所有权利。
+
+#include "FPSProjectile.h"
+
+// 设置默认值
+AFPSProjectile::AFPSProjectile()
+{
+    // 将此actor设置为每帧调用Tick()。  如果不需要此特性，可以关闭以提升性能。
+    PrimaryActorTick.bCanEverTick = true;
+
+    if(!RootComponent)
+    {
+        RootComponent = CreateDefaultSubobject&lt;USceneComponent&gt;(TEXT("ProjectileSceneComponent"));
+    }
+
+    if(!CollisionComponent)
+    {
+        // 用球体进行简单的碰撞展示。
+        CollisionComponent = CreateDefaultSubobject&lt;USphereComponent&gt;(TEXT("SphereComponent"));
+        // 设置球体的碰撞半径。
+        CollisionComponent-&gt;InitSphereRadius(15.0f);
+        // 将根组件设置为碰撞组件。
+        RootComponent = CollisionComponent;
+    }
+}
+
+// 当游戏开始或重生（Spawn）时被调用
+void AFPSProjectile::BeginPlay()
+{
+    Super::BeginPlay();
+
+}
+
+// 每一帧都被调用
+void AFPSProjectile::Tick( float DeltaTime )
+{
+    Super::Tick( DeltaTime );
+
+}</code></pre></li></ol><h3 id="添加发射物移动组件">添加发射物移动组件</h3>
+<ol ><li class="Default"><p>在 <strong>解决方案浏览器（Solution Explorer）</strong> 中找到 <code>FPSProjectile</code> 类头文件，并打开 <code>FPSProjectile.h</code>。
+</p></li><li class="Default"><p>添加<a id="content_link" href="https://docs.unrealengine.com/en-US/API/Runtime/Engine/GameFramework/UProjectileMovementComponent/index.html" ><span>ProjectileMovementComponent</span></a>头文件。
+</p><pre class="prettyprint"><code>#include "GameFramework/ProjectileMovementComponent.h"</code></pre></li><li class="Default"><p>将以下代码添加到 <code>FPSProjectile.h</code>：
+</p><pre class="prettyprint"><code>// 发射物移动组件。
+UPROPERTY(VisibleAnywhere, Category = Movement)
+UProjectileMovementComponent&#42; ProjectileMovementComponent;</code></pre></li><li class="Default"><p>现在 <code>FPSProjectile.h</code> 的内容应如下图所示：
+</p><pre class="prettyprint"><code>//版权所有Epic Games, Inc。保留所有权利。
+
+#pragma once
+
+#include "CoreMinimal.h"
+#include "GameFramework/Actor.h"
+#include "Components/SphereComponent.h"
+#include "GameFramework/ProjectileMovementComponent.h"
+#include "FPSProjectile.generated.h"
+
+UCLASS()
+class FPSPROJECT&#95;API AFPSProjectile : public AActor
+{
+    GENERATED&#95;BODY()
+
+public: 
+    // 为此Actor的属性设置默认值
+    AFPSProjectile();
+
+protected:
+    // 当游戏开始或重生（Spawn）时被调用
+    virtual void BeginPlay() override;
+
+public:
+    // 每一帧都被调用
+    virtual void Tick( float DeltaTime ) override;
+
+    // 球体碰撞组件。
+    UPROPERTY(VisibleDefaultsOnly, Category = Projectile)
+    USphereComponent&#42; CollisionComponent;
+
+    // 发射物移动组件。
+    UPROPERTY(VisibleAnywhere, Category = Movement)
+    UProjectileMovementComponent&#42; ProjectileMovementComponent;
+};</code></pre></li><li class="Default"><p>从 <strong>解决方案浏览器（Solution Explorer）</strong> 打开 <code>FPSProjectile.cpp</code>。
+</p></li><li class="Default"><p>将以下代码行添加到 <code>FPSProjectile.cpp</code> 中的 <code>FPSProjectile</code> 构造函数中：
+</p><pre class="prettyprint"><code>if(!ProjectileMovementComponent)
+{
+    // 使用此组件驱动发射物的移动。
+    ProjectileMovementComponent = CreateDefaultSubobject&lt;UProjectileMovementComponent&gt;(TEXT("ProjectileMovementComponent"));
+    ProjectileMovementComponent-&gt;SetUpdatedComponent(CollisionComponent);
+    ProjectileMovementComponent-&gt;InitialSpeed = 3000.0f;
+    ProjectileMovementComponent-&gt;MaxSpeed = 3000.0f;
+    ProjectileMovementComponent-&gt;bRotationFollowsVelocity = true;
+    ProjectileMovementComponent-&gt;bShouldBounce = true;
+    ProjectileMovementComponent-&gt;Bounciness = 0.3f;
+    ProjectileMovementComponent-&gt;ProjectileGravityScale = 0.0f;
+}</code></pre></li><li class="Default"><p>现在 <code>FPSProjectile.cpp</code> 的内容应如下图所示：
+</p><pre class="prettyprint"><code>//版权所有Epic Games, Inc。保留所有权利。
+
+#include "FPSProjectile.h"
+
+// 设置默认值
+AFPSProjectile::AFPSProjectile()
+{
+    // 将此actor设置为每帧调用Tick()。  如果不需要此特性，可以关闭以提升性能。
+    PrimaryActorTick.bCanEverTick = true;
+    if(!RootComponent)
+    {
+        RootComponent = CreateDefaultSubobject&lt;USceneComponent&gt;(TEXT("ProjectileSceneComponent"));
+    }
+
+    if(!CollisionComponent)
+    {
+        // 用球体进行简单的碰撞展示。
+        CollisionComponent = CreateDefaultSubobject&lt;USphereComponent&gt;(TEXT("SphereComponent"));
+        // 设置球体的碰撞半径。
+        CollisionComponent-&gt;InitSphereRadius(15.0f);
+        // 将根组件设置为碰撞组件。
+        RootComponent = CollisionComponent;
+    }
+
+    if(!ProjectileMovementComponent)
+    {
+        // 使用此组件驱动发射物的移动。
+        ProjectileMovementComponent = CreateDefaultSubobject&lt;UProjectileMovementComponent&gt;(TEXT("ProjectileMovementComponent"));
+        ProjectileMovementComponent-&gt;SetUpdatedComponent(CollisionComponent);
+        ProjectileMovementComponent-&gt;InitialSpeed = 3000.0f;
+        ProjectileMovementComponent-&gt;MaxSpeed = 3000.0f;
+        ProjectileMovementComponent-&gt;bRotationFollowsVelocity = true;
+        ProjectileMovementComponent-&gt;bShouldBounce = true;
+        ProjectileMovementComponent-&gt;Bounciness = 0.3f;
+        ProjectileMovementComponent-&gt;ProjectileGravityScale = 0.0f;
+    }
+}
+
+// 当游戏开始或重生（Spawn）时被调用
+void AFPSProjectile::BeginPlay()
+{
+    Super::BeginPlay();
+
+}
+
+// 每一帧都被调用
+void AFPSProjectile::Tick( float DeltaTime )
+{
+    Super::Tick( DeltaTime );
+
+}</code></pre></li></ol><h3 id="设置发射物的初始速度">设置发射物的初始速度</h3>
+<ol ><li class="Default"><p>在 <strong>解决方案浏览器（Solution Explorer）</strong> 中打开 <code>FPSProjectile.h</code>。
+</p></li><li class="Default"><p>在FPSProjectile.h中添加以下函数声明：
+</p><pre class="prettyprint"><code>// 初始化射击方向上发射物速度的函数。
+void FireInDirection(const FVector&amp; ShootDirection);</code></pre>
+<div class="note">
+	<p>此函数将负责发射发射物。</p>
+</div></li><li class="Default"><p>现在 <code>FPSProjectile.h</code> 的内容应如下图所示：
+</p><pre class="prettyprint"><code>//版权所有Epic Games, Inc。保留所有权利。
+
+#pragma once
+
+#include "CoreMinimal.h"
+#include "GameFramework/Actor.h"
+#include "Components/SphereComponent.h"
+#include "GameFramework/ProjectileMovementComponent.h"
+#include "FPSProjectile.generated.h"
+
+UCLASS()
+class FPSPROJECT&#95;API AFPSProjectile : public AActor
+{
+    GENERATED&#95;BODY()
+
+public: 
+    // 为此Actor的属性设置默认值
+    AFPSProjectile();
+
+protected:
+    // 当游戏开始或重生（Spawn）时被调用
+    virtual void BeginPlay() override;
+
+public:
+    // 每一帧都被调用
+    virtual void Tick( float DeltaTime ) override;
+
+    // 球体碰撞组件。
+    UPROPERTY(VisibleDefaultsOnly, Category = Projectile)
+    USphereComponent&#42; CollisionComponent;
+
+    // 发射物移动组件。
+    UPROPERTY(VisibleAnywhere, Category = Movement)
+    UProjectileMovementComponent&#42; ProjectileMovementComponent;
+
+    // 初始化射击方向上发射物速度的函数。
+    void FireInDirection(const FVector&amp; ShootDirection);
+};</code></pre></li><li class="Default"><p>在 <strong>解决方案浏览器（Solution Explorer）</strong> 中打开 <code>FPSProjectile.cpp</code>。
+</p></li><li class="Default"><p>将以下函数定义添加到 <code>FPSProjectile.cpp</code>：
+</p><pre class="prettyprint"><code>// 初始化射击方向上发射物速度的函数。
+void AFPSProjectile::FireInDirection(const FVector&amp; ShootDirection)
+{
+    ProjectileMovementComponent-&gt;Velocity = ShootDirection &#42; ProjectileMovementComponent-&gt;InitialSpeed;
+}</code></pre>
+<div class="note">
+	<p>你只需提供发射方向，因为发射物的速度由 <code>ProjectileMovementComponent</code> 定义。</p>
+</div></li><li class="Default"><p>现在 <code>FPSProjectile.cpp</code> 的内容应如下图所示：
+</p><pre class="prettyprint"><code>//版权所有Epic Games, Inc。保留所有权利。
+
+#include "FPSProjectile.h"
+
+// 设置默认值
+AFPSProjectile::AFPSProjectile()
+{
+// 将此actor设置为每帧调用Tick()。  如果不需要此特性，可以关闭以提升性能。
+PrimaryActorTick.bCanEverTick = true;
+
+if(!RootComponent)
+{
+    // 用球体进行简单的碰撞展示。
+    CollisionComponent = CreateDefaultSubobject&lt;USphereComponent&gt;(TEXT("SphereComponent"));
+    // 设置球体的碰撞半径。
+    CollisionComponent-&gt;InitSphereRadius(15.0f);
+    // 将根组件设置为碰撞组件。
+    RootComponent = CollisionComponent;
+}
+
+if(!ProjectileMovementComponent)
+{
+    // 使用此组件驱动发射物的移动。
+    ProjectileMovementComponent = CreateDefaultSubobject&lt;UProjectileMovementComponent&gt;(TEXT("ProjectileMovementComponent"));
+    ProjectileMovementComponent-&gt;SetUpdatedComponent(CollisionComponent);
+    ProjectileMovementComponent-&gt;InitialSpeed = 3000.0f;
+    ProjectileMovementComponent-&gt;MaxSpeed = 3000.0f;
+    ProjectileMovementComponent-&gt;bRotationFollowsVelocity = true;
+    ProjectileMovementComponent-&gt;bShouldBounce = true;
+    ProjectileMovementComponent-&gt;Bounciness = 0.3f;
+    ProjectileMovementComponent-&gt;ProjectileGravityScale = 0.0f;
+}
+}
+
+// 当游戏开始或重生（Spawn）时被调用
+void AFPSProjectile::BeginPlay()
+{
+Super::BeginPlay();
+
+}
+
+// 每一帧都被调用
+void AFPSProjectile::Tick( float DeltaTime )
+{
+Super::Tick( DeltaTime );
+
+}
+
+// 初始化射击方向上发射物速度的函数。
+void AFPSProjectile::FireInDirection(const FVector&amp; ShootDirection)
+{
+ProjectileMovementComponent-&gt;Velocity = ShootDirection &#42; ProjectileMovementComponent-&gt;InitialSpeed;
+}</code></pre></li></ol><h3 id="绑定发射输入操作">绑定发射输入操作</h3>
+<ol ><li class="Default"><p>在 <strong>解决方案浏览器（Solution Explorer）</strong> 中打开 <code>FPSCharacter.h</code>。
+</p></li><li class="Default"><p>在 <code>FPSCharacter.h</code> 中添加以下函数声明：
+</p><pre class="prettyprint"><code>// 处理发射物射击的函数。
+UFUNCTION()
+void Fire();</code></pre></li><li class="Default"><p>现在 <code>FPSCharacter.h</code> 的内容应如下所示：
+</p><pre class="prettyprint"><code>//版权所有Epic Games, Inc。保留所有权利。
+
+#pragma once
+
+#include "CoreMinimal.h"
+#include "GameFramework/Character.h"
+#include "Camera/CameraComponent.h"
+#include "Components/CapsuleComponent.h"
+#include "FPSCharacter.generated.h"
+
+UCLASS()
+class FPSPROJECT&#95;API AFPSCharacter : public ACharacter
+{
+    GENERATED&#95;BODY()
+
+public:
+    // 为此角色的属性设置默认值
+    AFPSCharacter();
+
+protected:
+    // 当游戏开始或重生（Spawn）时被调用
+    virtual void BeginPlay() override;
+
+public:
+    // 每一帧都被调用
+    virtual void Tick( float DeltaTime ) override;
+
+    // 被调用，将功能与输入绑定
+    virtual void SetupPlayerInputComponent(class UInputComponent&#42; PlayerInputComponent) override;
+
+    // 处理用于前后移动的输入。
+    UFUNCTION()
+    void MoveForward(float Value);
+
+    // 处理用于左右移动的输入。
+    UFUNCTION()
+    void MoveRight(float Value);
+
+    // 按下键时，设置跳跃标记。
+    UFUNCTION()
+    void StartJump();
+
+    // 释放键时，清除跳跃标记。
+    UFUNCTION()
+    void StopJump();
+
+    // 处理发射物射击的函数。
+    UFUNCTION()
+    void Fire();
+
+    // FPS摄像机
+    UPROPERTY(VisibleAnywhere)
+    UCameraComponent&#42; FPSCameraComponent;
+
+    // 第一人称网格体（手臂），仅对所属玩家可见。
+    UPROPERTY(VisibleDefaultsOnly, Category = Mesh)
+    USkeletalMeshComponent&#42; FPSMesh;
+};</code></pre></li><li class="Default"><p>在 <strong>解决方案浏览器（Solution Explorer）</strong> 中找到 <code>FPSCharacter</code> CPP文件，并打开 <code>FPSCharacter.cpp</code>。
+</p></li><li class="Default"><p>要绑定发射函数，请将以下代码添加到 <code>FPSCharacter.cpp</code> 中的 <code>SetupPlayerInputComponent</code> 函数中：
+</p><pre class="prettyprint"><code>PlayerInputComponent-&gt;BindAction("Fire", IE&#95;Pressed, this, &amp;AFPSCharacter::Fire);</code></pre></li><li class="Default"><p>现在，将以下函数定义添加到 <code>FPSCharacter.cpp</code>：
+</p><pre class="prettyprint"><code>void AFPSCharacter::Fire()
+{
+}</code></pre></li><li class="Default"><p>现在 <code>FPSCharacter.cpp</code> 的内容应如下所示：
+</p><pre class="prettyprint"><code>//版权所有Epic Games, Inc。保留所有权利。
+
+#include "FPSCharacter.h"
+
+// 设置默认值
+AFPSCharacter::AFPSCharacter()
+{
+    // 将此角色设置为每帧调用Tick()。  如果不需要此特性，可以关闭以提升性能。
+    PrimaryActorTick.bCanEverTick = true;
+
+    // 创建第一人称摄像机组件。
+    FPSCameraComponent = CreateDefaultSubobject&lt;UCameraComponent&gt;(TEXT("FirstPersonCamera"));
+    check(FPSCameraComponent != nullptr);
+
+    // 将摄像机组件附加到我们的胶囊体组件。
+    FPSCameraComponent-&gt;SetupAttachment(CastChecked&lt;USceneComponent, UCapsuleComponent&gt;(GetCapsuleComponent()));
+
+    // 将摄像机置于略高于眼睛上方的位置。
+    FPSCameraComponent-&gt;SetRelativeLocation(FVector(0.0f, 0.0f, 50.0f + BaseEyeHeight));
+
+    // 启用Pawn控制摄像机旋转。
+    FPSCameraComponent-&gt;bUsePawnControlRotation = true;
+
+    // 为所属玩家创建第一人称网格体组件。
+    FPSMesh = CreateDefaultSubobject&lt;USkeletalMeshComponent&gt;(TEXT("FirstPersonMesh"));
+    check(FPSMesh != nullptr);
+
+    // 仅所属玩家可以看见此网格体。
+    FPSMesh-&gt;SetOnlyOwnerSee(true);
+
+    // 将 FPS 网格体附加到 FPS 摄像机。
+    FPSMesh-&gt;SetupAttachment(FPSCameraComponent);
+
+    // 禁用某些环境阴影以便实现只有单个网格体的感觉。
+    FPSMesh-&gt;bCastDynamicShadow = false;
+    FPSMesh-&gt;CastShadow = false;
+
+    // 所属玩家看不到常规（第三人称）全身网格体。
+    GetMesh()-&gt;SetOwnerNoSee(true);
+}
+
+// 当游戏开始或重生（Spawn）时被调用
+void AFPSCharacter::BeginPlay()
+{
+    Super::BeginPlay();
+
+    if (GEngine)
+    {
+        // 显示调试消息五秒。 
+        // -1"键"值参数可以防止更新或刷新消息。
+        GEngine-&gt;AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("We are using FPSCharacter."));
+    }
+}
+
+// 每一帧都被调用
+void AFPSCharacter::Tick( float DeltaTime )
+{
+    Super::Tick( DeltaTime );
+
+}
+
+// 被调用，将功能与输入绑定
+void AFPSCharacter::SetupPlayerInputComponent(class UInputComponent&#42; PlayerInputComponent)
+{
+    Super::SetupPlayerInputComponent(PlayerInputComponent);
+
+    // 设置"移动"绑定。
+    PlayerInputComponent-&gt;BindAxis("MoveForward", this, &amp;AFPSCharacter::MoveForward);
+    PlayerInputComponent-&gt;BindAxis("MoveRight", this, &amp;AFPSCharacter::MoveRight);
+
+    // 设置"观看"绑定。
+    PlayerInputComponent-&gt;BindAxis("Turn", this, &amp;AFPSCharacter::AddControllerYawInput);
+    PlayerInputComponent-&gt;BindAxis("LookUp", this, &amp;AFPSCharacter::AddControllerPitchInput);
+
+    // 设置"操作"绑定。
+    PlayerInputComponent-&gt;BindAction("Jump", IE&#95;Pressed, this, &amp;AFPSCharacter::StartJump);
+    PlayerInputComponent-&gt;BindAction("Jump", IE&#95;Released, this, &amp;AFPSCharacter::StopJump);
+    PlayerInputComponent-&gt;BindAction("Fire", IE&#95;Pressed, this, &amp;AFPSCharacter::Fire);
+}
+
+void AFPSCharacter::MoveForward(float Value)
+{
+    // 找出"前进"方向，并记录玩家想向该方向移动。
+    FVector Direction = FRotationMatrix(Controller-&gt;GetControlRotation()).GetScaledAxis(EAxis::X);
+    AddMovementInput(Direction, Value);
+}
+
+void AFPSCharacter::MoveRight(float Value)
+{
+    // 找出"右侧"方向，并记录玩家想向该方向移动。
+    FVector Direction = FRotationMatrix(Controller-&gt;GetControlRotation()).GetScaledAxis(EAxis::Y);
+    AddMovementInput(Direction, Value);
+}
+
+void AFPSCharacter::StartJump()
+{
+    bPressedJump = true;
+}
+
+void AFPSCharacter::StopJump()
+{
+    bPressedJump = false;
+}
+
+void AFPSCharacter::Fire()
+{
+}</code></pre></li></ol><h3 id="定义发射物的生成位置">定义发射物的生成位置</h3>
+<ol ><li class="Default"><p>生成 <code>FPSProjectile</code> actor并实现 <code>OnFire</code> 函数时需要考虑两点，即：
+</p><ul ><li class="Default"><p>发射物的生成位置。
+</p></li><li class="Default"><p>发射物对应的类（让 <code>FPSCharacter</code> 及其派生蓝图知道要生成哪种发射物）。
+</p></li></ul><div class="note">
+	<p>你将使用一个摄像机空间中的偏移向量来确定发射物的生成位置。设置该参数为可编辑参数，这样你就可以在 <code>BP&#95;FPSCharacter</code> 蓝图中对其进行设置和调整。最终，你可以基于这些数据计算发射物的初始位置。</p>
+</div></li><li class="Default"><p>在 <strong>解决方案浏览器（Solution Explorer）</strong> 中打开 <code>FPSCharacter.h</code>。
+</p></li><li class="Default"><p>将以下代码添加到 <code>FPSCharacter.h</code>：
+</p><pre class="prettyprint"><code>// 枪口相对于摄像机位置的偏移。
+UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
+FVector MuzzleOffset;</code></pre>
+<div class="note">
+	<p><code>EditAnywhere</code> 值让你可以在蓝图编辑器的默认（Defaults）模式下或在任何角色实例的细节（Details）选项卡中更改枪口偏移值。  <code>BlueprintReadWrite</code> 选项值让你可以在蓝图中获取和设置枪口偏移值。</p>
+</div></li><li class="Default"><p>将以下代码添加到 <code>FPSCharacter.h</code> 中的受保护访问说明符下：
+</p><pre class="prettyprint"><code>// 要生成的发射物类。
+UPROPERTY(EditDefaultsOnly, Category = Projectile)
+TSubclassOf&lt;class AFPSProjectile&gt; ProjectileClass;</code></pre>
+<div class="note">
+	<p><code>EditDefaultsOnly</code> 意味着你只能将发射物类设置为蓝图上的默认值，而不是每个蓝图实例上的默认值。</p>
+</div></li><li class="Default"><p>现在 <code>FPSCharacter.h</code> 的内容应如下图所示：
+</p><pre class="prettyprint"><code>//版权所有Epic Games, Inc。保留所有权利。
+
+#pragma once
+
+#include "CoreMinimal.h"
+#include "GameFramework/Character.h"
+#include "Camera/CameraComponent.h"
+#include "Components/CapsuleComponent.h"
+#include "FPSCharacter.generated.h"
+
+UCLASS()
+class FPSPROJECT&#95;API AFPSCharacter : public ACharacter
+{
+GENERATED&#95;BODY()
+
+public:
+// 为此角色的属性设置默认值
+AFPSCharacter();
+
+protected:
+// 当游戏开始或重生（Spawn）时被调用
+virtual void BeginPlay() override;
+
+// 要生成的发射物类。
+UPROPERTY(EditDefaultsOnly, Category = Projectile)
+TSubclassOf&lt;class AFPSProjectile&gt; ProjectileClass;
+
+public:
+// 每一帧都被调用
+virtual void Tick( float DeltaTime ) override;
+
+// 被调用，将功能与输入绑定
+virtual void SetupPlayerInputComponent(class UInputComponent&#42; PlayerInputComponent) override;
+
+// 处理用于前后移动的输入。
+UFUNCTION()
+void MoveForward(float Value);
+
+// 处理用于左右移动的输入。
+UFUNCTION()
+void MoveRight(float Value);
+
+// 按下键时，设置跳跃标记。
+UFUNCTION()
+void StartJump();
+
+// 释放键时，清除跳跃标记。
+UFUNCTION()
+void StopJump();
+
+// 发射发射物的函数。
+UFUNCTION()
+void Fire();
+
+// FPS摄像机
+UPROPERTY(VisibleAnywhere)
+UCameraComponent&#42; FPSCameraComponent;
+
+// 第一人称网格体（手臂），仅对所属玩家可见。
+UPROPERTY(VisibleDefaultsOnly, Category = Mesh)
+USkeletalMeshComponent&#42; FPSMesh;
+
+// 枪口相对于摄像机位置的偏移。
+UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
+FVector MuzzleOffset;
+
+};</code></pre></li></ol><h3 id="编译并检查代码">编译并检查代码</h3>
+<p>现在我们来编译并检查新实现的发射物代码。
+</p><ol ><li class="Default"><p>在Visual Studio中保存所有头文件和实现文件。
+</p></li><li class="Default"><p>在 <strong>解决方案浏览器（Solution Explorer）</strong> 中找到 <strong>FPSProject</strong>。
+</p></li><li class="Default"><p>右键点击 <strong>FPSProject</strong> 并选择 <strong>构建（Build）</strong>，编译你的项目。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/3/BuildFPSProject.jpg">
+		<img class="  lazyload" alt="BuildFPSProject.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/3/BuildFPSProject.jpg" />
+</picture>
+
+</p><div class="tip">
+	<p>此步骤的目的是在继续下一步之前发现所有构建错误。如果你遇到本教程范围之外的任何构建错误或警告，请参阅我们的<a id="content_link" href="https://docs.unrealengine.com/en-US/Programming/Development/CodingStandard/index.html" ><span>编码标准</span></a>和<a id="content_link" href="https://docs.unrealengine.com/en-US/API/index.html" ><span>虚幻引擎API引用</span></a>。</p>
+</div></li></ol><h2 id="3.2-实现射击">3.2 - 实现射击</h2>
+<p>了解如何实现第一人称射击角色的射击动作。
+</p><h3 id="实现发射函数">实现发射函数</h3>
+<ol ><li class="Default"><p>将以下代码行添加到FPSCharacter.h：
+</p><pre class="prettyprint"><code>#include "FPSProjectile.h"</code></pre></li><li class="Default"><p>将以下 <code>发射</code> 函数定义添加到FPSCharacter.cpp：
+</p><pre class="prettyprint"><code>void AFPSCharacter::Fire()
+{
+// 试图发射发射物。
+if (ProjectileClass)
+{
+// 获取摄像机变换。
+FVector CameraLocation;
+FRotator CameraRotation;
+GetActorEyesViewPoint(CameraLocation, CameraRotation);
+
+// 设置MuzzleOffset，在略靠近摄像机前生成发射物。
+MuzzleOffset.Set(100.0f, 0.0f, 0.0f);
+
+// 将MuzzleOffset从摄像机空间变换到世界空间。
+FVector MuzzleLocation = CameraLocation + FTransform(CameraRotation).TransformVector(MuzzleOffset);
+
+// 使目标方向略向上倾斜。
+FRotator MuzzleRotation = CameraRotation;
+MuzzleRotation.Pitch += 10.0f;
+
+UWorld&#42; World = GetWorld();
+if (World)
+{
+    FActorSpawnParameters SpawnParams;
+    SpawnParams.Owner = this;
+    SpawnParams.Instigator = GetInstigator();
+
+    // 在枪口位置生成发射物。
+    AFPSProjectile&#42; Projectile = World-&gt;SpawnActor&lt;AFPSProjectile&gt;(ProjectileClass, MuzzleLocation, MuzzleRotation, SpawnParams);
+    if (Projectile)
+    {
+        // 设置发射物的初始轨迹。
+        FVector LaunchDirection = MuzzleRotation.Vector();
+        Projectile-&gt;FireInDirection(LaunchDirection);
+    }
+}
+}
+}</code></pre></li><li class="Default"><p>现在 <code>FPSCharacter.h</code> 的内容应如下所示：
+</p><pre class="prettyprint"><code>//版权所有Epic Games, Inc。保留所有权利。
+
+#pragma once
+
+#include "CoreMinimal.h"
+#include "GameFramework/Character.h"
+#include "Camera/CameraComponent.h"
+#include "Components/CapsultComponent.h"
+#include "FPSProjectile.h"
+#include "FPSCharacter.generated.h"
+
+UCLASS()
+class FPSPROJECT&#95;API AFPSCharacter : public ACharacter
+{
+    GENERATED&#95;BODY()
+
+public:
+    // 为此角色的属性设置默认值
+    AFPSCharacter();
+
+protected:
+    // 当游戏开始或重生（Spawn）时被调用
+    virtual void BeginPlay() override;
+
+   // 要生成的发射物类。
+   UPROPERTY(EditAnywhere, Category = Projectile)
+   TSubclassOf&lt;class AFPSProjectile&gt; ProjectileClass;
+
+public:
+    // 每一帧都被调用
+    virtual void Tick(float DeltaTime) override;
+
+    // 被调用，将功能与输入绑定
+   virtual void SetupPlayerInputComponent(class UIComponent&#42; PlayerInputComponent) override;
+
+    // 处理用于前后移动的输入。
+    UFUNCTION()
+    void MoveForward(float Value);
+
+    // 处理用于左右移动的输入。
+    UFUNCTION()
+    void MoveRight(float Value);
+
+    // 按下键时，设置跳跃标记。
+    UFUNCTION()
+    void StartJump();
+
+    // 释放键时，清除跳跃标记。
+    UFUNCTION()
+    void StopJump();
+
+    // 发射发射物的函数。
+    UFUNCTION()
+    void Fire();
+
+    // FPS摄像机
+    UPROPERTY(VisibleAnywhere)
+    UCameraComponent&#42; FPSCameraComponent;
+
+    // 第一人称网格体（手臂），仅对所属玩家可见。
+    UPROPERTY(VisibleDefaultsOnly, Category = Mesh)
+    USkeletalMeshComponent&#42; FPSMesh;
+
+    // 枪口相对于摄像机位置的偏移。
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
+    FVector MuzzleOffset;
+
+};</code></pre></li><li class="Default"><p>现在 <code>FPSCharacter.cpp</code> 的内容应如下所示：
+</p><pre class="prettyprint"><code>//版权所有Epic Games, Inc。保留所有权利。
+
+#include "FPSCharacter.h"
+
+// 设置默认值
+AFPSCharacter::AFPSCharacter()
+{
+    // 将此角色设置为每帧调用Tick()。  如果不需要此特性，可以关闭以提升性能。
+    PrimaryActorTick.bCanEverTick = true;
+
+    // 创建第一人称摄像机组件。
+    FPSCameraComponent = CreateDefaultSubobject&lt;UCameraComponent&gt;(TEXT("FirstPersonCamera"));
+    check(FPSCameraComponent != nullptr);
+
+    // 将摄像机组件附加到我们的胶囊体组件。
+    FPSCameraComponent-&gt;SetupAttachment(CastChecked&lt;USceneComponent, UCapsuleComponent&gt;(GetCapsuleComponent()));
+
+    // 将摄像机置于略高于眼睛上方的位置。
+    FPSCameraComponent-&gt;SetRelativeLocation(FVector(0.0f, 0.0f, 50.0f + BaseEyeHeight));
+
+    // 启用Pawn控制摄像机旋转。
+    FPSCameraComponent-&gt;bUsePawnControlRotation = true;
+
+    // 为所属玩家创建第一人称网格体组件。
+    FPSMesh = CreateDefaultSubobject&lt;USkeletalMeshComponent&gt;(TEXT("FirstPersonMesh"));
+    check(FPSMesh != nullptr);
+
+    // 仅所属玩家可以看见此网格体。
+    FPSMesh-&gt;SetOnlyOwnerSee(true);
+
+    // 将 FPS 网格体附加到 FPS 摄像机。
+    FPSMesh-&gt;SetupAttachment(FPSCameraComponent);
+
+    // 禁用某些环境阴影以便实现只有单个网格体的感觉。
+    FPSMesh-&gt;bCastDynamicShadow = false;
+    FPSMesh-&gt;CastShadow = false;
+
+    // 所属玩家看不到常规（第三人称）全身网格体。
+    GetMesh()-&gt;SetOwnerNoSee(true);
+}
+
+// 当游戏开始或重生（Spawn）时被调用
+void AFPSCharacter::BeginPlay()
+{
+    Super::BeginPlay();
+
+    if (GEngine)
+    {
+        // 显示调试消息五秒。 
+        // -1"键"值参数可以防止更新或刷新消息。
+        GEngine-&gt;AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("We are using FPSCharacter."));
+    }
+}
+
+// 每一帧都被调用
+void AFPSCharacter::Tick( float DeltaTime )
+{
+    Super::Tick( DeltaTime );
+
+}
+
+// 被调用，将功能与输入绑定
+void AFPSCharacter::SetupPlayerInputComponent(UInputComponent&#42; PlayerInputComponent)
+{
+    Super::SetupPlayerInputComponent(PlayerInputComponent);
+
+    // 设置"移动"绑定。
+    PlayerInputComponent-&gt;BindAxis("MoveForward", this, &amp;AFPSCharacter::MoveForward);
+    PlayerInputComponent-&gt;BindAxis("MoveRight", this, &amp;AFPSCharacter::MoveRight);
+
+    // 设置"观看"绑定。
+    PlayerInputComponent-&gt;BindAxis("Turn", this, &amp;AFPSCharacter::AddControllerYawInput);
+    PlayerInputComponent-&gt;BindAxis("LookUp", this, &amp;AFPSCharacter::AddControllerPitchInput);
+
+    // 设置"操作"绑定。
+    PlayerInputComponent-&gt;BindAction("Jump", IE&#95;Pressed, this, &amp;AFPSCharacter::StartJump);
+    PlayerInputComponent-&gt;BindAction("Jump", IE&#95;Released, this, &amp;AFPSCharacter::StopJump);
+    PlayerInputComponent-&gt;BindAction("Fire", IE&#95;Pressed, this, &amp;AFPSCharacter::Fire);
+}
+
+void AFPSCharacter::MoveForward(float Value)
+{
+    // 找出"前进"方向，并记录玩家想向该方向移动。
+    FVector Direction = FRotationMatrix(Controller-&gt;GetControlRotation()).GetScaledAxis(EAxis::X);
+    AddMovementInput(Direction, Value);
+}
+
+void AFPSCharacter::MoveRight(float Value)
+{
+    // 找出"右侧"方向，并记录玩家想向该方向移动。
+    FVector Direction = FRotationMatrix(Controller-&gt;GetControlRotation()).GetScaledAxis(EAxis::Y);
+    AddMovementInput(Direction, Value);
+}
+
+void AFPSCharacter::StartJump()
+{
+    bPressedJump = true;
+}
+
+void AFPSCharacter::StopJump()
+{
+    bPressedJump = false;
+}
+
+void AFPSCharacter::Fire()
+{
+    // 试图发射发射物。
+    if (ProjectileClass)
+    {
+        // 获取摄像机变换。
+        FVector CameraLocation;
+        FRotator CameraRotation;
+        GetActorEyesViewPoint(CameraLocation, CameraRotation);
+
+        // 设置MuzzleOffset，在略靠近摄像机前生成发射物。
+        MuzzleOffset.Set(100.0f, 0.0f, 0.0f);
+
+        // 将MuzzleOffset从摄像机空间变换到世界空间。
+        FVector MuzzleLocation = CameraLocation + FTransform(CameraRotation).TransformVector(MuzzleOffset);
+
+        // 使目标方向略向上倾斜。
+        FRotator MuzzleRotation = CameraRotation;
+        MuzzleRotation.Pitch += 10.0f;
+
+        UWorld&#42; World = GetWorld();
+        if (World)
+        {
+            FActorSpawnParameters SpawnParams;
+            SpawnParams.Owner = this;
+            SpawnParams.Instigator = GetInstigator();
+
+            // 在枪口位置生成发射物。
+            AFPSProjectile&#42; Projectile = World-&gt;SpawnActor&lt;AFPSProjectile&gt;(ProjectileClass, MuzzleLocation, MuzzleRotation, SpawnParams);
+            if (Projectile)
+            {
+                // 设置发射物的初始轨迹。
+                FVector LaunchDirection = MuzzleRotation.Vector();
+                Projectile-&gt;FireInDirection(LaunchDirection);
+            }
+        }
+    }
+}</code></pre></li><li class="Default"><p>在 Visual Studio 中保存 <code>FPSCharacter.h</code> 和 <code>FPSCharacter.cpp</code>。
+</p></li><li class="Default"><p>在 <strong>解决方案浏览器（Solution Explorer）</strong> 中找到 <strong>FPSProject</strong>。
+</p></li><li class="Default"><p>右键点击 <strong>FPSProject</strong> 并选择 <strong>构建（Build）</strong>，编译你的项目。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/3/BuildFPSProject.jpg">
+		<img class="  lazyload" alt="BuildFPSProject.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/3/BuildFPSProject.jpg" />
+</picture>
+
+</p></li></ol><h3 id="导入发射物网格体">导入发射物网格体</h3>
+<div class="note">
+	<p>在继续之前，请通过以下链接下载并提取示例网格体：
+<span class="non-localized"><a id="content_link" href="https://docs.unrealengine.com/4.26/Attachments/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/3/2/Sphere.zip" ><span>"发射物网格体"</span></a></span></p>
+</div><ol ><li class="Default"><p>右键点击内容浏览器的文件框，打开 <strong>导入资产（Import Asset）</strong> 对话框
+</p><div class="note">
+	<p>尽管我们使用的是右键点击导入，但是一共有三种方法可以导入内容。阅读下面这些文档，了解如何使用以下方法导入内容：
+</p><ul ><li class="Default"><p><a id="content_link" href="https://docs.unrealengine.com/en-US/Engine/Content/Importing/HowTo/ContentBrowserImport/index.html" ><span>导入按钮</span></a>
+</p></li><li class="Default"><p><a id="content_link" href="https://docs.unrealengine.com/en-US/Engine/Content/Importing/HowTo/DragAndDropImport/index.html" ><span>拖放</span></a>
+</p></li><li class="Default"><p><a id="content_link" href="https://docs.unrealengine.com/en-US/Engine/Content/Importing/HowTo/RightClickImport/index.html" ><span>右键点击</span></a>
+</p></li></ul>
+</div></li><li class="Default"><p>点击 <strong>‘导入/游戏...（Import to /Game...）'</strong>，打开 <strong>导入（Import）</strong> 对话框。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/3/RightClickImport.jpg">
+		<img class="  lazyload" alt="RightClickImport.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/3/RightClickImport.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>找到并选择 <strong>Sphere.fbx</strong> 网格体文件。
+</p></li><li class="Default"><p>点击 <strong>打开（Open）</strong>，开始将网格体导入到你的项目中。
+</p></li><li class="Default"><p><strong>内容浏览器（Content Browser）</strong> 中将显示 <strong>FBX导入选项（FBX Import Options）</strong> 对话框。点击 <strong>全部导入（Import All）</strong>，将你的网格体添加到项目。
+</p><div class="warning">
+	<p>忽略以下有关平滑组的错误：
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/3/FBXWarning.jpg">
+		<img class="  lazyload" alt="FBXWarning.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/3/FBXWarning.jpg" />
+</picture>
+
+</p><p>此网格体仍展示为第一人称网格体设置，它将与你在后面段中设置的动画一起使用。</p>
+</div></li><li class="Default"><p>点击 <strong>保存（Save）</strong> 按钮，保存已导入的静态网格体。
+</p></li></ol><h3 id="添加发射物网格体">添加发射物网格体</h3>
+<ol ><li class="Default"><p>将以下代码添加到FPSProjectile.h：
+</p><pre class="prettyprint"><code>// 发射物网格体
+UPROPERTY(VisibleDefaultsOnly, Category = Projectile)
+UStaticMeshComponent&#42; ProjectileMeshComponent;</code></pre></li><li class="Default"><p>将以下代码添加到FPSProjectile.cpp中的构造函数中：
+</p><pre class="prettyprint"><code>if(!ProjectileMeshComponent)
+{
+    ProjectileMeshComponent = CreateDefaultSubobject&lt;UStaticMeshComponent&gt;(TEXT("ProjectileMeshComponent"));
+    static ConstructorHelpers::FObjectFinder&lt;UStaticMesh&gt;Mesh(TEXT("&#91;ADD STATIC MESH ASSET REFERENCE&#93;"));
+    if(Mesh.Succeeded())
+    {
+        ProjectileMeshComponent-&gt;SetStaticMesh(Mesh.Object);
+    }
+}</code></pre></li><li class="Default"><p>打开内容浏览器，右键点击球体静态网格体，选择 <strong>复制引用（Copy Reference）</strong>：
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/3/SphereCopyReference.jpg">
+		<img class="  lazyload" alt="SphereCopyReference.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/3/SphereCopyReference.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>返回到FPSProjectile.cpp中的ProjectileMeshComponent代码段，并用复制的引用替换[添加静态网格体资产引用(ADD STATIC MESH ASSET REFERENCE)]。你添加的代码段应类似于以下内容：
+</p><pre class="prettyprint"><code>if(!ProjectileMeshComponent)
+{
+    ProjectileMeshComponent = CreateDefaultSubobject&lt;UStaticMeshComponent&gt;(TEXT("ProjectileMeshComponent"));
+    static ConstructorHelpers::FObjectFinder&lt;UStaticMesh&gt;Mesh(TEXT("'/Game/Sphere.Sphere'"));
+    if(Mesh.Succeeded())
+    {
+        ProjectileMeshComponent-&gt;SetStaticMesh(Mesh.Object);
+    }
+}</code></pre>
+<div class="note">
+	<p>资产引用路径可能会有所不同，具体取决于你在内容浏览器中保存球体网格体时所选择的位置。此外，当你粘贴复制的资产引用时，该引用在资产的引用路径之前包含资产类型名称。在我们的示例中，你将看到StaticMesh'/Game/Sphere.Sphere'。请确保从引用路径中删除资产类型名称（例如StaticMesh）。</p>
+</div></li><li class="Default"><p>现在 <code>FPSProjectile.h</code> 的内容应如下图所示：
+</p><pre class="prettyprint"><code>//版权所有Epic Games, Inc。保留所有权利。
+
+#pragma once
+
+#include "CoreMinimal.h"
+#include "GameFramework/Actor.h"
+#include "Components/SphereComponent.h"
+#include "GameFramework/ProjectileMovementComponent.h"
+#include "FPSProjectile.generated.h"
+
+UCLASS()
+class FPSPROJECT&#95;API AFPSProjectile : public AActor
+{
+    GENERATED&#95;BODY()
+
+public: 
+    // 为此Actor的属性设置默认值
+    AFPSProjectile();
+
+protected:
+    // 当游戏开始或重生（Spawn）时被调用
+    virtual void BeginPlay() override;
+
+public: 
+    // 每一帧都被调用
+    virtual void Tick(float DeltaTime) override;
+
+    // 球体碰撞组件
+    UPROPERTY(VisibleDefaultsOnly, Category = Projectile)
+    USphereComponent&#42; CollisionComponent;
+
+    // 发射物移动组件
+    UPROPERTY(VisibleAnywhere, Category = Movement)
+    UProjectileMovementComponent&#42; ProjectileMovementComponent;
+
+    // 发射物网格体
+    UPROPERTY(VisibleDefaultsOnly, Category = Projectile)
+    UStaticMeshComponent&#42; ProjectileMeshComponent;
+
+    // 初始化射击方向上发射物速度的函数。
+    void FireInDirection(const FVector&amp; ShootDirection);
+
+};</code></pre></li><li class="Default"><p>现在 <code>FPSProjectile.cpp</code> 的内容应如下图所示：
+</p><pre class="prettyprint"><code>//版权所有Epic Games, Inc。保留所有权利。         
+
+#include "FPSProjectile.h"
+
+// 设置默认值
+AFPSProjectile::AFPSProjectile()
+{
+    // 将此actor设置为每帧调用Tick()。  如果不需要此特性，可以关闭以提升性能。
+    PrimaryActorTick.bCanEverTick = true;
+
+    if (!RootComponent)
+    {
+        RootComponent = CreateDefaultSubobject&lt;USceneComponent&gt;(TEXT("ProjectileSceneComponent"));
+    }
+
+    if (!CollisionComponent)
+    {
+        // 用球体进行简单的碰撞展示。
+        CollisionComponent = CreateDefaultSubobject&lt;USphereComponent&gt;(TEXT("SphereComponent"));
+        // 设置球体的碰撞半径。
+        CollisionComponent-&gt;InitSphereRadius(15.0f);
+        // 将根组件设置为碰撞组件。
+        RootComponent = CollisionComponent;
+    }
+
+    if (!ProjectileMovementComponent)
+    {
+        // 使用此组件驱动发射物的移动。
+        ProjectileMovementComponent = CreateDefaultSubobject&lt;UProjectileMovementComponent&gt;(TEXT("ProjectileMovementComponent"));
+        ProjectileMovementComponent-&gt;SetUpdatedComponent(CollisionComponent);
+        ProjectileMovementComponent-&gt;InitialSpeed = 3000.0f;
+        ProjectileMovementComponent-&gt;MaxSpeed = 3000.0f;
+        ProjectileMovementComponent-&gt;bRotationFollowsVelocity = true;
+        ProjectileMovementComponent-&gt;bShouldBounce = true;
+        ProjectileMovementComponent-&gt;Bounciness = 0.3f;
+        ProjectileMovementComponent-&gt;ProjectileGravityScale = 0.0f;
+    }
+
+    if (!ProjectileMeshComponent)
+    {
+        ProjectileMeshComponent = CreateDefaultSubobject&lt;UStaticMeshComponent&gt;(TEXT("ProjectileMeshComponent"));
+        static ConstructorHelpers::FObjectFinder&lt;UStaticMesh&gt;Mesh(TEXT("'/Game/Sphere.Sphere'"));
+        if (Mesh.Succeeded())
+        {
+            ProjectileMeshComponent-&gt;SetStaticMesh(Mesh.Object);
+        }
+    }
+}
+
+// 当游戏开始或重生（Spawn）时被调用
+void AFPSProjectile::BeginPlay()
+{
+    Super::BeginPlay();
+
+}
+
+// 每一帧都被调用
+void AFPSProjectile::Tick(float DeltaTime)
+{
+    Super::Tick(DeltaTime);
+
+}
+
+// 初始化射击方向上发射物速度的函数。
+void AFPSProjectile::FireInDirection(const FVector&amp; ShootDirection)
+{
+    ProjectileMovementComponent-&gt;Velocity = ShootDirection &#42; ProjectileMovementComponent-&gt;InitialSpeed;
+}</code></pre></li><li class="Default"><p>保存并构建代码，然后继续下一步，在下一步中你将设置网格体的材质和缩放。
+</p></li></ol><h3 id="添加发射物的材质">添加发射物的材质</h3>
+<ol ><li class="Default"><p>将以下代码添加到FPSProjectile.h：
+</p><pre class="prettyprint"><code>// 发射物材质
+UPROPERTY(VisibleDefaultsOnly, Category = Movement)
+UMaterialInstanceDynamic&#42; ProjectileMaterialInstance;</code></pre></li><li class="Default"><p>将以下代码添加到FPSProjectile.cpp中的构造函数中：
+</p><pre class="prettyprint"><code>static ConstructorHelpers::FObjectFinder&lt;UMaterial&gt;Material(TEXT("&#91;ADD MATERIAL ASSET REFERENCE&#93;"));
+if (Material.Succeeded())
+{
+ProjectileMaterialInstance = UMaterialInstanceDynamic::Create(Material.Object, ProjectileMeshComponent);
+}
+ProjectileMeshComponent-&gt;SetMaterial(0, ProjectileMaterialInstance);
+ProjectileMeshComponent-&gt;SetRelativeScale3D(FVector(0.09f, 0.09f, 0.09f));
+ProjectileMeshComponent-&gt;SetupAttachment(RootComponent);</code></pre></li><li class="Default"><p>在 <strong>内容浏览器（Content Browser）</strong> 中右键点击并选择 <strong>材质（Material）</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/3/CreateBasicMaterial.jpg">
+		<img class="  lazyload" alt="CreateBasicMaterial.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/3/CreateBasicMaterial.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>将新材质命名为"SphereMaterial"。
+</p></li><li class="Default"><p>设置新材质的节点图表，其属性值类似下图： 
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/3/SetSphereNodes.jpg">
+		<img class="  lazyload" alt="SetSphereNodes.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/3/SetSphereNodes.jpg" />
+</picture>
+
+</p><ul ><li class="Default"><p><strong>底色（Base Color）：</strong>Constant2VectorNode设置为（1,0,0） 
+</p></li><li class="Default"><p><strong>高光度（Specular）：</strong>常量节点设置为0.5 自发光颜色：常量节点设置为0.05
+</p></li><li class="Default"><p><strong>自发光颜色：</strong>常量节点设置为0.05
+</p></li></ul><div class="note">
+	<p>在此步骤中，你将创建一个基础材质资产。如果想要学习如何制作更复杂的材质，请阅读"如何使用和制作材质"。</p>
+</div></li><li class="Default"><p>设置新材质的节点图表后，点击保存（Save），并打开内容浏览器。
+</p></li><li class="Default"><p>右键点击球体材质（Sphere material），并选择复制引用（Copy Reference）。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/3/SphereCopyReference.jpg">
+		<img class="  lazyload" alt="SphereCopyReference.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/3/SphereCopyReference.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>返回到FPSProjectile.cpp中的ProjectileMeshComponent代码段，用复制的引用替换[添加材质资产引用(ADD MATERIAL ASSET REFERENCE)]。你添加的代码段应类似于以下内容：
+</p><pre class="prettyprint"><code>static ConstructorHelpers::FObjectFinder&lt;UMaterial&gt;Material(TEXT("'/Game/SphereMaterial.SphereMaterial'"));
+if (Material.Succeeded())
+{
+    ProjectileMaterialInstance = UMaterialInstanceDynamic::Create(Material.Object, ProjectileMeshComponent);
+}
+ProjectileMeshComponent-&gt;SetMaterial(0, ProjectileMaterialInstance);
+ProjectileMeshComponent-&gt;SetRelativeScale3D(FVector(0.09f, 0.09f, 0.09f));
+ProjectileMeshComponent-&gt;SetupAttachment(RootComponent);</code></pre>
+<div class="note">
+	<p>资产引用路径可能会有所不同，具体取决于你在内容浏览器中保存球体材质时所选择的位置。此外，当你粘贴复制的资产引用时，该引用在资产的引用路径之前包含资产类型名称。在我们的例子中，你将看到Material'/Game/Sphere.Sphere'。请确保从引用路径中删除资产的类型名称（例如Material）。</p>
+</div></li><li class="Default"><p>现在 <code>FPSProjectile.h</code> 的内容应如下图所示：
+</p><pre class="prettyprint"><code>//版权所有Epic Games, Inc。保留所有权利。
+
+#pragma once
+
+#include "CoreMinimal.h"
+#include "GameFramework/Actor.h"
+#include "Components/SphereComponent.h"
+#include "GameFramework/ProjectileMovementComponent.h"
+#include "FPSProjectile.generated.h"
+
+UCLASS()
+class FPSPROJECT&#95;API AFPSProjectile : public AActor
+{
+    GENERATED&#95;BODY()
+
+public: 
+    // 为此Actor的属性设置默认值
+    AFPSProjectile();
+
+protected:
+    // 当游戏开始或重生（Spawn）时被调用
+    virtual void BeginPlay() override;
+
+public: 
+    // 每一帧都被调用
+    virtual void Tick(float DeltaTime) override;
+
+    // 球体碰撞组件
+    UPROPERTY(VisibleDefaultsOnly, Category = Projectile)
+    USphereComponent&#42; CollisionComponent;
+
+    // 发射物移动组件
+    UPROPERTY(VisibleAnywhere, Category = Movement)
+    UProjectileMovementComponent&#42; ProjectileMovementComponent;
+
+    // 发射物网格体
+    UPROPERTY(VisibleDefaultsOnly, Category = Projectile)
+    UStaticMeshComponent&#42; ProjectileMeshComponent;
+
+    // 发射物材质
+    UPROPERTY(VisibleDefaultsOnly, Category = Movement)
+    UMaterialInstanceDynamic&#42; ProjectileMaterialInstance;
+
+    // 初始化射击方向上发射物速度的函数。
+    void FireInDirection(const FVector&amp; ShootDirection);
+
+};</code></pre></li><li class="Default"><p>现在 <code>FPSProjectile.cpp</code> 的内容应如下图所示：
+</p><pre class="prettyprint"><code>//版权所有Epic Games, Inc。保留所有权利。     
+
+#include "FPSProjectile.h"
+
+// 设置默认值
+AFPSProjectile::AFPSProjectile()
+{
+// 将此actor设置为每帧调用Tick()。  如果不需要此特性，可以关闭以提升性能。
+PrimaryActorTick.bCanEverTick = true;
+
+if (!RootComponent)
+{
+    RootComponent = CreateDefaultSubobject&lt;USceneComponent&gt;(TEXT("ProjectileSceneComponent"));
+}
+
+if (!CollisionComponent)
+{
+    // 用球体进行简单的碰撞展示。
+    CollisionComponent = CreateDefaultSubobject&lt;USphereComponent&gt;(TEXT("SphereComponent"));
+    // 设置球体的碰撞半径。
+    CollisionComponent-&gt;InitSphereRadius(15.0f);
+    // 将根组件设置为碰撞组件。
+    RootComponent = CollisionComponent;
+}
+
+if (!ProjectileMovementComponent)
+{
+    // 使用此组件驱动发射物的移动。
+    ProjectileMovementComponent = CreateDefaultSubobject&lt;UProjectileMovementComponent&gt;(TEXT("ProjectileMovementComponent"));
+    ProjectileMovementComponent-&gt;SetUpdatedComponent(CollisionComponent);
+    ProjectileMovementComponent-&gt;InitialSpeed = 3000.0f;
+    ProjectileMovementComponent-&gt;MaxSpeed = 3000.0f;
+    ProjectileMovementComponent-&gt;bRotationFollowsVelocity = true;
+    ProjectileMovementComponent-&gt;bShouldBounce = true;
+    ProjectileMovementComponent-&gt;Bounciness = 0.3f;
+    ProjectileMovementComponent-&gt;ProjectileGravityScale = 0.0f;
+}
+
+if (!ProjectileMeshComponent)
+{
+    ProjectileMeshComponent = CreateDefaultSubobject&lt;UStaticMeshComponent&gt;(TEXT("ProjectileMeshComponent"));
+    static ConstructorHelpers::FObjectFinder&lt;UStaticMesh&gt;Mesh(TEXT("'/Game/Sphere.Sphere'"));
+    if (Mesh.Succeeded())
+    {
+        ProjectileMeshComponent-&gt;SetStaticMesh(Mesh.Object);
+    }
+
+    static ConstructorHelpers::FObjectFinder&lt;UMaterial&gt;Material(TEXT("'/Game/SphereMaterial.SphereMaterial'"));
+    if (Material.Succeeded())
+    {
+        ProjectileMaterialInstance = UMaterialInstanceDynamic::Create(Material.Object, ProjectileMeshComponent);
+    }
+    ProjectileMeshComponent-&gt;SetMaterial(0, ProjectileMaterialInstance);
+    ProjectileMeshComponent-&gt;SetRelativeScale3D(FVector(0.09f, 0.09f, 0.09f));
+    ProjectileMeshComponent-&gt;SetupAttachment(RootComponent);
+}
+    }
+
+    // 当游戏开始或重生（Spawn）时被调用
+    void AFPSProjectile::BeginPlay()
+    {
+Super::BeginPlay();
+
+    }
+
+    // 每一帧都被调用
+    void AFPSProjectile::Tick(float DeltaTime)
+    {
+Super::Tick(DeltaTime);
+
+    }
+
+    // 初始化射击方向上发射物速度的函数。
+    void AFPSProjectile::FireInDirection(const FVector&amp; ShootDirection)
+    {
+ProjectileMovementComponent-&gt;Velocity = ShootDirection &#42; ProjectileMovementComponent-&gt;InitialSpeed;
+    }</code></pre></li><li class="Default"><p>前往内容浏览器中的蓝图文件夹，并打开BP_FPSCharacter文件。 
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/3/ContentBrowserBPFPSCharacter.jpg">
+		<img class="  lazyload" alt="ContentBrowserBPFPSCharacter.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/3/ContentBrowserBPFPSCharacter.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>打开完整的编辑器（如有必要），然后导航到细节（Detail）面板。 
+</p></li><li class="Default"><p>找到发射物（Projectile）标头，然后在发射物类（Projectile Class）旁边的下拉列表中，选择FPSProjectile。 
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/3/DetailsSelectProjectile.jpg">
+		<img class="  lazyload" alt="DetailsSelectProjectile.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/3/DetailsSelectProjectile.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>构建FPSProject，然后以PIE模式运行游戏，以确认在场景中生成了静态网格体和材质。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/3/PIEModeDemo.jpg">
+		<img class="  lazyload" alt="PIEModeDemo.gif" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/3/PIEModeDemo.jpg" />
+</picture>
+
+</p><div class="note">
+	<p>发射发射物时，你会在世界大纲视图中看到发射物的数量不断增加，因为它们没有已定义的生命周期。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/3/ProjectileTTLDemo.jpg">
+		<img class="  lazyload" alt="ProjectileTTLDemo.gif" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/3/ProjectileTTLDemo.jpg" />
+</picture>
+
+</p><p>在下一分段中，我们将展示如何定义发射物的初始生命周期。</p>
+</div></li></ol><h2 id="3.3-设置发射物的碰撞和生命周期">3.3 - 设置发射物的碰撞和生命周期</h2>
+<p>目前，我们的发射物：
+</p><ul ><li class="Default"><p>永远存在（永远不会从场景大纲中消失）
+</p></li><li class="Default"><p>不会与世界中的其他对象碰撞
+</p></li></ul><p>在此步骤中，我们将设置发射物的碰撞和生命周期。
+</p><h3 id="限制发射物的生命周期">限制发射物的生命周期</h3>
+<ol ><li class="Default"><p>打开FPSProjectile.cpp。
+</p></li><li class="Default"><p>将以下代码添加到FPSProjectile构造函数中，以设置发射物的生命周期：
+</p><pre class="prettyprint"><code>// 3 秒后删除发射物。
+InitialLifeSpan = 3.0f;</code></pre></li><li class="Default"><p>现在 <code>FPSProjectile.cpp</code> 的内容应如下图所示：
+</p><pre class="prettyprint"><code>//版权所有Epic Games, Inc。保留所有权利。
+
+#include "FPSProjectile.h"
+
+// 设置默认值
+AFPSProjectile::AFPSProjectile()
+{
+    // 将此actor设置为每帧调用Tick()。  如果不需要此特性，可以关闭以提升性能。
+    PrimaryActorTick.bCanEverTick = true;
+
+    if (!RootComponent)
+    {
+        RootComponent = CreateDefaultSubobject&lt;USceneComponent&gt;(TEXT("ProjectileSceneComponent"));
+    }
+
+    if (!CollisionComponent)
+    {
+        // 用球体进行简单的碰撞展示。
+        CollisionComponent = CreateDefaultSubobject&lt;USphereComponent&gt;(TEXT("SphereComponent"));
+        // 设置球体的碰撞半径。
+        CollisionComponent-&gt;InitSphereRadius(15.0f);
+        // 将根组件设置为碰撞组件。
+        RootComponent = CollisionComponent;
+    }
+
+    if (!ProjectileMovementComponent)
+    {
+        // 使用此组件驱动发射物的移动。
+        ProjectileMovementComponent = CreateDefaultSubobject&lt;UProjectileMovementComponent&gt;(TEXT("ProjectileMovementComponent"));
+        ProjectileMovementComponent-&gt;SetUpdatedComponent(CollisionComponent);
+        ProjectileMovementComponent-&gt;InitialSpeed = 3000.0f;
+        ProjectileMovementComponent-&gt;MaxSpeed = 3000.0f;
+        ProjectileMovementComponent-&gt;bRotationFollowsVelocity = true;
+        ProjectileMovementComponent-&gt;bShouldBounce = true;
+        ProjectileMovementComponent-&gt;Bounciness = 0.3f;
+        ProjectileMovementComponent-&gt;ProjectileGravityScale = 0.0f;
+    }
+
+    if (!ProjectileMeshComponent)
+    {
+        ProjectileMeshComponent = CreateDefaultSubobject&lt;UStaticMeshComponent&gt;(TEXT("ProjectileMeshComponent"));
+        static ConstructorHelpers::FObjectFinder&lt;UStaticMesh&gt;Mesh(TEXT("'/Game/Sphere.Sphere'"));
+        if (Mesh.Succeeded())
+        {
+            ProjectileMeshComponent-&gt;SetStaticMesh(Mesh.Object);
+        }
+
+        static ConstructorHelpers::FObjectFinder&lt;UMaterial&gt;Material(TEXT("'/Game/SphereMaterial.SphereMaterial'"));
+        if (Material.Succeeded())
+        {
+            ProjectileMaterialInstance = UMaterialInstanceDynamic::Create(Material.Object, ProjectileMeshComponent);
+        }
+        ProjectileMeshComponent-&gt;SetMaterial(0, ProjectileMaterialInstance);
+        ProjectileMeshComponent-&gt;SetRelativeScale3D(FVector(0.09f, 0.09f, 0.09f));
+        ProjectileMeshComponent-&gt;SetupAttachment(RootComponent);
+    }
+
+    // 3 秒后删除发射物。
+    InitialLifeSpan = 3.0f;
+}
+
+// 当游戏开始或重生（Spawn）时被调用
+void AFPSProjectile::BeginPlay()
+{
+    Super::BeginPlay();
+
+}
+
+// 每一帧都被调用
+void AFPSProjectile::Tick(float DeltaTime)
+{
+    Super::Tick(DeltaTime);
+
+}
+
+// 初始化射击方向上发射物速度的函数。
+void AFPSProjectile::FireInDirection(const FVector&amp; ShootDirection)
+{
+    ProjectileMovementComponent-&gt;Velocity = ShootDirection &#42; ProjectileMovementComponent-&gt;InitialSpeed;
+}</code></pre></li><li class="Default"><p>保存并编译FPSProject。
+</p></li><li class="Default"><p>若要确认发射物是否在三秒后被销毁，请在PIE模式下运行游戏。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/3/ProjectileWorldOutlinerDemo.jpg">
+		<img class="  lazyload" alt="ProjectileWorldOutlinerDemo.gif" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/3/ProjectileWorldOutlinerDemo.jpg" />
+</picture>
+
+</p><div class="note">
+	<p>从世界大纲中可以看到，每个生成的发射物将在三秒后从场景中消失。</p>
+</div></li></ol><h3 id="编辑发射物的碰撞设置">编辑发射物的碰撞设置</h3>
+<p>虚幻引擎自带了数个预设碰撞通道；不过，引擎也支持游戏项目使用自定义通道。
+</p><ol ><li class="Default"><p>要创建自定义碰撞通道，打开项目设置（Project Settings），在引擎（Engine） - 碰撞（Collision）中，展开预设（Preset）。 
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/3/SettingCollisionChannels.jpg">
+		<img class="  lazyload" alt="SettingCollisionChannels.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/3/SettingCollisionChannels.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在对象通道（Object Channels）中，选择 <strong>新建对象通道...（New Object Channel...）</strong>，创建新碰撞通道。将新碰撞通道命名为"Projectile"，确保将默认响应（Default Response）设置为阻止（Block），然后点击接受（Accept）。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/3/NewChannel.jpg">
+		<img class="  lazyload" alt="NewChannel.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/3/NewChannel.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在预设（Preset）中选择 <strong>新建...（New...）</strong>，将新配置文件命名为"Projectile"。参考以下图片来设置你的碰撞预设。然后点击"接受（Accept）"。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/3/NewProfile.jpg">
+		<img class="  lazyload" alt="NewProfile.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/3/NewProfile.jpg" />
+</picture>
+
+</p></li></ol><div class="note">
+	<p>此碰撞配置文件将发射物设定为将被静态Actor、动态Actor、模拟物理Actor、载具和可破坏Actor阻挡。此外，此碰撞配置文件设定发射物与Pawn重叠。</p>
+</div><h3 id="使用新碰撞通道的设置">使用新碰撞通道的设置</h3>
+<ol ><li class="Default"><p>打开FPSProjectile.cpp。
+</p></li><li class="Default"><p>在FPSProjectile构造函数中，将以下代码行添加到CreateDefaultSubobject<USphereComponent>下方
+</p><pre class="prettyprint"><code>// 将球体的碰撞配置文件名称设置为"Projectile"。
+CollisionComponent-&gt;BodyInstance.SetCollisionProfileName(TEXT("Projectile"));</code></pre></li><li class="Default"><p>现在 <code>FPSProjectile.cpp</code> 的内容应如下图所示：
+</p><pre class="prettyprint"><code>//版权所有Epic Games, Inc。保留所有权利。
+
+#include "FPSProjectile.h"
+
+// 设置默认值
+AFPSProjectile::AFPSProjectile()
+{
+// 将此actor设置为每帧调用Tick()。  如果不需要此特性，可以关闭以提升性能。
+PrimaryActorTick.bCanEverTick = true;
+
+if (!RootComponent)
+{
+    RootComponent = CreateDefaultSubobject&lt;USceneComponent&gt;(TEXT("ProjectileSceneComponent"));
+}
+
+if (!CollisionComponent)
+{
+    // 用球体进行简单的碰撞展示。
+    CollisionComponent = CreateDefaultSubobject&lt;USphereComponent&gt;(TEXT("SphereComponent"));
+    // 将球体的碰撞配置文件名称设置为"Projectile"。
+    CollisionComponent-&gt;BodyInstance.SetCollisionProfileName(TEXT("Projectile"));
+    // 设置球体的碰撞半径。
+    CollisionComponent-&gt;InitSphereRadius(15.0f);
+    // 将根组件设置为碰撞组件。
+    RootComponent = CollisionComponent;
+}
+
+if (!ProjectileMovementComponent)
+{
+    // 使用此组件驱动发射物的移动。
+    ProjectileMovementComponent = CreateDefaultSubobject&lt;UProjectileMovementComponent&gt;(TEXT("ProjectileMovementComponent"));
+    ProjectileMovementComponent-&gt;SetUpdatedComponent(CollisionComponent);
+    ProjectileMovementComponent-&gt;InitialSpeed = 3000.0f;
+    ProjectileMovementComponent-&gt;MaxSpeed = 3000.0f;
+    ProjectileMovementComponent-&gt;bRotationFollowsVelocity = true;
+    ProjectileMovementComponent-&gt;bShouldBounce = true;
+    ProjectileMovementComponent-&gt;Bounciness = 0.3f;
+    ProjectileMovementComponent-&gt;ProjectileGravityScale = 0.0f;
+}
+
+if (!ProjectileMeshComponent)
+{
+    ProjectileMeshComponent = CreateDefaultSubobject&lt;UStaticMeshComponent&gt;(TEXT("ProjectileMeshComponent"));
+    static ConstructorHelpers::FObjectFinder&lt;UStaticMesh&gt;Mesh(TEXT("'/Game/Sphere.Sphere'"));
+    if (Mesh.Succeeded())
+    {
+        ProjectileMeshComponent-&gt;SetStaticMesh(Mesh.Object);
+    }
+
+    static ConstructorHelpers::FObjectFinder&lt;UMaterial&gt;Material(TEXT("'/Game/SphereMaterial.SphereMaterial'"));
+    if (Material.Succeeded())
+    {
+        ProjectileMaterialInstance = UMaterialInstanceDynamic::Create(Material.Object, ProjectileMeshComponent);
+    }
+    ProjectileMeshComponent-&gt;SetMaterial(0, ProjectileMaterialInstance);
+    ProjectileMeshComponent-&gt;SetRelativeScale3D(FVector(0.09f, 0.09f, 0.09f));
+    ProjectileMeshComponent-&gt;SetupAttachment(RootComponent);
+}
+
+// 3 秒后删除发射物。
+InitialLifeSpan = 3.0f;
+}
+
+// 当游戏开始或重生（Spawn）时被调用
+void AFPSProjectile::BeginPlay()
+{
+Super::BeginPlay();
+
+}
+
+// 每一帧都被调用
+void AFPSProjectile::Tick(float DeltaTime)
+{
+Super::Tick(DeltaTime);
+
+}
+
+// 初始化射击方向上发射物速度的函数。
+void AFPSProjectile::FireInDirection(const FVector&amp; ShootDirection)
+{
+ProjectileMovementComponent-&gt;Velocity = ShootDirection &#42; ProjectileMovementComponent-&gt;InitialSpeed;
+}</code></pre></li><li class="Default"><p>保存并编译FPSProject。
+</p></li></ol><h2 id="3.4-让发射物与世界交互">3.4 - 让发射物与世界交互</h2>
+<p>现在我们可以检测到发射物的碰撞交互了，不仅如此，我们还能决定如何响应这些碰撞。在此步骤中，我们将向 <code>FPSProjectile</code> 中添加 <code>OnHit</code> 函数，该函数将响应碰撞事件。
+</p><h3 id="使发射物对碰撞做出响应">使发射物对碰撞做出响应</h3>
+<ol ><li class="Default"><p>打开 <code>FPSProjectile.h</code>。
+</p></li><li class="Default"><p>将以下代码添加到 <code>FPSProjectile.h</code> 中：
+</p><pre class="prettyprint"><code>// 当发射物击中物体时会调用的函数。
+UFUNCTION()
+void OnHit(UPrimitiveComponent&#42; HitComponent, AActor&#42; OtherActor, UPrimitiveComponent&#42; OtherComponent, FVector NormalImpulse, const FHitResult&amp; Hit);</code></pre></li><li class="Default"><p>现在 <code>FPSProjectile.h</code> 的内容应如下图所示：
+</p><pre class="prettyprint"><code>//版权所有Epic Games, Inc。保留所有权利。
+
+#pragma once
+
+#include "CoreMinimal.h"
+#include "GameFramework/Actor.h"
+#include "Components/SphereComponent.h"
+#include "GameFramework/ProjectileMovementComponent.h"
+#include "FPSProjectile.generated.h"
+
+UCLASS()
+class FPSPROJECT&#95;API AFPSProjectile : public AActor
+{
+GENERATED&#95;BODY()
+
+public: 
+// 为此Actor的属性设置默认值
+AFPSProjectile();
+
+protected:
+// 当游戏开始或重生（Spawn）时被调用
+virtual void BeginPlay() override;
+
+public: 
+// 每一帧都被调用
+virtual void Tick(float DeltaTime) override;
+
+// 当发射物击中物体时会调用的函数。
+UFUNCTION()
+void OnHit(UPrimitiveComponent&#42; HitComponent, AActor&#42; OtherActor, UPrimitiveComponent&#42; OtherComponent, FVector NormalImpulse, const FHitResult&amp; Hit);
+
+// 球体碰撞组件
+UPROPERTY(VisibleDefaultsOnly, Category = Projectile)
+USphereComponent&#42; CollisionComponent;
+
+// 发射物移动组件
+UPROPERTY(VisibleAnywhere, Category = Movement)
+UProjectileMovementComponent&#42; ProjectileMovementComponent;
+
+// 发射物网格体
+UPROPERTY(VisibleDefaultsOnly, Category = Projectile)
+UStaticMeshComponent&#42; ProjectileMeshComponent;
+
+// 发射物材质
+UPROPERTY(VisibleDefaultsOnly, Category = Movement)
+UMaterialInstanceDynamic&#42; ProjectileMaterialInstance;
+
+// 初始化射击方向上发射物速度的函数。
+void FireInDirection(const FVector&amp; ShootDirection);
+
+};</code></pre></li><li class="Default"><p>在 <strong>解决方案浏览器（Solution Explorer）</strong> 中找到 <code>FPSProjectile</code> 类CPP文件，并打开 <code>FPSProjectile.cpp</code>，添加以下代码：
+</p><pre class="prettyprint"><code>// 当发射物击中物体时会调用的函数。
+void AFPSProjectile::OnHit(UPrimitiveComponent&#42; HitComponent, AActor&#42; OtherActor, UPrimitiveComponent&#42; OtherComponent, FVector NormalImpulse, const FHitResult&amp; Hit)
+{
+    if (OtherActor != this &amp;&amp; OtherComponent-&gt;IsSimulatingPhysics())
+    {
+        OtherComponent-&gt;AddImpulseAtLocation(ProjectileMovementComponent-&gt;Velocity &#42; 100.0f, Hit.ImpactPoint);
+    }
+
+    Destroy();
+}</code></pre></li><li class="Default"><p>在 <code>FPSProjectile</code> 构造函数中，将以下代码行添加到 <code>BodyInstance.SetCollisionProfileName</code> 下方：
+</p><pre class="prettyprint"><code>// 组件击中某物时调用的事件。
+CollisionComponent-&gt;OnComponentHit.AddDynamic(this, &amp;AFPSProjectile::OnHit);</code></pre></li><li class="Default"><p>现在 <code>FPSProjectile.cpp</code> 的内容应如下图所示：
+</p><pre class="prettyprint"><code>//版权所有Epic Games, Inc。保留所有权利。
+
+#include "FPSProjectile.h"
+
+// 设置默认值
+AFPSProjectile::AFPSProjectile()
+{
+// 将此actor设置为每帧调用Tick()。  如果不需要此特性，可以关闭以提升性能。
+PrimaryActorTick.bCanEverTick = true;
+
+if (!RootComponent)
+{
+    RootComponent = CreateDefaultSubobject&lt;USceneComponent&gt;(TEXT("ProjectileSceneComponent"));
+}
+
+if (!CollisionComponent)
+{
+    // 用球体进行简单的碰撞展示。
+    CollisionComponent = CreateDefaultSubobject&lt;USphereComponent&gt;(TEXT("SphereComponent"));
+    // 将球体的碰撞配置文件名称设置为"Projectile"。
+    CollisionComponent-&gt;BodyInstance.SetCollisionProfileName(TEXT("Projectile"));
+    // 组件击中某物时调用的事件。
+    CollisionComponent-&gt;OnComponentHit.AddDynamic(this, &amp;AFPSProjectile::OnHit);
+    // 设置球体的碰撞半径。
+    CollisionComponent-&gt;InitSphereRadius(15.0f);
+    // 将根组件设置为碰撞组件。
+    RootComponent = CollisionComponent;
+}
+
+if (!ProjectileMovementComponent)
+{
+    // 使用此组件驱动发射物的移动。
+    ProjectileMovementComponent = CreateDefaultSubobject&lt;UProjectileMovementComponent&gt;(TEXT("ProjectileMovementComponent"));
+    ProjectileMovementComponent-&gt;SetUpdatedComponent(CollisionComponent);
+    ProjectileMovementComponent-&gt;InitialSpeed = 3000.0f;
+    ProjectileMovementComponent-&gt;MaxSpeed = 3000.0f;
+    ProjectileMovementComponent-&gt;bRotationFollowsVelocity = true;
+    ProjectileMovementComponent-&gt;bShouldBounce = true;
+    ProjectileMovementComponent-&gt;Bounciness = 0.3f;
+    ProjectileMovementComponent-&gt;ProjectileGravityScale = 0.0f;
+}
+
+if (!ProjectileMeshComponent)
+{
+    ProjectileMeshComponent = CreateDefaultSubobject&lt;UStaticMeshComponent&gt;(TEXT("ProjectileMeshComponent"));
+    static ConstructorHelpers::FObjectFinder&lt;UStaticMesh&gt;Mesh(TEXT("'/Game/Sphere.Sphere'"));
+    if (Mesh.Succeeded())
+    {
+        ProjectileMeshComponent-&gt;SetStaticMesh(Mesh.Object);
+    }
+
+    static ConstructorHelpers::FObjectFinder&lt;UMaterial&gt;Material(TEXT("'/Game/SphereMaterial.SphereMaterial'"));
+    if (Material.Succeeded())
+    {
+        ProjectileMaterialInstance = UMaterialInstanceDynamic::Create(Material.Object, ProjectileMeshComponent);
+    }
+    ProjectileMeshComponent-&gt;SetMaterial(0, ProjectileMaterialInstance);
+    ProjectileMeshComponent-&gt;SetRelativeScale3D(FVector(0.09f, 0.09f, 0.09f));
+    ProjectileMeshComponent-&gt;SetupAttachment(RootComponent);
+}
+
+// 3 秒后删除发射物。
+InitialLifeSpan = 3.0f;
+}
+
+// 当游戏开始或重生（Spawn）时被调用
+void AFPSProjectile::BeginPlay()
+{
+Super::BeginPlay();
+
+}
+
+// 每一帧都被调用
+void AFPSProjectile::Tick(float DeltaTime)
+{
+Super::Tick(DeltaTime);
+
+}
+// 当发射物击中物体时会调用的函数。
+    void AFPSProjectile::OnHit(UPrimitiveComponent&#42; HitComponent, AActor&#42; OtherActor, UPrimitiveComponent&#42; OtherComponent, FVector NormalImpulse, const FHitResult&amp; Hit)
+{
+if (OtherActor != this &amp;&amp; OtherComponent-&gt;IsSimulatingPhysics())
+{
+    OtherComponent-&gt;AddImpulseAtLocation(ProjectileMovementComponent-&gt;Velocity &#42; 100.0f, Hit.ImpactPoint);
+}
+
+      Destroy();
+}
+
+// 初始化射击方向上发射物速度的函数。
+void AFPSProjectile::FireInDirection(const FVector&amp; ShootDirection)
+{
+ProjectileMovementComponent-&gt;Velocity = ShootDirection &#42; ProjectileMovementComponent-&gt;InitialSpeed;
+}</code></pre></li></ol><h3 id="测试发射物碰撞">测试发射物碰撞</h3>
+<ol ><li class="Default"><p>构建完成后，回到虚幻编辑器并打开FPSProject。
+</p></li><li class="Default"><p>选择地面StaticMesh.
+</p></li><li class="Default"><p>复制粘贴地面网格体。
+</p></li><li class="Default"><p>确保已解锁比例锁定（缩放（Scale）行旁边的锁定图标），将地面网格体副本（Floor2）的缩放值设为{0.2, 0.2, 3.0}。
+</p></li><li class="Default"><p>将地面网格体副本放在{320, 0, 170}位置。
+</p></li><li class="Default"><p>向下滚动至物理（Physics）段，并选中模拟物理（Simulate Physics）复选框。
+</p><div class="lightbox">
+	<p><span class="non-localized"><a id="content_link" href="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/3/Floor2_CubeTransform.png" ><span><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/3/Floor2_CubeTransform.jpg">
+		<img class="  lazyload" alt="Floor2_CubeTransform.png" width="750" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/3/Floor2_CubeTransform.jpg" />
+</picture>
+</span></a></span></p>
+</div><div class="caption">
+	<p>点击查看大图。</p>
+</div></li><li class="Default"><p>保存地图。
+</p></li><li class="Default"><p>在关卡编辑器工具栏中点击运行（Play In）。
+</p></li><li class="Default"><p>要确认发射物与立方体碰撞，请点击鼠标左键发射发射物，并使立方体在关卡内移动。
+</p><p>[<picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/3/CollisionTest.jpg">
+		<img class="  lazyload" alt="CollisionTest.gif" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/3/CollisionTest.jpg" />
+</picture>
+
+</p><div class="caption">
+	<p>恭喜，你的发射物已完成！</p>
+</div></li><li class="Default"><p>按退出键（Escape）或在关卡编辑器中点击停止（Stop），退出在编辑器中运行（Play in Editor）（PIE）模式。
+</p></li></ol><h2 id="3.5-将十字准星添加到视口">3.5 - 将十字准星添加到视口</h2>
+<p>在此步骤中，我们会把十字准星HUD元素添加到游戏，这样我们就可以实现发射物的瞄准功能。
+</p><h3 id="导入十字准星资产">导入十字准星资产</h3>
+<div class="note">
+	<p>在开始之前，请通过以下链接下载并提取示例图像：
+</p><ul ><li class="Default"><p><a id="content_link" href="https://docs.unrealengine.com/Attachments/Programming/Tutorials/FirstPersonShooter/3/5/Crosshair_fps_tutorial.zip" ><span>示例十字准星图像</span></a>
+</p></li></ul>
+</div><ol ><li class="Default"><p>右键点击内容浏览器的文件框，打开 <strong>导入资产（Import Asset）</strong> 对话框
+</p></li><li class="Default"><p>点击 <strong>‘导入/游戏...（Import to /Game...）'</strong>，打开 <strong>导入（Import）</strong> 对话框。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/3/RightClickImport.jpg">
+		<img class="  lazyload" alt="RightClickImport.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/3/RightClickImport.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>找到并选择 <strong>crosshair.TGA</strong> 图像文件。
+</p></li><li class="Default"><p>点击 <strong>打开（Open）</strong>，开始将图像文件导入项目。
+</p></li><li class="Default"><p>点击 <strong>保存（Save）</strong> 按钮，保存导入的图像。
+</p></li></ol><h3 id="添加新的hud类">添加新的HUD类</h3>
+<ol ><li class="Default"><p>在文件（File）菜单中，选择 <strong>新建C++类...（New C++ Class...）</strong>，以选择新的父类。
+</p></li><li class="Default"><p>以上操作将打开 <strong>选择父类（Choose Parent Class）</strong> 菜单。向下滚动，选择 <strong>HUD</strong> 作为父类，然后点击 <strong>下一步（Next）</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/3/ChooseParentHUDClass.jpg">
+		<img class="  lazyload" alt="ChooseParentHUDClass.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/3/ChooseParentHUDClass.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>将新类命名为"FPSHUD"，然后点击 <strong>创建类（Create Class）</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/3/NameHUDClass.jpg">
+		<img class="  lazyload" alt="NameHUDClass.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/3/NameHUDClass.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在 <strong>解决方案浏览器（Solution Explorer）</strong> 中找到 <code>FPSHUD</code> 类头文件，并打开 <code>FPSHUD.h</code>，添加以下受保护的变量：
+</p><pre class="prettyprint"><code>protected:
+    // 将被绘制在屏幕中心。
+    UPROPERTY(EditDefaultsOnly)
+    UTexture2D&#42; CrosshairTexture;</code></pre></li><li class="Default"><p>在 <code>FPSHUD.h</code> 中添加以下函数声明：
+</p><pre class="prettyprint"><code>public:
+    // HUD绘制的主要调用。
+    virtual void DrawHUD() override;</code></pre></li><li class="Default"><p>将以下头文件添加到FPSHUD.h中：
+</p><pre class="prettyprint"><code>#include "Engine/Canvas.h" </code></pre></li><li class="Default"><p>FPSHUD.h文件内容应如下所示：
+</p><pre class="prettyprint"><code>//版权所有Epic Games, Inc。保留所有权利。
+
+#pragma once
+
+#include "CoreMinimal.h"
+#include "GameFramework/HUD.h"
+#include "Engine/Canvas.h"
+#include "FPSHUD.generated.h"
+
+/&#42;&#42;
+ &#42; 
+ &#42;/
+UCLASS()
+class FPSPROJECT&#95;API AFPSHUD : public AHUD
+{
+    GENERATED&#95;BODY()
+
+public:
+    // HUD绘制的主要调用。
+    virtual void DrawHUD() override;
+
+protected:
+    // 将被绘制在屏幕中心。
+    UPROPERTY(EditDefaultsOnly)
+    UTexture2D&#42; CrosshairTexture;
+};</code></pre></li><li class="Default"><p>现在我们在 <code>FPSHUD.cpp</code> 中实现 <code>DrawHUD</code> 函数：
+</p><pre class="prettyprint"><code>void AFPSHUD::DrawHUD()
+{
+    Super::DrawHUD();
+
+    if (CrosshairTexture)
+    {
+        // 找出我们的画布的中心点。
+        FVector2D Center(Canvas-&gt;ClipX &#42; 0.5f, Canvas-&gt;ClipY &#42; 0.5f);
+
+        // 偏移纹理大小的一半，以便纹理中心与画布中心对齐。
+        FVector2D CrossHairDrawPosition(Center.X - (CrosshairTexture-&gt;GetSurfaceWidth() &#42; 0.5f), Center.Y - (CrosshairTexture-&gt;GetSurfaceHeight() &#42; 0.5f));
+
+        // 在中心点绘制十字准星。
+        FCanvasTileItem TileItem(CrossHairDrawPosition, CrosshairTexture-&gt;Resource, FLinearColor::White);
+        TileItem.BlendMode = SE&#95;BLEND&#95;Translucent;
+        Canvas-&gt;DrawItem(TileItem);
+    }
+}</code></pre></li><li class="Default"><p>在Visual Studio中保存 <code>FPSHUD.h</code> 和 <code>FPSHUD.cpp</code>。
+</p></li><li class="Default"><p>在 <strong>解决方案浏览器（Solution Explorer）</strong> 中找到 <strong>FPSProject</strong>。
+</p></li><li class="Default"><p>右键点击 <strong>FPSProject</strong> 并选择 <strong>构建（Build）</strong>，编译你的项目。
+</p></li></ol><h3 id="扩展cpphud类到蓝图">扩展CPP HUD类到蓝图</h3>
+<p>现在可以扩展CPP HUD类到蓝图了。如果你需要复习一下相关内容，请前往我们的<a id="content_link" href="../../../../ClassCreation/CodeAndBlueprints/index.html" ><span>C++和蓝图</span></a>参考页面，了解更多有关扩展
+C++类到蓝图的信息。
+</p><ol ><li class="Default"><p>右键点击 <code>FPSHUD</code> 类，打开 <strong>C++类操作（C++ Class Actions）</strong> 菜单。
+</p></li><li class="Default"><p>点击 <strong>基于FPSHUD创建蓝图类（Create Blueprint class based on FPSHUD）</strong>，打开 <strong>添加蓝图类（Add Blueprint Class）</strong> 对话框菜单。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/3/CPPClassActionsMenu.jpg">
+		<img class="  lazyload" alt="CPPClassActionsMenu.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/3/CPPClassActionsMenu.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>将新的蓝图类命名为"BP_FPSHUD"，选择蓝图（Blueprints）文件夹，然后点击 <strong>创建蓝图类（Create Blueprint Class）</strong> 按钮。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/3/AddBPClass.jpg">
+		<img class="  lazyload" alt="AddBPClass.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/3/AddBPClass.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>现在，在蓝图（Blueprints）文件夹内，你应该有一个新创建的 <code>BP&#95;FPSHUD</code> 蓝图类。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/3/AddedBPClass.jpg">
+		<img class="  lazyload" alt="AddedBPClass.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/3/AddedBPClass.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>请确保在关闭蓝图编辑器之前保存你的 <code>BP&#95;FPSHUD</code> 蓝图。
+</p></li></ol><h3 id="设置默认的hud类">设置默认的HUD类</h3>
+<ol ><li class="Default"><p>在 <strong>编辑（Edit）</strong> 菜单中，点击 <strong>项目设置（Project Settings）</strong>。
+</p></li><li class="Default"><p>在 <strong>项目设置（Project Settings）</strong> 选项卡左侧的 <strong>项目（Project）</strong> 标题栏下，点击 <strong>地图和模式（Maps &amp; Modes）</strong>。
+</p></li><li class="Default"><p>在 <strong>默认HUD（Default HUD）</strong> 下拉菜单中，选择 <strong>BP_FPSHUD</strong>。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/3/ChooseHUDClass.jpg">
+		<img class="  lazyload" alt="ChooseHUDClass.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/3/ChooseHUDClass.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>关闭 <strong>项目设置（Project Settings）</strong> 菜单。
+</p></li><li class="Default"><p>返回并打开 <code>BP&#95;FPSHUD</code> 蓝图编辑器。
+</p></li><li class="Default"><p>现在，点击位于蓝图编辑器的 <code>FPSHUD</code> 分段的下拉菜单，选择十字准星纹理。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/3/SelectCrosshairTexture.jpg">
+		<img class="  lazyload" alt="SelectCrosshairTexture.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/3/SelectCrosshairTexture.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>最后，在关闭蓝图编辑器之前保存 <code>BP&#95;FPSHUD</code> 蓝图。
+</p></li></ol><h3 id="验证你的hud">验证你的HUD</h3>
+<ol ><li class="Default"><p>在关卡编辑器工具栏中点击 <strong>运行（Play）</strong> 按钮。现在，你应该可以使用新添加的十字准星进行发射物的瞄准操作。
+</p><p><picture>
+		<source data-srcset="./../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/3/CrosshairsInGame.jpg">
+		<img class="  lazyload" alt="CrosshairsInGame.png" data-src="../../../../../../Images/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/3/CrosshairsInGame.jpg" />
+</picture>
+
+</p></li><li class="Default"><p>在关卡编辑器中点击 <strong>停止（Stop）</strong> 按钮，退出在编辑器中运行（Play in Editor）（PIE）模式。
+</p></li></ol><h3 id="已完成分段代码">已完成分段代码</h3>
+<p><strong>FPSProjectile.h</strong>
+</p><pre class="prettyprint"><code>    //版权所有Epic Games, Inc。保留所有权利。
+
+    #pragma once
+
+    #include "CoreMinimal.h"
+    #include "GameFramework/Actor.h"
+    #include "Components/SphereComponent.h"
+    #include "GameFramework/ProjectileMovementComponent.h"
+    #include "FPSProjectile.generated.h"
+
+    UCLASS()
+    class FPSPROJECT&#95;API AFPSProjectile : public AActor
+    {
+        GENERATED&#95;BODY()
+
+    public: 
+        // 为此Actor的属性设置默认值
+        AFPSProjectile();
+
+    protected:
+        // 当游戏开始或重生（Spawn）时被调用
+        virtual void BeginPlay() override;
+
+    public: 
+        // 每一帧都被调用
+        virtual void Tick(float DeltaTime) override;
+
+        // 当发射物击中物体时会调用的函数。
+        UFUNCTION()
+        void OnHit(UPrimitiveComponent&#42; HitComponent, AActor&#42; OtherActor, UPrimitiveComponent&#42; OtherComponent, FVector NormalImpulse, const FHitResult&amp; Hit);
+
+        // 球体碰撞组件
+        UPROPERTY(VisibleDefaultsOnly, Category = Projectile)
+        USphereComponent&#42; CollisionComponent;
+
+        // 发射物移动组件
+        UPROPERTY(VisibleAnywhere, Category = Movement)
+        UProjectileMovementComponent&#42; ProjectileMovementComponent;
+
+        // 发射物网格体
+        UPROPERTY(VisibleDefaultsOnly, Category = Projectile)
+        UStaticMeshComponent&#42; ProjectileMeshComponent;
+
+        // 发射物材质
+        UPROPERTY(VisibleDefaultsOnly, Category = Movement)
+        UMaterialInstanceDynamic&#42; ProjectileMaterialInstance;
+
+        // 初始化射击方向上发射物速度的函数。
+        void FireInDirection(const FVector&amp; ShootDirection);
+
+    };</code></pre>
+<p><strong>FPSProjectile.cpp</strong>
+</p><pre class="prettyprint"><code>    //版权所有Epic Games, Inc。保留所有权利。         
+
+    #include "FPSProjectile.h"
+
+    // 设置默认值
+    AFPSProjectile::AFPSProjectile()
+    {
+        // 将此actor设置为每帧调用Tick()。  如果不需要此特性，可以关闭以提升性能。
+        PrimaryActorTick.bCanEverTick = true;
+
+        if (!RootComponent)
+        {
+            RootComponent = CreateDefaultSubobject&lt;USceneComponent&gt;(TEXT("ProjectileSceneComponent"));
+        }
+
+        if (!CollisionComponent)
+        {
+            // 用球体进行简单的碰撞展示。
+            CollisionComponent = CreateDefaultSubobject&lt;USphereComponent&gt;(TEXT("SphereComponent"));
+            // 将球体的碰撞配置文件名称设置为"Projectile"。
+            CollisionComponent-&gt;BodyInstance.SetCollisionProfileName(TEXT("Projectile"));
+            // 组件击中某物时调用的事件。
+            CollisionComponent-&gt;OnComponentHit.AddDynamic(this, &amp;AFPSProjectile::OnHit);
+            // 设置球体的碰撞半径。
+            CollisionComponent-&gt;InitSphereRadius(15.0f);
+            // 将根组件设置为碰撞组件。
+            RootComponent = CollisionComponent;
+        }
+
+        if (!ProjectileMovementComponent)
+        {
+            // 使用此组件驱动发射物的移动。
+            ProjectileMovementComponent = CreateDefaultSubobject&lt;UProjectileMovementComponent&gt;(TEXT("ProjectileMovementComponent"));
+            ProjectileMovementComponent-&gt;SetUpdatedComponent(CollisionComponent);
+            ProjectileMovementComponent-&gt;InitialSpeed = 3000.0f;
+            ProjectileMovementComponent-&gt;MaxSpeed = 3000.0f;
+            ProjectileMovementComponent-&gt;bRotationFollowsVelocity = true;
+            ProjectileMovementComponent-&gt;bShouldBounce = true;
+            ProjectileMovementComponent-&gt;Bounciness = 0.3f;
+            ProjectileMovementComponent-&gt;ProjectileGravityScale = 0.0f;
+        }
+
+        if (!ProjectileMeshComponent)
+        {
+            ProjectileMeshComponent = CreateDefaultSubobject&lt;UStaticMeshComponent&gt;(TEXT("ProjectileMeshComponent"));
+            static ConstructorHelpers::FObjectFinder&lt;UStaticMesh&gt;Mesh(TEXT("'/Game/Sphere.Sphere'"));
+            if (Mesh.Succeeded())
+            {
+                ProjectileMeshComponent-&gt;SetStaticMesh(Mesh.Object);
+            }
+
+            static ConstructorHelpers::FObjectFinder&lt;UMaterial&gt;Material(TEXT("'/Game/SphereMaterial.SphereMaterial'"));
+            if (Material.Succeeded())
+            {
+                ProjectileMaterialInstance = UMaterialInstanceDynamic::Create(Material.Object, ProjectileMeshComponent);
+            }
+            ProjectileMeshComponent-&gt;SetMaterial(0, ProjectileMaterialInstance);
+            ProjectileMeshComponent-&gt;SetRelativeScale3D(FVector(0.09f, 0.09f, 0.09f));
+            ProjectileMeshComponent-&gt;SetupAttachment(RootComponent);
+        }
+
+        // 3 秒后删除发射物。
+        InitialLifeSpan = 3.0f;
+    }
+
+    // 当游戏开始或重生（Spawn）时被调用
+    void AFPSProjectile::BeginPlay()
+    {
+        Super::BeginPlay();
+
+    }
+
+    // 每一帧都被调用
+    void AFPSProjectile::Tick(float DeltaTime)
+    {
+        Super::Tick(DeltaTime);
+
+    }
+
+    void AFPSProjectile::OnHit(UPrimitiveComponent&#42; HitComponent, AActor&#42; OtherActor, UPrimitiveComponent&#42; OtherComponent, FVector NormalImpulse, const FHitResult&amp; Hit)
+    {
+        if (OtherActor != nullptr &amp;&amp; OtherActor != this &amp;&amp; OtherComponent != nullptr &amp;&amp; OtherComponent-&gt;IsSimulatingPhysics())
+        {
+            OtherComponent-&gt;AddImpulseAtLocation(ProjectileMovementComponent-&gt;Velocity &#42; 100.0f, Hit.ImpactPoint);
+        }
+
+        Destroy();
+    }
+
+    // 初始化射击方向上发射物速度的函数。
+    void AFPSProjectile::FireInDirection(const FVector&amp; ShootDirection)
+    {
+        ProjectileMovementComponent-&gt;Velocity = ShootDirection &#42; ProjectileMovementComponent-&gt;InitialSpeed;
+    }</code></pre>
+<p><strong>FPSCharacter.h</strong>
+</p><pre class="prettyprint"><code>    //版权所有Epic Games, Inc。保留所有权利。
+
+    #pragma once
+
+    #include "CoreMinimal.h"
+    #include "GameFramework/Character.h"
+    #include "Camera/CameraComponent.h"
+    #include "Components/CapsuleComponent.h"
+    #include "FPSProjectile.h"
+    #include "FPSCharacter.generated.h"
+
+    UCLASS()
+    class FPSPROJECT&#95;API AFPSCharacter : public ACharacter
+    {
+        GENERATED&#95;BODY()
+
+    public:
+        // 为此角色的属性设置默认值
+        AFPSCharacter();
+
+    protected:
+        // 当游戏开始或重生（Spawn）时被调用
+        virtual void BeginPlay() override;
+
+        // 要生成的发射物类。
+        UPROPERTY(EditAnywhere, Category = Projectile)
+        TSubclassOf&lt;class AFPSProjectile&gt; ProjectileClass;
+
+    public: 
+        // 每一帧都被调用
+        virtual void Tick(float DeltaTime) override;
+
+        // 被调用，将功能与输入绑定
+        virtual void SetupPlayerInputComponent(class UInputComponent&#42; PlayerInputComponent) override;
+
+        // 处理用于前后移动的输入。
+        UFUNCTION()
+        void MoveForward(float Value);
+
+        // 处理用于左右移动的输入。
+        UFUNCTION()
+        void MoveRight(float Value);
+
+        // 按下键时，设置跳跃标记。
+        UFUNCTION()
+        void StartJump();
+
+        // 释放键时，清除跳跃标记。
+        UFUNCTION()
+        void StopJump();
+
+        // 发射发射物的函数。
+        UFUNCTION()
+        void Fire();
+
+        // FPS摄像机
+        UPROPERTY(VisibleAnywhere)
+        UCameraComponent&#42; FPSCameraComponent;
+
+        // 第一人称网格体（手臂），仅对所属玩家可见。
+        UPROPERTY(VisibleDefaultsOnly, Category = Mesh)
+        USkeletalMeshComponent&#42; FPSMesh;
+
+        // 枪口相对于摄像机位置的偏移。
+        UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
+        FVector MuzzleOffset;
+    };</code></pre>
+<p><strong>FPSCharacter.cpp</strong>
+</p><pre class="prettyprint"><code>    //版权所有Epic Games, Inc。保留所有权利。         
+
+    #include "FPSCharacter.h"
+
+    // 设置默认值
+    AFPSCharacter::AFPSCharacter()
+    {
+        // 将此角色设置为每帧调用Tick()。  如果不需要此特性，可以关闭以提升性能。
+        PrimaryActorTick.bCanEverTick = true;
+
+        // 创建第一人称摄像机组件。
+        FPSCameraComponent = CreateDefaultSubobject&lt;UCameraComponent&gt;(TEXT("FirstPersonCamera"));
+        check(FPSCameraComponent != nullptr);
+
+        // 将摄像机组件附加到我们的胶囊体组件。
+        FPSCameraComponent-&gt;SetupAttachment(CastChecked&lt;USceneComponent, UCapsuleComponent&gt;(GetCapsuleComponent()));
+
+        // 将摄像机置于略高于眼睛上方的位置。
+        FPSCameraComponent-&gt;SetRelativeLocation(FVector(0.0f, 0.0f, 50.0f + BaseEyeHeight));
+
+        // 启用Pawn控制摄像机旋转。
+        FPSCameraComponent-&gt;bUsePawnControlRotation = true;
+
+        // 为所属玩家创建第一人称网格体组件。
+        FPSMesh = CreateDefaultSubobject&lt;USkeletalMeshComponent&gt;(TEXT("FirstPersonMesh"));
+        check(FPSMesh != nullptr);
+
+        // 仅所属玩家可以看见此网格体。
+        FPSMesh-&gt;SetOnlyOwnerSee(true);
+
+        //将 FPS 网格体连接到 FPS 摄像机。
+        FPSMesh-&gt;SetupAttachment(FPSCameraComponent);
+
+        // 禁用某些环境阴影，实现只有单个网格的感觉。
+        FPSMesh-&gt;bCastDynamicShadow = false;
+        FPSMesh-&gt;CastShadow = false;
+
+        // 所属玩家看不到常规（第三人称）全身网格体。
+        GetMesh()-&gt;SetOwnerNoSee(true);
+    }
+
+    // 当游戏开始或重生（Spawn）时被调用
+    void AFPSCharacter::BeginPlay()
+    {
+        Super::BeginPlay();
+
+        if (GEngine)
+        {
+            // 显示调试消息五秒。
+            // -1"键"值参数可以防止更新或刷新消息。
+            GEngine-&gt;AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("We are using FPSCharacter."));
+        }
+    }
+
+    // 每一帧都被调用
+    void AFPSCharacter::Tick(float DeltaTime)
+    {
+        Super::Tick(DeltaTime);
+
+    }
+
+    // 被调用，将功能与输入绑定
+    void AFPSCharacter::SetupPlayerInputComponent(UInputComponent&#42; PlayerInputComponent)
+    {
+        Super::SetupPlayerInputComponent(PlayerInputComponent);
+
+        // 设置"移动"绑定。
+        PlayerInputComponent-&gt;BindAxis("MoveForward", this, &amp;AFPSCharacter::MoveForward);
+        PlayerInputComponent-&gt;BindAxis("MoveRight", this, &amp;AFPSCharacter::MoveRight);
+
+        // 设置"观看"绑定。
+        PlayerInputComponent-&gt;BindAxis("Turn", this, &amp;AFPSCharacter::AddControllerYawInput);
+        PlayerInputComponent-&gt;BindAxis("LookUp", this, &amp;AFPSCharacter::AddControllerPitchInput);
+
+        // 设置"操作"绑定。
+        PlayerInputComponent-&gt;BindAction("Jump", IE&#95;Pressed, this, &amp;AFPSCharacter::StartJump);
+        PlayerInputComponent-&gt;BindAction("Jump", IE&#95;Released, this, &amp;AFPSCharacter::StopJump);
+        PlayerInputComponent-&gt;BindAction("Fire", IE&#95;Pressed, this, &amp;AFPSCharacter::Fire);
+    }
+
+    void AFPSCharacter::MoveForward(float Value)
+    {
+        // 找出"前进"方向，并记录玩家想向该方向移动。
+        FVector Direction = FRotationMatrix(Controller-&gt;GetControlRotation()).GetScaledAxis(EAxis::X);
+        AddMovementInput(Direction, Value);
+    }
+
+    void AFPSCharacter::MoveRight(float Value)
+    {
+        // 找出"右侧"方向，并记录玩家想向该方向移动。
+        FVector Direction = FRotationMatrix(Controller-&gt;GetControlRotation()).GetScaledAxis(EAxis::Y);
+        AddMovementInput(Direction, Value);
+    }
+
+    void AFPSCharacter::StartJump()
+    {
+        bPressedJump = true;
+    }
+
+    void AFPSCharacter::StopJump()
+    {
+        bPressedJump = false;
+    }
+
+    void AFPSCharacter::Fire()
+    {
+        // 试图发射发射物。
+        if (ProjectileClass)
+        {
+            // 获取摄像机变换。
+            FVector CameraLocation;
+            FRotator CameraRotation;
+            GetActorEyesViewPoint(CameraLocation, CameraRotation);
+
+            // 设置MuzzleOffset，在略靠近摄像机前生成发射物。
+            MuzzleOffset.Set(100.0f, 0.0f, 0.0f);
+
+            // 将MuzzleOffset从摄像机空间变换到世界空间。
+            FVector MuzzleLocation = CameraLocation + FTransform(CameraRotation).TransformVector(MuzzleOffset);
+
+            // 使目标方向略向上倾斜。 
+            FRotator MuzzleRotation = CameraRotation;
+            MuzzleRotation.Pitch += 10.0f;
+
+            UWorld&#42; World = GetWorld();
+            if (World)
+            {
+                FActorSpawnParameters SpawnParams;
+                SpawnParams.Owner = this;
+                SpawnParams.Instigator = GetInstigator();
+
+                // 在枪口位置生成发射物。
+                AFPSProjectile&#42; Projectile = World-&gt;SpawnActor&lt;AFPSProjectile&gt;(ProjectileClass, MuzzleLocation, MuzzleRotation, SpawnParams);
+                if (Projectile)
+                {
+                    // 设置发射物的初始轨迹。
+                    FVector LaunchDirection = MuzzleRotation.Vector();
+                    Projectile-&gt;FireInDirection(LaunchDirection);
+                }
+
+            }
+        }
+    }</code></pre>
+<p><strong>FPSHUD.h</strong>
+</p><pre class="prettyprint"><code>    //版权所有Epic Games, Inc。保留所有权利。
+
+    #pragma once
+
+    #include "CoreMinimal.h"
+    #include "GameFramework/HUD.h"
+    #include "Engine/Canvas.h"
+    #include "FPSHUD.generated.h"
+
+    /&#42;&#42;
+     &#42; 
+     &#42;/
+    UCLASS()
+    class FPSPROJECT&#95;API AFPSHUD : public AHUD
+    {
+        GENERATED&#95;BODY()
+
+    public:
+        // HUD绘制的主要调用。
+        virtual void DrawHUD() override;
+
+    protected:
+        // 将被绘制在屏幕中心。
+        UPROPERTY(EditDefaultsOnly)
+        UTexture2D&#42; CrosshairTexture;
+    };</code></pre>
+<p><strong>FPSHUD.cpp</strong>
+</p><pre class="prettyprint"><code>    //版权所有Epic Games, Inc。保留所有权利。         
+
+    #include "FPSHUD.h"
+
+    void AFPSHUD::DrawHUD()
+    {
+        Super::DrawHUD();
+
+        if (CrosshairTexture)
+        {
+            // 找出我们的画布的中心点。
+            FVector2D Center(Canvas-&gt;ClipX &#42; 0.5f, Canvas-&gt;ClipY &#42; 0.5f);
+
+            // 偏移纹理大小的一半，以便纹理中心与画布中心对齐。
+            FVector2D CrossHairDrawPosition(Center.X - (CrosshairTexture-&gt;GetSurfaceWidth() &#42; 0.5f), Center.Y - (CrosshairTexture-&gt;GetSurfaceHeight() &#42; 0.5f));
+
+            // 在中心点绘制十字准星。
+            FCanvasTileItem TileItem(CrossHairDrawPosition, CrosshairTexture-&gt;Resource, FLinearColor::White);
+            TileItem.BlendMode = SE&#95;BLEND&#95;Translucent;
+            Canvas-&gt;DrawItem(TileItem);
+        }
+    }</code></pre>
+<p>祝贺你！你已经学会了如何：
+</p><p>&#x2713; 将发射物添加到游戏<br />&#x2713; 实现射击<br />&#x2713; 设置发射物的碰撞和生命周期<br />&#x2713; 让发射物与世界交互<br />&#x2713; 将十字准星添加到视口<br /></p><p>现在，你可以准备在下一分段中学习如何为角色添加动画。</p>
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/ProgrammingAndScripting/ProgrammingWithCPP/CPPTutorials/FirstPersonShooter/3/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 12:20:52 GMT -->
+</html>

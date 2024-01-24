@@ -1,0 +1,590 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/BuildingWorlds/FogEffects/VolumetricFog/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 10:55:17 GMT -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../Include/Javascript/common_zh-CN.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var time = new Date(0);
+		var preview = false;
+		var relativeHTMLPath = "https://docs.unrealengine.com/4.26/";
+				var pageid = 0;
+				var heroimage = "";
+				var lang = "zh-CN";
+				var basePath = document.location.pathname.substring(0, document.location.pathname.indexOf('/' + lang + '/') + lang.length + 1);
+		document.write('<base href="' +  encodeURI(basePath) + '/BuildingWorlds/FogEffects/VolumetricFog/" />');
+				var udnCSS = '../../../../Include/CSS/udn_public.css';
+		var udnLangCSS = '';
+				udnLangCSS = './../../../../Include/CSS/udn_public_CN.css">';
+				var udnOverrideCSS = '../../../../Include/CSS/skin_overrides.css';
+		var udnOverrideDarkCSS = '../../../../Include/CSS/skin_overrides_dark.css';
+		var fancyboxCSS = '../../../../Include/CSS/jquery.fancybox.css';
+		var jqueryuiCSS = '../../../../Include/CSS/jquery-ui.min.css';
+		var qtipCSS = '../../../../Include/CSS/jquery.qtip.css';
+		var prettifyCSS = '../../../../Include/CSS/prettify.css';
+		var navbarCSS = '../../../../Include/CSS/navBar.css';
+		var twentytwentyCSS = '../../../../Include/CSS/twentytwenty.css';
+		var recommendationsCSS = '../../../../Include/CSS/jquery.recommendations.css';
+	</script>
+    <title>体积雾 | 虚幻引擎文档</title>
+    	    <meta name=viewport content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-control" content="no-store">
+    <script  src="../../../../Include/Javascript/CustomEvent.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery-3.4.0.min.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/udn.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/udn_extras.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery-ui.min.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/informational.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.qtip.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/prettify.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.slimscroll.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.event.move.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/jquery.twentytwenty.js" type="text/javascript"></script>
+    <script  src="../../../../Include/Javascript/lazysizes.min.js" type="text/javascript"></script>
+	    <script  src="../../../../Include/Javascript/jquery.recommendations.js" type="text/javascript"></script>
+	
+    <link async rel="icon" href="../../../../../favicon.png" type="image/x-icon" />
+    <link async rel="shortcut icon" href="../../../../../favicon.png" type="image/x-icon" />
+    <link async href="../../../../Include/Images/touch_icon.png" rel="apple-touch-icon" />
+    <link async href="../../../../Include/Images/touch_icon_114.png" sizes="114x114" rel="apple-touch-icon" />    
+		<script  src="../../../../Include/Javascript/CollapsibleLists.js" type="text/javascript"></script>
+	<script  src="../../../../Include/Javascript/navigationBarUI.js"></script>
+	<script  src="../../../../Include/Javascript/navigationBar.js"></script>
+		
+	<link rel="alternate" href="https://docs.unrealengine.com/latest/en-US/BuildingWorlds/FogEffects/VolumetricFog/" hreflang="x-default" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/zh-CN/BuildingWorlds/FogEffects/VolumetricFog/" hreflang="zh-CN" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ja/BuildingWorlds/FogEffects/VolumetricFog/" hreflang="ja" />
+<link rel="alternate" href="https://docs.unrealengine.com/latest/ko/BuildingWorlds/FogEffects/VolumetricFog/" hreflang="ko" />
+
+	<meta name="redirect" content="RenderingAndGraphics/LightingAndShadows/VolumetricFog" />
+<meta name="redirect" content="Engine/Rendering/LightingAndShadows/VolumetricFog" />
+<meta name="intsourcechangelist" content="15970103" />
+<meta name="availability" content="Public" />
+<meta name="title" content="体积雾" />
+<meta name="description" content="使用指数高度雾时可用的体积雾功能概览。" />
+<meta name="type" content="Overview" />
+<meta name="version" content="4.22" />
+<meta name="parent" content="BuildingWorlds/FogEffects" />
+<meta name="order" content="" />
+<meta name="keywords" content="Rendering" />
+<meta name="keywords" content="Lighting" />
+<meta name="topic-image" content="VolumetricFog_Topic.png" />
+<meta name="social-image" content="VolumetricFog_Social.png" />
+<meta name="skilllevel" content="Advanced" />
+<meta name="course" content="lighting-essential-concepts-and-effects?lang=zh-CN|光照基础概念和效果|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Flighting-essential-concepts-and-effects%2FLightingEssentials_Topic_1920x1080-1920x1080-3e04dcaf168d9a530720df1573b417807ae00784.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Flighting-essential-concepts-and-effects%2FLighting-Essential-Concepts-and-Effects-1000x1000-14831d7f280345717b0bdd66be9422b40ffb91bd.png?resize=1&amp;w=300" />
+<meta name="course" content="introducing-global-illumination?lang=zh-CN|全局光照入门|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fintroducing-global-illumination%2F105_GlobalIllum%281200x675%29-1200x675-97270dbdc7595455b4c9acf0e83bf01da8efbfd4.png?resize=1&amp;w=1400|https://cdn2.unrealengine.com/Unreal+Engine%2Fonlinelearning-courses%2Fintroducing-global-illumination%2FIntroducing-Global-Illumination-1000x1000-af5267ea2a6721b1cc73af7825d226aedbbaf5ce.png?resize=1&amp;w=300" />
+<meta name="crumbs" content="%ROOT%,BuildingWorlds,BuildingWorlds/FogEffects" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content="体积雾" />
+	<meta property="og:description" content="使用指数高度雾时可用的体积雾功能概览。 " />
+		<meta property="og:image" content="https://docs.unrealengine.com/4.26/Images/BuildingWorlds/FogEffects/VolumetricFog/VolumetricFog_Social.png" />
+	</head>
+<body id="webbgThree" style="visibility: hidden;" onload="document.body.style.visibility='visible';">
+			<script>window.__tracking_base = 'https://tracking.unrealengine.com/';</script>
+	<script src="../../../../../../tracking.unrealengine.com/tracking.js" async></script>    <div id="webThree">
+				<div id="page_head">
+						<script type="module" 
+					crossorigin="anonymous" 
+					src="https://components.unrealengine.com/navigation/edc-navigation.mjs"></script>
+			<edc-navigation blackListLangCodes='["de-de","es-es","es-mx","fr-fr","it-it","pt-br","ru-ru","pl-pl","tr-tr"]' locale="zh-CN" ></edc-navigation>
+						<div id="pagenav">
+				<div class="crumbs" id="crumbs">
+<span id="versionContainer">
+	<span id="versionSelect" class="btn btn-version" onclick="ToggleMenu($('#versionMenu'), $(this));"></span>
+	<div id="versionMenu">
+		<div id="4_26" data-version="4.26" class="btn btn-select" onclick="createCookie('version', '4.26', 365);SwitchVersion('4.26');">Unreal Engine 4.26 Documentation</div>
+		<div id="4_27" data-version="4.27" class="btn btn-select" onclick="createCookie('version', '4.27', 365);SwitchVersion('4.27');">Unreal Engine 4.27 Documentation</div>
+		<div id="5_0" data-version="5.0" class="btn btn-select" onclick="createCookie('version', '5.0', 365);SwitchVersion('5.0');">Unreal Engine 5.0 Documentation</div>
+		<div id="5_1" data-version="5.1" class="btn btn-select" onclick="createCookie('version', '5.1', 365);SwitchVersion('5.1');">Unreal Engine 5.1 Documentation</div>
+		<div id="5_2" data-version="5.2" class="btn btn-select" onclick="createCookie('version', '5.2', 365);SwitchVersion('5.2');">Unreal Engine 5.2 Documentation</div>
+		<div id="5_3" data-version="5.3" class="btn btn-select" onclick="createCookie('version', '5.3', 365);SwitchVersion('5.3');">Unreal Engine 5.3 Documentation</div>
+	</div>
+</span>
+	<span class="separator">></span> <a id="parent_link" href="../../index.html">构建虚拟世界</a>
+
+	<span class="separator">></span> <a id="parent_link" href="../index.html">雾效</a>
+
+<span class="separator">></span> <span id="page">体积雾</span>
+</div>				<div id="pageNavRight">
+								<!-- Start of Search -->
+												<div id="search_container">
+					<form name="bodySearch" method="get" action="https://www.unrealengine.com/zh-CN/bing-search" onsubmit="return validateSearch()">
+						<input type="image" src="../../../../Include/Images/search_box_icon.png" class="searchbutton"/>
+						<input type="hidden" name="filter" value="文档" />
+						<input type="text" name="keyword" placeholder="搜索文档……" class="searchbox" autocomplete="off"/>
+					</form>
+				</div>
+								<!-- End of Search -->
+				<div id="skinContainer">
+	<div id="skinSelect" class="btn btn-skin" onclick="ToggleMenu($('#skinMenu'), $(this));"></div>
+	<div id="skinMenu">
+		<div id="light" class="btn btn-select" onclick="createCookie('skin', 'light', 365);location.reload();">Light Theme</div>
+		<div id="dark" class="btn btn-select" onclick="createCookie('skin', 'dark', 365);location.reload();">Dark Theme</div>
+	</div>
+</div>				</div>
+			</div>
+		</div>						<div id="navWrapper">
+			<div id="nav-filter-container">
+				<div id="nav-filter-inner">
+					<form>
+						<input type="text" placeholder="Filter pages..." id="nav-filter" onchange="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, this.value);if(this.value.length == 0){$('#filter-clear').hide();}else{$('#filter-clear').show();}" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" />
+						<button class="close-icon" id="filter-clear" type="reset" onclick="clearTimeout(filterTimer); filterTimer = setTimeout(updateNavTreeFilter,250, '');$(this).hide();"></button>
+					</form>
+				</div>
+			</div>
+			<nav id="navPanel">
+			</nav>
+			<div id="navigation" title="Click to toggle navigation menu"><span>></span></div>
+		</div>		
+		<div id="splitter">
+		</div>
+				<div id="contentContainer">
+										<div id="pagedefault">
+				<div id="product-banner">
+	<div id="product-logo"></div>
+</div>				<div id="pagecontainer" style="padding-right:0px;">
+					<!-- Start of Markdown converted page content -->
+																				<div class="hero  ">
+						<div class="imgContainer"><img src="#" /></div>						<div class="info">
+							<div id="pageTitle">
+								<h1 id="H1TitleId">体积雾</h1>
+							</div>	
+							<h2 >使用指数高度雾时可用的体积雾功能概览。 </h2>
+							<div id="access">
+								<div class="accessContainer">
+																		<div class="skill_tag_filter Advanced"><a id="skill_link" href="../../../SiteIndex/index.html?skills=Advanced">Advanced</a></div>
+																	</div>
+							</div>
+						</div>
+					</div>
+																				<div id="maincol">
+						<div class="togglesection" id="osContainer">
+	<div class="normaltitle">
+		<p>Choose your operating system:</p>
+	</div><div class="toggleButtons">
+		<div class="btn btn-default btn-toggle OS windows" id="windows" onclick="setSelector('OS', 'windows');">
+			<p>Windows</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS mac" id="mac" onclick="setSelector('OS', 'mac');">
+			<p>macOS</p>
+		</div>
+		<div class="btn btn-default btn-toggle OS linux" id="linux" onclick="setSelector('OS', 'linux');">
+			<p>Linux</p>
+		</div>
+	</div>
+</div>																								<div id="courses">
+	<div style="position:relative;">
+		<div id="title">相关课程</div>
+		<div id="pageList">
+			<ul>
+								<li>
+					<div name="lighting-essential-concepts-and-effects?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/lighting-essential-concepts-and-effects?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/lighting-essential-concepts-and-effects/LightingEssentials_Topic_1920x1080-1920x1080-3e04dcaf168d9a530720df1573b417807ae00784.4884f86.delaye?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../cdn2.unrealengine.com/Unreal%2bEngine/onlinelearning-courses/lighting-essential-concepts-and-effects/Lighting-Essential-Concepts-and-Effects-1000x1000-14831d7f280345717b0bdd66be9422b40ffb91bd.489fe4b.d?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="lighting-essential-concepts-and-effects?lang=zh-CN_title">
+				光照基础概念和效果
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+								<li>
+					<div name="introducing-global-illumination?lang=zh-CN" class="fancylink_container">
+	<a id="playlist_play_link" class="fancylink" href="https://www.unrealengine.com/en-US/onlinelearning-courses/introducing-global-illumination?lang=zh-CN">
+		<div class="fancylink_image" style="width:100%;">
+			<img class="lazyload" data-src="../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/introducing-global-illumination/105_GlobalIllum(1200x675)-1200x675-97270dbdc7595455b4c9acf0e83bf01da8efbfd4.48b4f?resize=1&amp;w=1400" />
+			<div class="courselink_button"><img class="lazyload" data-src="../../../../../../cdn2-unrealengine-1251447533.file.myqcloud.com_4/Unreal%20Engine/onlinelearning-courses/introducing-global-illumination/Introducing-Global-Illumination-1000x1000-af5267ea2a6721b1cc73af7825d226aedbbaf5c?resize=1&amp;w=300"/></div>
+		</div>
+		<div class="fancylink_title">
+			<div style="display:block;" class="fancylink_title_text" name="introducing-global-illumination?lang=zh-CN_title">
+				全局光照入门
+			</div>
+		</div>
+	</a> 
+</div>				</li>
+							</ul>
+		</div>
+	</div>
+</div>
+																								<div class="toc">
+<div style="position:relative;">
+    <div class="title">
+    本页面的内容
+    </div>
+<div id="tocScroll">
+    <ul>
+	    		    			    <li id="">
+	<p><a id="toc_link" href="#体积雾控制">体积雾控制</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#时序二次投影">时序二次投影</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#体积雾上的预计算光照">体积雾上的预计算光照</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#性能">性能</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#当前受支持的功能">当前受支持的功能</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#已知问题">已知问题</a></p>
+	</li>		    			    <li id="">
+	<p><a id="toc_link" href="#培训视频">培训视频</a></p>
+	</li>		    	        </ul>
+</div>
+</div>
+</div>
+<p>从虚幻引擎4.16版本开始，我们支持体积雾。此方法在摄像机视锥的每个点上都计算参与媒介的密度和光照，以便 
+支持对雾产生影响的各种密度和任意数量的光源。 
+</p><div class="fullwidth raw">
+	<p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/FogEffects/VolumetricFog/VolumetricFog.jpg">
+		<img class="  lazyload" alt="VolumetricFog.png" width="1339" data-src="../../../../Images/BuildingWorlds/FogEffects/VolumetricFog/VolumetricFog.jpg" />
+</picture>
+</p>
+</div><p><div class="caption">
+	<p> 此场景中的体积雾来自于穿过拱门的定向光源，在周边区域中生成带阴影效果的雾气。</p>
+</div>
+</p><h2 id="体积雾控制">体积雾控制</h2>
+<p>设置和调整体积雾时，你可以全局控制它，也可以在场景中局部控制它。全局控制功能使你能够使用指数高度雾（Exponential Height Fog）组件控制整个场景的雾。 
+局部控制功能使你能够通过在可以生成粒子的区域中使用粒子系统的方式控制雾。
+</p><h3 id="全局控制">全局控制</h3>
+<p>要控制体积雾，你可以调整 <strong>指数高度雾（Exponential Height Fog）</strong> 中的属性和每个 <strong>光源</strong> 上的属性，以控制光源的贡献量。 
+</p><h4 id="指数高度雾">指数高度雾</h4>
+<p>体积雾功能按钮位于 <strong>指数高度雾（Exponential Height Fog）</strong> 组件的 <strong>体积雾（Volumetric Fog）</strong> 部分下。指数高度Distribution规定体积雾的全局密度。
+</p><p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/FogEffects/VolumetricFog/VolumetricFogProperties.jpg">
+		<img class="  lazyload" alt="VolumetricFogProperties.png" data-src="../../../../Images/BuildingWorlds/FogEffects/VolumetricFog/VolumetricFogProperties.jpg" />
+</picture>
+
+</p><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>属性 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>说明 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>散射Distribution（Scattering Distribution）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>此属性决定体积散射的定向程度；如果值为0，光线将在所有方向上平均散射，如果值接近1，光线主要在光源方向上散射（你必须看着光源才能看到其散射的光线）。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>反射率（Albedo）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>此为参与媒介的总体反光度。云、雾及基于水粒子的水雾的反射率（Albedo）都接近1。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>消光比例（Extinction Scale）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>控制参与媒介阻挡光线的程度。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>可视距离（View Distance）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>距摄像机的距离，将计算两者之间的体积雾。在为雾创建的体积纹理中，Z轴切片的数量有限，具体取决于此距离。增大此距离会导致欠采样，从而导致出现瑕疵。可以使用r.VolumetricFog.GridSizeZ调整Z轴切片的数量，数值越大，质量越高，但是渲染成本也会越高。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>使用雾内散射颜色覆盖光源颜色（Override Light Colors with Fog Inscattering Colors）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>如启用，将使用 <strong>雾内散射颜色（Fog Inscattering Color）</strong>、<strong>定向内散射颜色（Directional Inscattering Color）</strong> 和 <strong>内散射纹理（Inscattering Texture）</strong> 属性覆盖体积雾的光源颜色。</p>
+			</td>
+	
+</tr></tbody>
+</table><h4 id="光源">光源</h4>
+<p>可通过调整每个光源的"细节（Details）"面板上 <strong>光源（Light）</strong> 部分下的下列属性控制每个光源对场景的贡献量（以及它是否向雾投射阴影）。
+</p><p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/FogEffects/VolumetricFog/VolumetricFogLightProperties.jpg">
+		<img class="  lazyload" alt="VolumetricFogLightProperties.png" data-src="../../../../Images/BuildingWorlds/FogEffects/VolumetricFog/VolumetricFogLightProperties.jpg" />
+</picture>
+
+</p><table >
+	<caption></caption>
+	<col align=""/>
+	<col align=""/>
+	<thead>
+		<tr >
+
+	<th rowspan="1" colspan="1" >
+			<p>属性 </p>
+			</th>
+	
+	<th rowspan="1" colspan="1" >
+			<p>说明 </p>
+			</th>
+	
+</tr>	</thead>
+<tbody>
+	<tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>体积散射强度（Volumetric Scattering Intensity）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>控制此光源对体积雾的贡献量。设为0时，则无贡献。</p>
+			</td>
+	
+</tr><tr >
+
+	<td rowspan="1" colspan="1" align="">
+			<p><strong>投射体积阴影（Cast Volumetric Shadow）</strong></p>
+			</td>
+	
+	<td rowspan="1" colspan="1" align="">
+			<p>为对体积雾进行贡献的光源切换是否投射体积阴影。启用阴影投射时，点光源和聚光源的渲染成本要高出大约三倍，因为它们对体积纹理阴影投射进行贡献，而不投射阴影的光源仅对雾进行贡献，但不投射阴影。</p>
+			</td>
+	
+</tr></tbody>
+</table><!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/FogEffects/VolumetricFog/VolumetricFogEnabled.jpg">
+		<img class="  lazyload" alt="体积散射强度（Volumetric Scattering Intensity）：1（默认）" width="950" data-src="../../../../Images/BuildingWorlds/FogEffects/VolumetricFog/VolumetricFogEnabled.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/FogEffects/VolumetricFog/VolumetricFogDisabled.jpg">
+		<img class="  lazyload" alt="体积散射强度（Volumetric Scattering Intensity）：0 " width="950" data-src="../../../../Images/BuildingWorlds/FogEffects/VolumetricFog/VolumetricFogDisabled.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div><p>在本示例中，我们已通过将 <strong>体积散射强度（Volumetric Scattering Intensity）</strong> 设置为0禁用了聚光源对体积雾的贡献。
+</p><h3 id="本地控制">本地控制</h3>
+<p>使用 <strong>体积</strong> 域的材质会为空间中的给定点描述反射率（Albedo）、自发光（Emissive）和消光（Extinction）。反射率（Albedo）介于[0-1]的范围中，而自发光（Emissive）和消光（Extinction）是
+值大于0的全局空间密度。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/FogEffects/VolumetricFog/VolumetricFogParticleMaterial.jpg">
+		<img class="  lazyload" alt="VolumetricFogParticleMaterial.png" width="700" data-src="../../../../Images/BuildingWorlds/FogEffects/VolumetricFog/VolumetricFogParticleMaterial.jpg" />
+</picture>
+
+</p><div class="caption">
+	<p>本示例展示了用于粒子系统的最简单的体积材质。</p>
+</div><div class="note">
+	<p>当前，体积材质只能在粒子上使用，位于粒子半径（通常由SphereMask处理）内的位置为有效位置。</p>
+</div><p>放置使用该材质的单个粒子系统会导致密度球体添加到体积雾。效果完全是三维（3D）的，不涉及公告板。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/FogEffects/VolumetricFog/VF_ParticleInGame.jpg">
+		<img class="  lazyload" alt="VF_ParticleInGame.png" width="900" data-src="../../../../Images/BuildingWorlds/FogEffects/VolumetricFog/VF_ParticleInGame.jpg" />
+</picture>
+
+</p><p>你可以更进一步，通过将多个球体雾粒子与纹理噪点配合使用来将雾限制在场景的特定区域之内。 
+</p><p><picture>
+		<source data-srcset="./../../../../Images/BuildingWorlds/FogEffects/VolumetricFog/FogParticles.jpg">
+		<img class="  lazyload" alt="FogParticles.png" width="900" data-src="../../../../Images/BuildingWorlds/FogEffects/VolumetricFog/FogParticles.jpg" />
+</picture>
+
+</p><p>在此场景中，雾粒子填充了那些地势较低的区域，以创建使用体积雾投射阴影的局部雾效果。 
+</p><h2 id="时序二次投影">时序二次投影</h2>
+<p>体积雾使用的体积纹理（体素）的分辨率相对较低，而且与摄像机视锥一致。体积雾逐帧使用具有不同次体素抖动的极强临时二次投影过滤器，
+以平滑锯齿。但它也会产生负面影响——闪光灯和枪口火舌等变化速度快的光源将会留下光线轨迹。要禁用这些光源的贡献，将 <strong>体积散射强度（Volumetric Scattering Intensity）</strong> 设置为0。
+</p><h2 id="体积雾上的预计算光照">体积雾上的预计算光照</h2>
+<div class="include_wrapper" data-path="RenderingAndGraphics/Lightmass/VolumetricLightmaps">
+<p>体积光照贴图使每个雾体素都有预计算光照内插到其在空间中的位置，从而支持了体积雾的静态光照应用。 
+</p><!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/Lightmass/VolumetricLightmaps/SpotLightNoBounce.jpg">
+		<img class="  lazyload" alt="点光源 | 无间接光线反射" width="1100" data-src="../../../../Images/RenderingAndGraphics/Lightmass/VolumetricLightmaps/SpotLightNoBounce.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/Lightmass/VolumetricLightmaps/SpotLightIndirectBounce.jpg">
+		<img class="  lazyload" alt="点光源 | 有间接光线反射" width="1100" data-src="../../../../Images/RenderingAndGraphics/Lightmass/VolumetricLightmaps/SpotLightIndirectBounce.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div><p>静止光源的间接光照存储在光照贴图中，现在会影响雾。 
+</p><!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/Lightmass/VolumetricLightmaps/SkylightEmissiveFogColor.jpg">
+		<img class="  lazyload" alt="带自发光颜色的天空光照" width="1100" data-src="../../../../Images/RenderingAndGraphics/Lightmass/VolumetricLightmaps/SkylightEmissiveFogColor.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/Lightmass/VolumetricLightmaps/SkylightVLM.jpg">
+		<img class="  lazyload" alt="天空光照体积光照贴图" width="1100" data-src="../../../../Images/RenderingAndGraphics/Lightmass/VolumetricLightmaps/SkylightVLM.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div><p>天空光照现在也可以正确地投射阴影，防止室内区域变成大雾效果。
+</p><!--
+before:param
+after:param
+position:paramliteral
+-->
+<div class="comparison_slider">
+    <div class="first">
+        <p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/Lightmass/VolumetricLightmaps/ILCStaticLighting.jpg">
+		<img class="  lazyload" alt="间接光照缓存：| 静态光照的静态和自发光 |（老方法） " width="1100" data-src="../../../../Images/RenderingAndGraphics/Lightmass/VolumetricLightmaps/ILCStaticLighting.jpg" />
+</picture>
+</p>
+        <div class="overlay-first "></div>
+    </div>
+    <div class="last">
+        <p><picture>
+		<source data-srcset="./../../../../Images/RenderingAndGraphics/Lightmass/VolumetricLightmaps/VLMStaticLighting.jpg">
+		<img class="  lazyload" alt="体积光照贴图：| 静态光照的静态和自发光 |（新方法） " width="1100" data-src="../../../../Images/RenderingAndGraphics/Lightmass/VolumetricLightmaps/VLMStaticLighting.jpg" />
+</picture>
+</p>
+        <div class="overlay-last "></div>
+    </div>
+</div><p>静态光照的静态和自发光对雾的影响没有任何开销，因为它们全部都合并到体积光照贴图中了。</p>
+</div>
+<h2 id="性能">性能</h2>
+<p>体积雾的GPU开销主要通过体积纹理分辨率控制，可在<a id="content_link"filter-data="tag_scalability" href="../../../TestingAndOptimization/PerformanceAndProfiling/Scalability/ScalabilityReference/index.html" ><span>引擎可延展性</span></a>的阴影级别中设置它。设置为 <strong>高（High）</strong> 时，体积雾在PlayStation 4上需要花费1毫秒，
+设置为 <strong>Epic</strong> 时在NVIDIA 970 GTX上需要花费3毫秒（因为需要运算的体素量是八倍之多）。
+</p><ul ><li class="Default"><p>使用 <strong>体积（Volume）</strong> 域的粒子会导致GPU开销显著增高，具体取决于它们的3D过度绘制和指令数。使用控制台命令`profilegpu`可查看此开销。
+</p></li><li class="Default"><p>启用了 <strong>投射体积阴影（Cast Volumetric Shadow）</strong> 的点光源和聚光源的开销约为不投射阴影的点光源和聚光源的开销的三倍。
+</p></li></ul><h2 id="当前受支持的功能">当前受支持的功能</h2>
+<p>以下列表中包含了体积雾的当前受支持的功能：
+</p><ul ><li class="Default"><p>单个定向光源，具有来自级联阴影贴图的阴影投射或静态阴影投射，带光源函数。
+</p></li><li class="Default"><p>任意数量的点光源和聚光源，具有动态或静态阴影投射（如果启用了 <strong>投射体积阴影（Cast Volumetric Shadowing）</strong>）。
+</p></li><li class="Default"><p>静止天空光照的阴影投射。
+</p></li><li class="Default"><p>通过体积光照贴图实现的预计算光照（静态光源的直接光照，固定光源的间接光照）。
+</p></li><li class="Default"><p>单一天空光照，具有来自距离场环境光遮蔽（Distance Field Ambient Occlusion）（如启用）的阴影投射。 
+</p></li><li class="Default"><p>粒子光源（如果 <strong>体积散射强度（Volumetric Scattering Intensity）</strong> 大于0）。
+</p></li></ul><p>另外，半透明度可能会受到体积雾影响，具体取决于它在场景中的位置。默认情况下，半透明度按顶点计算雾，因此曲面细分低的水平面可能导致 
+瑕疵。要解决此问题，可将这些材质设置为逐像素计算雾，方法是在"材质细节（Details）"中启用 <strong>逐像素计算雾（Compute Fog Per-Pixel）</strong>。
+</p><h2 id="已知问题">已知问题</h2>
+<p>使用体积雾时，下列功能 <strong>尚不受支持</strong>：
+</p><ul ><li class="Default"><p>在点光源和聚光源上使用IES配置文件和光源函数。 
+</p></li><li class="Default"><p>从光线追踪距离场阴影（Ray Traced Distance Field Shadows）投射阴影。
+</p></li><li class="Default"><p>从体积雾（本身）投射阴影。
+</p></li><li class="Default"><p>在点光源和聚光源上使用源半径（Source Radius）。
+</p></li><li class="Default"><p>"指数高度雾（Exponential Height Fog）"中的"雾中断距离（Fog Cutoff Distance）"、"开始距离（Start Distance）"和"雾最大不透明度（Fog Max Opacity）"等设置。
+</p></li></ul><h3 id="常见问题">常见问题</h3>
+<p>以下是使用体积雾时可能会碰到的部分常见问题。 
+</p><ul ><li class="Default"><p><strong>如何在不使用全局浓雾的情况下实现更强的光束？</strong>
+</p><ul ><li class="Default"><p>增强雾的全局密度时，雾气更强，因此只有在雾气浓密到严重笼罩一切时你才会注意到光束（光影）。不使用浓雾就可实现更强的光束的方法有两种：
+</p><ol ><li class="Default"><p>降低全局雾密度，但是为定向光源使用较高的 <strong>体积散射强度（Volumetric Scattering Intensity）</strong>。另外，在指数高度雾（Exponential Height Fog）Actor中，调整 <strong>散射Distribution（Scattering Distribution）</strong>，使它接近于 <strong>0.9</strong>。
+</p></li><li class="Default"><p>降低全局雾密度，但是使用体积粒子在特定区域中增强它。
+</p></li></ol></li></ul></li><li class="Default"><p><strong>可以同时使用指数高度雾（Exponential Height Fog）和体积雾吗？</strong> 
+</p><ul ><li class="Default"><p>现在，体积雾会在体积雾**可视距离（View Distance）<strong> 内替换 </strong>雾内散射颜色（Fog Inscattering Color）**。因为体积雾基于物理而指数雾并不基于物理，所以无法在远处混合两个系统 
+以使它们精确匹配。这也意味着指数高度雾（Exponential Height Fog）组件中的部分设置对体积雾没有影响。
+</p></li></ul></li><li class="Default"><p><strong>能否将体积雾的中心从摄像机处分离？这对俯视角游戏十分有用...</strong>
+</p><ul ><li class="Default"><p>当前不行，但是可以使用独立体积来实现这一目的。但是，此方法的缺点是无法高效将它们与半透明度融合。
+</p></li></ul></li></ul><h2 id="培训视频">培训视频</h2>
+<!--
+videoid:paramliteral
+width:paramliteral
+height:paramliteral
+units:paramliteral
+type:paramliteral
+start:paramliteral
+service:paramliteral
+-->
+<style type="text/css">
+#player_N4mkgbwLg7U_29
+{
+	margin: 0px;
+	width: 50%;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+#player_N4mkgbwLg7U_29:after
+{
+	content: "";
+	padding-top: 56.25%;
+	display: block;
+}
+</style> 
+<div>
+<div id="player_N4mkgbwLg7U_29"><div style="position:absolute;display:block;width:100%;height:100%;"><iframe class="embedded_video" id="N4mkgbwLg7U" width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/N4mkgbwLg7U?rel=0&amp;modestbranding=1&amp;showinfo=0&amp;loop=1&amp;controls=0" frameborder="0" allowfullscreen></iframe></div></div>
+</div>
+
+																	</div>
+					<!-- End of Markdown converted page content -->
+				</div>
+												<div id="pageTags">
+				<div class="title">标签</div>
+					<div>
+					<div class="keyword_tag_filter"><a id="tag_link" href="../../../SiteIndex/index.html?tags=Rendering">Rendering</a></div>
+<div class="keyword_tag_filter"><a id="tag_link" href="../../../SiteIndex/index.html?tags=Lighting">Lighting</a></div>
+					</div>
+				</div>
+								<div id="recommendations"></div>			</div>
+						<div id="footer"></div>									<div id="announcement">
+			<div style="display:inline-block;margin:5px;">
+				欢迎帮助改进虚幻引擎文档！请告诉我们该如何更好地为您服务。
+			</div>
+			<div style="margin:5px;display:inline-block;">
+				<div class="btn action" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();window.open('https://epicgames.questionpro.com/t/AP9dGZkjp4');createCookie('announcement-read', new Date().getTime(), 30);">填写问卷调查</div>
+				<div class="btn btn-default" style="margin-top:-6px;display:inline-block;" onclick="$('#announcement').hide();createCookie('announcement-read', new Date().getTime(), 30);">取消</div>
+			</div>
+			<div class="btn-close" style="position:absolute;right:5px;top:10px;padding:3px;width:14px;height:14px;" onclick="$('#announcement').hide();"></div>
+			</div>
+					</div>
+	</div></body>
+
+<!-- Mirrored from docs.unrealengine.com/4.26/zh-CN/BuildingWorlds/FogEffects/VolumetricFog/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 17 Jan 2024 10:55:21 GMT -->
+</html>
