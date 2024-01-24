@@ -5,9 +5,8 @@
 ```shell
 git clone https://github.com/OpenHUTB/engine_doc.git
 ```
-2. 从[链接] 下载依赖图片包`Images.zip`，解压到项目主目录；
+2. 从 [链接](https://pan.baidu.com/s/1XmbdG9jy7gOWjbD8Km9FWA?pwd=hutb) 下载依赖图片包`Images.zip`，解压到项目主目录；
 3. 使用浏览器打开文件`zh-CN/index.html`。
-
 
 ## 构建步骤
 1. 使用`HTTrack`从 [链接](https://docs.unrealengine.com/4.26/zh-CN/) 中下载所有网页文件（比如设置项目名为：`engine_doc`）；
