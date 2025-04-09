@@ -15,7 +15,11 @@ git clone https://github.com/OpenHUTB/engine_doc.git
 
 ## 自定义方法
 
+* 所有文件字符串的替換
+
+    点击pycharm菜单的`Edit -> File -> Replace In Files..`，填写替换前和替换后的字符串。
+
 * 删除页脚
 
-    使用浏览器打开页面，按`F12`键打开开发者工具，按`Ctrl+Shift+C`选择页脚，右键删除对应的元素。
+    使用浏览器打开页面，按`F12`键打开开发者工具，按`Ctrl+Shift+C`选择页脚，右键删除对应的元素（刷新后仍然不变）；应该删除所有页面的`<div id="footer"></div>`。
 
