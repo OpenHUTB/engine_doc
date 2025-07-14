@@ -23,3 +23,8 @@ git clone https://github.com/OpenHUTB/engine_doc.git
 
     使用浏览器打开页面，按`F12`键打开开发者工具，按`Ctrl+Shift+C`选择页脚，右键删除对应的元素（刷新后仍然不变）；应该删除所有页面的`<div id="footer"></div>`。
 
+## 引用
+
+* [engine_doc/Images的图床](https://github.com/OpenHUTB/Images)
+* [engine_doc/Images/Resources的图床](https://github.com/OpenHUTB/Resources)
+* [engine_doc/Images/RenderingAndGraphics的图床](https://github.com/OpenHUTB/RenderingAndGraphics)
