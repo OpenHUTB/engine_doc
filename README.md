@@ -17,7 +17,7 @@ git clone https://github.com/OpenHUTB/engine_doc.git
 
 * 所有文件字符串的替換
 
-    点击pycharm菜单的`Edit -> File -> Replace In Files..`，填写替换前和替换后的字符串。
+    点击pycharm菜单的`Edit -> Find -> Replace In Files..`，填写替换前和替换后的字符串。
 
 * 删除页脚
 
