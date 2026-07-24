@@ -19,9 +19,24 @@ git clone https://github.com/OpenHUTB/engine_doc.git
 
     点击pycharm菜单的`Edit -> Find -> Replace In Files..`，填写替换前和替换后的字符串。
 
+
 * 删除页脚
 
     使用浏览器打开页面，按`F12`键打开开发者工具，按`Ctrl+Shift+C`选择页脚，右键删除对应的元素（刷新后仍然不变）；应该删除所有页面的`<div id="footer"></div>`。
+
+
+* 替换失效的链接（目录不存在，显示红色）
+    
+    调整前：
+    ```html
+    <div class="errorhighlight" id="Error20">[编辑Actor属性](Basics/Actors/DetailsPanel/index.html)</div>    
+    ```
+    调整后（**相对路径** vs 绝对路径）：
+    ```html
+    <a id="content_link" href="../../Basics/HowTo/DetailsPanel/index.html" ><span>编辑Actor属性</span></a>
+    <a id="content_link" href="https://openhutb.github.io/engine_doc/zh-CN/Basics/HowTo/DetailsPanel/index.html" ><span>编辑Actor属性</span></a>    
+    ```
+
 
 ## 引用
 
